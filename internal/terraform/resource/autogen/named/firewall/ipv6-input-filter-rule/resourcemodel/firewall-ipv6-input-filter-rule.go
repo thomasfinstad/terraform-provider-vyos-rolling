@@ -53,7 +53,6 @@ type FirewallIPvsixInputFilterRule struct {
 	NodeFirewallIPvsixInputFilterRuleAddAddressToGroup *FirewallIPvsixInputFilterRuleAddAddressToGroup `tfsdk:"add_address_to_group" vyos:"add-address-to-group,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleConnectionStatus  *FirewallIPvsixInputFilterRuleConnectionStatus  `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleFragment          *FirewallIPvsixInputFilterRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
-	NodeFirewallIPvsixInputFilterRuleIPsec             *FirewallIPvsixInputFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleLimit             *FirewallIPvsixInputFilterRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleLogOptions        *FirewallIPvsixInputFilterRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleRecent            *FirewallIPvsixInputFilterRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
@@ -65,6 +64,7 @@ type FirewallIPvsixInputFilterRule struct {
 	NodeFirewallIPvsixInputFilterRuleDestination       *FirewallIPvsixInputFilterRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleSource            *FirewallIPvsixInputFilterRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleInboundInterface  *FirewallIPvsixInputFilterRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+	NodeFirewallIPvsixInputFilterRuleIPsec             *FirewallIPvsixInputFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -519,17 +519,6 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes(ctx context.Cont
 `,
 		},
 
-		"ipsec": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Inbound IPsec packets
-
-`,
-			Description: `Inbound IPsec packets
-
-`,
-		},
-
 		"limit": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixInputFilterRuleLimit{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -647,6 +636,17 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes(ctx context.Cont
 
 `,
 			Description: `Match inbound-interface
+
+`,
+		},
+
+		"ipsec": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvsixInputFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Inbound IPsec packets
+
+`,
+			Description: `Inbound IPsec packets
 
 `,
 		},

@@ -47,13 +47,13 @@ type FirewallIPvfourOutputRawRule struct {
 	NodeFirewallIPvfourOutputRawRuleIcmp              *FirewallIPvfourOutputRawRuleIcmp              `tfsdk:"icmp" vyos:"icmp,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleLimit             *FirewallIPvfourOutputRawRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleLogOptions        *FirewallIPvfourOutputRawRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
-	NodeFirewallIPvfourOutputRawRuleIPsec             *FirewallIPvfourOutputRawRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleRecent            *FirewallIPvfourOutputRawRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleTCP               *FirewallIPvfourOutputRawRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleTime              *FirewallIPvfourOutputRawRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleTTL               *FirewallIPvfourOutputRawRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleDestination       *FirewallIPvfourOutputRawRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleSource            *FirewallIPvfourOutputRawRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
+	NodeFirewallIPvfourOutputRawRuleIPsec             *FirewallIPvfourOutputRawRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvfourOutputRawRuleOutboundInterface *FirewallIPvfourOutputRawRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
 }
 
@@ -366,17 +366,6 @@ func (o FirewallIPvfourOutputRawRule) ResourceSchemaAttributes(ctx context.Conte
 `,
 		},
 
-		"ipsec": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourOutputRawRuleIPsec{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Inbound IPsec packets
-
-`,
-			Description: `Inbound IPsec packets
-
-`,
-		},
-
 		"recent": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvfourOutputRawRuleRecent{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -439,6 +428,17 @@ func (o FirewallIPvfourOutputRawRule) ResourceSchemaAttributes(ctx context.Conte
 
 `,
 			Description: `Source parameters
+
+`,
+		},
+
+		"ipsec": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourOutputRawRuleIPsec{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Outbound IPsec packets
+
+`,
+			Description: `Outbound IPsec packets
 
 `,
 		},

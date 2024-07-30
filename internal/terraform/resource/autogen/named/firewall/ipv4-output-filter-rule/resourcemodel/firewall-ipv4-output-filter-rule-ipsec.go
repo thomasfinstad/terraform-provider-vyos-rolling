@@ -18,8 +18,8 @@ var _ helpers.VyosResourceDataModel = &FirewallIPvfourOutputFilterRuleIPsec{}
 // FirewallIPvfourOutputFilterRuleIPsec describes the resource data model.
 type FirewallIPvfourOutputFilterRuleIPsec struct {
 	// LeafNodes
-	LeafFirewallIPvfourOutputFilterRuleIPsecMatchIPsec types.Bool `tfsdk:"match_ipsec" vyos:"match-ipsec,omitempty"`
-	LeafFirewallIPvfourOutputFilterRuleIPsecMatchNone  types.Bool `tfsdk:"match_none" vyos:"match-none,omitempty"`
+	LeafFirewallIPvfourOutputFilterRuleIPsecMatchIPsecOut types.Bool `tfsdk:"match_ipsec_out" vyos:"match-ipsec-out,omitempty"`
+	LeafFirewallIPvfourOutputFilterRuleIPsecMatchNoneOut  types.Bool `tfsdk:"match_none_out" vyos:"match-none-out,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,24 +31,24 @@ func (o FirewallIPvfourOutputFilterRuleIPsec) ResourceSchemaAttributes(ctx conte
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"match_ipsec": schema.BoolAttribute{
+		"match_ipsec_out": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Inbound IPsec packets
+			MarkdownDescription: `Outbound traffic to be IPsec encapsulated
 
 `,
-			Description: `Inbound IPsec packets
+			Description: `Outbound traffic to be IPsec encapsulated
 
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
 
-		"match_none": schema.BoolAttribute{
+		"match_none_out": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Inbound non-IPsec packets
+			MarkdownDescription: `Outbound traffic that will not be IPsec encapsulated
 
 `,
-			Description: `Inbound non-IPsec packets
+			Description: `Outbound traffic that will not be IPsec encapsulated
 
 `,
 			Default:  booldefault.StaticBool(false),

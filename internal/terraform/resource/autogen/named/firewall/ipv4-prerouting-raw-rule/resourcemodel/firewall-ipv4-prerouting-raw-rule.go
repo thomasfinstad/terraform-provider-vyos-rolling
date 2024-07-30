@@ -48,13 +48,13 @@ type FirewallIPvfourPreroutingRawRule struct {
 	NodeFirewallIPvfourPreroutingRawRuleIcmp              *FirewallIPvfourPreroutingRawRuleIcmp              `tfsdk:"icmp" vyos:"icmp,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleLimit             *FirewallIPvfourPreroutingRawRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleLogOptions        *FirewallIPvfourPreroutingRawRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
-	NodeFirewallIPvfourPreroutingRawRuleIPsec             *FirewallIPvfourPreroutingRawRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleRecent            *FirewallIPvfourPreroutingRawRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleTCP               *FirewallIPvfourPreroutingRawRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleTime              *FirewallIPvfourPreroutingRawRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleTTL               *FirewallIPvfourPreroutingRawRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleDestination       *FirewallIPvfourPreroutingRawRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleSource            *FirewallIPvfourPreroutingRawRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
+	NodeFirewallIPvfourPreroutingRawRuleIPsec             *FirewallIPvfourPreroutingRawRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvfourPreroutingRawRuleInboundInterface  *FirewallIPvfourPreroutingRawRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 }
 
@@ -377,17 +377,6 @@ func (o FirewallIPvfourPreroutingRawRule) ResourceSchemaAttributes(ctx context.C
 `,
 		},
 
-		"ipsec": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourPreroutingRawRuleIPsec{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Inbound IPsec packets
-
-`,
-			Description: `Inbound IPsec packets
-
-`,
-		},
-
 		"recent": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvfourPreroutingRawRuleRecent{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -450,6 +439,17 @@ func (o FirewallIPvfourPreroutingRawRule) ResourceSchemaAttributes(ctx context.C
 
 `,
 			Description: `Source parameters
+
+`,
+		},
+
+		"ipsec": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourPreroutingRawRuleIPsec{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Inbound IPsec packets
+
+`,
+			Description: `Inbound IPsec packets
 
 `,
 		},

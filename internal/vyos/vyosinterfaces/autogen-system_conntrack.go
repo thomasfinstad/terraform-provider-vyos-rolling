@@ -1979,7 +1979,7 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Log connection tracking events per protocol"},
+								Help: []string{"Log connection tracking"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{
@@ -1990,21 +1990,21 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "node",
 									},
-									NodeNameAttr: "icmp",
+									NodeNameAttr: "event",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Log connection tracking events for ICMP"},
+										Help: []string{"Event type and protocol"},
 									}},
 									Children: []*schemadefinition.Children{{
 										XMLName: xml.Name{
 											Local: "children",
 										},
-										LeafNode: []*schemadefinition.LeafNode{{
+										Node: []*schemadefinition.Node{{
 											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "node",
 											},
 											NodeNameAttr: "destroy",
 											Properties: []*schemadefinition.Properties{{
@@ -2012,16 +2012,85 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 													Local: "properties",
 												},
 												Help: []string{"Log connection deletion"},
-												Valueless: []*schemadefinition.Valueless{{
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
-														Local: "valueless",
+														Local: "leafNode",
 													},
+													NodeNameAttr: "icmp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for ICMP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "other",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for all protocols other than TCP, UDP and ICMP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "tcp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for TCP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "udp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for UDP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
 												}},
 											}},
 										}, {
 											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "node",
 											},
 											NodeNameAttr: "new",
 											Properties: []*schemadefinition.Properties{{
@@ -2029,16 +2098,85 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 													Local: "properties",
 												},
 												Help: []string{"Log connection creation"},
-												Valueless: []*schemadefinition.Valueless{{
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
-														Local: "valueless",
+														Local: "leafNode",
 													},
+													NodeNameAttr: "icmp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for ICMP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "other",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for all protocols other than TCP, UDP and ICMP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "tcp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for TCP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "udp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for UDP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
 												}},
 											}},
 										}, {
 											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "node",
 											},
 											NodeNameAttr: "update",
 											Properties: []*schemadefinition.Properties{{
@@ -2046,219 +2184,168 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 													Local: "properties",
 												},
 												Help: []string{"Log connection updates"},
-												Valueless: []*schemadefinition.Valueless{{
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
-														Local: "valueless",
+														Local: "leafNode",
 													},
+													NodeNameAttr: "icmp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for ICMP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "other",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for all protocols other than TCP, UDP and ICMP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "tcp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for TCP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "udp",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Log connection tracking events for UDP"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
 												}},
 											}},
+										}},
+									}},
+								}},
+								LeafNode: []*schemadefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "timestamp",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Log connection tracking events include flow-based timestamp"},
+										Valueless: []*schemadefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
 										}},
 									}},
 								}, {
 									IsBaseNode: false,
 									XMLName: xml.Name{
-										Local: "node",
+										Local: "leafNode",
 									},
-									NodeNameAttr: "other",
+									NodeNameAttr: "queue-size",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Log connection tracking events for all protocols other than TCP, UDP and ICMP"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
+										Help: []string{"Internal message queue size"},
+										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "constraint",
 											},
-											NodeNameAttr: "destroy",
-											Properties: []*schemadefinition.Properties{{
+											Validator: []*schemadefinition.Validator{{
 												XMLName: xml.Name{
-													Local: "properties",
+													Local: "validator",
 												},
-												Help: []string{"Log connection deletion"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "new",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Log connection creation"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "update",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Log connection updates"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
+												NameAttr:     "numeric",
+												ArgumentAttr: "--range 1-999999",
 											}},
 										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "u32:100-999999",
+											Description: "Queue size",
+										}},
+										ConstraintErrorMessage: []string{"Queue size must be between 100 and 999999"},
 									}},
 								}, {
 									IsBaseNode: false,
 									XMLName: xml.Name{
-										Local: "node",
+										Local: "leafNode",
 									},
-									NodeNameAttr: "tcp",
+									NodeNameAttr: "log-level",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Log connection tracking events for TCP"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
+										Help: []string{"Set log-level. Log must be enable."},
+										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "constraint",
 											},
-											NodeNameAttr: "destroy",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Log connection deletion"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "new",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Log connection creation"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "update",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Log connection updates"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
+											Regex: []string{"(info|debug)"},
 										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "node",
-									},
-									NodeNameAttr: "udp",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Log connection tracking events for UDP"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
+										ValueHelp: []*schemadefinition.ValueHelp{{
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "valueHelp",
 											},
-											NodeNameAttr: "destroy",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Log connection deletion"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
+											Format:      "info",
+											Description: "Info log level",
 										}, {
-											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "valueHelp",
 											},
-											NodeNameAttr: "new",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Log connection creation"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
+											Format:      "debug",
+											Description: "Debug log level",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "completionHelp",
 											},
-											NodeNameAttr: "update",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Log connection updates"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
+											List: []string{"info debug"},
 										}},
 									}},
 								}},

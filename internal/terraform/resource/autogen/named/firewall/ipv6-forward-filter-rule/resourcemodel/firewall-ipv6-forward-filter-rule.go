@@ -54,7 +54,6 @@ type FirewallIPvsixForwardFilterRule struct {
 	NodeFirewallIPvsixForwardFilterRuleAddAddressToGroup *FirewallIPvsixForwardFilterRuleAddAddressToGroup `tfsdk:"add_address_to_group" vyos:"add-address-to-group,omitempty"`
 	NodeFirewallIPvsixForwardFilterRuleConnectionStatus  *FirewallIPvsixForwardFilterRuleConnectionStatus  `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
 	NodeFirewallIPvsixForwardFilterRuleFragment          *FirewallIPvsixForwardFilterRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
-	NodeFirewallIPvsixForwardFilterRuleIPsec             *FirewallIPvsixForwardFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvsixForwardFilterRuleLimit             *FirewallIPvsixForwardFilterRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
 	NodeFirewallIPvsixForwardFilterRuleLogOptions        *FirewallIPvsixForwardFilterRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
 	NodeFirewallIPvsixForwardFilterRuleRecent            *FirewallIPvsixForwardFilterRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
@@ -66,6 +65,7 @@ type FirewallIPvsixForwardFilterRule struct {
 	NodeFirewallIPvsixForwardFilterRuleDestination       *FirewallIPvsixForwardFilterRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallIPvsixForwardFilterRuleSource            *FirewallIPvsixForwardFilterRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
 	NodeFirewallIPvsixForwardFilterRuleInboundInterface  *FirewallIPvsixForwardFilterRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+	NodeFirewallIPvsixForwardFilterRuleIPsec             *FirewallIPvsixForwardFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvsixForwardFilterRuleOutboundInterface *FirewallIPvsixForwardFilterRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
 }
 
@@ -531,17 +531,6 @@ func (o FirewallIPvsixForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 `,
 		},
 
-		"ipsec": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixForwardFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Inbound IPsec packets
-
-`,
-			Description: `Inbound IPsec packets
-
-`,
-		},
-
 		"limit": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixForwardFilterRuleLimit{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -659,6 +648,17 @@ func (o FirewallIPvsixForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 
 `,
 			Description: `Match inbound-interface
+
+`,
+		},
+
+		"ipsec": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvsixForwardFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `IPsec encapsulated packets
+
+`,
+			Description: `IPsec encapsulated packets
 
 `,
 		},

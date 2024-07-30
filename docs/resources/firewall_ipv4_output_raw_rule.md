@@ -71,7 +71,7 @@ IPv4 firewall output raw
     &emsp;|&lt;start-end&gt;  &emsp;|DSCP range not to match  |
 - `fragment` (Attributes) IP fragment match (see [below for nested schema](#nestedatt--fragment))
 - `icmp` (Attributes) ICMP type and code information (see [below for nested schema](#nestedatt--icmp))
-- `ipsec` (Attributes) Inbound IPsec packets (see [below for nested schema](#nestedatt--ipsec))
+- `ipsec` (Attributes) Outbound IPsec packets (see [below for nested schema](#nestedatt--ipsec))
 - `limit` (Attributes) Rate limit using a token bucket filter (see [below for nested schema](#nestedatt--limit))
 - `log` (Boolean) Log packets hitting this rule
 - `log_options` (Attributes) Log options (see [below for nested schema](#nestedatt--log_options))
@@ -266,8 +266,8 @@ Optional:
 
 Optional:
 
-- `match_ipsec` (Boolean) Inbound IPsec packets
-- `match_none` (Boolean) Inbound non-IPsec packets
+- `match_ipsec_out` (Boolean) Outbound traffic to be IPsec encapsulated
+- `match_none_out` (Boolean) Outbound traffic that will not be IPsec encapsulated
 
 
 &lt;a id=&#34;nestedatt--limit&#34;&gt;&lt;/a&gt;

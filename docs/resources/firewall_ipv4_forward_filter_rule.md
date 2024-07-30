@@ -91,7 +91,7 @@ IPv4 firewall forward filter
 - `fragment` (Attributes) IP fragment match (see [below for nested schema](#nestedatt--fragment))
 - `icmp` (Attributes) ICMP type and code information (see [below for nested schema](#nestedatt--icmp))
 - `inbound_interface` (Attributes) Match inbound-interface (see [below for nested schema](#nestedatt--inbound_interface))
-- `ipsec` (Attributes) Inbound IPsec packets (see [below for nested schema](#nestedatt--ipsec))
+- `ipsec` (Attributes) IPsec encapsulated packets (see [below for nested schema](#nestedatt--ipsec))
 - `jump_target` (String) Set jump target. Action jump must be defined to use this setting
 - `limit` (Attributes) Rate limit using a token bucket filter (see [below for nested schema](#nestedatt--limit))
 - `log` (Boolean) Log packets hitting this rule
@@ -359,8 +359,10 @@ Optional:
 
 Optional:
 
-- `match_ipsec` (Boolean) Inbound IPsec packets
-- `match_none` (Boolean) Inbound non-IPsec packets
+- `match_ipsec_in` (Boolean) Inbound traffic that was IPsec encapsulated
+- `match_ipsec_out` (Boolean) Outbound traffic to be IPsec encapsulated
+- `match_none_in` (Boolean) Inbound traffic that was not IPsec encapsulated
+- `match_none_out` (Boolean) Outbound traffic that will not be IPsec encapsulated
 
 
 &lt;a id=&#34;nestedatt--limit&#34;&gt;&lt;/a&gt;

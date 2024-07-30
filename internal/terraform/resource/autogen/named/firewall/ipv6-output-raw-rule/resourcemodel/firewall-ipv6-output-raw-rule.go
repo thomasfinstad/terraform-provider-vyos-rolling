@@ -47,13 +47,13 @@ type FirewallIPvsixOutputRawRule struct {
 	NodeFirewallIPvsixOutputRawRuleIcmpvsix          *FirewallIPvsixOutputRawRuleIcmpvsix          `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleLimit             *FirewallIPvsixOutputRawRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleLogOptions        *FirewallIPvsixOutputRawRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
-	NodeFirewallIPvsixOutputRawRuleIPsec             *FirewallIPvsixOutputRawRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleRecent            *FirewallIPvsixOutputRawRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleTCP               *FirewallIPvsixOutputRawRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleTime              *FirewallIPvsixOutputRawRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleHopLimit          *FirewallIPvsixOutputRawRuleHopLimit          `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleDestination       *FirewallIPvsixOutputRawRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleSource            *FirewallIPvsixOutputRawRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
+	NodeFirewallIPvsixOutputRawRuleIPsec             *FirewallIPvsixOutputRawRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvsixOutputRawRuleOutboundInterface *FirewallIPvsixOutputRawRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
 }
 
@@ -366,17 +366,6 @@ func (o FirewallIPvsixOutputRawRule) ResourceSchemaAttributes(ctx context.Contex
 `,
 		},
 
-		"ipsec": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixOutputRawRuleIPsec{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Inbound IPsec packets
-
-`,
-			Description: `Inbound IPsec packets
-
-`,
-		},
-
 		"recent": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixOutputRawRuleRecent{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -439,6 +428,17 @@ func (o FirewallIPvsixOutputRawRule) ResourceSchemaAttributes(ctx context.Contex
 
 `,
 			Description: `Source parameters
+
+`,
+		},
+
+		"ipsec": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvsixOutputRawRuleIPsec{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Outbound IPsec packets
+
+`,
+			Description: `Outbound IPsec packets
 
 `,
 		},

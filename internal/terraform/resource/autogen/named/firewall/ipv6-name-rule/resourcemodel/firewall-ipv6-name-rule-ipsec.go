@@ -18,8 +18,10 @@ var _ helpers.VyosResourceDataModel = &FirewallIPvsixNameRuleIPsec{}
 // FirewallIPvsixNameRuleIPsec describes the resource data model.
 type FirewallIPvsixNameRuleIPsec struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleIPsecMatchIPsec types.Bool `tfsdk:"match_ipsec" vyos:"match-ipsec,omitempty"`
-	LeafFirewallIPvsixNameRuleIPsecMatchNone  types.Bool `tfsdk:"match_none" vyos:"match-none,omitempty"`
+	LeafFirewallIPvsixNameRuleIPsecMatchIPsecIn  types.Bool `tfsdk:"match_ipsec_in" vyos:"match-ipsec-in,omitempty"`
+	LeafFirewallIPvsixNameRuleIPsecMatchNoneIn   types.Bool `tfsdk:"match_none_in" vyos:"match-none-in,omitempty"`
+	LeafFirewallIPvsixNameRuleIPsecMatchIPsecOut types.Bool `tfsdk:"match_ipsec_out" vyos:"match-ipsec-out,omitempty"`
+	LeafFirewallIPvsixNameRuleIPsecMatchNoneOut  types.Bool `tfsdk:"match_none_out" vyos:"match-none-out,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,24 +33,48 @@ func (o FirewallIPvsixNameRuleIPsec) ResourceSchemaAttributes(ctx context.Contex
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"match_ipsec": schema.BoolAttribute{
+		"match_ipsec_in": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Inbound IPsec packets
+			MarkdownDescription: `Inbound traffic that was IPsec encapsulated
 
 `,
-			Description: `Inbound IPsec packets
+			Description: `Inbound traffic that was IPsec encapsulated
 
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
 
-		"match_none": schema.BoolAttribute{
+		"match_none_in": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Inbound non-IPsec packets
+			MarkdownDescription: `Inbound traffic that was not IPsec encapsulated
 
 `,
-			Description: `Inbound non-IPsec packets
+			Description: `Inbound traffic that was not IPsec encapsulated
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"match_ipsec_out": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Outbound traffic to be IPsec encapsulated
+
+`,
+			Description: `Outbound traffic to be IPsec encapsulated
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"match_none_out": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Outbound traffic that will not be IPsec encapsulated
+
+`,
+			Description: `Outbound traffic that will not be IPsec encapsulated
 
 `,
 			Default:  booldefault.StaticBool(false),

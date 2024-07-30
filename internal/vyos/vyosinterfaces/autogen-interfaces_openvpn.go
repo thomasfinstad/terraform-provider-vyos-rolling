@@ -219,7 +219,7 @@ func interfaces_openvpn() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
-									NodeNameAttr: "ncp-ciphers",
+									NodeNameAttr: "data-ciphers",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",

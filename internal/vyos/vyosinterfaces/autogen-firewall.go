@@ -4817,58 +4817,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
 													NodeNameAttr: "limit",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -7167,6 +7115,92 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		Local: "completionHelp",
 																	},
 																	Path: []string{"firewall group interface-group"},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"IPsec encapsulated packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was not IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic to be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic that will not be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
 																}},
 															}},
 														}},
@@ -8458,58 +8492,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
 													NodeNameAttr: "limit",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -10812,6 +10794,58 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Inbound IPsec packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was not IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
 												}},
 												LeafNode: []*schemadefinition.LeafNode{{
 													IsBaseNode: false,
@@ -11969,58 +12003,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	Local: "properties",
 																},
 																Help: []string{"Head fragments or unfragmented packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
 																Valueless: []*schemadefinition.Valueless{{
 																	XMLName: xml.Name{
 																		Local: "valueless",
@@ -14233,6 +14215,58 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      " ",
 																	Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Outbound IPsec packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic to be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic that will not be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
 																}},
 															}},
 														}},
@@ -15887,58 +15921,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
 													NodeNameAttr: "recent",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -17512,6 +17494,58 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      " ",
 																	Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Outbound IPsec packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic to be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic that will not be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
 																}},
 															}},
 														}},
@@ -18810,58 +18844,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
 													NodeNameAttr: "recent",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -20444,6 +20426,58 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Inbound IPsec packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was not IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
 													NodeNameAttr: "inbound-interface",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -21331,58 +21365,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															Local: "properties",
 														},
 														Help: []string{"Head fragments or unfragmented packets"},
-														Valueless: []*schemadefinition.Valueless{{
-															XMLName: xml.Name{
-																Local: "valueless",
-															},
-														}},
-													}},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "node",
-											},
-											NodeNameAttr: "ipsec",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Inbound IPsec packets"},
-											}},
-											Children: []*schemadefinition.Children{{
-												XMLName: xml.Name{
-													Local: "children",
-												},
-												LeafNode: []*schemadefinition.LeafNode{{
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "leafNode",
-													},
-													NodeNameAttr: "match-ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-														Valueless: []*schemadefinition.Valueless{{
-															XMLName: xml.Name{
-																Local: "valueless",
-															},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "leafNode",
-													},
-													NodeNameAttr: "match-none",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound non-IPsec packets"},
 														Valueless: []*schemadefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -23703,6 +23685,92 @@ func firewall() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "node",
 											},
+											NodeNameAttr: "ipsec",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IPsec encapsulated packets"},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "match-ipsec-in",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Inbound traffic that was IPsec encapsulated"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "match-none-in",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Inbound traffic that was not IPsec encapsulated"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "match-ipsec-out",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Outbound traffic to be IPsec encapsulated"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "match-none-out",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Outbound traffic that will not be IPsec encapsulated"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
 											NodeNameAttr: "outbound-interface",
 											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
@@ -25043,58 +25111,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
 													NodeNameAttr: "limit",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -27391,6 +27407,92 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		Local: "completionHelp",
 																	},
 																	Path: []string{"firewall group interface-group"},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"IPsec encapsulated packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was not IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic to be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic that will not be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
 																}},
 															}},
 														}},
@@ -28682,58 +28784,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
 													NodeNameAttr: "limit",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -31034,6 +31084,58 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Inbound IPsec packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was not IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
 												}},
 												LeafNode: []*schemadefinition.LeafNode{{
 													IsBaseNode: false,
@@ -32191,58 +32293,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	Local: "properties",
 																},
 																Help: []string{"Head fragments or unfragmented packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
 																Valueless: []*schemadefinition.Valueless{{
 																	XMLName: xml.Name{
 																		Local: "valueless",
@@ -34453,6 +34503,58 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      " ",
 																	Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Outbound IPsec packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic to be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic that will not be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
 																}},
 															}},
 														}},
@@ -36125,58 +36227,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
 													NodeNameAttr: "recent",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -37804,6 +37854,58 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      " ",
 																	Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Outbound IPsec packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic to be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-out",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Outbound traffic that will not be IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
 																}},
 															}},
 														}},
@@ -39120,58 +39222,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
-													NodeNameAttr: "ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-													}},
-													Children: []*schemadefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*schemadefinition.LeafNode{{
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-ipsec",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "leafNode",
-															},
-															NodeNameAttr: "match-none",
-															Properties: []*schemadefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"Inbound non-IPsec packets"},
-																Valueless: []*schemadefinition.Valueless{{
-																	XMLName: xml.Name{
-																		Local: "valueless",
-																	},
-																}},
-															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
 													NodeNameAttr: "recent",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -40808,6 +40858,58 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
+													NodeNameAttr: "ipsec",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Inbound IPsec packets"},
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-ipsec-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "match-none-in",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Inbound traffic that was not IPsec encapsulated"},
+																Valueless: []*schemadefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
 													NodeNameAttr: "inbound-interface",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -41695,58 +41797,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															Local: "properties",
 														},
 														Help: []string{"Head fragments or unfragmented packets"},
-														Valueless: []*schemadefinition.Valueless{{
-															XMLName: xml.Name{
-																Local: "valueless",
-															},
-														}},
-													}},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "node",
-											},
-											NodeNameAttr: "ipsec",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Inbound IPsec packets"},
-											}},
-											Children: []*schemadefinition.Children{{
-												XMLName: xml.Name{
-													Local: "children",
-												},
-												LeafNode: []*schemadefinition.LeafNode{{
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "leafNode",
-													},
-													NodeNameAttr: "match-ipsec",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound IPsec packets"},
-														Valueless: []*schemadefinition.Valueless{{
-															XMLName: xml.Name{
-																Local: "valueless",
-															},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "leafNode",
-													},
-													NodeNameAttr: "match-none",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Inbound non-IPsec packets"},
 														Valueless: []*schemadefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -44056,6 +44106,92 @@ func firewall() schemadefinition.InterfaceDefinition {
 																Local: "completionHelp",
 															},
 															Path: []string{"firewall group interface-group"},
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "ipsec",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IPsec encapsulated packets"},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "match-ipsec-in",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Inbound traffic that was IPsec encapsulated"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "match-none-in",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Inbound traffic that was not IPsec encapsulated"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "match-ipsec-out",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Outbound traffic to be IPsec encapsulated"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "match-none-out",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Outbound traffic that will not be IPsec encapsulated"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
 														}},
 													}},
 												}},

@@ -357,8 +357,8 @@ Optional:
 
 Optional:
 
-- `match_ipsec` (Boolean) Inbound IPsec packets
-- `match_none` (Boolean) Inbound non-IPsec packets
+- `match_ipsec_in` (Boolean) Inbound traffic that was IPsec encapsulated
+- `match_none_in` (Boolean) Inbound traffic that was not IPsec encapsulated
 
 
 &lt;a id=&#34;nestedatt--limit&#34;&gt;&lt;/a&gt;
