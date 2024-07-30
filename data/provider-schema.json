@@ -2701,16 +2701,30 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_in": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Inbound traffic that was IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_ipsec_out": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Outbound traffic to be IPsec encapsulated\n\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "match_none_in": {
+                      "type": "bool",
+                      "description": "Inbound traffic that was not IPsec encapsulated\n\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "match_none_out": {
+                      "type": "bool",
+                      "description": "Outbound traffic that will not be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -2718,7 +2732,7 @@
                   },
                   "nesting_mode": "single"
                 },
-                "description": "Inbound IPsec packets\n\n",
+                "description": "IPsec encapsulated packets\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -3661,16 +3675,16 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_in": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Inbound traffic that was IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_none_in": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Inbound traffic that was not IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -4605,16 +4619,30 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_in": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Inbound traffic that was IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_ipsec_out": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Outbound traffic to be IPsec encapsulated\n\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "match_none_in": {
+                      "type": "bool",
+                      "description": "Inbound traffic that was not IPsec encapsulated\n\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "match_none_out": {
+                      "type": "bool",
+                      "description": "Outbound traffic that will not be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -4622,7 +4650,7 @@
                   },
                   "nesting_mode": "single"
                 },
-                "description": "Inbound IPsec packets\n\n",
+                "description": "IPsec encapsulated packets\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -5549,16 +5577,16 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_out": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Outbound traffic to be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_none_out": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Outbound traffic that will not be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -5566,7 +5594,7 @@
                   },
                   "nesting_mode": "single"
                 },
-                "description": "Inbound IPsec packets\n\n",
+                "description": "Outbound IPsec packets\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -6441,16 +6469,16 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_out": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Outbound traffic to be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_none_out": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Outbound traffic that will not be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -6458,7 +6486,7 @@
                   },
                   "nesting_mode": "single"
                 },
-                "description": "Inbound IPsec packets\n\n",
+                "description": "Outbound IPsec packets\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -7271,16 +7299,16 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_in": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Inbound traffic that was IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_none_in": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Inbound traffic that was not IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -8154,16 +8182,30 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_in": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Inbound traffic that was IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_ipsec_out": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Outbound traffic to be IPsec encapsulated\n\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "match_none_in": {
+                      "type": "bool",
+                      "description": "Inbound traffic that was not IPsec encapsulated\n\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "match_none_out": {
+                      "type": "bool",
+                      "description": "Outbound traffic that will not be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -8171,7 +8213,7 @@
                   },
                   "nesting_mode": "single"
                 },
-                "description": "Inbound IPsec packets\n\n",
+                "description": "IPsec encapsulated packets\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -9114,16 +9156,16 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_in": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Inbound traffic that was IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_none_in": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Inbound traffic that was not IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -10058,16 +10100,30 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_in": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Inbound traffic that was IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_ipsec_out": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Outbound traffic to be IPsec encapsulated\n\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "match_none_in": {
+                      "type": "bool",
+                      "description": "Inbound traffic that was not IPsec encapsulated\n\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "match_none_out": {
+                      "type": "bool",
+                      "description": "Outbound traffic that will not be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -10075,7 +10131,7 @@
                   },
                   "nesting_mode": "single"
                 },
-                "description": "Inbound IPsec packets\n\n",
+                "description": "IPsec encapsulated packets\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -11002,16 +11058,16 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_out": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Outbound traffic to be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_none_out": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Outbound traffic that will not be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -11019,7 +11075,7 @@
                   },
                   "nesting_mode": "single"
                 },
-                "description": "Inbound IPsec packets\n\n",
+                "description": "Outbound IPsec packets\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -11900,16 +11956,16 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_out": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Outbound traffic to be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_none_out": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Outbound traffic that will not be IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
@@ -11917,7 +11973,7 @@
                   },
                   "nesting_mode": "single"
                 },
-                "description": "Inbound IPsec packets\n\n",
+                "description": "Outbound IPsec packets\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -12742,16 +12798,16 @@
               "ipsec": {
                 "nested_type": {
                   "attributes": {
-                    "match_ipsec": {
+                    "match_ipsec_in": {
                       "type": "bool",
-                      "description": "Inbound IPsec packets\n\n",
+                      "description": "Inbound traffic that was IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
                     },
-                    "match_none": {
+                    "match_none_in": {
                       "type": "bool",
-                      "description": "Inbound non-IPsec packets\n\n",
+                      "description": "Inbound traffic that was not IPsec encapsulated\n\n",
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true

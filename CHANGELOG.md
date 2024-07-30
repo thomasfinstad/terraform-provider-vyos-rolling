@@ -1,5 +1,71 @@
 # CHANGELOG
 
+## 0.4.20240725 (2024-07-30 08:24:02 UTC)
+NOTES:
+
+* update to rolling release 2024-07-30T00:20:39Z
+
+* update to rolling release 2024-07-28T00:23:03Z
+
+* update to rolling release 2024-07-27T00:19:54Z
+
+* update to rolling release 2024-07-26T00:20:13Z
+
+
+FEATURES:
+
+* Resource/`vyos_firewall_ipv4_forward_filter_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv4_forward_filter_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv4_input_filter_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv4_input_filter_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv4_name_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv4_name_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv4_output_filter_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv4_output_filter_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv4_output_raw_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv4_output_raw_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv4_prerouting_raw_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv4_prerouting_raw_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv6_forward_filter_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv6_forward_filter_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv6_input_filter_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv6_input_filter_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv6_name_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv6_name_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv6_output_filter_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv6_output_filter_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv6_output_raw_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv6_output_raw_rule` Added attribute `match_none`
+
+* Resource/`vyos_firewall_ipv6_prerouting_raw_rule` Added attribute `match_ipsec`
+
+* Resource/`vyos_firewall_ipv6_prerouting_raw_rule` Added attribute `match_none`
+
+
+
+
+
 ## 0.3.20240725 (2024-07-25 08:24:01 UTC)
 NOTES:
 
