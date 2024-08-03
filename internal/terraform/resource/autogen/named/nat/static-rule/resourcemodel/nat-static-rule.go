@@ -27,7 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &NatStaticRule{}
 type NatStaticRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"rule_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -36,7 +36,7 @@ type NatStaticRule struct {
 	LeafNatStaticRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 	LeafNatStaticRuleLog              types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeNatStaticRuleDestination *NatStaticRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
@@ -68,7 +68,7 @@ func (o *NatStaticRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["rule"].(types.String).ValueString(),
 	)
 }
 
@@ -99,29 +99,36 @@ func (o NatStaticRule) ResourceSchemaAttributes(ctx context.Context) map[string]
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Rule number for NAT
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Rule number for NAT
 
 `,
-			Description: `Rule number for NAT
+						Description: `Rule number for NAT
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in rule_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  rule_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in rule, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  rule, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

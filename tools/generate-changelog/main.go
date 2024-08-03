@@ -29,6 +29,37 @@ const rollingrelease bool = true
 //  Ref: https://developer.hashicorp.com/terraform/plugin/best-practices/versioning#changelog-specification
 //  Ref: https://developer.hashicorp.com/terraform/cli/v1.5.x/commands/providers/schema
 
+func main() {
+	log.SetFlags(log.Lshortfile)
+
+	if len(os.Args) != 3 {
+		log.Fatalf("Usage: %s [previous schema file] [new schema file]", os.Args[0])
+	}
+
+	fileFrom := os.Args[1]
+	fileTo := os.Args[2]
+
+	chgs := chglog{}
+
+	previousVersion, gitChgs := gitChanges()
+	chgs.previousVersion = *previousVersion
+	for _, gitChg := range gitChgs {
+		chgs.addCc(gitChg)
+	}
+
+	for _, schemaChg := range schemaChanges(fileFrom, fileTo) {
+		chgs.addSc(schemaChg)
+	}
+
+	t, err := template.New("changelog-template").ParseFiles("CHANGELOG.md.gotmpl")
+	die(err)
+
+	f, err := os.Create("../../.build/CHANGELOG.md")
+	die(err)
+	defer f.Close()
+	die(t.ExecuteTemplate(f, "changelog", chgs))
+}
+
 // change contains either a git change or a schema change
 type change struct {
 	conventionalCommit *conventionalcommits.ConventionalCommit
@@ -147,10 +178,11 @@ func (c chglog) Version() *version.Version {
 	minor := c.previousVersion.Segments()[1]
 	patch := c.previousVersion.Segments()[2]
 
+	repo, err := git.PlainOpen("../..")
+	die(err)
+
 	isMajor := false
 	isMinor := false
-
-	var newVersion *version.Version
 
 	for _, m := range c.msgs {
 		if m.IsBreakingChange() {
@@ -177,8 +209,17 @@ func (c chglog) Version() *version.Version {
 		patch = patch + 1
 	}
 
-	newVersion, err = version.NewVersion(fmt.Sprintf("%d.%d.%d", major, minor, patch))
-	die(err)
+	var newVersion *version.Version
+	for i := 0; i < 10; i++ {
+		patch_nr := patch*10 + i
+		newVersion, err = version.NewVersion(fmt.Sprintf("%d.%d.%d", major, minor, patch_nr))
+		die(err)
+		_, err := repo.Tag("v" + newVersion.Original())
+		if err == nil {
+			break
+		}
+	}
+
 	return newVersion
 }
 
@@ -264,37 +305,6 @@ func (c chglog) Fixes() []change {
 		}
 	}
 	return r
-}
-
-func main() {
-	log.SetFlags(log.Lshortfile)
-
-	if len(os.Args) != 3 {
-		log.Fatalf("Usage: %s [previous schema file] [new schema file]", os.Args[0])
-	}
-
-	fileFrom := os.Args[1]
-	fileTo := os.Args[2]
-
-	chgs := chglog{}
-
-	previousVersion, gitChgs := gitChanges()
-	chgs.previousVersion = *previousVersion
-	for _, gitChg := range gitChgs {
-		chgs.addCc(gitChg)
-	}
-
-	for _, schemaChg := range schemaChanges(fileFrom, fileTo) {
-		chgs.addSc(schemaChg)
-	}
-
-	t, err := template.New("changelog-template").ParseFiles("CHANGELOG.md.gotmpl")
-	die(err)
-
-	f, err := os.Create("../../.build/CHANGELOG.md")
-	die(err)
-	defer f.Close()
-	die(t.ExecuteTemplate(f, "changelog", chgs))
 }
 
 func gitChanges() (previousVersion *version.Version, commitsSinceLastVersion []conventionalcommits.Message) {

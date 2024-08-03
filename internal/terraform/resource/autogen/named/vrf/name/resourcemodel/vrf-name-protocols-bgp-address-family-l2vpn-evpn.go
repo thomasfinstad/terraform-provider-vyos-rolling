@@ -28,6 +28,8 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDisableEadEviTx    types.Bool   `tfsdk:"disable_ead_evi_tx" vyos:"disable-ead-evi-tx,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"vni" vyos:"vni,child"`
 
 	// Nodes

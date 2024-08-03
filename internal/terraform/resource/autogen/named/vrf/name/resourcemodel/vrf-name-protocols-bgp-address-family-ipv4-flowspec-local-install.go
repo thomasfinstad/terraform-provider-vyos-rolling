@@ -20,6 +20,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourFlowspecLocalInstall struct {
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourFlowspecLocalInstallInterface types.List `tfsdk:"interface" vyos:"interface,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

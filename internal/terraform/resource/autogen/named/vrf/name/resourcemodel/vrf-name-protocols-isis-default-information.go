@@ -18,6 +18,7 @@ type VrfNameProtocolsIsisDefaultInformation struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsIsisDefaultInformationOriginate *VrfNameProtocolsIsisDefaultInformationOriginate `tfsdk:"originate" vyos:"originate,omitempty"`

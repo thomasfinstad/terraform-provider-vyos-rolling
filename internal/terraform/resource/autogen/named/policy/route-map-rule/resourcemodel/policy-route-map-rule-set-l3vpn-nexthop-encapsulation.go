@@ -21,6 +21,7 @@ type PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation struct {
 	LeafPolicyRouteMapRuleSetLthreevpnNexthopEncapsulationGre types.Bool `tfsdk:"gre" vyos:"gre,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

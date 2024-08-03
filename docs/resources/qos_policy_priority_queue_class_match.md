@@ -29,17 +29,7 @@ Class Handle
 
 ### Required
 
-- `class_id` (Number) Class Handle
-
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|1-7     &emsp;|Priority     |
-- `match_id` (String) Class matching rule name
-- `priority_queue_id` (String) Priority queuing based policy
-
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -71,6 +61,24 @@ Class Handle
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `class` (Number) Class Handle
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|1-7     &emsp;|Priority     |
+- `match` (String) Class matching rule name
+- `priority_queue` (String) Priority queuing based policy
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|txt     &emsp;|Policy name  |
+
 
 &lt;a id=&#34;nestedatt--ether&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `ether`

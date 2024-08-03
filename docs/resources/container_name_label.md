@@ -25,8 +25,7 @@ Container name
 
 ### Required
 
-- `label_id` (String) Add label variables
-- `name_id` (String) Container name
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -40,6 +39,15 @@ Container name
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `label` (String) Add label variables
+- `name` (String) Container name
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

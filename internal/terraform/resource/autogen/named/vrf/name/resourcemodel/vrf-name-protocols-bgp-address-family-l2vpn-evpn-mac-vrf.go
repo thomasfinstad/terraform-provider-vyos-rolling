@@ -20,6 +20,7 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf struct {
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrfSoo types.String `tfsdk:"soo" vyos:"soo,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

@@ -26,9 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &ContainerNameVolume{}
 type ContainerNameVolume struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"volume_id" vyos:"-,self-id"`
-
-	ParentIDContainerName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -38,7 +36,7 @@ type ContainerNameVolume struct {
 	LeafContainerNameVolumeMode        types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafContainerNameVolumePropagation types.String `tfsdk:"propagation" vyos:"propagation,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -68,7 +66,7 @@ func (o *ContainerNameVolume) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"volume",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["volume"].(types.String).ValueString(),
 	)
 }
 
@@ -81,7 +79,8 @@ func (o *ContainerNameVolume) GetVyosParentPath() []string {
 		"container",
 
 		"name",
-		o.ParentIDContainerName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
 
@@ -94,7 +93,8 @@ func (o *ContainerNameVolume) GetVyosNamedParentPath() []string {
 		"container",
 
 		"name",
-		o.ParentIDContainerName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
 
@@ -105,55 +105,62 @@ func (o ContainerNameVolume) ResourceSchemaAttributes(ctx context.Context) map[s
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"volume_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Mount a volume into the container
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"volume": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Mount a volume into the container
 
 `,
-			Description: `Mount a volume into the container
+						Description: `Mount a volume into the container
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in volume_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  volume_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in volume, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  volume, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Container name
-
-`,
-			Description: `Container name
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Container name
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Container name
+
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -29,13 +29,391 @@ import (
 	globalhighavailabilityvrrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp"
 	globalhighavailabilityvrrpglobalparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters"
 	globalhighavailabilityvrrpglobalparametersgarp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters-garp"
+	globalloadbalancingreverseproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/reverse-proxy"
+	globalloadbalancingreverseproxyglobalparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/reverse-proxy-global-parameters"
+	globalloadbalancingwan "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/wan"
+	globalloadbalancingwanstickyconnections "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/wan-sticky-connections"
+	globalnatcgnat "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/nat/cgnat"
 	globalpkixfivezeroninedefault "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/pki/x509-default"
+	globalprotocolsbabeldistributelistipvfouraccesslist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/babel-distribute-list-ipv4-access-list"
+	globalprotocolsbabeldistributelistipvfourprefixlist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/babel-distribute-list-ipv4-prefix-list"
+	globalprotocolsbabeldistributelistipvsixaccesslist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/babel-distribute-list-ipv6-access-list"
+	globalprotocolsbabeldistributelistipvsixprefixlist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/babel-distribute-list-ipv6-prefix-list"
+	globalprotocolsbabelparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/babel-parameters"
+	globalprotocolsbabelredistributeipvfour "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/babel-redistribute-ipv4"
+	globalprotocolsbabelredistributeipvsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/babel-redistribute-ipv6"
+	globalprotocolsbgp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp"
+	globalprotocolsbgpaddressfamilyipvfourflowspeclocalinstall "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-flowspec-local-install"
+	globalprotocolsbgpaddressfamilyipvfourlabeledunicastmaximumpaths "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-labeled-unicast-maximum-paths"
+	globalprotocolsbgpaddressfamilyipvfourmulticastdistance "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-multicast-distance"
+	globalprotocolsbgpaddressfamilyipvfourunicastdistance "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-distance"
+	globalprotocolsbgpaddressfamilyipvfourunicastexport "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-export"
+	globalprotocolsbgpaddressfamilyipvfourunicastimport "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-import"
+	globalprotocolsbgpaddressfamilyipvfourunicastlabelvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-label-vpn"
+	globalprotocolsbgpaddressfamilyipvfourunicastlabelvpnallocationmode "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-label-vpn-allocation-mode"
+	globalprotocolsbgpaddressfamilyipvfourunicastmaximumpaths "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-maximum-paths"
+	globalprotocolsbgpaddressfamilyipvfourunicastnexthopvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-nexthop-vpn"
+	globalprotocolsbgpaddressfamilyipvfourunicastrdvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-rd-vpn"
+	globalprotocolsbgpaddressfamilyipvfourunicastredistribute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute"
+	globalprotocolsbgpaddressfamilyipvfourunicastredistributebabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-babel"
+	globalprotocolsbgpaddressfamilyipvfourunicastredistributeconnected "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-connected"
+	globalprotocolsbgpaddressfamilyipvfourunicastredistributeisis "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-isis"
+	globalprotocolsbgpaddressfamilyipvfourunicastredistributekernel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-kernel"
+	globalprotocolsbgpaddressfamilyipvfourunicastredistributeospf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-ospf"
+	globalprotocolsbgpaddressfamilyipvfourunicastredistributerip "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-rip"
+	globalprotocolsbgpaddressfamilyipvfourunicastredistributestatic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-static"
+	globalprotocolsbgpaddressfamilyipvfourunicastroutemapvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-route-map-vpn"
+	globalprotocolsbgpaddressfamilyipvfourunicastroutetargetvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-route-target-vpn"
+	globalprotocolsbgpaddressfamilyipvfourunicastsidvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-sid-vpn"
+	globalprotocolsbgpaddressfamilyipvsixflowspeclocalinstall "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-flowspec-local-install"
+	globalprotocolsbgpaddressfamilyipvsixmulticastdistance "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-multicast-distance"
+	globalprotocolsbgpaddressfamilyipvsixunicastdistance "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-distance"
+	globalprotocolsbgpaddressfamilyipvsixunicastexport "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-export"
+	globalprotocolsbgpaddressfamilyipvsixunicastimport "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-import"
+	globalprotocolsbgpaddressfamilyipvsixunicastlabelvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-label-vpn"
+	globalprotocolsbgpaddressfamilyipvsixunicastlabelvpnallocationmode "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-label-vpn-allocation-mode"
+	globalprotocolsbgpaddressfamilyipvsixunicastmaximumpaths "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-maximum-paths"
+	globalprotocolsbgpaddressfamilyipvsixunicastnexthopvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-nexthop-vpn"
+	globalprotocolsbgpaddressfamilyipvsixunicastrdvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-rd-vpn"
+	globalprotocolsbgpaddressfamilyipvsixunicastredistribute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute"
+	globalprotocolsbgpaddressfamilyipvsixunicastredistributebabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-babel"
+	globalprotocolsbgpaddressfamilyipvsixunicastredistributeconnected "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-connected"
+	globalprotocolsbgpaddressfamilyipvsixunicastredistributekernel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-kernel"
+	globalprotocolsbgpaddressfamilyipvsixunicastredistributeospfvthree "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-ospfv3"
+	globalprotocolsbgpaddressfamilyipvsixunicastredistributeripng "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-ripng"
+	globalprotocolsbgpaddressfamilyipvsixunicastredistributestatic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-static"
+	globalprotocolsbgpaddressfamilyipvsixunicastroutemapvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-route-map-vpn"
+	globalprotocolsbgpaddressfamilyipvsixunicastroutetargetvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-route-target-vpn"
+	globalprotocolsbgpaddressfamilyipvsixunicastsidvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-sid-vpn"
+	globalprotocolsbgpaddressfamilyltwovpnevpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn"
+	globalprotocolsbgpaddressfamilyltwovpnevpnadvertiseipvfourunicast "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn-advertise-ipv4-unicast"
+	globalprotocolsbgpaddressfamilyltwovpnevpnadvertiseipvsixunicast "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn-advertise-ipv6-unicast"
+	globalprotocolsbgpaddressfamilyltwovpnevpndefaultoriginate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn-default-originate"
+	globalprotocolsbgpaddressfamilyltwovpnevpneadesfrag "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn-ead-es-frag"
+	globalprotocolsbgpaddressfamilyltwovpnevpneadesroutetarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn-ead-es-route-target"
+	globalprotocolsbgpaddressfamilyltwovpnevpnflooding "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn-flooding"
+	globalprotocolsbgpaddressfamilyltwovpnevpnmacvrf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn-mac-vrf"
+	globalprotocolsbgpaddressfamilyltwovpnevpnroutetarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-l2vpn-evpn-route-target"
+	globalprotocolsbgpbmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-bmp"
+	globalprotocolsbgplisten "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-listen"
+	globalprotocolsbgpparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters"
+	globalprotocolsbgpparametersbestpath "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-bestpath"
+	globalprotocolsbgpparametersbestpathaspath "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-bestpath-as-path"
+	globalprotocolsbgpparametersbestpathpeertype "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-bestpath-peer-type"
+	globalprotocolsbgpparametersconditionaladvertisement "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-conditional-advertisement"
+	globalprotocolsbgpparametersconfederation "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-confederation"
+	globalprotocolsbgpparametersdampening "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-dampening"
+	globalprotocolsbgpparametersdefault "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-default"
+	globalprotocolsbgpparametersdistanceglobal "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-distance-global"
+	globalprotocolsbgpparametersgracefulrestart "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-graceful-restart"
+	globalprotocolsbgpparameterstcpkeepalive "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-parameters-tcp-keepalive"
+	globalprotocolsbgpsidvpnpervrf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-sid-vpn-per-vrf"
+	globalprotocolsbgpsrvsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-srv6"
+	globalprotocolsbgptimers "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-timers"
+	globalprotocolseigrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/eigrp"
+	globalprotocolseigrpmetric "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/eigrp-metric"
+	globalprotocolsigmpproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/igmp-proxy"
+	globalprotocolsisis "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis"
+	globalprotocolsisisareapassword "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-area-password"
+	globalprotocolsisisdefaultinformationoriginateipvfourlevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-default-information-originate-ipv4-level-1"
+	globalprotocolsisisdefaultinformationoriginateipvfourleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-default-information-originate-ipv4-level-2"
+	globalprotocolsisisdefaultinformationoriginateipvsixlevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-default-information-originate-ipv6-level-1"
+	globalprotocolsisisdefaultinformationoriginateipvsixleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-default-information-originate-ipv6-level-2"
+	globalprotocolsisisdomainpassword "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-domain-password"
+	globalprotocolsisisfastreroutelfalocalloadsharingdisable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-fast-reroute-lfa-local-load-sharing-disable"
+	globalprotocolsisisfastreroutelfalocalprioritylimitcritical "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-fast-reroute-lfa-local-priority-limit-critical"
+	globalprotocolsisisfastreroutelfalocalprioritylimithigh "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-fast-reroute-lfa-local-priority-limit-high"
+	globalprotocolsisisfastreroutelfalocalprioritylimitmedium "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-fast-reroute-lfa-local-priority-limit-medium"
+	globalprotocolsisisldpsync "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-ldp-sync"
+	globalprotocolsisisredistributeipvfourbabellevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-babel-level-1"
+	globalprotocolsisisredistributeipvfourbabelleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-babel-level-2"
+	globalprotocolsisisredistributeipvfourbgplevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-bgp-level-1"
+	globalprotocolsisisredistributeipvfourbgpleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-bgp-level-2"
+	globalprotocolsisisredistributeipvfourconnectedlevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-connected-level-1"
+	globalprotocolsisisredistributeipvfourconnectedleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-connected-level-2"
+	globalprotocolsisisredistributeipvfourkernellevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-kernel-level-1"
+	globalprotocolsisisredistributeipvfourkernelleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-kernel-level-2"
+	globalprotocolsisisredistributeipvfourospflevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-ospf-level-1"
+	globalprotocolsisisredistributeipvfourospfleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-ospf-level-2"
+	globalprotocolsisisredistributeipvfourriplevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-rip-level-1"
+	globalprotocolsisisredistributeipvfourripleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-rip-level-2"
+	globalprotocolsisisredistributeipvfourstaticlevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-static-level-1"
+	globalprotocolsisisredistributeipvfourstaticleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv4-static-level-2"
+	globalprotocolsisisredistributeipvsixbabellevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-babel-level-1"
+	globalprotocolsisisredistributeipvsixbabelleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-babel-level-2"
+	globalprotocolsisisredistributeipvsixbgplevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-bgp-level-1"
+	globalprotocolsisisredistributeipvsixbgpleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-bgp-level-2"
+	globalprotocolsisisredistributeipvsixconnectedlevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-connected-level-1"
+	globalprotocolsisisredistributeipvsixconnectedleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-connected-level-2"
+	globalprotocolsisisredistributeipvsixkernellevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-kernel-level-1"
+	globalprotocolsisisredistributeipvsixkernelleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-kernel-level-2"
+	globalprotocolsisisredistributeipvsixospfsixlevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-ospf6-level-1"
+	globalprotocolsisisredistributeipvsixospfsixleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-ospf6-level-2"
+	globalprotocolsisisredistributeipvsixripnglevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-ripng-level-1"
+	globalprotocolsisisredistributeipvsixripngleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-ripng-level-2"
+	globalprotocolsisisredistributeipvsixstaticlevelone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-static-level-1"
+	globalprotocolsisisredistributeipvsixstaticleveltwo "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-redistribute-ipv6-static-level-2"
+	globalprotocolsisissegmentrouting "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-segment-routing"
+	globalprotocolsisissegmentroutingglobalblock "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-segment-routing-global-block"
+	globalprotocolsisissegmentroutinglocalblock "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-segment-routing-local-block"
+	globalprotocolsisisspfdelayietf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-spf-delay-ietf"
+	globalprotocolsisistrafficengineering "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/isis-traffic-engineering"
+	globalprotocolsmpls "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls"
+	globalprotocolsmplsldp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp"
+	globalprotocolsmplsldpallocationipvfour "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-allocation-ipv4"
+	globalprotocolsmplsldpallocationipvsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-allocation-ipv6"
+	globalprotocolsmplsldpdiscovery "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-discovery"
+	globalprotocolsmplsldpexportipvfour "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-export-ipv4"
+	globalprotocolsmplsldpexportipvfourexportfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-export-ipv4-export-filter"
+	globalprotocolsmplsldpexportipvsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-export-ipv6"
+	globalprotocolsmplsldpexportipvsixexportfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-export-ipv6-export-filter"
+	globalprotocolsmplsldpimportipvfourimportfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-import-ipv4-import-filter"
+	globalprotocolsmplsldpimportipvsiximportfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-import-ipv6-import-filter"
+	globalprotocolsmplsldpparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-parameters"
+	globalprotocolsmplsldptargetedneighboripvfour "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-targeted-neighbor-ipv4"
+	globalprotocolsmplsldptargetedneighboripvsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-targeted-neighbor-ipv6"
+	globalprotocolsmplsparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-parameters"
+	globalprotocolsospf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf"
+	globalprotocolsospfaggregation "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-aggregation"
+	globalprotocolsospfautocost "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-auto-cost"
+	globalprotocolsospfcapability "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-capability"
+	globalprotocolsospfdefaultinformationoriginate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-default-information-originate"
+	globalprotocolsospfdistance "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-distance"
+	globalprotocolsospfdistanceospf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-distance-ospf"
+	globalprotocolsospfgracefulrestart "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-graceful-restart"
+	globalprotocolsospfgracefulrestarthelper "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-graceful-restart-helper"
+	globalprotocolsospfgracefulrestarthelperenable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-graceful-restart-helper-enable"
+	globalprotocolsospfldpsync "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-ldp-sync"
+	globalprotocolsospflogadjacencychanges "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-log-adjacency-changes"
+	globalprotocolsospfmaxmetricrouterlsa "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-max-metric-router-lsa"
+	globalprotocolsospfmplste "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-mpls-te"
+	globalprotocolsospfparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-parameters"
+	globalprotocolsospfredistributebabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-redistribute-babel"
+	globalprotocolsospfredistributebgp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-redistribute-bgp"
+	globalprotocolsospfredistributeconnected "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-redistribute-connected"
+	globalprotocolsospfredistributeisis "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-redistribute-isis"
+	globalprotocolsospfredistributekernel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-redistribute-kernel"
+	globalprotocolsospfredistributerip "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-redistribute-rip"
+	globalprotocolsospfredistributestatic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-redistribute-static"
+	globalprotocolsospfrefresh "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-refresh"
+	globalprotocolsospfsegmentrouting "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-segment-routing"
+	globalprotocolsospfsegmentroutingglobalblock "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-segment-routing-global-block"
+	globalprotocolsospfsegmentroutinglocalblock "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-segment-routing-local-block"
+	globalprotocolsospftimersthrottlespf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-timers-throttle-spf"
+	globalprotocolspim "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim"
+	globalprotocolspimecmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-ecmp"
+	globalprotocolspimigmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-igmp"
+	globalprotocolspimregisteracceptlist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-register-accept-list"
+	globalprotocolspimrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-rp"
+	globalprotocolspimsptswitchoverinfinityandbeyond "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-spt-switchover-infinity-and-beyond"
+	globalprotocolspimssm "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-ssm"
+	globalprotocolsrip "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip"
+	globalprotocolsripdefaultinformation "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-default-information"
+	globalprotocolsripdistributelistaccesslist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-distribute-list-access-list"
+	globalprotocolsripdistributelistprefixlist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-distribute-list-prefix-list"
+	globalprotocolsripredistributebabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-redistribute-babel"
+	globalprotocolsripredistributebgp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-redistribute-bgp"
+	globalprotocolsripredistributeconnected "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-redistribute-connected"
+	globalprotocolsripredistributeisis "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-redistribute-isis"
+	globalprotocolsripredistributekernel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-redistribute-kernel"
+	globalprotocolsripredistributeospf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-redistribute-ospf"
+	globalprotocolsripredistributestatic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-redistribute-static"
+	globalprotocolsriptimers "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-timers"
+	globalprotocolsripng "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng"
+	globalprotocolsripngdefaultinformation "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-default-information"
+	globalprotocolsripngdistributelistaccesslist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-distribute-list-access-list"
+	globalprotocolsripngdistributelistprefixlist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-distribute-list-prefix-list"
+	globalprotocolsripngredistributebabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-redistribute-babel"
+	globalprotocolsripngredistributebgp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-redistribute-bgp"
+	globalprotocolsripngredistributeconnected "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-redistribute-connected"
+	globalprotocolsripngredistributekernel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-redistribute-kernel"
+	globalprotocolsripngredistributeospfvthree "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-redistribute-ospfv3"
+	globalprotocolsripngredistributestatic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-redistribute-static"
+	globalprotocolsripngtimers "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ripng-timers"
+	globalprotocolsrpki "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rpki"
+	globalprotocolsstatic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/static"
+	globalserviceawsglbscript "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/aws-glb-script"
+	globalserviceawsglbstatus "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/aws-glb-status"
+	globalserviceawsglbthreads "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/aws-glb-threads"
+	globalservicebroadcastrelay "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/broadcast-relay"
+	globalserviceconfigsync "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync"
+	globalserviceconfigsyncsecondary "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-secondary"
+	globalserviceconfigsyncsection "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-section"
+	globalserviceconfigsyncsectioninterfaces "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-section-interfaces"
+	globalserviceconfigsyncsectionprotocols "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-section-protocols"
+	globalserviceconfigsyncsectionqos "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-section-qos"
+	globalserviceconfigsyncsectionservice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-section-service"
+	globalserviceconfigsyncsectionsystem "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-section-system"
+	globalserviceconntracksync "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/conntrack-sync"
+	globalserviceconntracksyncfailovermechanismvrrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/conntrack-sync-failover-mechanism-vrrp"
+	globalservicedhcprelay "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-relay"
+	globalservicedhcprelayrelayoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-relay-relay-options"
+	globalservicedhcpserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-server"
+	globalservicedhcpserverhighavailability "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-server-high-availability"
+	globalservicednsdynamic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dns-dynamic"
+	globalservicednsforwarding "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dns-forwarding"
+	globalservicednsforwardingoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dns-forwarding-options"
+	globalservicehttps "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https"
+	globalservicehttpsallowclient "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-allow-client"
+	globalservicehttpsapi "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api"
+	globalservicehttpsapicors "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api-cors"
+	globalservicehttpsapigraphql "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api-graphql"
+	globalservicehttpsapigraphqlauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api-graphql-authentication"
+	globalservicehttpscertificates "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-certificates"
+	globalserviceidsddosprotection "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ids-ddos-protection"
+	globalserviceidsddosprotectionsflow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ids-ddos-protection-sflow"
+	globalserviceidsddosprotectionthresholdgeneral "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ids-ddos-protection-threshold-general"
+	globalserviceidsddosprotectionthresholdicmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ids-ddos-protection-threshold-icmp"
+	globalserviceidsddosprotectionthresholdtcp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ids-ddos-protection-threshold-tcp"
+	globalserviceidsddosprotectionthresholdudp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ids-ddos-protection-threshold-udp"
+	globalserviceipoeserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server"
+	globalserviceipoeserverauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-authentication"
+	globalserviceipoeserverauthenticationradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-authentication-radius"
+	globalserviceipoeserverauthenticationradiusdynamicauthor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-authentication-radius-dynamic-author"
+	globalserviceipoeserverauthenticationradiusratelimit "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-authentication-radius-rate-limit"
+	globalserviceipoeserverextendedscripts "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-extended-scripts"
+	globalserviceipoeserverlimits "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-limits"
+	globalserviceipoeserverlog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-log"
+	globalserviceipoeservershaper "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-shaper"
+	globalserviceipoeserversnmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ipoe-server-snmp"
+	globalservicelldp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp"
+	globalservicelldplegacyprotocols "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp-legacy-protocols"
+	globalservicemdnsrepeater "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/mdns-repeater"
+	globalservicemonitoringtelegraf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf"
+	globalservicemonitoringtelegrafazuredataexplorer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer"
+	globalservicemonitoringtelegrafazuredataexplorerauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer-authentication"
+	globalservicemonitoringtelegrafinfluxdb "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-influxdb"
+	globalservicemonitoringtelegrafinfluxdbauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-influxdb-authentication"
+	globalservicemonitoringtelegrafloki "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-loki"
+	globalservicemonitoringtelegraflokiauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-loki-authentication"
+	globalservicemonitoringtelegrafprometheusclient "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-prometheus-client"
+	globalservicemonitoringtelegrafprometheusclientauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-prometheus-client-authentication"
+	globalservicemonitoringtelegrafsplunk "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-splunk"
+	globalservicemonitoringtelegrafsplunkauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-splunk-authentication"
+	globalservicemonitoringzabbixagent "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent"
+	globalservicemonitoringzabbixagentlimits "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent-limits"
+	globalservicemonitoringzabbixagentlog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent-log"
+	globalservicendpproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ndp-proxy"
+	globalservicentp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ntp"
+	globalservicentpallowclient "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ntp-allow-client"
+	globalservicepppoeserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server"
+	globalservicepppoeserverauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-authentication"
+	globalservicepppoeserverauthenticationradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-authentication-radius"
+	globalservicepppoeserverauthenticationradiusdynamicauthor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-authentication-radius-dynamic-author"
+	globalservicepppoeserverauthenticationradiusratelimit "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-authentication-radius-rate-limit"
+	globalservicepppoeserverextendedscripts "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-extended-scripts"
+	globalservicepppoeserverlimits "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-limits"
+	globalservicepppoeserverlog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-log"
+	globalservicepppoeserverpppoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-ppp-options"
+	globalservicepppoeservershaper "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-shaper"
+	globalservicepppoeserversnmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-snmp"
+	globalservicesaltminion "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/salt-minion"
+	globalserviceslaowampserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/sla-owamp-server"
+	globalserviceslatwampserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/sla-twamp-server"
+	globalservicesnmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/snmp"
+	globalservicesnmpmib "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/snmp-mib"
+	globalservicesnmpvthree "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/snmp-v3"
+	globalservicetcp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh"
+	globalservicetcpaccesscontrolallow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh-access-control-allow"
+	globalservicetcpaccesscontroldeny "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh-access-control-deny"
+	globalservicetcpdynamicprotection "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh-dynamic-protection"
+	globalservicetcprekey "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh-rekey"
+	globalservicestunnellog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/stunnel-log"
+	globalservicesuricata "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/suricata"
+	globalservicesuricatalogeve "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/suricata-log-eve"
+	globalservicetftpserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/tftp-server"
+	globalservicewebproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/webproxy"
+	globalservicewebproxyauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/webproxy-authentication"
+	globalservicewebproxyauthenticationldap "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/webproxy-authentication-ldap"
+	globalservicewebproxyurlfiltering "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/webproxy-url-filtering"
+	globalservicewebproxyurlfilteringsquidguard "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/webproxy-url-filtering-squidguard"
+	globalservicewebproxyurlfilteringsquidguardautoupdate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/webproxy-url-filtering-squidguard-auto-update"
+	globalsystem "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system"
+	globalsystemacceleration "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/acceleration"
+	globalsystemconfigmanagement "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/config-management"
+	globalsystemconfigmanagementcommitarchive "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/config-management-commit-archive"
+	globalsystemconntrack "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack"
+	globalsystemconntracklog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-log"
+	globalsystemconntracklogeventdestroy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-log-event-destroy"
+	globalsystemconntracklogeventnew "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-log-event-new"
+	globalsystemconntracklogeventupdate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-log-event-update"
+	globalsystemconntrackmodules "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-modules"
+	globalsystemconntracktcp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-tcp"
+	globalsystemconsole "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/console"
+	globalsystemflowaccounting "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/flow-accounting"
+	globalsystemflowaccountingnetflow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/flow-accounting-netflow"
+	globalsystemflowaccountingnetflowtimeout "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/flow-accounting-netflow-timeout"
+	globalsystemflowaccountingsflow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/flow-accounting-sflow"
+	globalsystemfrr "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/frr"
+	globalsystemfrrsnmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/frr-snmp"
+	globalsystemip "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip"
+	globalsystemiparp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip-arp"
+	globalsystemipmultipath "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip-multipath"
+	globalsystemipnht "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip-nht"
+	globalsystemiptcpmss "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip-tcp-mss"
+	globalsystemlcd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/lcd"
+	globalsystemlogin "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/login"
+	globalsystemloginbanner "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/login-banner"
+	globalsystemloginradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/login-radius"
+	globalsystemlogintacacs "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/login-tacacs"
+	globalsystemlogslogrotateatop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/logs-logrotate-atop"
+	globalsystemlogslogrotatemessages "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/logs-logrotate-messages"
+	globalsystemoption "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/option"
+	globalsystemoptionhttpclient "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/option-http-client"
+	globalsystemoptionkernel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/option-kernel"
+	globalsystemoptionkerneldebug "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/option-kernel-debug"
+	globalsystemoptiontcpclient "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/option-ssh-client"
+	globalsystemproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/proxy"
+	globalsystemsflow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/sflow"
+	globalsystemsyslog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/syslog"
+	globalsystemsyslogglobal "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/syslog-global"
+	globalsystemsyslogglobalmarker "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/syslog-global-marker"
+	globalsystemupdatecheck "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/update-check"
+	globalsystemwireless "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/wireless"
+	globalvpnipsec "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec"
+	globalvpnipseclog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec-log"
+	globalvpnipsecoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec-options"
+	globalvpnipsecremoteaccessdhcp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec-remote-access-dhcp"
+	globalvpnipsecremoteaccessradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec-remote-access-radius"
+	globalvpnopenconnect "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect"
+	globalvpnopenconnectaccountingmode "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-accounting-mode"
+	globalvpnopenconnectauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-authentication"
+	globalvpnopenconnectauthenticationidentitybasedconfig "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-authentication-identity-based-config"
+	globalvpnopenconnectauthenticationmode "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-authentication-mode"
+	globalvpnopenconnectauthenticationradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-authentication-radius"
+	globalvpnopenconnectlistenports "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-listen-ports"
+	globalvpnopenconnectnetworksettings "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-network-settings"
+	globalvpnopenconnectnetworksettingsclientipsettings "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-network-settings-client-ip-settings"
+	globalvpnopenconnectnetworksettingsclientipvsixpool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-network-settings-client-ipv6-pool"
+	globalvpnopenconnectssl "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-ssl"
+	globalvpnpptpremoteaccess "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access"
+	globalvpnpptpremoteaccessauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-authentication"
+	globalvpnpptpremoteaccessauthenticationradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-authentication-radius"
+	globalvpnpptpremoteaccessauthenticationradiusdynamicauthor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-authentication-radius-dynamic-author"
+	globalvpnpptpremoteaccessauthenticationradiusratelimit "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-authentication-radius-rate-limit"
+	globalvpnpptpremoteaccessextendedscripts "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-extended-scripts"
+	globalvpnpptpremoteaccesslimits "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-limits"
+	globalvpnpptpremoteaccesslog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-log"
+	globalvpnpptpremoteaccesspppoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-ppp-options"
+	globalvpnpptpremoteaccessshaper "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-shaper"
+	globalvpnpptpremoteaccesssnmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/pptp-remote-access-snmp"
+	globalvpnsstp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp"
+	globalvpnsstpauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-authentication"
+	globalvpnsstpauthenticationradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-authentication-radius"
+	globalvpnsstpauthenticationradiusdynamicauthor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-authentication-radius-dynamic-author"
+	globalvpnsstpauthenticationradiusratelimit "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-authentication-radius-rate-limit"
+	globalvpnsstpextendedscripts "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-extended-scripts"
+	globalvpnsstplimits "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-limits"
+	globalvpnsstplog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-log"
+	globalvpnsstppppoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-ppp-options"
+	globalvpnsstpshaper "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-shaper"
+	globalvpnsstpsnmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-snmp"
+	globalvpnsstpssl "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/sstp-ssl"
 	globalvrf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vrf"
 	namedcontainername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name"
 	namedcontainernamedevice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-device"
 	namedcontainernameenvironment "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-environment"
 	namedcontainernamelabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-label"
-	namedcontainernamenetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-network"
 	namedcontainernameport "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-port"
 	namedcontainernamesysctlparameter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-sysctl-parameter"
 	namedcontainernamevolume "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-volume"
@@ -80,6 +458,115 @@ import (
 	namedhighavailabilityvrrpgroupaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/vrrp-group-address"
 	namedhighavailabilityvrrpgroupexcludedaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/vrrp-group-excluded-address"
 	namedhighavailabilityvrrpsyncgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/vrrp-sync-group"
+	namedinterfacesbonding "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding"
+	namedinterfacesbondingdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-dhcpv6-options-pd"
+	namedinterfacesbondingdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-dhcpv6-options-pd-interface"
+	namedinterfacesbondingvif "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif"
+	namedinterfacesbondingvifdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif-dhcpv6-options-pd"
+	namedinterfacesbondingvifdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif-dhcpv6-options-pd-interface"
+	namedinterfacesbondingvifs "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif-s"
+	namedinterfacesbondingvifsdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif-s-dhcpv6-options-pd"
+	namedinterfacesbondingvifsdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif-s-dhcpv6-options-pd-interface"
+	namedinterfacesbondingvifsvifc "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif-s-vif-c"
+	namedinterfacesbondingvifsvifcdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif-s-vif-c-dhcpv6-options-pd"
+	namedinterfacesbondingvifsvifcdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bonding-vif-s-vif-c-dhcpv6-options-pd-interface"
+	namedinterfacesbridge "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bridge"
+	namedinterfacesbridgedhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bridge-dhcpv6-options-pd"
+	namedinterfacesbridgedhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bridge-dhcpv6-options-pd-interface"
+	namedinterfacesbridgememberinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bridge-member-interface"
+	namedinterfacesbridgevif "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bridge-vif"
+	namedinterfacesbridgevifdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bridge-vif-dhcpv6-options-pd"
+	namedinterfacesbridgevifdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/bridge-vif-dhcpv6-options-pd-interface"
+	namedinterfacesdummy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/dummy"
+	namedinterfacesethernet "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet"
+	namedinterfacesethernetdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-dhcpv6-options-pd"
+	namedinterfacesethernetdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-dhcpv6-options-pd-interface"
+	namedinterfacesethernetvif "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif"
+	namedinterfacesethernetvifdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-dhcpv6-options-pd"
+	namedinterfacesethernetvifdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-dhcpv6-options-pd-interface"
+	namedinterfacesethernetvifs "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-s"
+	namedinterfacesethernetvifsdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-s-dhcpv6-options-pd"
+	namedinterfacesethernetvifsdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-s-dhcpv6-options-pd-interface"
+	namedinterfacesethernetvifsvifc "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-s-vif-c"
+	namedinterfacesethernetvifsvifcdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-s-vif-c-dhcpv6-options-pd"
+	namedinterfacesethernetvifsvifcdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-s-vif-c-dhcpv6-options-pd-interface"
+	namedinterfacesgeneve "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/geneve"
+	namedinterfacesinput "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/input"
+	namedinterfacesloopback "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/loopback"
+	namedinterfacesmacsec "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/macsec"
+	namedinterfacesmacsecdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/macsec-dhcpv6-options-pd"
+	namedinterfacesmacsecdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/macsec-dhcpv6-options-pd-interface"
+	namedinterfacesmacsecsecuritystaticpeer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/macsec-security-static-peer"
+	namedinterfacesopenvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/openvpn"
+	namedinterfacesopenvpnserverpushroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/openvpn-server-push-route"
+	namedinterfacespppoe "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pppoe"
+	namedinterfacespppoedhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pppoe-dhcpv6-options-pd"
+	namedinterfacespppoedhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pppoe-dhcpv6-options-pd-interface"
+	namedinterfacespseudoethernet "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet"
+	namedinterfacespseudoethernetdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-dhcpv6-options-pd"
+	namedinterfacespseudoethernetdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-dhcpv6-options-pd-interface"
+	namedinterfacespseudoethernetvif "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif"
+	namedinterfacespseudoethernetvifdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif-dhcpv6-options-pd"
+	namedinterfacespseudoethernetvifdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif-dhcpv6-options-pd-interface"
+	namedinterfacespseudoethernetvifs "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif-s"
+	namedinterfacespseudoethernetvifsdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif-s-dhcpv6-options-pd"
+	namedinterfacespseudoethernetvifsdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif-s-dhcpv6-options-pd-interface"
+	namedinterfacespseudoethernetvifsvifc "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif-s-vif-c"
+	namedinterfacespseudoethernetvifsvifcdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif-s-vif-c-dhcpv6-options-pd"
+	namedinterfacespseudoethernetvifsvifcdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/pseudo-ethernet-vif-s-vif-c-dhcpv6-options-pd-interface"
+	namedinterfacessstpc "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/sstpc"
+	namedinterfacestunnel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/tunnel"
+	namedinterfacesvirtualethernet "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet"
+	namedinterfacesvirtualethernetdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-dhcpv6-options-pd"
+	namedinterfacesvirtualethernetdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-dhcpv6-options-pd-interface"
+	namedinterfacesvirtualethernetvif "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif"
+	namedinterfacesvirtualethernetvifdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif-dhcpv6-options-pd"
+	namedinterfacesvirtualethernetvifdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif-dhcpv6-options-pd-interface"
+	namedinterfacesvirtualethernetvifs "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif-s"
+	namedinterfacesvirtualethernetvifsdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif-s-dhcpv6-options-pd"
+	namedinterfacesvirtualethernetvifsdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif-s-dhcpv6-options-pd-interface"
+	namedinterfacesvirtualethernetvifsvifc "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif-s-vif-c"
+	namedinterfacesvirtualethernetvifsvifcdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif-s-vif-c-dhcpv6-options-pd"
+	namedinterfacesvirtualethernetvifsvifcdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/virtual-ethernet-vif-s-vif-c-dhcpv6-options-pd-interface"
+	namedinterfacesvti "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/vti"
+	namedinterfacesvxlan "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/vxlan"
+	namedinterfacesvxlanvlantovni "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/vxlan-vlan-to-vni"
+	namedinterfaceswireguard "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireguard"
+	namedinterfaceswireguardpeer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireguard-peer"
+	namedinterfaceswireless "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless"
+	namedinterfaceswirelessdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-dhcpv6-options-pd"
+	namedinterfaceswirelessdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-dhcpv6-options-pd-interface"
+	namedinterfaceswirelesssecuritywparadiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-security-wpa-radius-server"
+	namedinterfaceswirelessvif "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif"
+	namedinterfaceswirelessvifdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif-dhcpv6-options-pd"
+	namedinterfaceswirelessvifdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif-dhcpv6-options-pd-interface"
+	namedinterfaceswirelessvifs "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif-s"
+	namedinterfaceswirelessvifsdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif-s-dhcpv6-options-pd"
+	namedinterfaceswirelessvifsdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif-s-dhcpv6-options-pd-interface"
+	namedinterfaceswirelessvifsvifc "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif-s-vif-c"
+	namedinterfaceswirelessvifsvifcdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif-s-vif-c-dhcpv6-options-pd"
+	namedinterfaceswirelessvifsvifcdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wireless-vif-s-vif-c-dhcpv6-options-pd-interface"
+	namedinterfaceswwan "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wwan"
+	namedinterfaceswwandhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wwan-dhcpv6-options-pd"
+	namedinterfaceswwandhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wwan-dhcpv6-options-pd-interface"
+	namedloadbalancingreverseproxybackend "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend"
+	namedloadbalancingreverseproxybackendhttpresponseheaders "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend-http-response-headers"
+	namedloadbalancingreverseproxybackendloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend-logging-facility"
+	namedloadbalancingreverseproxybackendrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend-rule"
+	namedloadbalancingreverseproxybackendserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend-server"
+	namedloadbalancingreverseproxyglobalparametersloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-global-parameters-logging-facility"
+	namedloadbalancingreverseproxyservice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-service"
+	namedloadbalancingreverseproxyservicehttpresponseheaders "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-service-http-response-headers"
+	namedloadbalancingreverseproxyserviceloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-service-logging-facility"
+	namedloadbalancingreverseproxyservicerule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-service-rule"
+	namedloadbalancingwaninterfacehealth "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/wan-interface-health"
+	namedloadbalancingwaninterfacehealthtest "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/wan-interface-health-test"
+	namedloadbalancingwanrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/wan-rule"
+	namedloadbalancingwanruleinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/wan-rule-interface"
+	namednatcgnatpoolexternal "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/cgnat-pool-external"
+	namednatcgnatpoolexternalrange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/cgnat-pool-external-range"
+	namednatcgnatpoolinternal "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/cgnat-pool-internal"
+	namednatcgnatrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/cgnat-rule"
 	namednatdestinationrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/destination-rule"
 	namednatdestinationruleloadbalancebackend "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/destination-rule-load-balance-backend"
 	namednatsourcerule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/source-rule"
@@ -104,12 +591,114 @@ import (
 	namedpolicyextcommunitylistrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/extcommunity-list-rule"
 	namedpolicylargecommunitylist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/large-community-list"
 	namedpolicylargecommunitylistrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/large-community-list-rule"
+	namedpolicylocalrouterule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/local-route-rule"
+	namedpolicylocalroutesixrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/local-route6-rule"
 	namedpolicyprefixlist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/prefix-list"
 	namedpolicyprefixlistrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/prefix-list-rule"
 	namedpolicyprefixlistsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/prefix-list6"
 	namedpolicyprefixlistsixrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/prefix-list6-rule"
+	namedpolicyroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/route"
 	namedpolicyroutemap "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/route-map"
 	namedpolicyroutemaprule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/route-map-rule"
+	namedpolicyrouterule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/route-rule"
+	namedpolicyroutesix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/route6"
+	namedpolicyroutesixrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/route6-rule"
+	namedprotocolsbabeldistributelistipvfourinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/babel-distribute-list-ipv4-interface"
+	namedprotocolsbabeldistributelistipvsixinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/babel-distribute-list-ipv6-interface"
+	namedprotocolsbabelinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/babel-interface"
+	namedprotocolsbfdpeer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bfd-peer"
+	namedprotocolsbfdprofile "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bfd-profile"
+	namedprotocolsbgpaddressfamilyipvfourlabeledunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-labeled-unicast-aggregate-address"
+	namedprotocolsbgpaddressfamilyipvfourlabeledunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-labeled-unicast-network"
+	namedprotocolsbgpaddressfamilyipvfourmulticastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-multicast-aggregate-address"
+	namedprotocolsbgpaddressfamilyipvfourmulticastdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-multicast-distance-prefix"
+	namedprotocolsbgpaddressfamilyipvfourmulticastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-multicast-network"
+	namedprotocolsbgpaddressfamilyipvfourunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-unicast-aggregate-address"
+	namedprotocolsbgpaddressfamilyipvfourunicastdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-unicast-distance-prefix"
+	namedprotocolsbgpaddressfamilyipvfourunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-unicast-network"
+	namedprotocolsbgpaddressfamilyipvfourvpnnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-vpn-network"
+	namedprotocolsbgpaddressfamilyipvsixlabeledunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-labeled-unicast-aggregate-address"
+	namedprotocolsbgpaddressfamilyipvsixlabeledunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-labeled-unicast-network"
+	namedprotocolsbgpaddressfamilyipvsixmulticastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-multicast-aggregate-address"
+	namedprotocolsbgpaddressfamilyipvsixmulticastdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-multicast-distance-prefix"
+	namedprotocolsbgpaddressfamilyipvsixmulticastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-multicast-network"
+	namedprotocolsbgpaddressfamilyipvsixunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-unicast-aggregate-address"
+	namedprotocolsbgpaddressfamilyipvsixunicastdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-unicast-distance-prefix"
+	namedprotocolsbgpaddressfamilyipvsixunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-unicast-network"
+	namedprotocolsbgpaddressfamilyipvsixvpnnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-vpn-network"
+	namedprotocolsbgpaddressfamilyltwovpnevpnvni "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-l2vpn-evpn-vni"
+	namedprotocolsbgpbmptarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-bmp-target"
+	namedprotocolsbgpinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-interface"
+	namedprotocolsbgplistenrange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-listen-range"
+	namedprotocolsbgpneighbor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-neighbor"
+	namedprotocolsbgpneighborlocalas "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-neighbor-local-as"
+	namedprotocolsbgpneighborlocalrole "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-neighbor-local-role"
+	namedprotocolsbgpparametersdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-parameters-distance-prefix"
+	namedprotocolsbgppeergroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-peer-group"
+	namedprotocolsbgppeergrouplocalas "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-peer-group-local-as"
+	namedprotocolsbgppeergrouplocalrole "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-peer-group-local-role"
+	namedprotocolsfailoverroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/failover-route"
+	namedprotocolsfailoverroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/failover-route-next-hop"
+	namedprotocolsigmpproxyinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/igmp-proxy-interface"
+	namedprotocolsisisfastreroutelfalocaltiebreakerdownstreamindex "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/isis-fast-reroute-lfa-local-tiebreaker-downstream-index"
+	namedprotocolsisisfastreroutelfalocaltiebreakerlowestbackupmetricindex "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/isis-fast-reroute-lfa-local-tiebreaker-lowest-backup-metric-index"
+	namedprotocolsisisfastreroutelfalocaltiebreakernodeprotectingindex "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/isis-fast-reroute-lfa-local-tiebreaker-node-protecting-index"
+	namedprotocolsisisfastreroutelfaremoteprefixlist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/isis-fast-reroute-lfa-remote-prefix-list"
+	namedprotocolsisisinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/isis-interface"
+	namedprotocolsisissegmentroutingprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/isis-segment-routing-prefix"
+	namedprotocolsmplsldpneighbor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/mpls-ldp-neighbor"
+	namedprotocolsnhrptunnel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel"
+	namedprotocolsnhrptunneldynamicmap "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-dynamic-map"
+	namedprotocolsnhrptunnelmap "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-map"
+	namedprotocolsnhrptunnelshortcuttarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-shortcut-target"
+	namedprotocolsospfaccesslist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-access-list"
+	namedprotocolsospfarea "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-area"
+	namedprotocolsospfarearange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-area-range"
+	namedprotocolsospfareavirtuallink "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-area-virtual-link"
+	namedprotocolsospfareavirtuallinkauthenticationmdfivekeyid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-area-virtual-link-authentication-md5-key-id"
+	namedprotocolsospfinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-interface"
+	namedprotocolsospfinterfaceauthenticationmdfivekeyid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-interface-authentication-md5-key-id"
+	namedprotocolsospfneighbor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-neighbor"
+	namedprotocolsospfredistributetable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-redistribute-table"
+	namedprotocolsospfsegmentroutingprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-segment-routing-prefix"
+	namedprotocolsospfsummaryaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-summary-address"
+	namedprotocolspiminterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim-interface"
+	namedprotocolspiminterfaceigmpjoin "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim-interface-igmp-join"
+	namedprotocolspimrpaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim-rp-address"
+	namedprotocolsripdistributelistinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/rip-distribute-list-interface"
+	namedprotocolsripinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/rip-interface"
+	namedprotocolsripinterfaceauthenticationmdfive "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/rip-interface-authentication-md5"
+	namedprotocolsripnetworkdistance "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/rip-network-distance"
+	namedprotocolsripngdistributelistinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ripng-distribute-list-interface"
+	namedprotocolsripnginterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ripng-interface"
+	namedprotocolsrpkicache "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/rpki-cache"
+	namedprotocolssegmentroutinginterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/segment-routing-interface"
+	namedprotocolssegmentroutingsrvsixlocator "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/segment-routing-srv6-locator"
+	namedprotocolsstaticarpinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-arp-interface"
+	namedprotocolsstaticarpinterfaceaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-arp-interface-address"
+	namedprotocolsstaticmulticastinterfaceroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-multicast-interface-route"
+	namedprotocolsstaticmulticastinterfaceroutenexthopinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-multicast-interface-route-next-hop-interface"
+	namedprotocolsstaticmulticastroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-multicast-route"
+	namedprotocolsstaticmulticastroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-multicast-route-next-hop"
+	namedprotocolsstaticneighborproxyarp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-neighbor-proxy-arp"
+	namedprotocolsstaticneighborproxynd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-neighbor-proxy-nd"
+	namedprotocolsstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route"
+	namedprotocolsstaticrouteinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route-interface"
+	namedprotocolsstaticroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route-next-hop"
+	namedprotocolsstaticroutenexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route-next-hop-bfd-multi-hop-source"
+	namedprotocolsstaticroutesix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route6"
+	namedprotocolsstaticroutesixinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route6-interface"
+	namedprotocolsstaticroutesixnexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route6-next-hop"
+	namedprotocolsstaticroutesixnexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route6-next-hop-bfd-multi-hop-source"
+	namedprotocolsstatictable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table"
+	namedprotocolsstatictableroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route"
+	namedprotocolsstatictablerouteinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route-interface"
+	namedprotocolsstatictableroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route-next-hop"
+	namedprotocolsstatictableroutenexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route-next-hop-bfd-multi-hop-source"
+	namedprotocolsstatictableroutesix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route6"
+	namedprotocolsstatictableroutesixinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route6-interface"
+	namedprotocolsstatictableroutesixnexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route6-next-hop"
+	namedprotocolsstatictableroutesixnexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route6-next-hop-bfd-multi-hop-source"
 	namedqosinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/interface"
 	namedqospolicycake "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/policy-cake"
 	namedqospolicydroptail "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/policy-drop-tail"
@@ -136,6 +725,136 @@ import (
 	namedqospolicyshaperhfscclassmatch "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/policy-shaper-hfsc-class-match"
 	namedqostrafficmatchgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/traffic-match-group"
 	namedqostrafficmatchgroupmatch "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/traffic-match-group-match"
+	namedservicebroadcastrelayid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/broadcast-relay-id"
+	namedserviceconntracksyncinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/conntrack-sync-interface"
+	namedserviceconsoleserverdevice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/console-server-device"
+	namedservicedhcpserversharednetworkname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name"
+	namedservicedhcpserversharednetworknameoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-option-static-route"
+	namedservicedhcpserversharednetworknamesubnet "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet"
+	namedservicedhcpserversharednetworknamesubnetoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-option-static-route"
+	namedservicedhcpserversharednetworknamesubnetrange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-range"
+	namedservicedhcpserversharednetworknamesubnetrangeoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-range-option-static-route"
+	namedservicedhcpserversharednetworknamesubnetstaticmapping "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-static-mapping"
+	namedservicedhcpserversharednetworknamesubnetstaticmappingoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-static-mapping-option-static-route"
+	namedservicednsdynamicname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-dynamic-name"
+	namedservicednsforwardingauthoritativedomain "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain"
+	namedservicednsforwardingauthoritativedomainrecordsa "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-a"
+	namedservicednsforwardingauthoritativedomainrecordsaaaa "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-aaaa"
+	namedservicednsforwardingauthoritativedomainrecordscname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-cname"
+	namedservicednsforwardingauthoritativedomainrecordsmx "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-mx"
+	namedservicednsforwardingauthoritativedomainrecordsmxserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-mx-server"
+	namedservicednsforwardingauthoritativedomainrecordsnaptr "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-naptr"
+	namedservicednsforwardingauthoritativedomainrecordsnaptrrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-naptr-rule"
+	namedservicednsforwardingauthoritativedomainrecordsns "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-ns"
+	namedservicednsforwardingauthoritativedomainrecordsptr "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-ptr"
+	namedservicednsforwardingauthoritativedomainrecordsspf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-spf"
+	namedservicednsforwardingauthoritativedomainrecordssrv "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-srv"
+	namedservicednsforwardingauthoritativedomainrecordssrventry "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-srv-entry"
+	namedservicednsforwardingauthoritativedomainrecordstxt "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-txt"
+	namedservicednsforwardingdomain "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-domain"
+	namedservicednsforwardingdomainnameserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-domain-name-server"
+	namedservicednsforwardingnameserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-name-server"
+	namedserviceeventhandlerevent "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/event-handler-event"
+	namedserviceeventhandlereventscriptenvironment "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/event-handler-event-script-environment"
+	namedservicehttpsapikeysid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/https-api-keys-id"
+	namedserviceipoeserverauthenticationinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-authentication-interface"
+	namedserviceipoeserverauthenticationinterfacemac "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-authentication-interface-mac"
+	namedserviceipoeserverauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-authentication-radius-server"
+	namedserviceipoeserverclientippool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-client-ip-pool"
+	namedserviceipoeserverclientipvsixpool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-client-ipv6-pool"
+	namedserviceipoeserverclientipvsixpooldelegate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-client-ipv6-pool-delegate"
+	namedserviceipoeserverclientipvsixpoolprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-client-ipv6-pool-prefix"
+	namedserviceipoeserverinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-interface"
+	namedservicelldpinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/lldp-interface"
+	namedservicemonitoringzabbixagentserveractive "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/monitoring-zabbix-agent-server-active"
+	namedservicendpproxyinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ndp-proxy-interface"
+	namedservicendpproxyinterfaceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ndp-proxy-interface-prefix"
+	namedservicentpserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ntp-server"
+	namedservicepppoeserverauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-authentication-local-users-username"
+	namedservicepppoeserverauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-authentication-radius-server"
+	namedservicepppoeserverclientippool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-client-ip-pool"
+	namedservicepppoeserverclientipvsixpool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-client-ipv6-pool"
+	namedservicepppoeserverclientipvsixpooldelegate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-client-ipv6-pool-delegate"
+	namedservicepppoeserverclientipvsixpoolprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-client-ipv6-pool-prefix"
+	namedservicepppoeserverinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-interface"
+	namedservicepppoeserverpadodelay "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-pado-delay"
+	namedservicerouteradvertinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/router-advert-interface"
+	namedservicerouteradvertinterfacenatsixfourprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/router-advert-interface-nat64prefix"
+	namedservicerouteradvertinterfaceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/router-advert-interface-prefix"
+	namedservicerouteradvertinterfaceroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/router-advert-interface-route"
+	namedservicesnmpcommunity "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-community"
+	namedservicesnmplistenaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-listen-address"
+	namedservicesnmpscriptextensionsextensionname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-script-extensions-extension-name"
+	namedservicesnmptraptarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-trap-target"
+	namedservicesnmpvthreegroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-v3-group"
+	namedservicesnmpvthreetraptarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-v3-trap-target"
+	namedservicesnmpvthreeuser "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-v3-user"
+	namedservicesnmpvthreeview "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-v3-view"
+	namedservicesnmpvthreeviewoid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/snmp-v3-view-oid"
+	namedservicestunnelclient "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/stunnel-client"
+	namedservicestunnelclientpsk "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/stunnel-client-psk"
+	namedservicestunnelserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/stunnel-server"
+	namedservicestunnelserverpsk "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/stunnel-server-psk"
+	namedservicesuricataaddressgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/suricata-address-group"
+	namedservicesuricataportgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/suricata-port-group"
+	namedservicetftpserverlistenaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/tftp-server-listen-address"
+	namedservicewebproxycachepeer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/webproxy-cache-peer"
+	namedservicewebproxylistenaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/webproxy-listen-address"
+	namedservicewebproxyurlfilteringsquidguardrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/webproxy-url-filtering-squidguard-rule"
+	namedservicewebproxyurlfilteringsquidguardsourcegroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/webproxy-url-filtering-squidguard-source-group"
+	namedservicewebproxyurlfilteringsquidguardtimeperiod "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/webproxy-url-filtering-squidguard-time-period"
+	namedservicewebproxyurlfilteringsquidguardtimeperioddays "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/webproxy-url-filtering-squidguard-time-period-days"
+	namedsystemconntrackignoreipvfourrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/conntrack-ignore-ipv4-rule"
+	namedsystemconntrackignoreipvsixrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/conntrack-ignore-ipv6-rule"
+	namedsystemconntracktimeoutcustomipvfourrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/conntrack-timeout-custom-ipv4-rule"
+	namedsystemconntracktimeoutcustomipvsixrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/conntrack-timeout-custom-ipv6-rule"
+	namedsystemconsoledevice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/console-device"
+	namedsystemflowaccountingnetflowserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/flow-accounting-netflow-server"
+	namedsystemflowaccountingsflowserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/flow-accounting-sflow-server"
+	namedsystemipprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/ip-protocol"
+	namedsystemloginradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/login-radius-server"
+	namedsystemlogintacacsserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/login-tacacs-server"
+	namedsystemloginuser "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/login-user"
+	namedsystemloginuserauthenticationpublickeys "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/login-user-authentication-public-keys"
+	namedsystemsflowserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/sflow-server"
+	namedsystemstatichostmappinghostname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/static-host-mapping-host-name"
+	namedsystemsysctlparameter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/sysctl-parameter"
+	namedsystemsyslogconsolefacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-console-facility"
+	namedsystemsyslogfile "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-file"
+	namedsystemsyslogfilefacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-file-facility"
+	namedsystemsyslogglobalfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-global-facility"
+	namedsystemsysloghost "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-host"
+	namedsystemsysloghostfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-host-facility"
+	namedsystemsysloguser "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-user"
+	namedsystemsysloguserfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-user-facility"
+	namedsystemtaskschedulertask "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/task-scheduler-task"
+	namedvpnipsecauthenticationpsk "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-authentication-psk"
+	namedvpnipsecespgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-esp-group"
+	namedvpnipsecespgroupproposal "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-esp-group-proposal"
+	namedvpnipsecikegroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-ike-group"
+	namedvpnipsecikegroupproposal "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-ike-group-proposal"
+	namedvpnipsecprofile "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-profile"
+	namedvpnipsecremoteaccessconnection "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-remote-access-connection"
+	namedvpnipsecremoteaccessconnectionauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-remote-access-connection-authentication-local-users-username"
+	namedvpnipsecremoteaccesspool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-remote-access-pool"
+	namedvpnipsecremoteaccessradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-remote-access-radius-server"
+	namedvpnipsecsitetositepeer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-site-to-site-peer"
+	namedvpnipsecsitetositepeertunnel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-site-to-site-peer-tunnel"
+	namedvpnopenconnectaccountingradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/openconnect-accounting-radius-server"
+	namedvpnopenconnectauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/openconnect-authentication-local-users-username"
+	namedvpnopenconnectauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/openconnect-authentication-radius-server"
+	namedvpnpptpremoteaccessauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/pptp-remote-access-authentication-local-users-username"
+	namedvpnpptpremoteaccessauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/pptp-remote-access-authentication-radius-server"
+	namedvpnpptpremoteaccessclientippool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/pptp-remote-access-client-ip-pool"
+	namedvpnpptpremoteaccessclientipvsixpool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/pptp-remote-access-client-ipv6-pool"
+	namedvpnpptpremoteaccessclientipvsixpooldelegate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/pptp-remote-access-client-ipv6-pool-delegate"
+	namedvpnpptpremoteaccessclientipvsixpoolprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/pptp-remote-access-client-ipv6-pool-prefix"
+	namedvpnsstpauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/sstp-authentication-local-users-username"
+	namedvpnsstpauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/sstp-authentication-radius-server"
+	namedvpnsstpclientippool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/sstp-client-ip-pool"
+	namedvpnsstpclientipvsixpool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/sstp-client-ipv6-pool"
+	namedvpnsstpclientipvsixpooldelegate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/sstp-client-ipv6-pool-delegate"
+	namedvpnsstpclientipvsixpoolprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/sstp-client-ipv6-pool-prefix"
 	namedvrfname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name"
 	namedvrfnameipprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-ip-protocol"
 	namedvrfnameipvsixprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-ipv6-protocol"
@@ -201,18 +920,17 @@ import (
 // GetResources returns all autogenerated resources
 func GetResources() []func() resource.Resource {
 	return []func() resource.Resource{
-		namedcontainername.NewContainerName,
-		namedcontainernetwork.NewContainerNetwork,
-		namedcontainerregistry.NewContainerRegistry,
+		namedcontainernamesysctlparameter.NewContainerNameSysctlParameter,
 		namedcontainernamedevice.NewContainerNameDevice,
 		namedcontainernameenvironment.NewContainerNameEnvironment,
 		namedcontainernamelabel.NewContainerNameLabel,
-		namedcontainernamenetwork.NewContainerNameNetwork,
 		namedcontainernameport.NewContainerNamePort,
 		namedcontainernamevolume.NewContainerNameVolume,
-		namedcontainernamesysctlparameter.NewContainerNameSysctlParameter,
-		namedfirewallflowtable.NewFirewallFlowtable,
-		namedfirewallzone.NewFirewallZone,
+		namedcontainername.NewContainerName,
+		namedcontainernetwork.NewContainerNetwork,
+		namedcontainerregistry.NewContainerRegistry,
+		namedfirewallgroupdynamicgroupaddressgroup.NewFirewallGroupDynamicGroupAddressGroup,
+		namedfirewallgroupdynamicgroupipvsixaddressgroup.NewFirewallGroupDynamicGroupIPvsixAddressGroup,
 		namedfirewallgroupaddressgroup.NewFirewallGroupAddressGroup,
 		namedfirewallgroupdomaingroup.NewFirewallGroupDomainGroup,
 		namedfirewallgroupinterfacegroup.NewFirewallGroupInterfaceGroup,
@@ -221,28 +939,25 @@ func GetResources() []func() resource.Resource {
 		namedfirewallgroupmacgroup.NewFirewallGroupMacGroup,
 		namedfirewallgroupnetworkgroup.NewFirewallGroupNetworkGroup,
 		namedfirewallgroupportgroup.NewFirewallGroupPortGroup,
-		namedfirewallgroupdynamicgroupaddressgroup.NewFirewallGroupDynamicGroupAddressGroup,
-		namedfirewallgroupdynamicgroupipvsixaddressgroup.NewFirewallGroupDynamicGroupIPvsixAddressGroup,
-		namedfirewallbridgename.NewFirewallBrIDgeName,
 		namedfirewallbridgeforwardfilterrule.NewFirewallBrIDgeForwardFilterRule,
-		namedfirewallbridgeinputfilterrule.NewFirewallBrIDgeInputFilterRule,
-		namedfirewallbridgeoutputfilterrule.NewFirewallBrIDgeOutputFilterRule,
-		namedfirewallbridgepreroutingfilterrule.NewFirewallBrIDgePreroutingFilterRule,
+		namedfirewallbridgename.NewFirewallBrIDgeName,
 		namedfirewallbridgenamerule.NewFirewallBrIDgeNameRule,
-		namedfirewallipvfourname.NewFirewallIPvfourName,
 		namedfirewallipvfourforwardfilterrule.NewFirewallIPvfourForwardFilterRule,
 		namedfirewallipvfourinputfilterrule.NewFirewallIPvfourInputFilterRule,
 		namedfirewallipvfouroutputfilterrule.NewFirewallIPvfourOutputFilterRule,
 		namedfirewallipvfouroutputrawrule.NewFirewallIPvfourOutputRawRule,
 		namedfirewallipvfourpreroutingrawrule.NewFirewallIPvfourPreroutingRawRule,
+		namedfirewallipvfourname.NewFirewallIPvfourName,
 		namedfirewallipvfournamerule.NewFirewallIPvfourNameRule,
-		namedfirewallipvsixname.NewFirewallIPvsixName,
 		namedfirewallipvsixforwardfilterrule.NewFirewallIPvsixForwardFilterRule,
 		namedfirewallipvsixinputfilterrule.NewFirewallIPvsixInputFilterRule,
 		namedfirewallipvsixoutputfilterrule.NewFirewallIPvsixOutputFilterRule,
 		namedfirewallipvsixoutputrawrule.NewFirewallIPvsixOutputRawRule,
 		namedfirewallipvsixpreroutingrawrule.NewFirewallIPvsixPreroutingRawRule,
+		namedfirewallipvsixname.NewFirewallIPvsixName,
 		namedfirewallipvsixnamerule.NewFirewallIPvsixNameRule,
+		namedfirewallflowtable.NewFirewallFlowtable,
+		namedfirewallzone.NewFirewallZone,
 		namedfirewallzonefrom.NewFirewallZoneFrom,
 		globalfirewallglobaloptions.NewFirewallGlobalOptions,
 		globalfirewallglobaloptionsapplytobridgedtraffic.NewFirewallGlobalOptionsApplyToBrIDgedTraffic,
@@ -266,94 +981,811 @@ func GetResources() []func() resource.Resource {
 		globalfirewallipvsixoutputfilter.NewFirewallIPvsixOutputFilter,
 		globalfirewallipvsixoutputraw.NewFirewallIPvsixOutputRaw,
 		globalfirewallipvsixpreroutingraw.NewFirewallIPvsixPreroutingRaw,
-		namedhighavailabilityvirtualserver.NewHighAvailabilityVirtualServer,
 		namedhighavailabilityvrrpgroup.NewHighAvailabilityVrrpGroup,
-		namedhighavailabilityvrrpsyncgroup.NewHighAvailabilityVrrpSyncGroup,
 		namedhighavailabilityvrrpgroupaddress.NewHighAvailabilityVrrpGroupAddress,
 		namedhighavailabilityvrrpgroupexcludedaddress.NewHighAvailabilityVrrpGroupExcludedAddress,
+		namedhighavailabilityvrrpsyncgroup.NewHighAvailabilityVrrpSyncGroup,
+		namedhighavailabilityvirtualserver.NewHighAvailabilityVirtualServer,
 		namedhighavailabilityvirtualserverrealserver.NewHighAvailabilityVirtualServerRealServer,
 		globalhighavailability.NewHighAvailability,
 		globalhighavailabilityvrrp.NewHighAvailabilityVrrp,
 		globalhighavailabilityvrrpglobalparameters.NewHighAvailabilityVrrpGlobalParameters,
 		globalhighavailabilityvrrpglobalparametersgarp.NewHighAvailabilityVrrpGlobalParametersGarp,
+		namedinterfacesbondingdhcpvsixoptionspd.NewInterfacesBondingDhcpvsixOptionsPd,
+		namedinterfacesbondingdhcpvsixoptionspdinterface.NewInterfacesBondingDhcpvsixOptionsPdInterface,
+		namedinterfacesbondingvifs.NewInterfacesBondingVifS,
+		namedinterfacesbondingvifsdhcpvsixoptionspd.NewInterfacesBondingVifSDhcpvsixOptionsPd,
+		namedinterfacesbondingvifsdhcpvsixoptionspdinterface.NewInterfacesBondingVifSDhcpvsixOptionsPdInterface,
+		namedinterfacesbondingvifsvifc.NewInterfacesBondingVifSVifC,
+		namedinterfacesbondingvifsvifcdhcpvsixoptionspd.NewInterfacesBondingVifSVifCDhcpvsixOptionsPd,
+		namedinterfacesbondingvifsvifcdhcpvsixoptionspdinterface.NewInterfacesBondingVifSVifCDhcpvsixOptionsPdInterface,
+		namedinterfacesbondingvif.NewInterfacesBondingVif,
+		namedinterfacesbondingvifdhcpvsixoptionspd.NewInterfacesBondingVifDhcpvsixOptionsPd,
+		namedinterfacesbondingvifdhcpvsixoptionspdinterface.NewInterfacesBondingVifDhcpvsixOptionsPdInterface,
+		namedinterfacesbonding.NewInterfacesBonding,
+		namedinterfacesbridgedhcpvsixoptionspd.NewInterfacesBrIDgeDhcpvsixOptionsPd,
+		namedinterfacesbridgedhcpvsixoptionspdinterface.NewInterfacesBrIDgeDhcpvsixOptionsPdInterface,
+		namedinterfacesbridgememberinterface.NewInterfacesBrIDgeMemberInterface,
+		namedinterfacesbridgevif.NewInterfacesBrIDgeVif,
+		namedinterfacesbridgevifdhcpvsixoptionspd.NewInterfacesBrIDgeVifDhcpvsixOptionsPd,
+		namedinterfacesbridgevifdhcpvsixoptionspdinterface.NewInterfacesBrIDgeVifDhcpvsixOptionsPdInterface,
+		namedinterfacesbridge.NewInterfacesBrIDge,
+		namedinterfacesdummy.NewInterfacesDummy,
+		namedinterfacesethernetdhcpvsixoptionspd.NewInterfacesEthernetDhcpvsixOptionsPd,
+		namedinterfacesethernetdhcpvsixoptionspdinterface.NewInterfacesEthernetDhcpvsixOptionsPdInterface,
+		namedinterfacesethernetvifs.NewInterfacesEthernetVifS,
+		namedinterfacesethernetvifsdhcpvsixoptionspd.NewInterfacesEthernetVifSDhcpvsixOptionsPd,
+		namedinterfacesethernetvifsdhcpvsixoptionspdinterface.NewInterfacesEthernetVifSDhcpvsixOptionsPdInterface,
+		namedinterfacesethernetvifsvifc.NewInterfacesEthernetVifSVifC,
+		namedinterfacesethernetvifsvifcdhcpvsixoptionspd.NewInterfacesEthernetVifSVifCDhcpvsixOptionsPd,
+		namedinterfacesethernetvifsvifcdhcpvsixoptionspdinterface.NewInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface,
+		namedinterfacesethernetvif.NewInterfacesEthernetVif,
+		namedinterfacesethernetvifdhcpvsixoptionspd.NewInterfacesEthernetVifDhcpvsixOptionsPd,
+		namedinterfacesethernetvifdhcpvsixoptionspdinterface.NewInterfacesEthernetVifDhcpvsixOptionsPdInterface,
+		namedinterfacesethernet.NewInterfacesEthernet,
+		namedinterfacesgeneve.NewInterfacesGeneve,
+		namedinterfacesinput.NewInterfacesInput,
+		namedinterfacesloopback.NewInterfacesLoopback,
+		namedinterfacesmacsecdhcpvsixoptionspd.NewInterfacesMacsecDhcpvsixOptionsPd,
+		namedinterfacesmacsecdhcpvsixoptionspdinterface.NewInterfacesMacsecDhcpvsixOptionsPdInterface,
+		namedinterfacesmacsecsecuritystaticpeer.NewInterfacesMacsecSecURItyStaticPeer,
+		namedinterfacesmacsec.NewInterfacesMacsec,
+		namedinterfacesopenvpnserverpushroute.NewInterfacesOpenvpnServerPushRoute,
+		namedinterfacesopenvpn.NewInterfacesOpenvpn,
+		namedinterfacespppoedhcpvsixoptionspd.NewInterfacesPppoeDhcpvsixOptionsPd,
+		namedinterfacespppoedhcpvsixoptionspdinterface.NewInterfacesPppoeDhcpvsixOptionsPdInterface,
+		namedinterfacespppoe.NewInterfacesPppoe,
+		namedinterfacespseudoethernetdhcpvsixoptionspd.NewInterfacesPseudoEthernetDhcpvsixOptionsPd,
+		namedinterfacespseudoethernetdhcpvsixoptionspdinterface.NewInterfacesPseudoEthernetDhcpvsixOptionsPdInterface,
+		namedinterfacespseudoethernetvifs.NewInterfacesPseudoEthernetVifS,
+		namedinterfacespseudoethernetvifsdhcpvsixoptionspd.NewInterfacesPseudoEthernetVifSDhcpvsixOptionsPd,
+		namedinterfacespseudoethernetvifsdhcpvsixoptionspdinterface.NewInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface,
+		namedinterfacespseudoethernetvifsvifc.NewInterfacesPseudoEthernetVifSVifC,
+		namedinterfacespseudoethernetvifsvifcdhcpvsixoptionspd.NewInterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd,
+		namedinterfacespseudoethernetvifsvifcdhcpvsixoptionspdinterface.NewInterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPdInterface,
+		namedinterfacespseudoethernetvif.NewInterfacesPseudoEthernetVif,
+		namedinterfacespseudoethernetvifdhcpvsixoptionspd.NewInterfacesPseudoEthernetVifDhcpvsixOptionsPd,
+		namedinterfacespseudoethernetvifdhcpvsixoptionspdinterface.NewInterfacesPseudoEthernetVifDhcpvsixOptionsPdInterface,
+		namedinterfacespseudoethernet.NewInterfacesPseudoEthernet,
+		namedinterfacessstpc.NewInterfacesSstpc,
+		namedinterfacestunnel.NewInterfacesTunnel,
+		namedinterfacesvirtualethernetdhcpvsixoptionspd.NewInterfacesVirtualEthernetDhcpvsixOptionsPd,
+		namedinterfacesvirtualethernetdhcpvsixoptionspdinterface.NewInterfacesVirtualEthernetDhcpvsixOptionsPdInterface,
+		namedinterfacesvirtualethernetvifs.NewInterfacesVirtualEthernetVifS,
+		namedinterfacesvirtualethernetvifsdhcpvsixoptionspd.NewInterfacesVirtualEthernetVifSDhcpvsixOptionsPd,
+		namedinterfacesvirtualethernetvifsdhcpvsixoptionspdinterface.NewInterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface,
+		namedinterfacesvirtualethernetvifsvifc.NewInterfacesVirtualEthernetVifSVifC,
+		namedinterfacesvirtualethernetvifsvifcdhcpvsixoptionspd.NewInterfacesVirtualEthernetVifSVifCDhcpvsixOptionsPd,
+		namedinterfacesvirtualethernetvifsvifcdhcpvsixoptionspdinterface.NewInterfacesVirtualEthernetVifSVifCDhcpvsixOptionsPdInterface,
+		namedinterfacesvirtualethernetvif.NewInterfacesVirtualEthernetVif,
+		namedinterfacesvirtualethernetvifdhcpvsixoptionspd.NewInterfacesVirtualEthernetVifDhcpvsixOptionsPd,
+		namedinterfacesvirtualethernetvifdhcpvsixoptionspdinterface.NewInterfacesVirtualEthernetVifDhcpvsixOptionsPdInterface,
+		namedinterfacesvirtualethernet.NewInterfacesVirtualEthernet,
+		namedinterfacesvti.NewInterfacesVti,
+		namedinterfacesvxlanvlantovni.NewInterfacesVxlanVlanToVni,
+		namedinterfacesvxlan.NewInterfacesVxlan,
+		namedinterfaceswireguardpeer.NewInterfacesWireguardPeer,
+		namedinterfaceswireguard.NewInterfacesWireguard,
+		namedinterfaceswirelessdhcpvsixoptionspd.NewInterfacesWirelessDhcpvsixOptionsPd,
+		namedinterfaceswirelessdhcpvsixoptionspdinterface.NewInterfacesWirelessDhcpvsixOptionsPdInterface,
+		namedinterfaceswirelesssecuritywparadiusserver.NewInterfacesWirelessSecURItyWpaRadiusServer,
+		namedinterfaceswirelessvif.NewInterfacesWirelessVif,
+		namedinterfaceswirelessvifdhcpvsixoptionspd.NewInterfacesWirelessVifDhcpvsixOptionsPd,
+		namedinterfaceswirelessvifdhcpvsixoptionspdinterface.NewInterfacesWirelessVifDhcpvsixOptionsPdInterface,
+		namedinterfaceswirelessvifs.NewInterfacesWirelessVifS,
+		namedinterfaceswirelessvifsdhcpvsixoptionspd.NewInterfacesWirelessVifSDhcpvsixOptionsPd,
+		namedinterfaceswirelessvifsdhcpvsixoptionspdinterface.NewInterfacesWirelessVifSDhcpvsixOptionsPdInterface,
+		namedinterfaceswirelessvifsvifc.NewInterfacesWirelessVifSVifC,
+		namedinterfaceswirelessvifsvifcdhcpvsixoptionspd.NewInterfacesWirelessVifSVifCDhcpvsixOptionsPd,
+		namedinterfaceswirelessvifsvifcdhcpvsixoptionspdinterface.NewInterfacesWirelessVifSVifCDhcpvsixOptionsPdInterface,
+		namedinterfaceswireless.NewInterfacesWireless,
+		namedinterfaceswwandhcpvsixoptionspd.NewInterfacesWwanDhcpvsixOptionsPd,
+		namedinterfaceswwandhcpvsixoptionspdinterface.NewInterfacesWwanDhcpvsixOptionsPdInterface,
+		namedinterfaceswwan.NewInterfacesWwan,
+		namedloadbalancingreverseproxyglobalparametersloggingfacility.NewLoadBalancingReverseProxyGlobalParametersLoggingFacility,
+		namedloadbalancingreverseproxyservice.NewLoadBalancingReverseProxyService,
+		namedloadbalancingreverseproxyserviceloggingfacility.NewLoadBalancingReverseProxyServiceLoggingFacility,
+		namedloadbalancingreverseproxyservicerule.NewLoadBalancingReverseProxyServiceRule,
+		namedloadbalancingreverseproxyservicehttpresponseheaders.NewLoadBalancingReverseProxyServiceHTTPResponseHeaders,
+		namedloadbalancingreverseproxybackend.NewLoadBalancingReverseProxyBackend,
+		namedloadbalancingreverseproxybackendloggingfacility.NewLoadBalancingReverseProxyBackendLoggingFacility,
+		namedloadbalancingreverseproxybackendhttpresponseheaders.NewLoadBalancingReverseProxyBackendHTTPResponseHeaders,
+		namedloadbalancingreverseproxybackendrule.NewLoadBalancingReverseProxyBackendRule,
+		namedloadbalancingreverseproxybackendserver.NewLoadBalancingReverseProxyBackendServer,
+		globalloadbalancingreverseproxy.NewLoadBalancingReverseProxy,
+		globalloadbalancingreverseproxyglobalparameters.NewLoadBalancingReverseProxyGlobalParameters,
+		namedloadbalancingwaninterfacehealth.NewLoadBalancingWanInterfaceHealth,
+		namedloadbalancingwaninterfacehealthtest.NewLoadBalancingWanInterfaceHealthTest,
+		namedloadbalancingwanrule.NewLoadBalancingWanRule,
+		namedloadbalancingwanruleinterface.NewLoadBalancingWanRuleInterface,
+		globalloadbalancingwan.NewLoadBalancingWan,
+		globalloadbalancingwanstickyconnections.NewLoadBalancingWanStickyConnections,
 		namednatdestinationrule.NewNatDestinationRule,
 		namednatdestinationruleloadbalancebackend.NewNatDestinationRuleLoadBalanceBackend,
 		namednatsourcerule.NewNatSourceRule,
 		namednatsourceruleloadbalancebackend.NewNatSourceRuleLoadBalanceBackend,
 		namednatstaticrule.NewNatStaticRule,
+		namednatcgnatpoolexternal.NewNatCgnatPoolExternal,
+		namednatcgnatpoolexternalrange.NewNatCgnatPoolExternalRange,
+		namednatcgnatpoolinternal.NewNatCgnatPoolInternal,
+		namednatcgnatrule.NewNatCgnatRule,
+		globalnatcgnat.NewNatCgnat,
 		namednetnsname.NewNetnsName,
+		namedpkiopenvpnsharedsecret.NewPkiOpenvpnSharedSecret,
 		namedpkica.NewPkiCa,
 		namedpkicertificate.NewPkiCertificate,
 		namedpkidh.NewPkiDh,
 		namedpkikeypair.NewPkiKeyPair,
 		namedpkiopentcp.NewPkiOpenTCP,
-		namedpkiopenvpnsharedsecret.NewPkiOpenvpnSharedSecret,
 		globalpkixfivezeroninedefault.NewPkiXfivezeronineDefault,
 		namedpolicyaccesslist.NewPolicyAccessList,
-		namedpolicyaccesslistsix.NewPolicyAccessListsix,
-		namedpolicyaspathlist.NewPolicyAsPathList,
-		namedpolicycommunitylist.NewPolicyCommunityList,
-		namedpolicyextcommunitylist.NewPolicyExtcommunityList,
-		namedpolicylargecommunitylist.NewPolicyLargeCommunityList,
-		namedpolicyprefixlist.NewPolicyPrefixList,
-		namedpolicyprefixlistsix.NewPolicyPrefixListsix,
-		namedpolicyroutemap.NewPolicyRouteMap,
 		namedpolicyaccesslistrule.NewPolicyAccessListRule,
+		namedpolicyaccesslistsix.NewPolicyAccessListsix,
 		namedpolicyaccesslistsixrule.NewPolicyAccessListsixRule,
+		namedpolicyaspathlist.NewPolicyAsPathList,
 		namedpolicyaspathlistrule.NewPolicyAsPathListRule,
+		namedpolicycommunitylist.NewPolicyCommunityList,
 		namedpolicycommunitylistrule.NewPolicyCommunityListRule,
+		namedpolicyextcommunitylist.NewPolicyExtcommunityList,
 		namedpolicyextcommunitylistrule.NewPolicyExtcommunityListRule,
+		namedpolicylargecommunitylist.NewPolicyLargeCommunityList,
 		namedpolicylargecommunitylistrule.NewPolicyLargeCommunityListRule,
+		namedpolicyprefixlist.NewPolicyPrefixList,
 		namedpolicyprefixlistrule.NewPolicyPrefixListRule,
+		namedpolicyprefixlistsix.NewPolicyPrefixListsix,
 		namedpolicyprefixlistsixrule.NewPolicyPrefixListsixRule,
+		namedpolicyroutemap.NewPolicyRouteMap,
 		namedpolicyroutemaprule.NewPolicyRouteMapRule,
-		namedqosinterface.NewQosInterface,
-		namedqostrafficmatchgroup.NewQosTrafficMatchGroup,
+		namedpolicylocalrouterule.NewPolicyLocalRouteRule,
+		namedpolicylocalroutesixrule.NewPolicyLocalRoutesixRule,
+		namedpolicyroutesix.NewPolicyRoutesix,
+		namedpolicyroutesixrule.NewPolicyRoutesixRule,
+		namedpolicyroute.NewPolicyRoute,
+		namedpolicyrouterule.NewPolicyRouteRule,
+		namedprotocolsbabeldistributelistipvfourinterface.NewProtocolsBabelDistributeListIPvfourInterface,
+		namedprotocolsbabeldistributelistipvsixinterface.NewProtocolsBabelDistributeListIPvsixInterface,
+		namedprotocolsbabelinterface.NewProtocolsBabelInterface,
+		globalprotocolsbabelparameters.NewProtocolsBabelParameters,
+		globalprotocolsbabelredistributeipvfour.NewProtocolsBabelRedistributeIPvfour,
+		globalprotocolsbabelredistributeipvsix.NewProtocolsBabelRedistributeIPvsix,
+		globalprotocolsbabeldistributelistipvfouraccesslist.NewProtocolsBabelDistributeListIPvfourAccessList,
+		globalprotocolsbabeldistributelistipvfourprefixlist.NewProtocolsBabelDistributeListIPvfourPrefixList,
+		globalprotocolsbabeldistributelistipvsixaccesslist.NewProtocolsBabelDistributeListIPvsixAccessList,
+		globalprotocolsbabeldistributelistipvsixprefixlist.NewProtocolsBabelDistributeListIPvsixPrefixList,
+		namedprotocolsbfdpeer.NewProtocolsBfdPeer,
+		namedprotocolsbfdprofile.NewProtocolsBfdProfile,
+		namedprotocolsbgpaddressfamilyipvfourunicastdistanceprefix.NewProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix,
+		namedprotocolsbgpaddressfamilyipvfourunicastaggregateaddress.NewProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress,
+		namedprotocolsbgpaddressfamilyipvfourunicastnetwork.NewProtocolsBgpAddressFamilyIPvfourUnicastNetwork,
+		namedprotocolsbgpaddressfamilyipvfourmulticastdistanceprefix.NewProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix,
+		namedprotocolsbgpaddressfamilyipvfourmulticastaggregateaddress.NewProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress,
+		namedprotocolsbgpaddressfamilyipvfourmulticastnetwork.NewProtocolsBgpAddressFamilyIPvfourMulticastNetwork,
+		namedprotocolsbgpaddressfamilyipvfourlabeledunicastaggregateaddress.NewProtocolsBgpAddressFamilyIPvfourLabeledUnicastAggregateAddress,
+		namedprotocolsbgpaddressfamilyipvfourlabeledunicastnetwork.NewProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork,
+		namedprotocolsbgpaddressfamilyipvfourvpnnetwork.NewProtocolsBgpAddressFamilyIPvfourVpnNetwork,
+		namedprotocolsbgpaddressfamilyipvsixunicastdistanceprefix.NewProtocolsBgpAddressFamilyIPvsixUnicastDistancePrefix,
+		namedprotocolsbgpaddressfamilyipvsixunicastaggregateaddress.NewProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress,
+		namedprotocolsbgpaddressfamilyipvsixunicastnetwork.NewProtocolsBgpAddressFamilyIPvsixUnicastNetwork,
+		namedprotocolsbgpaddressfamilyipvsixmulticastdistanceprefix.NewProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix,
+		namedprotocolsbgpaddressfamilyipvsixmulticastaggregateaddress.NewProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress,
+		namedprotocolsbgpaddressfamilyipvsixmulticastnetwork.NewProtocolsBgpAddressFamilyIPvsixMulticastNetwork,
+		namedprotocolsbgpaddressfamilyipvsixlabeledunicastaggregateaddress.NewProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress,
+		namedprotocolsbgpaddressfamilyipvsixlabeledunicastnetwork.NewProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork,
+		namedprotocolsbgpaddressfamilyipvsixvpnnetwork.NewProtocolsBgpAddressFamilyIPvsixVpnNetwork,
+		namedprotocolsbgpaddressfamilyltwovpnevpnvni.NewProtocolsBgpAddressFamilyLtwovpnEvpnVni,
+		namedprotocolsbgpbmptarget.NewProtocolsBgpBmpTarget,
+		namedprotocolsbgplistenrange.NewProtocolsBgpListenRange,
+		namedprotocolsbgpparametersdistanceprefix.NewProtocolsBgpParametersDistancePrefix,
+		namedprotocolsbgpinterface.NewProtocolsBgpInterface,
+		namedprotocolsbgpneighbor.NewProtocolsBgpNeighbor,
+		namedprotocolsbgpneighborlocalas.NewProtocolsBgpNeighborLocalAs,
+		namedprotocolsbgpneighborlocalrole.NewProtocolsBgpNeighborLocalRole,
+		namedprotocolsbgppeergroup.NewProtocolsBgpPeerGroup,
+		namedprotocolsbgppeergrouplocalas.NewProtocolsBgpPeerGroupLocalAs,
+		namedprotocolsbgppeergrouplocalrole.NewProtocolsBgpPeerGroupLocalRole,
+		globalprotocolsbgp.NewProtocolsBgp,
+		globalprotocolsbgpaddressfamilyipvfourunicastdistance.NewProtocolsBgpAddressFamilyIPvfourUnicastDistance,
+		globalprotocolsbgpaddressfamilyipvfourunicastexport.NewProtocolsBgpAddressFamilyIPvfourUnicastExport,
+		globalprotocolsbgpaddressfamilyipvfourunicastimport.NewProtocolsBgpAddressFamilyIPvfourUnicastImport,
+		globalprotocolsbgpaddressfamilyipvfourunicastlabelvpn.NewProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn,
+		globalprotocolsbgpaddressfamilyipvfourunicastlabelvpnallocationmode.NewProtocolsBgpAddressFamilyIPvfourUnicastLabelVpnAllocationMode,
+		globalprotocolsbgpaddressfamilyipvfourunicastmaximumpaths.NewProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths,
+		globalprotocolsbgpaddressfamilyipvfourunicastrdvpn.NewProtocolsBgpAddressFamilyIPvfourUnicastRdVpn,
+		globalprotocolsbgpaddressfamilyipvfourunicastroutemapvpn.NewProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn,
+		globalprotocolsbgpaddressfamilyipvfourunicastroutetargetvpn.NewProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn,
+		globalprotocolsbgpaddressfamilyipvfourunicastnexthopvpn.NewProtocolsBgpAddressFamilyIPvfourUnicastNexthopVpn,
+		globalprotocolsbgpaddressfamilyipvfourunicastredistribute.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistribute,
+		globalprotocolsbgpaddressfamilyipvfourunicastredistributeconnected.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected,
+		globalprotocolsbgpaddressfamilyipvfourunicastredistributeisis.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis,
+		globalprotocolsbgpaddressfamilyipvfourunicastredistributekernel.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel,
+		globalprotocolsbgpaddressfamilyipvfourunicastredistributeospf.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf,
+		globalprotocolsbgpaddressfamilyipvfourunicastredistributerip.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP,
+		globalprotocolsbgpaddressfamilyipvfourunicastredistributebabel.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel,
+		globalprotocolsbgpaddressfamilyipvfourunicastredistributestatic.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic,
+		globalprotocolsbgpaddressfamilyipvfourunicastsidvpn.NewProtocolsBgpAddressFamilyIPvfourUnicastSIDVpn,
+		globalprotocolsbgpaddressfamilyipvfourmulticastdistance.NewProtocolsBgpAddressFamilyIPvfourMulticastDistance,
+		globalprotocolsbgpaddressfamilyipvfourlabeledunicastmaximumpaths.NewProtocolsBgpAddressFamilyIPvfourLabeledUnicastMaximumPaths,
+		globalprotocolsbgpaddressfamilyipvfourflowspeclocalinstall.NewProtocolsBgpAddressFamilyIPvfourFlowspecLocalInstall,
+		globalprotocolsbgpaddressfamilyipvsixunicastdistance.NewProtocolsBgpAddressFamilyIPvsixUnicastDistance,
+		globalprotocolsbgpaddressfamilyipvsixunicastexport.NewProtocolsBgpAddressFamilyIPvsixUnicastExport,
+		globalprotocolsbgpaddressfamilyipvsixunicastimport.NewProtocolsBgpAddressFamilyIPvsixUnicastImport,
+		globalprotocolsbgpaddressfamilyipvsixunicastlabelvpn.NewProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn,
+		globalprotocolsbgpaddressfamilyipvsixunicastlabelvpnallocationmode.NewProtocolsBgpAddressFamilyIPvsixUnicastLabelVpnAllocationMode,
+		globalprotocolsbgpaddressfamilyipvsixunicastmaximumpaths.NewProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths,
+		globalprotocolsbgpaddressfamilyipvsixunicastrdvpn.NewProtocolsBgpAddressFamilyIPvsixUnicastRdVpn,
+		globalprotocolsbgpaddressfamilyipvsixunicastroutemapvpn.NewProtocolsBgpAddressFamilyIPvsixUnicastRouteMapVpn,
+		globalprotocolsbgpaddressfamilyipvsixunicastroutetargetvpn.NewProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn,
+		globalprotocolsbgpaddressfamilyipvsixunicastnexthopvpn.NewProtocolsBgpAddressFamilyIPvsixUnicastNexthopVpn,
+		globalprotocolsbgpaddressfamilyipvsixunicastredistribute.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistribute,
+		globalprotocolsbgpaddressfamilyipvsixunicastredistributeconnected.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected,
+		globalprotocolsbgpaddressfamilyipvsixunicastredistributekernel.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel,
+		globalprotocolsbgpaddressfamilyipvsixunicastredistributeospfvthree.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree,
+		globalprotocolsbgpaddressfamilyipvsixunicastredistributeripng.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng,
+		globalprotocolsbgpaddressfamilyipvsixunicastredistributebabel.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel,
+		globalprotocolsbgpaddressfamilyipvsixunicastredistributestatic.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic,
+		globalprotocolsbgpaddressfamilyipvsixunicastsidvpn.NewProtocolsBgpAddressFamilyIPvsixUnicastSIDVpn,
+		globalprotocolsbgpaddressfamilyipvsixmulticastdistance.NewProtocolsBgpAddressFamilyIPvsixMulticastDistance,
+		globalprotocolsbgpaddressfamilyipvsixflowspeclocalinstall.NewProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall,
+		globalprotocolsbgpaddressfamilyltwovpnevpn.NewProtocolsBgpAddressFamilyLtwovpnEvpn,
+		globalprotocolsbgpaddressfamilyltwovpnevpnadvertiseipvfourunicast.NewProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast,
+		globalprotocolsbgpaddressfamilyltwovpnevpnadvertiseipvsixunicast.NewProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsixUnicast,
+		globalprotocolsbgpaddressfamilyltwovpnevpnroutetarget.NewProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget,
+		globalprotocolsbgpaddressfamilyltwovpnevpndefaultoriginate.NewProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate,
+		globalprotocolsbgpaddressfamilyltwovpnevpneadesfrag.NewProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag,
+		globalprotocolsbgpaddressfamilyltwovpnevpneadesroutetarget.NewProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget,
+		globalprotocolsbgpaddressfamilyltwovpnevpnflooding.NewProtocolsBgpAddressFamilyLtwovpnEvpnFlooding,
+		globalprotocolsbgpaddressfamilyltwovpnevpnmacvrf.NewProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf,
+		globalprotocolsbgpbmp.NewProtocolsBgpBmp,
+		globalprotocolsbgplisten.NewProtocolsBgpListen,
+		globalprotocolsbgpparameters.NewProtocolsBgpParameters,
+		globalprotocolsbgpparametersbestpath.NewProtocolsBgpParametersBestpath,
+		globalprotocolsbgpparametersbestpathaspath.NewProtocolsBgpParametersBestpathAsPath,
+		globalprotocolsbgpparametersbestpathpeertype.NewProtocolsBgpParametersBestpathPeerType,
+		globalprotocolsbgpparametersconfederation.NewProtocolsBgpParametersConfederation,
+		globalprotocolsbgpparametersconditionaladvertisement.NewProtocolsBgpParametersConditionalAdvertisement,
+		globalprotocolsbgpparametersdampening.NewProtocolsBgpParametersDampening,
+		globalprotocolsbgpparametersdefault.NewProtocolsBgpParametersDefault,
+		globalprotocolsbgpparametersdistanceglobal.NewProtocolsBgpParametersDistanceGlobal,
+		globalprotocolsbgpparametersgracefulrestart.NewProtocolsBgpParametersGracefulRestart,
+		globalprotocolsbgpparameterstcpkeepalive.NewProtocolsBgpParametersTCPKeepalive,
+		globalprotocolsbgpsrvsix.NewProtocolsBgpSrvsix,
+		globalprotocolsbgpsidvpnpervrf.NewProtocolsBgpSIDVpnPerVrf,
+		globalprotocolsbgptimers.NewProtocolsBgpTimers,
+		globalprotocolseigrp.NewProtocolsEigrp,
+		globalprotocolseigrpmetric.NewProtocolsEigrpMetric,
+		namedprotocolsfailoverroute.NewProtocolsFailoverRoute,
+		namedprotocolsfailoverroutenexthop.NewProtocolsFailoverRouteNextHop,
+		namedprotocolsigmpproxyinterface.NewProtocolsIgmpProxyInterface,
+		globalprotocolsigmpproxy.NewProtocolsIgmpProxy,
+		namedprotocolsisisfastreroutelfaremoteprefixlist.NewProtocolsIsisFastRerouteLfaRemotePrefixList,
+		namedprotocolsisisfastreroutelfalocaltiebreakerdownstreamindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex,
+		namedprotocolsisisfastreroutelfalocaltiebreakerlowestbackupmetricindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex,
+		namedprotocolsisisfastreroutelfalocaltiebreakernodeprotectingindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtectingIndex,
+		namedprotocolsisissegmentroutingprefix.NewProtocolsIsisSegmentRoutingPrefix,
+		namedprotocolsisisinterface.NewProtocolsIsisInterface,
+		globalprotocolsisis.NewProtocolsIsis,
+		globalprotocolsisisareapassword.NewProtocolsIsisAreaPassword,
+		globalprotocolsisisdefaultinformationoriginateipvfourlevelone.NewProtocolsIsisDefaultInformationOriginateIPvfourLevelOne,
+		globalprotocolsisisdefaultinformationoriginateipvfourleveltwo.NewProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo,
+		globalprotocolsisisdefaultinformationoriginateipvsixlevelone.NewProtocolsIsisDefaultInformationOriginateIPvsixLevelOne,
+		globalprotocolsisisdefaultinformationoriginateipvsixleveltwo.NewProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo,
+		globalprotocolsisisdomainpassword.NewProtocolsIsisDomainPassword,
+		globalprotocolsisisldpsync.NewProtocolsIsisLdpSync,
+		globalprotocolsisisfastreroutelfalocalloadsharingdisable.NewProtocolsIsisFastRerouteLfaLocalLoadSharingDisable,
+		globalprotocolsisisfastreroutelfalocalprioritylimitmedium.NewProtocolsIsisFastRerouteLfaLocalPriorityLimitMedium,
+		globalprotocolsisisfastreroutelfalocalprioritylimithigh.NewProtocolsIsisFastRerouteLfaLocalPriorityLimitHigh,
+		globalprotocolsisisfastreroutelfalocalprioritylimitcritical.NewProtocolsIsisFastRerouteLfaLocalPriorityLimitCritical,
+		globalprotocolsisistrafficengineering.NewProtocolsIsisTrafficEngineering,
+		globalprotocolsisissegmentrouting.NewProtocolsIsisSegmentRouting,
+		globalprotocolsisissegmentroutingglobalblock.NewProtocolsIsisSegmentRoutingGlobalBlock,
+		globalprotocolsisissegmentroutinglocalblock.NewProtocolsIsisSegmentRoutingLocalBlock,
+		globalprotocolsisisredistributeipvfourbgplevelone.NewProtocolsIsisRedistributeIPvfourBgpLevelOne,
+		globalprotocolsisisredistributeipvfourbgpleveltwo.NewProtocolsIsisRedistributeIPvfourBgpLevelTwo,
+		globalprotocolsisisredistributeipvfourconnectedlevelone.NewProtocolsIsisRedistributeIPvfourConnectedLevelOne,
+		globalprotocolsisisredistributeipvfourconnectedleveltwo.NewProtocolsIsisRedistributeIPvfourConnectedLevelTwo,
+		globalprotocolsisisredistributeipvfourkernellevelone.NewProtocolsIsisRedistributeIPvfourKernelLevelOne,
+		globalprotocolsisisredistributeipvfourkernelleveltwo.NewProtocolsIsisRedistributeIPvfourKernelLevelTwo,
+		globalprotocolsisisredistributeipvfourospflevelone.NewProtocolsIsisRedistributeIPvfourOspfLevelOne,
+		globalprotocolsisisredistributeipvfourospfleveltwo.NewProtocolsIsisRedistributeIPvfourOspfLevelTwo,
+		globalprotocolsisisredistributeipvfourriplevelone.NewProtocolsIsisRedistributeIPvfourRIPLevelOne,
+		globalprotocolsisisredistributeipvfourripleveltwo.NewProtocolsIsisRedistributeIPvfourRIPLevelTwo,
+		globalprotocolsisisredistributeipvfourbabellevelone.NewProtocolsIsisRedistributeIPvfourBabelLevelOne,
+		globalprotocolsisisredistributeipvfourbabelleveltwo.NewProtocolsIsisRedistributeIPvfourBabelLevelTwo,
+		globalprotocolsisisredistributeipvfourstaticlevelone.NewProtocolsIsisRedistributeIPvfourStaticLevelOne,
+		globalprotocolsisisredistributeipvfourstaticleveltwo.NewProtocolsIsisRedistributeIPvfourStaticLevelTwo,
+		globalprotocolsisisredistributeipvsixbgplevelone.NewProtocolsIsisRedistributeIPvsixBgpLevelOne,
+		globalprotocolsisisredistributeipvsixbgpleveltwo.NewProtocolsIsisRedistributeIPvsixBgpLevelTwo,
+		globalprotocolsisisredistributeipvsixconnectedlevelone.NewProtocolsIsisRedistributeIPvsixConnectedLevelOne,
+		globalprotocolsisisredistributeipvsixconnectedleveltwo.NewProtocolsIsisRedistributeIPvsixConnectedLevelTwo,
+		globalprotocolsisisredistributeipvsixkernellevelone.NewProtocolsIsisRedistributeIPvsixKernelLevelOne,
+		globalprotocolsisisredistributeipvsixkernelleveltwo.NewProtocolsIsisRedistributeIPvsixKernelLevelTwo,
+		globalprotocolsisisredistributeipvsixospfsixlevelone.NewProtocolsIsisRedistributeIPvsixOspfsixLevelOne,
+		globalprotocolsisisredistributeipvsixospfsixleveltwo.NewProtocolsIsisRedistributeIPvsixOspfsixLevelTwo,
+		globalprotocolsisisredistributeipvsixripnglevelone.NewProtocolsIsisRedistributeIPvsixRIPngLevelOne,
+		globalprotocolsisisredistributeipvsixripngleveltwo.NewProtocolsIsisRedistributeIPvsixRIPngLevelTwo,
+		globalprotocolsisisredistributeipvsixbabellevelone.NewProtocolsIsisRedistributeIPvsixBabelLevelOne,
+		globalprotocolsisisredistributeipvsixbabelleveltwo.NewProtocolsIsisRedistributeIPvsixBabelLevelTwo,
+		globalprotocolsisisredistributeipvsixstaticlevelone.NewProtocolsIsisRedistributeIPvsixStaticLevelOne,
+		globalprotocolsisisredistributeipvsixstaticleveltwo.NewProtocolsIsisRedistributeIPvsixStaticLevelTwo,
+		globalprotocolsisisspfdelayietf.NewProtocolsIsisSpfDelayIetf,
+		namedprotocolsmplsldpneighbor.NewProtocolsMplsLdpNeighbor,
+		globalprotocolsmpls.NewProtocolsMpls,
+		globalprotocolsmplsldp.NewProtocolsMplsLdp,
+		globalprotocolsmplsldpallocationipvfour.NewProtocolsMplsLdpAllocationIPvfour,
+		globalprotocolsmplsldpallocationipvsix.NewProtocolsMplsLdpAllocationIPvsix,
+		globalprotocolsmplsldpdiscovery.NewProtocolsMplsLdpDiscovery,
+		globalprotocolsmplsldptargetedneighboripvfour.NewProtocolsMplsLdpTargetedNeighborIPvfour,
+		globalprotocolsmplsldptargetedneighboripvsix.NewProtocolsMplsLdpTargetedNeighborIPvsix,
+		globalprotocolsmplsldpparameters.NewProtocolsMplsLdpParameters,
+		globalprotocolsmplsldpexportipvfour.NewProtocolsMplsLdpExportIPvfour,
+		globalprotocolsmplsldpexportipvfourexportfilter.NewProtocolsMplsLdpExportIPvfourExportFilter,
+		globalprotocolsmplsldpexportipvsix.NewProtocolsMplsLdpExportIPvsix,
+		globalprotocolsmplsldpexportipvsixexportfilter.NewProtocolsMplsLdpExportIPvsixExportFilter,
+		globalprotocolsmplsldpimportipvfourimportfilter.NewProtocolsMplsLdpImportIPvfourImportFilter,
+		globalprotocolsmplsldpimportipvsiximportfilter.NewProtocolsMplsLdpImportIPvsixImportFilter,
+		globalprotocolsmplsparameters.NewProtocolsMplsParameters,
+		namedprotocolsnhrptunnel.NewProtocolsNhrpTunnel,
+		namedprotocolsnhrptunneldynamicmap.NewProtocolsNhrpTunnelDynamicMap,
+		namedprotocolsnhrptunnelmap.NewProtocolsNhrpTunnelMap,
+		namedprotocolsnhrptunnelshortcuttarget.NewProtocolsNhrpTunnelShortcutTarget,
+		namedprotocolsospfsegmentroutingprefix.NewProtocolsOspfSegmentRoutingPrefix,
+		namedprotocolsospfredistributetable.NewProtocolsOspfRedistributeTable,
+		namedprotocolsospfaccesslist.NewProtocolsOspfAccessList,
+		namedprotocolsospfarea.NewProtocolsOspfArea,
+		namedprotocolsospfarearange.NewProtocolsOspfAreaRange,
+		namedprotocolsospfareavirtuallink.NewProtocolsOspfAreaVirtualLink,
+		namedprotocolsospfareavirtuallinkauthenticationmdfivekeyid.NewProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID,
+		namedprotocolsospfinterface.NewProtocolsOspfInterface,
+		namedprotocolsospfinterfaceauthenticationmdfivekeyid.NewProtocolsOspfInterfaceAuthenticationMdfiveKeyID,
+		namedprotocolsospfneighbor.NewProtocolsOspfNeighbor,
+		namedprotocolsospfsummaryaddress.NewProtocolsOspfSummaryAddress,
+		globalprotocolsospf.NewProtocolsOspf,
+		globalprotocolsospfaggregation.NewProtocolsOspfAggregation,
+		globalprotocolsospfautocost.NewProtocolsOspfAutoCost,
+		globalprotocolsospfcapability.NewProtocolsOspfCapability,
+		globalprotocolsospfdefaultinformationoriginate.NewProtocolsOspfDefaultInformationOriginate,
+		globalprotocolsospfgracefulrestart.NewProtocolsOspfGracefulRestart,
+		globalprotocolsospfgracefulrestarthelper.NewProtocolsOspfGracefulRestartHelper,
+		globalprotocolsospfgracefulrestarthelperenable.NewProtocolsOspfGracefulRestartHelperEnable,
+		globalprotocolsospfldpsync.NewProtocolsOspfLdpSync,
+		globalprotocolsospfdistance.NewProtocolsOspfDistance,
+		globalprotocolsospfdistanceospf.NewProtocolsOspfDistanceOspf,
+		globalprotocolsospflogadjacencychanges.NewProtocolsOspfLogAdjacencyChanges,
+		globalprotocolsospfmaxmetricrouterlsa.NewProtocolsOspfMaxMetricRouterLsa,
+		globalprotocolsospfmplste.NewProtocolsOspfMplsTe,
+		globalprotocolsospfparameters.NewProtocolsOspfParameters,
+		globalprotocolsospfsegmentrouting.NewProtocolsOspfSegmentRouting,
+		globalprotocolsospfsegmentroutingglobalblock.NewProtocolsOspfSegmentRoutingGlobalBlock,
+		globalprotocolsospfsegmentroutinglocalblock.NewProtocolsOspfSegmentRoutingLocalBlock,
+		globalprotocolsospfredistributebgp.NewProtocolsOspfRedistributeBgp,
+		globalprotocolsospfredistributeconnected.NewProtocolsOspfRedistributeConnected,
+		globalprotocolsospfredistributeisis.NewProtocolsOspfRedistributeIsis,
+		globalprotocolsospfredistributekernel.NewProtocolsOspfRedistributeKernel,
+		globalprotocolsospfredistributerip.NewProtocolsOspfRedistributeRIP,
+		globalprotocolsospfredistributebabel.NewProtocolsOspfRedistributeBabel,
+		globalprotocolsospfredistributestatic.NewProtocolsOspfRedistributeStatic,
+		globalprotocolsospfrefresh.NewProtocolsOspfRefresh,
+		globalprotocolsospftimersthrottlespf.NewProtocolsOspfTimersThroTTLeSpf,
+		namedprotocolspimrpaddress.NewProtocolsPimRpAddress,
+		namedprotocolspiminterface.NewProtocolsPimInterface,
+		namedprotocolspiminterfaceigmpjoin.NewProtocolsPimInterfaceIgmpJoin,
+		globalprotocolspim.NewProtocolsPim,
+		globalprotocolspimecmp.NewProtocolsPimEcmp,
+		globalprotocolspimigmp.NewProtocolsPimIgmp,
+		globalprotocolspimregisteracceptlist.NewProtocolsPimRegisterAcceptList,
+		globalprotocolspimrp.NewProtocolsPimRp,
+		globalprotocolspimsptswitchoverinfinityandbeyond.NewProtocolsPimSptSwitchoverInfinityAndBeyond,
+		globalprotocolspimssm.NewProtocolsPimSsm,
+		namedprotocolsripdistributelistinterface.NewProtocolsRIPDistributeListInterface,
+		namedprotocolsripinterface.NewProtocolsRIPInterface,
+		namedprotocolsripinterfaceauthenticationmdfive.NewProtocolsRIPInterfaceAuthenticationMdfive,
+		namedprotocolsripnetworkdistance.NewProtocolsRIPNetworkDistance,
+		globalprotocolsrip.NewProtocolsRIP,
+		globalprotocolsripdefaultinformation.NewProtocolsRIPDefaultInformation,
+		globalprotocolsripdistributelistaccesslist.NewProtocolsRIPDistributeListAccessList,
+		globalprotocolsripdistributelistprefixlist.NewProtocolsRIPDistributeListPrefixList,
+		globalprotocolsripredistributebgp.NewProtocolsRIPRedistributeBgp,
+		globalprotocolsripredistributeconnected.NewProtocolsRIPRedistributeConnected,
+		globalprotocolsripredistributeisis.NewProtocolsRIPRedistributeIsis,
+		globalprotocolsripredistributekernel.NewProtocolsRIPRedistributeKernel,
+		globalprotocolsripredistributeospf.NewProtocolsRIPRedistributeOspf,
+		globalprotocolsripredistributestatic.NewProtocolsRIPRedistributeStatic,
+		globalprotocolsripredistributebabel.NewProtocolsRIPRedistributeBabel,
+		globalprotocolsriptimers.NewProtocolsRIPTimers,
+		namedprotocolsripngdistributelistinterface.NewProtocolsRIPngDistributeListInterface,
+		namedprotocolsripnginterface.NewProtocolsRIPngInterface,
+		globalprotocolsripng.NewProtocolsRIPng,
+		globalprotocolsripngdefaultinformation.NewProtocolsRIPngDefaultInformation,
+		globalprotocolsripngdistributelistaccesslist.NewProtocolsRIPngDistributeListAccessList,
+		globalprotocolsripngdistributelistprefixlist.NewProtocolsRIPngDistributeListPrefixList,
+		globalprotocolsripngredistributebgp.NewProtocolsRIPngRedistributeBgp,
+		globalprotocolsripngredistributeconnected.NewProtocolsRIPngRedistributeConnected,
+		globalprotocolsripngredistributekernel.NewProtocolsRIPngRedistributeKernel,
+		globalprotocolsripngredistributeospfvthree.NewProtocolsRIPngRedistributeOspfvthree,
+		globalprotocolsripngredistributestatic.NewProtocolsRIPngRedistributeStatic,
+		globalprotocolsripngredistributebabel.NewProtocolsRIPngRedistributeBabel,
+		globalprotocolsripngtimers.NewProtocolsRIPngTimers,
+		namedprotocolsrpkicache.NewProtocolsRpkiCache,
+		globalprotocolsrpki.NewProtocolsRpki,
+		namedprotocolssegmentroutingsrvsixlocator.NewProtocolsSegmentRoutingSrvsixLocator,
+		namedprotocolssegmentroutinginterface.NewProtocolsSegmentRoutingInterface,
+		namedprotocolsstaticroute.NewProtocolsStaticRoute,
+		namedprotocolsstaticrouteinterface.NewProtocolsStaticRouteInterface,
+		namedprotocolsstaticroutenexthop.NewProtocolsStaticRouteNextHop,
+		namedprotocolsstaticroutenexthopbfdmultihopsource.NewProtocolsStaticRouteNextHopBfdMultiHopSource,
+		namedprotocolsstaticroutesix.NewProtocolsStaticRoutesix,
+		namedprotocolsstaticroutesixinterface.NewProtocolsStaticRoutesixInterface,
+		namedprotocolsstaticroutesixnexthop.NewProtocolsStaticRoutesixNextHop,
+		namedprotocolsstaticroutesixnexthopbfdmultihopsource.NewProtocolsStaticRoutesixNextHopBfdMultiHopSource,
+		namedprotocolsstatictable.NewProtocolsStaticTable,
+		namedprotocolsstatictableroute.NewProtocolsStaticTableRoute,
+		namedprotocolsstatictablerouteinterface.NewProtocolsStaticTableRouteInterface,
+		namedprotocolsstatictableroutenexthop.NewProtocolsStaticTableRouteNextHop,
+		namedprotocolsstatictableroutenexthopbfdmultihopsource.NewProtocolsStaticTableRouteNextHopBfdMultiHopSource,
+		namedprotocolsstatictableroutesix.NewProtocolsStaticTableRoutesix,
+		namedprotocolsstatictableroutesixinterface.NewProtocolsStaticTableRoutesixInterface,
+		namedprotocolsstatictableroutesixnexthop.NewProtocolsStaticTableRoutesixNextHop,
+		namedprotocolsstatictableroutesixnexthopbfdmultihopsource.NewProtocolsStaticTableRoutesixNextHopBfdMultiHopSource,
+		globalprotocolsstatic.NewProtocolsStatic,
+		namedprotocolsstaticarpinterface.NewProtocolsStaticArpInterface,
+		namedprotocolsstaticarpinterfaceaddress.NewProtocolsStaticArpInterfaceAddress,
+		namedprotocolsstaticmulticastroute.NewProtocolsStaticMulticastRoute,
+		namedprotocolsstaticmulticastroutenexthop.NewProtocolsStaticMulticastRouteNextHop,
+		namedprotocolsstaticmulticastinterfaceroute.NewProtocolsStaticMulticastInterfaceRoute,
+		namedprotocolsstaticmulticastinterfaceroutenexthopinterface.NewProtocolsStaticMulticastInterfaceRouteNextHopInterface,
+		namedprotocolsstaticneighborproxyarp.NewProtocolsStaticNeighborProxyArp,
+		namedprotocolsstaticneighborproxynd.NewProtocolsStaticNeighborProxyNd,
 		namedqospolicycake.NewQosPolicyCake,
 		namedqospolicydroptail.NewQosPolicyDropTail,
 		namedqospolicyfairqueue.NewQosPolicyFairQueue,
 		namedqospolicyfqcodel.NewQosPolicyFqCodel,
 		namedqospolicylimiter.NewQosPolicyLimiter,
-		namedqospolicynetworkemulator.NewQosPolicyNetworkEmulator,
-		namedqospolicypriorityqueue.NewQosPolicyPriorityQueue,
-		namedqospolicyrandomdetect.NewQosPolicyRandomDetect,
-		namedqospolicyratecontrol.NewQosPolicyRateControl,
-		namedqospolicyroundrobin.NewQosPolicyRoundRobin,
-		namedqospolicyshaper.NewQosPolicyShaper,
-		namedqospolicyshaperhfsc.NewQosPolicyShaperHfsc,
 		namedqospolicylimiterclass.NewQosPolicyLimiterClass,
 		namedqospolicylimiterclassmatch.NewQosPolicyLimiterClassMatch,
+		namedqospolicynetworkemulator.NewQosPolicyNetworkEmulator,
+		namedqospolicypriorityqueue.NewQosPolicyPriorityQueue,
 		namedqospolicypriorityqueueclass.NewQosPolicyPriorityQueueClass,
 		namedqospolicypriorityqueueclassmatch.NewQosPolicyPriorityQueueClassMatch,
+		namedqospolicyrandomdetect.NewQosPolicyRandomDetect,
 		namedqospolicyrandomdetectprecedence.NewQosPolicyRandomDetectPrecedence,
+		namedqospolicyratecontrol.NewQosPolicyRateControl,
+		namedqospolicyroundrobin.NewQosPolicyRoundRobin,
 		namedqospolicyroundrobinclass.NewQosPolicyRoundRobinClass,
 		namedqospolicyroundrobinclassmatch.NewQosPolicyRoundRobinClassMatch,
+		namedqospolicyshaper.NewQosPolicyShaper,
 		namedqospolicyshaperclass.NewQosPolicyShaperClass,
 		namedqospolicyshaperclassmatch.NewQosPolicyShaperClassMatch,
+		namedqospolicyshaperhfsc.NewQosPolicyShaperHfsc,
 		namedqospolicyshaperhfscclass.NewQosPolicyShaperHfscClass,
 		namedqospolicyshaperhfscclassmatch.NewQosPolicyShaperHfscClassMatch,
+		namedqosinterface.NewQosInterface,
+		namedqostrafficmatchgroup.NewQosTrafficMatchGroup,
 		namedqostrafficmatchgroupmatch.NewQosTrafficMatchGroupMatch,
+		globalserviceawsglbscript.NewServiceAwsGlbScrIPt,
+		globalserviceawsglbstatus.NewServiceAwsGlbStatus,
+		globalserviceawsglbthreads.NewServiceAwsGlbThreads,
+		namedservicebroadcastrelayid.NewServiceBroadcastRelayID,
+		globalservicebroadcastrelay.NewServiceBroadcastRelay,
+		globalserviceconfigsync.NewServiceConfigSync,
+		globalserviceconfigsyncsecondary.NewServiceConfigSyncSecondary,
+		globalserviceconfigsyncsection.NewServiceConfigSyncSection,
+		globalserviceconfigsyncsectioninterfaces.NewServiceConfigSyncSectionInterfaces,
+		globalserviceconfigsyncsectionprotocols.NewServiceConfigSyncSectionProtocols,
+		globalserviceconfigsyncsectionqos.NewServiceConfigSyncSectionQos,
+		globalserviceconfigsyncsectionservice.NewServiceConfigSyncSectionService,
+		globalserviceconfigsyncsectionsystem.NewServiceConfigSyncSectionSystem,
+		namedserviceconntracksyncinterface.NewServiceConntrackSyncInterface,
+		globalserviceconntracksync.NewServiceConntrackSync,
+		globalserviceconntracksyncfailovermechanismvrrp.NewServiceConntrackSyncFailoverMechanismVrrp,
+		namedserviceconsoleserverdevice.NewServiceConsoleServerDevice,
+		globalservicedhcprelay.NewServiceDhcpRelay,
+		globalservicedhcprelayrelayoptions.NewServiceDhcpRelayRelayOptions,
+		namedservicedhcpserversharednetworkname.NewServiceDhcpServerSharedNetworkName,
+		namedservicedhcpserversharednetworknameoptionstaticroute.NewServiceDhcpServerSharedNetworkNameOptionStaticRoute,
+		namedservicedhcpserversharednetworknamesubnet.NewServiceDhcpServerSharedNetworkNameSubnet,
+		namedservicedhcpserversharednetworknamesubnetoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetOptionStaticRoute,
+		namedservicedhcpserversharednetworknamesubnetrange.NewServiceDhcpServerSharedNetworkNameSubnetRange,
+		namedservicedhcpserversharednetworknamesubnetrangeoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute,
+		namedservicedhcpserversharednetworknamesubnetstaticmapping.NewServiceDhcpServerSharedNetworkNameSubnetStaticMapping,
+		namedservicedhcpserversharednetworknamesubnetstaticmappingoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetStaticMappingOptionStaticRoute,
+		globalservicedhcpserver.NewServiceDhcpServer,
+		globalservicedhcpserverhighavailability.NewServiceDhcpServerHighAvailability,
+		namedservicednsdynamicname.NewServiceDNSDynamicName,
+		globalservicednsdynamic.NewServiceDNSDynamic,
+		namedservicednsforwardingdomain.NewServiceDNSForwardingDomain,
+		namedservicednsforwardingdomainnameserver.NewServiceDNSForwardingDomainNameServer,
+		namedservicednsforwardingauthoritativedomain.NewServiceDNSForwardingAuthoritativeDomain,
+		namedservicednsforwardingauthoritativedomainrecordsa.NewServiceDNSForwardingAuthoritativeDomainRecordsA,
+		namedservicednsforwardingauthoritativedomainrecordsaaaa.NewServiceDNSForwardingAuthoritativeDomainRecordsAaaa,
+		namedservicednsforwardingauthoritativedomainrecordscname.NewServiceDNSForwardingAuthoritativeDomainRecordsCname,
+		namedservicednsforwardingauthoritativedomainrecordsmx.NewServiceDNSForwardingAuthoritativeDomainRecordsMx,
+		namedservicednsforwardingauthoritativedomainrecordsmxserver.NewServiceDNSForwardingAuthoritativeDomainRecordsMxServer,
+		namedservicednsforwardingauthoritativedomainrecordsns.NewServiceDNSForwardingAuthoritativeDomainRecordsNs,
+		namedservicednsforwardingauthoritativedomainrecordsptr.NewServiceDNSForwardingAuthoritativeDomainRecordsPtr,
+		namedservicednsforwardingauthoritativedomainrecordstxt.NewServiceDNSForwardingAuthoritativeDomainRecordsTxt,
+		namedservicednsforwardingauthoritativedomainrecordsspf.NewServiceDNSForwardingAuthoritativeDomainRecordsSpf,
+		namedservicednsforwardingauthoritativedomainrecordssrv.NewServiceDNSForwardingAuthoritativeDomainRecordsSrv,
+		namedservicednsforwardingauthoritativedomainrecordssrventry.NewServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry,
+		namedservicednsforwardingauthoritativedomainrecordsnaptr.NewServiceDNSForwardingAuthoritativeDomainRecordsNaptr,
+		namedservicednsforwardingauthoritativedomainrecordsnaptrrule.NewServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule,
+		namedservicednsforwardingnameserver.NewServiceDNSForwardingNameServer,
+		globalservicednsforwarding.NewServiceDNSForwarding,
+		globalservicednsforwardingoptions.NewServiceDNSForwardingOptions,
+		namedserviceeventhandlerevent.NewServiceEventHandlerEvent,
+		namedserviceeventhandlereventscriptenvironment.NewServiceEventHandlerEventScrIPtEnvironment,
+		namedservicehttpsapikeysid.NewServiceHTTPSAPIKeysID,
+		globalservicehttps.NewServiceHTTPS,
+		globalservicehttpsapi.NewServiceHTTPSAPI,
+		globalservicehttpsapigraphql.NewServiceHTTPSAPIGraphql,
+		globalservicehttpsapigraphqlauthentication.NewServiceHTTPSAPIGraphqlAuthentication,
+		globalservicehttpsapicors.NewServiceHTTPSAPICors,
+		globalservicehttpsallowclient.NewServiceHTTPSAllowClient,
+		globalservicehttpscertificates.NewServiceHTTPSCertificates,
+		globalserviceidsddosprotection.NewServiceIDsDdosProtection,
+		globalserviceidsddosprotectionsflow.NewServiceIDsDdosProtectionSflow,
+		globalserviceidsddosprotectionthresholdgeneral.NewServiceIDsDdosProtectionThresholdGeneral,
+		globalserviceidsddosprotectionthresholdtcp.NewServiceIDsDdosProtectionThresholdTCP,
+		globalserviceidsddosprotectionthresholdudp.NewServiceIDsDdosProtectionThresholdUDP,
+		globalserviceidsddosprotectionthresholdicmp.NewServiceIDsDdosProtectionThresholdIcmp,
+		namedserviceipoeserverauthenticationradiusserver.NewServiceIPoeServerAuthenticationRadiusServer,
+		namedserviceipoeserverauthenticationinterface.NewServiceIPoeServerAuthenticationInterface,
+		namedserviceipoeserverauthenticationinterfacemac.NewServiceIPoeServerAuthenticationInterfaceMac,
+		namedserviceipoeserverinterface.NewServiceIPoeServerInterface,
+		namedserviceipoeserverclientippool.NewServiceIPoeServerClientIPPool,
+		namedserviceipoeserverclientipvsixpool.NewServiceIPoeServerClientIPvsixPool,
+		namedserviceipoeserverclientipvsixpoolprefix.NewServiceIPoeServerClientIPvsixPoolPrefix,
+		namedserviceipoeserverclientipvsixpooldelegate.NewServiceIPoeServerClientIPvsixPoolDelegate,
+		globalserviceipoeserver.NewServiceIPoeServer,
+		globalserviceipoeserverauthentication.NewServiceIPoeServerAuthentication,
+		globalserviceipoeserverauthenticationradius.NewServiceIPoeServerAuthenticationRadius,
+		globalserviceipoeserverauthenticationradiusdynamicauthor.NewServiceIPoeServerAuthenticationRadiusDynamicAuthor,
+		globalserviceipoeserverauthenticationradiusratelimit.NewServiceIPoeServerAuthenticationRadiusRateLimit,
+		globalserviceipoeserverextendedscripts.NewServiceIPoeServerExtendedScrIPts,
+		globalserviceipoeserverlimits.NewServiceIPoeServerLimits,
+		globalserviceipoeservershaper.NewServiceIPoeServerShaper,
+		globalserviceipoeserversnmp.NewServiceIPoeServerSnmp,
+		globalserviceipoeserverlog.NewServiceIPoeServerLog,
+		namedservicelldpinterface.NewServiceLldpInterface,
+		globalservicelldp.NewServiceLldp,
+		globalservicelldplegacyprotocols.NewServiceLldpLegacyProtocols,
+		globalservicemdnsrepeater.NewServiceMDNSRepeater,
+		globalservicemonitoringtelegraf.NewServiceMonitoringTelegraf,
+		globalservicemonitoringtelegrafinfluxdb.NewServiceMonitoringTelegrafInfluxdb,
+		globalservicemonitoringtelegrafinfluxdbauthentication.NewServiceMonitoringTelegrafInfluxdbAuthentication,
+		globalservicemonitoringtelegrafazuredataexplorer.NewServiceMonitoringTelegrafAzureDataExplorer,
+		globalservicemonitoringtelegrafazuredataexplorerauthentication.NewServiceMonitoringTelegrafAzureDataExplorerAuthentication,
+		globalservicemonitoringtelegrafloki.NewServiceMonitoringTelegrafLoki,
+		globalservicemonitoringtelegraflokiauthentication.NewServiceMonitoringTelegrafLokiAuthentication,
+		globalservicemonitoringtelegrafprometheusclient.NewServiceMonitoringTelegrafPrometheusClient,
+		globalservicemonitoringtelegrafprometheusclientauthentication.NewServiceMonitoringTelegrafPrometheusClientAuthentication,
+		globalservicemonitoringtelegrafsplunk.NewServiceMonitoringTelegrafSplunk,
+		globalservicemonitoringtelegrafsplunkauthentication.NewServiceMonitoringTelegrafSplunkAuthentication,
+		namedservicemonitoringzabbixagentserveractive.NewServiceMonitoringZabbixAgentServerActive,
+		globalservicemonitoringzabbixagent.NewServiceMonitoringZabbixAgent,
+		globalservicemonitoringzabbixagentlimits.NewServiceMonitoringZabbixAgentLimits,
+		globalservicemonitoringzabbixagentlog.NewServiceMonitoringZabbixAgentLog,
+		namedservicendpproxyinterface.NewServiceNdpProxyInterface,
+		namedservicendpproxyinterfaceprefix.NewServiceNdpProxyInterfacePrefix,
+		globalservicendpproxy.NewServiceNdpProxy,
+		namedservicentpserver.NewServiceNtpServer,
+		globalservicentp.NewServiceNtp,
+		globalservicentpallowclient.NewServiceNtpAllowClient,
+		namedservicepppoeserverauthenticationlocalusersusername.NewServicePppoeServerAuthenticationLocalUsersUsername,
+		namedservicepppoeserverauthenticationradiusserver.NewServicePppoeServerAuthenticationRadiusServer,
+		namedservicepppoeserverinterface.NewServicePppoeServerInterface,
+		namedservicepppoeserverpadodelay.NewServicePppoeServerPadoDelay,
+		namedservicepppoeserverclientippool.NewServicePppoeServerClientIPPool,
+		namedservicepppoeserverclientipvsixpool.NewServicePppoeServerClientIPvsixPool,
+		namedservicepppoeserverclientipvsixpoolprefix.NewServicePppoeServerClientIPvsixPoolPrefix,
+		namedservicepppoeserverclientipvsixpooldelegate.NewServicePppoeServerClientIPvsixPoolDelegate,
+		globalservicepppoeserver.NewServicePppoeServer,
+		globalservicepppoeserverauthentication.NewServicePppoeServerAuthentication,
+		globalservicepppoeserverauthenticationradius.NewServicePppoeServerAuthenticationRadius,
+		globalservicepppoeserverauthenticationradiusdynamicauthor.NewServicePppoeServerAuthenticationRadiusDynamicAuthor,
+		globalservicepppoeserverauthenticationradiusratelimit.NewServicePppoeServerAuthenticationRadiusRateLimit,
+		globalservicepppoeserverextendedscripts.NewServicePppoeServerExtendedScrIPts,
+		globalservicepppoeserverlimits.NewServicePppoeServerLimits,
+		globalservicepppoeserverpppoptions.NewServicePppoeServerPppOptions,
+		globalservicepppoeservershaper.NewServicePppoeServerShaper,
+		globalservicepppoeserversnmp.NewServicePppoeServerSnmp,
+		globalservicepppoeserverlog.NewServicePppoeServerLog,
+		namedservicerouteradvertinterface.NewServiceRouterAdvertInterface,
+		namedservicerouteradvertinterfaceroute.NewServiceRouterAdvertInterfaceRoute,
+		namedservicerouteradvertinterfacenatsixfourprefix.NewServiceRouterAdvertInterfaceNatsixfourprefix,
+		namedservicerouteradvertinterfaceprefix.NewServiceRouterAdvertInterfacePrefix,
+		globalservicesaltminion.NewServiceSaltMinion,
+		globalserviceslaowampserver.NewServiceSLAOwampServer,
+		globalserviceslatwampserver.NewServiceSLATwampServer,
+		namedservicesnmpvthreegroup.NewServiceSnmpVthreeGroup,
+		namedservicesnmpvthreetraptarget.NewServiceSnmpVthreeTrapTarget,
+		namedservicesnmpvthreeuser.NewServiceSnmpVthreeUser,
+		namedservicesnmpvthreeview.NewServiceSnmpVthreeView,
+		namedservicesnmpvthreeviewoid.NewServiceSnmpVthreeViewOID,
+		namedservicesnmpscriptextensionsextensionname.NewServiceSnmpScrIPtExtensionsExtensionName,
+		namedservicesnmpcommunity.NewServiceSnmpCommunity,
+		namedservicesnmplistenaddress.NewServiceSnmpListenAddress,
+		namedservicesnmptraptarget.NewServiceSnmpTrapTarget,
+		globalservicesnmp.NewServiceSnmp,
+		globalservicesnmpmib.NewServiceSnmpMib,
+		globalservicesnmpvthree.NewServiceSnmpVthree,
+		globalservicetcp.NewServiceTCP,
+		globalservicetcpaccesscontrolallow.NewServiceTCPAccessControlAllow,
+		globalservicetcpaccesscontroldeny.NewServiceTCPAccessControlDeny,
+		globalservicetcpdynamicprotection.NewServiceTCPDynamicProtection,
+		globalservicetcprekey.NewServiceTCPRekey,
+		namedservicestunnelserver.NewServiceStunnelServer,
+		namedservicestunnelserverpsk.NewServiceStunnelServerPsk,
+		namedservicestunnelclient.NewServiceStunnelClient,
+		namedservicestunnelclientpsk.NewServiceStunnelClientPsk,
+		globalservicestunnellog.NewServiceStunnelLog,
+		namedservicesuricataaddressgroup.NewServiceSURIcataAddressGroup,
+		namedservicesuricataportgroup.NewServiceSURIcataPortGroup,
+		globalservicesuricata.NewServiceSURIcata,
+		globalservicesuricatalogeve.NewServiceSURIcataLogEve,
+		namedservicetftpserverlistenaddress.NewServiceTftpServerListenAddress,
+		globalservicetftpserver.NewServiceTftpServer,
+		namedservicewebproxyurlfilteringsquidguardrule.NewServiceWebproxyURLFilteringSquIDguardRule,
+		namedservicewebproxyurlfilteringsquidguardsourcegroup.NewServiceWebproxyURLFilteringSquIDguardSourceGroup,
+		namedservicewebproxyurlfilteringsquidguardtimeperiod.NewServiceWebproxyURLFilteringSquIDguardTimePeriod,
+		namedservicewebproxyurlfilteringsquidguardtimeperioddays.NewServiceWebproxyURLFilteringSquIDguardTimePeriodDays,
+		namedservicewebproxycachepeer.NewServiceWebproxyCachePeer,
+		namedservicewebproxylistenaddress.NewServiceWebproxyListenAddress,
+		globalservicewebproxy.NewServiceWebproxy,
+		globalservicewebproxyauthentication.NewServiceWebproxyAuthentication,
+		globalservicewebproxyauthenticationldap.NewServiceWebproxyAuthenticationLdap,
+		globalservicewebproxyurlfiltering.NewServiceWebproxyURLFiltering,
+		globalservicewebproxyurlfilteringsquidguard.NewServiceWebproxyURLFilteringSquIDguard,
+		globalservicewebproxyurlfilteringsquidguardautoupdate.NewServiceWebproxyURLFilteringSquIDguardAutoUpdate,
+		globalsystemacceleration.NewSystemAcceleration,
+		globalsystemconfigmanagement.NewSystemConfigManagement,
+		globalsystemconfigmanagementcommitarchive.NewSystemConfigManagementCommitArchive,
+		namedsystemconntrackignoreipvfourrule.NewSystemConntrackIgnoreIPvfourRule,
+		namedsystemconntrackignoreipvsixrule.NewSystemConntrackIgnoreIPvsixRule,
+		namedsystemconntracktimeoutcustomipvfourrule.NewSystemConntrackTimeoutCustomIPvfourRule,
+		namedsystemconntracktimeoutcustomipvsixrule.NewSystemConntrackTimeoutCustomIPvsixRule,
+		globalsystemconntrack.NewSystemConntrack,
+		globalsystemconntracklog.NewSystemConntrackLog,
+		globalsystemconntracklogeventdestroy.NewSystemConntrackLogEventDestroy,
+		globalsystemconntracklogeventnew.NewSystemConntrackLogEventNew,
+		globalsystemconntracklogeventupdate.NewSystemConntrackLogEventUpdate,
+		globalsystemconntrackmodules.NewSystemConntrackModules,
+		globalsystemconntracktcp.NewSystemConntrackTCP,
+		namedsystemconsoledevice.NewSystemConsoleDevice,
+		globalsystemconsole.NewSystemConsole,
+		globalsystem.NewSystem,
+		namedsystemflowaccountingnetflowserver.NewSystemFlowAccountingNetflowServer,
+		namedsystemflowaccountingsflowserver.NewSystemFlowAccountingSflowServer,
+		globalsystemflowaccounting.NewSystemFlowAccounting,
+		globalsystemflowaccountingnetflow.NewSystemFlowAccountingNetflow,
+		globalsystemflowaccountingnetflowtimeout.NewSystemFlowAccountingNetflowTimeout,
+		globalsystemflowaccountingsflow.NewSystemFlowAccountingSflow,
+		globalsystemfrr.NewSystemFrr,
+		globalsystemfrrsnmp.NewSystemFrrSnmp,
+		namedsystemipprotocol.NewSystemIPProtocol,
+		globalsystemip.NewSystemIP,
+		globalsystemiparp.NewSystemIPArp,
+		globalsystemipmultipath.NewSystemIPMultIPath,
+		globalsystemipnht.NewSystemIPNht,
+		globalsystemiptcpmss.NewSystemIPTCPMss,
+		globalsystemlcd.NewSystemLcd,
+		namedsystemloginradiusserver.NewSystemLoginRadiusServer,
+		namedsystemlogintacacsserver.NewSystemLoginTacacsServer,
+		namedsystemloginuser.NewSystemLoginUser,
+		namedsystemloginuserauthenticationpublickeys.NewSystemLoginUserAuthenticationPublicKeys,
+		globalsystemlogin.NewSystemLogin,
+		globalsystemloginradius.NewSystemLoginRadius,
+		globalsystemlogintacacs.NewSystemLoginTacacs,
+		globalsystemloginbanner.NewSystemLoginBanner,
+		globalsystemlogslogrotateatop.NewSystemLogsLogrotateAtop,
+		globalsystemlogslogrotatemessages.NewSystemLogsLogrotateMessages,
+		globalsystemoption.NewSystemOption,
+		globalsystemoptionkernel.NewSystemOptionKernel,
+		globalsystemoptionkerneldebug.NewSystemOptionKernelDebug,
+		globalsystemoptionhttpclient.NewSystemOptionHTTPClient,
+		globalsystemoptiontcpclient.NewSystemOptionTCPClient,
+		globalsystemproxy.NewSystemProxy,
+		namedsystemsflowserver.NewSystemSflowServer,
+		globalsystemsflow.NewSystemSflow,
+		namedsystemstatichostmappinghostname.NewSystemStaticHostMappingHostName,
+		namedsystemsysctlparameter.NewSystemSysctlParameter,
+		namedsystemsyslogglobalfacility.NewSystemSyslogGlobalFacility,
+		namedsystemsyslogconsolefacility.NewSystemSyslogConsoleFacility,
+		namedsystemsysloguser.NewSystemSyslogUser,
+		namedsystemsysloguserfacility.NewSystemSyslogUserFacility,
+		namedsystemsysloghost.NewSystemSyslogHost,
+		namedsystemsysloghostfacility.NewSystemSyslogHostFacility,
+		namedsystemsyslogfile.NewSystemSyslogFile,
+		namedsystemsyslogfilefacility.NewSystemSyslogFileFacility,
+		globalsystemsyslog.NewSystemSyslog,
+		globalsystemsyslogglobal.NewSystemSyslogGlobal,
+		globalsystemsyslogglobalmarker.NewSystemSyslogGlobalMarker,
+		namedsystemtaskschedulertask.NewSystemTaskSchedulerTask,
+		globalsystemupdatecheck.NewSystemUpdateCheck,
+		globalsystemwireless.NewSystemWireless,
+		namedvpnipsecauthenticationpsk.NewVpnIPsecAuthenticationPsk,
+		namedvpnipsecremoteaccessradiusserver.NewVpnIPsecRemoteAccessRadiusServer,
+		namedvpnipsecremoteaccessconnection.NewVpnIPsecRemoteAccessConnection,
+		namedvpnipsecremoteaccessconnectionauthenticationlocalusersusername.NewVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername,
+		namedvpnipsecremoteaccesspool.NewVpnIPsecRemoteAccessPool,
+		namedvpnipsecsitetositepeer.NewVpnIPsecSiteToSitePeer,
+		namedvpnipsecsitetositepeertunnel.NewVpnIPsecSiteToSitePeerTunnel,
+		namedvpnipsecespgroup.NewVpnIPsecEspGroup,
+		namedvpnipsecespgroupproposal.NewVpnIPsecEspGroupProposal,
+		namedvpnipsecikegroup.NewVpnIPsecIkeGroup,
+		namedvpnipsecikegroupproposal.NewVpnIPsecIkeGroupProposal,
+		namedvpnipsecprofile.NewVpnIPsecProfile,
+		globalvpnipsec.NewVpnIPsec,
+		globalvpnipseclog.NewVpnIPsecLog,
+		globalvpnipsecoptions.NewVpnIPsecOptions,
+		globalvpnipsecremoteaccessdhcp.NewVpnIPsecRemoteAccessDhcp,
+		globalvpnipsecremoteaccessradius.NewVpnIPsecRemoteAccessRadius,
+		namedvpnopenconnectaccountingradiusserver.NewVpnOpenconnectAccountingRadiusServer,
+		namedvpnopenconnectauthenticationlocalusersusername.NewVpnOpenconnectAuthenticationLocalUsersUsername,
+		namedvpnopenconnectauthenticationradiusserver.NewVpnOpenconnectAuthenticationRadiusServer,
+		globalvpnopenconnect.NewVpnOpenconnect,
+		globalvpnopenconnectaccountingmode.NewVpnOpenconnectAccountingMode,
+		globalvpnopenconnectauthentication.NewVpnOpenconnectAuthentication,
+		globalvpnopenconnectauthenticationmode.NewVpnOpenconnectAuthenticationMode,
+		globalvpnopenconnectauthenticationidentitybasedconfig.NewVpnOpenconnectAuthenticationIDentityBasedConfig,
+		globalvpnopenconnectauthenticationradius.NewVpnOpenconnectAuthenticationRadius,
+		globalvpnopenconnectlistenports.NewVpnOpenconnectListenPorts,
+		globalvpnopenconnectssl.NewVpnOpenconnectSsl,
+		globalvpnopenconnectnetworksettings.NewVpnOpenconnectNetworkSettings,
+		globalvpnopenconnectnetworksettingsclientipsettings.NewVpnOpenconnectNetworkSettingsClientIPSettings,
+		globalvpnopenconnectnetworksettingsclientipvsixpool.NewVpnOpenconnectNetworkSettingsClientIPvsixPool,
+		namedvpnpptpremoteaccessauthenticationlocalusersusername.NewVpnPptpRemoteAccessAuthenticationLocalUsersUsername,
+		namedvpnpptpremoteaccessauthenticationradiusserver.NewVpnPptpRemoteAccessAuthenticationRadiusServer,
+		namedvpnpptpremoteaccessclientippool.NewVpnPptpRemoteAccessClientIPPool,
+		namedvpnpptpremoteaccessclientipvsixpool.NewVpnPptpRemoteAccessClientIPvsixPool,
+		namedvpnpptpremoteaccessclientipvsixpoolprefix.NewVpnPptpRemoteAccessClientIPvsixPoolPrefix,
+		namedvpnpptpremoteaccessclientipvsixpooldelegate.NewVpnPptpRemoteAccessClientIPvsixPoolDelegate,
+		globalvpnpptpremoteaccess.NewVpnPptpRemoteAccess,
+		globalvpnpptpremoteaccessauthentication.NewVpnPptpRemoteAccessAuthentication,
+		globalvpnpptpremoteaccessauthenticationradius.NewVpnPptpRemoteAccessAuthenticationRadius,
+		globalvpnpptpremoteaccessauthenticationradiusdynamicauthor.NewVpnPptpRemoteAccessAuthenticationRadiusDynamicAuthor,
+		globalvpnpptpremoteaccessauthenticationradiusratelimit.NewVpnPptpRemoteAccessAuthenticationRadiusRateLimit,
+		globalvpnpptpremoteaccessextendedscripts.NewVpnPptpRemoteAccessExtendedScrIPts,
+		globalvpnpptpremoteaccesslimits.NewVpnPptpRemoteAccessLimits,
+		globalvpnpptpremoteaccesspppoptions.NewVpnPptpRemoteAccessPppOptions,
+		globalvpnpptpremoteaccessshaper.NewVpnPptpRemoteAccessShaper,
+		globalvpnpptpremoteaccesssnmp.NewVpnPptpRemoteAccessSnmp,
+		globalvpnpptpremoteaccesslog.NewVpnPptpRemoteAccessLog,
+		namedvpnsstpauthenticationlocalusersusername.NewVpnSstpAuthenticationLocalUsersUsername,
+		namedvpnsstpauthenticationradiusserver.NewVpnSstpAuthenticationRadiusServer,
+		namedvpnsstpclientippool.NewVpnSstpClientIPPool,
+		namedvpnsstpclientipvsixpool.NewVpnSstpClientIPvsixPool,
+		namedvpnsstpclientipvsixpoolprefix.NewVpnSstpClientIPvsixPoolPrefix,
+		namedvpnsstpclientipvsixpooldelegate.NewVpnSstpClientIPvsixPoolDelegate,
+		globalvpnsstp.NewVpnSstp,
+		globalvpnsstpauthentication.NewVpnSstpAuthentication,
+		globalvpnsstpauthenticationradius.NewVpnSstpAuthenticationRadius,
+		globalvpnsstpauthenticationradiusdynamicauthor.NewVpnSstpAuthenticationRadiusDynamicAuthor,
+		globalvpnsstpauthenticationradiusratelimit.NewVpnSstpAuthenticationRadiusRateLimit,
+		globalvpnsstpssl.NewVpnSstpSsl,
+		globalvpnsstpextendedscripts.NewVpnSstpExtendedScrIPts,
+		globalvpnsstplimits.NewVpnSstpLimits,
+		globalvpnsstppppoptions.NewVpnSstpPppOptions,
+		globalvpnsstpshaper.NewVpnSstpShaper,
+		globalvpnsstpsnmp.NewVpnSstpSnmp,
+		globalvpnsstplog.NewVpnSstpLog,
 		namedvrfname.NewVrfName,
 		namedvrfnameipprotocol.NewVrfNameIPProtocol,
 		namedvrfnameipvsixprotocol.NewVrfNameIPvsixProtocol,
-		namedvrfnameprotocolsbgpinterface.NewVrfNameProtocolsBgpInterface,
-		namedvrfnameprotocolsbgpneighbor.NewVrfNameProtocolsBgpNeighbor,
-		namedvrfnameprotocolsbgppeergroup.NewVrfNameProtocolsBgpPeerGroup,
+		namedvrfnameprotocolsbgpaddressfamilyipvfourunicastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourunicastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourunicastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork,
-		namedvrfnameprotocolsbgpaddressfamilyipvfourunicastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix,
+		namedvrfnameprotocolsbgpaddressfamilyipvfourmulticastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourmulticastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourmulticastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork,
-		namedvrfnameprotocolsbgpaddressfamilyipvfourmulticastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourlabeledunicastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourlabeledunicastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourvpnnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork,
+		namedvrfnameprotocolsbgpaddressfamilyipvsixunicastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistancePrefix,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixunicastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixunicastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork,
-		namedvrfnameprotocolsbgpaddressfamilyipvsixunicastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistancePrefix,
+		namedvrfnameprotocolsbgpaddressfamilyipvsixmulticastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixmulticastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixmulticastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork,
-		namedvrfnameprotocolsbgpaddressfamilyipvsixmulticastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixlabeledunicastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixlabeledunicastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixvpnnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork,
@@ -361,35 +1793,38 @@ func GetResources() []func() resource.Resource {
 		namedvrfnameprotocolsbgpbmptarget.NewVrfNameProtocolsBgpBmpTarget,
 		namedvrfnameprotocolsbgplistenrange.NewVrfNameProtocolsBgpListenRange,
 		namedvrfnameprotocolsbgpparametersdistanceprefix.NewVrfNameProtocolsBgpParametersDistancePrefix,
+		namedvrfnameprotocolsbgpinterface.NewVrfNameProtocolsBgpInterface,
+		namedvrfnameprotocolsbgpneighbor.NewVrfNameProtocolsBgpNeighbor,
 		namedvrfnameprotocolsbgpneighborlocalas.NewVrfNameProtocolsBgpNeighborLocalAs,
 		namedvrfnameprotocolsbgpneighborlocalrole.NewVrfNameProtocolsBgpNeighborLocalRole,
+		namedvrfnameprotocolsbgppeergroup.NewVrfNameProtocolsBgpPeerGroup,
 		namedvrfnameprotocolsbgppeergrouplocalas.NewVrfNameProtocolsBgpPeerGroupLocalAs,
 		namedvrfnameprotocolsbgppeergrouplocalrole.NewVrfNameProtocolsBgpPeerGroupLocalRole,
-		namedvrfnameprotocolsisisinterface.NewVrfNameProtocolsIsisInterface,
 		namedvrfnameprotocolsisisfastreroutelfaremoteprefixlist.NewVrfNameProtocolsIsisFastRerouteLfaRemotePrefixList,
 		namedvrfnameprotocolsisisfastreroutelfalocaltiebreakerdownstreamindex.NewVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex,
 		namedvrfnameprotocolsisisfastreroutelfalocaltiebreakerlowestbackupmetricindex.NewVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex,
 		namedvrfnameprotocolsisisfastreroutelfalocaltiebreakernodeprotectingindex.NewVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtectingIndex,
 		namedvrfnameprotocolsisissegmentroutingprefix.NewVrfNameProtocolsIsisSegmentRoutingPrefix,
-		namedvrfnameprotocolsospfaccesslist.NewVrfNameProtocolsOspfAccessList,
-		namedvrfnameprotocolsospfarea.NewVrfNameProtocolsOspfArea,
-		namedvrfnameprotocolsospfinterface.NewVrfNameProtocolsOspfInterface,
-		namedvrfnameprotocolsospfneighbor.NewVrfNameProtocolsOspfNeighbor,
-		namedvrfnameprotocolsospfsummaryaddress.NewVrfNameProtocolsOspfSummaryAddress,
+		namedvrfnameprotocolsisisinterface.NewVrfNameProtocolsIsisInterface,
 		namedvrfnameprotocolsospfsegmentroutingprefix.NewVrfNameProtocolsOspfSegmentRoutingPrefix,
 		namedvrfnameprotocolsospfredistributetable.NewVrfNameProtocolsOspfRedistributeTable,
+		namedvrfnameprotocolsospfaccesslist.NewVrfNameProtocolsOspfAccessList,
+		namedvrfnameprotocolsospfarea.NewVrfNameProtocolsOspfArea,
 		namedvrfnameprotocolsospfarearange.NewVrfNameProtocolsOspfAreaRange,
 		namedvrfnameprotocolsospfareavirtuallink.NewVrfNameProtocolsOspfAreaVirtualLink,
 		namedvrfnameprotocolsospfareavirtuallinkauthenticationmdfivekeyid.NewVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID,
+		namedvrfnameprotocolsospfinterface.NewVrfNameProtocolsOspfInterface,
 		namedvrfnameprotocolsospfinterfaceauthenticationmdfivekeyid.NewVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID,
+		namedvrfnameprotocolsospfneighbor.NewVrfNameProtocolsOspfNeighbor,
+		namedvrfnameprotocolsospfsummaryaddress.NewVrfNameProtocolsOspfSummaryAddress,
 		namedvrfnameprotocolsospfvthreearea.NewVrfNameProtocolsOspfvthreeArea,
-		namedvrfnameprotocolsospfvthreeinterface.NewVrfNameProtocolsOspfvthreeInterface,
 		namedvrfnameprotocolsospfvthreearearange.NewVrfNameProtocolsOspfvthreeAreaRange,
+		namedvrfnameprotocolsospfvthreeinterface.NewVrfNameProtocolsOspfvthreeInterface,
 		namedvrfnameprotocolsstaticroute.NewVrfNameProtocolsStaticRoute,
-		namedvrfnameprotocolsstaticroutesix.NewVrfNameProtocolsStaticRoutesix,
 		namedvrfnameprotocolsstaticrouteinterface.NewVrfNameProtocolsStaticRouteInterface,
 		namedvrfnameprotocolsstaticroutenexthop.NewVrfNameProtocolsStaticRouteNextHop,
 		namedvrfnameprotocolsstaticroutenexthopbfdmultihopsource.NewVrfNameProtocolsStaticRouteNextHopBfdMultiHopSource,
+		namedvrfnameprotocolsstaticroutesix.NewVrfNameProtocolsStaticRoutesix,
 		namedvrfnameprotocolsstaticroutesixinterface.NewVrfNameProtocolsStaticRoutesixInterface,
 		namedvrfnameprotocolsstaticroutesixnexthop.NewVrfNameProtocolsStaticRoutesixNextHop,
 		namedvrfnameprotocolsstaticroutesixnexthopbfdmultihopsource.NewVrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource,

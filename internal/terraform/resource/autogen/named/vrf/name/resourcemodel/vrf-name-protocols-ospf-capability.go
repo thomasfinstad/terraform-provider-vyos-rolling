@@ -21,6 +21,7 @@ type VrfNameProtocolsOspfCapability struct {
 	LeafVrfNameProtocolsOspfCapabilityOpaque types.Bool `tfsdk:"opaque" vyos:"opaque,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

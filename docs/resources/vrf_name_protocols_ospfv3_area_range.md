@@ -31,22 +31,7 @@ OSPFv3 Area
 
 ### Required
 
-- `area_id` (String) OSPFv3 Area
-
-    &emsp;|Format  &emsp;|Description                  |
-    |----------|-------------------------------|
-    &emsp;|u32     &emsp;|Area ID as a decimal value   |
-    &emsp;|ipv4    &emsp;|Area ID in IP address forma  |
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `range_id` (String) Specify IPv6 prefix (border routers only)
-
-    &emsp;|Format   &emsp;|Description                                |
-    |-----------|---------------------------------------------|
-    &emsp;|ipv6net  &emsp;|Specify IPv6 prefix (border routers only)  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -57,6 +42,29 @@ OSPFv3 Area
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `area` (String) OSPFv3 Area
+
+    &emsp;|Format  &emsp;|Description                  |
+    |----------|-------------------------------|
+    &emsp;|u32     &emsp;|Area ID as a decimal value   |
+    &emsp;|ipv4    &emsp;|Area ID in IP address forma  |
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `range` (String) Specify IPv6 prefix (border routers only)
+
+    &emsp;|Format   &emsp;|Description                                |
+    |-----------|---------------------------------------------|
+    &emsp;|ipv6net  &emsp;|Specify IPv6 prefix (border routers only)  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

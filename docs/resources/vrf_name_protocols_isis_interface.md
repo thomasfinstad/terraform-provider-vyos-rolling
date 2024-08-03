@@ -29,12 +29,7 @@ Intermediate System to Intermediate System (IS-IS)
 
 ### Required
 
-- `interface_id` (String) Interface params
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -82,6 +77,19 @@ Intermediate System to Intermediate System (IS-IS)
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `interface` (String) Interface params
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+
 
 &lt;a id=&#34;nestedatt--bfd&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `bfd`

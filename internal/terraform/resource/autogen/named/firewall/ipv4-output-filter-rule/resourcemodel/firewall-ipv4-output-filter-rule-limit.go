@@ -21,6 +21,7 @@ type FirewallIPvfourOutputFilterRuleLimit struct {
 	LeafFirewallIPvfourOutputFilterRuleLimitRate  types.String `tfsdk:"rate" vyos:"rate,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

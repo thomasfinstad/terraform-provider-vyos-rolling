@@ -22,6 +22,7 @@ type PolicyRouteMapRuleSetAsPath struct {
 	LeafPolicyRouteMapRuleSetAsPathPrependLastAs types.Number `tfsdk:"prepend_last_as" vyos:"prepend-last-as,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

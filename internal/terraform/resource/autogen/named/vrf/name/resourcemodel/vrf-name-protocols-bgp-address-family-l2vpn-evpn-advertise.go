@@ -18,6 +18,7 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour `tfsdk:"ipv4" vyos:"ipv4,omitempty"`

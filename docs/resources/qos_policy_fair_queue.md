@@ -25,11 +25,7 @@ Service Policy definitions
 
 ### Required
 
-- `fair_queue_id` (String) Stochastic Fairness Queueing
-
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -54,6 +50,18 @@ Service Policy definitions
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `fair_queue` (String) Stochastic Fairness Queueing
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|txt     &emsp;|Policy name  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

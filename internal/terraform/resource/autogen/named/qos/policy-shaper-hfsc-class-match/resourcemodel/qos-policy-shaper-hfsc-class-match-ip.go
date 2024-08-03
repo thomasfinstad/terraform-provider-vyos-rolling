@@ -22,6 +22,7 @@ type QosPolicyShaperHfscClassMatchIP struct {
 	LeafQosPolicyShaperHfscClassMatchIPProtocol  types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeQosPolicyShaperHfscClassMatchIPDestination *QosPolicyShaperHfscClassMatchIPDestination `tfsdk:"destination" vyos:"destination,omitempty"`

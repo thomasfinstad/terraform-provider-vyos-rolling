@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvfou
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"network_id" vyos:"-,self-id"`
-
-	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -37,7 +35,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork struct {
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetworkBackdoor types.Bool   `tfsdk:"backdoor" vyos:"backdoor,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetworkRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -67,7 +65,7 @@ func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork) GetVyosPath() []
 	return append(
 		o.GetVyosParentPath(),
 		"network",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["network"].(types.String).ValueString(),
 	)
 }
 
@@ -80,7 +78,8 @@ func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork) GetVyosParentPat
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
@@ -101,7 +100,8 @@ func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork) GetVyosNamedPare
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
 
@@ -112,67 +112,74 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork) ResourceSchemaAtt
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"network_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `BGP network
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"network": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `BGP network
 
     |  Format   |  Description  |
     |-----------|---------------|
     |  ipv4net  |  BGP network  |
 `,
-			Description: `BGP network
+						Description: `BGP network
 
     |  Format   |  Description  |
     |-----------|---------------|
     |  ipv4net  |  BGP network  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in network_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  network_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in network, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  network, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Virtual Routing and Forwarding instance
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  VRF instance name  |
-`,
-			Description: `Virtual Routing and Forwarding instance
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -27,11 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyRoundRobinClassMatch{}
 type QosPolicyRoundRobinClassMatch struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"match_id" vyos:"-,self-id"`
-
-	ParentIDQosPolicyRoundRobin types.String `tfsdk:"round_robin_id" vyos:"round-robin,parent-id"`
-
-	ParentIDQosPolicyRoundRobinClass types.Number `tfsdk:"class_id" vyos:"class,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -41,7 +37,7 @@ type QosPolicyRoundRobinClassMatch struct {
 	LeafQosPolicyRoundRobinClassMatchMark        types.Number `tfsdk:"mark" vyos:"mark,omitempty"`
 	LeafQosPolicyRoundRobinClassMatchVif         types.Number `tfsdk:"vif" vyos:"vif,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeQosPolicyRoundRobinClassMatchEther  *QosPolicyRoundRobinClassMatchEther  `tfsdk:"ether" vyos:"ether,omitempty"`
@@ -74,7 +70,7 @@ func (o *QosPolicyRoundRobinClassMatch) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"match",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["match"].(types.String).ValueString(),
 	)
 }
 
@@ -89,10 +85,12 @@ func (o *QosPolicyRoundRobinClassMatch) GetVyosParentPath() []string {
 		"policy",
 
 		"round-robin",
-		o.ParentIDQosPolicyRoundRobin.ValueString(),
+
+		o.SelfIdentifier.Attributes()["round_robin"].(types.String).ValueString(),
 
 		"class",
-		o.ParentIDQosPolicyRoundRobinClass.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -107,10 +105,12 @@ func (o *QosPolicyRoundRobinClassMatch) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"round-robin",
-		o.ParentIDQosPolicyRoundRobin.ValueString(),
+
+		o.SelfIdentifier.Attributes()["round_robin"].(types.String).ValueString(),
 
 		"class",
-		o.ParentIDQosPolicyRoundRobinClass.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -121,80 +121,87 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes(ctx context.Cont
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"match_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Class matching rule name
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"match": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Class matching rule name
 
 `,
-			Description: `Class matching rule name
+						Description: `Class matching rule name
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in match_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  match_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in match, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  match, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"round_robin_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Deficit Round Robin Scheduler
+					"round_robin": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Deficit Round Robin Scheduler
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			Description: `Deficit Round Robin Scheduler
+						Description: `Deficit Round Robin Scheduler
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in round_robin_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  round_robin_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in round_robin, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  round_robin, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"class_id": schema.NumberAttribute{
-			Required: true,
-			MarkdownDescription: `Class ID
-
-    |  Format  |  Description       |
-    |----------|--------------------|
-    |  1-4095  |  Class Identifier  |
-`,
-			Description: `Class ID
+					"class": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4095  |  Class Identifier  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						Description: `Class ID
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  1-4095  |  Class Identifier  |
+`,
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

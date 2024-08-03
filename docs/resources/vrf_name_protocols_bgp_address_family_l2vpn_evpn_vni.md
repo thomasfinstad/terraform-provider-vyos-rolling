@@ -33,16 +33,7 @@ L2VPN EVPN BGP settings
 
 ### Required
 
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `vni_id` (Number) VXLAN Network Identifier
-
-    &emsp;|Format      &emsp;|Description  |
-    |--------------|---------------|
-    &emsp;|1-16777215  &emsp;|VNI number   |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -59,6 +50,23 @@ L2VPN EVPN BGP settings
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `vni` (Number) VXLAN Network Identifier
+
+    &emsp;|Format      &emsp;|Description  |
+    |--------------|---------------|
+    &emsp;|1-16777215  &emsp;|VNI number   |
+
 
 &lt;a id=&#34;nestedatt--route_target&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `route_target`

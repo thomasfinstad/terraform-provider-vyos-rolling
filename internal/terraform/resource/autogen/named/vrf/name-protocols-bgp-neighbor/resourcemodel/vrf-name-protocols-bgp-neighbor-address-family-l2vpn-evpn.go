@@ -22,6 +22,7 @@ type VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn struct {
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteServerClient    types.Bool `tfsdk:"route_server_client" vyos:"route-server-client,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn           *VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn           `tfsdk:"allowas_in" vyos:"allowas-in,omitempty"`

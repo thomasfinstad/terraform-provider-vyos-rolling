@@ -27,11 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsStaticRoutesixNextHop{
 type VrfNameProtocolsStaticRoutesixNextHop struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"next_hop_id" vyos:"-,self-id"`
-
-	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
-
-	ParentIDVrfNameProtocolsStaticRoutesix types.String `tfsdk:"route6_id" vyos:"route6,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -42,7 +38,7 @@ type VrfNameProtocolsStaticRoutesixNextHop struct {
 	LeafVrfNameProtocolsStaticRoutesixNextHopSegments  types.String `tfsdk:"segments" vyos:"segments,omitempty"`
 	LeafVrfNameProtocolsStaticRoutesixNextHopVrf       types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsStaticRoutesixNextHopBfd *VrfNameProtocolsStaticRoutesixNextHopBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
@@ -73,7 +69,7 @@ func (o *VrfNameProtocolsStaticRoutesixNextHop) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"next-hop",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["next_hop"].(types.String).ValueString(),
 	)
 }
 
@@ -86,14 +82,16 @@ func (o *VrfNameProtocolsStaticRoutesixNextHop) GetVyosParentPath() []string {
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
 		"static",
 
 		"route6",
-		o.ParentIDVrfNameProtocolsStaticRoutesix.ValueString(),
+
+		o.SelfIdentifier.Attributes()["route6"].(types.String).ValueString(),
 	}
 }
 
@@ -106,14 +104,16 @@ func (o *VrfNameProtocolsStaticRoutesixNextHop) GetVyosNamedParentPath() []strin
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
 		"static",
 
 		"route6",
-		o.ParentIDVrfNameProtocolsStaticRoutesix.ValueString(),
+
+		o.SelfIdentifier.Attributes()["route6"].(types.String).ValueString(),
 	}
 }
 
@@ -124,99 +124,106 @@ func (o VrfNameProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes(ctx cont
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"next_hop_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `IPv6 gateway address
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"next_hop": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `IPv6 gateway address
 
     |  Format  |  Description           |
     |----------|------------------------|
     |  ipv6    |  Next-hop IPv6 router  |
 `,
-			Description: `IPv6 gateway address
+						Description: `IPv6 gateway address
 
     |  Format  |  Description           |
     |----------|------------------------|
     |  ipv6    |  Next-hop IPv6 router  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in next_hop_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  next_hop_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in next_hop, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  next_hop, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Virtual Routing and Forwarding instance
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  VRF instance name  |
-`,
-			Description: `Virtual Routing and Forwarding instance
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						Description: `Virtual Routing and Forwarding instance
 
-		"route6_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Static IPv6 route
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+
+					"route6": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Static IPv6 route
 
     |  Format   |  Description        |
     |-----------|---------------------|
     |  ipv6net  |  IPv6 static route  |
 `,
-			Description: `Static IPv6 route
+						Description: `Static IPv6 route
 
     |  Format   |  Description        |
     |-----------|---------------------|
     |  ipv6net  |  IPv6 static route  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in route6_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  route6_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in route6, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  route6, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

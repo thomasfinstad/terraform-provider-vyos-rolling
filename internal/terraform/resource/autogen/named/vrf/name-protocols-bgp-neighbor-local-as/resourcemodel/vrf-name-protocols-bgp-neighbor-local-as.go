@@ -27,17 +27,13 @@ var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsBgpNeighborLocalAs{}
 type VrfNameProtocolsBgpNeighborLocalAs struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"local_as_id" vyos:"-,self-id"`
-
-	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
-
-	ParentIDVrfNameProtocolsBgpNeighbor types.String `tfsdk:"neighbor_id" vyos:"neighbor,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpNeighborLocalAsNoPrepend *VrfNameProtocolsBgpNeighborLocalAsNoPrepend `tfsdk:"no_prepend" vyos:"no-prepend,omitempty"`
@@ -68,7 +64,7 @@ func (o *VrfNameProtocolsBgpNeighborLocalAs) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"local-as",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["local_as"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -81,14 +77,16 @@ func (o *VrfNameProtocolsBgpNeighborLocalAs) GetVyosParentPath() []string {
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
 		"bgp",
 
 		"neighbor",
-		o.ParentIDVrfNameProtocolsBgpNeighbor.ValueString(),
+
+		o.SelfIdentifier.Attributes()["neighbor"].(types.String).ValueString(),
 	}
 }
 
@@ -101,14 +99,16 @@ func (o *VrfNameProtocolsBgpNeighborLocalAs) GetVyosNamedParentPath() []string {
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
 		"bgp",
 
 		"neighbor",
-		o.ParentIDVrfNameProtocolsBgpNeighbor.ValueString(),
+
+		o.SelfIdentifier.Attributes()["neighbor"].(types.String).ValueString(),
 	}
 }
 
@@ -119,60 +119,64 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes(ctx context
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"local_as_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Specify alternate ASN for this BGP process
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"local_as": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Specify alternate ASN for this BGP process
 
     |  Format        |  Description                     |
     |----------------|----------------------------------|
     |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
-			Description: `Specify alternate ASN for this BGP process
+						Description: `Specify alternate ASN for this BGP process
 
     |  Format        |  Description                     |
     |----------------|----------------------------------|
     |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Virtual Routing and Forwarding instance
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  VRF instance name  |
-`,
-			Description: `Virtual Routing and Forwarding instance
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						Description: `Virtual Routing and Forwarding instance
 
-		"neighbor_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `BGP neighbor
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+
+					"neighbor": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `BGP neighbor
 
     |  Format  |  Description                |
     |----------|-----------------------------|
@@ -180,7 +184,7 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes(ctx context
     |  ipv6    |  BGP neighbor IPv6 address  |
     |  txt     |  Interface name             |
 `,
-			Description: `BGP neighbor
+						Description: `BGP neighbor
 
     |  Format  |  Description                |
     |----------|-----------------------------|
@@ -188,21 +192,24 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes(ctx context
     |  ipv6    |  BGP neighbor IPv6 address  |
     |  txt     |  Interface name             |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in neighbor_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  neighbor_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in neighbor, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  neighbor, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

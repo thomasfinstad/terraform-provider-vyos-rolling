@@ -22,6 +22,7 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding struct {
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFloodingHeadEndReplication types.Bool `tfsdk:"head_end_replication" vyos:"head-end-replication,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

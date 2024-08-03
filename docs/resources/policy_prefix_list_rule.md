@@ -25,16 +25,7 @@ IP prefix-list filter
 
 ### Required
 
-- `prefix_list_id` (String) IP prefix-list filter
-
-    &emsp;|Format  &emsp;|Description               |
-    |----------|----------------------------|
-    &emsp;|txt     &emsp;|Name of IPv4 prefix-list  |
-- `rule_id` (Number) Rule for this prefix-list
-
-    &emsp;|Format   &emsp;|Description              |
-    |-----------|---------------------------|
-    &emsp;|1-65535  &emsp;|Prefix-list rule number  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -69,6 +60,23 @@ IP prefix-list filter
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `prefix_list` (String) IP prefix-list filter
+
+    &emsp;|Format  &emsp;|Description               |
+    |----------|----------------------------|
+    &emsp;|txt     &emsp;|Name of IPv4 prefix-list  |
+- `rule` (Number) Rule for this prefix-list
+
+    &emsp;|Format   &emsp;|Description              |
+    |-----------|---------------------------|
+    &emsp;|1-65535  &emsp;|Prefix-list rule number  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

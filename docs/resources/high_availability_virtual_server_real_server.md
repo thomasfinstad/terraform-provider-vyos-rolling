@@ -25,8 +25,7 @@ Load-balancing virtual server alias
 
 ### Required
 
-- `real_server_id` (String) Real server address
-- `virtual_server_id` (String) Load-balancing virtual server alias
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -46,6 +45,15 @@ Load-balancing virtual server alias
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `real_server` (String) Real server address
+- `virtual_server` (String) Load-balancing virtual server alias
+
 
 &lt;a id=&#34;nestedatt--health_check&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `health_check`

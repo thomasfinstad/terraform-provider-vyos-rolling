@@ -29,16 +29,7 @@ Open Shortest Path First (OSPF) for IPv6
 
 ### Required
 
-- `interface_id` (String) Enable routing on an IPv6 interface
-
-    &emsp;|Format  &emsp;|Description                                      |
-    |----------|---------------------------------------------------|
-    &emsp;|txt     &emsp;|Interface used for routing information exchange  |
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -102,6 +93,23 @@ Open Shortest Path First (OSPF) for IPv6
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `interface` (String) Enable routing on an IPv6 interface
+
+    &emsp;|Format  &emsp;|Description                                      |
+    |----------|---------------------------------------------------|
+    &emsp;|txt     &emsp;|Interface used for routing information exchange  |
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+
 
 &lt;a id=&#34;nestedatt--bfd&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `bfd`

@@ -23,7 +23,7 @@ Public key infrastructure (PKI)
 
 ### Required
 
-- `certificate_id` (String) Certificate
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -41,6 +41,14 @@ Public key infrastructure (PKI)
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `certificate` (String) Certificate
+
 
 &lt;a id=&#34;nestedatt--acme&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `acme`

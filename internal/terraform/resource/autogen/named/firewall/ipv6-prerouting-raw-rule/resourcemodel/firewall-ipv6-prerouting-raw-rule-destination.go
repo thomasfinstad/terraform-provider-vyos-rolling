@@ -24,6 +24,7 @@ type FirewallIPvsixPreroutingRawRuleDestination struct {
 	LeafFirewallIPvsixPreroutingRawRuleDestinationPort        types.String `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvsixPreroutingRawRuleDestinationGeoIP *FirewallIPvsixPreroutingRawRuleDestinationGeoIP `tfsdk:"geoip" vyos:"geoip,omitempty"`

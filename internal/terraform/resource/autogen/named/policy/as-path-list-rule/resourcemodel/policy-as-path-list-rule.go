@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &PolicyAsPathListRule{}
 type PolicyAsPathListRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
-
-	ParentIDPolicyAsPathList types.String `tfsdk:"as_path_list_id" vyos:"as-path-list,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -38,7 +36,7 @@ type PolicyAsPathListRule struct {
 	LeafPolicyAsPathListRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafPolicyAsPathListRuleRegex       types.String `tfsdk:"regex" vyos:"regex,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -68,7 +66,7 @@ func (o *PolicyAsPathListRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -81,7 +79,8 @@ func (o *PolicyAsPathListRule) GetVyosParentPath() []string {
 		"policy",
 
 		"as-path-list",
-		o.ParentIDPolicyAsPathList.ValueString(),
+
+		o.SelfIdentifier.Attributes()["as_path_list"].(types.String).ValueString(),
 	}
 }
 
@@ -94,7 +93,8 @@ func (o *PolicyAsPathListRule) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"as-path-list",
-		o.ParentIDPolicyAsPathList.ValueString(),
+
+		o.SelfIdentifier.Attributes()["as_path_list"].(types.String).ValueString(),
 	}
 }
 
@@ -105,54 +105,61 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes(ctx context.Context) map[
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Rule for this as-path-list
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Rule for this as-path-list
 
     |  Format   |  Description               |
     |-----------|----------------------------|
     |  1-65535  |  AS path list rule number  |
 `,
-			Description: `Rule for this as-path-list
+						Description: `Rule for this as-path-list
 
     |  Format   |  Description               |
     |-----------|----------------------------|
     |  1-65535  |  AS path list rule number  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"as_path_list_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Add a BGP autonomous system path filter
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  AS path list name  |
-`,
-			Description: `Add a BGP autonomous system path filter
+					"as_path_list": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Add a BGP autonomous system path filter
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  AS path list name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in as_path_list_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  as_path_list_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Add a BGP autonomous system path filter
+
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  AS path list name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in as_path_list, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  as_path_list, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

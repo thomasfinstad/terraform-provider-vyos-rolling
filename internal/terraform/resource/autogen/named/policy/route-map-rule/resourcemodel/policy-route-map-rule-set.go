@@ -32,6 +32,7 @@ type PolicyRouteMapRuleSet struct {
 	LeafPolicyRouteMapRuleSetWeight          types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodePolicyRouteMapRuleSetAggregator       *PolicyRouteMapRuleSetAggregator       `tfsdk:"aggregator" vyos:"aggregator,omitempty"`

@@ -21,6 +21,7 @@ type NatSourceRuleSource struct {
 	LeafNatSourceRuleSourcePort    types.String `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeNatSourceRuleSourceGroup *NatSourceRuleSourceGroup `tfsdk:"group" vyos:"group,omitempty"`

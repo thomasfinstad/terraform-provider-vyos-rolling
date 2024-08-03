@@ -29,11 +29,7 @@ IPv6 firewall input filter
 
 ### Required
 
-- `rule_id` (Number) IPv6 Firewall input filter rule number
-
-    &emsp;|Format    &emsp;|Description                    |
-    |------------|---------------------------------|
-    &emsp;|1-999999  &emsp;|Number for this firewall rule  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -164,6 +160,18 @@ IPv6 firewall input filter
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `rule` (Number) IPv6 Firewall input filter rule number
+
+    &emsp;|Format    &emsp;|Description                    |
+    |------------|---------------------------------|
+    &emsp;|1-999999  &emsp;|Number for this firewall rule  |
+
 
 &lt;a id=&#34;nestedatt--add_address_to_group&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `add_address_to_group`

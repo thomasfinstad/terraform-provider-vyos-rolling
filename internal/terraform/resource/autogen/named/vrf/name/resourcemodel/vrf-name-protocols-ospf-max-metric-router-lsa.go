@@ -23,6 +23,7 @@ type VrfNameProtocolsOspfMaxMetricRouterLsa struct {
 	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup      types.Number `tfsdk:"on_startup" vyos:"on-startup,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

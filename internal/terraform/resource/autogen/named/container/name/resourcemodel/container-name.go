@@ -27,7 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &ContainerName{}
 type ContainerName struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"name_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -49,13 +49,19 @@ type ContainerName struct {
 	LeafContainerNameUID               types.Number `tfsdk:"uid" vyos:"uid,omitempty"`
 	LeafContainerNameGID               types.Number `tfsdk:"gid" vyos:"gid,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagContainerNameDevice      bool `tfsdk:"-" vyos:"device,child"`
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
+	ExistsTagContainerNameDevice bool `tfsdk:"-" vyos:"device,child"`
+
 	ExistsTagContainerNameEnvironment bool `tfsdk:"-" vyos:"environment,child"`
-	ExistsTagContainerNameLabel       bool `tfsdk:"-" vyos:"label,child"`
-	ExistsTagContainerNameNetwork     bool `tfsdk:"-" vyos:"network,child"`
-	ExistsTagContainerNamePort        bool `tfsdk:"-" vyos:"port,child"`
-	ExistsTagContainerNameVolume      bool `tfsdk:"-" vyos:"volume,child"`
+
+	ExistsTagContainerNameLabel bool `tfsdk:"-" vyos:"label,child"`
+
+	TagContainerNameNetwork *ContainerNameNetwork `tfsdk:"network" vyos:"network,omitempty"`
+
+	ExistsTagContainerNamePort bool `tfsdk:"-" vyos:"port,child"`
+
+	ExistsTagContainerNameVolume bool `tfsdk:"-" vyos:"volume,child"`
 
 	// Nodes
 	NodeContainerNameSysctl *ContainerNameSysctl `tfsdk:"sysctl" vyos:"sysctl,omitempty"`
@@ -86,7 +92,7 @@ func (o *ContainerName) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"name",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	)
 }
 
@@ -115,29 +121,36 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"name_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Container name
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Container name
 
 `,
-			Description: `Container name
+						Description: `Container name
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

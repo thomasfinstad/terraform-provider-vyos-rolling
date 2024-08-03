@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyRoundRobinClass{}
 type QosPolicyRoundRobinClass struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"class_id" vyos:"-,self-id"`
-
-	ParentIDQosPolicyRoundRobin types.String `tfsdk:"round_robin_id" vyos:"round-robin,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -44,7 +42,8 @@ type QosPolicyRoundRobinClass struct {
 	LeafQosPolicyRoundRobinClassQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
 	LeafQosPolicyRoundRobinClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagQosPolicyRoundRobinClassMatch bool `tfsdk:"-" vyos:"match,child"`
 
 	// Nodes
@@ -75,7 +74,7 @@ func (o *QosPolicyRoundRobinClass) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"class",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -90,7 +89,8 @@ func (o *QosPolicyRoundRobinClass) GetVyosParentPath() []string {
 		"policy",
 
 		"round-robin",
-		o.ParentIDQosPolicyRoundRobin.ValueString(),
+
+		o.SelfIdentifier.Attributes()["round_robin"].(types.String).ValueString(),
 	}
 }
 
@@ -105,7 +105,8 @@ func (o *QosPolicyRoundRobinClass) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"round-robin",
-		o.ParentIDQosPolicyRoundRobin.ValueString(),
+
+		o.SelfIdentifier.Attributes()["round_robin"].(types.String).ValueString(),
 	}
 }
 
@@ -116,54 +117,61 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes(ctx context.Context) 
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"class_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Class ID
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"class": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4095  |  Class Identifier  |
 `,
-			Description: `Class ID
+						Description: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4095  |  Class Identifier  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"round_robin_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Deficit Round Robin Scheduler
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Policy name  |
-`,
-			Description: `Deficit Round Robin Scheduler
+					"round_robin": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Deficit Round Robin Scheduler
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in round_robin_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  round_robin_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Deficit Round Robin Scheduler
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in round_robin, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  round_robin, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

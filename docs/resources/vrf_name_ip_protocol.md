@@ -27,12 +27,32 @@ IPv4 routing parameters
 
 ### Required
 
-- `name_id` (String) Virtual Routing and Forwarding instance
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
+
+### Optional
+
+- `route_map` (String) Specify route-map name to use
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Route map name  |
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
+
+### Read-Only
+
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Virtual Routing and Forwarding instance
 
     &emsp;|Format  &emsp;|Description        |
     |----------|---------------------|
     &emsp;|txt     &emsp;|VRF instance name  |
-- `protocol_id` (String) Filter routing info exchanged between routing protocol and zebra
+- `protocol` (String) Filter routing info exchanged between routing protocol and zebra
 
     &emsp;|Format     &emsp;|Description                                          |
     |-------------|-------------------------------------------------------|
@@ -47,18 +67,6 @@ IPv4 routing parameters
     &emsp;|rip        &emsp;|Routing Information Protocol                         |
     &emsp;|static     &emsp;|Statically configured routes                         |
 
-### Optional
-
-- `route_map` (String) Specify route-map name to use
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
-- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
-
-### Read-Only
-
-- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

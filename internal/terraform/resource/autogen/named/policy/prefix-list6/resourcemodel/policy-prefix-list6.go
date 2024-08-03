@@ -26,14 +26,15 @@ var _ helpers.VyosTopResourceDataModel = &PolicyPrefixListsix{}
 type PolicyPrefixListsix struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"prefix_list6_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafPolicyPrefixListsixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagPolicyPrefixListsixRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
@@ -64,7 +65,7 @@ func (o *PolicyPrefixListsix) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"prefix-list6",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["prefix_list6"].(types.String).ValueString(),
 	)
 }
 
@@ -93,35 +94,42 @@ func (o PolicyPrefixListsix) ResourceSchemaAttributes(ctx context.Context) map[s
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"prefix_list6_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `IPv6 prefix-list filter
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"prefix_list6": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `IPv6 prefix-list filter
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  txt     |  Name of IPv6 prefix-list  |
 `,
-			Description: `IPv6 prefix-list filter
+						Description: `IPv6 prefix-list filter
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  txt     |  Name of IPv6 prefix-list  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in prefix_list6_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  prefix_list6_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in prefix_list6, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  prefix_list6, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

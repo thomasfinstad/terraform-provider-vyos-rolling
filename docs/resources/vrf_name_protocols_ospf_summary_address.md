@@ -29,16 +29,7 @@ Open Shortest Path First (OSPF)
 
 ### Required
 
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `summary_address_id` (String) External summary address
-
-    &emsp;|Format   &emsp;|Description                                  |
-    |-----------|-----------------------------------------------|
-    &emsp;|ipv4net  &emsp;|OSPF area number in dotted decimal notation  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -53,6 +44,23 @@ Open Shortest Path First (OSPF)
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `summary_address` (String) External summary address
+
+    &emsp;|Format   &emsp;|Description                                  |
+    |-----------|-----------------------------------------------|
+    &emsp;|ipv4net  &emsp;|OSPF area number in dotted decimal notation  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

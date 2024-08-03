@@ -29,6 +29,7 @@ type PolicyRouteMapRuleMatch struct {
 	LeafPolicyRouteMapRuleMatchTag             types.Number `tfsdk:"tag" vyos:"tag,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodePolicyRouteMapRuleMatchCommunity      *PolicyRouteMapRuleMatchCommunity      `tfsdk:"community" vyos:"community,omitempty"`

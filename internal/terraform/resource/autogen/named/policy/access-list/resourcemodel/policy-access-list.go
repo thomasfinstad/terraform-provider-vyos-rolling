@@ -23,14 +23,15 @@ var _ helpers.VyosTopResourceDataModel = &PolicyAccessList{}
 type PolicyAccessList struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"access_list_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafPolicyAccessListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagPolicyAccessListRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
@@ -61,7 +62,7 @@ func (o *PolicyAccessList) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"access-list",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["access_list"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -90,9 +91,13 @@ func (o PolicyAccessList) ResourceSchemaAttributes(ctx context.Context) map[stri
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"access_list_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `IP access-list filter
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"access_list": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `IP access-list filter
 
     |  Format     |  Description                               |
     |-------------|--------------------------------------------|
@@ -101,7 +106,7 @@ func (o PolicyAccessList) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  1300-1999  |  IP standard access list (expanded range)  |
     |  2000-2699  |  IP extended access list (expanded range)  |
 `,
-			Description: `IP access-list filter
+						Description: `IP access-list filter
 
     |  Format     |  Description                               |
     |-------------|--------------------------------------------|
@@ -110,8 +115,11 @@ func (o PolicyAccessList) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  1300-1999  |  IP standard access list (expanded range)  |
     |  2000-2699  |  IP extended access list (expanded range)  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

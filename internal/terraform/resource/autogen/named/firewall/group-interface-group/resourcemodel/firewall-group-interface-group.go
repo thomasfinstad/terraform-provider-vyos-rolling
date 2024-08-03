@@ -26,7 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &FirewallGroupInterfaceGroup{}
 type FirewallGroupInterfaceGroup struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"interface_group_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -35,7 +35,7 @@ type FirewallGroupInterfaceGroup struct {
 	LeafFirewallGroupInterfaceGroupInclude     types.List   `tfsdk:"include" vyos:"include,omitempty"`
 	LeafFirewallGroupInterfaceGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -65,7 +65,7 @@ func (o *FirewallGroupInterfaceGroup) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"interface-group",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["interface_group"].(types.String).ValueString(),
 	)
 }
 
@@ -96,29 +96,36 @@ func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes(ctx context.Contex
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"interface_group_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Firewall interface-group
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"interface_group": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Firewall interface-group
 
 `,
-			Description: `Firewall interface-group
+						Description: `Firewall interface-group
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in interface_group_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  interface_group_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in interface_group, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  interface_group, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

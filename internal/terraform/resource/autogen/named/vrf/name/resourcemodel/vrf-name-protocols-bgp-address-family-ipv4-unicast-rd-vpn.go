@@ -20,6 +20,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn struct {
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpnExport types.String `tfsdk:"export" vyos:"export,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

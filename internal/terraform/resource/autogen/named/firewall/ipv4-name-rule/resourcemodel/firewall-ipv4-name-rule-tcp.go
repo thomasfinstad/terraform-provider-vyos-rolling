@@ -20,6 +20,7 @@ type FirewallIPvfourNameRuleTCP struct {
 	LeafFirewallIPvfourNameRuleTCPMss types.String `tfsdk:"mss" vyos:"mss,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvfourNameRuleTCPFlags *FirewallIPvfourNameRuleTCPFlags `tfsdk:"flags" vyos:"flags,omitempty"`

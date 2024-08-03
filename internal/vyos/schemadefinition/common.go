@@ -22,4 +22,5 @@ type NodeParent interface {
 	NodeBase
 	InformLinage()
 	GetChildren() *Children
+	GetIsBaseNode() bool
 }

@@ -22,6 +22,7 @@ type VrfNameProtocolsOspfvthreeDistanceOspfvthree struct {
 	LeafVrfNameProtocolsOspfvthreeDistanceOspfvthreeIntraArea types.Number `tfsdk:"intra_area" vyos:"intra-area,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

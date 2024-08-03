@@ -24,7 +24,7 @@ var _ helpers.VyosTopResourceDataModel = &FirewallIPvfourForwardFilterRule{}
 type FirewallIPvfourForwardFilterRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -48,7 +48,7 @@ type FirewallIPvfourForwardFilterRule struct {
 	LeafFirewallIPvfourForwardFilterRuleJumpTarget          types.String `tfsdk:"jump_target" vyos:"jump-target,omitempty"`
 	LeafFirewallIPvfourForwardFilterRuleOffloadTarget       types.String `tfsdk:"offload_target" vyos:"offload-target,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvfourForwardFilterRuleAddAddressToGroup *FirewallIPvfourForwardFilterRuleAddAddressToGroup `tfsdk:"add_address_to_group" vyos:"add-address-to-group,omitempty"`
@@ -95,7 +95,7 @@ func (o *FirewallIPvfourForwardFilterRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -130,22 +130,29 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes(ctx context.C
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `IPv4 Firewall forward filter rule number
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `IPv4 Firewall forward filter rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-			Description: `IPv4 Firewall forward filter rule number
+						Description: `IPv4 Firewall forward filter rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

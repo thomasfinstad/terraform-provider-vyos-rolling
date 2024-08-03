@@ -55,7 +55,12 @@ func (o *LeafNode) BaseNameC() string {
 
 // BaseNameS returns the terraform schema friendly version of BaseName
 func (o *LeafNode) BaseNameS() string {
-	return regexp.MustCompile("[ -]").ReplaceAllString(o.BaseName(), "_")
+	ret := regexp.MustCompile("[ -]").ReplaceAllString(o.BaseName(), "_")
+
+	if regexp.MustCompile("^[0-9]").FindString(ret) != "" {
+		ret = "_" + ret
+	}
+	return ret
 }
 
 // BaseNameSB returns a resource top level parameter safe version of BaseNameS()

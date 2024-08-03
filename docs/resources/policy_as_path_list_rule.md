@@ -25,16 +25,7 @@ Add a BGP autonomous system path filter
 
 ### Required
 
-- `as_path_list_id` (String) Add a BGP autonomous system path filter
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|AS path list name  |
-- `rule_id` (Number) Rule for this as-path-list
-
-    &emsp;|Format   &emsp;|Description               |
-    |-----------|----------------------------|
-    &emsp;|1-65535  &emsp;|AS path list rule number  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -59,6 +50,23 @@ Add a BGP autonomous system path filter
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `as_path_list` (String) Add a BGP autonomous system path filter
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|AS path list name  |
+- `rule` (Number) Rule for this as-path-list
+
+    &emsp;|Format   &emsp;|Description               |
+    |-----------|----------------------------|
+    &emsp;|1-65535  &emsp;|AS path list rule number  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

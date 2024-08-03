@@ -22,6 +22,7 @@ type VrfNameProtocolsOspfMplsTe struct {
 	LeafVrfNameProtocolsOspfMplsTeRouterAddress types.String `tfsdk:"router_address" vyos:"router-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

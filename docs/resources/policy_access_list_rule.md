@@ -25,19 +25,7 @@ IP access-list filter
 
 ### Required
 
-- `access_list_id` (Number) IP access-list filter
-
-    &emsp;|Format     &emsp;|Description                               |
-    |-------------|--------------------------------------------|
-    &emsp;|1-99       &emsp;|IP standard access list                   |
-    &emsp;|100-199    &emsp;|IP extended access list                   |
-    &emsp;|1300-1999  &emsp;|IP standard access list (expanded range)  |
-    &emsp;|2000-2699  &emsp;|IP extended access list (expanded range)  |
-- `rule_id` (Number) Rule for this access-list
-
-    &emsp;|Format   &emsp;|Description              |
-    |-----------|---------------------------|
-    &emsp;|1-65535  &emsp;|Access-list rule number  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -59,6 +47,26 @@ IP access-list filter
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `access_list` (Number) IP access-list filter
+
+    &emsp;|Format     &emsp;|Description                               |
+    |-------------|--------------------------------------------|
+    &emsp;|1-99       &emsp;|IP standard access list                   |
+    &emsp;|100-199    &emsp;|IP extended access list                   |
+    &emsp;|1300-1999  &emsp;|IP standard access list (expanded range)  |
+    &emsp;|2000-2699  &emsp;|IP extended access list (expanded range)  |
+- `rule` (Number) Rule for this access-list
+
+    &emsp;|Format   &emsp;|Description              |
+    |-----------|---------------------------|
+    &emsp;|1-65535  &emsp;|Access-list rule number  |
+
 
 &lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `destination`

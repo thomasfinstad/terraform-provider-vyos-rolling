@@ -27,7 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &FirewallZone{}
 type FirewallZone struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"zone_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -38,7 +38,8 @@ type FirewallZone struct {
 	LeafFirewallZoneInterface     types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
 	LeafFirewallZoneLocalZone     types.Bool   `tfsdk:"local_zone" vyos:"local-zone,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagFirewallZoneFrom bool `tfsdk:"-" vyos:"from,child"`
 
 	// Nodes
@@ -70,7 +71,7 @@ func (o *FirewallZone) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"zone",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["zone"].(types.String).ValueString(),
 	)
 }
 
@@ -99,35 +100,42 @@ func (o FirewallZone) ResourceSchemaAttributes(ctx context.Context) map[string]s
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"zone_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Zone-policy
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"zone": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Zone-policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Zone name    |
 `,
-			Description: `Zone-policy
+						Description: `Zone-policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Zone name    |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in zone_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  zone_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in zone, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  zone, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

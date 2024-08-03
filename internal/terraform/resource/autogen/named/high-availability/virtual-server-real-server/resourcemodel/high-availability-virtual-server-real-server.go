@@ -26,9 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVirtualServerRealServe
 type HighAvailabilityVirtualServerRealServer struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"real_server_id" vyos:"-,self-id"`
-
-	ParentIDHighAvailabilityVirtualServer types.String `tfsdk:"virtual_server_id" vyos:"virtual-server,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -36,7 +34,7 @@ type HighAvailabilityVirtualServerRealServer struct {
 	LeafHighAvailabilityVirtualServerRealServerPort              types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafHighAvailabilityVirtualServerRealServerConnectionTimeout types.Number `tfsdk:"connection_timeout" vyos:"connection-timeout,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeHighAvailabilityVirtualServerRealServerHealthCheck *HighAvailabilityVirtualServerRealServerHealthCheck `tfsdk:"health_check" vyos:"health-check,omitempty"`
@@ -67,7 +65,7 @@ func (o *HighAvailabilityVirtualServerRealServer) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"real-server",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["real_server"].(types.String).ValueString(),
 	)
 }
 
@@ -80,7 +78,8 @@ func (o *HighAvailabilityVirtualServerRealServer) GetVyosParentPath() []string {
 		"high-availability",
 
 		"virtual-server",
-		o.ParentIDHighAvailabilityVirtualServer.ValueString(),
+
+		o.SelfIdentifier.Attributes()["virtual_server"].(types.String).ValueString(),
 	}
 }
 
@@ -93,7 +92,8 @@ func (o *HighAvailabilityVirtualServerRealServer) GetVyosNamedParentPath() []str
 		"high-availability",
 
 		"virtual-server",
-		o.ParentIDHighAvailabilityVirtualServer.ValueString(),
+
+		o.SelfIdentifier.Attributes()["virtual_server"].(types.String).ValueString(),
 	}
 }
 
@@ -104,55 +104,62 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes(ctx co
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"real_server_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Real server address
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"real_server": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Real server address
 
 `,
-			Description: `Real server address
+						Description: `Real server address
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in real_server_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  real_server_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in real_server, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  real_server, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"virtual_server_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Load-balancing virtual server alias
-
-`,
-			Description: `Load-balancing virtual server alias
+					"virtual_server": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Load-balancing virtual server alias
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in virtual_server_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  virtual_server_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Load-balancing virtual server alias
+
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in virtual_server, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  virtual_server, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

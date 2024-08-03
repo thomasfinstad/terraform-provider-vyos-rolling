@@ -26,7 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &FirewallGroupDomainGroup{}
 type FirewallGroupDomainGroup struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"domain_group_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -34,7 +34,7 @@ type FirewallGroupDomainGroup struct {
 	LeafFirewallGroupDomainGroupAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafFirewallGroupDomainGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -64,7 +64,7 @@ func (o *FirewallGroupDomainGroup) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"domain-group",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["domain_group"].(types.String).ValueString(),
 	)
 }
 
@@ -95,29 +95,36 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes(ctx context.Context) 
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"domain_group_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Firewall domain-group
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"domain_group": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Firewall domain-group
 
 `,
-			Description: `Firewall domain-group
+						Description: `Firewall domain-group
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in domain_group_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  domain_group_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in domain_group, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  domain_group, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

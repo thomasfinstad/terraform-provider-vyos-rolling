@@ -26,7 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &FirewallGroupMacGroup{}
 type FirewallGroupMacGroup struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"mac_group_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -35,7 +35,7 @@ type FirewallGroupMacGroup struct {
 	LeafFirewallGroupMacGroupMacAddress  types.List   `tfsdk:"mac_address" vyos:"mac-address,omitempty"`
 	LeafFirewallGroupMacGroupInclude     types.List   `tfsdk:"include" vyos:"include,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -65,7 +65,7 @@ func (o *FirewallGroupMacGroup) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"mac-group",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["mac_group"].(types.String).ValueString(),
 	)
 }
 
@@ -96,29 +96,36 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes(ctx context.Context) map
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"mac_group_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Firewall mac-group
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"mac_group": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Firewall mac-group
 
 `,
-			Description: `Firewall mac-group
+						Description: `Firewall mac-group
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in mac_group_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  mac_group_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in mac_group, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  mac_group, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

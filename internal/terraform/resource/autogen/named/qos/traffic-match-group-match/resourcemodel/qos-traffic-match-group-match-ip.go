@@ -22,6 +22,7 @@ type QosTrafficMatchGroupMatchIP struct {
 	LeafQosTrafficMatchGroupMatchIPProtocol  types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeQosTrafficMatchGroupMatchIPDestination *QosTrafficMatchGroupMatchIPDestination `tfsdk:"destination" vyos:"destination,omitempty"`

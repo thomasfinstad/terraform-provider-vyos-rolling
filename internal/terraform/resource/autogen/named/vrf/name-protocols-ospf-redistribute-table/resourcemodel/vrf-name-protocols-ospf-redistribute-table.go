@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsOspfRedistributeTable{
 type VrfNameProtocolsOspfRedistributeTable struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"table_id" vyos:"-,self-id"`
-
-	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -38,7 +36,7 @@ type VrfNameProtocolsOspfRedistributeTable struct {
 	LeafVrfNameProtocolsOspfRedistributeTableMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
 	LeafVrfNameProtocolsOspfRedistributeTableRouteMap   types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -68,7 +66,7 @@ func (o *VrfNameProtocolsOspfRedistributeTable) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"table",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["table"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -81,7 +79,8 @@ func (o *VrfNameProtocolsOspfRedistributeTable) GetVyosParentPath() []string {
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
@@ -100,7 +99,8 @@ func (o *VrfNameProtocolsOspfRedistributeTable) GetVyosNamedParentPath() []strin
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
 
@@ -111,54 +111,61 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes(ctx cont
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"table_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Redistribute non-main Kernel Routing Table
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"table": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
     |  Format  |  Description                |
     |----------|-----------------------------|
     |  1-200   |  Policy route table number  |
 `,
-			Description: `Redistribute non-main Kernel Routing Table
+						Description: `Redistribute non-main Kernel Routing Table
 
     |  Format  |  Description                |
     |----------|-----------------------------|
     |  1-200   |  Policy route table number  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Virtual Routing and Forwarding instance
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  VRF instance name  |
-`,
-			Description: `Virtual Routing and Forwarding instance
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

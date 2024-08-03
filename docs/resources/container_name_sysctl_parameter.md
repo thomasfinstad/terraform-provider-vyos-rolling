@@ -27,12 +27,7 @@ Configure namespaced kernel parameters of the container
 
 ### Required
 
-- `name_id` (String) Container name
-- `parameter_id` (String) Sysctl key name
-
-    &emsp;|Format  &emsp;|Description      |
-    |----------|-------------------|
-    &emsp;|txt     &emsp;|Sysctl key name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -42,6 +37,19 @@ Configure namespaced kernel parameters of the container
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Container name
+- `parameter` (String) Sysctl key name
+
+    &emsp;|Format  &emsp;|Description      |
+    |----------|-------------------|
+    &emsp;|txt     &emsp;|Sysctl key name  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

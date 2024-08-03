@@ -27,7 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVrrpGroup{}
 type HighAvailabilityVrrpGroup struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"group_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -44,8 +44,10 @@ type HighAvailabilityVrrpGroup struct {
 	LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility types.Bool   `tfsdk:"rfc3768_compatibility" vyos:"rfc3768-compatibility,omitempty"`
 	LeafHighAvailabilityVrrpGroupVrID                               types.Number `tfsdk:"vrid" vyos:"vrid,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagHighAvailabilityVrrpGroupAddress         bool `tfsdk:"-" vyos:"address,child"`
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
+	ExistsTagHighAvailabilityVrrpGroupAddress bool `tfsdk:"-" vyos:"address,child"`
+
 	ExistsTagHighAvailabilityVrrpGroupExcludedAddress bool `tfsdk:"-" vyos:"excluded-address,child"`
 
 	// Nodes
@@ -81,7 +83,7 @@ func (o *HighAvailabilityVrrpGroup) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"group",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["group"].(types.String).ValueString(),
 	)
 }
 
@@ -112,29 +114,36 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"group_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `VRRP group
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"group": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `VRRP group
 
 `,
-			Description: `VRRP group
+						Description: `VRRP group
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in group_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  group_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in group, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  group, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

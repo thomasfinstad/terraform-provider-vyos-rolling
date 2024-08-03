@@ -25,12 +25,7 @@ Filter group for QoS policy
 
 ### Required
 
-- `match_id` (String) Class matching rule name
-- `traffic_match_group_id` (String) Filter group for QoS policy
-
-    &emsp;|Format  &emsp;|Description       |
-    |----------|--------------------|
-    &emsp;|txt     &emsp;|Match group name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -56,6 +51,19 @@ Filter group for QoS policy
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `match` (String) Class matching rule name
+- `traffic_match_group` (String) Filter group for QoS policy
+
+    &emsp;|Format  &emsp;|Description       |
+    |----------|--------------------|
+    &emsp;|txt     &emsp;|Match group name  |
+
 
 &lt;a id=&#34;nestedatt--ip&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `ip`

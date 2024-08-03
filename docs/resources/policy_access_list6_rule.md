@@ -25,16 +25,7 @@ IPv6 access-list filter
 
 ### Required
 
-- `access_list6_id` (String) IPv6 access-list filter
-
-    &emsp;|Format  &emsp;|Description               |
-    |----------|----------------------------|
-    &emsp;|txt     &emsp;|Name of IPv6 access-list  |
-- `rule_id` (Number) Rule for this access-list6
-
-    &emsp;|Format   &emsp;|Description               |
-    |-----------|----------------------------|
-    &emsp;|1-65535  &emsp;|Access-list6 rule number  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -55,6 +46,23 @@ IPv6 access-list filter
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `access_list6` (String) IPv6 access-list filter
+
+    &emsp;|Format  &emsp;|Description               |
+    |----------|----------------------------|
+    &emsp;|txt     &emsp;|Name of IPv6 access-list  |
+- `rule` (Number) Rule for this access-list6
+
+    &emsp;|Format   &emsp;|Description               |
+    |-----------|----------------------------|
+    &emsp;|1-65535  &emsp;|Access-list6 rule number  |
+
 
 &lt;a id=&#34;nestedatt--source&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `source`

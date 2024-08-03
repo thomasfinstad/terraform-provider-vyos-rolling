@@ -18,6 +18,7 @@ type FirewallIPvfourPreroutingRawRuleAddAddressToGroup struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvfourPreroutingRawRuleAddAddressToGroupSourceAddress      *FirewallIPvfourPreroutingRawRuleAddAddressToGroupSourceAddress      `tfsdk:"source_address" vyos:"source-address,omitempty"`

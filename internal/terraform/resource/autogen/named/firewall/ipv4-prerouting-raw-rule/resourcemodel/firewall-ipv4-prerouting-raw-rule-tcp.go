@@ -20,6 +20,7 @@ type FirewallIPvfourPreroutingRawRuleTCP struct {
 	LeafFirewallIPvfourPreroutingRawRuleTCPMss types.String `tfsdk:"mss" vyos:"mss,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvfourPreroutingRawRuleTCPFlags *FirewallIPvfourPreroutingRawRuleTCPFlags `tfsdk:"flags" vyos:"flags,omitempty"`

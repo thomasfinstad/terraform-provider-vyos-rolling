@@ -35,16 +35,7 @@ Remote loop free alternate options
 
 ### Required
 
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `prefix_list_id` (String) Filter PQ node router ID based on prefix list
-
-    &emsp;|Format  &emsp;|Description                    |
-    |----------|---------------------------------|
-    &emsp;|txt     &emsp;|Name of IPv4/IPv6 prefix-list  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -55,6 +46,23 @@ Remote loop free alternate options
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `prefix_list` (String) Filter PQ node router ID based on prefix list
+
+    &emsp;|Format  &emsp;|Description                    |
+    |----------|---------------------------------|
+    &emsp;|txt     &emsp;|Name of IPv4/IPv6 prefix-list  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

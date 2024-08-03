@@ -20,6 +20,7 @@ type FirewallZoneIntraZoneFiltering struct {
 	LeafFirewallZoneIntraZoneFilteringAction types.String `tfsdk:"action" vyos:"action,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallZoneIntraZoneFilteringFirewall *FirewallZoneIntraZoneFilteringFirewall `tfsdk:"firewall" vyos:"firewall,omitempty"`

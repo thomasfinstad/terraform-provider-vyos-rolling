@@ -31,17 +31,7 @@ Name of peer-group
 
 ### Required
 
-- `local_as_id` (Number) Specify alternate ASN for this BGP process
-
-    &emsp;|Format        &emsp;|Description                     |
-    |----------------|----------------------------------|
-    &emsp;|1-4294967294  &emsp;|Autonomous System Number (ASN)  |
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `peer_group_id` (String) Name of peer-group
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -51,6 +41,24 @@ Name of peer-group
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `local_as` (Number) Specify alternate ASN for this BGP process
+
+    &emsp;|Format        &emsp;|Description                     |
+    |----------------|----------------------------------|
+    &emsp;|1-4294967294  &emsp;|Autonomous System Number (ASN)  |
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `peer_group` (String) Name of peer-group
+
 
 &lt;a id=&#34;nestedatt--no_prepend&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `no_prepend`

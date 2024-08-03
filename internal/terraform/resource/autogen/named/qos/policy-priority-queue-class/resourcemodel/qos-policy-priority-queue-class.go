@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyPriorityQueueClass{}
 type QosPolicyPriorityQueueClass struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"class_id" vyos:"-,self-id"`
-
-	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue_id" vyos:"priority-queue,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -43,7 +41,8 @@ type QosPolicyPriorityQueueClass struct {
 	LeafQosPolicyPriorityQueueClassQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
 	LeafQosPolicyPriorityQueueClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagQosPolicyPriorityQueueClassMatch bool `tfsdk:"-" vyos:"match,child"`
 
 	// Nodes
@@ -74,7 +73,7 @@ func (o *QosPolicyPriorityQueueClass) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"class",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -89,7 +88,8 @@ func (o *QosPolicyPriorityQueueClass) GetVyosParentPath() []string {
 		"policy",
 
 		"priority-queue",
-		o.ParentIDQosPolicyPriorityQueue.ValueString(),
+
+		o.SelfIdentifier.Attributes()["priority_queue"].(types.String).ValueString(),
 	}
 }
 
@@ -104,7 +104,8 @@ func (o *QosPolicyPriorityQueueClass) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"priority-queue",
-		o.ParentIDQosPolicyPriorityQueue.ValueString(),
+
+		o.SelfIdentifier.Attributes()["priority_queue"].(types.String).ValueString(),
 	}
 }
 
@@ -115,54 +116,61 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes(ctx context.Contex
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"class_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Class Handle
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"class": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Class Handle
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-7     |  Priority     |
 `,
-			Description: `Class Handle
+						Description: `Class Handle
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-7     |  Priority     |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"priority_queue_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Priority queuing based policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Policy name  |
-`,
-			Description: `Priority queuing based policy
+					"priority_queue": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Priority queuing based policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in priority_queue_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  priority_queue_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Priority queuing based policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in priority_queue, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  priority_queue, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

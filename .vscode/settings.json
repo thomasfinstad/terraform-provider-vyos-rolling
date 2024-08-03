@@ -13,5 +13,10 @@
     "[makefile]": {
         "editor.insertSpaces": false,
         "editor.detectIndentation": false
+    },
+    "files.watcherExclude": {
+        "docs/**/*.md": true,
+        "internal/terraform/resource/autogen/**/*.go": true,
+        "internal/vyos/vyosinterfaces/**/*.go": true
     }
 }

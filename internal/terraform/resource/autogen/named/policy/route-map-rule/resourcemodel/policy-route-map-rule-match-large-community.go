@@ -20,6 +20,7 @@ type PolicyRouteMapRuleMatchLargeCommunity struct {
 	LeafPolicyRouteMapRuleMatchLargeCommunityLargeCommunityList types.String `tfsdk:"large_community_list" vyos:"large-community-list,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

@@ -26,14 +26,14 @@ var _ helpers.VyosTopResourceDataModel = &FirewallGroupDynamicGroupIPvsixAddress
 type FirewallGroupDynamicGroupIPvsixAddressGroup struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"ipv6_address_group_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafFirewallGroupDynamicGroupIPvsixAddressGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -63,7 +63,7 @@ func (o *FirewallGroupDynamicGroupIPvsixAddressGroup) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"ipv6-address-group",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["ipv6_address_group"].(types.String).ValueString(),
 	)
 }
 
@@ -96,29 +96,36 @@ func (o FirewallGroupDynamicGroupIPvsixAddressGroup) ResourceSchemaAttributes(ct
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"ipv6_address_group_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Firewall dynamic IPv6 address group
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"ipv6_address_group": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Firewall dynamic IPv6 address group
 
 `,
-			Description: `Firewall dynamic IPv6 address group
+						Description: `Firewall dynamic IPv6 address group
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in ipv6_address_group_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  ipv6_address_group_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in ipv6_address_group, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  ipv6_address_group, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -31,21 +31,7 @@ Static IPv4 route
 
 ### Required
 
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `next_hop_id` (String) Next-hop IPv4 router address
-
-    &emsp;|Format  &emsp;|Description              |
-    |----------|---------------------------|
-    &emsp;|ipv4    &emsp;|Next-hop router address  |
-- `route_id` (String) Static IPv4 route
-
-    &emsp;|Format   &emsp;|Description        |
-    |-----------|---------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 static route  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -71,6 +57,28 @@ Static IPv4 route
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `next_hop` (String) Next-hop IPv4 router address
+
+    &emsp;|Format  &emsp;|Description              |
+    |----------|---------------------------|
+    &emsp;|ipv4    &emsp;|Next-hop router address  |
+- `route` (String) Static IPv4 route
+
+    &emsp;|Format   &emsp;|Description        |
+    |-----------|---------------------|
+    &emsp;|ipv4net  &emsp;|IPv4 static route  |
+
 
 &lt;a id=&#34;nestedatt--bfd&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `bfd`

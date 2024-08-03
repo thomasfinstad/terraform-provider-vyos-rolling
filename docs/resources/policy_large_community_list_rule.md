@@ -25,16 +25,7 @@ Add a BGP large community list entry
 
 ### Required
 
-- `large_community_list_id` (String) Add a BGP large community list entry
-
-    &emsp;|Format  &emsp;|Description                    |
-    |----------|---------------------------------|
-    &emsp;|txt     &emsp;|BGP large-community-list name  |
-- `rule_id` (Number) Rule for this BGP extended community list
-
-    &emsp;|Format   &emsp;|Description                       |
-    |-----------|------------------------------------|
-    &emsp;|1-65535  &emsp;|Large community-list rule number  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -60,6 +51,23 @@ Add a BGP large community list entry
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `large_community_list` (String) Add a BGP large community list entry
+
+    &emsp;|Format  &emsp;|Description                    |
+    |----------|---------------------------------|
+    &emsp;|txt     &emsp;|BGP large-community-list name  |
+- `rule` (Number) Rule for this BGP extended community list
+
+    &emsp;|Format   &emsp;|Description                       |
+    |-----------|------------------------------------|
+    &emsp;|1-65535  &emsp;|Large community-list rule number  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

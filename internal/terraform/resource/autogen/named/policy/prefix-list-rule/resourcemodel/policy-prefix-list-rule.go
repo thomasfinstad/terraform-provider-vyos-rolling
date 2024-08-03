@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &PolicyPrefixListRule{}
 type PolicyPrefixListRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
-
-	ParentIDPolicyPrefixList types.String `tfsdk:"prefix_list_id" vyos:"prefix-list,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -40,7 +38,7 @@ type PolicyPrefixListRule struct {
 	LeafPolicyPrefixListRuleLe          types.Number `tfsdk:"le" vyos:"le,omitempty"`
 	LeafPolicyPrefixListRulePrefix      types.String `tfsdk:"prefix" vyos:"prefix,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -70,7 +68,7 @@ func (o *PolicyPrefixListRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -83,7 +81,8 @@ func (o *PolicyPrefixListRule) GetVyosParentPath() []string {
 		"policy",
 
 		"prefix-list",
-		o.ParentIDPolicyPrefixList.ValueString(),
+
+		o.SelfIdentifier.Attributes()["prefix_list"].(types.String).ValueString(),
 	}
 }
 
@@ -96,7 +95,8 @@ func (o *PolicyPrefixListRule) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"prefix-list",
-		o.ParentIDPolicyPrefixList.ValueString(),
+
+		o.SelfIdentifier.Attributes()["prefix_list"].(types.String).ValueString(),
 	}
 }
 
@@ -107,54 +107,61 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes(ctx context.Context) map[
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Rule for this prefix-list
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Rule for this prefix-list
 
     |  Format   |  Description              |
     |-----------|---------------------------|
     |  1-65535  |  Prefix-list rule number  |
 `,
-			Description: `Rule for this prefix-list
+						Description: `Rule for this prefix-list
 
     |  Format   |  Description              |
     |-----------|---------------------------|
     |  1-65535  |  Prefix-list rule number  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"prefix_list_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `IP prefix-list filter
-
-    |  Format  |  Description               |
-    |----------|----------------------------|
-    |  txt     |  Name of IPv4 prefix-list  |
-`,
-			Description: `IP prefix-list filter
+					"prefix_list": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `IP prefix-list filter
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  txt     |  Name of IPv4 prefix-list  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in prefix_list_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  prefix_list_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `IP prefix-list filter
+
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv4 prefix-list  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in prefix_list, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  prefix_list, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

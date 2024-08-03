@@ -26,7 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyNetworkEmulator{}
 type QosPolicyNetworkEmulator struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"network_emulator_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -40,7 +40,7 @@ type QosPolicyNetworkEmulator struct {
 	LeafQosPolicyNetworkEmulatorReordering  types.String `tfsdk:"reordering" vyos:"reordering,omitempty"`
 	LeafQosPolicyNetworkEmulatorQueueLimit  types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -70,7 +70,7 @@ func (o *QosPolicyNetworkEmulator) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"network-emulator",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["network_emulator"].(types.String).ValueString(),
 	)
 }
 
@@ -101,35 +101,42 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes(ctx context.Context) 
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"network_emulator_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Network emulator policy
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"network_emulator": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Network emulator policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			Description: `Network emulator policy
+						Description: `Network emulator policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in network_emulator_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  network_emulator_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in network_emulator, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  network_emulator, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -25,16 +25,7 @@ IP route-map
 
 ### Required
 
-- `route_map_id` (String) IP route-map
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
-- `rule_id` (Number) Rule for this route-map
-
-    &emsp;|Format   &emsp;|Description            |
-    |-----------|-------------------------|
-    &emsp;|1-65535  &emsp;|Route-map rule number  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -67,6 +58,23 @@ IP route-map
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `route_map` (String) IP route-map
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Route map name  |
+- `rule` (Number) Rule for this route-map
+
+    &emsp;|Format   &emsp;|Description            |
+    |-----------|-------------------------|
+    &emsp;|1-65535  &emsp;|Route-map rule number  |
+
 
 &lt;a id=&#34;nestedatt--match&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `match`

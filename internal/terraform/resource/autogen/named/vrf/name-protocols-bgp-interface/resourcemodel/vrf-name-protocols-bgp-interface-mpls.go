@@ -21,6 +21,7 @@ type VrfNameProtocolsBgpInterfaceMpls struct {
 	LeafVrfNameProtocolsBgpInterfaceMplsForwarding types.Bool `tfsdk:"forwarding" vyos:"forwarding,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

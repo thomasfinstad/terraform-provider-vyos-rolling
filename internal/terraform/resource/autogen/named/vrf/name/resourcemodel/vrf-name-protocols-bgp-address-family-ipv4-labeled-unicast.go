@@ -18,8 +18,11 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastAggregateAddress bool `tfsdk:"aggregate_address" vyos:"aggregate-address,child"`
-	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork          bool `tfsdk:"network" vyos:"network,child"`
+
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork bool `tfsdk:"network" vyos:"network,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastMaximumPaths *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastMaximumPaths `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`

@@ -20,6 +20,7 @@ type VrfNameProtocolsOspfAreaVirtualLinkAuthentication struct {
 	LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password" vyos:"plaintext-password,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive `tfsdk:"md5" vyos:"md5,omitempty"`

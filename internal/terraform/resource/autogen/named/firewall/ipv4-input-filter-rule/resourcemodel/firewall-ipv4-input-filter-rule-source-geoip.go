@@ -22,6 +22,7 @@ type FirewallIPvfourInputFilterRuleSourceGeoIP struct {
 	LeafFirewallIPvfourInputFilterRuleSourceGeoIPInverseMatch types.Bool `tfsdk:"inverse_match" vyos:"inverse-match,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

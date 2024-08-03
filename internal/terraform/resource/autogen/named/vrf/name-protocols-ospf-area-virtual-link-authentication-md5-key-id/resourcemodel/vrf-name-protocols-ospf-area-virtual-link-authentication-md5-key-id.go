@@ -27,20 +27,14 @@ var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsOspfAreaVirtualLinkAut
 type VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"key_id_id" vyos:"-,self-id"`
-
-	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
-
-	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area_id" vyos:"area,parent-id"`
-
-	ParentIDVrfNameProtocolsOspfAreaVirtualLink types.String `tfsdk:"virtual_link_id" vyos:"virtual-link,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key" vyos:"md5-key,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -70,7 +64,7 @@ func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosPa
 	return append(
 		o.GetVyosParentPath(),
 		"key-id",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["key_id"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -83,17 +77,20 @@ func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosPa
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
 		"ospf",
 
 		"area",
-		o.ParentIDVrfNameProtocolsOspfArea.ValueString(),
+
+		o.SelfIdentifier.Attributes()["area"].(types.String).ValueString(),
 
 		"virtual-link",
-		o.ParentIDVrfNameProtocolsOspfAreaVirtualLink.ValueString(),
+
+		o.SelfIdentifier.Attributes()["virtual_link"].(types.String).ValueString(),
 
 		"authentication",
 
@@ -110,17 +107,20 @@ func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosNa
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
 		"ospf",
 
 		"area",
-		o.ParentIDVrfNameProtocolsOspfArea.ValueString(),
+
+		o.SelfIdentifier.Attributes()["area"].(types.String).ValueString(),
 
 		"virtual-link",
-		o.ParentIDVrfNameProtocolsOspfAreaVirtualLink.ValueString(),
+
+		o.SelfIdentifier.Attributes()["virtual_link"].(types.String).ValueString(),
 	}
 }
 
@@ -131,120 +131,127 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"key_id_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `MD5 key id
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"key_id": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `MD5 key id
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-255   |  MD5 key id   |
 `,
-			Description: `MD5 key id
+						Description: `MD5 key id
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-255   |  MD5 key id   |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Virtual Routing and Forwarding instance
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  VRF instance name  |
-`,
-			Description: `Virtual Routing and Forwarding instance
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						Description: `Virtual Routing and Forwarding instance
 
-		"area_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `OSPF area settings
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+
+					"area": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `OSPF area settings
 
     |  Format  |  Description                                  |
     |----------|-----------------------------------------------|
     |  u32     |  OSPF area number in decimal notation         |
     |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
-			Description: `OSPF area settings
+						Description: `OSPF area settings
 
     |  Format  |  Description                                  |
     |----------|-----------------------------------------------|
     |  u32     |  OSPF area number in decimal notation         |
     |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in area_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  area_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in area, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  area, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"virtual_link_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Virtual link
-
-    |  Format  |  Description                           |
-    |----------|----------------------------------------|
-    |  ipv4    |  OSPF area in dotted decimal notation  |
-`,
-			Description: `Virtual link
+					"virtual_link": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual link
 
     |  Format  |  Description                           |
     |----------|----------------------------------------|
     |  ipv4    |  OSPF area in dotted decimal notation  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in virtual_link_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  virtual_link_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Virtual link
+
+    |  Format  |  Description                           |
+    |----------|----------------------------------------|
+    |  ipv4    |  OSPF area in dotted decimal notation  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in virtual_link, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  virtual_link, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

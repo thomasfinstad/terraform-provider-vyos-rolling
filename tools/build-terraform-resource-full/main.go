@@ -34,7 +34,7 @@ func main() {
 	for _, vyosInterface := range vyosInterfaces {
 
 		// Named (TagNode) resources
-		TagNodes, ok := vyosInterface.TagNodes()
+		TagNodes, ok := vyosInterface.BaseTagNodes()
 		if ok {
 			for _, tagNode := range TagNodes {
 				packagesToGenerate = append(packagesToGenerate, namedResources(tagNode, skipDirAbsNames, fmt.Sprintf("%s/named", rootOutputDirectory), "named", selfImportRoot)...)
@@ -394,6 +394,12 @@ func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefi
 	// Recurse
 	c := node.GetChildren()
 	for _, n := range c.Nodes() {
+		namedResourceModelGeneration(resourceModelOutputDir, n, t, thisFilename, resourceModelSubDir)
+	}
+	for _, n := range c.TagNodes() {
+		if n.GetIsBaseNode() {
+			continue
+		}
 		namedResourceModelGeneration(resourceModelOutputDir, n, t, thisFilename, resourceModelSubDir)
 	}
 }

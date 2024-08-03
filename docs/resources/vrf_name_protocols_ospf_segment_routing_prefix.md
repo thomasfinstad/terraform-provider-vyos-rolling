@@ -31,16 +31,7 @@ Segment-Routing (SPRING) settings
 
 ### Required
 
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `prefix_id` (String) Static IPv4 prefix segment/label mapping
-
-    &emsp;|Format   &emsp;|Description          |
-    |-----------|-----------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 prefix segment  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -50,6 +41,23 @@ Segment-Routing (SPRING) settings
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `prefix` (String) Static IPv4 prefix segment/label mapping
+
+    &emsp;|Format   &emsp;|Description          |
+    |-----------|-----------------------|
+    &emsp;|ipv4net  &emsp;|IPv4 prefix segment  |
+
 
 &lt;a id=&#34;nestedatt--index&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `index`

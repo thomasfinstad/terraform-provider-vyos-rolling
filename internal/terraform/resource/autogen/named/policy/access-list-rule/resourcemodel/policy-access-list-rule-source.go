@@ -24,6 +24,7 @@ type PolicyAccessListRuleSource struct {
 	LeafPolicyAccessListRuleSourceNetwork     types.String `tfsdk:"network" vyos:"network,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

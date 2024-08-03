@@ -26,9 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &QosTrafficMatchGroupMatch{}
 type QosTrafficMatchGroupMatch struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"match_id" vyos:"-,self-id"`
-
-	ParentIDQosTrafficMatchGroup types.String `tfsdk:"traffic_match_group_id" vyos:"traffic-match-group,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -37,7 +35,7 @@ type QosTrafficMatchGroupMatch struct {
 	LeafQosTrafficMatchGroupMatchMark        types.Number `tfsdk:"mark" vyos:"mark,omitempty"`
 	LeafQosTrafficMatchGroupMatchVif         types.Number `tfsdk:"vif" vyos:"vif,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeQosTrafficMatchGroupMatchIP     *QosTrafficMatchGroupMatchIP     `tfsdk:"ip" vyos:"ip,omitempty"`
@@ -69,7 +67,7 @@ func (o *QosTrafficMatchGroupMatch) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"match",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["match"].(types.String).ValueString(),
 	)
 }
 
@@ -82,7 +80,8 @@ func (o *QosTrafficMatchGroupMatch) GetVyosParentPath() []string {
 		"qos",
 
 		"traffic-match-group",
-		o.ParentIDQosTrafficMatchGroup.ValueString(),
+
+		o.SelfIdentifier.Attributes()["traffic_match_group"].(types.String).ValueString(),
 	}
 }
 
@@ -95,7 +94,8 @@ func (o *QosTrafficMatchGroupMatch) GetVyosNamedParentPath() []string {
 		"qos",
 
 		"traffic-match-group",
-		o.ParentIDQosTrafficMatchGroup.ValueString(),
+
+		o.SelfIdentifier.Attributes()["traffic_match_group"].(types.String).ValueString(),
 	}
 }
 
@@ -106,61 +106,68 @@ func (o QosTrafficMatchGroupMatch) ResourceSchemaAttributes(ctx context.Context)
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"match_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Class matching rule name
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"match": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Class matching rule name
 
 `,
-			Description: `Class matching rule name
+						Description: `Class matching rule name
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in match_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  match_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in match, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  match, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"traffic_match_group_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Filter group for QoS policy
+					"traffic_match_group": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Filter group for QoS policy
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  txt     |  Match group name  |
 `,
-			Description: `Filter group for QoS policy
+						Description: `Filter group for QoS policy
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  txt     |  Match group name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in traffic_match_group_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  traffic_match_group_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in traffic_match_group, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  traffic_match_group, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

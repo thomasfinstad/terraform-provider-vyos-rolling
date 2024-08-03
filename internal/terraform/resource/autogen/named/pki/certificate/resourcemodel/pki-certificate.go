@@ -27,7 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &PkiCertificate{}
 type PkiCertificate struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"certificate_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -36,7 +36,7 @@ type PkiCertificate struct {
 	LeafPkiCertificateDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafPkiCertificateRevoke      types.Bool   `tfsdk:"revoke" vyos:"revoke,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodePkiCertificateAcme    *PkiCertificateAcme    `tfsdk:"acme" vyos:"acme,omitempty"`
@@ -68,7 +68,7 @@ func (o *PkiCertificate) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"certificate",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["certificate"].(types.String).ValueString(),
 	)
 }
 
@@ -97,29 +97,36 @@ func (o PkiCertificate) ResourceSchemaAttributes(ctx context.Context) map[string
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"certificate_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Certificate
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"certificate": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Certificate
 
 `,
-			Description: `Certificate
+						Description: `Certificate
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in certificate_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  certificate_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in certificate, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  certificate, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

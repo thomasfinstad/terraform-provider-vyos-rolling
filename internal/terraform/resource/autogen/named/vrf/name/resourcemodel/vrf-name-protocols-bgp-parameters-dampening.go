@@ -23,6 +23,7 @@ type VrfNameProtocolsBgpParametersDampening struct {
 	LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime types.Number `tfsdk:"start_suppress_time" vyos:"start-suppress-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

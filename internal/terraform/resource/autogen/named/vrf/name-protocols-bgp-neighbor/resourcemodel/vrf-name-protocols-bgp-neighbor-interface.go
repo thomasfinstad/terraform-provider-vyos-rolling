@@ -22,6 +22,7 @@ type VrfNameProtocolsBgpNeighborInterface struct {
 	LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface types.String `tfsdk:"source_interface" vyos:"source-interface,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly *VrfNameProtocolsBgpNeighborInterfaceVsixonly `tfsdk:"v6only" vyos:"v6only,omitempty"`

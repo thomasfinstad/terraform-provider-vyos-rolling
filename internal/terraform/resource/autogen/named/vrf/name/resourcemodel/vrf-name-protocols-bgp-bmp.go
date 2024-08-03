@@ -20,6 +20,8 @@ type VrfNameProtocolsBgpBmp struct {
 	LeafVrfNameProtocolsBgpBmpMirrorBufferLimit types.Number `tfsdk:"mirror_buffer_limit" vyos:"mirror-buffer-limit,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagVrfNameProtocolsBgpBmpTarget bool `tfsdk:"target" vyos:"target,child"`
 
 	// Nodes

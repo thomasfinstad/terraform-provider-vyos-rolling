@@ -23,6 +23,7 @@ type FirewallBrIDgeForwardFilterRuleSource struct {
 	LeafFirewallBrIDgeForwardFilterRuleSourcePort        types.String `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallBrIDgeForwardFilterRuleSourceGroup *FirewallBrIDgeForwardFilterRuleSourceGroup `tfsdk:"group" vyos:"group,omitempty"`

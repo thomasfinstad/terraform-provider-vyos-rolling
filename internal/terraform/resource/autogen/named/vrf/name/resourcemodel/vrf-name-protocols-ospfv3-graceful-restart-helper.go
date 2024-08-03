@@ -23,6 +23,7 @@ type VrfNameProtocolsOspfvthreeGracefulRestartHelper struct {
 	LeafVrfNameProtocolsOspfvthreeGracefulRestartHelperLsaCheckDisable    types.Bool   `tfsdk:"lsa_check_disable" vyos:"lsa-check-disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsOspfvthreeGracefulRestartHelperEnable *VrfNameProtocolsOspfvthreeGracefulRestartHelperEnable `tfsdk:"enable" vyos:"enable,omitempty"`

@@ -27,15 +27,7 @@ VRRP group
 
 ### Required
 
-- `address_id` (String) Virtual IP address
-
-    &emsp;|Format   &emsp;|Description                     |
-    |-----------|----------------------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 address and prefix length  |
-    &emsp;|ipv6net  &emsp;|IPv6 address and prefix length  |
-    &emsp;|ipv4     &emsp;|IPv4 address                    |
-    &emsp;|ipv6     &emsp;|IPv6 address                    |
-- `group_id` (String) VRRP group
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -49,6 +41,22 @@ VRRP group
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `address` (String) Virtual IP address
+
+    &emsp;|Format   &emsp;|Description                     |
+    |-----------|----------------------------------|
+    &emsp;|ipv4net  &emsp;|IPv4 address and prefix length  |
+    &emsp;|ipv6net  &emsp;|IPv6 address and prefix length  |
+    &emsp;|ipv4     &emsp;|IPv4 address                    |
+    &emsp;|ipv6     &emsp;|IPv6 address                    |
+- `group` (String) VRRP group
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

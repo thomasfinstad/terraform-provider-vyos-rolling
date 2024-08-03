@@ -28,9 +28,7 @@ var _ helpers.VyosTopResourceDataModel = &FirewallBrIDgeNameRule{}
 type FirewallBrIDgeNameRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
-
-	ParentIDFirewallBrIDgeName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -52,7 +50,7 @@ type FirewallBrIDgeNameRule struct {
 	LeafFirewallBrIDgeNameRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
 	LeafFirewallBrIDgeNameRuleState               types.List   `tfsdk:"state" vyos:"state,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallBrIDgeNameRuleFragment          *FirewallBrIDgeNameRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
@@ -98,7 +96,7 @@ func (o *FirewallBrIDgeNameRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -113,7 +111,8 @@ func (o *FirewallBrIDgeNameRule) GetVyosParentPath() []string {
 		"bridge",
 
 		"name",
-		o.ParentIDFirewallBrIDgeName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
 
@@ -128,7 +127,8 @@ func (o *FirewallBrIDgeNameRule) GetVyosNamedParentPath() []string {
 		"bridge",
 
 		"name",
-		o.ParentIDFirewallBrIDgeName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
 
@@ -139,48 +139,55 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Bridge Firewall forward filter rule number
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Bridge Firewall forward filter rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-			Description: `Bridge Firewall forward filter rule number
+						Description: `Bridge Firewall forward filter rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Bridge custom firewall
-
-`,
-			Description: `Bridge custom firewall
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Bridge custom firewall
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Bridge custom firewall
+
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -24,7 +24,7 @@ var _ helpers.VyosTopResourceDataModel = &FirewallIPvsixOutputRawRule{}
 type FirewallIPvsixOutputRawRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -39,7 +39,7 @@ type FirewallIPvsixOutputRawRule struct {
 	LeafFirewallIPvsixOutputRawRuleQueue        types.Number `tfsdk:"queue" vyos:"queue,omitempty"`
 	LeafFirewallIPvsixOutputRawRuleQueueOptions types.List   `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvsixOutputRawRuleAddAddressToGroup *FirewallIPvsixOutputRawRuleAddAddressToGroup `tfsdk:"add_address_to_group" vyos:"add-address-to-group,omitempty"`
@@ -82,7 +82,7 @@ func (o *FirewallIPvsixOutputRawRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -117,22 +117,29 @@ func (o FirewallIPvsixOutputRawRule) ResourceSchemaAttributes(ctx context.Contex
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `IPv6 Firewall output raw rule number
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `IPv6 Firewall output raw rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-			Description: `IPv6 Firewall output raw rule number
+						Description: `IPv6 Firewall output raw rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

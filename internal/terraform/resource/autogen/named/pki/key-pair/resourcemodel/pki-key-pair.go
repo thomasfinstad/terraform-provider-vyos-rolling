@@ -26,13 +26,13 @@ var _ helpers.VyosTopResourceDataModel = &PkiKeyPair{}
 type PkiKeyPair struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"key_pair_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodePkiKeyPairPublic  *PkiKeyPairPublic  `tfsdk:"public" vyos:"public,omitempty"`
@@ -64,7 +64,7 @@ func (o *PkiKeyPair) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"key-pair",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["key_pair"].(types.String).ValueString(),
 	)
 }
 
@@ -93,29 +93,36 @@ func (o PkiKeyPair) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"key_pair_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Public and private keys
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"key_pair": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Public and private keys
 
 `,
-			Description: `Public and private keys
+						Description: `Public and private keys
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in key_pair_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  key_pair_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in key_pair, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  key_pair, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -41,6 +41,7 @@ type VrfNameProtocolsBgpParameters struct {
 	LeafVrfNameProtocolsBgpParametersRouterID                          types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpParametersBestpath                 *VrfNameProtocolsBgpParametersBestpath                 `tfsdk:"bestpath" vyos:"bestpath,omitempty"`

@@ -9,6 +9,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
@@ -80,7 +81,11 @@ func TestCrudDeleteSuccess(t *testing.T) {
 
 	// From resource model
 	model := &ipv4ResModel.FirewallIPvfourName{
-		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteSuccess"),
+		// SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteSuccess"),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudDeleteSuccess")}),
+
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -165,7 +170,11 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 
 		// From resource model
 		model := &ipv4ResModel.FirewallIPvfourName{
-			SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteResourceHasChildFailure"),
+			// SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteResourceHasChildFailure"),
+			SelfIdentifier: basetypes.NewObjectValueMust(
+				map[string]attr.Type{"name": basetypes.StringType{}},
+				map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudDeleteResourceHasChildFailure")}),
+
 			LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 			LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 			LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -235,7 +244,11 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 
 	// From resource model
 	model := &ipv4ResModel.FirewallIPvfourName{
-		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteResourceHasChildIgnore"),
+		// SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteResourceHasChildIgnore"),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudDeleteResourceHasChildIgnore")}),
+
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -564,7 +577,11 @@ func TestCrudDeleteRetrySuccess(t *testing.T) {
 
 	// From resource model
 	model := &ipv4ResModel.FirewallIPvfourName{
-		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteRetrySuccess"),
+		// SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteRetrySuccess"),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudDeleteRetrySuccess")}),
+
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -735,7 +752,11 @@ func TestCrudDeleteEmptyResource(t *testing.T) {
 
 	// From resource model
 	model := &ipv4ResModel.FirewallIPvfourName{
-		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteEmptyResource"),
+		// SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteEmptyResource"),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudDeleteEmptyResource")}),
+
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -845,7 +866,11 @@ func TestCrudDeleteDeletedResource(t *testing.T) {
 
 	// From resource model
 	model := &ipv4ResModel.FirewallIPvfourName{
-		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteDeletedResource"),
+		// SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteDeletedResource"),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudDeleteDeletedResource")}),
+
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),

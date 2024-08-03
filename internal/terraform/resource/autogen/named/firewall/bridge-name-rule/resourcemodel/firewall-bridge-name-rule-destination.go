@@ -23,6 +23,7 @@ type FirewallBrIDgeNameRuleDestination struct {
 	LeafFirewallBrIDgeNameRuleDestinationPort        types.String `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallBrIDgeNameRuleDestinationGroup *FirewallBrIDgeNameRuleDestinationGroup `tfsdk:"group" vyos:"group,omitempty"`

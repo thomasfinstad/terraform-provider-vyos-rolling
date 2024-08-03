@@ -29,17 +29,7 @@ Open Shortest Path First (OSPF)
 
 ### Required
 
-- `area_id` (String) OSPF area settings
-
-    &emsp;|Format  &emsp;|Description                                  |
-    |----------|-----------------------------------------------|
-    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
-    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -77,6 +67,24 @@ Open Shortest Path First (OSPF)
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `area` (String) OSPF area settings
+
+    &emsp;|Format  &emsp;|Description                                  |
+    |----------|-----------------------------------------------|
+    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
+    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+
 
 &lt;a id=&#34;nestedatt--area_type&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `area_type`

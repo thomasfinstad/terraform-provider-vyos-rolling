@@ -21,6 +21,7 @@ type VrfNameProtocolsBgpNeighborInterfaceVsixonly struct {
 	LeafVrfNameProtocolsBgpNeighborInterfaceVsixonlyRemoteAs  types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

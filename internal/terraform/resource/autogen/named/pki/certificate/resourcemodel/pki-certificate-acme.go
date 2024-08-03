@@ -24,6 +24,7 @@ type PkiCertificateAcme struct {
 	LeafPkiCertificateAcmeRsaKeySize    types.String `tfsdk:"rsa_key_size" vyos:"rsa-key-size,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

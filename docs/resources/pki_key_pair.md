@@ -23,7 +23,7 @@ Public key infrastructure (PKI)
 
 ### Required
 
-- `key_pair_id` (String) Public and private keys
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -34,6 +34,14 @@ Public key infrastructure (PKI)
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `key_pair` (String) Public and private keys
+
 
 &lt;a id=&#34;nestedatt--private&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `private`

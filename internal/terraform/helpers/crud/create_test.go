@@ -82,8 +82,11 @@ func TestCrudCreateSuccess(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateSuccess"),
-		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateSuccess"),
+		// SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudCreateSuccess"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
@@ -162,8 +165,11 @@ func TestCrudCreateResourceAlreadyExistsFailure(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExistsFailure"),
-		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExistsFailure"),
+		// SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudCreateResourceAlreadyExistsFailure"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
@@ -247,8 +253,11 @@ func TestCrudCreateResourceAlreadyExistsIgnore(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExistsIgnore"),
-		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExistsIgnore"),
+		// SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudCreateResourceAlreadyExistsIgnore"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
@@ -315,8 +324,11 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceParentMissingFailure"),
-		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceParentMissingFailure"),
+		// SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudCreateResourceParentMissingFailure"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
@@ -402,8 +414,11 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceParentMissingIgnore"),
-		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceParentMissingIgnore"),
+		// SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudCreateResourceParentMissingIgnore"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
@@ -521,8 +536,11 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 			),
 		},
 
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateTimeoutSuccess"),
-		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateTimeoutSuccess"),
+		// SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudCreateTimeoutSuccess"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
@@ -652,8 +670,11 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 		// 	),
 		// },
 
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateTimeoutFailure"),
-		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateTimeoutFailure"),
+		// SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudCreateTimeoutFailure"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
@@ -775,8 +796,11 @@ func TestCrudCreateRetrySuccess(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateRetrySuccess"),
-		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateRetrySuccess"),
+		// SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudCreateRetrySuccess"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),

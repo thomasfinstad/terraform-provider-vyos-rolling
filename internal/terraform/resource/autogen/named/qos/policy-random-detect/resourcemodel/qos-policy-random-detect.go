@@ -26,7 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyRandomDetect{}
 type QosPolicyRandomDetect struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"random_detect_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -34,7 +34,8 @@ type QosPolicyRandomDetect struct {
 	LeafQosPolicyRandomDetectDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyRandomDetectBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagQosPolicyRandomDetectPrecedence bool `tfsdk:"-" vyos:"precedence,child"`
 
 	// Nodes
@@ -65,7 +66,7 @@ func (o *QosPolicyRandomDetect) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"random-detect",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["random_detect"].(types.String).ValueString(),
 	)
 }
 
@@ -96,35 +97,42 @@ func (o QosPolicyRandomDetect) ResourceSchemaAttributes(ctx context.Context) map
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"random_detect_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Weighted Random Early Detect policy
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"random_detect": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Weighted Random Early Detect policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			Description: `Weighted Random Early Detect policy
+						Description: `Weighted Random Early Detect policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in random_detect_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  random_detect_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in random_detect, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  random_detect, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

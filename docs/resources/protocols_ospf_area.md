@@ -1,0 +1,128 @@
+---
+page_title: "vyos_protocols_ospf_area Resource - vyos"
+
+subcategory: "Protocols"
+
+description: |- 
+  protocols⯯Open Shortest Path First (OSPF)⯯OSPF area settings
+---
+
+# vyos_protocols_ospf_area (Resource)
+<center>
+
+*protocols*  
+⯯  
+Open Shortest Path First (OSPF)  
+⯯  
+**OSPF area settings**
+
+
+</center>
+
+-> This provider is in "early access", please see the current status at: https://github.com/thomasfinstad/terraform-provider-vyos-rolling/milestones?state=open
+
+## Schema
+
+### Required
+
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
+
+### Optional
+
+- `area_type` (Attributes) Area type (see [below for nested schema](#nestedatt--area_type))
+- `authentication` (String) OSPF area authentication type
+
+    &emsp;|Format              &emsp;|Description                    |
+    |----------------------|---------------------------------|
+    &emsp;|plaintext-password  &emsp;|Use plain-text authentication  |
+    &emsp;|md5                 &emsp;|Use MD5 authentication         |
+- `export_list` (Number) Set the filter for networks announced to other areas
+
+    &emsp;|Format  &emsp;|Description         |
+    |----------|----------------------|
+    &emsp;|u32     &emsp;|Access-list number  |
+- `import_list` (Number) Set the filter for networks from other areas announced
+
+    &emsp;|Format  &emsp;|Description         |
+    |----------|----------------------|
+    &emsp;|u32     &emsp;|Access-list number  |
+- `network` (List of String) OSPF network
+
+    &emsp;|Format   &emsp;|Description   |
+    |-----------|----------------|
+    &emsp;|ipv4net  &emsp;|OSPF network  |
+- `shortcut` (String) Area shortcut mode
+
+    &emsp;|Format   &emsp;|Description                |
+    |-----------|-----------------------------|
+    &emsp;|default  &emsp;|Set default                |
+    &emsp;|disable  &emsp;|Disable shortcutting mode  |
+    &emsp;|enable   &emsp;|Enable shortcutting mode   |
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
+
+### Read-Only
+
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `area` (String) OSPF area settings
+
+    &emsp;|Format  &emsp;|Description                                  |
+    |----------|-----------------------------------------------|
+    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
+    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
+
+
+&lt;a id=&#34;nestedatt--area_type&#34;&gt;&lt;/a&gt;
+### Nested Schema for `area_type`
+
+Optional:
+
+- `normal` (Boolean) Normal OSPF area
+- `nssa` (Attributes) Not-So-Stubby OSPF area (see [below for nested schema](#nestedatt--area_type--nssa))
+- `stub` (Attributes) Stub OSPF area (see [below for nested schema](#nestedatt--area_type--stub))
+
+&lt;a id=&#34;nestedatt--area_type--nssa&#34;&gt;&lt;/a&gt;
+### Nested Schema for `area_type.nssa`
+
+Optional:
+
+- `default_cost` (Number) Summary-default cost of an NSSA area
+
+    &emsp;|Format      &emsp;|Description           |
+    |--------------|------------------------|
+    &emsp;|0-16777215  &emsp;|Summary default cost  |
+- `no_summary` (Boolean) Do not inject inter-area routes into stub
+- `translate` (String) Configure NSSA-ABR
+
+    &emsp;|Format     &emsp;|Description                 |
+    |-------------|------------------------------|
+    &emsp;|always     &emsp;|Always translate LSA types  |
+    &emsp;|candidate  &emsp;|Translate for election      |
+    &emsp;|never      &emsp;|Never translate LSA types   |
+
+
+&lt;a id=&#34;nestedatt--area_type--stub&#34;&gt;&lt;/a&gt;
+### Nested Schema for `area_type.stub`
+
+Optional:
+
+- `default_cost` (Number) Summary-default cost
+
+    &emsp;|Format      &emsp;|Description           |
+    |--------------|------------------------|
+    &emsp;|0-16777215  &emsp;|Summary default cost  |
+- `no_summary` (Boolean) Do not inject inter-area routes into the stub
+
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  

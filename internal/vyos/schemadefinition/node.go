@@ -72,7 +72,11 @@ func (o *Node) BaseNameC() string {
 
 // BaseNameS returns the terraform schema friendly version of BaseName
 func (o *Node) BaseNameS() string {
-	return regexp.MustCompile("[ -]").ReplaceAllString(o.BaseName(), "_")
+	ret := regexp.MustCompile("[ -]").ReplaceAllString(o.BaseName(), "_")
+	if regexp.MustCompile("^[0-9]").FindString(ret) != "" {
+		ret = "_" + ret
+	}
+	return ret
 }
 
 // BaseNameSB returns a resource top level parameter safe version of BaseNameS()
@@ -276,4 +280,9 @@ func (o *Node) GetProperties() *Properties {
 		return o.Properties[0]
 	}
 	return nil
+}
+
+// GetIsBaseNode returns if this parent is a basenode (root node for a resource)
+func (o *Node) GetIsBaseNode() bool {
+	return o.IsBaseNode
 }

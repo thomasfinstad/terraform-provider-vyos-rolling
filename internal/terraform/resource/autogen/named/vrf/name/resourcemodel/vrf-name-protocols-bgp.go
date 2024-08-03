@@ -20,8 +20,12 @@ type VrfNameProtocolsBgp struct {
 	LeafVrfNameProtocolsBgpSystemAs types.Number `tfsdk:"system_as" vyos:"system-as,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagVrfNameProtocolsBgpInterface bool `tfsdk:"interface" vyos:"interface,child"`
-	ExistsTagVrfNameProtocolsBgpNeighbor  bool `tfsdk:"neighbor" vyos:"neighbor,child"`
+
+	ExistsTagVrfNameProtocolsBgpNeighbor bool `tfsdk:"neighbor" vyos:"neighbor,child"`
+
 	ExistsTagVrfNameProtocolsBgpPeerGroup bool `tfsdk:"peer_group" vyos:"peer-group,child"`
 
 	// Nodes

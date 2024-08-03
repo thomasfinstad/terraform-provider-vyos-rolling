@@ -20,6 +20,8 @@ type VrfNameProtocolsBgpListen struct {
 	LeafVrfNameProtocolsBgpListenLimit types.Number `tfsdk:"limit" vyos:"limit,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagVrfNameProtocolsBgpListenRange bool `tfsdk:"range" vyos:"range,child"`
 
 	// Nodes

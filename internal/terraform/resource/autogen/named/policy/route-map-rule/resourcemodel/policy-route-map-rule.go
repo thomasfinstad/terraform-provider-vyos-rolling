@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &PolicyRouteMapRule{}
 type PolicyRouteMapRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
-
-	ParentIDPolicyRouteMap types.String `tfsdk:"route_map_id" vyos:"route-map,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -39,7 +37,7 @@ type PolicyRouteMapRule struct {
 	LeafPolicyRouteMapRuleContinue    types.Number `tfsdk:"continue" vyos:"continue,omitempty"`
 	LeafPolicyRouteMapRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodePolicyRouteMapRuleMatch   *PolicyRouteMapRuleMatch   `tfsdk:"match" vyos:"match,omitempty"`
@@ -72,7 +70,7 @@ func (o *PolicyRouteMapRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -85,7 +83,8 @@ func (o *PolicyRouteMapRule) GetVyosParentPath() []string {
 		"policy",
 
 		"route-map",
-		o.ParentIDPolicyRouteMap.ValueString(),
+
+		o.SelfIdentifier.Attributes()["route_map"].(types.String).ValueString(),
 	}
 }
 
@@ -98,7 +97,8 @@ func (o *PolicyRouteMapRule) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"route-map",
-		o.ParentIDPolicyRouteMap.ValueString(),
+
+		o.SelfIdentifier.Attributes()["route_map"].(types.String).ValueString(),
 	}
 }
 
@@ -109,54 +109,61 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Rule for this route-map
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Rule for this route-map
 
     |  Format   |  Description            |
     |-----------|-------------------------|
     |  1-65535  |  Route-map rule number  |
 `,
-			Description: `Rule for this route-map
+						Description: `Rule for this route-map
 
     |  Format   |  Description            |
     |-----------|-------------------------|
     |  1-65535  |  Route-map rule number  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"route_map_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `IP route-map
-
-    |  Format  |  Description     |
-    |----------|------------------|
-    |  txt     |  Route map name  |
-`,
-			Description: `IP route-map
+					"route_map": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `IP route-map
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Route map name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in route_map_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  route_map_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `IP route-map
+
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in route_map, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  route_map, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

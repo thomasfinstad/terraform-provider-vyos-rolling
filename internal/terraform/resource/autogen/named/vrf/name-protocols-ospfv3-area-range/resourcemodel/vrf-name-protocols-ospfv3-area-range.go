@@ -27,11 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsOspfvthreeAreaRange{}
 type VrfNameProtocolsOspfvthreeAreaRange struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"range_id" vyos:"-,self-id"`
-
-	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
-
-	ParentIDVrfNameProtocolsOspfvthreeArea types.String `tfsdk:"area_id" vyos:"area,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -39,7 +35,7 @@ type VrfNameProtocolsOspfvthreeAreaRange struct {
 	LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise    types.Bool `tfsdk:"advertise" vyos:"advertise,omitempty"`
 	LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise types.Bool `tfsdk:"not_advertise" vyos:"not-advertise,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -69,7 +65,7 @@ func (o *VrfNameProtocolsOspfvthreeAreaRange) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"range",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["range"].(types.String).ValueString(),
 	)
 }
 
@@ -82,14 +78,16 @@ func (o *VrfNameProtocolsOspfvthreeAreaRange) GetVyosParentPath() []string {
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
 		"ospfv3",
 
 		"area",
-		o.ParentIDVrfNameProtocolsOspfvthreeArea.ValueString(),
+
+		o.SelfIdentifier.Attributes()["area"].(types.String).ValueString(),
 	}
 }
 
@@ -102,14 +100,16 @@ func (o *VrfNameProtocolsOspfvthreeAreaRange) GetVyosNamedParentPath() []string 
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
 		"ospfv3",
 
 		"area",
-		o.ParentIDVrfNameProtocolsOspfvthreeArea.ValueString(),
+
+		o.SelfIdentifier.Attributes()["area"].(types.String).ValueString(),
 	}
 }
 
@@ -120,101 +120,108 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes(ctx contex
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"range_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Specify IPv6 prefix (border routers only)
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"range": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Specify IPv6 prefix (border routers only)
 
     |  Format   |  Description                                |
     |-----------|---------------------------------------------|
     |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
 `,
-			Description: `Specify IPv6 prefix (border routers only)
+						Description: `Specify IPv6 prefix (border routers only)
 
     |  Format   |  Description                                |
     |-----------|---------------------------------------------|
     |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in range_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  range_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in range, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  range, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Virtual Routing and Forwarding instance
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  VRF instance name  |
-`,
-			Description: `Virtual Routing and Forwarding instance
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						Description: `Virtual Routing and Forwarding instance
 
-		"area_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `OSPFv3 Area
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+
+					"area": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `OSPFv3 Area
 
     |  Format  |  Description                  |
     |----------|-------------------------------|
     |  u32     |  Area ID as a decimal value   |
     |  ipv4    |  Area ID in IP address forma  |
 `,
-			Description: `OSPFv3 Area
+						Description: `OSPFv3 Area
 
     |  Format  |  Description                  |
     |----------|-------------------------------|
     |  u32     |  Area ID as a decimal value   |
     |  ipv4    |  Area ID in IP address forma  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in area_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  area_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in area, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  area, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

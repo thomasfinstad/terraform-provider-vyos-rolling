@@ -29,17 +29,7 @@ Class ID
 
 ### Required
 
-- `class_id` (Number) Class ID
-
-    &emsp;|Format  &emsp;|Description       |
-    |----------|--------------------|
-    &emsp;|1-4090  &emsp;|Class Identifier  |
-- `limiter_id` (String) Traffic input limiting policy
-
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
-- `match_id` (String) Class matching rule name
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -71,6 +61,24 @@ Class ID
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `class` (Number) Class ID
+
+    &emsp;|Format  &emsp;|Description       |
+    |----------|--------------------|
+    &emsp;|1-4090  &emsp;|Class Identifier  |
+- `limiter` (String) Traffic input limiting policy
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|txt     &emsp;|Policy name  |
+- `match` (String) Class matching rule name
+
 
 &lt;a id=&#34;nestedatt--ether&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `ether`

@@ -107,26 +107,11 @@ import (
 	}
 {{end}}
 
-{{define "resource-model-parent-id-hack"}}
-	{{if .Parent}}
-		{{template "resource-model-parent-id-hack" .Parent}}
-	{{end}}
-	{{if eq .NodeType "TagNode"}}
-		ParentID{{.BaseNameCG}} {{ if eq .ValueType "string" -}}
-								types.String
-							{{- else  if eq .ValueType "number" -}}
-								types.Number
-							{{- else -}}
-								UNKNOWN TYPE: {{.ValueType}}
-							{{- end -}} `tfsdk:"{{.BaseNameS}}_id" vyos:"{{.BaseName}},parent-id"`
-	{{end}}
-{{end}}
-
 {{define "resource-model-parent-schema-hack"}}
 	{{if .Parent}}
 		{{template "resource-model-parent-schema-hack" .Parent}}
 		{{- if eq .NodeType "TagNode" -}}
-			"{{.BaseNameS}}_id":
+			"{{.BaseNameS}}":
 				{{- if eq .ValueType "string" -}}
 					schema.StringAttribute
 				{{- else  if eq .ValueType "number" -}}
@@ -162,12 +147,12 @@ import (
 								helpers.StringNot(
 									stringvalidator.RegexMatches(
 										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in {{.BaseNameS}}_id, conflicts with the internal resource id",
+										"double underscores in {{.BaseNameS}}, conflicts with the internal resource id",
 									),
 								),
 								stringvalidator.RegexMatches(
 									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
+									"illegal character in  {{.BaseNameS}}, value must match: ^[a-zA-Z0-9-_]*$",
 								),
 							),
 						},
@@ -248,9 +233,46 @@ import (
 	{{- end}}
 {{end}}
 
+{{define "resource-model-parent-id-hack"}}
+	{{if .Parent}}
+		{{template "resource-model-parent-id-hack" .Parent}}
+	{{end}}
+	{{if eq .NodeType "TagNode"}}
+		ParentID{{.BaseNameCG}} {{ if eq .ValueType "string" -}}
+								types.String
+							{{- else  if eq .ValueType "number" -}}
+								types.Number
+							{{- else -}}
+								UNKNOWN TYPE: {{.ValueType}}
+							{{- end -}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},parent-id"`
+	{{end}}
+{{end}}
+
+{{define "resource-model-tag-node-identifier"}}
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
+
+{{/*
+	SelfIdentifier	{{ if eq .ValueType "string" -}}
+						types.String
+					{{- else  if eq .ValueType "number" -}}
+						types.Number
+					{{- else -}}
+						UNKNOWN TYPE: {{.ValueType}}
+					{{- end -}}
+						`tfsdk:"{{.BaseNameS}}" vyos:"-,self-id"`
+	{{if .Parent}}
+		{{template "resource-model-parent-id-hack" .Parent}}
+	{{end}}
+*/}}
+
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
+
+	Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+{{end}}
+
 {{define "resource-model"}}
 	// Validate compliance
-	{{if .IsBaseNode }}
+	{{if .GetIsBaseNode }}
 	var _ helpers.VyosTopResourceDataModel = &{{.BaseNameCG}}{}
 	{{ else }}
 	var _ helpers.VyosResourceDataModel = &{{.BaseNameCG}}{}
@@ -258,22 +280,8 @@ import (
 
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
-		{{if .IsBaseNode }}
-			ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
-			SelfIdentifier	{{ if eq .ValueType "string" -}}
-								types.String
-							{{- else  if eq .ValueType "number" -}}
-								types.Number
-							{{- else -}}
-								UNKNOWN TYPE: {{.ValueType}}
-							{{- end -}}
-			`tfsdk:"{{.BaseNameS}}_id" vyos:"-,self-id"`
-			{{if .Parent}}
-				{{template "resource-model-parent-id-hack" .Parent}}
-			{{end}}
-
-			Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+		{{if .GetIsBaseNode }}
+			{{template "resource-model-tag-node-identifier" .}}
 
 			{{with .GetChildren }}
 				// LeafNodes
@@ -290,9 +298,13 @@ import (
 												UNKNOWN TYPE: {{.ValueType}}
 											{{- end}} `tfsdk:"{{.BaseNameSB}}" vyos:"{{.BaseName}},omitempty"`
 				{{end}}
-				// TagNodes (Bools that show if child resources have been configured)
+				// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 				{{range .TagNodes -}}
-					ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
+					{{if .GetIsBaseNode }}
+						ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
+					{{else}}
+						Tag{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+					{{end}}
 				{{end}}
 				// Nodes
 				{{range .Nodes -}}
@@ -316,8 +328,13 @@ import (
 											{{- end}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
 				{{end}}
 				// TagNodes (Bools that show if child resources have been configured)
+				// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 				{{range .TagNodes -}}
-					ExistsTag{{.BaseNameCG}} bool `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},child"`
+					{{if .GetIsBaseNode }}
+						ExistsTag{{.BaseNameCG}} bool `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},child"`
+					{{else}}
+						Tag{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+					{{end}}
 				{{end}}
 				// Nodes
 				{{range .Nodes -}}
@@ -327,7 +344,7 @@ import (
 		{{end}}
 	}
 
-	{{if .IsBaseNode }}
+	{{if .GetIsBaseNode }}
 		// SetID configures the resource ID
 		func (o *{{.BaseNameCG}}) SetID(id []string) {
 			o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
@@ -363,9 +380,9 @@ import (
 				o.GetVyosParentPath(),
 				"{{.BaseName}}",
 				{{if eq .ValueType "string" -}}
-					o.SelfIdentifier.ValueString(),
+					o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.String).ValueString(),
 				{{- else  if eq .ValueType "number" -}}
-					o.SelfIdentifier.ValueBigFloat().String(),
+					o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.Number).ValueBigFloat().String(),
 				{{- else -}}
 					UNSUPPORTED TYPE
 				{{- end}}
@@ -400,61 +417,68 @@ import (
 	// ResourceSchemaAttributes generates the schema attributes for the resource at this level
 	func (o {{.BaseNameCG}}) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 		return map[string]schema.Attribute{
-			{{if .IsBaseNode }}
+			{{if .GetIsBaseNode }}
 				"id": schema.StringAttribute{
 					Computed: true,
 					MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 				},
-				"{{.BaseNameS}}_id":
-					{{- if eq .ValueType "string" -}}
-						schema.StringAttribute
-					{{- else  if eq .ValueType "number" -}}
-						schema.NumberAttribute
-					{{- else if eq .ValueType "bool" -}}
-						schema.BoolAttribute
-					{{- else -}}
-						UNKNOWN TYPE: {{.ValueType}}
-					{{- end -}}
-				{
-					Required:            true,
-					MarkdownDescription: `{{.MarkdownDescription}}`,
-					Description: `{{.Description}}`,
-					PlanModifiers:
-					{{- if eq .ValueType "string" -}}
-						[]planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
+				"identifier": schema.MapNestedAttribute{
+					Required: true,
+					NestedObject: schema.NestedAttributeObject{
+						Attributes: map[string]schema.Attribute{
+							"{{.BaseNameS}}":
+								{{- if eq .ValueType "string" -}}
+									schema.StringAttribute
+								{{- else  if eq .ValueType "number" -}}
+									schema.NumberAttribute
+								{{- else if eq .ValueType "bool" -}}
+									schema.BoolAttribute
+								{{- else -}}
+									UNKNOWN TYPE: {{.ValueType}}
+								{{- end -}}
+							{
+								Required:            true,
+								MarkdownDescription: `{{.MarkdownDescription}}`,
+								Description: `{{.Description}}`,
+								PlanModifiers:
+								{{- if eq .ValueType "string" -}}
+									[]planmodifier.String{
+										stringplanmodifier.RequiresReplace(),
+									},
+								{{- else  if eq .ValueType "number" -}}
+									[]planmodifier.Number{
+										numberplanmodifier.RequiresReplace(),
+									},
+								{{- else if eq .ValueType "bool" -}}
+									[]planmodifier.Bool{
+										boolplanmodifier.RequiresReplace(),
+									},
+								{{- else -}}
+									UNKNOWN TYPE: {{.ValueType}}
+								{{- end -}}
+								{{if eq .ValueType "string" -}}
+									Validators: []validator.String{
+										stringvalidator.All(
+											helpers.StringNot(
+												stringvalidator.RegexMatches(
+													regexp.MustCompile(`^.*__.*$`),
+													"double underscores in {{.BaseNameS}}, conflicts with the internal resource id",
+												),
+											),
+											stringvalidator.RegexMatches(
+												regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+												"illegal character in  {{.BaseNameS}}, value must match: ^[a-zA-Z0-9-_]*$",
+											),
+										),
+									},
+								{{- end }}
+							},
+							{{if .Parent}}
+								{{template "resource-model-parent-schema-hack" .Parent}}
+							{{end}}
 						},
-					{{- else  if eq .ValueType "number" -}}
-						[]planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
-					{{- else if eq .ValueType "bool" -}}
-						[]planmodifier.Bool{
-							boolplanmodifier.RequiresReplace(),
-						},
-					{{- else -}}
-						UNKNOWN TYPE: {{.ValueType}}
-					{{- end -}}
-					{{if eq .ValueType "string" -}}
-						Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in {{.BaseNameS}}_id, conflicts with the internal resource id",
-									),
-								),
-								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
-								),
-							),
-						},
-					{{- end }}
+					},
 				},
-				{{if .Parent}}
-					{{template "resource-model-parent-schema-hack" .Parent}}
-				{{end}}
 
 				"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
 					Create: true,
@@ -514,9 +538,11 @@ import (
 	"{{.BaseName}}",
 	{{- if eq .NodeType "TagNode"}}
 		{{if eq .ValueType "string" -}}
-			o.ParentID{{.BaseNameCG}}.ValueString(),
+			{{/* o.ParentID{{.BaseNameCG}}.ValueString(), */}}
+			o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.String).ValueString(),
 		{{- else  if eq .ValueType "number" -}}
-			o.ParentID{{.BaseNameCG}}.ValueBigFloat().String(),
+			{{/* o.ParentID{{.BaseNameCG}}.ValueBigFloat().String(), */}}
+			o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.Number).ValueBigFloat().String(),
 		{{- else -}}
 			UNSUPPORTED TYPE
 		{{- end}}
@@ -529,7 +555,7 @@ import (
 		{{- if .Parent}}
 			{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}
 		{{end}}
-	{{ else if not .IsBaseNode}}
+	{{ else if not .GetIsBaseNode}}
 		{{- if .Parent}}
 			{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}
 		{{end}}

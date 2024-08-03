@@ -23,9 +23,7 @@ var _ helpers.VyosTopResourceDataModel = &PolicyAccessListRule{}
 type PolicyAccessListRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
-
-	ParentIDPolicyAccessList types.Number `tfsdk:"access_list_id" vyos:"access-list,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -33,7 +31,7 @@ type PolicyAccessListRule struct {
 	LeafPolicyAccessListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafPolicyAccessListRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodePolicyAccessListRuleDestination *PolicyAccessListRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
@@ -65,7 +63,7 @@ func (o *PolicyAccessListRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -78,7 +76,8 @@ func (o *PolicyAccessListRule) GetVyosParentPath() []string {
 		"policy",
 
 		"access-list",
-		o.ParentIDPolicyAccessList.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["access_list"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -91,7 +90,8 @@ func (o *PolicyAccessListRule) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"access-list",
-		o.ParentIDPolicyAccessList.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["access_list"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -102,28 +102,32 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes(ctx context.Context) map[
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Rule for this access-list
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Rule for this access-list
 
     |  Format   |  Description              |
     |-----------|---------------------------|
     |  1-65535  |  Access-list rule number  |
 `,
-			Description: `Rule for this access-list
+						Description: `Rule for this access-list
 
     |  Format   |  Description              |
     |-----------|---------------------------|
     |  1-65535  |  Access-list rule number  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"access_list_id": schema.NumberAttribute{
-			Required: true,
-			MarkdownDescription: `IP access-list filter
+					"access_list": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `IP access-list filter
 
     |  Format     |  Description                               |
     |-------------|--------------------------------------------|
@@ -132,7 +136,7 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes(ctx context.Context) map[
     |  1300-1999  |  IP standard access list (expanded range)  |
     |  2000-2699  |  IP extended access list (expanded range)  |
 `,
-			Description: `IP access-list filter
+						Description: `IP access-list filter
 
     |  Format     |  Description                               |
     |-------------|--------------------------------------------|
@@ -141,8 +145,11 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes(ctx context.Context) map[
     |  1300-1999  |  IP standard access list (expanded range)  |
     |  2000-2699  |  IP extended access list (expanded range)  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

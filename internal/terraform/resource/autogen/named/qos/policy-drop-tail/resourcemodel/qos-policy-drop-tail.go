@@ -26,7 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyDropTail{}
 type QosPolicyDropTail struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"drop_tail_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -34,7 +34,7 @@ type QosPolicyDropTail struct {
 	LeafQosPolicyDropTailDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyDropTailQueueLimit  types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -64,7 +64,7 @@ func (o *QosPolicyDropTail) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"drop-tail",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["drop_tail"].(types.String).ValueString(),
 	)
 }
 
@@ -95,35 +95,42 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes(ctx context.Context) map[str
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"drop_tail_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Packet limited First In, First Out queue
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"drop_tail": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Packet limited First In, First Out queue
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			Description: `Packet limited First In, First Out queue
+						Description: `Packet limited First In, First Out queue
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in drop_tail_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  drop_tail_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in drop_tail, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  drop_tail, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

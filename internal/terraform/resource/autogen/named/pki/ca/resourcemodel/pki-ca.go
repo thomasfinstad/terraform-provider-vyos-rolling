@@ -27,7 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &PkiCa{}
 type PkiCa struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"ca_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -37,7 +37,7 @@ type PkiCa struct {
 	LeafPkiCaCrl         types.List   `tfsdk:"crl" vyos:"crl,omitempty"`
 	LeafPkiCaRevoke      types.Bool   `tfsdk:"revoke" vyos:"revoke,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodePkiCaPrivate *PkiCaPrivate `tfsdk:"private" vyos:"private,omitempty"`
@@ -68,7 +68,7 @@ func (o *PkiCa) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"ca",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["ca"].(types.String).ValueString(),
 	)
 }
 
@@ -97,29 +97,36 @@ func (o PkiCa) ResourceSchemaAttributes(ctx context.Context) map[string]schema.A
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"ca_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Certificate Authority
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"ca": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Certificate Authority
 
 `,
-			Description: `Certificate Authority
+						Description: `Certificate Authority
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in ca_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  ca_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in ca, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  ca, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

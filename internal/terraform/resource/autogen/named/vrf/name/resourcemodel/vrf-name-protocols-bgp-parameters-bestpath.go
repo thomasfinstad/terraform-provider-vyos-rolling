@@ -23,6 +23,7 @@ type VrfNameProtocolsBgpParametersBestpath struct {
 	LeafVrfNameProtocolsBgpParametersBestpathMed             types.List   `tfsdk:"med" vyos:"med,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpParametersBestpathAsPath   *VrfNameProtocolsBgpParametersBestpathAsPath   `tfsdk:"as_path" vyos:"as-path,omitempty"`

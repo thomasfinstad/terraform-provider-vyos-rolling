@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyShaperClass{}
 type QosPolicyShaperClass struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"class_id" vyos:"-,self-id"`
-
-	ParentIDQosPolicyShaper types.String `tfsdk:"shaper_id" vyos:"shaper,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -52,7 +50,8 @@ type QosPolicyShaperClass struct {
 	LeafQosPolicyShaperClassSetDscp          types.String `tfsdk:"set_dscp" vyos:"set-dscp,omitempty"`
 	LeafQosPolicyShaperClassTarget           types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagQosPolicyShaperClassMatch bool `tfsdk:"-" vyos:"match,child"`
 
 	// Nodes
@@ -83,7 +82,7 @@ func (o *QosPolicyShaperClass) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"class",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -98,7 +97,8 @@ func (o *QosPolicyShaperClass) GetVyosParentPath() []string {
 		"policy",
 
 		"shaper",
-		o.ParentIDQosPolicyShaper.ValueString(),
+
+		o.SelfIdentifier.Attributes()["shaper"].(types.String).ValueString(),
 	}
 }
 
@@ -113,7 +113,8 @@ func (o *QosPolicyShaperClass) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"shaper",
-		o.ParentIDQosPolicyShaper.ValueString(),
+
+		o.SelfIdentifier.Attributes()["shaper"].(types.String).ValueString(),
 	}
 }
 
@@ -124,54 +125,61 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes(ctx context.Context) map[
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"class_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Class ID
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"class": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  2-4095  |  Class Identifier  |
 `,
-			Description: `Class ID
+						Description: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  2-4095  |  Class Identifier  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"shaper_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Traffic shaping based policy (Hierarchy Token Bucket)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Policy name  |
-`,
-			Description: `Traffic shaping based policy (Hierarchy Token Bucket)
+					"shaper": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Traffic shaping based policy (Hierarchy Token Bucket)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in shaper_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  shaper_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Traffic shaping based policy (Hierarchy Token Bucket)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in shaper, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  shaper, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

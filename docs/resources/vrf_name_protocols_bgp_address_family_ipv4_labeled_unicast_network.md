@@ -33,16 +33,7 @@ Labeled Unicast IPv4 BGP settings
 
 ### Required
 
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `network_id` (String) Import BGP network/prefix into labeled unicast IPv4 RIB
-
-    &emsp;|Format   &emsp;|Description                              |
-    |-----------|-------------------------------------------|
-    &emsp;|ipv4net  &emsp;|Labeled Unicast IPv4 BGP network/prefix  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -57,6 +48,23 @@ Labeled Unicast IPv4 BGP settings
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `network` (String) Import BGP network/prefix into labeled unicast IPv4 RIB
+
+    &emsp;|Format   &emsp;|Description                              |
+    |-----------|-------------------------------------------|
+    &emsp;|ipv4net  &emsp;|Labeled Unicast IPv4 BGP network/prefix  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

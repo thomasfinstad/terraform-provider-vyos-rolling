@@ -27,11 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyLimiterClassMatch{}
 type QosPolicyLimiterClassMatch struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"match_id" vyos:"-,self-id"`
-
-	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter_id" vyos:"limiter,parent-id"`
-
-	ParentIDQosPolicyLimiterClass types.Number `tfsdk:"class_id" vyos:"class,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -41,7 +37,7 @@ type QosPolicyLimiterClassMatch struct {
 	LeafQosPolicyLimiterClassMatchMark        types.Number `tfsdk:"mark" vyos:"mark,omitempty"`
 	LeafQosPolicyLimiterClassMatchVif         types.Number `tfsdk:"vif" vyos:"vif,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeQosPolicyLimiterClassMatchEther  *QosPolicyLimiterClassMatchEther  `tfsdk:"ether" vyos:"ether,omitempty"`
@@ -74,7 +70,7 @@ func (o *QosPolicyLimiterClassMatch) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"match",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["match"].(types.String).ValueString(),
 	)
 }
 
@@ -89,10 +85,12 @@ func (o *QosPolicyLimiterClassMatch) GetVyosParentPath() []string {
 		"policy",
 
 		"limiter",
-		o.ParentIDQosPolicyLimiter.ValueString(),
+
+		o.SelfIdentifier.Attributes()["limiter"].(types.String).ValueString(),
 
 		"class",
-		o.ParentIDQosPolicyLimiterClass.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -107,10 +105,12 @@ func (o *QosPolicyLimiterClassMatch) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"limiter",
-		o.ParentIDQosPolicyLimiter.ValueString(),
+
+		o.SelfIdentifier.Attributes()["limiter"].(types.String).ValueString(),
 
 		"class",
-		o.ParentIDQosPolicyLimiterClass.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -121,80 +121,87 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes(ctx context.Context
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"match_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Class matching rule name
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"match": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Class matching rule name
 
 `,
-			Description: `Class matching rule name
+						Description: `Class matching rule name
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in match_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  match_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in match, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  match, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"limiter_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Traffic input limiting policy
+					"limiter": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Traffic input limiting policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			Description: `Traffic input limiting policy
+						Description: `Traffic input limiting policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in limiter_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  limiter_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in limiter, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  limiter, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"class_id": schema.NumberAttribute{
-			Required: true,
-			MarkdownDescription: `Class ID
-
-    |  Format  |  Description       |
-    |----------|--------------------|
-    |  1-4090  |  Class Identifier  |
-`,
-			Description: `Class ID
+					"class": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4090  |  Class Identifier  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						Description: `Class ID
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  1-4090  |  Class Identifier  |
+`,
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

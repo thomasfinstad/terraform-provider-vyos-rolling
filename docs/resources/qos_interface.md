@@ -23,11 +23,7 @@ Quality of Service (QoS)
 
 ### Required
 
-- `interface_id` (String) Interface to apply QoS policy
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -46,6 +42,18 @@ Quality of Service (QoS)
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `interface` (String) Interface to apply QoS policy
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Interface name  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

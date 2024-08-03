@@ -36,6 +36,8 @@ type VrfNameProtocolsIsis struct {
 	LeafVrfNameProtocolsIsisSpfInterval          types.Number `tfsdk:"spf_interval" vyos:"spf-interval,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagVrfNameProtocolsIsisInterface bool `tfsdk:"interface" vyos:"interface,child"`
 
 	// Nodes

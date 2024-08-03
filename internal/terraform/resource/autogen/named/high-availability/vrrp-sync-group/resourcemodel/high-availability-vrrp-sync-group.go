@@ -26,14 +26,14 @@ var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVrrpSyncGroup{}
 type HighAvailabilityVrrpSyncGroup struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"sync_group_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpSyncGroupMember types.List `tfsdk:"member" vyos:"member,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeHighAvailabilityVrrpSyncGroupHealthCheck      *HighAvailabilityVrrpSyncGroupHealthCheck      `tfsdk:"health_check" vyos:"health-check,omitempty"`
@@ -65,7 +65,7 @@ func (o *HighAvailabilityVrrpSyncGroup) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"sync-group",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["sync_group"].(types.String).ValueString(),
 	)
 }
 
@@ -96,29 +96,36 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes(ctx context.Cont
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"sync_group_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `VRRP sync group
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"sync_group": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `VRRP sync group
 
 `,
-			Description: `VRRP sync group
+						Description: `VRRP sync group
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in sync_group_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  sync_group_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in sync_group, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  sync_group, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

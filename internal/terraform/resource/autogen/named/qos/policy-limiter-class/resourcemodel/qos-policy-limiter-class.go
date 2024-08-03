@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyLimiterClass{}
 type QosPolicyLimiterClass struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"class_id" vyos:"-,self-id"`
-
-	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter_id" vyos:"limiter,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -43,7 +41,8 @@ type QosPolicyLimiterClass struct {
 	LeafQosPolicyLimiterClassMatchGroup  types.List   `tfsdk:"match_group" vyos:"match-group,omitempty"`
 	LeafQosPolicyLimiterClassPriority    types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagQosPolicyLimiterClassMatch bool `tfsdk:"-" vyos:"match,child"`
 
 	// Nodes
@@ -74,7 +73,7 @@ func (o *QosPolicyLimiterClass) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"class",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -89,7 +88,8 @@ func (o *QosPolicyLimiterClass) GetVyosParentPath() []string {
 		"policy",
 
 		"limiter",
-		o.ParentIDQosPolicyLimiter.ValueString(),
+
+		o.SelfIdentifier.Attributes()["limiter"].(types.String).ValueString(),
 	}
 }
 
@@ -104,7 +104,8 @@ func (o *QosPolicyLimiterClass) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"limiter",
-		o.ParentIDQosPolicyLimiter.ValueString(),
+
+		o.SelfIdentifier.Attributes()["limiter"].(types.String).ValueString(),
 	}
 }
 
@@ -115,54 +116,61 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes(ctx context.Context) map
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"class_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Class ID
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"class": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4090  |  Class Identifier  |
 `,
-			Description: `Class ID
+						Description: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4090  |  Class Identifier  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"limiter_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Traffic input limiting policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Policy name  |
-`,
-			Description: `Traffic input limiting policy
+					"limiter": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Traffic input limiting policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in limiter_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  limiter_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Traffic input limiting policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in limiter, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  limiter, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -26,7 +26,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyFairQueue{}
 type QosPolicyFairQueue struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"fair_queue_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -35,7 +35,7 @@ type QosPolicyFairQueue struct {
 	LeafQosPolicyFairQueueHashInterval types.Number `tfsdk:"hash_interval" vyos:"hash-interval,omitempty"`
 	LeafQosPolicyFairQueueQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -65,7 +65,7 @@ func (o *QosPolicyFairQueue) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"fair-queue",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["fair_queue"].(types.String).ValueString(),
 	)
 }
 
@@ -96,35 +96,42 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes(ctx context.Context) map[st
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"fair_queue_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Stochastic Fairness Queueing
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"fair_queue": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Stochastic Fairness Queueing
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			Description: `Stochastic Fairness Queueing
+						Description: `Stochastic Fairness Queueing
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in fair_queue_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  fair_queue_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in fair_queue, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  fair_queue, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -23,11 +23,7 @@ Firewall
 
 ### Required
 
-- `zone_id` (String) Zone-policy
-
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|txt     &emsp;|Zone name    |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -56,6 +52,18 @@ Firewall
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `zone` (String) Zone-policy
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|txt     &emsp;|Zone name    |
+
 
 &lt;a id=&#34;nestedatt--intra_zone_filtering&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `intra_zone_filtering`

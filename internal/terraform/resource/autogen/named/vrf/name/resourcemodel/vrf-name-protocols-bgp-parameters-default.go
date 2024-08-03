@@ -20,6 +20,7 @@ type VrfNameProtocolsBgpParametersDefault struct {
 	LeafVrfNameProtocolsBgpParametersDefaultLocalPref types.Number `tfsdk:"local_pref" vyos:"local-pref,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

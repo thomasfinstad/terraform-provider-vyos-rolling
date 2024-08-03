@@ -23,14 +23,7 @@ Routing policy
 
 ### Required
 
-- `access_list_id` (Number) IP access-list filter
-
-    &emsp;|Format     &emsp;|Description                               |
-    |-------------|--------------------------------------------|
-    &emsp;|1-99       &emsp;|IP standard access list                   |
-    &emsp;|100-199    &emsp;|IP extended access list                   |
-    &emsp;|1300-1999  &emsp;|IP standard access list (expanded range)  |
-    &emsp;|2000-2699  &emsp;|IP extended access list (expanded range)  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -44,6 +37,21 @@ Routing policy
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `access_list` (Number) IP access-list filter
+
+    &emsp;|Format     &emsp;|Description                               |
+    |-------------|--------------------------------------------|
+    &emsp;|1-99       &emsp;|IP standard access list                   |
+    &emsp;|100-199    &emsp;|IP extended access list                   |
+    &emsp;|1300-1999  &emsp;|IP standard access list (expanded range)  |
+    &emsp;|2000-2699  &emsp;|IP extended access list (expanded range)  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

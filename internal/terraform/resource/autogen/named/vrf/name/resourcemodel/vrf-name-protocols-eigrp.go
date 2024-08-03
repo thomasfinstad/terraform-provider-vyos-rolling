@@ -26,6 +26,7 @@ type VrfNameProtocolsEigrp struct {
 	LeafVrfNameProtocolsEigrpVariance         types.Number `tfsdk:"variance" vyos:"variance,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsEigrpMetric *VrfNameProtocolsEigrpMetric `tfsdk:"metric" vyos:"metric,omitempty"`

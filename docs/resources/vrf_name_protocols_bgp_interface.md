@@ -29,16 +29,7 @@ Border Gateway Protocol (BGP)
 
 ### Required
 
-- `interface_id` (String) Configure interface related parameters, e.g. MPLS
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -48,6 +39,23 @@ Border Gateway Protocol (BGP)
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `interface` (String) Configure interface related parameters, e.g. MPLS
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Interface name  |
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+
 
 &lt;a id=&#34;nestedatt--mpls&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `mpls`

@@ -25,11 +25,7 @@ Service Policy definitions
 
 ### Required
 
-- `cake_id` (String) Common Applications Kept Enhanced (CAKE)
-
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -60,6 +56,18 @@ Service Policy definitions
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `cake` (String) Common Applications Kept Enhanced (CAKE)
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|txt     &emsp;|Policy name  |
+
 
 &lt;a id=&#34;nestedatt--flow_isolation&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `flow_isolation`

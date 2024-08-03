@@ -18,6 +18,7 @@ type FirewallIPvsixForwardFilterRuleAddAddressToGroup struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvsixForwardFilterRuleAddAddressToGroupSourceAddress      *FirewallIPvsixForwardFilterRuleAddAddressToGroupSourceAddress      `tfsdk:"source_address" vyos:"source-address,omitempty"`

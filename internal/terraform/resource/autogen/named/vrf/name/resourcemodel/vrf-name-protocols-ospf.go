@@ -22,10 +22,16 @@ type VrfNameProtocolsOspf struct {
 	LeafVrfNameProtocolsOspfPassiveInterface types.String `tfsdk:"passive_interface" vyos:"passive-interface,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfAccessList     bool `tfsdk:"access_list" vyos:"access-list,child"`
-	ExistsTagVrfNameProtocolsOspfArea           bool `tfsdk:"area" vyos:"area,child"`
-	ExistsTagVrfNameProtocolsOspfInterface      bool `tfsdk:"interface" vyos:"interface,child"`
-	ExistsTagVrfNameProtocolsOspfNeighbor       bool `tfsdk:"neighbor" vyos:"neighbor,child"`
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
+	ExistsTagVrfNameProtocolsOspfAccessList bool `tfsdk:"access_list" vyos:"access-list,child"`
+
+	ExistsTagVrfNameProtocolsOspfArea bool `tfsdk:"area" vyos:"area,child"`
+
+	ExistsTagVrfNameProtocolsOspfInterface bool `tfsdk:"interface" vyos:"interface,child"`
+
+	ExistsTagVrfNameProtocolsOspfNeighbor bool `tfsdk:"neighbor" vyos:"neighbor,child"`
+
 	ExistsTagVrfNameProtocolsOspfSummaryAddress bool `tfsdk:"summary_address" vyos:"summary-address,child"`
 
 	// Nodes

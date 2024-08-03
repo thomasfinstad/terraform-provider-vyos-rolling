@@ -18,7 +18,10 @@ type VrfNameProtocolsOspfvthree struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfvthreeArea      bool `tfsdk:"area" vyos:"area,child"`
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
+	ExistsTagVrfNameProtocolsOspfvthreeArea bool `tfsdk:"area" vyos:"area,child"`
+
 	ExistsTagVrfNameProtocolsOspfvthreeInterface bool `tfsdk:"interface" vyos:"interface,child"`
 
 	// Nodes

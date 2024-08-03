@@ -26,14 +26,15 @@ var _ helpers.VyosTopResourceDataModel = &PolicyExtcommunityList{}
 type PolicyExtcommunityList struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"extcommunity_list_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafPolicyExtcommunityListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagPolicyExtcommunityListRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
@@ -64,7 +65,7 @@ func (o *PolicyExtcommunityList) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"extcommunity-list",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["extcommunity_list"].(types.String).ValueString(),
 	)
 }
 
@@ -93,35 +94,42 @@ func (o PolicyExtcommunityList) ResourceSchemaAttributes(ctx context.Context) ma
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"extcommunity_list_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Add a BGP extended community list entry
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"extcommunity_list": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Add a BGP extended community list entry
 
     |  Format  |  Description                       |
     |----------|------------------------------------|
     |  txt     |  BGP extended community-list name  |
 `,
-			Description: `Add a BGP extended community list entry
+						Description: `Add a BGP extended community list entry
 
     |  Format  |  Description                       |
     |----------|------------------------------------|
     |  txt     |  BGP extended community-list name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in extcommunity_list_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  extcommunity_list_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in extcommunity_list, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  extcommunity_list, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -18,6 +18,7 @@ type VrfNameProtocolsIsisRedistributeIPvfourOspf struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsIsisRedistributeIPvfourOspfLevelOne *VrfNameProtocolsIsisRedistributeIPvfourOspfLevelOne `tfsdk:"level_1" vyos:"level-1,omitempty"`

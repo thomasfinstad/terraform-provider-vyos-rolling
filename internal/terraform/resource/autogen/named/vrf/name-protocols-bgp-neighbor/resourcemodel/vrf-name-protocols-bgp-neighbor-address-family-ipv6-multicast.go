@@ -29,6 +29,7 @@ type VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast struct {
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastWeight               types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopLocal           *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopLocal           `tfsdk:"nexthop_local" vyos:"nexthop-local,omitempty"`

@@ -20,6 +20,7 @@ type VrfNameProtocolsOspfGracefulRestart struct {
 	LeafVrfNameProtocolsOspfGracefulRestartGracePeriod types.Number `tfsdk:"grace_period" vyos:"grace-period,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsOspfGracefulRestartHelper *VrfNameProtocolsOspfGracefulRestartHelper `tfsdk:"helper" vyos:"helper,omitempty"`

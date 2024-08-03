@@ -27,12 +27,7 @@ Bridge custom firewall
 
 ### Required
 
-- `name_id` (String) Bridge custom firewall
-- `rule_id` (Number) Bridge Firewall forward filter rule number
-
-    &emsp;|Format    &emsp;|Description                    |
-    |------------|---------------------------------|
-    &emsp;|1-999999  &emsp;|Number for this firewall rule  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -149,17 +144,17 @@ Bridge custom firewall
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--connection_status&#34;&gt;&lt;/a&gt;
-### Nested Schema for `connection_status`
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
 
-Optional:
+Required:
 
-- `nat` (String) NAT connection status
+- `name` (String) Bridge custom firewall
+- `rule` (Number) Bridge Firewall forward filter rule number
 
-    &emsp;|Format       &emsp;|Description                                            |
-    |---------------|---------------------------------------------------------|
-    &emsp;|destination  &emsp;|Match connections that are subject to destination NAT  |
-    &emsp;|source       &emsp;|Match connections that are subject to source NAT       |
+    &emsp;|Format    &emsp;|Description                    |
+    |------------|---------------------------------|
+    &emsp;|1-999999  &emsp;|Number for this firewall rule  |
 
 
 &lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;

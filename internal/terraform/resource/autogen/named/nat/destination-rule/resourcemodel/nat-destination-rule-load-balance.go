@@ -20,6 +20,8 @@ type NatDestinationRuleLoadBalance struct {
 	LeafNatDestinationRuleLoadBalanceHash types.List `tfsdk:"hash" vyos:"hash,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagNatDestinationRuleLoadBalanceBackend bool `tfsdk:"backend" vyos:"backend,child"`
 
 	// Nodes

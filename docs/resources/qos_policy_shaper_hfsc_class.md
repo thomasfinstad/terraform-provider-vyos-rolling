@@ -27,16 +27,7 @@ Hierarchical Fair Service Curve's policy
 
 ### Required
 
-- `class_id` (Number) Class ID
-
-    &emsp;|Format  &emsp;|Description       |
-    |----------|--------------------|
-    &emsp;|1-4095  &emsp;|Class Identifier  |
-- `shaper_hfsc_id` (String) Hierarchical Fair Service Curve&#39;s policy
-
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -58,6 +49,23 @@ Hierarchical Fair Service Curve's policy
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `class` (Number) Class ID
+
+    &emsp;|Format  &emsp;|Description       |
+    |----------|--------------------|
+    &emsp;|1-4095  &emsp;|Class Identifier  |
+- `shaper_hfsc` (String) Hierarchical Fair Service Curve&#39;s policy
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|txt     &emsp;|Policy name  |
+
 
 &lt;a id=&#34;nestedatt--linkshare&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `linkshare`

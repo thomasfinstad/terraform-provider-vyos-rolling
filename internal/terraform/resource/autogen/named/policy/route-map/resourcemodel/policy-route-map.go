@@ -26,14 +26,15 @@ var _ helpers.VyosTopResourceDataModel = &PolicyRouteMap{}
 type PolicyRouteMap struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"route_map_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafPolicyRouteMapDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
 	ExistsTagPolicyRouteMapRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
@@ -64,7 +65,7 @@ func (o *PolicyRouteMap) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"route-map",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["route_map"].(types.String).ValueString(),
 	)
 }
 
@@ -93,35 +94,42 @@ func (o PolicyRouteMap) ResourceSchemaAttributes(ctx context.Context) map[string
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"route_map_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `IP route-map
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"route_map": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `IP route-map
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Route map name  |
 `,
-			Description: `IP route-map
+						Description: `IP route-map
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Route map name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in route_map_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  route_map_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in route_map, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  route_map, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

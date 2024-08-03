@@ -37,27 +37,7 @@ MD5 key id
 
 ### Required
 
-- `area_id` (String) OSPF area settings
-
-    &emsp;|Format  &emsp;|Description                                  |
-    |----------|-----------------------------------------------|
-    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
-    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
-- `key_id_id` (Number) MD5 key id
-
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|1-255   &emsp;|MD5 key id   |
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `virtual_link_id` (String) Virtual link
-
-    &emsp;|Format  &emsp;|Description                           |
-    |----------|----------------------------------------|
-    &emsp;|ipv4    &emsp;|OSPF area in dotted decimal notation  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -71,6 +51,34 @@ MD5 key id
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `area` (String) OSPF area settings
+
+    &emsp;|Format  &emsp;|Description                                  |
+    |----------|-----------------------------------------------|
+    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
+    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
+- `key_id` (Number) MD5 key id
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|1-255   &emsp;|MD5 key id   |
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `virtual_link` (String) Virtual link
+
+    &emsp;|Format  &emsp;|Description                           |
+    |----------|----------------------------------------|
+    &emsp;|ipv4    &emsp;|OSPF area in dotted decimal notation  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

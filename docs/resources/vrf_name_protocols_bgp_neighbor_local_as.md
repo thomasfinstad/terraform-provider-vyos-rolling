@@ -31,23 +31,7 @@ BGP neighbor
 
 ### Required
 
-- `local_as_id` (Number) Specify alternate ASN for this BGP process
-
-    &emsp;|Format        &emsp;|Description                     |
-    |----------------|----------------------------------|
-    &emsp;|1-4294967294  &emsp;|Autonomous System Number (ASN)  |
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `neighbor_id` (String) BGP neighbor
-
-    &emsp;|Format  &emsp;|Description                |
-    |----------|-----------------------------|
-    &emsp;|ipv4    &emsp;|BGP neighbor IP address    |
-    &emsp;|ipv6    &emsp;|BGP neighbor IPv6 address  |
-    &emsp;|txt     &emsp;|Interface name             |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -57,6 +41,30 @@ BGP neighbor
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `local_as` (Number) Specify alternate ASN for this BGP process
+
+    &emsp;|Format        &emsp;|Description                     |
+    |----------------|----------------------------------|
+    &emsp;|1-4294967294  &emsp;|Autonomous System Number (ASN)  |
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `neighbor` (String) BGP neighbor
+
+    &emsp;|Format  &emsp;|Description                |
+    |----------|-----------------------------|
+    &emsp;|ipv4    &emsp;|BGP neighbor IP address    |
+    &emsp;|ipv6    &emsp;|BGP neighbor IPv6 address  |
+    &emsp;|txt     &emsp;|Interface name             |
+
 
 &lt;a id=&#34;nestedatt--no_prepend&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `no_prepend`

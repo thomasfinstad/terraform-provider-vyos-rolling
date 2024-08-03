@@ -22,6 +22,7 @@ type VrfNameProtocolsOspfAreaAreaTypeStub struct {
 	LeafVrfNameProtocolsOspfAreaAreaTypeStubNoSummary   types.Bool   `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

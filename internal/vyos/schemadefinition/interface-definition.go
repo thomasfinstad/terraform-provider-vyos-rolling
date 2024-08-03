@@ -37,7 +37,63 @@ func (i *InterfaceDefinition) BaseTagNodes() (tagNodes []*TagNode, ok bool) {
 			ret = append(ret, recurse(n)...)
 		}
 
-		ret = append(ret, children.TagNode...)
+		// Testing for (merge)override
+		for _, tn := range children.TagNode {
+			// If check if override is configured
+			shouldMerge := false
+		LO:
+			for _, override := range BaseNodeOverrides {
+				// quick skip (to keep log a bit more readable)
+				if tn.AbsName()[0] != override.Full()[0] {
+					continue
+				}
+
+				fmt.Print("Node: ", tn.AbsName(), " Test: ", override.Full(), "\t")
+
+				// recurse and skip if node name is shorter than start of override scope
+				if len(tn.AbsName()) <= len(override.from) {
+
+					fmt.Print("recurse into.", "\n")
+					ret = append(ret, recurse(tn)...)
+					continue
+				}
+
+				// skip if node name is longer than full override scope
+				if len(tn.AbsName()) > len(override.Full()) {
+					fmt.Print("too deep to match.", "\n")
+
+					continue
+				}
+
+				fmt.Print("override test result:\t")
+
+				// check each if each name segment is in the override
+				for i := 0; i < len(tn.AbsName()); i++ {
+
+					// skip if not matching
+					if tn.AbsName()[i] != override.Full()[i] {
+						fmt.Print("mismatch at index: ", i, "\n")
+
+						break
+					}
+
+					// if we are on the last segment of the node name and reach this point then it should be overridden
+					if i+1 == len(tn.AbsName()) {
+						fmt.Print("match found, merging", "\n")
+						shouldMerge = true
+						break LO
+					}
+				}
+			}
+
+			// If the tag node should not be merged into its parent we can mark it as a new basenode
+			if !shouldMerge {
+				ret = append(ret, tn)
+				tn.IsBaseNode = true
+			}
+
+			ret = append(ret, recurse(tn)...)
+		}
 
 		return ret
 	}
@@ -50,11 +106,6 @@ func (i *InterfaceDefinition) BaseTagNodes() (tagNodes []*TagNode, ok bool) {
 
 	tagNodes = recurse(rootNode)
 	ok = len(tagNodes) > 0
-
-	// Let tagnode know it is the basenode
-	for _, tagNode := range tagNodes {
-		tagNode.IsBaseNode = true
-	}
 
 	return tagNodes, ok
 }

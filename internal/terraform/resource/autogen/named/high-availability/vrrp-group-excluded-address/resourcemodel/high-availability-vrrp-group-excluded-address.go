@@ -26,16 +26,14 @@ var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVrrpGroupExcludedAddre
 type HighAvailabilityVrrpGroupExcludedAddress struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"excluded_address_id" vyos:"-,self-id"`
-
-	ParentIDHighAvailabilityVrrpGroup types.String `tfsdk:"group_id" vyos:"group,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupExcludedAddressInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -65,7 +63,7 @@ func (o *HighAvailabilityVrrpGroupExcludedAddress) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"excluded-address",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["excluded_address"].(types.String).ValueString(),
 	)
 }
 
@@ -80,7 +78,8 @@ func (o *HighAvailabilityVrrpGroupExcludedAddress) GetVyosParentPath() []string 
 		"vrrp",
 
 		"group",
-		o.ParentIDHighAvailabilityVrrpGroup.ValueString(),
+
+		o.SelfIdentifier.Attributes()["group"].(types.String).ValueString(),
 	}
 }
 
@@ -95,7 +94,8 @@ func (o *HighAvailabilityVrrpGroupExcludedAddress) GetVyosNamedParentPath() []st
 		"vrrp",
 
 		"group",
-		o.ParentIDHighAvailabilityVrrpGroup.ValueString(),
+
+		o.SelfIdentifier.Attributes()["group"].(types.String).ValueString(),
 	}
 }
 
@@ -106,9 +106,13 @@ func (o HighAvailabilityVrrpGroupExcludedAddress) ResourceSchemaAttributes(ctx c
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"excluded_address_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Virtual address (If you need additional IPv4 and IPv6 in same group)
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"excluded_address": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
     |  Format   |  Description                     |
     |-----------|----------------------------------|
@@ -117,7 +121,7 @@ func (o HighAvailabilityVrrpGroupExcludedAddress) ResourceSchemaAttributes(ctx c
     |  ipv4     |  IPv4 address                    |
     |  ipv6     |  IPv6 address                    |
 `,
-			Description: `Virtual address (If you need additional IPv4 and IPv6 in same group)
+						Description: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
     |  Format   |  Description                     |
     |-----------|----------------------------------|
@@ -126,47 +130,50 @@ func (o HighAvailabilityVrrpGroupExcludedAddress) ResourceSchemaAttributes(ctx c
     |  ipv4     |  IPv4 address                    |
     |  ipv6     |  IPv6 address                    |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in excluded_address_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  excluded_address_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in excluded_address, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  excluded_address, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"group_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `VRRP group
-
-`,
-			Description: `VRRP group
+					"group": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `VRRP group
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in group_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  group_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `VRRP group
+
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in group, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  group, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

@@ -31,21 +31,7 @@ Static IPv6 route
 
 ### Required
 
-- `name_id` (String) Virtual Routing and Forwarding instance
-
-    &emsp;|Format  &emsp;|Description        |
-    |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
-- `next_hop_id` (String) IPv6 gateway address
-
-    &emsp;|Format  &emsp;|Description           |
-    |----------|------------------------|
-    &emsp;|ipv6    &emsp;|Next-hop IPv6 router  |
-- `route6_id` (String) Static IPv6 route
-
-    &emsp;|Format   &emsp;|Description        |
-    |-----------|---------------------|
-    &emsp;|ipv6net  &emsp;|IPv6 static route  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -76,6 +62,28 @@ Static IPv6 route
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `name` (String) Virtual Routing and Forwarding instance
+
+    &emsp;|Format  &emsp;|Description        |
+    |----------|---------------------|
+    &emsp;|txt     &emsp;|VRF instance name  |
+- `next_hop` (String) IPv6 gateway address
+
+    &emsp;|Format  &emsp;|Description           |
+    |----------|------------------------|
+    &emsp;|ipv6    &emsp;|Next-hop IPv6 router  |
+- `route6` (String) Static IPv6 route
+
+    &emsp;|Format   &emsp;|Description        |
+    |-----------|---------------------|
+    &emsp;|ipv6net  &emsp;|IPv6 static route  |
+
 
 &lt;a id=&#34;nestedatt--bfd&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `bfd`

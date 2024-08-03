@@ -27,9 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyRandomDetectPrecedence{}
 type QosPolicyRandomDetectPrecedence struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"precedence_id" vyos:"-,self-id"`
-
-	ParentIDQosPolicyRandomDetect types.String `tfsdk:"random_detect_id" vyos:"random-detect,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -40,7 +38,7 @@ type QosPolicyRandomDetectPrecedence struct {
 	LeafQosPolicyRandomDetectPrecedenceMinimumThreshold types.Number `tfsdk:"minimum_threshold" vyos:"minimum-threshold,omitempty"`
 	LeafQosPolicyRandomDetectPrecedenceMarkProbability  types.Number `tfsdk:"mark_probability" vyos:"mark-probability,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -70,7 +68,7 @@ func (o *QosPolicyRandomDetectPrecedence) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"precedence",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["precedence"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -85,7 +83,8 @@ func (o *QosPolicyRandomDetectPrecedence) GetVyosParentPath() []string {
 		"policy",
 
 		"random-detect",
-		o.ParentIDQosPolicyRandomDetect.ValueString(),
+
+		o.SelfIdentifier.Attributes()["random_detect"].(types.String).ValueString(),
 	}
 }
 
@@ -100,7 +99,8 @@ func (o *QosPolicyRandomDetectPrecedence) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"random-detect",
-		o.ParentIDQosPolicyRandomDetect.ValueString(),
+
+		o.SelfIdentifier.Attributes()["random_detect"].(types.String).ValueString(),
 	}
 }
 
@@ -111,54 +111,61 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes(ctx context.Co
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"precedence_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `IP precedence
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"precedence": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `IP precedence
 
     |  Format  |  Description          |
     |----------|-----------------------|
     |  0-7     |  IP precedence value  |
 `,
-			Description: `IP precedence
+						Description: `IP precedence
 
     |  Format  |  Description          |
     |----------|-----------------------|
     |  0-7     |  IP precedence value  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"random_detect_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Weighted Random Early Detect policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Policy name  |
-`,
-			Description: `Weighted Random Early Detect policy
+					"random_detect": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Weighted Random Early Detect policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in random_detect_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  random_detect_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Weighted Random Early Detect policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in random_detect, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  random_detect, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 

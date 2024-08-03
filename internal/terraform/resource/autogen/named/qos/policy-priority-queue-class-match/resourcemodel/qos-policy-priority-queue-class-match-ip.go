@@ -22,6 +22,7 @@ type QosPolicyPriorityQueueClassMatchIP struct {
 	LeafQosPolicyPriorityQueueClassMatchIPProtocol  types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeQosPolicyPriorityQueueClassMatchIPDestination *QosPolicyPriorityQueueClassMatchIPDestination `tfsdk:"destination" vyos:"destination,omitempty"`

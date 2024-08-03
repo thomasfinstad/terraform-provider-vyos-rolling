@@ -21,6 +21,7 @@ type NatSourceRuleTranSLAtionOptions struct {
 	LeafNatSourceRuleTranSLAtionOptionsPortMapping    types.String `tfsdk:"port_mapping" vyos:"port-mapping,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

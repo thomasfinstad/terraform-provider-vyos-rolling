@@ -27,16 +27,14 @@ var _ helpers.VyosTopResourceDataModel = &NatSourceRuleLoadBalanceBackend{}
 type NatSourceRuleLoadBalanceBackend struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"backend_id" vyos:"-,self-id"`
-
-	ParentIDNatSourceRule types.Number `tfsdk:"rule_id" vyos:"rule,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafNatSourceRuleLoadBalanceBackendWeight types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -66,7 +64,7 @@ func (o *NatSourceRuleLoadBalanceBackend) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"backend",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["backend"].(types.String).ValueString(),
 	)
 }
 
@@ -81,7 +79,8 @@ func (o *NatSourceRuleLoadBalanceBackend) GetVyosParentPath() []string {
 		"source",
 
 		"rule",
-		o.ParentIDNatSourceRule.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 
 		"load-balance",
 	}
@@ -98,7 +97,8 @@ func (o *NatSourceRuleLoadBalanceBackend) GetVyosNamedParentPath() []string {
 		"source",
 
 		"rule",
-		o.ParentIDNatSourceRule.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -109,54 +109,61 @@ func (o NatSourceRuleLoadBalanceBackend) ResourceSchemaAttributes(ctx context.Co
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"backend_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Translated IP address
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"backend": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Translated IP address
 
     |  Format  |  Description            |
     |----------|-------------------------|
     |  ipv4    |  IPv4 address to match  |
 `,
-			Description: `Translated IP address
+						Description: `Translated IP address
 
     |  Format  |  Description            |
     |----------|-------------------------|
     |  ipv4    |  IPv4 address to match  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in backend_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  backend_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in backend, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  backend, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"rule_id": schema.NumberAttribute{
-			Required: true,
-			MarkdownDescription: `Rule number for NAT
-
-    |  Format    |  Description         |
-    |------------|----------------------|
-    |  1-999999  |  Number of NAT rule  |
-`,
-			Description: `Rule number for NAT
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Rule number for NAT
 
     |  Format    |  Description         |
     |------------|----------------------|
     |  1-999999  |  Number of NAT rule  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						Description: `Rule number for NAT
+
+    |  Format    |  Description         |
+    |------------|----------------------|
+    |  1-999999  |  Number of NAT rule  |
+`,
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

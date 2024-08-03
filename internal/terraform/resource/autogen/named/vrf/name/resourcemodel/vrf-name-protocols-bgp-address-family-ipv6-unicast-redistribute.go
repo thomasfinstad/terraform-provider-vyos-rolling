@@ -20,6 +20,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute struct {
 	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeTable types.String `tfsdk:"table" vyos:"table,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected  *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected  `tfsdk:"connected" vyos:"connected,omitempty"`

@@ -21,6 +21,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpnAllocationMode struct 
 	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpnAllocationModePerNexthop types.Bool `tfsdk:"per_nexthop" vyos:"per-nexthop,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }

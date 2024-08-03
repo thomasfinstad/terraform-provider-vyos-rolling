@@ -21,8 +21,11 @@ func TestFirewallIPvfourNameRuleMarshalVyos(t *testing.T) {
 	lst, _ := basetypes.NewListValue(basetypes.StringType{}, []attr.Value{basetypes.NewStringValue("420"), basetypes.NewStringValue("13-37")})
 	model := &resourcemodel.FirewallIPvfourNameRule{
 		//ID:                                      basetypes.NewStringValue("firewall__name__rule-one__rule__42"),
-		SelfIdentifier:                                 basetypes.NewNumberValue(big.NewFloat(42)),
-		ParentIDFirewallIPvfourName:                    basetypes.NewStringValue("rule-one"),
+		// SelfIdentifier:                                 basetypes.NewNumberValue(big.NewFloat(42)),
+		// ParentIDFirewallIPvfourName:                    basetypes.NewStringValue("rule-one"),
+		SelfIdentifier: basetypes.NewObjectValueMust(
+			map[string]attr.Type{"name": basetypes.StringType{}, "rule": basetypes.NumberType{}},
+			map[string]attr.Value{"name": basetypes.NewStringValue("rule-one"), "rule": basetypes.NewNumberValue(big.NewFloat(42))}),
 		LeafFirewallIPvfourNameRuleAction:              basetypes.NewStringValue("accept"),
 		LeafFirewallIPvfourNameRuleDisable:             basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameRuleQueue:               basetypes.NewNumberValue(big.NewFloat(28)),

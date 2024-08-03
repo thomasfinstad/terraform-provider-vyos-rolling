@@ -23,11 +23,7 @@ Routing policy
 
 ### Required
 
-- `community_list_id` (String) Add a BGP community list entry
-
-    &emsp;|Format  &emsp;|Description              |
-    |----------|---------------------------|
-    &emsp;|txt     &emsp;|BGP community-list name  |
+- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 
@@ -41,6 +37,18 @@ Routing policy
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+### Nested Schema for `identifier`
+
+Required:
+
+- `community_list` (String) Add a BGP community list entry
+
+    &emsp;|Format  &emsp;|Description              |
+    |----------|---------------------------|
+    &emsp;|txt     &emsp;|BGP community-list name  |
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

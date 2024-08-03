@@ -27,11 +27,7 @@ var _ helpers.VyosTopResourceDataModel = &QosPolicyPriorityQueueClassMatch{}
 type QosPolicyPriorityQueueClassMatch struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"match_id" vyos:"-,self-id"`
-
-	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue_id" vyos:"priority-queue,parent-id"`
-
-	ParentIDQosPolicyPriorityQueueClass types.Number `tfsdk:"class_id" vyos:"class,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -41,7 +37,7 @@ type QosPolicyPriorityQueueClassMatch struct {
 	LeafQosPolicyPriorityQueueClassMatchMark        types.Number `tfsdk:"mark" vyos:"mark,omitempty"`
 	LeafQosPolicyPriorityQueueClassMatchVif         types.Number `tfsdk:"vif" vyos:"vif,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeQosPolicyPriorityQueueClassMatchEther  *QosPolicyPriorityQueueClassMatchEther  `tfsdk:"ether" vyos:"ether,omitempty"`
@@ -74,7 +70,7 @@ func (o *QosPolicyPriorityQueueClassMatch) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"match",
-		o.SelfIdentifier.ValueString(),
+		o.SelfIdentifier.Attributes()["match"].(types.String).ValueString(),
 	)
 }
 
@@ -89,10 +85,12 @@ func (o *QosPolicyPriorityQueueClassMatch) GetVyosParentPath() []string {
 		"policy",
 
 		"priority-queue",
-		o.ParentIDQosPolicyPriorityQueue.ValueString(),
+
+		o.SelfIdentifier.Attributes()["priority_queue"].(types.String).ValueString(),
 
 		"class",
-		o.ParentIDQosPolicyPriorityQueueClass.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -107,10 +105,12 @@ func (o *QosPolicyPriorityQueueClassMatch) GetVyosNamedParentPath() []string {
 		"policy",
 
 		"priority-queue",
-		o.ParentIDQosPolicyPriorityQueue.ValueString(),
+
+		o.SelfIdentifier.Attributes()["priority_queue"].(types.String).ValueString(),
 
 		"class",
-		o.ParentIDQosPolicyPriorityQueueClass.ValueBigFloat().String(),
+
+		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	}
 }
 
@@ -121,80 +121,87 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes(ctx context.C
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"match_id": schema.StringAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Class matching rule name
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"match": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Class matching rule name
 
 `,
-			Description: `Class matching rule name
+						Description: `Class matching rule name
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in match_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  match_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in match, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  match, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"priority_queue_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Priority queuing based policy
+					"priority_queue": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Priority queuing based policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			Description: `Priority queuing based policy
+						Description: `Priority queuing based policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in priority_queue_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  priority_queue_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
-			},
-		},
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in priority_queue, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  priority_queue, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
 
-		"class_id": schema.NumberAttribute{
-			Required: true,
-			MarkdownDescription: `Class Handle
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  1-7     |  Priority     |
-`,
-			Description: `Class Handle
+					"class": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Class Handle
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-7     |  Priority     |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						Description: `Class Handle
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  1-7     |  Priority     |
+`,
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

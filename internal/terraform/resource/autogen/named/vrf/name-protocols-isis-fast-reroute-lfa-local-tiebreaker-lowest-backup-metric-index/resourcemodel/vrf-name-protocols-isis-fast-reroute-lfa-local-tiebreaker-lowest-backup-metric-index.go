@@ -28,9 +28,7 @@ var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsIsisFastRerouteLfaLoca
 type VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"index_id" vyos:"-,self-id"`
-
-	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -38,7 +36,7 @@ type VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex st
 	LeafVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndexLevelOne types.Bool `tfsdk:"level_1" vyos:"level-1,omitempty"`
 	LeafVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndexLevelTwo types.Bool `tfsdk:"level_2" vyos:"level-2,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 }
@@ -68,7 +66,7 @@ func (o *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricInde
 	return append(
 		o.GetVyosParentPath(),
 		"index",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["index"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -81,7 +79,8 @@ func (o *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricInde
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
 		"protocols",
 
@@ -108,7 +107,8 @@ func (o *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricInde
 		"vrf",
 
 		"name",
-		o.ParentIDVrfName.ValueString(),
+
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
 
@@ -119,54 +119,61 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"index_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Set preference order among tiebreakers
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"index": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Set preference order among tiebreakers
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  1-255   |  The index integer value  |
 `,
-			Description: `Set preference order among tiebreakers
+						Description: `Set preference order among tiebreakers
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  1-255   |  The index integer value  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
-			},
-		},
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
 
-		"name_id": schema.StringAttribute{
-			Required: true,
-			MarkdownDescription: `Virtual Routing and Forwarding instance
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  VRF instance name  |
-`,
-			Description: `Virtual Routing and Forwarding instance
+					"name": schema.StringAttribute{
+						Required: true,
+						MarkdownDescription: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			}, Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in name_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+						Description: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
+`,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						}, Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in name, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					},
+				},
 			},
 		},
 
