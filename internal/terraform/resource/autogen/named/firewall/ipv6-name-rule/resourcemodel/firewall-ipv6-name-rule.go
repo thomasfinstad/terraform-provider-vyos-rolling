@@ -65,6 +65,7 @@ type FirewallIPvsixNameRule struct {
 	NodeFirewallIPvsixNameRuleRecent            *FirewallIPvsixNameRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
 	NodeFirewallIPvsixNameRuleSynproxy          *FirewallIPvsixNameRuleSynproxy          `tfsdk:"synproxy" vyos:"synproxy,omitempty"`
 	NodeFirewallIPvsixNameRuleTCP               *FirewallIPvsixNameRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
+	NodeFirewallIPvsixNameRuleGre               *FirewallIPvsixNameRuleGre               `tfsdk:"gre" vyos:"gre,omitempty"`
 	NodeFirewallIPvsixNameRuleTime              *FirewallIPvsixNameRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
 	NodeFirewallIPvsixNameRuleHopLimit          *FirewallIPvsixNameRuleHopLimit          `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
 	NodeFirewallIPvsixNameRuleIcmpvsix          *FirewallIPvsixNameRuleIcmpvsix          `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
@@ -620,6 +621,17 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 `,
 			Description: `TCP options to match
+
+`,
+		},
+
+		"gre": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvsixNameRuleGre{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `GRE fields to match
+
+`,
+			Description: `GRE fields to match
 
 `,
 		},

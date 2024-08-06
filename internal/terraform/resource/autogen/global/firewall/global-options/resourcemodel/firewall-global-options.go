@@ -43,8 +43,9 @@ type FirewallGlobalOptions struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeFirewallGlobalOptionsStatePolicy bool `tfsdk:"-" vyos:"state-policy,child"`
-	ExistsNodeFirewallGlobalOptionsTimeout     bool `tfsdk:"-" vyos:"timeout,child"`
+	ExistsNodeFirewallGlobalOptionsApplyToBrIDgedTraffic bool `tfsdk:"-" vyos:"apply-to-bridged-traffic,child"`
+	ExistsNodeFirewallGlobalOptionsStatePolicy           bool `tfsdk:"-" vyos:"state-policy,child"`
+	ExistsNodeFirewallGlobalOptionsTimeout               bool `tfsdk:"-" vyos:"timeout,child"`
 }
 
 // SetID configures the resource ID

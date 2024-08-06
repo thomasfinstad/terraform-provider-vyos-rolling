@@ -58,6 +58,7 @@ type FirewallIPvfourOutputFilterRule struct {
 	NodeFirewallIPvfourOutputFilterRuleRecent            *FirewallIPvfourOutputFilterRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
 	NodeFirewallIPvfourOutputFilterRuleSynproxy          *FirewallIPvfourOutputFilterRuleSynproxy          `tfsdk:"synproxy" vyos:"synproxy,omitempty"`
 	NodeFirewallIPvfourOutputFilterRuleTCP               *FirewallIPvfourOutputFilterRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
+	NodeFirewallIPvfourOutputFilterRuleGre               *FirewallIPvfourOutputFilterRuleGre               `tfsdk:"gre" vyos:"gre,omitempty"`
 	NodeFirewallIPvfourOutputFilterRuleTime              *FirewallIPvfourOutputFilterRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
 	NodeFirewallIPvfourOutputFilterRuleIcmp              *FirewallIPvfourOutputFilterRuleIcmp              `tfsdk:"icmp" vyos:"icmp,omitempty"`
 	NodeFirewallIPvfourOutputFilterRuleTTL               *FirewallIPvfourOutputFilterRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
@@ -570,6 +571,17 @@ func (o FirewallIPvfourOutputFilterRule) ResourceSchemaAttributes(ctx context.Co
 
 `,
 			Description: `TCP options to match
+
+`,
+		},
+
+		"gre": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourOutputFilterRuleGre{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `GRE fields to match
+
+`,
+			Description: `GRE fields to match
 
 `,
 		},

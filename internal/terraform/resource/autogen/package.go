@@ -4,7 +4,11 @@ package autogen
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	globalfirewallbridgeforwardfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/bridge-forward-filter"
+	globalfirewallbridgeinputfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/bridge-input-filter"
+	globalfirewallbridgeoutputfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/bridge-output-filter"
+	globalfirewallbridgepreroutingfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/bridge-prerouting-filter"
 	globalfirewallglobaloptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options"
+	globalfirewallglobaloptionsapplytobridgedtraffic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-apply-to-bridged-traffic"
 	globalfirewallglobaloptionsstatepolicyestablished "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-established"
 	globalfirewallglobaloptionsstatepolicyinvalid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-invalid"
 	globalfirewallglobaloptionsstatepolicyrelated "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-related"
@@ -38,8 +42,11 @@ import (
 	namedcontainernetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/network"
 	namedcontainerregistry "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/registry"
 	namedfirewallbridgeforwardfilterrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/bridge-forward-filter-rule"
+	namedfirewallbridgeinputfilterrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/bridge-input-filter-rule"
 	namedfirewallbridgename "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/bridge-name"
 	namedfirewallbridgenamerule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/bridge-name-rule"
+	namedfirewallbridgeoutputfilterrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/bridge-output-filter-rule"
+	namedfirewallbridgepreroutingfilterrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/bridge-prerouting-filter-rule"
 	namedfirewallflowtable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/flowtable"
 	namedfirewallgroupaddressgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/group-address-group"
 	namedfirewallgroupdomaingroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/group-domain-group"
@@ -218,6 +225,9 @@ func GetResources() []func() resource.Resource {
 		namedfirewallgroupdynamicgroupipvsixaddressgroup.NewFirewallGroupDynamicGroupIPvsixAddressGroup,
 		namedfirewallbridgename.NewFirewallBrIDgeName,
 		namedfirewallbridgeforwardfilterrule.NewFirewallBrIDgeForwardFilterRule,
+		namedfirewallbridgeinputfilterrule.NewFirewallBrIDgeInputFilterRule,
+		namedfirewallbridgeoutputfilterrule.NewFirewallBrIDgeOutputFilterRule,
+		namedfirewallbridgepreroutingfilterrule.NewFirewallBrIDgePreroutingFilterRule,
 		namedfirewallbridgenamerule.NewFirewallBrIDgeNameRule,
 		namedfirewallipvfourname.NewFirewallIPvfourName,
 		namedfirewallipvfourforwardfilterrule.NewFirewallIPvfourForwardFilterRule,
@@ -235,6 +245,7 @@ func GetResources() []func() resource.Resource {
 		namedfirewallipvsixnamerule.NewFirewallIPvsixNameRule,
 		namedfirewallzonefrom.NewFirewallZoneFrom,
 		globalfirewallglobaloptions.NewFirewallGlobalOptions,
+		globalfirewallglobaloptionsapplytobridgedtraffic.NewFirewallGlobalOptionsApplyToBrIDgedTraffic,
 		globalfirewallglobaloptionsstatepolicyestablished.NewFirewallGlobalOptionsStatePolicyEstablished,
 		globalfirewallglobaloptionsstatepolicyinvalid.NewFirewallGlobalOptionsStatePolicyInvalID,
 		globalfirewallglobaloptionsstatepolicyrelated.NewFirewallGlobalOptionsStatePolicyRelated,
@@ -242,6 +253,9 @@ func GetResources() []func() resource.Resource {
 		globalfirewallglobaloptionstimeouttcp.NewFirewallGlobalOptionsTimeoutTCP,
 		globalfirewallglobaloptionstimeoutudp.NewFirewallGlobalOptionsTimeoutUDP,
 		globalfirewallbridgeforwardfilter.NewFirewallBrIDgeForwardFilter,
+		globalfirewallbridgeinputfilter.NewFirewallBrIDgeInputFilter,
+		globalfirewallbridgeoutputfilter.NewFirewallBrIDgeOutputFilter,
+		globalfirewallbridgepreroutingfilter.NewFirewallBrIDgePreroutingFilter,
 		globalfirewallipvfourforwardfilter.NewFirewallIPvfourForwardFilter,
 		globalfirewallipvfourinputfilter.NewFirewallIPvfourInputFilter,
 		globalfirewallipvfouroutputfilter.NewFirewallIPvfourOutputFilter,

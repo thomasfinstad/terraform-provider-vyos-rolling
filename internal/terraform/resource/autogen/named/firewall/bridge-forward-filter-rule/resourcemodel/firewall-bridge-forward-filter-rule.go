@@ -29,22 +29,42 @@ type FirewallBrIDgeForwardFilterRule struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafFirewallBrIDgeForwardFilterRuleAction       types.String `tfsdk:"action" vyos:"action,omitempty"`
-	LeafFirewallBrIDgeForwardFilterRuleQueue        types.Number `tfsdk:"queue" vyos:"queue,omitempty"`
-	LeafFirewallBrIDgeForwardFilterRuleQueueOptions types.List   `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
-	LeafFirewallBrIDgeForwardFilterRuleDisable      types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafFirewallBrIDgeForwardFilterRuleJumpTarget   types.String `tfsdk:"jump_target" vyos:"jump-target,omitempty"`
-	LeafFirewallBrIDgeForwardFilterRuleLog          types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleDescrIPtion         types.String `tfsdk:"description" vyos:"description,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleDisable             types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleDscp                types.List   `tfsdk:"dscp" vyos:"dscp,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleDscpExclude         types.List   `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleMark                types.String `tfsdk:"mark" vyos:"mark,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleLog                 types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleQueue               types.Number `tfsdk:"queue" vyos:"queue,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleQueueOptions        types.List   `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRulePacketLength        types.List   `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRulePacketLengthExclude types.List   `tfsdk:"packet_length_exclude" vyos:"packet-length-exclude,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRulePacketType          types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleProtocol            types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleJumpTarget          types.String `tfsdk:"jump_target" vyos:"jump-target,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
+	LeafFirewallBrIDgeForwardFilterRuleState               types.List   `tfsdk:"state" vyos:"state,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
-	NodeFirewallBrIDgeForwardFilterRuleDestination       *FirewallBrIDgeForwardFilterRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleFragment          *FirewallBrIDgeForwardFilterRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleHopLimit          *FirewallBrIDgeForwardFilterRuleHopLimit          `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleIcmp              *FirewallBrIDgeForwardFilterRuleIcmp              `tfsdk:"icmp" vyos:"icmp,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleIcmpvsix          *FirewallBrIDgeForwardFilterRuleIcmpvsix          `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleLimit             *FirewallBrIDgeForwardFilterRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
 	NodeFirewallBrIDgeForwardFilterRuleLogOptions        *FirewallBrIDgeForwardFilterRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleIPsec             *FirewallBrIDgeForwardFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleVlan              *FirewallBrIDgeForwardFilterRuleVlan              `tfsdk:"vlan" vyos:"vlan,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleTCP               *FirewallBrIDgeForwardFilterRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleTime              *FirewallBrIDgeForwardFilterRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleTTL               *FirewallBrIDgeForwardFilterRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleDestination       *FirewallBrIDgeForwardFilterRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallBrIDgeForwardFilterRuleSource            *FirewallBrIDgeForwardFilterRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleConnectionStatus  *FirewallBrIDgeForwardFilterRuleConnectionStatus  `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
 	NodeFirewallBrIDgeForwardFilterRuleInboundInterface  *FirewallBrIDgeForwardFilterRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 	NodeFirewallBrIDgeForwardFilterRuleOutboundInterface *FirewallBrIDgeForwardFilterRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
-	NodeFirewallBrIDgeForwardFilterRuleVlan              *FirewallBrIDgeForwardFilterRuleVlan              `tfsdk:"vlan" vyos:"vlan,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -132,30 +152,104 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 
 		// LeafNodes
 
-		"action": schema.StringAttribute{
+		"description": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Rule action
+			MarkdownDescription: `Description
 
-    |  Format    |  Description                                                                    |
-    |------------|---------------------------------------------------------------------------------|
-    |  accept    |  Accept matching entries                                                        |
-    |  continue  |  Continue parsing next rule                                                     |
-    |  jump      |  Jump to another chain                                                          |
-    |  return    |  Return from the current chain and continue at the next rule of the last chain  |
-    |  drop      |  Drop matching entries                                                          |
-    |  queue     |  Enqueue packet to userspace                                                    |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
-			Description: `Rule action
+			Description: `Description
 
-    |  Format    |  Description                                                                    |
-    |------------|---------------------------------------------------------------------------------|
-    |  accept    |  Accept matching entries                                                        |
-    |  continue  |  Continue parsing next rule                                                     |
-    |  jump      |  Jump to another chain                                                          |
-    |  return    |  Return from the current chain and continue at the next rule of the last chain  |
-    |  drop      |  Drop matching entries                                                          |
-    |  queue     |  Enqueue packet to userspace                                                    |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
+		},
+
+		"disable": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Disable instance
+
+`,
+			Description: `Disable instance
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"dscp": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `DSCP value
+
+    |  Format       |  Description          |
+    |---------------|-----------------------|
+    |  0-63         |  DSCP value to match  |
+    |  <start-end>  |  DSCP range to match  |
+`,
+			Description: `DSCP value
+
+    |  Format       |  Description          |
+    |---------------|-----------------------|
+    |  0-63         |  DSCP value to match  |
+    |  <start-end>  |  DSCP range to match  |
+`,
+		},
+
+		"dscp_exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `DSCP value not to match
+
+    |  Format       |  Description              |
+    |---------------|---------------------------|
+    |  0-63         |  DSCP value not to match  |
+    |  <start-end>  |  DSCP range not to match  |
+`,
+			Description: `DSCP value not to match
+
+    |  Format       |  Description              |
+    |---------------|---------------------------|
+    |  0-63         |  DSCP value not to match  |
+    |  <start-end>  |  DSCP range not to match  |
+`,
+		},
+
+		"mark": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Firewall mark
+
+    |  Format         |  Description                            |
+    |-----------------|-----------------------------------------|
+    |  0-2147483647   |  Firewall mark to match                 |
+    |  !0-2147483647  |  Inverted Firewall mark to match        |
+    |  <start-end>    |  Firewall mark range to match           |
+    |  !<start-end>   |  Firewall mark inverted range to match  |
+`,
+			Description: `Firewall mark
+
+    |  Format         |  Description                            |
+    |-----------------|-----------------------------------------|
+    |  0-2147483647   |  Firewall mark to match                 |
+    |  !0-2147483647  |  Inverted Firewall mark to match        |
+    |  <start-end>    |  Firewall mark range to match           |
+    |  !<start-end>   |  Firewall mark inverted range to match  |
+`,
+		},
+
+		"log": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Log packets hitting this rule
+
+`,
+			Description: `Log packets hitting this rule
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"queue": schema.NumberAttribute{
@@ -193,16 +287,88 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 `,
 		},
 
-		"disable": schema.BoolAttribute{
+		"packet_length": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Payload size in bytes, including header and data to match
+
+    |  Format       |  Description                   |
+    |---------------|--------------------------------|
+    |  1-65535      |  Packet length to match        |
+    |  <start-end>  |  Packet length range to match  |
+`,
+			Description: `Payload size in bytes, including header and data to match
+
+    |  Format       |  Description                   |
+    |---------------|--------------------------------|
+    |  1-65535      |  Packet length to match        |
+    |  <start-end>  |  Packet length range to match  |
+`,
+		},
+
+		"packet_length_exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Payload size in bytes, including header and data not to match
+
+    |  Format       |  Description                       |
+    |---------------|------------------------------------|
+    |  1-65535      |  Packet length not to match        |
+    |  <start-end>  |  Packet length range not to match  |
+`,
+			Description: `Payload size in bytes, including header and data not to match
+
+    |  Format       |  Description                       |
+    |---------------|------------------------------------|
+    |  1-65535      |  Packet length not to match        |
+    |  <start-end>  |  Packet length range not to match  |
+`,
+		},
+
+		"packet_type": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Disable instance
+			MarkdownDescription: `Packet type
 
+    |  Format     |  Description                                      |
+    |-------------|---------------------------------------------------|
+    |  broadcast  |  Match broadcast packet type                      |
+    |  host       |  Match host packet type, addressed to local host  |
+    |  multicast  |  Match multicast packet type                      |
+    |  other      |  Match packet addressed to another host           |
 `,
-			Description: `Disable instance
+			Description: `Packet type
 
+    |  Format     |  Description                                      |
+    |-------------|---------------------------------------------------|
+    |  broadcast  |  Match broadcast packet type                      |
+    |  host       |  Match host packet type, addressed to local host  |
+    |  multicast  |  Match multicast packet type                      |
+    |  other      |  Match packet addressed to another host           |
 `,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
+		},
+
+		"protocol": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
+
+    |  Format       |  Description         |
+    |---------------|----------------------|
+    |  all          |  All IP protocols    |
+    |  tcp_udp      |  Both TCP and UDP    |
+    |  0-255        |  IP protocol number  |
+    |  <protocol>   |  IP protocol name    |
+    |  !<protocol>  |  IP protocol name    |
+`,
+			Description: `Protocol to match (protocol name, number, or "all")
+
+    |  Format       |  Description         |
+    |---------------|----------------------|
+    |  all          |  All IP protocols    |
+    |  tcp_udp      |  Both TCP and UDP    |
+    |  0-255        |  IP protocol number  |
+    |  <protocol>   |  IP protocol name    |
+    |  !<protocol>  |  IP protocol name    |
+`,
 		},
 
 		"jump_target": schema.StringAttribute{
@@ -215,27 +381,125 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 `,
 		},
 
-		"log": schema.BoolAttribute{
+		"action": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Log packets hitting this rule
+			MarkdownDescription: `Rule action
 
+    |  Format    |  Description                                                                    |
+    |------------|---------------------------------------------------------------------------------|
+    |  accept    |  Accept matching entries                                                        |
+    |  continue  |  Continue parsing next rule                                                     |
+    |  jump      |  Jump to another chain                                                          |
+    |  return    |  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop      |  Drop matching entries                                                          |
+    |  queue     |  Enqueue packet to userspace                                                    |
 `,
-			Description: `Log packets hitting this rule
+			Description: `Rule action
 
+    |  Format    |  Description                                                                    |
+    |------------|---------------------------------------------------------------------------------|
+    |  accept    |  Accept matching entries                                                        |
+    |  continue  |  Continue parsing next rule                                                     |
+    |  jump      |  Jump to another chain                                                          |
+    |  return    |  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop      |  Drop matching entries                                                          |
+    |  queue     |  Enqueue packet to userspace                                                    |
 `,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
+		},
+
+		"connection_mark": schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:    true,
+			MarkdownDescription: `Connection mark
+
+    |  Format        |  Description               |
+    |----------------|----------------------------|
+    |  0-2147483647  |  Connection-mark to match  |
+`,
+			Description: `Connection mark
+
+    |  Format        |  Description               |
+    |----------------|----------------------------|
+    |  0-2147483647  |  Connection-mark to match  |
+`,
+		},
+
+		"state": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Session state
+
+    |  Format       |  Description        |
+    |---------------|---------------------|
+    |  established  |  Established state  |
+    |  invalid      |  Invalid state      |
+    |  new          |  New state          |
+    |  related      |  Related state      |
+`,
+			Description: `Session state
+
+    |  Format       |  Description        |
+    |---------------|---------------------|
+    |  established  |  Established state  |
+    |  invalid      |  Invalid state      |
+    |  new          |  New state          |
+    |  related      |  Related state      |
+`,
 		},
 
 		// Nodes
 
-		"destination": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeForwardFilterRuleDestination{}.ResourceSchemaAttributes(ctx),
+		"fragment": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleFragment{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
-			MarkdownDescription: `Destination parameters
+			MarkdownDescription: `IP fragment match
 
 `,
-			Description: `Destination parameters
+			Description: `IP fragment match
+
+`,
+		},
+
+		"hop_limit": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleHopLimit{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Hop limit
+
+`,
+			Description: `Hop limit
+
+`,
+		},
+
+		"icmp": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleIcmp{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `ICMP type and code information
+
+`,
+			Description: `ICMP type and code information
+
+`,
+		},
+
+		"icmpv6": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleIcmpvsix{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `ICMPv6 type and code information
+
+`,
+			Description: `ICMPv6 type and code information
+
+`,
+		},
+
+		"limit": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleLimit{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Rate limit using a token bucket filter
+
+`,
+			Description: `Rate limit using a token bucket filter
 
 `,
 		},
@@ -251,6 +515,72 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 `,
 		},
 
+		"ipsec": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `IPsec encapsulated packets
+
+`,
+			Description: `IPsec encapsulated packets
+
+`,
+		},
+
+		"vlan": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleVlan{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `VLAN parameters
+
+`,
+			Description: `VLAN parameters
+
+`,
+		},
+
+		"tcp": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleTCP{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `TCP options to match
+
+`,
+			Description: `TCP options to match
+
+`,
+		},
+
+		"time": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleTime{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Time to match rule
+
+`,
+			Description: `Time to match rule
+
+`,
+		},
+
+		"ttl": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleTTL{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Time to live limit
+
+`,
+			Description: `Time to live limit
+
+`,
+		},
+
+		"destination": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleDestination{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Destination parameters
+
+`,
+			Description: `Destination parameters
+
+`,
+		},
+
 		"source": schema.SingleNestedAttribute{
 			Attributes: FirewallBrIDgeForwardFilterRuleSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -258,6 +588,17 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 
 `,
 			Description: `Source parameters
+
+`,
+		},
+
+		"connection_status": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleConnectionStatus{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Connection status
+
+`,
+			Description: `Connection status
 
 `,
 		},
@@ -280,17 +621,6 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 
 `,
 			Description: `Match outbound-interface
-
-`,
-		},
-
-		"vlan": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeForwardFilterRuleVlan{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `VLAN parameters
-
-`,
-			Description: `VLAN parameters
 
 `,
 		},

@@ -65,6 +65,7 @@ type FirewallIPvfourNameRule struct {
 	NodeFirewallIPvfourNameRuleRecent            *FirewallIPvfourNameRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
 	NodeFirewallIPvfourNameRuleSynproxy          *FirewallIPvfourNameRuleSynproxy          `tfsdk:"synproxy" vyos:"synproxy,omitempty"`
 	NodeFirewallIPvfourNameRuleTCP               *FirewallIPvfourNameRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
+	NodeFirewallIPvfourNameRuleGre               *FirewallIPvfourNameRuleGre               `tfsdk:"gre" vyos:"gre,omitempty"`
 	NodeFirewallIPvfourNameRuleTime              *FirewallIPvfourNameRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
 	NodeFirewallIPvfourNameRuleIcmp              *FirewallIPvfourNameRuleIcmp              `tfsdk:"icmp" vyos:"icmp,omitempty"`
 	NodeFirewallIPvfourNameRuleTTL               *FirewallIPvfourNameRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
@@ -620,6 +621,17 @@ func (o FirewallIPvfourNameRule) ResourceSchemaAttributes(ctx context.Context) m
 
 `,
 			Description: `TCP options to match
+
+`,
+		},
+
+		"gre": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourNameRuleGre{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `GRE fields to match
+
+`,
+			Description: `GRE fields to match
 
 `,
 		},

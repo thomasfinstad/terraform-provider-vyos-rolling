@@ -1193,7 +1193,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Connection marking"},
+												Help: []string{"Set connection mark"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -1211,7 +1211,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:0-2147483647",
-													Description: "Connection marking",
+													Description: "Connection mark",
 												}},
 											}},
 										}, {
@@ -1224,7 +1224,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Packet Differentiated Services Codepoint (DSCP)"},
+												Help: []string{"Set DSCP (Packet Differentiated Services Codepoint) bits"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -1255,7 +1255,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Packet marking"},
+												Help: []string{"Set packet mark"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -1273,7 +1273,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-2147483647",
-													Description: "Packet marking",
+													Description: "Packet mark",
 												}},
 											}},
 										}, {
@@ -1286,7 +1286,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Routing table to forward packet with"},
+												Help: []string{"Set the routing table for matched packets"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -1375,7 +1375,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"TCP Maximum Segment Size"},
+												Help: []string{"Set TCP Maximum Segment Size"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -4107,7 +4107,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Connection marking"},
+												Help: []string{"Set connection mark"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -4125,7 +4125,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:0-2147483647",
-													Description: "Connection marking",
+													Description: "Connection mark",
 												}},
 											}},
 										}, {
@@ -4138,7 +4138,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Packet Differentiated Services Codepoint (DSCP)"},
+												Help: []string{"Set DSCP (Packet Differentiated Services Codepoint) bits"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -4169,7 +4169,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Packet marking"},
+												Help: []string{"Set packet mark"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -4187,7 +4187,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-2147483647",
-													Description: "Packet marking",
+													Description: "Packet mark",
 												}},
 											}},
 										}, {
@@ -4200,7 +4200,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Routing table to forward packet with"},
+												Help: []string{"Set the routing table for matched packets"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -4289,7 +4289,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"TCP Maximum Segment Size"},
+												Help: []string{"Set TCP Maximum Segment Size"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",

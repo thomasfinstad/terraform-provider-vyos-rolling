@@ -89,6 +89,7 @@ IPv6 firewall forward filter
     &emsp;|0-63         &emsp;|DSCP value not to match  |
     &emsp;|&lt;start-end&gt;  &emsp;|DSCP range not to match  |
 - `fragment` (Attributes) IP fragment match (see [below for nested schema](#nestedatt--fragment))
+- `gre` (Attributes) GRE fields to match (see [below for nested schema](#nestedatt--gre))
 - `hop_limit` (Attributes) Hop limit (see [below for nested schema](#nestedatt--hop_limit))
 - `icmpv6` (Attributes) ICMPv6 type and code information (see [below for nested schema](#nestedatt--icmpv6))
 - `inbound_interface` (Attributes) Match inbound-interface (see [below for nested schema](#nestedatt--inbound_interface))
@@ -296,6 +297,71 @@ Optional:
 
 - `match_frag` (Boolean) Second and further fragments of fragmented packets
 - `match_non_frag` (Boolean) Head fragments or unfragmented packets
+
+
+&lt;a id=&#34;nestedatt--gre&#34;&gt;&lt;/a&gt;
+### Nested Schema for `gre`
+
+Optional:
+
+- `flags` (Attributes) GRE flag bits to match (see [below for nested schema](#nestedatt--gre--flags))
+- `inner_proto` (String) EtherType of encapsulated packet
+
+    &emsp;|Format      &emsp;|Description                                                   |
+    |--------------|----------------------------------------------------------------|
+    &emsp;|0-65535     &emsp;|Ethernet protocol number                                      |
+    &emsp;|0x0-0xffff  &emsp;|Ethernet protocol number (hex)                                |
+    &emsp;|ip          &emsp;|IPv4                                                          |
+    &emsp;|ip6         &emsp;|IPv6                                                          |
+    &emsp;|arp         &emsp;|Address Resolution Protocol                                   |
+    &emsp;|802.1q      &emsp;|VLAN-tagged frames (IEEE 802.1q)                              |
+    &emsp;|802.1ad     &emsp;|Provider Bridging (IEEE 802.1ad, Q-in-Q)                      |
+    &emsp;|gretap      &emsp;|Transparent Ethernet Bridging (L2 Ethernet over GRE, gretap)  |
+- `key` (Number) Tunnel key (only GRE tunnels)
+
+    &emsp;|Format  &emsp;|Description  |
+    |----------|---------------|
+    &emsp;|u32     &emsp;|Tunnel key   |
+- `version` (String) GRE Version
+
+    &emsp;|Format  &emsp;|Description                         |
+    |----------|--------------------------------------|
+    &emsp;|gre     &emsp;|Standard GRE                        |
+    &emsp;|pptp    &emsp;|Point to Point Tunnelling Protocol  |
+
+&lt;a id=&#34;nestedatt--gre--flags&#34;&gt;&lt;/a&gt;
+### Nested Schema for `gre.flags`
+
+Optional:
+
+- `checksum` (Attributes) Header includes optional checksum (see [below for nested schema](#nestedatt--gre--flags--checksum))
+- `key` (Attributes) Header includes optional key field (see [below for nested schema](#nestedatt--gre--flags--key))
+- `sequence` (Attributes) Header includes a sequence number field (see [below for nested schema](#nestedatt--gre--flags--sequence))
+
+&lt;a id=&#34;nestedatt--gre--flags--checksum&#34;&gt;&lt;/a&gt;
+### Nested Schema for `gre.flags.checksum`
+
+Optional:
+
+- `unset` (Boolean) Header does not include optional checksum
+
+
+&lt;a id=&#34;nestedatt--gre--flags--key&#34;&gt;&lt;/a&gt;
+### Nested Schema for `gre.flags.key`
+
+Optional:
+
+- `unset` (Boolean) Header does not include optional key field
+
+
+&lt;a id=&#34;nestedatt--gre--flags--sequence&#34;&gt;&lt;/a&gt;
+### Nested Schema for `gre.flags.sequence`
+
+Optional:
+
+- `unset` (Boolean) Header does not include a sequence number field
+
+
 
 
 &lt;a id=&#34;nestedatt--hop_limit&#34;&gt;&lt;/a&gt;

@@ -58,6 +58,7 @@ type FirewallIPvsixInputFilterRule struct {
 	NodeFirewallIPvsixInputFilterRuleRecent            *FirewallIPvsixInputFilterRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleSynproxy          *FirewallIPvsixInputFilterRuleSynproxy          `tfsdk:"synproxy" vyos:"synproxy,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleTCP               *FirewallIPvsixInputFilterRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
+	NodeFirewallIPvsixInputFilterRuleGre               *FirewallIPvsixInputFilterRuleGre               `tfsdk:"gre" vyos:"gre,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleTime              *FirewallIPvsixInputFilterRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleHopLimit          *FirewallIPvsixInputFilterRuleHopLimit          `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
 	NodeFirewallIPvsixInputFilterRuleIcmpvsix          *FirewallIPvsixInputFilterRuleIcmpvsix          `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
@@ -570,6 +571,17 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes(ctx context.Cont
 
 `,
 			Description: `TCP options to match
+
+`,
+		},
+
+		"gre": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvsixInputFilterRuleGre{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `GRE fields to match
+
+`,
+			Description: `GRE fields to match
 
 `,
 		},
