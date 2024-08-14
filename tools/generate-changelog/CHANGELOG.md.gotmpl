@@ -1,49 +1,113 @@
-{{ define "changelog" -}}
+{{ define "changelog" }}
 # CHANGELOG
+
+<!-- ToC start -->
+<!-- ToC end -->
 
 {{ template "release" .}}
 {{end}}
 
-{{ define "release" -}}
-## {{ .Version }} ({{ .Date }})
+{{ define "release" }}
+## Release {{ .Version }} ({{ .Date }})
 
-{{- if .HasBreaking }}{{ template "breaking" .Breaking }}{{ end }}
+{{- if .HasGitChanges }}
+{{- with .GitChanges }}
+### Project changes
 
-{{- if .HasNotes }}{{ template "notes" .Notes }}{{ end }}
-
-{{- if .HasFeatures }}{{ template "features" .Features }}{{ end }}
-
-{{- if .HasEnhancements }}{{ template "enhancements" .Enhancements }}{{ end }}
-
-{{- if .HasFixes }}{{ template "fixes" .Fixes }}{{ end }}
-
-{{ end }}
-
-{{ define "breaking" }}
-BREAKING CHANGES:
-{{ range . }}{{template "msg" .}}{{ end }}
-{{ end }}
-
-{{ define "notes" }}
-NOTES:
-{{ range . }}{{template "msg" .}}{{ end }}
-{{ end }}
-
-{{ define "features" }}
-FEATURES:
-{{ range . }}{{template "msg" .}}{{ end }}
-{{ end }}
-
-{{ define "enhancements" }}
-ENHANCEMENTS:
-{{ range . }}{{template "msg" .}}{{ end }}
-{{ end }}
-
-{{ define "fixes" }}
-BUG FIXES:
-{{ range . }}{{template "msg" .}}{{ end }}
-{{ end }}
-
-{{ define "msg" }}
+{{- if .HasBreaking }}
+#### BREAKING CHANGES
+{{- range .Breaking }}
 * {{ .Description }}
+{{- end }}
+{{- end }}
+
+{{- if .HasNotes -}}
+#### Notes
+{{- range . }}
+* {{ .Description }}
+{{- end }}
+{{- end }}
+
+{{- if .HasFeatures }}
+#### Features
+{{- range .Features }}
+* {{ .Description }}
+{{- end }}
+{{- end }}
+
+{{- if .HasEnhancements }}
+#### Enhancements
+{{- range .Enhancements }}
+* {{ .Description }}
+{{- end }}
+{{- end }}
+
+{{- if .HasFixes }}
+#### Bug fixes
+{{- range .Fixes }}
+* {{ .Description }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- if .HasSchemaChanges }}
+{{ with .SchemaChanges }}
+### Schema changes
+
+{{- if .HasChangeSeverity "BREAKING" }}
+#### BREAKING CHANGES
+{{ template "schema-changes" .GetChangeSeverity "BREAKING" }}
+{{ end }}
+
+{{- if .HasChangeSeverity "NOTE" }}
+#### Notes
+{{ template "schema-changes" .GetChangeSeverity "NOTE" }}
+{{ end }}
+
+{{- if .HasChangeSeverity "FEATURE" }}
+#### Features
+{{ template "schema-changes" .GetChangeSeverity "FEATURE" }}
+{{ end }}
+
+{{- if .HasChangeSeverity "ENHANCEMENT" }}
+#### Enhancements
+{{ template "schema-changes" .GetChangeSeverity "ENHANCEMENT" }}
+{{ end }}
+
+{{- if .HasChangeSeverity "FIX" }}
+#### Bug fixes
+{{ range .Fixes }}
+{{ template "schema-changes" .GetChangeSeverity "FIX" }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ define "schema-changes" -}}
+{{- if .HasChangeTo "PROVIDER" }}
+##### Provider
+{{ range .GetChangeTo "PROVIDER" -}}
+{{ range .Description "" -}}
+{{ . }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{- if .HasChangeTo "RESOURCE" }}
+##### Resources
+{{ range .GetChangeTo "RESOURCE" -}}
+{{ range .Description "" -}}
+{{ . }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{- if .HasChangeTo "DATASOURCE" }}
+##### Data sources
+{{ range .GetChangeTo "DATASOURCE" -}}
+{{ range .Description "" -}}
+{{ . }}
+{{ end }}
+{{ end }}
+{{ end }}
 {{ end }}

@@ -9,13 +9,14 @@ require (
 	github.com/go-test/deep v1.1.0
 	github.com/google/go-cmp v0.6.0
 	github.com/hashicorp/go-version v1.6.0
+	github.com/hashicorp/terraform-json v0.22.1
 	github.com/hashicorp/terraform-plugin-framework v1.3.5
 	github.com/hashicorp/terraform-plugin-framework-timeouts v0.4.1
 	github.com/hashicorp/terraform-plugin-framework-validators v0.12.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/leodido/go-conventionalcommits v0.12.0
-	github.com/qri-io/deepdiff v0.2.1
 	github.com/xuri/xgen v0.0.0-20230702070049-db840e1a4605
+	github.com/zclconf/go-cty v1.14.4
 	golang.org/x/exp v0.0.0-20240318143956-a85f2c67cd81
 	golang.org/x/text v0.14.0
 )
@@ -24,6 +25,7 @@ require (
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v1.0.0 // indirect
+	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/cloudflare/circl v1.3.7 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
