@@ -452,22 +452,27 @@ ci-update:
 	echo Render provider documentation
 	make docs/index.md
 
-	echo Check for changes
-	if [ -z "$$(git diff --stat)" ]; then
-		echo "No changes to provider files were detected"
+	echo Check for changes since last release
+	if [ -z "$$(git diff --stat "$$(git tag -l v* | sort -V | tail -n1)")" ]; then
+		echo "No changes to provider files since last release"
 		exit 0
 	fi
 
-	echo Stage changed files to git
-	git add -A
+	if [ -n "$$(git diff --stat)" ]; then
+		echo "Changes detected:"
+		git diff --stat
 
-	echo Commit files updated by CI
-	git commit -m "ci: regenerate files"
+		echo Stage changed files to git
+		git add -A
+
+		echo Commit files updated by CI
+		git commit -m "ci: regenerate files"
+	fi
 
 	echo Version the new changes
 	make version
 
-	echo "Update to rolling release $$(cat data/vyos-1x-info.txt) complete, ready to release provider."
+	echo "Update to rolling release '$$(cat data/vyos-1x-info.txt)' complete, ready to release provider."
 
 .PHONY: clean
 clean:
