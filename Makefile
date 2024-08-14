@@ -366,7 +366,7 @@ version:
 	tail -n +2  .build/CHANGELOG.md.old >> CHANGELOG.md
 
 	echo Extract latest version from changelog
-	grep "^##" CHANGELOG.md | head -n1 | cut -d" " -f2 > VERSION
+	grep "^##" CHANGELOG.md | head -n1 | cut -d" " -f3 > VERSION
 
 	echo Add TOC to changelog
 	markdown-toc --no-header --skip-headers=1 --replace --inline CHANGELOG.md

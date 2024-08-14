@@ -3,15 +3,6 @@
 
 <!-- ToC start -->
    1. [Release 1.4.202408140 (2024-08-14 15:40:33 UTC)](#release-14202408140-2024-08-14-15:40:33-utc)
-      1. [Project changes](#project-changes)
-         1. [Notes](#notes)
-         1. [Features](#features)
-         1. [Bug fixes](#bug-fixes)
-      1. [Schema changes](#schema-changes)
-         1. [BREAKING CHANGES](#breaking-changes)
-            1. [Resources](#resources)
-         1. [Features](#features-1)
-            1. [Resources](#resources-1)
    1. [0.4.20240813 (2024-08-13 08:24:24 UTC)](#0420240813-2024-08-13-08:24:24-utc)
    1. [0.4.20240806 (2024-08-06 08:24:19 UTC)](#0420240806-2024-08-06-08:24:19-utc)
    1. [0.4.20240803 (2024-08-03 08:23:39 UTC)](#0420240803-2024-08-03-08:23:39-utc)
