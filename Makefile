@@ -87,18 +87,18 @@ data/vyos-1x-info.txt:
 
 	mkdir -p .build || true
 
-	# Clone repo if needed
+	echo Clone repo if needed
 	if [ ! -d ".build/vyos-1x" ]; then
 		cd .build
 		git clone "https://github.com/vyos/vyos-1x.git" vyos-1x;
 		cd $(ROOT_DIR)
 	fi
 
-	# Cache the commit sha
+	echo Cache the commit sha
 	cd .build/vyos-1x
 	git rev-list --date=iso-strict -n 1 --before="$$(cat "../../data/vyos-1x-info.txt")" "origin/current" > ../vyos-1x.sha
 
-	# Checkout the commit
+	echo Checkout the commit
 	git checkout current
 	git pull
 	git checkout "$$(cat ../vyos-1x.sha)"
@@ -333,6 +333,7 @@ docs/index.md: \
 version:
 	@echo Make version
 
+	echo Verify that there are no unstaged changes
 	if [ -n "$(shell git status -s | head)" ]; then
 		git status -s | head;
 		echo "Can not create version when git is not in a clean, committed, and pushed state" >&2;
@@ -342,27 +343,42 @@ version:
 	mkdir -p ".build" || true
 
 	cd examples/provider
+	echo Initialize terraform provider
 	make init
+	echo Generate provider json schema
 	terraform providers schema -json | jq '.' > ../../.build/provider-schema.json
 	cd $(ROOT_DIR)
 
-	pwd
+	echo Latest releases:
 	git tag -l | sort -V | tail
-	cd tools/generate-changelog && go run *.go ../../data/provider-schema.json ../../.build/provider-schema.json
+	cd tools/generate-changelog
+	echo Generate changelog
+	go run *.go ../../data/provider-schema.json ../../.build/provider-schema.json
 	cd $(ROOT_DIR)
-	markdown-toc --no-header --skip-headers=1 --replace --inline .build/CHANGELOG.md
 
+	echo Overwrite old json schema with new
 	mv .build/provider-schema.json data/provider-schema.json
+	echo Move old changelog
 	mv CHANGELOG.md .build/CHANGELOG.md.old
+	echo Copy new changelog into place
 	cat .build/CHANGELOG.md > CHANGELOG.md
+	echo Append old changelog to end of new changelog
 	tail -n +2  .build/CHANGELOG.md.old >> CHANGELOG.md
+
+	echo Extract latest version from changelog
 	grep "^##" CHANGELOG.md | head -n1 | cut -d" " -f2 > VERSION
 
-	git add -A
-	-pre-commit run
-	git add -A
+	echo Add TOC to changelog
+	markdown-toc --no-header --skip-headers=1 --replace --inline CHANGELOG.md
 
+	echo Stage files in git
+	git add -A
+	echo Run pre-commit and stage any changed files
+	pre-commit run || git add -A
+
+	echo Commit meta files for release to git
 	git commit -m "chore: Prepare for release v$$(cat VERSION)"
+	echo Create git release tag
 	git tag "v$$(cat VERSION)"
 
 release: version
@@ -427,20 +443,31 @@ ci-update:
 		git commit -m "refactor: update to rolling release $$(cat data/vyos-1x-info.txt)"
 	fi
 
+	echo Generate files
 	make generate
+
+	echo Run tests
 	make test
+
+	echo Render provider documentation
 	make docs/index.md
 
+	echo Check for changes
 	if [ -z "$$(git diff --stat)" ]; then
 		echo "No changes to provider files were detected"
 		exit 0
 	fi
 
+	echo Stage changed files to git
 	git add -A
+
+	echo Commit files updated by CI
 	git commit -m "ci: regenerate files"
 
+	echo Version the new changes
 	make version
-	echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)"
+
+	echo "Update to rolling release $$(cat data/vyos-1x-info.txt) complete, ready to release provider."
 
 .PHONY: clean
 clean:
