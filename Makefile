@@ -323,6 +323,12 @@ docs/index.md: \
 	# Create docs
 	tfplugindocs generate --provider-name vyos > /dev/null
 
+	# Fix links that have been html escaped
+	sed -r -i 's|&lt;a id=&#34;([A-Za-z0-9_-]+)&#34;&gt;&lt;/a&gt;|<a id="\1"></a>|' docs/resources/*.md
+
+	# Remove redundant spacing infront of md tables
+	sed -i 's/^    &emsp;|/    |/' docs/resources/*.md
+
 .PHONY: version
 version:
 	@echo Make version
