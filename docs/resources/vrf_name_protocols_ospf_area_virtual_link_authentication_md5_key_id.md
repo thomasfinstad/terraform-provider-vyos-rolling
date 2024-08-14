@@ -43,44 +43,44 @@ MD5 key id
 
 - `md5_key` (String) MD5 authentication type
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|txt     &emsp;|MD5 Key (16 characters or less)  |
+    |txt     &emsp;|MD5 Key (16 characters or less)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `area` (String) OSPF area settings
 
-    &emsp;|Format  &emsp;|Description                                  |
+    |Format  &emsp;|Description                                  |
     |----------|-----------------------------------------------|
-    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
-    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
+    |u32     &emsp;|OSPF area number in decimal notation         |
+    |ipv4    &emsp;|OSPF area number in dotted decimal notation  |
 - `key_id` (Number) MD5 key id
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|1-255   &emsp;|MD5 key id   |
+    |1-255   &emsp;|MD5 key id   |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `virtual_link` (String) Virtual link
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|ipv4    &emsp;|OSPF area in dotted decimal notation  |
+    |ipv4    &emsp;|OSPF area in dotted decimal notation  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

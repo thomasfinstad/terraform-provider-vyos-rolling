@@ -38,54 +38,54 @@ OSPF area settings
 - `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
 - `dead_interval` (Number) Interval after which a neighbor is declared dead
 
-    &emsp;|Format   &emsp;|Description                       |
+    |Format   &emsp;|Description                       |
     |-----------|------------------------------------|
-    &emsp;|1-65535  &emsp;|Neighbor dead interval (seconds)  |
+    |1-65535  &emsp;|Neighbor dead interval (seconds)  |
 - `hello_interval` (Number) Interval between hello packets
 
-    &emsp;|Format   &emsp;|Description               |
+    |Format   &emsp;|Description               |
     |-----------|----------------------------|
-    &emsp;|1-65535  &emsp;|Hello interval (seconds)  |
+    |1-65535  &emsp;|Hello interval (seconds)  |
 - `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
-    &emsp;|Format   &emsp;|Description                    |
+    |Format   &emsp;|Description                    |
     |-----------|---------------------------------|
-    &emsp;|1-65535  &emsp;|Retransmit interval (seconds)  |
+    |1-65535  &emsp;|Retransmit interval (seconds)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `transmit_delay` (Number) Link state transmit delay
 
-    &emsp;|Format   &emsp;|Description                          |
+    |Format   &emsp;|Description                          |
     |-----------|---------------------------------------|
-    &emsp;|1-65535  &emsp;|Link state transmit delay (seconds)  |
+    |1-65535  &emsp;|Link state transmit delay (seconds)  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `area` (String) OSPF area settings
 
-    &emsp;|Format  &emsp;|Description                                  |
+    |Format  &emsp;|Description                                  |
     |----------|-----------------------------------------------|
-    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
-    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
+    |u32     &emsp;|OSPF area number in decimal notation         |
+    |ipv4    &emsp;|OSPF area number in dotted decimal notation  |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `virtual_link` (String) Virtual link
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|ipv4    &emsp;|OSPF area in dotted decimal notation  |
+    |ipv4    &emsp;|OSPF area in dotted decimal notation  |
 
 
-&lt;a id=&#34;nestedatt--authentication&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 
 Optional:
@@ -93,16 +93,16 @@ Optional:
 - `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--authentication--md5))
 - `plaintext_password` (String) Plain text password
 
-    &emsp;|Format  &emsp;|Description                                 |
+    |Format  &emsp;|Description                                 |
     |----------|----------------------------------------------|
-    &emsp;|txt     &emsp;|Plain text password (8 characters or less)  |
+    |txt     &emsp;|Plain text password (8 characters or less)  |
 
-&lt;a id=&#34;nestedatt--authentication--md5&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication--md5"></a>
 ### Nested Schema for `authentication.md5`
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

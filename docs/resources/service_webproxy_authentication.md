@@ -30,19 +30,19 @@ Webproxy service settings
 
 - `children` (String) Number of authentication helper processes
 
-    &emsp;|Format  &emsp;|Description                                |
+    |Format  &emsp;|Description                                |
     |----------|---------------------------------------------|
-    &emsp;|n       &emsp;|Number of authentication helper processes  |
+    |n       &emsp;|Number of authentication helper processes  |
 - `credentials_ttl` (String) Authenticated session time to live in minutes
 
-    &emsp;|Format  &emsp;|Description                    |
+    |Format  &emsp;|Description                    |
     |----------|---------------------------------|
-    &emsp;|n       &emsp;|Authenticated session timeout  |
+    |n       &emsp;|Authenticated session timeout  |
 - `method` (String) Authentication Method
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|ldap    &emsp;|Lightweight Directory Access Protocol  |
+    |ldap    &emsp;|Lightweight Directory Access Protocol  |
 - `realm` (String) Name of authentication realm (e.g. &#34;My Company proxy server&#34;)
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -50,7 +50,7 @@ Webproxy service settings
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

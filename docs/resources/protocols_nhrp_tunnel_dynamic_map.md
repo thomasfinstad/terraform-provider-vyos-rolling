@@ -33,33 +33,33 @@ Tunnel for NHRP
 
 - `nbma_domain_name` (String) Set HUB fqdn (nbma-address - fqdn)
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|&lt;fqdn&gt;  &emsp;|Set the external HUB fqdn  |
+    |&lt;fqdn&gt;  &emsp;|Set the external HUB fqdn  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `dynamic_map` (String) Set an HUB tunnel address
 
-    &emsp;|Format   &emsp;|Description                           |
+    |Format   &emsp;|Description                           |
     |-----------|----------------------------------------|
-    &emsp;|ipv4net  &emsp;|Set the IP address and prefix length  |
+    |ipv4net  &emsp;|Set the IP address and prefix length  |
 - `tunnel` (String) Tunnel for NHRP
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|tunN    &emsp;|NHRP tunnel name  |
+    |tunN    &emsp;|NHRP tunnel name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

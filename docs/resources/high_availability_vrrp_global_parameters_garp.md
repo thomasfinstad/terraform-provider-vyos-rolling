@@ -32,37 +32,37 @@ VRRP global parameters
 
 - `interval` (String) Interval between Gratuitous ARP
 
-    &emsp;|Format        &emsp;|Description                                   |
+    |Format        &emsp;|Description                                   |
     |----------------|------------------------------------------------|
-    &emsp;|&lt;0.000-1000&gt;  &emsp;|Interval in seconds, resolution microseconds  |
+    |&lt;0.000-1000&gt;  &emsp;|Interval in seconds, resolution microseconds  |
 - `master_delay` (Number) Delay for second set of gratuitous ARPs after transition to master
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|1-1000  &emsp;|Delay in seconds  |
+    |1-1000  &emsp;|Delay in seconds  |
 - `master_refresh` (Number) Minimum time interval for refreshing gratuitous ARPs while beeing master
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|0       &emsp;|No refresh           |
-    &emsp;|1-255   &emsp;|Interval in seconds  |
+    |0       &emsp;|No refresh           |
+    |1-255   &emsp;|Interval in seconds  |
 - `master_refresh_repeat` (Number) Number of gratuitous ARP messages to send at a time while beeing master
 
-    &emsp;|Format  &emsp;|Description                        |
+    |Format  &emsp;|Description                        |
     |----------|-------------------------------------|
-    &emsp;|1-255   &emsp;|Number of gratuitous ARP messages  |
+    |1-255   &emsp;|Number of gratuitous ARP messages  |
 - `master_repeat` (Number) Number of gratuitous ARP messages to send at a time after transition to master
 
-    &emsp;|Format  &emsp;|Description                        |
+    |Format  &emsp;|Description                        |
     |----------|-------------------------------------|
-    &emsp;|1-255   &emsp;|Number of gratuitous ARP messages  |
+    |1-255   &emsp;|Number of gratuitous ARP messages  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

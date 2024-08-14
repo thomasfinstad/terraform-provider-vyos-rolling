@@ -31,33 +31,33 @@ Open Shortest Path First (OSPF)
 
 - `poll_interval` (Number) Dead neighbor polling interval
 
-    &emsp;|Format   &emsp;|Description                                     |
+    |Format   &emsp;|Description                                     |
     |-----------|--------------------------------------------------|
-    &emsp;|1-65535  &emsp;|Seconds between dead neighbor polling interval  |
+    |1-65535  &emsp;|Seconds between dead neighbor polling interval  |
 - `priority` (Number) Neighbor priority in seconds
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|0-255   &emsp;|Neighbor priority  |
+    |0-255   &emsp;|Neighbor priority  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `neighbor` (String) Specify neighbor router
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|Neighbor IP address  |
+    |ipv4    &emsp;|Neighbor IP address  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

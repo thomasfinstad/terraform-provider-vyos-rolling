@@ -41,7 +41,7 @@ Specifies the view with name viewname
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -50,7 +50,7 @@ Required:
 - `view` (String) Specifies the view with name viewname
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

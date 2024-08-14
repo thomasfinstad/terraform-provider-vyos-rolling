@@ -31,15 +31,15 @@ Firewall group
 
 - `address` (List of String) Address-group member
 
-    &emsp;|Format     &emsp;|Description                                     |
+    |Format     &emsp;|Description                                     |
     |-------------|--------------------------------------------------|
-    &emsp;|ipv4       &emsp;|IPv4 address to match                           |
-    &emsp;|ipv4range  &emsp;|IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+    |ipv4       &emsp;|IPv4 address to match                           |
+    |ipv4range  &emsp;|IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `include` (List of String) Include another address-group
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -47,7 +47,7 @@ Firewall group
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -55,7 +55,7 @@ Required:
 - `address_group` (String) Firewall address-group
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

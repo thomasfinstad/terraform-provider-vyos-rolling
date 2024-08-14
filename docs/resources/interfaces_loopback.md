@@ -29,72 +29,72 @@ description: |-
 
 - `address` (List of String) IP address
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 address and prefix length  |
-    &emsp;|ipv6net  &emsp;|IPv6 address and prefix length  |
+    |ipv4net  &emsp;|IPv4 address and prefix length  |
+    |ipv6net  &emsp;|IPv6 address and prefix length  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `redirect` (String) Redirect incoming packet to destination
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|txt     &emsp;|Destination interface name  |
+    |txt     &emsp;|Destination interface name  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `loopback` (String) Loopback Interface
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|lo      &emsp;|Loopback interface  |
+    |lo      &emsp;|Loopback interface  |
 
 
-&lt;a id=&#34;nestedatt--ip&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
 
 Optional:
 
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-    &emsp;|Format   &emsp;|Description                                                  |
+    |Format   &emsp;|Description                                                  |
     |-----------|---------------------------------------------------------------|
-    &emsp;|strict   &emsp;|Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-    &emsp;|loose    &emsp;|Enable Loose Reverse Path Forwarding as defined in RFC3704   |
-    &emsp;|disable  &emsp;|No source validation                                         |
+    |strict   &emsp;|Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |loose    &emsp;|Enable Loose Reverse Path Forwarding as defined in RFC3704   |
+    |disable  &emsp;|No source validation                                         |
 
 
-&lt;a id=&#34;nestedatt--mirror&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--mirror"></a>
 ### Nested Schema for `mirror`
 
 Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|txt     &emsp;|Destination interface name  |
+    |txt     &emsp;|Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|txt     &emsp;|Destination interface name  |
+    |txt     &emsp;|Destination interface name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

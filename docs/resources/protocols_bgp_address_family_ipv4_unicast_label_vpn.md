@@ -36,17 +36,17 @@ Label value for VRF
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-    &emsp;|Format     &emsp;|Description                   |
+    |Format     &emsp;|Description                   |
     |-------------|--------------------------------|
-    &emsp;|auto       &emsp;|Automatically assign a label  |
-    &emsp;|0-1048575  &emsp;|Label Value                   |
+    |auto       &emsp;|Automatically assign a label  |
+    |0-1048575  &emsp;|Label Value                   |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

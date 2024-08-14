@@ -32,31 +32,31 @@ BGP parameters
 
 - `half_life` (Number) Half-life time for dampening
 
-    &emsp;|Format  &emsp;|Description                   |
+    |Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|1-45    &emsp;|Half-life penalty in minutes  |
+    |1-45    &emsp;|Half-life penalty in minutes  |
 - `max_suppress_time` (Number) Maximum duration to suppress a stable route
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|1-255   &emsp;|Maximum suppress duration in minutes  |
+    |1-255   &emsp;|Maximum suppress duration in minutes  |
 - `re_use` (Number) Threshold to start reusing a route
 
-    &emsp;|Format   &emsp;|Description            |
+    |Format   &emsp;|Description            |
     |-----------|-------------------------|
-    &emsp;|1-20000  &emsp;|Re-use penalty points  |
+    |1-20000  &emsp;|Re-use penalty points  |
 - `start_suppress_time` (Number) When to start suppressing a route
 
-    &emsp;|Format   &emsp;|Description                    |
+    |Format   &emsp;|Description                    |
     |-----------|---------------------------------|
-    &emsp;|1-20000  &emsp;|Start-suppress penalty points  |
+    |1-20000  &emsp;|Start-suppress penalty points  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

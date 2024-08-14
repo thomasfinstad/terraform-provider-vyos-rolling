@@ -34,27 +34,27 @@ GraphQL support
 
 - `expiration` (Number) Token time to expire in seconds
 
-    &emsp;|Format       &emsp;|Description                |
+    |Format       &emsp;|Description                |
     |---------------|-----------------------------|
-    &emsp;|60-31536000  &emsp;|Token lifetime in seconds  |
+    |60-31536000  &emsp;|Token lifetime in seconds  |
 - `secret_length` (Number) Length of shared secret in bytes
 
-    &emsp;|Format    &emsp;|Description                             |
+    |Format    &emsp;|Description                             |
     |------------|------------------------------------------|
-    &emsp;|16-65535  &emsp;|Byte length of generated shared secret  |
+    |16-65535  &emsp;|Byte length of generated shared secret  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `type` (String) Authentication type
 
-    &emsp;|Format  &emsp;|Description    |
+    |Format  &emsp;|Description    |
     |----------|-----------------|
-    &emsp;|key     &emsp;|Use API keys   |
-    &emsp;|token   &emsp;|Use JWT token  |
+    |key     &emsp;|Use API keys   |
+    |token   &emsp;|Use JWT token  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

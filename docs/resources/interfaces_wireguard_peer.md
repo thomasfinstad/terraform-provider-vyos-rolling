@@ -31,27 +31,27 @@ WireGuard Interface
 
 - `address` (String) IP address of tunnel endpoint
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address of remote tunnel endpoint  |
-    &emsp;|ipv6    &emsp;|IPv6 address of remote tunnel endpoint  |
+    |ipv4    &emsp;|IPv4 address of remote tunnel endpoint  |
+    |ipv6    &emsp;|IPv6 address of remote tunnel endpoint  |
 - `allowed_ips` (List of String) IP addresses allowed to traverse the peer
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `disable` (Boolean) Disable instance
 - `persistent_keepalive` (Number) Interval to send keepalive messages
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|1-65535  &emsp;|Interval in seconds  |
+    |1-65535  &emsp;|Interval in seconds  |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `preshared_key` (String) base64 encoded preshared key
 - `public_key` (String) base64 encoded public key
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -60,7 +60,7 @@ WireGuard Interface
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -68,12 +68,12 @@ Required:
 - `peer` (String) peer alias
 - `wireguard` (String) WireGuard Interface
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|wgN     &emsp;|WireGuard interface name  |
+    |wgN     &emsp;|WireGuard interface name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

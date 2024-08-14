@@ -28,35 +28,35 @@ description: |-
 
 - `interface` (String) Interface to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 - `leap_second` (String) Leap second behavior
 
-    &emsp;|Format    &emsp;|Description                                                                  |
+    |Format    &emsp;|Description                                                                  |
     |------------|-------------------------------------------------------------------------------|
-    &emsp;|ignore    &emsp;|No correction is applied to the clock for the leap second                    |
-    &emsp;|smear     &emsp;|Correct served time slowly be slewing instead of stepping                    |
-    &emsp;|system    &emsp;|Kernel steps the system clock forward or backward                            |
-    &emsp;|timezone  &emsp;|Use UTC timezone database to determine when will the next leap second occur  |
+    |ignore    &emsp;|No correction is applied to the clock for the leap second                    |
+    |smear     &emsp;|Correct served time slowly be slewing instead of stepping                    |
+    |system    &emsp;|Kernel steps the system clock forward or backward                            |
+    |timezone  &emsp;|Use UTC timezone database to determine when will the next leap second occur  |
 - `listen_address` (List of String) Local IP addresses to listen on
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address to listen for incoming connections  |
-    &emsp;|ipv6    &emsp;|IPv6 address to listen for incoming connections  |
+    |ipv4    &emsp;|IPv4 address to listen for incoming connections  |
+    |ipv6    &emsp;|IPv6 address to listen for incoming connections  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

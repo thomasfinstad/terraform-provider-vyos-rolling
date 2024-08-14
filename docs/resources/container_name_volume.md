@@ -31,37 +31,37 @@ Container name
 
 - `destination` (String) Destination container directory
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|txt     &emsp;|Destination container directory  |
+    |txt     &emsp;|Destination container directory  |
 - `mode` (String) Volume access mode ro/rw
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ro      &emsp;|Volume mounted into the container as read-only   |
-    &emsp;|rw      &emsp;|Volume mounted into the container as read-write  |
+    |ro      &emsp;|Volume mounted into the container as read-only   |
+    |rw      &emsp;|Volume mounted into the container as read-write  |
 - `propagation` (String) Volume bind propagation
 
-    &emsp;|Format    &emsp;|Description                                                                                                |
+    |Format    &emsp;|Description                                                                                                |
     |------------|-------------------------------------------------------------------------------------------------------------|
-    &emsp;|shared    &emsp;|Sub-mounts of the original mount are exposed to replica mounts                                             |
-    &emsp;|slave     &emsp;|Allow replica mount to see sub-mount from the original mount but not vice versa                            |
-    &emsp;|private   &emsp;|Sub-mounts within a mount are not visible to replica mounts or the original mount                          |
-    &emsp;|rshared   &emsp;|Allows sharing of mount points and their nested mount points between both the original and replica mounts  |
-    &emsp;|rslave    &emsp;|Allows mount point and their nested mount points between original an replica mounts                        |
-    &emsp;|rprivate  &emsp;|No mount points within original or replica mounts in any direction                                         |
+    |shared    &emsp;|Sub-mounts of the original mount are exposed to replica mounts                                             |
+    |slave     &emsp;|Allow replica mount to see sub-mount from the original mount but not vice versa                            |
+    |private   &emsp;|Sub-mounts within a mount are not visible to replica mounts or the original mount                          |
+    |rshared   &emsp;|Allows sharing of mount points and their nested mount points between both the original and replica mounts  |
+    |rslave    &emsp;|Allows mount point and their nested mount points between original an replica mounts                        |
+    |rprivate  &emsp;|No mount points within original or replica mounts in any direction                                         |
 - `source` (String) Source host directory
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|txt     &emsp;|Source host directory  |
+    |txt     &emsp;|Source host directory  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -70,7 +70,7 @@ Required:
 - `volume` (String) Mount a volume into the container
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

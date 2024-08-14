@@ -34,26 +34,26 @@ L2VPN EVPN BGP settings
 
 - `both` (List of String) Route Target both import and export
 
-    &emsp;|Format  &emsp;|Description                                |
+    |Format  &emsp;|Description                                |
     |----------|---------------------------------------------|
-    &emsp;|txt     &emsp;|Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |txt     &emsp;|Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (List of String) Route Target export
 
-    &emsp;|Format  &emsp;|Description                                |
+    |Format  &emsp;|Description                                |
     |----------|---------------------------------------------|
-    &emsp;|txt     &emsp;|Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |txt     &emsp;|Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (List of String) Route Target import
 
-    &emsp;|Format  &emsp;|Description                                |
+    |Format  &emsp;|Description                                |
     |----------|---------------------------------------------|
-    &emsp;|txt     &emsp;|Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |txt     &emsp;|Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

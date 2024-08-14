@@ -29,22 +29,22 @@ Firewall
 
 - `default_action` (String) Default-action for traffic coming into this zone
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|drop    &emsp;|Drop silently           |
-    &emsp;|reject  &emsp;|Drop and notify source  |
+    |drop    &emsp;|Drop silently           |
+    |reject  &emsp;|Drop and notify source  |
 - `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `interface` (List of String) Interface associated with zone
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|txt     &emsp;|Interface associated with zone  |
-    &emsp;|vrf     &emsp;|VRF associated with zone        |
+    |txt     &emsp;|Interface associated with zone  |
+    |vrf     &emsp;|VRF associated with zone        |
 - `intra_zone_filtering` (Attributes) Intra-zone filtering (see [below for nested schema](#nestedatt--intra_zone_filtering))
 - `local_zone` (Boolean) Zone to be local-zone
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -53,32 +53,32 @@ Firewall
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `zone` (String) Zone-policy
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Zone name    |
+    |txt     &emsp;|Zone name    |
 
 
-&lt;a id=&#34;nestedatt--intra_zone_filtering&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--intra_zone_filtering"></a>
 ### Nested Schema for `intra_zone_filtering`
 
 Optional:
 
 - `action` (String) Action for intra-zone traffic
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|accept  &emsp;|Accept traffic  |
-    &emsp;|drop    &emsp;|Drop silently   |
+    |accept  &emsp;|Accept traffic  |
+    |drop    &emsp;|Drop silently   |
 - `firewall` (Attributes) Use the specified firewall chain (see [below for nested schema](#nestedatt--intra_zone_filtering--firewall))
 
-&lt;a id=&#34;nestedatt--intra_zone_filtering--firewall&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--intra_zone_filtering--firewall"></a>
 ### Nested Schema for `intra_zone_filtering.firewall`
 
 Optional:
@@ -88,7 +88,7 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

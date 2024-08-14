@@ -31,9 +31,9 @@ Static NAT (one-to-one)
 
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
 - `inbound_interface` (String) Inbound interface of NAT traffic
 - `log` (Boolean) Log packets hitting this rule
@@ -44,7 +44,7 @@ Static NAT (one-to-one)
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -52,20 +52,20 @@ Required:
 - `rule` (String) Rule number for NAT
 
 
-&lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--destination"></a>
 ### Nested Schema for `destination`
 
 Optional:
 
 - `address` (String) IP address, prefix
 
-    &emsp;|Format   &emsp;|Description            |
+    |Format   &emsp;|Description            |
     |-----------|-------------------------|
-    &emsp;|ipv4     &emsp;|IPv4 address to match  |
-    &emsp;|ipv4net  &emsp;|IPv4 prefix to match   |
+    |ipv4     &emsp;|IPv4 address to match  |
+    |ipv4net  &emsp;|IPv4 prefix to match   |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:
@@ -73,14 +73,14 @@ Optional:
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
 
 
-&lt;a id=&#34;nestedatt--translation&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--translation"></a>
 ### Nested Schema for `translation`
 
 Optional:
 
 - `address` (String) IP address, prefix
 
-    &emsp;|Format   &emsp;|Description            |
+    |Format   &emsp;|Description            |
     |-----------|-------------------------|
-    &emsp;|ipv4     &emsp;|IPv4 address to match  |
-    &emsp;|ipv4net  &emsp;|IPv4 prefix to match   |  
+    |ipv4     &emsp;|IPv4 address to match  |
+    |ipv4net  &emsp;|IPv4 prefix to match   |  

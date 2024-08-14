@@ -37,19 +37,19 @@ Multicast static route
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `route` (String) Configure static unicast route into MRIB for multicast RPF lookup
 
-    &emsp;|Format   &emsp;|Description  |
+    |Format   &emsp;|Description  |
     |-----------|---------------|
-    &emsp;|ipv4net  &emsp;|Network      |
+    |ipv4net  &emsp;|Network      |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

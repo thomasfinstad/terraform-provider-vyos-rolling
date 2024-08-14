@@ -31,26 +31,26 @@ Point to Point over Ethernet (PPPoE) Server
 - `any_login` (Boolean) Authentication with any login
 - `mode` (String) Authentication mode used by this server
 
-    &emsp;|Format  &emsp;|Description                                |
+    |Format  &emsp;|Description                                |
     |----------|---------------------------------------------|
-    &emsp;|local   &emsp;|Use local username/password configuration  |
-    &emsp;|radius  &emsp;|Use RADIUS server for user autentication   |
-    &emsp;|noauth  &emsp;|Authentication disabled                    |
+    |local   &emsp;|Use local username/password configuration  |
+    |radius  &emsp;|Use RADIUS server for user autentication   |
+    |noauth  &emsp;|Authentication disabled                    |
 - `protocols` (List of String) Authentication protocol for remote access peer
 
-    &emsp;|Format     &emsp;|Description                                                                                      |
+    |Format     &emsp;|Description                                                                                      |
     |-------------|---------------------------------------------------------------------------------------------------|
-    &emsp;|pap        &emsp;|Authentication via PAP (Password Authentication Protocol)                                        |
-    &emsp;|chap       &emsp;|Authentication via CHAP (Challenge Handshake Authentication Protocol)                            |
-    &emsp;|mschap     &emsp;|Authentication via MS-CHAP (Microsoft Challenge Handshake Authentication Protocol)               |
-    &emsp;|mschap-v2  &emsp;|Authentication via MS-CHAPv2 (Microsoft Challenge Handshake Authentication Protocol, version 2)  |
+    |pap        &emsp;|Authentication via PAP (Password Authentication Protocol)                                        |
+    |chap       &emsp;|Authentication via CHAP (Challenge Handshake Authentication Protocol)                            |
+    |mschap     &emsp;|Authentication via MS-CHAP (Microsoft Challenge Handshake Authentication Protocol)               |
+    |mschap-v2  &emsp;|Authentication via MS-CHAPv2 (Microsoft Challenge Handshake Authentication Protocol, version 2)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

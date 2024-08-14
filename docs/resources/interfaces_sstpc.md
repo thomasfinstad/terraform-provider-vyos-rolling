@@ -30,87 +30,87 @@ description: |-
 - `authentication` (Attributes) Authentication settings (see [below for nested schema](#nestedatt--authentication))
 - `default_route_distance` (Number) Distance for installed default route
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|1-255   &emsp;|Distance for the default route from DHCP server  |
+    |1-255   &emsp;|Distance for the default route from DHCP server  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `disable` (Boolean) Administratively disable interface
 - `mtu` (Number) Maximum Transmission Unit (MTU)
 
-    &emsp;|Format   &emsp;|Description                        |
+    |Format   &emsp;|Description                        |
     |-----------|-------------------------------------|
-    &emsp;|68-1500  &emsp;|Maximum Transmission Unit in byte  |
+    |68-1500  &emsp;|Maximum Transmission Unit in byte  |
 - `no_default_route` (Boolean) Do not install default route to system
 - `no_peer_dns` (Boolean) Do not use DNS servers provided by the peer
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `server` (String) Remote server to connect to
 
-    &emsp;|Format    &emsp;|Description           |
+    |Format    &emsp;|Description           |
     |------------|------------------------|
-    &emsp;|ipv4      &emsp;|Server IPv4 address   |
-    &emsp;|hostname  &emsp;|Server hostname/FQDN  |
+    |ipv4      &emsp;|Server IPv4 address   |
+    |hostname  &emsp;|Server hostname/FQDN  |
 - `ssl` (Attributes) Secure Sockets Layer (SSL) configuration (see [below for nested schema](#nestedatt--ssl))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `sstpc` (String) Secure Socket Tunneling Protocol (SSTP) client Interface
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|sstpcN  &emsp;|Secure Socket Tunneling Protocol interface name  |
+    |sstpcN  &emsp;|Secure Socket Tunneling Protocol interface name  |
 
 
-&lt;a id=&#34;nestedatt--authentication&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 
 Optional:
 
 - `password` (String) Password used for authentication
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Password     |
+    |txt     &emsp;|Password     |
 - `username` (String) Username used for authentication
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Username     |
+    |txt     &emsp;|Username     |
 
 
-&lt;a id=&#34;nestedatt--ssl&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--ssl"></a>
 ### Nested Schema for `ssl`
 
 Optional:
 
 - `ca_certificate` (String) Certificate Authority in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|txt     &emsp;|Name of CA in PKI configuration  |
+    |txt     &emsp;|Name of CA in PKI configuration  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

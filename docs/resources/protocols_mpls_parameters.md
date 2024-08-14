@@ -30,9 +30,9 @@ Multiprotocol Label Switching (MPLS)
 
 - `maximum_ttl` (Number) Maximum TTL for MPLS packets
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|1-255   &emsp;|Maximum hops allowed  |
+    |1-255   &emsp;|Maximum hops allowed  |
 - `no_propagate_ttl` (Boolean) Disable copy of IP TTL to MPLS TTL
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -40,7 +40,7 @@ Multiprotocol Label Switching (MPLS)
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

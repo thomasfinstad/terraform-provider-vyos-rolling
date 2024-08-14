@@ -51,24 +51,24 @@ Prefer backup path with lowest total metric
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `index` (Number) Set preference order among tiebreakers
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-255   &emsp;|The index integer value  |
+    |1-255   &emsp;|The index integer value  |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

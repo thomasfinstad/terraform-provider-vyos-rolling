@@ -31,45 +31,45 @@ Add a BGP large community list entry
 
 - `action` (String) Action to take on entries matching this rule
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|permit  &emsp;|Permit matching entries  |
-    &emsp;|deny    &emsp;|Deny matching entries    |
+    |permit  &emsp;|Permit matching entries  |
+    |deny    &emsp;|Deny matching entries    |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `regex` (String) Regular expression to match against a large community list
 
-    &emsp;|Format     &emsp;|Description                                            |
+    |Format     &emsp;|Description                                            |
     |-------------|---------------------------------------------------------|
-    &emsp;|ASN:NN:NN  &emsp;|BGP large-community-list filter                        |
-    &emsp;|IP:NN:NN   &emsp;|BGP large-community-list filter (IPv4 address format)  |
+    |ASN:NN:NN  &emsp;|BGP large-community-list filter                        |
+    |IP:NN:NN   &emsp;|BGP large-community-list filter (IPv4 address format)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `large_community_list` (String) Add a BGP large community list entry
 
-    &emsp;|Format  &emsp;|Description                    |
+    |Format  &emsp;|Description                    |
     |----------|---------------------------------|
-    &emsp;|txt     &emsp;|BGP large-community-list name  |
+    |txt     &emsp;|BGP large-community-list name  |
 - `rule` (Number) Rule for this BGP extended community list
 
-    &emsp;|Format   &emsp;|Description                       |
+    |Format   &emsp;|Description                       |
     |-----------|------------------------------------|
-    &emsp;|1-65535  &emsp;|Large community-list rule number  |
+    |1-65535  &emsp;|Large community-list rule number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

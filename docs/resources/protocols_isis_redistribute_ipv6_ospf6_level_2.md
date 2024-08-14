@@ -36,21 +36,21 @@ Redistribute OSPFv3 routes into IS-IS
 
 - `metric` (Number) Set default metric for circuit
 
-    &emsp;|Format      &emsp;|Description           |
+    |Format      &emsp;|Description           |
     |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Default metric value  |
+    |0-16777215  &emsp;|Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
+    |txt     &emsp;|Route map name  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

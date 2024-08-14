@@ -31,9 +31,9 @@ Next Hop Resolution Protocol (NHRP) parameters
 
 - `cisco_authentication` (String) Pass phrase for cisco authentication
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|txt     &emsp;|Pass phrase for cisco authentication  |
+    |txt     &emsp;|Pass phrase for cisco authentication  |
 - `holding_time` (String) Holding time in seconds
 - `multicast` (String) Set multicast for NHRP
 - `non_caching` (Boolean) This can be used to reduce memory consumption on big NBMA subnets
@@ -46,19 +46,19 @@ Next Hop Resolution Protocol (NHRP) parameters
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `tunnel` (String) Tunnel for NHRP
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|tunN    &emsp;|NHRP tunnel name  |
+    |tunN    &emsp;|NHRP tunnel name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -31,51 +31,51 @@ Secure Socket Tunneling Protocol (SSTP) server
 - `disable_ccp` (Boolean) Disable Compression Control Protocol (CCP)
 - `interface_cache` (Number) PPP interface cache
 
-    &emsp;|Format    &emsp;|Description                           |
+    |Format    &emsp;|Description                           |
     |------------|----------------------------------------|
-    &emsp;|1-256000  &emsp;|Count of interfaces to keep in cache  |
+    |1-256000  &emsp;|Count of interfaces to keep in cache  |
 - `ipv4` (String) IPv4 (IPCP) negotiation algorithm
 
-    &emsp;|Format   &emsp;|Description                                                 |
+    |Format   &emsp;|Description                                                 |
     |-----------|--------------------------------------------------------------|
-    &emsp;|deny     &emsp;|Do not negotiate IPv4                                       |
-    &emsp;|allow    &emsp;|Negotiate IPv4 only if client requests                      |
-    &emsp;|prefer   &emsp;|Ask client for IPv4 negotiation, do not fail if it rejects  |
-    &emsp;|require  &emsp;|Require IPv4 negotiation                                    |
+    |deny     &emsp;|Do not negotiate IPv4                                       |
+    |allow    &emsp;|Negotiate IPv4 only if client requests                      |
+    |prefer   &emsp;|Ask client for IPv4 negotiation, do not fail if it rejects  |
+    |require  &emsp;|Require IPv4 negotiation                                    |
 - `ipv6` (String) IPv6 (IPCP6) negotiation algorithm
 
-    &emsp;|Format   &emsp;|Description                                                 |
+    |Format   &emsp;|Description                                                 |
     |-----------|--------------------------------------------------------------|
-    &emsp;|deny     &emsp;|Do not negotiate IPv6                                       |
-    &emsp;|allow    &emsp;|Negotiate IPv6 only if client requests                      |
-    &emsp;|prefer   &emsp;|Ask client for IPv6 negotiation, do not fail if it rejects  |
-    &emsp;|require  &emsp;|Require IPv6 negotiation                                    |
+    |deny     &emsp;|Do not negotiate IPv6                                       |
+    |allow    &emsp;|Negotiate IPv6 only if client requests                      |
+    |prefer   &emsp;|Ask client for IPv6 negotiation, do not fail if it rejects  |
+    |require  &emsp;|Require IPv6 negotiation                                    |
 - `ipv6_accept_peer_interface_id` (Boolean) Accept peer interface identifier
 - `ipv6_interface_id` (String) Fixed or random interface identifier for IPv6
 
-    &emsp;|Format   &emsp;|Description                            |
+    |Format   &emsp;|Description                            |
     |-----------|-----------------------------------------|
-    &emsp;|random   &emsp;|Random interface identifier for IPv6   |
-    &emsp;|x:x:x:x  &emsp;|specify interface identifier for IPv6  |
+    |random   &emsp;|Random interface identifier for IPv6   |
+    |x:x:x:x  &emsp;|specify interface identifier for IPv6  |
 - `ipv6_peer_interface_id` (String) Peer interface identifier for IPv6
 
-    &emsp;|Format       &emsp;|Description                                                                |
+    |Format       &emsp;|Description                                                                |
     |---------------|-----------------------------------------------------------------------------|
-    &emsp;|x:x:x:x      &emsp;|Interface identifier for IPv6                                              |
-    &emsp;|random       &emsp;|Use a random interface identifier for IPv6                                 |
-    &emsp;|ipv4-addr    &emsp;|Calculate interface identifier from IPv4 address, for example 192:168:0:1  |
-    &emsp;|calling-sid  &emsp;|Calculate interface identifier from calling-station-id                     |
+    |x:x:x:x      &emsp;|Interface identifier for IPv6                                              |
+    |random       &emsp;|Use a random interface identifier for IPv6                                 |
+    |ipv4-addr    &emsp;|Calculate interface identifier from IPv4 address, for example 192:168:0:1  |
+    |calling-sid  &emsp;|Calculate interface identifier from calling-station-id                     |
 - `lcp_echo_failure` (String) Maximum number of Echo-Requests may be sent without valid reply
 - `lcp_echo_interval` (String) LCP echo-requests/sec
 - `lcp_echo_timeout` (String) Timeout in seconds to wait for any peer activity. If this option specified it turns on adaptive lcp echo functionality and &#34;lcp-echo-failure&#34; is not used.
 - `min_mtu` (String) Minimum acceptable MTU (68-65535)
 - `mppe` (String) Specifies mppe negotiation preferences
 
-    &emsp;|Format   &emsp;|Description                                                |
+    |Format   &emsp;|Description                                                |
     |-----------|-------------------------------------------------------------|
-    &emsp;|require  &emsp;|send mppe request, if client rejects, drop the connection  |
-    &emsp;|prefer   &emsp;|send mppe request, if client rejects continue              |
-    &emsp;|deny     &emsp;|drop all mppe                                              |
+    |require  &emsp;|send mppe request, if client rejects, drop the connection  |
+    |prefer   &emsp;|send mppe request, if client rejects continue              |
+    |deny     &emsp;|drop all mppe                                              |
 - `mru` (String) Preferred MRU (68-65535)
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -83,7 +83,7 @@ Secure Socket Tunneling Protocol (SSTP) server
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

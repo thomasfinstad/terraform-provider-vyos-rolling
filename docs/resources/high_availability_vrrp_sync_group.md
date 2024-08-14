@@ -32,9 +32,9 @@ Virtual Router Redundancy Protocol settings
 - `health_check` (Attributes) Health check (see [below for nested schema](#nestedatt--health_check))
 - `member` (List of String) Sync group member
 
-    &emsp;|Format  &emsp;|Description      |
+    |Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|txt     &emsp;|VRRP group name  |
+    |txt     &emsp;|VRRP group name  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `transition_script` (Attributes) VRRP transition scripts (see [below for nested schema](#nestedatt--transition_script))
 
@@ -42,7 +42,7 @@ Virtual Router Redundancy Protocol settings
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -50,7 +50,7 @@ Required:
 - `sync_group` (String) VRRP sync group
 
 
-&lt;a id=&#34;nestedatt--health_check&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--health_check"></a>
 ### Nested Schema for `health_check`
 
 Optional:
@@ -59,14 +59,14 @@ Optional:
 - `interval` (String) Health check execution interval in seconds
 - `ping` (String) ICMP ping health check
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 ping target address  |
-    &emsp;|ipv6    &emsp;|IPv6 ping target address  |
+    |ipv4    &emsp;|IPv4 ping target address  |
+    |ipv6    &emsp;|IPv6 ping target address  |
 - `script` (String) Health check script file
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:
@@ -74,7 +74,7 @@ Optional:
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
 
 
-&lt;a id=&#34;nestedatt--transition_script&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--transition_script"></a>
 ### Nested Schema for `transition_script`
 
 Optional:

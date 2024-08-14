@@ -30,23 +30,23 @@ Stunnel TLS Proxy
 
 - `level` (String) Specifies log level.
 
-    &emsp;|Format   &emsp;|Description         |
+    |Format   &emsp;|Description         |
     |-----------|----------------------|
-    &emsp;|emerg    &emsp;|Emerg log level     |
-    &emsp;|alert    &emsp;|Alert log level     |
-    &emsp;|crit     &emsp;|Critical log level  |
-    &emsp;|err      &emsp;|Error log level     |
-    &emsp;|warning  &emsp;|Warning log level   |
-    &emsp;|notice   &emsp;|Notice log level    |
-    &emsp;|info     &emsp;|Info log level      |
-    &emsp;|debug    &emsp;|Debug log level     |
+    |emerg    &emsp;|Emerg log level     |
+    |alert    &emsp;|Alert log level     |
+    |crit     &emsp;|Critical log level  |
+    |err      &emsp;|Error log level     |
+    |warning  &emsp;|Warning log level   |
+    |notice   &emsp;|Notice log level    |
+    |info     &emsp;|Info log level      |
+    |debug    &emsp;|Debug log level     |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

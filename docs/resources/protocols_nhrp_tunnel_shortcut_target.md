@@ -38,7 +38,7 @@ Tunnel for NHRP
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -46,12 +46,12 @@ Required:
 - `shortcut_target` (String) Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
 - `tunnel` (String) Tunnel for NHRP
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|tunN    &emsp;|NHRP tunnel name  |
+    |tunN    &emsp;|NHRP tunnel name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -22,6 +22,7 @@ type FirewallIPvsixNameRuleGre struct {
 	LeafFirewallIPvsixNameRuleGreVersion    types.String `tfsdk:"version" vyos:"version,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvsixNameRuleGreFlags *FirewallIPvsixNameRuleGreFlags `tfsdk:"flags" vyos:"flags,omitempty"`

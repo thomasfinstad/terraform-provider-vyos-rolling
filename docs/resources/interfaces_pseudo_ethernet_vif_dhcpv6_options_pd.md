@@ -35,38 +35,38 @@ DHCPv6 client settings/options
 
 - `length` (Number) Request IPv6 prefix length from peer
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|32-64   &emsp;|Length of delegated prefix  |
+    |32-64   &emsp;|Length of delegated prefix  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `pd` (String) DHCPv6 prefix delegation interface statement
 
-    &emsp;|Format           &emsp;|Description                        |
+    |Format           &emsp;|Description                        |
     |-------------------|-------------------------------------|
-    &emsp;|instance number  &emsp;|Prefix delegation instance (&gt;= 0)  |
+    |instance number  &emsp;|Prefix delegation instance (&gt;= 0)  |
 - `pseudo_ethernet` (String) Pseudo Ethernet Interface (Macvlan)
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|pethN   &emsp;|Pseudo Ethernet interface name  |
+    |pethN   &emsp;|Pseudo Ethernet interface name  |
 - `vif` (Number) Virtual Local Area Network (VLAN) ID
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|0-4094  &emsp;|Virtual Local Area Network (VLAN) ID  |
+    |0-4094  &emsp;|Virtual Local Area Network (VLAN) ID  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -33,41 +33,41 @@ IPv6 routing parameters
 
 - `route_map` (String) Specify route-map name to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
+    |txt     &emsp;|Route map name  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `protocol` (String) Filter routing info exchanged between routing protocol and zebra
 
-    &emsp;|Format     &emsp;|Description                                          |
+    |Format     &emsp;|Description                                          |
     |-------------|-------------------------------------------------------|
-    &emsp;|any        &emsp;|Any of the above protocols                           |
-    &emsp;|babel      &emsp;|Babel routing protocol                               |
-    &emsp;|bgp        &emsp;|Border Gateway Protocol                              |
-    &emsp;|connected  &emsp;|Connected routes (directly attached subnet or host)  |
-    &emsp;|isis       &emsp;|Intermediate System to Intermediate System           |
-    &emsp;|kernel     &emsp;|Kernel routes (not installed via the zebra RIB)      |
-    &emsp;|ospfv3     &emsp;|Open Shortest Path First (OSPFv3)                    |
-    &emsp;|ripng      &emsp;|Routing Information Protocol next-generation         |
-    &emsp;|static     &emsp;|Statically configured routes                         |
+    |any        &emsp;|Any of the above protocols                           |
+    |babel      &emsp;|Babel routing protocol                               |
+    |bgp        &emsp;|Border Gateway Protocol                              |
+    |connected  &emsp;|Connected routes (directly attached subnet or host)  |
+    |isis       &emsp;|Intermediate System to Intermediate System           |
+    |kernel     &emsp;|Kernel routes (not installed via the zebra RIB)      |
+    |ospfv3     &emsp;|Open Shortest Path First (OSPFv3)                    |
+    |ripng      &emsp;|Routing Information Protocol next-generation         |
+    |static     &emsp;|Statically configured routes                         |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

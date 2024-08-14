@@ -30,18 +30,18 @@ Internet Protocol over Ethernet (IPoE) Server
 
 - `mode` (String) Authentication mode used by this server
 
-    &emsp;|Format  &emsp;|Description                                |
+    |Format  &emsp;|Description                                |
     |----------|---------------------------------------------|
-    &emsp;|local   &emsp;|Use local username/password configuration  |
-    &emsp;|radius  &emsp;|Use RADIUS server for user autentication   |
-    &emsp;|noauth  &emsp;|Authentication disabled                    |
+    |local   &emsp;|Use local username/password configuration  |
+    |radius  &emsp;|Use RADIUS server for user autentication   |
+    |noauth  &emsp;|Authentication disabled                    |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -31,29 +31,29 @@ Network IDS, IPS and Security Monitoring
 
 - `address` (List of String) IP address or subnet
 
-    &emsp;|Format    &emsp;|Description                                      |
+    |Format    &emsp;|Description                                      |
     |------------|---------------------------------------------------|
-    &emsp;|ipv4      &emsp;|IPv4 address to match                            |
-    &emsp;|ipv6      &emsp;|IPv6 address to match                            |
-    &emsp;|ipv4net   &emsp;|IPv4 prefix to match                             |
-    &emsp;|ipv6net   &emsp;|IPv6 prefix to match                             |
-    &emsp;|!ipv4     &emsp;|Exclude the specified IPv4 address from matches  |
-    &emsp;|!ipv6     &emsp;|Exclude the specified IPv6 address from matches  |
-    &emsp;|!ipv4net  &emsp;|Exclude the specified IPv6 prefix from matches   |
-    &emsp;|!ipv6net  &emsp;|Exclude the specified IPv6 prefix from matches   |
+    |ipv4      &emsp;|IPv4 address to match                            |
+    |ipv6      &emsp;|IPv6 address to match                            |
+    |ipv4net   &emsp;|IPv4 prefix to match                             |
+    |ipv6net   &emsp;|IPv6 prefix to match                             |
+    |!ipv4     &emsp;|Exclude the specified IPv4 address from matches  |
+    |!ipv6     &emsp;|Exclude the specified IPv6 address from matches  |
+    |!ipv4net  &emsp;|Exclude the specified IPv6 prefix from matches   |
+    |!ipv6net  &emsp;|Exclude the specified IPv6 prefix from matches   |
 - `group` (List of String) Address group
 
-    &emsp;|Format  &emsp;|Description                                       |
+    |Format  &emsp;|Description                                       |
     |----------|----------------------------------------------------|
-    &emsp;|txt     &emsp;|Address group to match                            |
-    &emsp;|!txt    &emsp;|Exclude the specified address group from matches  |
+    |txt     &emsp;|Address group to match                            |
+    |!txt    &emsp;|Exclude the specified address group from matches  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -61,7 +61,7 @@ Required:
 - `address_group` (String) Address group name
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

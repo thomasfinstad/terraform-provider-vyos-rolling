@@ -33,38 +33,38 @@ Interface name
 
 - `resp_time` (Number) Ping response time (seconds)
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-30    &emsp;|Response time (seconds)  |
+    |1-30    &emsp;|Response time (seconds)  |
 - `target` (String) Health target address
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|ipv4    &emsp;|Health target address  |
+    |ipv4    &emsp;|Health target address  |
 - `test_script` (String) Path to user-defined script
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|txt     &emsp;|Script in /config/scripts  |
+    |txt     &emsp;|Script in /config/scripts  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `ttl_limit` (Number) TTL limit (hop count)
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|1-254   &emsp;|Number of hops  |
+    |1-254   &emsp;|Number of hops  |
 - `type` (String) WLB test type
 
-    &emsp;|Format        &emsp;|Description                         |
+    |Format        &emsp;|Description                         |
     |----------------|--------------------------------------|
-    &emsp;|ping          &emsp;|Test with ICMP echo response        |
-    &emsp;|ttl           &emsp;|Test with UDP TTL expired response  |
-    &emsp;|user-defined  &emsp;|User-defined test script            |
+    |ping          &emsp;|Test with ICMP echo response        |
+    |ttl           &emsp;|Test with UDP TTL expired response  |
+    |user-defined  &emsp;|User-defined test script            |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -72,12 +72,12 @@ Required:
 - `interface_health` (String) Interface name
 - `test` (Number) Rule number
 
-    &emsp;|Format        &emsp;|Description  |
+    |Format        &emsp;|Description  |
     |----------------|---------------|
-    &emsp;|0-4294967295  &emsp;|Rule number  |
+    |0-4294967295  &emsp;|Rule number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

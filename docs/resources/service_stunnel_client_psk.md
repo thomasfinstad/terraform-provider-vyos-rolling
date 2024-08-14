@@ -33,21 +33,21 @@ Stunnel client config
 
 - `id_param` (String) ID for authentication
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|txt     &emsp;|ID used for authentication  |
+    |txt     &emsp;|ID used for authentication  |
 - `secret` (String) pre-shared secret key
 
-    &emsp;|Format  &emsp;|Description                                                                                                                |
+    |Format  &emsp;|Description                                                                                                                |
     |----------|-----------------------------------------------------------------------------------------------------------------------------|
-    &emsp;|txt     &emsp;|pre-shared secret key are required to be at least 16 bytes long, which implies at least 32 characters for hexadecimal key  |
+    |txt     &emsp;|pre-shared secret key are required to be at least 16 bytes long, which implies at least 32 characters for hexadecimal key  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -56,7 +56,7 @@ Required:
 - `psk` (String) Pre-shared key name
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

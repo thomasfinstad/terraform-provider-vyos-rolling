@@ -35,15 +35,15 @@ URL filtering via squidGuard redirector
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `update_hour` (Number) Hour of day for database update
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|0-23    &emsp;|Hour for database update  |
+    |0-23    &emsp;|Hour for database update  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

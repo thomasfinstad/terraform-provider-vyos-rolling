@@ -30,29 +30,29 @@ Host Configuration Protocol (DHCP) relay agent
 
 - `hop_count` (Number) Policy to discard packets that have reached specified hop-count
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|1-255   &emsp;|Hop count    |
+    |1-255   &emsp;|Hop count    |
 - `max_size` (Number) Maximum packet size to send to a DHCPv4/BOOTP server
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|64-1400  &emsp;|Maximum packet size  |
+    |64-1400  &emsp;|Maximum packet size  |
 - `relay_agents_packets` (String) Policy to handle incoming DHCPv4 packets which already contain relay agent options
 
-    &emsp;|Format   &emsp;|Description                                                  |
+    |Format   &emsp;|Description                                                  |
     |-----------|---------------------------------------------------------------|
-    &emsp;|append   &emsp;|append own relay options to packet                           |
-    &emsp;|replace  &emsp;|replace existing agent option field                          |
-    &emsp;|forward  &emsp;|forward packet unchanged                                     |
-    &emsp;|discard  &emsp;|discard packet (default action if giaddr not set in packet)  |
+    |append   &emsp;|append own relay options to packet                           |
+    |replace  &emsp;|replace existing agent option field                          |
+    |forward  &emsp;|forward packet unchanged                                     |
+    |discard  &emsp;|discard packet (default action if giaddr not set in packet)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

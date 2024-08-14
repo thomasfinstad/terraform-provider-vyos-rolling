@@ -32,51 +32,51 @@ NetFlow settings
 
 - `expiry_interval` (Number) Expiry scan interval
 
-    &emsp;|Format        &emsp;|Description           |
+    |Format        &emsp;|Description           |
     |----------------|------------------------|
-    &emsp;|0-2147483647  &emsp;|Expiry scan interval  |
+    |0-2147483647  &emsp;|Expiry scan interval  |
 - `flow_generic` (Number) Generic flow timeout value
 
-    &emsp;|Format        &emsp;|Description                      |
+    |Format        &emsp;|Description                      |
     |----------------|-----------------------------------|
-    &emsp;|0-2147483647  &emsp;|Generic flow timeout in seconds  |
+    |0-2147483647  &emsp;|Generic flow timeout in seconds  |
 - `icmp` (Number) ICMP timeout value
 
-    &emsp;|Format        &emsp;|Description              |
+    |Format        &emsp;|Description              |
     |----------------|---------------------------|
-    &emsp;|0-2147483647  &emsp;|ICMP timeout in seconds  |
+    |0-2147483647  &emsp;|ICMP timeout in seconds  |
 - `max_active_life` (Number) Max active timeout value
 
-    &emsp;|Format        &emsp;|Description                    |
+    |Format        &emsp;|Description                    |
     |----------------|---------------------------------|
-    &emsp;|0-2147483647  &emsp;|Max active timeout in seconds  |
+    |0-2147483647  &emsp;|Max active timeout in seconds  |
 - `tcp_fin` (Number) TCP finish timeout value
 
-    &emsp;|Format        &emsp;|Description                 |
+    |Format        &emsp;|Description                 |
     |----------------|------------------------------|
-    &emsp;|0-2147483647  &emsp;|TCP FIN timeout in seconds  |
+    |0-2147483647  &emsp;|TCP FIN timeout in seconds  |
 - `tcp_generic` (Number) TCP generic timeout value
 
-    &emsp;|Format        &emsp;|Description                     |
+    |Format        &emsp;|Description                     |
     |----------------|----------------------------------|
-    &emsp;|0-2147483647  &emsp;|TCP generic timeout in seconds  |
+    |0-2147483647  &emsp;|TCP generic timeout in seconds  |
 - `tcp_rst` (Number) TCP reset timeout value
 
-    &emsp;|Format        &emsp;|Description                 |
+    |Format        &emsp;|Description                 |
     |----------------|------------------------------|
-    &emsp;|0-2147483647  &emsp;|TCP RST timeout in seconds  |
+    |0-2147483647  &emsp;|TCP RST timeout in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `udp` (Number) UDP timeout value
 
-    &emsp;|Format        &emsp;|Description             |
+    |Format        &emsp;|Description             |
     |----------------|--------------------------|
-    &emsp;|0-2147483647  &emsp;|UDP timeout in seconds  |
+    |0-2147483647  &emsp;|UDP timeout in seconds  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

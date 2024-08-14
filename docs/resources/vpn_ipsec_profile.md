@@ -40,48 +40,48 @@ VPN IP security (IPsec) parameters
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `profile` (String) VPN IPsec profile
 
-    &emsp;|Format  &emsp;|Description   |
+    |Format  &emsp;|Description   |
     |----------|----------------|
-    &emsp;|txt     &emsp;|Profile name  |
+    |txt     &emsp;|Profile name  |
 
 
-&lt;a id=&#34;nestedatt--authentication&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 
 Optional:
 
 - `mode` (String) Authentication mode
 
-    &emsp;|Format             &emsp;|Description                  |
+    |Format             &emsp;|Description                  |
     |---------------------|-------------------------------|
-    &emsp;|pre-shared-secret  &emsp;|Use a pre-shared secret key  |
+    |pre-shared-secret  &emsp;|Use a pre-shared secret key  |
 - `pre_shared_secret` (String) Pre-shared secret key
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|txt     &emsp;|Pre-shared secret key  |
+    |txt     &emsp;|Pre-shared secret key  |
 
 
-&lt;a id=&#34;nestedatt--bind&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--bind"></a>
 ### Nested Schema for `bind`
 
 Optional:
 
 - `tunnel` (List of String) Tunnel interface associated with this profile
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|txt     &emsp;|Associated interface to this profile  |
+    |txt     &emsp;|Associated interface to this profile  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

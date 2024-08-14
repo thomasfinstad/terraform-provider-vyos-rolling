@@ -31,26 +31,26 @@ Babel Routing Protocol
 - `diversity` (Boolean) Enable diversity-aware routing
 - `diversity_factor` (Number) Multiplicative factor used for diversity routing
 
-    &emsp;|Format  &emsp;|Description                               |
+    |Format  &emsp;|Description                               |
     |----------|--------------------------------------------|
-    &emsp;|1-256   &emsp;|Multiplicative factor, in units of 1/256  |
+    |1-256   &emsp;|Multiplicative factor, in units of 1/256  |
 - `resend_delay` (Number) Time before resending a message
 
-    &emsp;|Format     &emsp;|Description   |
+    |Format     &emsp;|Description   |
     |-------------|----------------|
-    &emsp;|20-655340  &emsp;|Milliseconds  |
+    |20-655340  &emsp;|Milliseconds  |
 - `smoothing_half_life` (Number) Smoothing half-life
 
-    &emsp;|Format   &emsp;|Description  |
+    |Format   &emsp;|Description  |
     |-----------|---------------|
-    &emsp;|0-65534  &emsp;|Seconds      |
+    |0-65534  &emsp;|Seconds      |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

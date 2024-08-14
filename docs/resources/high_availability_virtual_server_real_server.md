@@ -31,22 +31,22 @@ Load-balancing virtual server alias
 
 - `connection_timeout` (Number) Server connection timeout
 
-    &emsp;|Format   &emsp;|Description                          |
+    |Format   &emsp;|Description                          |
     |-----------|---------------------------------------|
-    &emsp;|1-86400  &emsp;|Connection timeout to remote server  |
+    |1-86400  &emsp;|Connection timeout to remote server  |
 - `health_check` (Attributes) Health check script (see [below for nested schema](#nestedatt--health_check))
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|0-65535  &emsp;|Numeric IP port  |
+    |0-65535  &emsp;|Numeric IP port  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -55,7 +55,7 @@ Required:
 - `virtual_server` (String) Load-balancing virtual server alias
 
 
-&lt;a id=&#34;nestedatt--health_check&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--health_check"></a>
 ### Nested Schema for `health_check`
 
 Optional:
@@ -63,7 +63,7 @@ Optional:
 - `script` (String) Health check script file
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

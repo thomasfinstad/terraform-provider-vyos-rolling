@@ -34,16 +34,16 @@ Graceful Restart
 - `planned_only` (Boolean) Supported only planned restart
 - `supported_grace_time` (Number) Supported grace timer
 
-    &emsp;|Format   &emsp;|Description                |
+    |Format   &emsp;|Description                |
     |-----------|-----------------------------|
-    &emsp;|10-1800  &emsp;|Grace interval in seconds  |
+    |10-1800  &emsp;|Grace interval in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

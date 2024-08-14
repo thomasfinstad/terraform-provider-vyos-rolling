@@ -35,10 +35,10 @@ Simple Network Management Protocol (SNMP) v3
 - `group` (String) Specifies group for user name
 - `mode` (String) Define access permission
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|ro      &emsp;|Read-Only    |
-    &emsp;|rw      &emsp;|read write   |
+    |ro      &emsp;|Read-Only    |
+    |rw      &emsp;|read write   |
 - `privacy` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--privacy))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -46,7 +46,7 @@ Simple Network Management Protocol (SNMP) v3
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -54,7 +54,7 @@ Required:
 - `user` (String) Specifies the user with name username
 
 
-&lt;a id=&#34;nestedatt--auth&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--auth"></a>
 ### Nested Schema for `auth`
 
 Optional:
@@ -63,13 +63,13 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for authentication
 - `type` (String) Define used protocol
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|md5     &emsp;|Message Digest 5       |
-    &emsp;|sha     &emsp;|Secure Hash Algorithm  |
+    |md5     &emsp;|Message Digest 5       |
+    |sha     &emsp;|Secure Hash Algorithm  |
 
 
-&lt;a id=&#34;nestedatt--privacy&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--privacy"></a>
 ### Nested Schema for `privacy`
 
 Optional:
@@ -78,13 +78,13 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for privacy protocol
 - `type` (String) Defines the protocol for privacy
 
-    &emsp;|Format  &emsp;|Description                   |
+    |Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|des     &emsp;|Data Encryption Standard      |
-    &emsp;|aes     &emsp;|Advanced Encryption Standard  |
+    |des     &emsp;|Data Encryption Standard      |
+    |aes     &emsp;|Advanced Encryption Standard  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -35,34 +35,34 @@ External pool name
 
 - `seq` (Number) Sequence
 
-    &emsp;|Format    &emsp;|Description      |
+    |Format    &emsp;|Description      |
     |------------|-------------------|
-    &emsp;|1-999999  &emsp;|Sequence number  |
+    |1-999999  &emsp;|Sequence number  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `external` (String) External pool name
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|txt     &emsp;|External pool name  |
+    |txt     &emsp;|External pool name  |
 - `range` (String) Range of IP addresses
 
-    &emsp;|Format     &emsp;|Description         |
+    |Format     &emsp;|Description         |
     |-------------|----------------------|
-    &emsp;|ipv4net    &emsp;|IPv4 prefix         |
-    &emsp;|ipv4range  &emsp;|IPv4 address range  |
+    |ipv4net    &emsp;|IPv4 prefix         |
+    |ipv4range  &emsp;|IPv4 address range  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

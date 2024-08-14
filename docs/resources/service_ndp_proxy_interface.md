@@ -33,21 +33,21 @@ Neighbor Discovery Protocol (NDP) Proxy
 - `enable_router_bit` (Boolean) Enable router bit in Neighbor Advertisement messages
 - `timeout` (Number) Timeout for Neighbor Advertisement after Neighbor Solicitation message
 
-    &emsp;|Format      &emsp;|Description              |
+    |Format      &emsp;|Description              |
     |--------------|---------------------------|
-    &emsp;|500-120000  &emsp;|Timeout in milliseconds  |
+    |500-120000  &emsp;|Timeout in milliseconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `ttl` (Number) Proxy entry cache Time-To-Live
 
-    &emsp;|Format        &emsp;|Description           |
+    |Format        &emsp;|Description           |
     |----------------|------------------------|
-    &emsp;|10000-120000  &emsp;|Time in milliseconds  |
+    |10000-120000  &emsp;|Time in milliseconds  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -55,7 +55,7 @@ Required:
 - `interface` (String) NDP proxy listener interface
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

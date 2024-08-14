@@ -33,30 +33,30 @@ Gateway load-balancer tunnel handler
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `tunnel` (Number) Number of threads for each tunnel processor
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|1-256   &emsp;|Number of threads  |
+    |1-256   &emsp;|Number of threads  |
 - `tunnel_affinity` (String) List of cores worker threads
 
-    &emsp;|Format       &emsp;|Description                               |
+    |Format       &emsp;|Description                               |
     |---------------|--------------------------------------------|
-    &emsp;|&lt;idN&gt;-&lt;idM&gt;  &emsp;|CPU core id range (use &#39;-&#39; as delimiter)  |
+    |&lt;idN&gt;-&lt;idM&gt;  &emsp;|CPU core id range (use &#39;-&#39; as delimiter)  |
 - `udp` (Number) Number of threads for UDP receiver
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|1-256   &emsp;|Number of threads  |
+    |1-256   &emsp;|Number of threads  |
 - `udp_affinity` (String) List of cores worker threads
 
-    &emsp;|Format       &emsp;|Description                               |
+    |Format       &emsp;|Description                               |
     |---------------|--------------------------------------------|
-    &emsp;|&lt;idN&gt;-&lt;idM&gt;  &emsp;|CPU core id range (use &#39;-&#39; as delimiter)  |
+    |&lt;idN&gt;-&lt;idM&gt;  &emsp;|CPU core id range (use &#39;-&#39; as delimiter)  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

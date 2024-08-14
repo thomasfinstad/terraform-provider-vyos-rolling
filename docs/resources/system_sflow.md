@@ -28,47 +28,47 @@ description: |-
 
 - `agent_address` (String) sFlow agent IPv4 or IPv6 address
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|sFlow IPv4 agent address  |
-    &emsp;|ipv6    &emsp;|sFlow IPv6 agent address  |
+    |ipv4    &emsp;|sFlow IPv4 agent address  |
+    |ipv6    &emsp;|sFlow IPv6 agent address  |
 - `agent_interface` (String) IP address associated with this interface
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 - `drop_monitor_limit` (Number) Export headers of dropped by kernel packets
 
-    &emsp;|Format   &emsp;|Description                                                               |
+    |Format   &emsp;|Description                                                               |
     |-----------|----------------------------------------------------------------------------|
-    &emsp;|1-65535  &emsp;|Maximum rate limit of N drops per second send out in the sFlow datagrams  |
+    |1-65535  &emsp;|Maximum rate limit of N drops per second send out in the sFlow datagrams  |
 - `interface` (List of String) Interface to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 - `polling` (Number) Schedule counter-polling in seconds
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-600   &emsp;|Polling rate in seconds  |
+    |1-600   &emsp;|Polling rate in seconds  |
 - `sampling_rate` (Number) sFlow sampling-rate
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|1-65535  &emsp;|Sampling rate (1 in N packets)  |
+    |1-65535  &emsp;|Sampling rate (1 in N packets)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

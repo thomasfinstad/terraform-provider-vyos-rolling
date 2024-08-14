@@ -31,27 +31,27 @@ Configure Wide Area Network (WAN) load-balancing
 
 - `failure_count` (Number) Failure count
 
-    &emsp;|Format  &emsp;|Description    |
+    |Format  &emsp;|Description    |
     |----------|-----------------|
-    &emsp;|1-10    &emsp;|Failure count  |
+    |1-10    &emsp;|Failure count  |
 - `nexthop` (String) Outbound interface nexthop address. Can be &#39;DHCP or IPv4 address&#39; [REQUIRED]
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|Nexthop IP address        |
-    &emsp;|dhcp    &emsp;|Set the nexthop via DHCP  |
+    |ipv4    &emsp;|Nexthop IP address        |
+    |dhcp    &emsp;|Set the nexthop via DHCP  |
 - `success_count` (Number) Success count
 
-    &emsp;|Format  &emsp;|Description    |
+    |Format  &emsp;|Description    |
     |----------|-----------------|
-    &emsp;|1-10    &emsp;|Success count  |
+    |1-10    &emsp;|Success count  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -59,7 +59,7 @@ Required:
 - `interface_health` (String) Interface name
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -32,48 +32,48 @@ Client authentication methods
 
 - `accounting_interim_interval` (Number) Interval in seconds to send accounting information
 
-    &emsp;|Format  &emsp;|Description                                         |
+    |Format  &emsp;|Description                                         |
     |----------|------------------------------------------------------|
-    &emsp;|1-3600  &emsp;|Interval in seconds to send accounting information  |
+    |1-3600  &emsp;|Interval in seconds to send accounting information  |
 - `acct_interim_jitter` (Number) Maximum jitter value in seconds to be applied to accounting information interval
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|1-60    &emsp;|Maximum jitter value in seconds  |
+    |1-60    &emsp;|Maximum jitter value in seconds  |
 - `acct_timeout` (Number) Timeout for Interim-Update packets, terminate session afterwards
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|0-60    &emsp;|Timeout in seconds, 0 to keep active  |
+    |0-60    &emsp;|Timeout in seconds, 0 to keep active  |
 - `max_try` (Number) Number of tries to send Access-Request/Accounting-Request queries
 
-    &emsp;|Format  &emsp;|Description    |
+    |Format  &emsp;|Description    |
     |----------|-----------------|
-    &emsp;|1-20    &emsp;|Maximum tries  |
+    |1-20    &emsp;|Maximum tries  |
 - `nas_identifier` (String) NAS-Identifier attribute sent to RADIUS
 - `nas_ip_address` (String) NAS-IP-Address attribute sent to RADIUS
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|NAS-IP-Address attribute  |
+    |ipv4    &emsp;|NAS-IP-Address attribute  |
 - `preallocate_vif` (Boolean) Enable attribute NAS-Port-Id in Access-Request
 - `source_address` (String) IPv4 source address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
 - `timeout` (Number) Timeout in seconds to wait response from RADIUS server
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|1-60    &emsp;|Timeout in seconds  |
+    |1-60    &emsp;|Timeout in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

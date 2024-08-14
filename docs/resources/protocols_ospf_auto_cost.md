@@ -30,16 +30,16 @@ Open Shortest Path First (OSPF)
 
 - `reference_bandwidth` (Number) Reference bandwidth method to assign cost
 
-    &emsp;|Format     &emsp;|Description                            |
+    |Format     &emsp;|Description                            |
     |-------------|-----------------------------------------|
-    &emsp;|1-4294967  &emsp;|Reference bandwidth cost in Mbits/sec  |
+    |1-4294967  &emsp;|Reference bandwidth cost in Mbits/sec  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -32,26 +32,26 @@ Administrative distance
 
 - `external` (Number) Distance for external routes
 
-    &emsp;|Format  &emsp;|Description                   |
+    |Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|1-255   &emsp;|Distance for external routes  |
+    |1-255   &emsp;|Distance for external routes  |
 - `inter_area` (Number) Distance for inter-area routes
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|1-255   &emsp;|Distance for inter-area routes  |
+    |1-255   &emsp;|Distance for inter-area routes  |
 - `intra_area` (Number) Distance for intra-area routes
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|1-255   &emsp;|Distance for intra-area routes  |
+    |1-255   &emsp;|Distance for intra-area routes  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -32,34 +32,34 @@ Virtual Extensible LAN (VXLAN) Interface
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vni` (String) Virtual Network Identifier
 
-    &emsp;|Format       &emsp;|Description                                             |
+    |Format       &emsp;|Description                                             |
     |---------------|----------------------------------------------------------|
-    &emsp;|0-16777214   &emsp;|VXLAN virtual network identifier                        |
-    &emsp;|&lt;start-end&gt;  &emsp;|VXLAN virtual network IDs range (use &#39;-&#39; as delimiter)  |
+    |0-16777214   &emsp;|VXLAN virtual network identifier                        |
+    |&lt;start-end&gt;  &emsp;|VXLAN virtual network IDs range (use &#39;-&#39; as delimiter)  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `vlan_to_vni` (String) Configuring VLAN-to-VNI mappings for EVPN-VXLAN
 
-    &emsp;|Format       &emsp;|Description                            |
+    |Format       &emsp;|Description                            |
     |---------------|-----------------------------------------|
-    &emsp;|0-4094       &emsp;|Virtual Local Area Network (VLAN) ID   |
-    &emsp;|&lt;start-end&gt;  &emsp;|VLAN IDs range (use &#39;-&#39; as delimiter)  |
+    |0-4094       &emsp;|Virtual Local Area Network (VLAN) ID   |
+    |&lt;start-end&gt;  &emsp;|VLAN IDs range (use &#39;-&#39; as delimiter)  |
 - `vxlan` (String) Virtual Extensible LAN (VXLAN) Interface
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|vxlanN  &emsp;|VXLAN interface name  |
+    |vxlanN  &emsp;|VXLAN interface name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

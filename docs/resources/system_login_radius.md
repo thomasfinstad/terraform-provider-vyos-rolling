@@ -30,28 +30,28 @@ System User Login Configuration
 
 - `security_mode` (String) Security mode for RADIUS authentication
 
-    &emsp;|Format     &emsp;|Description                                                                  |
+    |Format     &emsp;|Description                                                                  |
     |-------------|-------------------------------------------------------------------------------|
-    &emsp;|mandatory  &emsp;|Deny access immediately if RADIUS answers with Access-Reject                 |
-    &emsp;|optional   &emsp;|Pass to the next authentication method if RADIUS answers with Access-Reject  |
+    |mandatory  &emsp;|Deny access immediately if RADIUS answers with Access-Reject                 |
+    |optional   &emsp;|Pass to the next authentication method if RADIUS answers with Access-Reject  |
 - `source_address` (List of String) Source IP address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
-    &emsp;|ipv6    &emsp;|IPv6 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
+    |ipv6    &emsp;|IPv6 source address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

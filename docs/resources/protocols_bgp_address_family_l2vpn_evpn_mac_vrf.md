@@ -34,17 +34,17 @@ L2VPN EVPN BGP settings
 
 - `soo` (String) Site-of-Origin extended community
 
-    &emsp;|Format  &emsp;|Description                                                         |
+    |Format  &emsp;|Description                                                         |
     |----------|----------------------------------------------------------------------|
-    &emsp;|ASN:NN  &emsp;|based on autonomous system number in format &lt;0-65535:0-4294967295&gt;  |
-    &emsp;|IP:NN   &emsp;|Based on a router-id IP address in format &lt;IP:0-65535&gt;              |
+    |ASN:NN  &emsp;|based on autonomous system number in format &lt;0-65535:0-4294967295&gt;  |
+    |IP:NN   &emsp;|Based on a router-id IP address in format &lt;IP:0-65535&gt;              |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -42,47 +42,47 @@ Local user authentication
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `username` (String) Username used for authentication
 
-    &emsp;|Format  &emsp;|Description                       |
+    |Format  &emsp;|Description                       |
     |----------|------------------------------------|
-    &emsp;|txt     &emsp;|Username used for authentication  |
+    |txt     &emsp;|Username used for authentication  |
 
 
-&lt;a id=&#34;nestedatt--otp&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--otp"></a>
 ### Nested Schema for `otp`
 
 Optional:
 
 - `interval` (Number) Time tokens interval in seconds
 
-    &emsp;|Format   &emsp;|Description                       |
+    |Format   &emsp;|Description                       |
     |-----------|------------------------------------|
-    &emsp;|5-86400  &emsp;|Time tokens interval in seconds.  |
+    |5-86400  &emsp;|Time tokens interval in seconds.  |
 - `key` (String) Token Key Secret key for the token algorithm (see RFC 4226)
 
-    &emsp;|Format  &emsp;|Description                    |
+    |Format  &emsp;|Description                    |
     |----------|---------------------------------|
-    &emsp;|txt     &emsp;|OTP key in hex-encoded format  |
+    |txt     &emsp;|OTP key in hex-encoded format  |
 - `otp_length` (Number) Number of digits in OTP code
 
-    &emsp;|Format  &emsp;|Description                   |
+    |Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|6-8     &emsp;|Number of digits in OTP code  |
+    |6-8     &emsp;|Number of digits in OTP code  |
 - `token_type` (String) Token type
 
-    &emsp;|Format      &emsp;|Description                |
+    |Format      &emsp;|Description                |
     |--------------|-----------------------------|
-    &emsp;|hotp-time   &emsp;|Time-based OTP algorithm   |
-    &emsp;|hotp-event  &emsp;|Event-based OTP algorithm  |
+    |hotp-time   &emsp;|Time-based OTP algorithm   |
+    |hotp-event  &emsp;|Event-based OTP algorithm  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

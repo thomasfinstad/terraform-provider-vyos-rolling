@@ -31,39 +31,39 @@ Service Policy definitions
 
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `hash_interval` (Number) Interval in seconds for queue algorithm perturbation
 
-    &emsp;|Format  &emsp;|Description                                                         |
+    |Format  &emsp;|Description                                                         |
     |----------|----------------------------------------------------------------------|
-    &emsp;|0       &emsp;|No perturbation                                                     |
-    &emsp;|1-127   &emsp;|Interval in seconds for queue algorithm perturbation (advised: 10)  |
+    |0       &emsp;|No perturbation                                                     |
+    |1-127   &emsp;|Interval in seconds for queue algorithm perturbation (advised: 10)  |
 - `queue_limit` (Number) Upper limit of the SFQ
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|1-127   &emsp;|Queue size in packets  |
+    |1-127   &emsp;|Queue size in packets  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `fair_queue` (String) Stochastic Fairness Queueing
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+    |txt     &emsp;|Policy name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

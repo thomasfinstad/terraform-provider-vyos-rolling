@@ -30,26 +30,26 @@ Open Shortest Path First (OSPF)
 
 - `abr_type` (String) OSPF ABR type
 
-    &emsp;|Format    &emsp;|Description        |
+    |Format    &emsp;|Description        |
     |------------|---------------------|
-    &emsp;|cisco     &emsp;|Cisco ABR type     |
-    &emsp;|ibm       &emsp;|IBM ABR type       |
-    &emsp;|shortcut  &emsp;|Shortcut ABR type  |
-    &emsp;|standard  &emsp;|Standard ABR type  |
+    |cisco     &emsp;|Cisco ABR type     |
+    |ibm       &emsp;|IBM ABR type       |
+    |shortcut  &emsp;|Shortcut ABR type  |
+    |standard  &emsp;|Standard ABR type  |
 - `opaque_lsa` (Boolean) Enable the Opaque-LSA capability (rfc2370)
 - `rfc1583_compatibility` (Boolean) Enable RFC1583 criteria for handling AS external routes
 - `router_id` (String) Override default router identifier
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|ipv4    &emsp;|Router-ID in IP address format  |
+    |ipv4    &emsp;|Router-ID in IP address format  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

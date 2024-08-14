@@ -28,49 +28,49 @@ description: |-
 
 - `ctrl_alt_delete` (String) System action on Ctrl-Alt-Delete keystroke
 
-    &emsp;|Format    &emsp;|Description          |
+    |Format    &emsp;|Description          |
     |------------|-----------------------|
-    &emsp;|ignore    &emsp;|Ignore key sequence  |
-    &emsp;|reboot    &emsp;|Reboot system        |
-    &emsp;|poweroff  &emsp;|Poweroff system      |
+    |ignore    &emsp;|Ignore key sequence  |
+    |reboot    &emsp;|Reboot system        |
+    |poweroff  &emsp;|Poweroff system      |
 - `disable_usb_autosuspend` (Boolean) Disable autosuspend for all USB devices
 - `keyboard_layout` (String) System keyboard layout, type ISO2
 
-    &emsp;|Format     &emsp;|Description     |
+    |Format     &emsp;|Description     |
     |-------------|------------------|
-    &emsp;|us         &emsp;|United States   |
-    &emsp;|uk         &emsp;|United Kingdom  |
-    &emsp;|fr         &emsp;|France          |
-    &emsp;|de         &emsp;|Germany         |
-    &emsp;|es         &emsp;|Spain           |
-    &emsp;|fi         &emsp;|Finland         |
-    &emsp;|jp106      &emsp;|Japan           |
-    &emsp;|no         &emsp;|Norway          |
-    &emsp;|dk         &emsp;|Denmark         |
-    &emsp;|se-latin1  &emsp;|Sweden          |
-    &emsp;|dvorak     &emsp;|Dvorak          |
+    |us         &emsp;|United States   |
+    |uk         &emsp;|United Kingdom  |
+    |fr         &emsp;|France          |
+    |de         &emsp;|Germany         |
+    |es         &emsp;|Spain           |
+    |fi         &emsp;|Finland         |
+    |jp106      &emsp;|Japan           |
+    |no         &emsp;|Norway          |
+    |dk         &emsp;|Denmark         |
+    |se-latin1  &emsp;|Sweden          |
+    |dvorak     &emsp;|Dvorak          |
 - `performance` (String) Tune system performance
 
-    &emsp;|Format      &emsp;|Description                          |
+    |Format      &emsp;|Description                          |
     |--------------|---------------------------------------|
-    &emsp;|throughput  &emsp;|Tune for maximum network throughput  |
-    &emsp;|latency     &emsp;|Tune for low network latency         |
+    |throughput  &emsp;|Tune for maximum network throughput  |
+    |latency     &emsp;|Tune for low network latency         |
 - `reboot_on_panic` (Boolean) Reboot system on kernel panic
 - `root_partition_auto_resize` (Boolean) Enable root partition auto-extention on system boot
 - `startup_beep` (Boolean) plays sound via system speaker when you can login
 - `time_format` (String) System time-format
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|12-hour  &emsp;|12 hour time format  |
-    &emsp;|24-hour  &emsp;|24 hour time format  |
+    |12-hour  &emsp;|12 hour time format  |
+    |24-hour  &emsp;|24 hour time format  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

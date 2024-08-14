@@ -31,69 +31,69 @@ Service Policy definitions
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    &emsp;|Format        &emsp;|Description                         |
+    |Format        &emsp;|Description                         |
     |----------------|--------------------------------------|
-    &emsp;|&lt;number&gt;      &emsp;|Bits per second                     |
-    &emsp;|&lt;number&gt;bit   &emsp;|Bits per second                     |
-    &emsp;|&lt;number&gt;kbit  &emsp;|Kilobits per second                 |
-    &emsp;|&lt;number&gt;mbit  &emsp;|Megabits per second                 |
-    &emsp;|&lt;number&gt;gbit  &emsp;|Gigabits per second                 |
-    &emsp;|&lt;number&gt;tbit  &emsp;|Terabits per second                 |
-    &emsp;|&lt;number&gt;%%    &emsp;|Percentage of interface link speed  |
+    |&lt;number&gt;      &emsp;|Bits per second                     |
+    |&lt;number&gt;bit   &emsp;|Bits per second                     |
+    |&lt;number&gt;kbit  &emsp;|Kilobits per second                 |
+    |&lt;number&gt;mbit  &emsp;|Megabits per second                 |
+    |&lt;number&gt;gbit  &emsp;|Gigabits per second                 |
+    |&lt;number&gt;tbit  &emsp;|Terabits per second                 |
+    |&lt;number&gt;%%    &emsp;|Percentage of interface link speed  |
 - `corruption` (String) Introducing error in a random position for chosen percent of packets
 
-    &emsp;|Format    &emsp;|Description                     |
+    |Format    &emsp;|Description                     |
     |------------|----------------------------------|
-    &emsp;|&lt;number&gt;  &emsp;|Percentage of packets affected  |
+    |&lt;number&gt;  &emsp;|Percentage of packets affected  |
 - `delay` (String) Adds delay to packets outgoing to chosen network interface
 
-    &emsp;|Format    &emsp;|Description           |
+    |Format    &emsp;|Description           |
     |------------|------------------------|
-    &emsp;|&lt;number&gt;  &emsp;|Time in milliseconds  |
+    |&lt;number&gt;  &emsp;|Time in milliseconds  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `duplicate` (String) Cosen percent of packets is duplicated before queuing them
 
-    &emsp;|Format    &emsp;|Description                     |
+    |Format    &emsp;|Description                     |
     |------------|----------------------------------|
-    &emsp;|&lt;number&gt;  &emsp;|Percentage of packets affected  |
+    |&lt;number&gt;  &emsp;|Percentage of packets affected  |
 - `loss` (String) Add independent loss probability to the packets outgoing to chosen network interface
 
-    &emsp;|Format    &emsp;|Description                     |
+    |Format    &emsp;|Description                     |
     |------------|----------------------------------|
-    &emsp;|&lt;number&gt;  &emsp;|Percentage of packets affected  |
+    |&lt;number&gt;  &emsp;|Percentage of packets affected  |
 - `queue_limit` (Number) Maximum queue size
 
-    &emsp;|Format        &emsp;|Description            |
+    |Format        &emsp;|Description            |
     |----------------|-------------------------|
-    &emsp;|1-4294967295  &emsp;|Queue size in packets  |
+    |1-4294967295  &emsp;|Queue size in packets  |
 - `reordering` (String) Emulated packet reordering percentage
 
-    &emsp;|Format    &emsp;|Description                     |
+    |Format    &emsp;|Description                     |
     |------------|----------------------------------|
-    &emsp;|&lt;number&gt;  &emsp;|Percentage of packets affected  |
+    |&lt;number&gt;  &emsp;|Percentage of packets affected  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `network_emulator` (String) Network emulator policy
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+    |txt     &emsp;|Policy name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -30,27 +30,27 @@ Connection Tracking Engine Options
 
 - `half_open_connections` (Number) Maximum number of TCP half-open connections
 
-    &emsp;|Format        &emsp;|Description                            |
+    |Format        &emsp;|Description                            |
     |----------------|-----------------------------------------|
-    &emsp;|1-2147483647  &emsp;|Generic connection timeout in seconds  |
+    |1-2147483647  &emsp;|Generic connection timeout in seconds  |
 - `loose` (String) Policy to track previously established connections
 
-    &emsp;|Format   &emsp;|Description                                                  |
+    |Format   &emsp;|Description                                                  |
     |-----------|---------------------------------------------------------------|
-    &emsp;|enable   &emsp;|Allow tracking of previously established connections         |
-    &emsp;|disable  &emsp;|Do not allow tracking of previously established connections  |
+    |enable   &emsp;|Allow tracking of previously established connections         |
+    |disable  &emsp;|Do not allow tracking of previously established connections  |
 - `max_retrans` (Number) Maximum number of packets that can be retransmitted without received an ACK
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|1-255   &emsp;|Number of packets to be retransmitted  |
+    |1-255   &emsp;|Number of packets to be retransmitted  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

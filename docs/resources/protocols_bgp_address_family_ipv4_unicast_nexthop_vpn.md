@@ -36,17 +36,17 @@ Specify next hop to use for VRF advertised prefixes
 
 - `export` (String) For routes leaked from current address-family to vpn
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|ipv4    &emsp;|BGP neighbor IP address    |
-    &emsp;|ipv6    &emsp;|BGP neighbor IPv6 address  |
+    |ipv4    &emsp;|BGP neighbor IP address    |
+    |ipv6    &emsp;|BGP neighbor IPv6 address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

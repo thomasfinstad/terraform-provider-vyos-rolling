@@ -31,14 +31,14 @@ Resource Public Key Infrastructure (RPKI)
 
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `preference` (Number) Preference of the cache server
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|1-255   &emsp;|Preference of the cache server  |
+    |1-255   &emsp;|Preference of the cache server  |
 - `ssh` (Attributes) RPKI SSH connection settings (see [below for nested schema](#nestedatt--ssh))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -46,38 +46,38 @@ Resource Public Key Infrastructure (RPKI)
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `cache` (String) RPKI cache server address
 
-    &emsp;|Format    &emsp;|Description                                 |
+    |Format    &emsp;|Description                                 |
     |------------|----------------------------------------------|
-    &emsp;|ipv4      &emsp;|IP address of RPKI server                   |
-    &emsp;|ipv6      &emsp;|IPv6 address of RPKI server                 |
-    &emsp;|hostname  &emsp;|Fully qualified domain name of RPKI server  |
+    |ipv4      &emsp;|IP address of RPKI server                   |
+    |ipv6      &emsp;|IPv6 address of RPKI server                 |
+    |hostname  &emsp;|Fully qualified domain name of RPKI server  |
 
 
-&lt;a id=&#34;nestedatt--ssh&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--ssh"></a>
 ### Nested Schema for `ssh`
 
 Optional:
 
 - `key` (String) OpenSSH key in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                               |
+    |Format  &emsp;|Description                               |
     |----------|--------------------------------------------|
-    &emsp;|txt     &emsp;|Name of OpenSSH key in PKI configuration  |
+    |txt     &emsp;|Name of OpenSSH key in PKI configuration  |
 - `username` (String) Username used for authentication
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Username     |
+    |txt     &emsp;|Username     |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

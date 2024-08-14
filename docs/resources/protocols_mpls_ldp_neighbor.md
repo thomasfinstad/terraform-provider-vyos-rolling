@@ -34,34 +34,34 @@ Label Distribution Protocol (LDP)
 - `password` (String) Neighbor password
 - `session_holdtime` (Number) Session IPv4 hold time
 
-    &emsp;|Format    &emsp;|Description      |
+    |Format    &emsp;|Description      |
     |------------|-------------------|
-    &emsp;|15-65535  &emsp;|Time in seconds  |
+    |15-65535  &emsp;|Time in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `ttl_security` (String) Neighbor TTL security
 
-    &emsp;|Format   &emsp;|Description                    |
+    |Format   &emsp;|Description                    |
     |-----------|---------------------------------|
-    &emsp;|1-254    &emsp;|TTL                            |
-    &emsp;|disable  &emsp;|Disable neighbor TTL security  |
+    |1-254    &emsp;|TTL                            |
+    |disable  &emsp;|Disable neighbor TTL security  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `neighbor` (String) LDP neighbor parameters
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|ipv4    &emsp;|Neighbor IPv4 address  |
+    |ipv4    &emsp;|Neighbor IPv4 address  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

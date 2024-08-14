@@ -30,27 +30,27 @@ Flow accounting settings
 
 - `agent_address` (String) sFlow agent IPv4 address
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|sFlow IPv4 agent address  |
+    |ipv4    &emsp;|sFlow IPv4 agent address  |
 - `sampling_rate` (Number) sFlow sampling-rate
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|u32     &emsp;|Sampling rate (1 in N packets)  |
+    |u32     &emsp;|Sampling rate (1 in N packets)  |
 - `source_address` (String) Source IP address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
-    &emsp;|ipv6    &emsp;|IPv6 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
+    |ipv6    &emsp;|IPv6 source address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -37,28 +37,28 @@ Administrative distances for BGP routes
 
 - `distance` (Number) Administrative distance for prefix
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|1-255   &emsp;|Administrative distance for external BGP routes  |
+    |1-255   &emsp;|Administrative distance for external BGP routes  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `prefix` (String) Administrative distance for a specific BGP prefix
 
-    &emsp;|Format   &emsp;|Description                                        |
+    |Format   &emsp;|Description                                        |
     |-----------|-----------------------------------------------------|
-    &emsp;|ipv4net  &emsp;|Administrative distance for a specific BGP prefix  |
+    |ipv4net  &emsp;|Administrative distance for a specific BGP prefix  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

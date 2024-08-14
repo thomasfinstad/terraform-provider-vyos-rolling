@@ -36,33 +36,33 @@ RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication 
 - `disable` (Boolean) Disable instance
 - `key` (String) Shared secret key
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|txt     &emsp;|Password string (key)  |
+    |txt     &emsp;|Password string (key)  |
 - `port` (Number) Accounting port
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `server` (String) RADIUS server configuration
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|ipv4    &emsp;|RADIUS server IPv4 address  |
+    |ipv4    &emsp;|RADIUS server IPv4 address  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

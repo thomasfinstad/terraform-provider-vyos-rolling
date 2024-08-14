@@ -35,16 +35,16 @@ Internet Group Management Protocol (IGMP) options
 
 - `source_address` (List of String) IPv4 source address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -52,12 +52,12 @@ Required:
 - `interface` (String) PIM interface
 - `join` (String) IGMP join multicast group
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|ipv4    &emsp;|Multicast group address  |
+    |ipv4    &emsp;|Multicast group address  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

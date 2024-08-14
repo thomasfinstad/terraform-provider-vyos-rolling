@@ -30,22 +30,22 @@ Border Gateway Protocol (BGP)
 
 - `holdtime` (String) Hold timer
 
-    &emsp;|Format   &emsp;|Description            |
+    |Format   &emsp;|Description            |
     |-----------|-------------------------|
-    &emsp;|1-65535  &emsp;|Hold timer in seconds  |
-    &emsp;|0        &emsp;|Disable hold timer     |
+    |1-65535  &emsp;|Hold timer in seconds  |
+    |0        &emsp;|Disable hold timer     |
 - `keepalive` (Number) BGP keepalive interval for this neighbor
 
-    &emsp;|Format   &emsp;|Description                    |
+    |Format   &emsp;|Description                    |
     |-----------|---------------------------------|
-    &emsp;|1-65535  &emsp;|Keepalive interval in seconds  |
+    |1-65535  &emsp;|Keepalive interval in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

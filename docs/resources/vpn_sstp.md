@@ -28,58 +28,58 @@ description: |-
 
 - `default_ipv6_pool` (String) Default client IPv6 pool name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|Default IPv6 pool  |
+    |txt     &emsp;|Default IPv6 pool  |
 - `default_pool` (String) Default client IP pool name
 
-    &emsp;|Format  &emsp;|Description      |
+    |Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|txt     &emsp;|Default IP pool  |
+    |txt     &emsp;|Default IP pool  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `gateway_address` (String) Gateway IP address
 
-    &emsp;|Format  &emsp;|Description                         |
+    |Format  &emsp;|Description                         |
     |----------|--------------------------------------|
-    &emsp;|ipv4    &emsp;|Default Gateway send to the client  |
+    |ipv4    &emsp;|Default Gateway send to the client  |
 - `host_name` (String) Only allow connection to specified host with the same TLS SNI
 - `max_concurrent_sessions` (Number) Maximum number of concurrent session start attempts
 
-    &emsp;|Format   &emsp;|Description                                          |
+    |Format   &emsp;|Description                                          |
     |-----------|-------------------------------------------------------|
-    &emsp;|0-65535  &emsp;|Maximum number of concurrent session start attempts  |
+    |0-65535  &emsp;|Maximum number of concurrent session start attempts  |
 - `mtu` (Number) Maximum Transmission Unit (MTU)
 
-    &emsp;|Format   &emsp;|Description                        |
+    |Format   &emsp;|Description                        |
     |-----------|-------------------------------------|
-    &emsp;|68-1500  &emsp;|Maximum Transmission Unit in byte  |
+    |68-1500  &emsp;|Maximum Transmission Unit in byte  |
 - `name_server` (List of String) Domain Name Servers (DNS) addresses
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
-    &emsp;|ipv6    &emsp;|Domain Name Server (DNS) IPv6 address  |
+    |ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
+    |ipv6    &emsp;|Domain Name Server (DNS) IPv6 address  |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `wins_server` (List of String) Windows Internet Name Service (WINS) servers propagated to client
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
+    |ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

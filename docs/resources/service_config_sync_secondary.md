@@ -30,29 +30,29 @@ Configuration synchronization
 
 - `address` (String) IP address
 
-    &emsp;|Format    &emsp;|Description            |
+    |Format    &emsp;|Description            |
     |------------|-------------------------|
-    &emsp;|ipv4      &emsp;|IPv4 address to match  |
-    &emsp;|ipv6      &emsp;|IPv6 address to match  |
-    &emsp;|hostname  &emsp;|FQDN address to match  |
+    |ipv4      &emsp;|IPv4 address to match  |
+    |ipv6      &emsp;|IPv6 address to match  |
+    |hostname  &emsp;|FQDN address to match  |
 - `key` (String) HTTP API key
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `timeout` (Number) Connection API timeout
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|1-3600  &emsp;|Connection API timeout  |
+    |1-3600  &emsp;|Connection API timeout  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

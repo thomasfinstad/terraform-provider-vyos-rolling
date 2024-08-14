@@ -30,21 +30,21 @@ description: |-
 - `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `interface` (List of String) Interface to use
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|txt     &emsp;|Interface name, wildcard (&amp;) supported  |
+    |txt     &emsp;|Interface name, wildcard (&amp;) supported  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -52,7 +52,7 @@ Required:
 - `route6` (String) Policy route rule set name for IPv6
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

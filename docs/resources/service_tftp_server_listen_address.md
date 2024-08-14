@@ -32,28 +32,28 @@ Trivial File Transfer Protocol (TFTP) server
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `listen_address` (String) Local IP addresses to listen on
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address to listen for incoming connections  |
-    &emsp;|ipv6    &emsp;|IPv6 address to listen for incoming connections  |
+    |ipv4    &emsp;|IPv4 address to listen for incoming connections  |
+    |ipv6    &emsp;|IPv6 address to listen for incoming connections  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

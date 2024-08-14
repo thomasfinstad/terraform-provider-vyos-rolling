@@ -37,47 +37,47 @@ BGP Monitoring Protocol (BMP)
 
 - `address` (String) IP address
 
-    &emsp;|Format  &emsp;|Description   |
+    |Format  &emsp;|Description   |
     |----------|----------------|
-    &emsp;|ipv4    &emsp;|IPv4 address  |
-    &emsp;|ipv6    &emsp;|IPv6 address  |
+    |ipv4    &emsp;|IPv4 address  |
+    |ipv6    &emsp;|IPv6 address  |
 - `max_retry` (Number) Maximum connection retry interval
 
-    &emsp;|Format          &emsp;|Description                        |
+    |Format          &emsp;|Description                        |
     |------------------|-------------------------------------|
-    &emsp;|100-4294967295  &emsp;|Maximum connection retry interval  |
+    |100-4294967295  &emsp;|Maximum connection retry interval  |
 - `min_retry` (Number) Minimum connection retry interval (in milliseconds)
 
-    &emsp;|Format        &emsp;|Description                        |
+    |Format        &emsp;|Description                        |
     |----------------|-------------------------------------|
-    &emsp;|100-86400000  &emsp;|Minimum connection retry interval  |
+    |100-86400000  &emsp;|Minimum connection retry interval  |
 - `mirror` (Boolean) Send BMP route mirroring messages
 - `monitor` (Attributes) Send BMP route monitoring messages (see [below for nested schema](#nestedatt--monitor))
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `target` (String) BMP target
 
 
-&lt;a id=&#34;nestedatt--monitor&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--monitor"></a>
 ### Nested Schema for `monitor`
 
 Optional:
@@ -85,7 +85,7 @@ Optional:
 - `ipv4_unicast` (Attributes) Address family IPv4 unicast (see [below for nested schema](#nestedatt--monitor--ipv4_unicast))
 - `ipv6_unicast` (Attributes) Address family IPv6 unicast (see [below for nested schema](#nestedatt--monitor--ipv6_unicast))
 
-&lt;a id=&#34;nestedatt--monitor--ipv4_unicast&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--monitor--ipv4_unicast"></a>
 ### Nested Schema for `monitor.ipv4_unicast`
 
 Optional:
@@ -94,7 +94,7 @@ Optional:
 - `pre_policy` (Boolean) Send state before policy and filter processing
 
 
-&lt;a id=&#34;nestedatt--monitor--ipv6_unicast&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--monitor--ipv6_unicast"></a>
 ### Nested Schema for `monitor.ipv6_unicast`
 
 Optional:
@@ -104,7 +104,7 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

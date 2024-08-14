@@ -33,88 +33,88 @@ Bidirectional Forwarding Detection (BFD)
 - `interval` (Attributes) Configure timer intervals (see [below for nested schema](#nestedatt--interval))
 - `minimum_ttl` (Number) Expect packets with at least this TTL
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|1-254   &emsp;|Minimum TTL expected  |
+    |1-254   &emsp;|Minimum TTL expected  |
 - `multihop` (Boolean) Allow this BFD peer to not be directly connected
 - `passive` (Boolean) Do not attempt to start sessions
 - `profile` (String) Use settings from BFD profile
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|txt     &emsp;|BFD profile name  |
+    |txt     &emsp;|BFD profile name  |
 - `shutdown` (Boolean) Disable this peer
 - `source` (Attributes) Bind listener to specified interface/address, mandatory for IPv6 (see [below for nested schema](#nestedatt--source))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `peer` (String) Configures BFD peer to listen and talk to
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|ipv4    &emsp;|BFD peer IPv4 address  |
-    &emsp;|ipv6    &emsp;|BFD peer IPv6 address  |
+    |ipv4    &emsp;|BFD peer IPv4 address  |
+    |ipv6    &emsp;|BFD peer IPv6 address  |
 
 
-&lt;a id=&#34;nestedatt--interval&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--interval"></a>
 ### Nested Schema for `interval`
 
 Optional:
 
 - `echo_interval` (Number) Echo receive transmission interval
 
-    &emsp;|Format    &emsp;|Description                                                                             |
+    |Format    &emsp;|Description                                                                             |
     |------------|------------------------------------------------------------------------------------------|
-    &emsp;|10-60000  &emsp;|The minimal echo receive transmission interval that this system is capable of handling  |
+    |10-60000  &emsp;|The minimal echo receive transmission interval that this system is capable of handling  |
 - `multiplier` (Number) Multiplier to determine packet loss
 
-    &emsp;|Format  &emsp;|Description                                                    |
+    |Format  &emsp;|Description                                                    |
     |----------|-----------------------------------------------------------------|
-    &emsp;|2-255   &emsp;|Remote transmission interval will be multiplied by this value  |
+    |2-255   &emsp;|Remote transmission interval will be multiplied by this value  |
 - `receive` (Number) Minimum interval of receiving control packets
 
-    &emsp;|Format    &emsp;|Description               |
+    |Format    &emsp;|Description               |
     |------------|----------------------------|
-    &emsp;|10-60000  &emsp;|Interval in milliseconds  |
+    |10-60000  &emsp;|Interval in milliseconds  |
 - `transmit` (Number) Minimum interval of transmitting control packets
 
-    &emsp;|Format    &emsp;|Description               |
+    |Format    &emsp;|Description               |
     |------------|----------------------------|
-    &emsp;|10-60000  &emsp;|Interval in milliseconds  |
+    |10-60000  &emsp;|Interval in milliseconds  |
 
 
-&lt;a id=&#34;nestedatt--source&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 
 Optional:
 
 - `address` (String) Local address to bind our peer listener to
 
-    &emsp;|Format  &emsp;|Description                                     |
+    |Format  &emsp;|Description                                     |
     |----------|--------------------------------------------------|
-    &emsp;|ipv4    &emsp;|Local IPv4 address used to connect to the peer  |
-    &emsp;|ipv6    &emsp;|Local IPv6 address used to connect to the peer  |
+    |ipv4    &emsp;|Local IPv4 address used to connect to the peer  |
+    |ipv6    &emsp;|Local IPv6 address used to connect to the peer  |
 - `interface` (String) Interface to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

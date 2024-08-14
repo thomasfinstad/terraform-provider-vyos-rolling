@@ -37,7 +37,7 @@ Service event handler
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -45,7 +45,7 @@ Required:
 - `event` (String) Event handler name
 
 
-&lt;a id=&#34;nestedatt--filter&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--filter"></a>
 ### Nested Schema for `filter`
 
 Optional:
@@ -54,7 +54,7 @@ Optional:
 - `syslog_identifier` (String) Identifier of a process in syslog (string)
 
 
-&lt;a id=&#34;nestedatt--script&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--script"></a>
 ### Nested Schema for `script`
 
 Optional:
@@ -63,7 +63,7 @@ Optional:
 - `path` (String) Path to the script
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

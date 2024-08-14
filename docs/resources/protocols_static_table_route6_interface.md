@@ -36,48 +36,48 @@ Static IPv6 route
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-255   &emsp;|Distance for this route  |
+    |1-255   &emsp;|Distance for this route  |
 - `segments` (String) SRv6 segments
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Segs (SIDs)  |
+    |txt     &emsp;|Segs (SIDs)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF to leak route
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|Name of VRF to leak to  |
+    |txt     &emsp;|Name of VRF to leak to  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) IPv6 gateway interface name
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|Gateway interface name  |
+    |txt     &emsp;|Gateway interface name  |
 - `route6` (String) Static IPv6 route
 
-    &emsp;|Format   &emsp;|Description        |
+    |Format   &emsp;|Description        |
     |-----------|---------------------|
-    &emsp;|ipv6net  &emsp;|IPv6 static route  |
+    |ipv6net  &emsp;|IPv6 static route  |
 - `table` (Number) Policy route table number
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|1-200   &emsp;|Policy route table number  |
+    |1-200   &emsp;|Policy route table number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

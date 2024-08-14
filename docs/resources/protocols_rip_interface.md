@@ -39,57 +39,57 @@ Routing Information Protocol (RIP) parameters
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) Interface name
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 
 
-&lt;a id=&#34;nestedatt--authentication&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 
 Optional:
 
 - `plaintext_password` (String) Plain text password
 
-    &emsp;|Format  &emsp;|Description                                  |
+    |Format  &emsp;|Description                                  |
     |----------|-----------------------------------------------|
-    &emsp;|txt     &emsp;|Plain text password (16 characters or less)  |
+    |txt     &emsp;|Plain text password (16 characters or less)  |
 
 
-&lt;a id=&#34;nestedatt--receive&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--receive"></a>
 ### Nested Schema for `receive`
 
 Optional:
 
 - `version` (String) Limit RIP protocol version
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|1       &emsp;|Allow RIPv1 only  |
-    &emsp;|2       &emsp;|Allow RIPv2 only  |
+    |1       &emsp;|Allow RIPv1 only  |
+    |2       &emsp;|Allow RIPv2 only  |
 
 
-&lt;a id=&#34;nestedatt--send&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--send"></a>
 ### Nested Schema for `send`
 
 Optional:
 
 - `version` (String) Limit RIP protocol version
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|1       &emsp;|Allow RIPv1 only  |
-    &emsp;|2       &emsp;|Allow RIPv2 only  |
+    |1       &emsp;|Allow RIPv1 only  |
+    |2       &emsp;|Allow RIPv2 only  |
 
 
-&lt;a id=&#34;nestedatt--split_horizon&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--split_horizon"></a>
 ### Nested Schema for `split_horizon`
 
 Optional:
@@ -98,7 +98,7 @@ Optional:
 - `poison_reverse` (Boolean) Disable split horizon on specified interface
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -40,9 +40,9 @@ Labeled Unicast IPv6 BGP settings
 - `as_set` (Boolean) Generate AS-set path information for this aggregate address
 - `route_map` (String) Specify route-map name to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
+    |txt     &emsp;|Route map name  |
 - `summary_only` (Boolean) Announce the aggregate summary network only
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -50,24 +50,24 @@ Labeled Unicast IPv6 BGP settings
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `aggregate_address` (String) BGP aggregate network/prefix
 
-    &emsp;|Format   &emsp;|Description                   |
+    |Format   &emsp;|Description                   |
     |-----------|--------------------------------|
-    &emsp;|ipv6net  &emsp;|BGP aggregate network/prefix  |
+    |ipv6net  &emsp;|BGP aggregate network/prefix  |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

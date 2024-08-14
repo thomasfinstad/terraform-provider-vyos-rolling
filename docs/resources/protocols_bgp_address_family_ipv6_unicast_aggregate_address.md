@@ -36,9 +36,9 @@ IPv6 BGP settings
 - `as_set` (Boolean) Generate AS-set path information for this aggregate address
 - `route_map` (String) Specify route-map name to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
+    |txt     &emsp;|Route map name  |
 - `summary_only` (Boolean) Announce the aggregate summary network only
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -46,19 +46,19 @@ IPv6 BGP settings
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `aggregate_address` (String) BGP aggregate network
 
-    &emsp;|Format   &emsp;|Description        |
+    |Format   &emsp;|Description        |
     |-----------|---------------------|
-    &emsp;|ipv6net  &emsp;|Aggregate network  |
+    |ipv6net  &emsp;|Aggregate network  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

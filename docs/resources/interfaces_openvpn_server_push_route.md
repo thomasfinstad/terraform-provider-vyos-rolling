@@ -33,34 +33,34 @@ Server-mode options
 
 - `metric` (Number) Set metric for this route
 
-    &emsp;|Format        &emsp;|Description            |
+    |Format        &emsp;|Description            |
     |----------------|-------------------------|
-    &emsp;|0-4294967295  &emsp;|Metric for this route  |
+    |0-4294967295  &emsp;|Metric for this route  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `openvpn` (String) OpenVPN Tunnel Interface
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|vtunN   &emsp;|OpenVPN interface name  |
+    |vtunN   &emsp;|OpenVPN interface name  |
 - `push_route` (String) Route to be pushed to all clients
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 network and prefix length  |
-    &emsp;|ipv6net  &emsp;|IPv6 network and prefix length  |
+    |ipv4net  &emsp;|IPv4 network and prefix length  |
+    |ipv6net  &emsp;|IPv6 network and prefix length  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

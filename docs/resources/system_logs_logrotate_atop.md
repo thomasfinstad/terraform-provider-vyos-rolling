@@ -32,21 +32,21 @@ Logrotate options
 
 - `max_size` (Number) Size of a single log file that triggers rotation
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|1-1024  &emsp;|Size in MB   |
+    |1-1024  &emsp;|Size in MB   |
 - `rotate` (Number) Count of rotations before old logs will be deleted
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|1-100   &emsp;|Rotations    |
+    |1-100   &emsp;|Rotations    |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

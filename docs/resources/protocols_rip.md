@@ -28,53 +28,53 @@ description: |-
 
 - `default_distance` (Number) Administrative distance
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-255   &emsp;|Administrative distance  |
+    |1-255   &emsp;|Administrative distance  |
 - `default_metric` (Number) Metric of redistributed routes
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|1-16    &emsp;|Default metric  |
+    |1-16    &emsp;|Default metric  |
 - `neighbor` (List of String) Neighbor router
 
-    &emsp;|Format  &emsp;|Description      |
+    |Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|ipv4    &emsp;|Neighbor router  |
+    |ipv4    &emsp;|Neighbor router  |
 - `network` (List of String) RIP network
 
-    &emsp;|Format   &emsp;|Description  |
+    |Format   &emsp;|Description  |
     |-----------|---------------|
-    &emsp;|ipv4net  &emsp;|RIP network  |
+    |ipv4net  &emsp;|RIP network  |
 - `passive_interface` (List of String) Suppress routing updates on an interface
 
-    &emsp;|Format   &emsp;|Description                                              |
+    |Format   &emsp;|Description                                              |
     |-----------|-----------------------------------------------------------|
-    &emsp;|txt      &emsp;|Interface to be passive (i.e. suppress routing updates)  |
-    &emsp;|default  &emsp;|Default to suppress routing updates on all interfaces    |
+    |txt      &emsp;|Interface to be passive (i.e. suppress routing updates)  |
+    |default  &emsp;|Default to suppress routing updates on all interfaces    |
 - `route` (List of String) RIP static route
 
-    &emsp;|Format   &emsp;|Description       |
+    |Format   &emsp;|Description       |
     |-----------|--------------------|
-    &emsp;|ipv4net  &emsp;|RIP static route  |
+    |ipv4net  &emsp;|RIP static route  |
 - `route_map` (String) Specify route-map name to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
+    |txt     &emsp;|Route map name  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `version` (String) Limit RIP protocol version
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|1       &emsp;|Allow RIPv1 only  |
-    &emsp;|2       &emsp;|Allow RIPv2 only  |
+    |1       &emsp;|Allow RIPv1 only  |
+    |2       &emsp;|Allow RIPv2 only  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

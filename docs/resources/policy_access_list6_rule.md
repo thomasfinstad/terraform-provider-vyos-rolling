@@ -31,15 +31,15 @@ IPv6 access-list filter
 
 - `action` (String) Action to take on entries matching this rule
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|permit  &emsp;|Permit matching entries  |
-    &emsp;|deny    &emsp;|Deny matching entries    |
+    |permit  &emsp;|Permit matching entries  |
+    |deny    &emsp;|Deny matching entries    |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `source` (Attributes) Source IPv6 network to match (see [below for nested schema](#nestedatt--source))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -47,24 +47,24 @@ IPv6 access-list filter
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `access_list6` (String) IPv6 access-list filter
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|txt     &emsp;|Name of IPv6 access-list  |
+    |txt     &emsp;|Name of IPv6 access-list  |
 - `rule` (Number) Rule for this access-list6
 
-    &emsp;|Format   &emsp;|Description               |
+    |Format   &emsp;|Description               |
     |-----------|----------------------------|
-    &emsp;|1-65535  &emsp;|Access-list6 rule number  |
+    |1-65535  &emsp;|Access-list6 rule number  |
 
 
-&lt;a id=&#34;nestedatt--source&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 
 Optional:
@@ -73,12 +73,12 @@ Optional:
 - `exact_match` (Boolean) Exact match of the network prefixes
 - `network` (String) Network/netmask to match
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv6net  &emsp;|IPv6 address and prefix length  |
+    |ipv6net  &emsp;|IPv6 address and prefix length  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

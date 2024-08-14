@@ -30,26 +30,26 @@ Routing Information Protocol (RIPng) parameters
 
 - `garbage_collection` (Number) Garbage collection timer
 
-    &emsp;|Format        &emsp;|Description             |
+    |Format        &emsp;|Description             |
     |----------------|--------------------------|
-    &emsp;|5-2147483647  &emsp;|Garbage colletion time  |
+    |5-2147483647  &emsp;|Garbage colletion time  |
 - `timeout` (Number) Routing information timeout timer
 
-    &emsp;|Format        &emsp;|Description                        |
+    |Format        &emsp;|Description                        |
     |----------------|-------------------------------------|
-    &emsp;|5-2147483647  &emsp;|Routing information timeout timer  |
+    |5-2147483647  &emsp;|Routing information timeout timer  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `update` (Number) Routing table update timer
 
-    &emsp;|Format        &emsp;|Description                            |
+    |Format        &emsp;|Description                            |
     |----------------|-----------------------------------------|
-    &emsp;|5-2147483647  &emsp;|Routing table update timer in seconds  |
+    |5-2147483647  &emsp;|Routing table update timer in seconds  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -33,15 +33,15 @@ Stunnel TLS Proxy
 - `listen` (Attributes) Accept connections on specified address (see [below for nested schema](#nestedatt--listen))
 - `protocol` (String) Application protocol to negotiate TLS
 
-    &emsp;|Format  &emsp;|Description                                                                      |
+    |Format  &emsp;|Description                                                                      |
     |----------|-----------------------------------------------------------------------------------|
-    &emsp;|cifs    &emsp;|Proprietary (undocummented) extension of CIFS protocol                           |
-    &emsp;|imap    &emsp;|Based on RFC 2595 - Using TLS with IMAP, POP3 and ACAP                           |
-    &emsp;|pgsql   &emsp;|Based on PostgreSQL frontend/backend protocol                                    |
-    &emsp;|pop3    &emsp;|Based on RFC 2449 - POP3 Extension Mechanism                                     |
-    &emsp;|proxy   &emsp;|Passing of the original client IP address with HAProxy PROXY protocol version 1  |
-    &emsp;|smtp    &emsp;|Based on RFC 2487 - SMTP Service Extension for Secure SMTP over TLS              |
-    &emsp;|socks   &emsp;|SOCKS versions 4, 4a, and 5 are supported                                        |
+    |cifs    &emsp;|Proprietary (undocummented) extension of CIFS protocol                           |
+    |imap    &emsp;|Based on RFC 2595 - Using TLS with IMAP, POP3 and ACAP                           |
+    |pgsql   &emsp;|Based on PostgreSQL frontend/backend protocol                                    |
+    |pop3    &emsp;|Based on RFC 2449 - POP3 Extension Mechanism                                     |
+    |proxy   &emsp;|Passing of the original client IP address with HAProxy PROXY protocol version 1  |
+    |smtp    &emsp;|Based on RFC 2487 - SMTP Service Extension for Secure SMTP over TLS              |
+    |socks   &emsp;|SOCKS versions 4, 4a, and 5 are supported                                        |
 - `ssl` (Attributes) SSL Certificate, SSL Key and CA (see [below for nested schema](#nestedatt--ssl))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -49,7 +49,7 @@ Stunnel TLS Proxy
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -57,60 +57,60 @@ Required:
 - `server` (String) Stunnel server config
 
 
-&lt;a id=&#34;nestedatt--connect&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--connect"></a>
 ### Nested Schema for `connect`
 
 Optional:
 
 - `address` (String) Hostname or IP address
 
-    &emsp;|Format    &emsp;|Description   |
+    |Format    &emsp;|Description   |
     |------------|----------------|
-    &emsp;|ipv4      &emsp;|IPv4 address  |
-    &emsp;|hostname  &emsp;|hostname      |
+    |ipv4      &emsp;|IPv4 address  |
+    |hostname  &emsp;|hostname      |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 
 
-&lt;a id=&#34;nestedatt--listen&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--listen"></a>
 ### Nested Schema for `listen`
 
 Optional:
 
 - `address` (String) Hostname or IP address
 
-    &emsp;|Format    &emsp;|Description   |
+    |Format    &emsp;|Description   |
     |------------|----------------|
-    &emsp;|ipv4      &emsp;|IPv4 address  |
-    &emsp;|hostname  &emsp;|hostname      |
+    |ipv4      &emsp;|IPv4 address  |
+    |hostname  &emsp;|hostname      |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 
 
-&lt;a id=&#34;nestedatt--ssl&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--ssl"></a>
 ### Nested Schema for `ssl`
 
 Optional:
 
 - `ca_certificate` (List of String) Certificate Authority chain in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|txt     &emsp;|Name of CA in PKI configuration  |
+    |txt     &emsp;|Name of CA in PKI configuration  |
 - `certificate` (String) Certificate in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                               |
+    |Format  &emsp;|Description                               |
     |----------|--------------------------------------------|
-    &emsp;|txt     &emsp;|Name of certificate in PKI configuration  |
+    |txt     &emsp;|Name of certificate in PKI configuration  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

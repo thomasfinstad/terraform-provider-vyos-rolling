@@ -28,62 +28,62 @@ description: |-
 
 - `append_domain` (String) Default domain name
 
-    &emsp;|Format  &emsp;|Description                                       |
+    |Format  &emsp;|Description                                       |
     |----------|----------------------------------------------------|
-    &emsp;|domain  &emsp;|Domain to use for urls that do not contain a &#39;.&#39;  |
+    |domain  &emsp;|Domain to use for urls that do not contain a &#39;.&#39;  |
 - `cache_size` (String) Disk cache size in MB
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|u32     &emsp;|Disk cache size in MB  |
-    &emsp;|0       &emsp;|Disable disk caching   |
+    |u32     &emsp;|Disk cache size in MB  |
+    |0       &emsp;|Disable disk caching   |
 - `default_port` (Number) Default Proxy Port
 
-    &emsp;|Format      &emsp;|Description          |
+    |Format      &emsp;|Description          |
     |--------------|-----------------------|
-    &emsp;|1025-65535  &emsp;|Default port number  |
+    |1025-65535  &emsp;|Default port number  |
 - `disable_access_log` (Boolean) Disable logging of HTTP accesses
 - `domain_block` (List of String) Domain name to block
 - `domain_noncache` (List of String) Domain name to access without caching
 - `maximum_object_size` (Number) Maximum size of object to be stored in cache in kilobytes
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|u32     &emsp;|Object size in KB  |
+    |u32     &emsp;|Object size in KB  |
 - `mem_cache_size` (Number) Memory cache size in MB
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|u32     &emsp;|Memory cache size in MB   |
+    |u32     &emsp;|Memory cache size in MB   |
 - `minimum_object_size` (Number) Maximum size of object to be stored in cache in kilobytes
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|u32     &emsp;|Object size in KB  |
+    |u32     &emsp;|Object size in KB  |
 - `outgoing_address` (String) Outgoing IP address for webproxy
 - `reply_block_mime` (List of String) MIME type to block
 - `reply_body_max_size` (Number) Maximum reply body size in KB
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|u32     &emsp;|Reply size in KB  |
+    |u32     &emsp;|Reply size in KB  |
 - `safe_ports` (List of Number) Safe port ACL
 
-    &emsp;|Format  &emsp;|Description                                                                              |
+    |Format  &emsp;|Description                                                                              |
     |----------|-------------------------------------------------------------------------------------------|
-    &emsp;|1-1024  &emsp;|Port number. Ports included by default: 21,70,80,210,280,443,488,591,777,873,1025-65535  |
+    |1-1024  &emsp;|Port number. Ports included by default: 21,70,80,210,280,443,488,591,777,873,1025-65535  |
 - `ssl_safe_ports` (List of Number) SSL safe port
 
-    &emsp;|Format   &emsp;|Description                                  |
+    |Format   &emsp;|Description                                  |
     |-----------|-----------------------------------------------|
-    &emsp;|1-65535  &emsp;|Port number. Ports included by default: 443  |
+    |1-65535  &emsp;|Port number. Ports included by default: 443  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

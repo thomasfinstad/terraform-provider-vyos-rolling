@@ -34,16 +34,16 @@ System User Login Configuration
 - `full_name` (String) Full name of the user (use quotes for names with spaces)
 - `home_directory` (String) Home directory
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|Path to home directory  |
+    |txt     &emsp;|Path to home directory  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -51,7 +51,7 @@ Required:
 - `user` (String) Local user account information
 
 
-&lt;a id=&#34;nestedatt--authentication&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 
 Optional:
@@ -60,35 +60,35 @@ Optional:
 - `otp` (Attributes) One-Time-Pad (two-factor) authentication parameters (see [below for nested schema](#nestedatt--authentication--otp))
 - `plaintext_password` (String) Plaintext password used for encryption
 
-&lt;a id=&#34;nestedatt--authentication--otp&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication--otp"></a>
 ### Nested Schema for `authentication.otp`
 
 Optional:
 
 - `key` (String) Key/secret the token algorithm (see RFC4226)
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|txt     &emsp;|Base32 encoded key/token  |
+    |txt     &emsp;|Base32 encoded key/token  |
 - `rate_limit` (Number) Limit number of logins (rate-limit) per rate-time
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|1-10    &emsp;|Number of attempts  |
+    |1-10    &emsp;|Number of attempts  |
 - `rate_time` (Number) Limit number of logins (rate-limit) per rate-time
 
-    &emsp;|Format  &emsp;|Description    |
+    |Format  &emsp;|Description    |
     |----------|-----------------|
-    &emsp;|15-600  &emsp;|Time interval  |
+    |15-600  &emsp;|Time interval  |
 - `window_size` (Number) Set window of concurrently valid codes
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|1-21    &emsp;|Window size  |
+    |1-21    &emsp;|Window size  |
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

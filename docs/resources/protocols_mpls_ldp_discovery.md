@@ -32,51 +32,51 @@ Label Distribution Protocol (LDP)
 
 - `hello_ipv4_holdtime` (Number) Hello IPv4 hold time
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Time in seconds  |
+    |1-65535  &emsp;|Time in seconds  |
 - `hello_ipv4_interval` (Number) Hello IPv4 interval
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Time in seconds  |
+    |1-65535  &emsp;|Time in seconds  |
 - `hello_ipv6_holdtime` (Number) Hello IPv6 hold time
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Time in seconds  |
+    |1-65535  &emsp;|Time in seconds  |
 - `hello_ipv6_interval` (Number) Hello IPv6 interval
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Time in seconds  |
+    |1-65535  &emsp;|Time in seconds  |
 - `session_ipv4_holdtime` (Number) Session IPv4 hold time
 
-    &emsp;|Format    &emsp;|Description      |
+    |Format    &emsp;|Description      |
     |------------|-------------------|
-    &emsp;|15-65535  &emsp;|Time in seconds  |
+    |15-65535  &emsp;|Time in seconds  |
 - `session_ipv6_holdtime` (Number) Session IPv6 hold time
 
-    &emsp;|Format    &emsp;|Description      |
+    |Format    &emsp;|Description      |
     |------------|-------------------|
-    &emsp;|15-65535  &emsp;|Time in seconds  |
+    |15-65535  &emsp;|Time in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `transport_ipv4_address` (String) Transport IPv4 address
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 bind as transport  |
+    |ipv4    &emsp;|IPv4 bind as transport  |
 - `transport_ipv6_address` (String) Transport IPv6 address
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|ipv6    &emsp;|IPv6 bind as transport  |
+    |ipv6    &emsp;|IPv6 bind as transport  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

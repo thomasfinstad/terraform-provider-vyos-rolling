@@ -30,34 +30,34 @@ Secure Shell (SSH)
 
 - `allow_from` (List of String) Always allow inbound connections from these systems
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv4     &emsp;|Address to match against        |
-    &emsp;|ipv4net  &emsp;|IPv4 address and prefix length  |
-    &emsp;|ipv6     &emsp;|IPv6 address to match against   |
-    &emsp;|ipv6net  &emsp;|IPv6 address and prefix length  |
+    |ipv4     &emsp;|Address to match against        |
+    |ipv4net  &emsp;|IPv4 address and prefix length  |
+    |ipv6     &emsp;|IPv6 address to match against   |
+    |ipv6net  &emsp;|IPv6 address and prefix length  |
 - `block_time` (Number) Block source IP in seconds. Subsequent blocks increase by a factor of 1.5
 
-    &emsp;|Format   &emsp;|Description                            |
+    |Format   &emsp;|Description                            |
     |-----------|-----------------------------------------|
-    &emsp;|1-65535  &emsp;|Time interval in seconds for blocking  |
+    |1-65535  &emsp;|Time interval in seconds for blocking  |
 - `detect_time` (Number) Remember source IP in seconds before reset their score
 
-    &emsp;|Format   &emsp;|Description               |
+    |Format   &emsp;|Description               |
     |-----------|----------------------------|
-    &emsp;|1-65535  &emsp;|Time interval in seconds  |
+    |1-65535  &emsp;|Time interval in seconds  |
 - `threshold` (Number) Block source IP when their cumulative attack score exceeds threshold
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Threshold score  |
+    |1-65535  &emsp;|Threshold score  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

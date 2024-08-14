@@ -34,21 +34,21 @@ Labeled Unicast IPv4 BGP settings
 
 - `ebgp` (Number) eBGP maximum paths
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|1-256   &emsp;|Number of paths to consider  |
+    |1-256   &emsp;|Number of paths to consider  |
 - `ibgp` (Number) iBGP maximum paths
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|1-256   &emsp;|Number of paths to consider  |
+    |1-256   &emsp;|Number of paths to consider  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

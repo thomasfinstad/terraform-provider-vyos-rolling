@@ -33,6 +33,7 @@ type InterfacesOpenvpnServer struct {
 	ExistsTagInterfacesOpenvpnServerPushRoute bool `tfsdk:"push_route" vyos:"push-route,child"`
 
 	// Nodes
+	NodeInterfacesOpenvpnServerBrIDge           *InterfacesOpenvpnServerBrIDge           `tfsdk:"bridge" vyos:"bridge,omitempty"`
 	NodeInterfacesOpenvpnServerClientIPPool     *InterfacesOpenvpnServerClientIPPool     `tfsdk:"client_ip_pool" vyos:"client-ip-pool,omitempty"`
 	NodeInterfacesOpenvpnServerClientIPvsixPool *InterfacesOpenvpnServerClientIPvsixPool `tfsdk:"client_ipv6_pool" vyos:"client-ipv6-pool,omitempty"`
 	NodeInterfacesOpenvpnServerMfa              *InterfacesOpenvpnServerMfa              `tfsdk:"mfa" vyos:"mfa,omitempty"`
@@ -149,6 +150,17 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes(ctx context.Context) m
 		},
 
 		// Nodes
+
+		"bridge": schema.SingleNestedAttribute{
+			Attributes: InterfacesOpenvpnServerBrIDge{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Used with TAP device (layer 2)
+
+`,
+			Description: `Used with TAP device (layer 2)
+
+`,
+		},
 
 		"client_ip_pool": schema.SingleNestedAttribute{
 			Attributes: InterfacesOpenvpnServerClientIPPool{}.ResourceSchemaAttributes(ctx),

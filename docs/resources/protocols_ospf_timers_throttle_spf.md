@@ -34,26 +34,26 @@ Throttling adaptive timers
 
 - `delay` (Number) Delay from the first change received to SPF calculation
 
-    &emsp;|Format    &emsp;|Description            |
+    |Format    &emsp;|Description            |
     |------------|-------------------------|
-    &emsp;|0-600000  &emsp;|Delay in milliseconds  |
+    |0-600000  &emsp;|Delay in milliseconds  |
 - `initial_holdtime` (Number) Initial hold time between consecutive SPF calculations
 
-    &emsp;|Format    &emsp;|Description                        |
+    |Format    &emsp;|Description                        |
     |------------|-------------------------------------|
-    &emsp;|0-600000  &emsp;|Initial hold time in milliseconds  |
+    |0-600000  &emsp;|Initial hold time in milliseconds  |
 - `max_holdtime` (Number) Maximum hold time
 
-    &emsp;|Format    &emsp;|Description                    |
+    |Format    &emsp;|Description                    |
     |------------|---------------------------------|
-    &emsp;|0-600000  &emsp;|Max hold time in milliseconds  |
+    |0-600000  &emsp;|Max hold time in milliseconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

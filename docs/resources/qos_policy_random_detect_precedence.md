@@ -33,53 +33,53 @@ Weighted Random Early Detect policy
 
 - `average_packet` (Number) Average packet size (bytes)
 
-    &emsp;|Format    &emsp;|Description                   |
+    |Format    &emsp;|Description                   |
     |------------|--------------------------------|
-    &emsp;|16-10240  &emsp;|Average packet size in bytes  |
+    |16-10240  &emsp;|Average packet size in bytes  |
 - `mark_probability` (Number) Mark probability for random detection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|u32     &emsp;|Numeric value (1/N)  |
+    |u32     &emsp;|Numeric value (1/N)  |
 - `maximum_threshold` (Number) Maximum threshold for random detection
 
-    &emsp;|Format  &emsp;|Description                   |
+    |Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|0-4096  &emsp;|Maximum threshold in packets  |
+    |0-4096  &emsp;|Maximum threshold in packets  |
 - `minimum_threshold` (Number) Minimum threshold for random detection
 
-    &emsp;|Format  &emsp;|Description                   |
+    |Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|0-4096  &emsp;|Minimum threshold in packets  |
+    |0-4096  &emsp;|Minimum threshold in packets  |
 - `queue_limit` (Number) Maximum queue size
 
-    &emsp;|Format        &emsp;|Description            |
+    |Format        &emsp;|Description            |
     |----------------|-------------------------|
-    &emsp;|1-4294967295  &emsp;|Queue size in packets  |
+    |1-4294967295  &emsp;|Queue size in packets  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `precedence` (Number) IP precedence
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|0-7     &emsp;|IP precedence value  |
+    |0-7     &emsp;|IP precedence value  |
 - `random_detect` (String) Weighted Random Early Detect policy
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+    |txt     &emsp;|Policy name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

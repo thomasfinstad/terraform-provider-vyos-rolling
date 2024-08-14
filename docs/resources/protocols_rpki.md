@@ -28,26 +28,26 @@ description: |-
 
 - `expire_interval` (Number) Interval to wait before expiring the cache
 
-    &emsp;|Format      &emsp;|Description          |
+    |Format      &emsp;|Description          |
     |--------------|-----------------------|
-    &emsp;|600-172800  &emsp;|Interval in seconds  |
+    |600-172800  &emsp;|Interval in seconds  |
 - `polling_period` (Number) Cache polling interval
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|1-86400  &emsp;|Interval in seconds  |
+    |1-86400  &emsp;|Interval in seconds  |
 - `retry_interval` (Number) Retry interval to connect to the cache server
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|1-7200  &emsp;|Interval in seconds  |
+    |1-7200  &emsp;|Interval in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

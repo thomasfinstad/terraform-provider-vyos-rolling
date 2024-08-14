@@ -31,28 +31,28 @@ IPv4 firewall
 
 - `default_action` (String) Default-action for rule-set
 
-    &emsp;|Format    &emsp;|Description                                                                    |
+    |Format    &emsp;|Description                                                                    |
     |------------|---------------------------------------------------------------------------------|
-    &emsp;|drop      &emsp;|Drop if no prior rules are hit                                                 |
-    &emsp;|jump      &emsp;|Jump to another chain if no prior rules are hit                                |
-    &emsp;|reject    &emsp;|Drop and notify source if no prior rules are hit                               |
-    &emsp;|return    &emsp;|Return from the current chain and continue at the next rule of the last chain  |
-    &emsp;|accept    &emsp;|Accept if no prior rules are hit                                               |
-    &emsp;|continue  &emsp;|Continue parsing next rule                                                     |
+    |drop      &emsp;|Drop if no prior rules are hit                                                 |
+    |jump      &emsp;|Jump to another chain if no prior rules are hit                                |
+    |reject    &emsp;|Drop and notify source if no prior rules are hit                               |
+    |return    &emsp;|Return from the current chain and continue at the next rule of the last chain  |
+    |accept    &emsp;|Accept if no prior rules are hit                                               |
+    |continue  &emsp;|Continue parsing next rule                                                     |
 - `default_jump_target` (String) Set jump target. Action jump must be defined in default-action to use this setting
 - `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -60,7 +60,7 @@ Required:
 - `name` (String) IPv4 custom firewall
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -35,29 +35,29 @@ Multicast interface based route
 
 - `distance` (Number) Distance value for this route
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-255   &emsp;|Distance for this route  |
+    |1-255   &emsp;|Distance for this route  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface_route` (String) Multicast interface based route
 
-    &emsp;|Format   &emsp;|Description  |
+    |Format   &emsp;|Description  |
     |-----------|---------------|
-    &emsp;|ipv4net  &emsp;|Network      |
+    |ipv4net  &emsp;|Network      |
 - `next_hop_interface` (String) Next-hop interface
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

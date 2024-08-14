@@ -31,22 +31,22 @@ Firewall group
 
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `include` (List of String) Include another ipv6-network-group
 - `network` (List of String) Network-group member
 
-    &emsp;|Format   &emsp;|Description            |
+    |Format   &emsp;|Description            |
     |-----------|-------------------------|
-    &emsp;|ipv6net  &emsp;|IPv6 address to match  |
+    |ipv6net  &emsp;|IPv6 address to match  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -54,7 +54,7 @@ Required:
 - `ipv6_network_group` (String) Firewall ipv6-network-group
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

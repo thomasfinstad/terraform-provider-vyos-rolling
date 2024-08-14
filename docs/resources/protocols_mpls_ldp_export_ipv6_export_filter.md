@@ -36,21 +36,21 @@ IPv6 parameters
 
 - `filter_access_list6` (Number) Access-list6 number to apply FEC filtering
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|1-2699  &emsp;|Access list number  |
+    |1-2699  &emsp;|Access list number  |
 - `neighbor_access_list6` (Number) Access-list6 number for IPv6 neighbor selection to apply filtering
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|1-2699  &emsp;|Access list number  |
+    |1-2699  &emsp;|Access list number  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

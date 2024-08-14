@@ -31,9 +31,9 @@ Public key infrastructure (PKI)
 - `crl` (List of String) Certificate revocation list in PEM format
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `private` (Attributes) CA private key in PEM format (see [below for nested schema](#nestedatt--private))
 - `revoke` (Boolean) Include certificate in parent CRL
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -42,7 +42,7 @@ Public key infrastructure (PKI)
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -50,7 +50,7 @@ Required:
 - `ca` (String) Certificate Authority
 
 
-&lt;a id=&#34;nestedatt--private&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--private"></a>
 ### Nested Schema for `private`
 
 Optional:
@@ -59,7 +59,7 @@ Optional:
 - `password_protected` (Boolean) Private key portion is password protected
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

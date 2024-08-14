@@ -28,60 +28,60 @@ description: |-
 
 - `buffer_size` (Number) Buffer size
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|u32     &emsp;|Buffer size in MiB  |
+    |u32     &emsp;|Buffer size in MiB  |
 - `disable_imt` (Boolean) Disable in memory table plugin
 - `enable_egress` (Boolean) Enable egress flow accounting
 - `interface` (List of String) Interface to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 - `packet_length` (Number) Specifies the maximum number of bytes to capture for each packet
 
-    &emsp;|Format   &emsp;|Description             |
+    |Format   &emsp;|Description             |
     |-----------|--------------------------|
-    &emsp;|128-750  &emsp;|Packet length in bytes  |
+    |128-750  &emsp;|Packet length in bytes  |
 - `syslog_facility` (String) Syslog facility for flow-accounting
 
-    &emsp;|Format     &emsp;|Description                       |
+    |Format     &emsp;|Description                       |
     |-------------|------------------------------------|
-    &emsp;|auth       &emsp;|Authentication and authorization  |
-    &emsp;|authpriv   &emsp;|Non-system authorization          |
-    &emsp;|cron       &emsp;|Cron daemon                       |
-    &emsp;|daemon     &emsp;|System daemons                    |
-    &emsp;|kern       &emsp;|Kernel                            |
-    &emsp;|lpr        &emsp;|Line printer spooler              |
-    &emsp;|mail       &emsp;|Mail subsystem                    |
-    &emsp;|mark       &emsp;|Timestamp                         |
-    &emsp;|news       &emsp;|USENET subsystem                  |
-    &emsp;|protocols  &emsp;|Routing protocols (local7)        |
-    &emsp;|security   &emsp;|Authentication and authorization  |
-    &emsp;|syslog     &emsp;|Authentication and authorization  |
-    &emsp;|user       &emsp;|Application processes             |
-    &emsp;|uucp       &emsp;|UUCP subsystem                    |
-    &emsp;|local0     &emsp;|Local facility 0                  |
-    &emsp;|local1     &emsp;|Local facility 1                  |
-    &emsp;|local2     &emsp;|Local facility 2                  |
-    &emsp;|local3     &emsp;|Local facility 3                  |
-    &emsp;|local4     &emsp;|Local facility 4                  |
-    &emsp;|local5     &emsp;|Local facility 5                  |
-    &emsp;|local6     &emsp;|Local facility 6                  |
-    &emsp;|local7     &emsp;|Local facility 7                  |
-    &emsp;|all        &emsp;|Authentication and authorization  |
+    |auth       &emsp;|Authentication and authorization  |
+    |authpriv   &emsp;|Non-system authorization          |
+    |cron       &emsp;|Cron daemon                       |
+    |daemon     &emsp;|System daemons                    |
+    |kern       &emsp;|Kernel                            |
+    |lpr        &emsp;|Line printer spooler              |
+    |mail       &emsp;|Mail subsystem                    |
+    |mark       &emsp;|Timestamp                         |
+    |news       &emsp;|USENET subsystem                  |
+    |protocols  &emsp;|Routing protocols (local7)        |
+    |security   &emsp;|Authentication and authorization  |
+    |syslog     &emsp;|Authentication and authorization  |
+    |user       &emsp;|Application processes             |
+    |uucp       &emsp;|UUCP subsystem                    |
+    |local0     &emsp;|Local facility 0                  |
+    |local1     &emsp;|Local facility 1                  |
+    |local2     &emsp;|Local facility 2                  |
+    |local3     &emsp;|Local facility 3                  |
+    |local4     &emsp;|Local facility 4                  |
+    |local5     &emsp;|Local facility 5                  |
+    |local6     &emsp;|Local facility 6                  |
+    |local7     &emsp;|Local facility 7                  |
+    |all        &emsp;|Authentication and authorization  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

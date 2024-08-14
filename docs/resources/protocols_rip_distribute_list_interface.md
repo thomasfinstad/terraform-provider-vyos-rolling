@@ -39,53 +39,53 @@ Filter networks in routing updates
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) Apply filtering to an interface
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|txt     &emsp;|Apply filtering to an interface  |
+    |txt     &emsp;|Apply filtering to an interface  |
 
 
-&lt;a id=&#34;nestedatt--access_list&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--access_list"></a>
 ### Nested Schema for `access_list`
 
 Optional:
 
 - `in` (Number) Access list to apply to input packets
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|u32     &emsp;|Access list to apply to input packets  |
+    |u32     &emsp;|Access list to apply to input packets  |
 - `out` (Number) Access list to apply to output packets
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|u32     &emsp;|Access list to apply to output packets  |
+    |u32     &emsp;|Access list to apply to output packets  |
 
 
-&lt;a id=&#34;nestedatt--prefix_list&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--prefix_list"></a>
 ### Nested Schema for `prefix_list`
 
 Optional:
 
 - `in` (String) Prefix-list to apply to input packets
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|txt     &emsp;|Prefix-list to apply to input packets  |
+    |txt     &emsp;|Prefix-list to apply to input packets  |
 - `out` (String) Prefix-list to apply to output packets
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|txt     &emsp;|Prefix-list to apply to output packets  |
+    |txt     &emsp;|Prefix-list to apply to output packets  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -31,35 +31,35 @@ Internet Protocol over Ethernet (IPoE) Server
 
 - `client_subnet` (String) Client address pool
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 address and prefix length  |
+    |ipv4net  &emsp;|IPv4 address and prefix length  |
 - `external_dhcp` (Attributes) DHCP requests will be forwarded (see [below for nested schema](#nestedatt--external_dhcp))
 - `mode` (String) Client connectivity mode
 
-    &emsp;|Format  &emsp;|Description                                 |
+    |Format  &emsp;|Description                                 |
     |----------|----------------------------------------------|
-    &emsp;|l2      &emsp;|Client located on same interface as server  |
-    &emsp;|l3      &emsp;|Client located behind a router              |
+    |l2      &emsp;|Client located on same interface as server  |
+    |l3      &emsp;|Client located behind a router              |
 - `network` (String) Enables clients to share the same network or each client has its own vlan
 
-    &emsp;|Format  &emsp;|Description                              |
+    |Format  &emsp;|Description                              |
     |----------|-------------------------------------------|
-    &emsp;|shared  &emsp;|Multiple clients share the same network  |
-    &emsp;|vlan    &emsp;|One VLAN per client                      |
+    |shared  &emsp;|Multiple clients share the same network  |
+    |vlan    &emsp;|One VLAN per client                      |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vlan` (List of String) VLAN monitor for automatic creation of VLAN interfaces
 
-    &emsp;|Format     &emsp;|Description                                      |
+    |Format     &emsp;|Description                                      |
     |-------------|---------------------------------------------------|
-    &emsp;|1-4094     &emsp;|VLAN for automatic creation                      |
-    &emsp;|start-end  &emsp;|VLAN range for automatic creation (e.g. 1-4094)  |
+    |1-4094     &emsp;|VLAN for automatic creation                      |
+    |start-end  &emsp;|VLAN range for automatic creation (e.g. 1-4094)  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -67,24 +67,24 @@ Required:
 - `interface` (String) Interface to listen dhcp or unclassified packets
 
 
-&lt;a id=&#34;nestedatt--external_dhcp&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--external_dhcp"></a>
 ### Nested Schema for `external_dhcp`
 
 Optional:
 
 - `dhcp_relay` (String) DHCP Server the request will be redirected to.
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address of the DHCP Server  |
+    |ipv4    &emsp;|IPv4 address of the DHCP Server  |
 - `giaddr` (String) Relay Agent IPv4 Address
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|ipv4    &emsp;|Gateway IP address  |
+    |ipv4    &emsp;|Gateway IP address  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

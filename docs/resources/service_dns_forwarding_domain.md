@@ -39,19 +39,19 @@ DNS forwarding
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `domain` (String) Domain to forward to a custom DNS server
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|txt     &emsp;|An absolute DNS domain name  |
+    |txt     &emsp;|An absolute DNS domain name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

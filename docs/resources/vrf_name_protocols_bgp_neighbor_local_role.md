@@ -42,35 +42,35 @@ BGP neighbor
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `local_role` (String) Local role for BGP neighbor (RFC9234)
 
-    &emsp;|Format     &emsp;|Description             |
+    |Format     &emsp;|Description             |
     |-------------|--------------------------|
-    &emsp;|customer   &emsp;|Using Transit           |
-    &emsp;|peer       &emsp;|Public/Private Peering  |
-    &emsp;|provider   &emsp;|Providing Transit       |
-    &emsp;|rs-client  &emsp;|RS Client               |
-    &emsp;|rs-server  &emsp;|Route Server            |
+    |customer   &emsp;|Using Transit           |
+    |peer       &emsp;|Public/Private Peering  |
+    |provider   &emsp;|Providing Transit       |
+    |rs-client  &emsp;|RS Client               |
+    |rs-server  &emsp;|Route Server            |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `neighbor` (String) BGP neighbor
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|ipv4    &emsp;|BGP neighbor IP address    |
-    &emsp;|ipv6    &emsp;|BGP neighbor IPv6 address  |
-    &emsp;|txt     &emsp;|Interface name             |
+    |ipv4    &emsp;|BGP neighbor IP address    |
+    |ipv6    &emsp;|BGP neighbor IPv6 address  |
+    |txt     &emsp;|Interface name             |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

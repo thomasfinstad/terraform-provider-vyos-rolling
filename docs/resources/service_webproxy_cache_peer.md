@@ -31,52 +31,52 @@ Webproxy service settings
 
 - `address` (String) Hostname or IP address of peer
 
-    &emsp;|Format    &emsp;|Description                    |
+    |Format    &emsp;|Description                    |
     |------------|---------------------------------|
-    &emsp;|ipv4      &emsp;|Squid cache-peer IPv4 address  |
-    &emsp;|hostname  &emsp;|Squid cache-peer hostname      |
+    |ipv4      &emsp;|Squid cache-peer IPv4 address  |
+    |hostname  &emsp;|Squid cache-peer hostname      |
 - `http_port` (Number) Default Proxy Port
 
-    &emsp;|Format      &emsp;|Description          |
+    |Format      &emsp;|Description          |
     |--------------|-----------------------|
-    &emsp;|1025-65535  &emsp;|Default port number  |
+    |1025-65535  &emsp;|Default port number  |
 - `icp_port` (Number) Cache peer ICP port
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|0        &emsp;|Cache peer disabled  |
-    &emsp;|1-65535  &emsp;|Cache peer ICP port  |
+    |0        &emsp;|Cache peer disabled  |
+    |1-65535  &emsp;|Cache peer ICP port  |
 - `options` (String) Cache peer options
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|txt     &emsp;|Cache peer options  |
+    |txt     &emsp;|Cache peer options  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `type` (String) Squid peer type (default parent)
 
-    &emsp;|Format     &emsp;|Description                            |
+    |Format     &emsp;|Description                            |
     |-------------|-----------------------------------------|
-    &emsp;|parent     &emsp;|Peer is a parent                       |
-    &emsp;|sibling    &emsp;|Peer is a sibling                      |
-    &emsp;|multicast  &emsp;|Peer is a member of a multicast group  |
+    |parent     &emsp;|Peer is a parent                       |
+    |sibling    &emsp;|Peer is a sibling                      |
+    |multicast  &emsp;|Peer is a member of a multicast group  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `cache_peer` (String) Specify other caches in a hierarchy
 
-    &emsp;|Format    &emsp;|Description       |
+    |Format    &emsp;|Description       |
     |------------|--------------------|
-    &emsp;|hostname  &emsp;|Cache peers FQDN  |
+    |hostname  &emsp;|Cache peers FQDN  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

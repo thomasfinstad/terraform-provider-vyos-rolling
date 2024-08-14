@@ -34,31 +34,31 @@ Segment-Routing SRv6 configuration
 - `behavior_usid` (Boolean) Set SRv6 behavior uSID
 - `block_len` (Number) Configure SRv6 locator block length in bits
 
-    &emsp;|Format  &emsp;|Description                                |
+    |Format  &emsp;|Description                                |
     |----------|---------------------------------------------|
-    &emsp;|16-64   &emsp;|Specify SRv6 locator block length in bits  |
+    |16-64   &emsp;|Specify SRv6 locator block length in bits  |
 - `func_bits` (Number) Configure SRv6 locator function length in bits
 
-    &emsp;|Format  &emsp;|Description                                   |
+    |Format  &emsp;|Description                                   |
     |----------|------------------------------------------------|
-    &emsp;|0-64    &emsp;|Specify SRv6 locator function length in bits  |
+    |0-64    &emsp;|Specify SRv6 locator function length in bits  |
 - `node_len` (Number) Configure SRv6 locator node length in bits
 
-    &emsp;|Format  &emsp;|Description                                 |
+    |Format  &emsp;|Description                                 |
     |----------|----------------------------------------------|
-    &emsp;|16-64   &emsp;|Configure SRv6 locator node length in bits  |
+    |16-64   &emsp;|Configure SRv6 locator node length in bits  |
 - `prefix` (String) SRv6 locator prefix
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|ipv6net  &emsp;|SRv6 locator prefix  |
+    |ipv6net  &emsp;|SRv6 locator prefix  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -66,7 +66,7 @@ Required:
 - `locator` (String) Segment Routing SRv6 locator
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

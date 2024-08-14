@@ -35,18 +35,18 @@ NDP proxy listener interface
 - `interface` (String) Interface to forward Neighbor Solicitation message through. Required for &#34;iface&#34; mode
 - `mode` (String) Specify the running mode of the rule
 
-    &emsp;|Format     &emsp;|Description                                                        |
+    |Format     &emsp;|Description                                                        |
     |-------------|---------------------------------------------------------------------|
-    &emsp;|static     &emsp;|Immediately answer any Neighbor Solicitation Messages              |
-    &emsp;|auto       &emsp;|Check for a matching route in /proc/net/ipv6_route                 |
-    &emsp;|interface  &emsp;|Forward Neighbor Solicitation message through specified interface  |
+    |static     &emsp;|Immediately answer any Neighbor Solicitation Messages              |
+    |auto       &emsp;|Check for a matching route in /proc/net/ipv6_route                 |
+    |interface  &emsp;|Forward Neighbor Solicitation message through specified interface  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -54,13 +54,13 @@ Required:
 - `interface` (String) NDP proxy listener interface
 - `prefix` (String) Prefix target addresses are matched against
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|ipv6net  &emsp;|IPv6 network prefix  |
-    &emsp;|ipv6     &emsp;|IPv6 address         |
+    |ipv6net  &emsp;|IPv6 network prefix  |
+    |ipv6     &emsp;|IPv6 address         |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -36,33 +36,33 @@ Open Shortest Path First (OSPF)
 - `no_advertise` (Boolean) Don not advertise summary route
 - `tag` (Number) Router tag
 
-    &emsp;|Format        &emsp;|Description       |
+    |Format        &emsp;|Description       |
     |----------------|--------------------|
-    &emsp;|1-4294967295  &emsp;|Router tag value  |
+    |1-4294967295  &emsp;|Router tag value  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `summary_address` (String) External summary address
 
-    &emsp;|Format   &emsp;|Description                                  |
+    |Format   &emsp;|Description                                  |
     |-----------|-----------------------------------------------|
-    &emsp;|ipv4net  &emsp;|OSPF area number in dotted decimal notation  |
+    |ipv4net  &emsp;|OSPF area number in dotted decimal notation  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

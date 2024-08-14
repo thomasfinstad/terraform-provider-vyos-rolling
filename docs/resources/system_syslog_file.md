@@ -36,7 +36,7 @@ System logging
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -44,7 +44,7 @@ Required:
 - `file` (String) Logging to a file
 
 
-&lt;a id=&#34;nestedatt--archive&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--archive"></a>
 ### Nested Schema for `archive`
 
 Optional:
@@ -53,7 +53,7 @@ Optional:
 - `size` (String) Size of log files in kbytes
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

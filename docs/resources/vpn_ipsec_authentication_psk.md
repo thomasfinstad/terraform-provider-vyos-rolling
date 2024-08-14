@@ -33,26 +33,26 @@ Authentication
 
 - `dhcp_interface` (List of String) DHCP interface supplying next-hop IP address
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|txt     &emsp;|DHCP interface name  |
+    |txt     &emsp;|DHCP interface name  |
 - `id_param` (List of String) ID for authentication
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|txt     &emsp;|ID used for authentication  |
+    |txt     &emsp;|ID used for authentication  |
 - `secret` (String) IKE pre-shared secret key
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|txt     &emsp;|IKE pre-shared secret key  |
+    |txt     &emsp;|IKE pre-shared secret key  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -60,7 +60,7 @@ Required:
 - `psk` (String) Pre-shared key name
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

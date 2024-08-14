@@ -32,32 +32,32 @@ Telegraf metric collector
 
 - `database` (String) Remote database name
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|txt     &emsp;|Remote database name  |
+    |txt     &emsp;|Remote database name  |
 - `group_metrics` (String) Type of metrics grouping when push to Azure Data Explorer
 
-    &emsp;|Format            &emsp;|Description                                        |
+    |Format            &emsp;|Description                                        |
     |--------------------|-----------------------------------------------------|
-    &emsp;|single-table      &emsp;|Metrics stores in one table                        |
-    &emsp;|table-per-metric  &emsp;|One table per gorups of metric by the metric name  |
+    |single-table      &emsp;|Metrics stores in one table                        |
+    |table-per-metric  &emsp;|One table per gorups of metric by the metric name  |
 - `table` (String) Name of the single table [Only if set group-metrics single-table]
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Table name   |
+    |txt     &emsp;|Table name   |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `url` (String) Remote URL
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|url     &emsp;|Remote HTTP(S) URL  |
+    |url     &emsp;|Remote HTTP(S) URL  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -28,27 +28,27 @@ description: |-
 
 - `device` (String) Physical device used by LCD display
 
-    &emsp;|Format    &emsp;|Description                           |
+    |Format    &emsp;|Description                           |
     |------------|----------------------------------------|
-    &emsp;|ttySXX    &emsp;|TTY device name, regular serial port  |
-    &emsp;|usbNbXpY  &emsp;|TTY device name, USB based            |
+    |ttySXX    &emsp;|TTY device name, regular serial port  |
+    |usbNbXpY  &emsp;|TTY device name, USB based            |
 - `model` (String) Model of the display attached to this system
 
-    &emsp;|Format   &emsp;|Description                                            |
+    |Format   &emsp;|Description                                            |
     |-----------|---------------------------------------------------------|
-    &emsp;|cfa-533  &emsp;|Crystalfontz CFA-533                                   |
-    &emsp;|cfa-631  &emsp;|Crystalfontz CFA-631                                   |
-    &emsp;|cfa-633  &emsp;|Crystalfontz CFA-633                                   |
-    &emsp;|cfa-635  &emsp;|Crystalfontz CFA-635                                   |
-    &emsp;|hd44780  &emsp;|Hitachi HD44780, Caswell Appliances                    |
-    &emsp;|sdec     &emsp;|Lanner, Watchguard, Nexcom NSA, Sophos UTM appliances  |
+    |cfa-533  &emsp;|Crystalfontz CFA-533                                   |
+    |cfa-631  &emsp;|Crystalfontz CFA-631                                   |
+    |cfa-633  &emsp;|Crystalfontz CFA-633                                   |
+    |cfa-635  &emsp;|Crystalfontz CFA-635                                   |
+    |hd44780  &emsp;|Hitachi HD44780, Caswell Appliances                    |
+    |sdec     &emsp;|Lanner, Watchguard, Nexcom NSA, Sophos UTM appliances  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -33,22 +33,22 @@ IKEv2 remote access VPN
 
 - `exclude` (List of String) Local IPv4 or IPv6 pool prefix exclusions
 
-    &emsp;|Format   &emsp;|Description                       |
+    |Format   &emsp;|Description                       |
     |-----------|------------------------------------|
-    &emsp;|ipv4net  &emsp;|Local IPv4 pool prefix exclusion  |
-    &emsp;|ipv6net  &emsp;|Local IPv6 pool prefix exclusion  |
+    |ipv4net  &emsp;|Local IPv4 pool prefix exclusion  |
+    |ipv6net  &emsp;|Local IPv6 pool prefix exclusion  |
 - `name_server` (List of String) Domain Name Servers (DNS) addresses
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
-    &emsp;|ipv6    &emsp;|Domain Name Server (DNS) IPv6 address  |
+    |ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
+    |ipv6    &emsp;|Domain Name Server (DNS) IPv6 address  |
 - `prefix` (String) Local IPv4 or IPv6 pool prefix
 
-    &emsp;|Format   &emsp;|Description             |
+    |Format   &emsp;|Description             |
     |-----------|--------------------------|
-    &emsp;|ipv4net  &emsp;|Local IPv4 pool prefix  |
-    &emsp;|ipv6net  &emsp;|Local IPv6 pool prefix  |
+    |ipv4net  &emsp;|Local IPv4 pool prefix  |
+    |ipv6net  &emsp;|Local IPv6 pool prefix  |
 - `range` (Attributes) Local IPv4 or IPv6 pool range (see [below for nested schema](#nestedatt--range))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -56,7 +56,7 @@ IKEv2 remote access VPN
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -64,26 +64,26 @@ Required:
 - `pool` (String) IP address pool for remote access users
 
 
-&lt;a id=&#34;nestedatt--range&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--range"></a>
 ### Nested Schema for `range`
 
 Optional:
 
 - `start` (String) First IP address for local pool range
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 start address of pool  |
-    &emsp;|ipv6    &emsp;|IPv6 start address of pool  |
+    |ipv4    &emsp;|IPv4 start address of pool  |
+    |ipv6    &emsp;|IPv6 start address of pool  |
 - `stop` (String) Last IP address for local pool range
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 end address of pool  |
-    &emsp;|ipv6    &emsp;|IPv6 end address of pool  |
+    |ipv4    &emsp;|IPv4 end address of pool  |
+    |ipv6    &emsp;|IPv6 end address of pool  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

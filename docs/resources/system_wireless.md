@@ -28,17 +28,17 @@ description: |-
 
 - `country_code` (String) Indicate country in which device is operating
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|00      &emsp;|World regulatory domain      |
-    &emsp;|txt     &emsp;|ISO/IEC 3166-1 Country Code  |
+    |00      &emsp;|World regulatory domain      |
+    |txt     &emsp;|ISO/IEC 3166-1 Country Code  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

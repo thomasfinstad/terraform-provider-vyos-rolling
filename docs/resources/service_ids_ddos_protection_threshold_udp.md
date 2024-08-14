@@ -34,26 +34,26 @@ Attack limits thresholds
 
 - `fps` (Number) Flows per second
 
-    &emsp;|Format        &emsp;|Description       |
+    |Format        &emsp;|Description       |
     |----------------|--------------------|
-    &emsp;|0-4294967294  &emsp;|Flows per second  |
+    |0-4294967294  &emsp;|Flows per second  |
 - `mbps` (Number) Megabits per second
 
-    &emsp;|Format        &emsp;|Description          |
+    |Format        &emsp;|Description          |
     |----------------|-----------------------|
-    &emsp;|0-4294967294  &emsp;|Megabits per second  |
+    |0-4294967294  &emsp;|Megabits per second  |
 - `pps` (Number) Packets per second
 
-    &emsp;|Format        &emsp;|Description         |
+    |Format        &emsp;|Description         |
     |----------------|----------------------|
-    &emsp;|0-4294967294  &emsp;|Packets per second  |
+    |0-4294967294  &emsp;|Packets per second  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

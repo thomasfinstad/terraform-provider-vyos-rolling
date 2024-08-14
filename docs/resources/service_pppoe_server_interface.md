@@ -32,16 +32,16 @@ Point to Point over Ethernet (PPPoE) Server
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vlan` (List of String) VLAN monitor for automatic creation of VLAN interfaces
 
-    &emsp;|Format     &emsp;|Description                                      |
+    |Format     &emsp;|Description                                      |
     |-------------|---------------------------------------------------|
-    &emsp;|1-4094     &emsp;|VLAN for automatic creation                      |
-    &emsp;|start-end  &emsp;|VLAN range for automatic creation (e.g. 1-4094)  |
+    |1-4094     &emsp;|VLAN for automatic creation                      |
+    |start-end  &emsp;|VLAN range for automatic creation (e.g. 1-4094)  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -49,7 +49,7 @@ Required:
 - `interface` (String) interface(s) to listen on
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

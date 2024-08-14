@@ -28,32 +28,32 @@ description: |-
 
 - `join_prune_interval` (Number) Join prune send interval
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|1-65535  &emsp;|Interval in seconds  |
+    |1-65535  &emsp;|Interval in seconds  |
 - `keep_alive_timer` (Number) Keep alive Timer
 
-    &emsp;|Format   &emsp;|Description                  |
+    |Format   &emsp;|Description                  |
     |-----------|-------------------------------|
-    &emsp;|1-65535  &emsp;|Keep alive Timer in seconds  |
+    |1-65535  &emsp;|Keep alive Timer in seconds  |
 - `no_v6_secondary` (Boolean) Disable IPv6 secondary address in hello packets
 - `packets` (Number) Packets to process at once
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|1-255   &emsp;|Number of packets  |
+    |1-255   &emsp;|Number of packets  |
 - `register_suppress_time` (Number) Register suppress timer
 
-    &emsp;|Format   &emsp;|Description       |
+    |Format   &emsp;|Description       |
     |-----------|--------------------|
-    &emsp;|1-65535  &emsp;|Timer in seconds  |
+    |1-65535  &emsp;|Timer in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -32,33 +32,33 @@ Telegraf metric collector
 
 - `allow_from` (List of String) Networks allowed to query this server
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv4net  &emsp;|IP address and prefix length    |
-    &emsp;|ipv6net  &emsp;|IPv6 address and prefix length  |
+    |ipv4net  &emsp;|IP address and prefix length    |
+    |ipv6net  &emsp;|IPv6 address and prefix length  |
 - `listen_address` (String) Local IP addresses to listen on
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address to listen for incoming connections  |
-    &emsp;|ipv6    &emsp;|IPv6 address to listen for incoming connections  |
+    |ipv4    &emsp;|IPv4 address to listen for incoming connections  |
+    |ipv6    &emsp;|IPv6 address to listen for incoming connections  |
 - `metric_version` (Number) Metric version control mapping from Telegraf to Prometheus format
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|1-2     &emsp;|Metric version (default: 2)  |
+    |1-2     &emsp;|Metric version (default: 2)  |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

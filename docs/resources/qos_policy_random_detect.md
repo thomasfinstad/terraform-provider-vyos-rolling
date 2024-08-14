@@ -31,40 +31,40 @@ Service Policy definitions
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    &emsp;|Format        &emsp;|Description                         |
+    |Format        &emsp;|Description                         |
     |----------------|--------------------------------------|
-    &emsp;|auto          &emsp;|Bandwidth matches interface speed   |
-    &emsp;|&lt;number&gt;      &emsp;|Bits per second                     |
-    &emsp;|&lt;number&gt;bit   &emsp;|Bits per second                     |
-    &emsp;|&lt;number&gt;kbit  &emsp;|Kilobits per second                 |
-    &emsp;|&lt;number&gt;mbit  &emsp;|Megabits per second                 |
-    &emsp;|&lt;number&gt;gbit  &emsp;|Gigabits per second                 |
-    &emsp;|&lt;number&gt;tbit  &emsp;|Terabits per second                 |
-    &emsp;|&lt;number&gt;%%    &emsp;|Percentage of interface link speed  |
+    |auto          &emsp;|Bandwidth matches interface speed   |
+    |&lt;number&gt;      &emsp;|Bits per second                     |
+    |&lt;number&gt;bit   &emsp;|Bits per second                     |
+    |&lt;number&gt;kbit  &emsp;|Kilobits per second                 |
+    |&lt;number&gt;mbit  &emsp;|Megabits per second                 |
+    |&lt;number&gt;gbit  &emsp;|Gigabits per second                 |
+    |&lt;number&gt;tbit  &emsp;|Terabits per second                 |
+    |&lt;number&gt;%%    &emsp;|Percentage of interface link speed  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `random_detect` (String) Weighted Random Early Detect policy
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+    |txt     &emsp;|Policy name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

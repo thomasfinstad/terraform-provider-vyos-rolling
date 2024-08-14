@@ -28,49 +28,49 @@ description: |-
 
 - `accept_protocol` (List of String) Protocols for which local conntrack entries will be synced
 
-    &emsp;|Format  &emsp;|Description                                          |
+    |Format  &emsp;|Description                                          |
     |----------|-------------------------------------------------------|
-    &emsp;|tcp     &emsp;|Sync Transmission Control Protocol entries           |
-    &emsp;|udp     &emsp;|Sync User Datagram Protocol entries                  |
-    &emsp;|icmp    &emsp;|Sync Internet Control Message Protocol entries       |
-    &emsp;|icmp6   &emsp;|Sync IPv6 Internet Control Message Protocol entries  |
-    &emsp;|sctp    &emsp;|Sync Stream Control Transmission Protocol entries    |
-    &emsp;|dccp    &emsp;|Sync Datagram Congestion Control Protocol entries    |
+    |tcp     &emsp;|Sync Transmission Control Protocol entries           |
+    |udp     &emsp;|Sync User Datagram Protocol entries                  |
+    |icmp    &emsp;|Sync Internet Control Message Protocol entries       |
+    |icmp6   &emsp;|Sync IPv6 Internet Control Message Protocol entries  |
+    |sctp    &emsp;|Sync Stream Control Transmission Protocol entries    |
+    |dccp    &emsp;|Sync Datagram Congestion Control Protocol entries    |
 - `disable_external_cache` (Boolean) Directly injects the flow-states into the in-kernel Connection Tracking System of the backup firewall.
 - `disable_syslog` (Boolean) Disable connection logging via Syslog
 - `event_listen_queue_size` (Number) Queue size for local conntrack events
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|u32     &emsp;|Queue size in MB  |
+    |u32     &emsp;|Queue size in MB  |
 - `expect_sync` (List of String) Protocol for which expect entries need to be synchronized
 - `ignore_address` (List of String) IP addresses for which local conntrack entries will not be synced
 
-    &emsp;|Format   &emsp;|Description             |
+    |Format   &emsp;|Description             |
     |-----------|--------------------------|
-    &emsp;|ipv4     &emsp;|IPv4 address to ignore  |
-    &emsp;|ipv4net  &emsp;|IPv4 prefix to ignore   |
-    &emsp;|ipv6     &emsp;|IPv6 address to ignore  |
-    &emsp;|ipv6net  &emsp;|IPv6 prefix to ignore   |
+    |ipv4     &emsp;|IPv4 address to ignore  |
+    |ipv4net  &emsp;|IPv4 prefix to ignore   |
+    |ipv6     &emsp;|IPv6 address to ignore  |
+    |ipv6net  &emsp;|IPv6 prefix to ignore   |
 - `listen_address` (List of String) Local IPv4 addresses to listen on
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address to listen for incoming connections  |
+    |ipv4    &emsp;|IPv4 address to listen for incoming connections  |
 - `mcast_group` (String) Multicast group to use for syncing conntrack entries
 - `startup_resync` (Boolean) Order conntrackd to request a complete conntrack table resync against the other node at startup
 - `sync_queue_size` (Number) Queue size for syncing conntrack entries
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|u32     &emsp;|Queue size in MB  |
+    |u32     &emsp;|Queue size in MB  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

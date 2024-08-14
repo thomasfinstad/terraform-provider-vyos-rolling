@@ -31,15 +31,15 @@ IP access-list filter
 
 - `action` (String) Action to take on entries matching this rule
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|permit  &emsp;|Permit matching entries  |
-    &emsp;|deny    &emsp;|Deny matching entries    |
+    |permit  &emsp;|Permit matching entries  |
+    |deny    &emsp;|Deny matching entries    |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `destination` (Attributes) Destination network or address (see [below for nested schema](#nestedatt--destination))
 - `source` (Attributes) Source network or address to match (see [below for nested schema](#nestedatt--source))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -48,27 +48,27 @@ IP access-list filter
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `access_list` (Number) IP access-list filter
 
-    &emsp;|Format     &emsp;|Description                               |
+    |Format     &emsp;|Description                               |
     |-------------|--------------------------------------------|
-    &emsp;|1-99       &emsp;|IP standard access list                   |
-    &emsp;|100-199    &emsp;|IP extended access list                   |
-    &emsp;|1300-1999  &emsp;|IP standard access list (expanded range)  |
-    &emsp;|2000-2699  &emsp;|IP extended access list (expanded range)  |
+    |1-99       &emsp;|IP standard access list                   |
+    |100-199    &emsp;|IP extended access list                   |
+    |1300-1999  &emsp;|IP standard access list (expanded range)  |
+    |2000-2699  &emsp;|IP extended access list (expanded range)  |
 - `rule` (Number) Rule for this access-list
 
-    &emsp;|Format   &emsp;|Description              |
+    |Format   &emsp;|Description              |
     |-----------|---------------------------|
-    &emsp;|1-65535  &emsp;|Access-list rule number  |
+    |1-65535  &emsp;|Access-list rule number  |
 
 
-&lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--destination"></a>
 ### Nested Schema for `destination`
 
 Optional:
@@ -76,22 +76,22 @@ Optional:
 - `any` (Boolean) Any IP address to match
 - `host` (String) Single host IP address to match
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|ipv4    &emsp;|Host address to match  |
+    |ipv4    &emsp;|Host address to match  |
 - `inverse_mask` (String) Network/netmask to match (requires network be defined)
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|ipv4    &emsp;|Inverse-mask to match  |
+    |ipv4    &emsp;|Inverse-mask to match  |
 - `network` (String) Network/netmask to match (requires inverse-mask be defined)
 
-    &emsp;|Format   &emsp;|Description            |
+    |Format   &emsp;|Description            |
     |-----------|-------------------------|
-    &emsp;|ipv4net  &emsp;|Inverse-mask to match  |
+    |ipv4net  &emsp;|Inverse-mask to match  |
 
 
-&lt;a id=&#34;nestedatt--source&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 
 Optional:
@@ -99,22 +99,22 @@ Optional:
 - `any` (Boolean) Any IP address to match
 - `host` (String) Single host IP address to match
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|ipv4    &emsp;|Host address to match  |
+    |ipv4    &emsp;|Host address to match  |
 - `inverse_mask` (String) Network/netmask to match (requires network be defined)
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|ipv4    &emsp;|Inverse-mask to match  |
+    |ipv4    &emsp;|Inverse-mask to match  |
 - `network` (String) Network/netmask to match (requires inverse-mask be defined)
 
-    &emsp;|Format   &emsp;|Description            |
+    |Format   &emsp;|Description            |
     |-----------|-------------------------|
-    &emsp;|ipv4net  &emsp;|Inverse-mask to match  |
+    |ipv4net  &emsp;|Inverse-mask to match  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

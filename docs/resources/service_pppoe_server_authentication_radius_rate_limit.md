@@ -36,9 +36,9 @@ RADIUS based user authentication
 - `enable` (Boolean) Enable bandwidth shaping via RADIUS
 - `multiplier` (String) Shaper multiplier
 
-    &emsp;|Format        &emsp;|Description        |
+    |Format        &emsp;|Description        |
     |----------------|---------------------|
-    &emsp;|&lt;0.001-1000&gt;  &emsp;|Shaper multiplier  |
+    |&lt;0.001-1000&gt;  &emsp;|Shaper multiplier  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vendor` (String) Vendor dictionary
 
@@ -46,7 +46,7 @@ RADIUS based user authentication
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

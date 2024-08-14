@@ -32,23 +32,23 @@ IPv4 input firewall
 
 - `default_action` (String) Default-action for rule-set
 
-    &emsp;|Format  &emsp;|Description                       |
+    |Format  &emsp;|Description                       |
     |----------|------------------------------------|
-    &emsp;|drop    &emsp;|Drop if no prior rules are hit    |
-    &emsp;|accept  &emsp;|Accept if no prior rules are hit  |
+    |drop    &emsp;|Drop if no prior rules are hit    |
+    |accept  &emsp;|Accept if no prior rules are hit  |
 - `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

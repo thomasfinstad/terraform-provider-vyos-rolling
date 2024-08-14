@@ -28,26 +28,26 @@ description: |-
 
 - `default_metric` (Number) Metric of redistributed routes
 
-    &emsp;|Format      &emsp;|Description                     |
+    |Format      &emsp;|Description                     |
     |--------------|----------------------------------|
-    &emsp;|0-16777214  &emsp;|Metric of redistributed routes  |
+    |0-16777214  &emsp;|Metric of redistributed routes  |
 - `maximum_paths` (Number) Maximum multiple paths (ECMP)
 
-    &emsp;|Format  &emsp;|Description                    |
+    |Format  &emsp;|Description                    |
     |----------|---------------------------------|
-    &emsp;|1-64    &emsp;|Maximum multiple paths (ECMP)  |
+    |1-64    &emsp;|Maximum multiple paths (ECMP)  |
 - `passive_interface` (String) Suppress routing updates on an interface
 
-    &emsp;|Format   &emsp;|Description                                            |
+    |Format   &emsp;|Description                                            |
     |-----------|---------------------------------------------------------|
-    &emsp;|default  &emsp;|Default to suppress routing updates on all interfaces  |
+    |default  &emsp;|Default to suppress routing updates on all interfaces  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

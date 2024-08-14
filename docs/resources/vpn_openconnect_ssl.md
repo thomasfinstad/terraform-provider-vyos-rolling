@@ -30,26 +30,26 @@ SSL VPN OpenConnect, AnyConnect compatible server
 
 - `ca_certificate` (List of String) Certificate Authority chain in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|txt     &emsp;|Name of CA in PKI configuration  |
+    |txt     &emsp;|Name of CA in PKI configuration  |
 - `certificate` (String) Certificate in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                               |
+    |Format  &emsp;|Description                               |
     |----------|--------------------------------------------|
-    &emsp;|txt     &emsp;|Name of certificate in PKI configuration  |
+    |txt     &emsp;|Name of certificate in PKI configuration  |
 - `passphrase` (String) Private key passphrase
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|txt     &emsp;|Passphrase to decrypt the private key  |
+    |txt     &emsp;|Passphrase to decrypt the private key  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

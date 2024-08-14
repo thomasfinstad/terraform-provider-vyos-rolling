@@ -32,21 +32,21 @@ Segment-Routing (SPRING) settings
 
 - `high_label_value` (Number) MPLS label upper bound
 
-    &emsp;|Format      &emsp;|Description  |
+    |Format      &emsp;|Description  |
     |--------------|---------------|
-    &emsp;|16-1048575  &emsp;|Label value  |
+    |16-1048575  &emsp;|Label value  |
 - `low_label_value` (Number) MPLS label lower bound
 
-    &emsp;|Format      &emsp;|Description                                   |
+    |Format      &emsp;|Description                                   |
     |--------------|------------------------------------------------|
-    &emsp;|16-1048575  &emsp;|Label value (recommended minimum value: 300)  |
+    |16-1048575  &emsp;|Label value (recommended minimum value: 300)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

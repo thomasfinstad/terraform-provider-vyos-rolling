@@ -29,38 +29,38 @@ description: |-
 - `enable_http_redirect` (Boolean) Enable HTTP to HTTPS redirect
 - `listen_address` (List of String) Local IP addresses to listen on
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address to listen for incoming connections  |
-    &emsp;|ipv6    &emsp;|IPv6 address to listen for incoming connections  |
+    |ipv4    &emsp;|IPv4 address to listen for incoming connections  |
+    |ipv6    &emsp;|IPv6 address to listen for incoming connections  |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `request_body_size_limit` (Number) Maximum request body size in megabytes
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|1-256   &emsp;|Request body size in megabytes  |
+    |1-256   &emsp;|Request body size in megabytes  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `tls_version` (List of String) Specify available TLS version(s)
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|1.2     &emsp;|TLSv1.2      |
-    &emsp;|1.3     &emsp;|TLSv1.3      |
+    |1.2     &emsp;|TLSv1.2      |
+    |1.3     &emsp;|TLSv1.3      |
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

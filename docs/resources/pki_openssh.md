@@ -35,7 +35,7 @@ Public key infrastructure (PKI)
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -43,7 +43,7 @@ Required:
 - `openssh` (String) OpenSSH public and private keys
 
 
-&lt;a id=&#34;nestedatt--private&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--private"></a>
 ### Nested Schema for `private`
 
 Optional:
@@ -52,7 +52,7 @@ Optional:
 - `password_protected` (Boolean) Private key portion is password protected
 
 
-&lt;a id=&#34;nestedatt--public&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--public"></a>
 ### Nested Schema for `public`
 
 Optional:
@@ -60,12 +60,12 @@ Optional:
 - `key` (String) Public key in PEM format
 - `type` (String) SSH public key type
 
-    &emsp;|Format   &emsp;|Description                      |
+    |Format   &emsp;|Description                      |
     |-----------|-----------------------------------|
-    &emsp;|ssh-rsa  &emsp;|Key pair based on RSA algorithm  |
+    |ssh-rsa  &emsp;|Key pair based on RSA algorithm  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

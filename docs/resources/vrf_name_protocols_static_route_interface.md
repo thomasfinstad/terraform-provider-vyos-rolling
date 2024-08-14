@@ -38,43 +38,43 @@ Static IPv4 route
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-255   &emsp;|Distance for this route  |
+    |1-255   &emsp;|Distance for this route  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF to leak route
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|Name of VRF to leak to  |
+    |txt     &emsp;|Name of VRF to leak to  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) Next-hop IPv4 router interface
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|Gateway interface name  |
+    |txt     &emsp;|Gateway interface name  |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `route` (String) Static IPv4 route
 
-    &emsp;|Format   &emsp;|Description        |
+    |Format   &emsp;|Description        |
     |-----------|---------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 static route  |
+    |ipv4net  &emsp;|IPv4 static route  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

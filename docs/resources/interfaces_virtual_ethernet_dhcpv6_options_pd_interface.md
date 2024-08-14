@@ -35,21 +35,21 @@ DHCPv6 prefix delegation interface statement
 
 - `address` (String) Local interface address assigned to interface (default: EUI-64)
 
-    &emsp;|Format  &emsp;|Description                          |
+    |Format  &emsp;|Description                          |
     |----------|---------------------------------------|
-    &emsp;|&gt;0      &emsp;|Used to form IPv6 interface address  |
+    |&gt;0      &emsp;|Used to form IPv6 interface address  |
 - `sla_id` (Number) Interface site-Level aggregator (SLA)
 
-    &emsp;|Format   &emsp;|Description                                          |
+    |Format   &emsp;|Description                                          |
     |-----------|-------------------------------------------------------|
-    &emsp;|0-65535  &emsp;|Decimal integer which fits in the length of SLA IDs  |
+    |0-65535  &emsp;|Decimal integer which fits in the length of SLA IDs  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -57,17 +57,17 @@ Required:
 - `interface` (String) Delegate IPv6 prefix from provider to this interface
 - `pd` (String) DHCPv6 prefix delegation interface statement
 
-    &emsp;|Format           &emsp;|Description                        |
+    |Format           &emsp;|Description                        |
     |-------------------|-------------------------------------|
-    &emsp;|instance number  &emsp;|Prefix delegation instance (&gt;= 0)  |
+    |instance number  &emsp;|Prefix delegation instance (&gt;= 0)  |
 - `virtual_ethernet` (String) Virtual Ethernet (veth) Interface
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|vethN   &emsp;|Virtual Ethernet interface name  |
+    |vethN   &emsp;|Virtual Ethernet interface name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

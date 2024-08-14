@@ -24,7 +24,7 @@ var _ helpers.VyosTopResourceDataModel = &FirewallBrIDgeOutputFilterRule{}
 type FirewallBrIDgeOutputFilterRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
@@ -46,7 +46,7 @@ type FirewallBrIDgeOutputFilterRule struct {
 	LeafFirewallBrIDgeOutputFilterRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleState               types.List   `tfsdk:"state" vyos:"state,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallBrIDgeOutputFilterRuleFragment          *FirewallBrIDgeOutputFilterRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
@@ -91,7 +91,7 @@ func (o *FirewallBrIDgeOutputFilterRule) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
 		"rule",
-		o.SelfIdentifier.ValueBigFloat().String(),
+		o.SelfIdentifier.Attributes()["rule"].(types.Number).ValueBigFloat().String(),
 	)
 }
 
@@ -126,22 +126,29 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"rule_id": schema.NumberAttribute{
+		"identifier": schema.MapNestedAttribute{
 			Required: true,
-			MarkdownDescription: `Bridge Firewall output filter rule number
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: map[string]schema.Attribute{
+					"rule": schema.NumberAttribute{
+						Required: true,
+						MarkdownDescription: `Bridge Firewall output filter rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-			Description: `Bridge Firewall output filter rule number
+						Description: `Bridge Firewall output filter rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-			PlanModifiers: []planmodifier.Number{
-				numberplanmodifier.RequiresReplace(),
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					},
+				},
 			},
 		},
 

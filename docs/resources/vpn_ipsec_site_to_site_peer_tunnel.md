@@ -38,14 +38,14 @@ Connection name of the peer
 - `local` (Attributes) Local parameters for interesting traffic (see [below for nested schema](#nestedatt--local))
 - `priority` (Number) Priority for IPsec policy (lowest value more preferable)
 
-    &emsp;|Format  &emsp;|Description                                               |
+    |Format  &emsp;|Description                                               |
     |----------|------------------------------------------------------------|
-    &emsp;|1-100   &emsp;|Priority for IPsec policy (lowest value more preferable)  |
+    |1-100   &emsp;|Priority for IPsec policy (lowest value more preferable)  |
 - `protocol` (String) Protocol
 
-    &emsp;|Format  &emsp;|Description    |
+    |Format  &emsp;|Description    |
     |----------|-----------------|
-    &emsp;|txt     &emsp;|Protocol name  |
+    |txt     &emsp;|Protocol name  |
 - `remote` (Attributes) Match remote addresses (see [below for nested schema](#nestedatt--remote))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -53,60 +53,60 @@ Connection name of the peer
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `peer` (String) Connection name of the peer
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|txt     &emsp;|Connection name of the peer  |
+    |txt     &emsp;|Connection name of the peer  |
 - `tunnel` (Number) Peer tunnel
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|u32     &emsp;|Peer tunnel  |
+    |u32     &emsp;|Peer tunnel  |
 
 
-&lt;a id=&#34;nestedatt--local&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--local"></a>
 ### Nested Schema for `local`
 
 Optional:
 
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `prefix` (List of String) Local IPv4 or IPv6 prefix
 
-    &emsp;|Format   &emsp;|Description        |
+    |Format   &emsp;|Description        |
     |-----------|---------------------|
-    &emsp;|ipv4net  &emsp;|Local IPv4 prefix  |
-    &emsp;|ipv6net  &emsp;|Local IPv6 prefix  |
+    |ipv4net  &emsp;|Local IPv4 prefix  |
+    |ipv6net  &emsp;|Local IPv6 prefix  |
 
 
-&lt;a id=&#34;nestedatt--remote&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--remote"></a>
 ### Nested Schema for `remote`
 
 Optional:
 
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `prefix` (List of String) Remote IPv4 or IPv6 prefix
 
-    &emsp;|Format   &emsp;|Description         |
+    |Format   &emsp;|Description         |
     |-----------|----------------------|
-    &emsp;|ipv4net  &emsp;|Remote IPv4 prefix  |
-    &emsp;|ipv6net  &emsp;|Remote IPv6 prefix  |
+    |ipv4net  &emsp;|Remote IPv4 prefix  |
+    |ipv6net  &emsp;|Remote IPv6 prefix  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -29,61 +29,61 @@ High availability settings
 
 - `address` (String) IP address
 
-    &emsp;|Format  &emsp;|Description   |
+    |Format  &emsp;|Description   |
     |----------|----------------|
-    &emsp;|ipv4    &emsp;|IPv4 address  |
-    &emsp;|ipv6    &emsp;|IPv6 address  |
+    |ipv4    &emsp;|IPv4 address  |
+    |ipv6    &emsp;|IPv6 address  |
 - `algorithm` (String) Schedule algorithm (default - least-connection)
 
-    &emsp;|Format                           &emsp;|Description                      |
+    |Format                           &emsp;|Description                      |
     |-----------------------------------|-----------------------------------|
-    &emsp;|round-robin                      &emsp;|Round robin                      |
-    &emsp;|weighted-round-robin             &emsp;|Weighted round robin             |
-    &emsp;|least-connection                 &emsp;|Least connection                 |
-    &emsp;|weighted-least-connection        &emsp;|Weighted least connection        |
-    &emsp;|source-hashing                   &emsp;|Source hashing                   |
-    &emsp;|destination-hashing              &emsp;|Destination hashing              |
-    &emsp;|locality-based-least-connection  &emsp;|Locality-Based least connection  |
+    |round-robin                      &emsp;|Round robin                      |
+    |weighted-round-robin             &emsp;|Weighted round robin             |
+    |least-connection                 &emsp;|Least connection                 |
+    |weighted-least-connection        &emsp;|Weighted least connection        |
+    |source-hashing                   &emsp;|Source hashing                   |
+    |destination-hashing              &emsp;|Destination hashing              |
+    |locality-based-least-connection  &emsp;|Locality-Based least connection  |
 - `delay_loop` (Number) Interval between health-checks (in seconds)
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|1-600   &emsp;|Interval in seconds  |
+    |1-600   &emsp;|Interval in seconds  |
 - `forward_method` (String) Forwarding method
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|direct  &emsp;|Direct routing  |
-    &emsp;|nat     &emsp;|NAT             |
-    &emsp;|tunnel  &emsp;|Tunneling       |
+    |direct  &emsp;|Direct routing  |
+    |nat     &emsp;|NAT             |
+    |tunnel  &emsp;|Tunneling       |
 - `fwmark` (Number) Match fwmark value
 
-    &emsp;|Format        &emsp;|Description                |
+    |Format        &emsp;|Description                |
     |----------------|-----------------------------|
-    &emsp;|1-2147483647  &emsp;|Match firewall mark value  |
+    |1-2147483647  &emsp;|Match firewall mark value  |
 - `persistence_timeout` (Number) Timeout for persistent connections
 
-    &emsp;|Format   &emsp;|Description                         |
+    |Format   &emsp;|Description                         |
     |-----------|--------------------------------------|
-    &emsp;|1-86400  &emsp;|Timeout for persistent connections  |
+    |1-86400  &emsp;|Timeout for persistent connections  |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|0-65535  &emsp;|Numeric IP port  |
+    |0-65535  &emsp;|Numeric IP port  |
 - `protocol` (String) Protocol for port checks
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|tcp     &emsp;|TCP          |
-    &emsp;|udp     &emsp;|UDP          |
+    |tcp     &emsp;|TCP          |
+    |udp     &emsp;|UDP          |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -91,7 +91,7 @@ Required:
 - `virtual_server` (String) Load-balancing virtual server alias
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -39,33 +39,33 @@ DNS zone records
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `ttl` (Number) Time-to-live (TTL)
 
-    &emsp;|Format        &emsp;|Description     |
+    |Format        &emsp;|Description     |
     |----------------|------------------|
-    &emsp;|0-2147483647  &emsp;|TTL in seconds  |
+    |0-2147483647  &emsp;|TTL in seconds  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `authoritative_domain` (String) Domain to host authoritative records for
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|txt     &emsp;|An absolute DNS domain name  |
+    |txt     &emsp;|An absolute DNS domain name  |
 - `mx` (String) MX record
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|txt     &emsp;|A DNS name relative to the root record  |
-    &emsp;|@       &emsp;|Root record                             |
+    |txt     &emsp;|A DNS name relative to the root record  |
+    |@       &emsp;|Root record                             |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

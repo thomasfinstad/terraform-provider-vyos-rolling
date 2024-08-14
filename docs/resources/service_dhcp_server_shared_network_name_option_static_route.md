@@ -35,16 +35,16 @@ DHCP option
 
 - `next_hop` (String) IP address of router to be used to reach the destination subnet
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address of router  |
+    |ipv4    &emsp;|IPv4 address of router  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -52,12 +52,12 @@ Required:
 - `shared_network_name` (String) Name of DHCP shared network
 - `static_route` (String) Classless static route destination subnet
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 address and prefix length  |
+    |ipv4net  &emsp;|IPv4 address and prefix length  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

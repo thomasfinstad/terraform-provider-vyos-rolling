@@ -34,21 +34,21 @@ Filter IPv6 routes
 
 - `in` (String) Prefix-list to apply to input packets
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|txt     &emsp;|Prefix-list to apply to input packets  |
+    |txt     &emsp;|Prefix-list to apply to input packets  |
 - `out` (String) Prefix-list to apply to output packets
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|txt     &emsp;|Prefix-list to apply to output packets  |
+    |txt     &emsp;|Prefix-list to apply to output packets  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

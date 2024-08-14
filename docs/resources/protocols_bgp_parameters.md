@@ -32,9 +32,9 @@ Border Gateway Protocol (BGP)
 - `always_compare_med` (Boolean) Always compare MEDs from different neighbors
 - `cluster_id` (String) Route-reflector cluster-id
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|ipv4    &emsp;|Route-reflector cluster-id  |
+    |ipv4    &emsp;|Route-reflector cluster-id  |
 - `deterministic_med` (Boolean) Compare MEDs between different peers in the same AS
 - `disable_ebgp_connected_route_check` (Boolean) Disable checking if nexthop is connected on eBGP session
 - `ebgp_requires_policy` (Boolean) Require in and out policy for eBGP peers (RFC8212)
@@ -42,17 +42,17 @@ Border Gateway Protocol (BGP)
 - `graceful_shutdown` (Boolean) Graceful shutdown
 - `labeled_unicast` (String) BGP Labeled-unicast options
 
-    &emsp;|Format              &emsp;|Description                                                 |
+    |Format              &emsp;|Description                                                 |
     |----------------------|--------------------------------------------------------------|
-    &emsp;|explicit-null       &emsp;|Use explicit-null label values for all local prefixes       |
-    &emsp;|ipv4-explicit-null  &emsp;|Use IPv4 explicit-null label value for IPv4 local prefixes  |
-    &emsp;|ipv6-explicit-null  &emsp;|Use IPv6 explicit-null label value for IPv4 local prefixes  |
+    |explicit-null       &emsp;|Use explicit-null label values for all local prefixes       |
+    |ipv4-explicit-null  &emsp;|Use IPv4 explicit-null label value for IPv4 local prefixes  |
+    |ipv6-explicit-null  &emsp;|Use IPv6 explicit-null label value for IPv4 local prefixes  |
 - `log_neighbor_changes` (Boolean) Log neighbor up/down changes and reset reason
 - `minimum_holdtime` (Number) BGP minimum holdtime
 
-    &emsp;|Format   &emsp;|Description                  |
+    |Format   &emsp;|Description                  |
     |-----------|-------------------------------|
-    &emsp;|1-65535  &emsp;|Minimum holdtime in seconds  |
+    |1-65535  &emsp;|Minimum holdtime in seconds  |
 - `network_import_check` (Boolean) Enable IGP route check for network statements
 - `no_client_to_client_reflection` (Boolean) Disable client to client route reflection
 - `no_fast_external_failover` (Boolean) Disable immediate session reset on peer link down event
@@ -62,9 +62,9 @@ Border Gateway Protocol (BGP)
 - `route_reflector_allow_outbound_policy` (Boolean) Route reflector client allow policy outbound
 - `router_id` (String) Override default router identifier
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|ipv4    &emsp;|Router-ID in IP address format  |
+    |ipv4    &emsp;|Router-ID in IP address format  |
 - `shutdown` (Boolean) Administrative shutdown of the BGP instance
 - `suppress_fib_pending` (Boolean) Advertise only routes that are programmed in kernel to peers
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -73,7 +73,7 @@ Border Gateway Protocol (BGP)
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

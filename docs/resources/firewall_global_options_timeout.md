@@ -30,21 +30,21 @@ Global Options
 
 - `icmp` (Number) ICMP timeout in seconds
 
-    &emsp;|Format      &emsp;|Description              |
+    |Format      &emsp;|Description              |
     |--------------|---------------------------|
-    &emsp;|1-21474836  &emsp;|ICMP timeout in seconds  |
+    |1-21474836  &emsp;|ICMP timeout in seconds  |
 - `other` (Number) Generic connection timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                            |
+    |Format      &emsp;|Description                            |
     |--------------|-----------------------------------------|
-    &emsp;|1-21474836  &emsp;|Generic connection timeout in seconds  |
+    |1-21474836  &emsp;|Generic connection timeout in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

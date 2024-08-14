@@ -35,16 +35,16 @@ IPv4 rules
 
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
 - `inbound_interface` (String) Interface to ignore connections tracking on
 - `protocol` (String) Protocol
 
-    &emsp;|Format  &emsp;|Description    |
+    |Format  &emsp;|Description    |
     |----------|-----------------|
-    &emsp;|txt     &emsp;|Protocol name  |
+    |txt     &emsp;|Protocol name  |
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
 - `tcp` (Attributes) TCP options to match (see [below for nested schema](#nestedatt--tcp))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -53,44 +53,44 @@ IPv4 rules
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `rule` (Number) Rule number
 
-    &emsp;|Format    &emsp;|Description                      |
+    |Format    &emsp;|Description                      |
     |------------|-----------------------------------|
-    &emsp;|1-999999  &emsp;|Number of conntrack ignore rule  |
+    |1-999999  &emsp;|Number of conntrack ignore rule  |
 
 
-&lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--destination"></a>
 ### Nested Schema for `destination`
 
 Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    &emsp;|Format      &emsp;|Description                                    |
+    |Format      &emsp;|Description                                    |
     |--------------|-------------------------------------------------|
-    &emsp;|ipv4        &emsp;|IPv4 address to match                          |
-    &emsp;|ipv4net     &emsp;|IPv4 prefix to match                           |
-    &emsp;|ipv4range   &emsp;|IPv4 address range to match                    |
-    &emsp;|!ipv4       &emsp;|Match everything except the specified address  |
-    &emsp;|!ipv4net    &emsp;|Match everything except the specified prefix   |
-    &emsp;|!ipv4range  &emsp;|Match everything except the specified range    |
+    |ipv4        &emsp;|IPv4 address to match                          |
+    |ipv4net     &emsp;|IPv4 prefix to match                           |
+    |ipv4range   &emsp;|IPv4 address range to match                    |
+    |!ipv4       &emsp;|Match everything except the specified address  |
+    |!ipv4net    &emsp;|Match everything except the specified prefix   |
+    |!ipv4range  &emsp;|Match everything except the specified range    |
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--destination--group))
 - `port` (String) Port number
 
-    &emsp;|Format     &emsp;|Description                                                                                                                                                              |
+    |Format     &emsp;|Description                                                                                                                                                              |
     |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    &emsp;|txt        &emsp;|Named port (any name in /etc/services, e.g., http)                                                                                                                       |
-    &emsp;|1-65535    &emsp;|Numeric IP port                                                                                                                                                          |
-    &emsp;|start-end  &emsp;|Numbered port range (e.g. 1001-1005)                                                                                                                                     |
-    &emsp;|           &emsp;|\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using &#39;!&#39;.\nFor example: &#39;!22,telnet,http,123,1001-1005&#39;  |
+    |txt        &emsp;|Named port (any name in /etc/services, e.g., http)                                                                                                                       |
+    |1-65535    &emsp;|Numeric IP port                                                                                                                                                          |
+    |start-end  &emsp;|Numbered port range (e.g. 1001-1005)                                                                                                                                     |
+    |           &emsp;|\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using &#39;!&#39;.\nFor example: &#39;!22,telnet,http,123,1001-1005&#39;  |
 
-&lt;a id=&#34;nestedatt--destination--group&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--destination--group"></a>
 ### Nested Schema for `destination.group`
 
 Optional:
@@ -102,32 +102,32 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--source&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 
 Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    &emsp;|Format      &emsp;|Description                                    |
+    |Format      &emsp;|Description                                    |
     |--------------|-------------------------------------------------|
-    &emsp;|ipv4        &emsp;|IPv4 address to match                          |
-    &emsp;|ipv4net     &emsp;|IPv4 prefix to match                           |
-    &emsp;|ipv4range   &emsp;|IPv4 address range to match                    |
-    &emsp;|!ipv4       &emsp;|Match everything except the specified address  |
-    &emsp;|!ipv4net    &emsp;|Match everything except the specified prefix   |
-    &emsp;|!ipv4range  &emsp;|Match everything except the specified range    |
+    |ipv4        &emsp;|IPv4 address to match                          |
+    |ipv4net     &emsp;|IPv4 prefix to match                           |
+    |ipv4range   &emsp;|IPv4 address range to match                    |
+    |!ipv4       &emsp;|Match everything except the specified address  |
+    |!ipv4net    &emsp;|Match everything except the specified prefix   |
+    |!ipv4range  &emsp;|Match everything except the specified range    |
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--source--group))
 - `port` (String) Port number
 
-    &emsp;|Format     &emsp;|Description                                                                                                                                                              |
+    |Format     &emsp;|Description                                                                                                                                                              |
     |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    &emsp;|txt        &emsp;|Named port (any name in /etc/services, e.g., http)                                                                                                                       |
-    &emsp;|1-65535    &emsp;|Numeric IP port                                                                                                                                                          |
-    &emsp;|start-end  &emsp;|Numbered port range (e.g. 1001-1005)                                                                                                                                     |
-    &emsp;|           &emsp;|\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using &#39;!&#39;.\nFor example: &#39;!22,telnet,http,123,1001-1005&#39;  |
+    |txt        &emsp;|Named port (any name in /etc/services, e.g., http)                                                                                                                       |
+    |1-65535    &emsp;|Numeric IP port                                                                                                                                                          |
+    |start-end  &emsp;|Numbered port range (e.g. 1001-1005)                                                                                                                                     |
+    |           &emsp;|\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using &#39;!&#39;.\nFor example: &#39;!22,telnet,http,123,1001-1005&#39;  |
 
-&lt;a id=&#34;nestedatt--source--group&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--source--group"></a>
 ### Nested Schema for `source.group`
 
 Optional:
@@ -139,14 +139,14 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--tcp&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--tcp"></a>
 ### Nested Schema for `tcp`
 
 Optional:
 
 - `flags` (Attributes) TCP flags to match (see [below for nested schema](#nestedatt--tcp--flags))
 
-&lt;a id=&#34;nestedatt--tcp--flags&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--tcp--flags"></a>
 ### Nested Schema for `tcp.flags`
 
 Optional:
@@ -161,7 +161,7 @@ Optional:
 - `syn` (Boolean) Synchronise flag
 - `urg` (Boolean) Urgent flag
 
-&lt;a id=&#34;nestedatt--tcp--flags--not&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--tcp--flags--not"></a>
 ### Nested Schema for `tcp.flags.not`
 
 Optional:
@@ -178,7 +178,7 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

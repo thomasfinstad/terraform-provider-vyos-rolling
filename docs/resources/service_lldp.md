@@ -28,10 +28,10 @@ description: |-
 
 - `management_address` (List of String) Management IP Address
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 Management Address  |
-    &emsp;|ipv6    &emsp;|IPv6 Management Address  |
+    |ipv4    &emsp;|IPv4 Management Address  |
+    |ipv6    &emsp;|IPv6 Management Address  |
 - `snmp` (Boolean) Enable SNMP queries of the LLDP database
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -39,7 +39,7 @@ description: |-
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

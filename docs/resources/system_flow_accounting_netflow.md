@@ -30,40 +30,40 @@ Flow accounting settings
 
 - `engine_id` (String) NetFlow engine-id
 
-    &emsp;|Format                &emsp;|Description                       |
+    |Format                &emsp;|Description                       |
     |------------------------|------------------------------------|
-    &emsp;|0-255 or 0-255:0-255  &emsp;|NetFlow engine-id for v5          |
-    &emsp;|u32                   &emsp;|NetFlow engine-id for v9 / IPFIX  |
+    |0-255 or 0-255:0-255  &emsp;|NetFlow engine-id for v5          |
+    |u32                   &emsp;|NetFlow engine-id for v9 / IPFIX  |
 - `max_flows` (Number) NetFlow maximum flows
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|u32     &emsp;|NetFlow maximum flows  |
+    |u32     &emsp;|NetFlow maximum flows  |
 - `sampling_rate` (Number) NetFlow sampling-rate
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|u32     &emsp;|Sampling rate (1 in N packets)  |
+    |u32     &emsp;|Sampling rate (1 in N packets)  |
 - `source_address` (String) Source IP address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
-    &emsp;|ipv6    &emsp;|IPv6 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
+    |ipv6    &emsp;|IPv6 source address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `version` (String) NetFlow version to export
 
-    &emsp;|Format  &emsp;|Description                                        |
+    |Format  &emsp;|Description                                        |
     |----------|-----------------------------------------------------|
-    &emsp;|5       &emsp;|NetFlow version 5                                  |
-    &emsp;|9       &emsp;|NetFlow version 9                                  |
-    &emsp;|10      &emsp;|Internet Protocol Flow Information Export (IPFIX)  |
+    |5       &emsp;|NetFlow version 5                                  |
+    |9       &emsp;|NetFlow version 9                                  |
+    |10      &emsp;|Internet Protocol Flow Information Export (IPFIX)  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

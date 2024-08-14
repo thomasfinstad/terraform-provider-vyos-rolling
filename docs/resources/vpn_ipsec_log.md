@@ -30,40 +30,40 @@ VPN IP security (IPsec) parameters
 
 - `level` (String) Global IPsec logging Level
 
-    &emsp;|Format  &emsp;|Description                                                             |
+    |Format  &emsp;|Description                                                             |
     |----------|--------------------------------------------------------------------------|
-    &emsp;|0       &emsp;|Very basic auditing logs (e.g., SA up/SA down)                          |
-    &emsp;|1       &emsp;|Generic control flow with errors, a good default to see whats going on  |
-    &emsp;|2       &emsp;|More detailed debugging control flow                                    |
+    |0       &emsp;|Very basic auditing logs (e.g., SA up/SA down)                          |
+    |1       &emsp;|Generic control flow with errors, a good default to see whats going on  |
+    |2       &emsp;|More detailed debugging control flow                                    |
 - `subsystem` (List of String) Subsystem logging levels
 
-    &emsp;|Format  &emsp;|Description                                                 |
+    |Format  &emsp;|Description                                                 |
     |----------|--------------------------------------------------------------|
-    &emsp;|dmn     &emsp;|Main daemon setup/cleanup/signal handling                   |
-    &emsp;|mgr     &emsp;|IKE_SA manager, handling synchronization for IKE_SA access  |
-    &emsp;|ike     &emsp;|IKE_SA/ISAKMP SA                                            |
-    &emsp;|chd     &emsp;|CHILD_SA/IPsec SA                                           |
-    &emsp;|job     &emsp;|Jobs queuing/processing and thread pool management          |
-    &emsp;|cfg     &emsp;|Configuration management and plugins                        |
-    &emsp;|knl     &emsp;|IPsec/Networking kernel interface                           |
-    &emsp;|net     &emsp;|IKE network communication                                   |
-    &emsp;|asn     &emsp;|Low-level encoding/decoding (ASN.1, X.509 etc.)             |
-    &emsp;|enc     &emsp;|Packet encoding/decoding encryption/decryption operations   |
-    &emsp;|lib     &emsp;|libstrongswan library messages                              |
-    &emsp;|esp     &emsp;|libipsec library messages                                   |
-    &emsp;|tls     &emsp;| libtls library messages                                    |
-    &emsp;|tnc     &emsp;|Trusted Network Connect                                     |
-    &emsp;|imc     &emsp;|Integrity Measurement Collector                             |
-    &emsp;|imv     &emsp;|Integrity Measurement Verifier                              |
-    &emsp;|pts     &emsp;| Platform Trust Service                                     |
-    &emsp;|any     &emsp;|Any subsystem                                               |
+    |dmn     &emsp;|Main daemon setup/cleanup/signal handling                   |
+    |mgr     &emsp;|IKE_SA manager, handling synchronization for IKE_SA access  |
+    |ike     &emsp;|IKE_SA/ISAKMP SA                                            |
+    |chd     &emsp;|CHILD_SA/IPsec SA                                           |
+    |job     &emsp;|Jobs queuing/processing and thread pool management          |
+    |cfg     &emsp;|Configuration management and plugins                        |
+    |knl     &emsp;|IPsec/Networking kernel interface                           |
+    |net     &emsp;|IKE network communication                                   |
+    |asn     &emsp;|Low-level encoding/decoding (ASN.1, X.509 etc.)             |
+    |enc     &emsp;|Packet encoding/decoding encryption/decryption operations   |
+    |lib     &emsp;|libstrongswan library messages                              |
+    |esp     &emsp;|libipsec library messages                                   |
+    |tls     &emsp;| libtls library messages                                    |
+    |tnc     &emsp;|Trusted Network Connect                                     |
+    |imc     &emsp;|Integrity Measurement Collector                             |
+    |imv     &emsp;|Integrity Measurement Verifier                              |
+    |pts     &emsp;| Platform Trust Service                                     |
+    |any     &emsp;|Any subsystem                                               |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

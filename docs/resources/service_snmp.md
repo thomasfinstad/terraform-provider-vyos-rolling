@@ -29,47 +29,47 @@ description: |-
 - `contact` (String) Contact information
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `location` (String) Location information
 - `oid_enable` (List of String) Enable specific OIDs that by default are disable
 
-    &emsp;|Format                           &emsp;|Description                                           |
+    |Format                           &emsp;|Description                                           |
     |-----------------------------------|--------------------------------------------------------|
-    &emsp;|ip-forward                       &emsp;|Enable ipForward: .1.3.6.1.2.1.4.24                   |
-    &emsp;|ip-route-table                   &emsp;|Enable ipRouteTable: .1.3.6.1.2.1.4.21                |
-    &emsp;|ip-net-to-media-table            &emsp;|Enable ipNetToMediaTable: .1.3.6.1.2.1.4.22           |
-    &emsp;|ip-net-to-physical-phys-address  &emsp;|Enable ipNetToPhysicalPhysAddress: .1.3.6.1.2.1.4.35  |
+    |ip-forward                       &emsp;|Enable ipForward: .1.3.6.1.2.1.4.24                   |
+    |ip-route-table                   &emsp;|Enable ipRouteTable: .1.3.6.1.2.1.4.21                |
+    |ip-net-to-media-table            &emsp;|Enable ipNetToMediaTable: .1.3.6.1.2.1.4.22           |
+    |ip-net-to-physical-phys-address  &emsp;|Enable ipNetToPhysicalPhysAddress: .1.3.6.1.2.1.4.35  |
 - `protocol` (String) Protocol to be used (TCP/UDP)
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|udp     &emsp;|Listen protocol UDP  |
-    &emsp;|tcp     &emsp;|Listen protocol TCP  |
+    |udp     &emsp;|Listen protocol UDP  |
+    |tcp     &emsp;|Listen protocol TCP  |
 - `smux_peer` (List of String) Register a subtree for SMUX-based processing
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|SNMP Object Identifier  |
+    |txt     &emsp;|SNMP Object Identifier  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `trap_source` (String) SNMP trap source address
 
-    &emsp;|Format  &emsp;|Description   |
+    |Format  &emsp;|Description   |
     |----------|----------------|
-    &emsp;|ipv4    &emsp;|IPv4 address  |
-    &emsp;|ipv6    &emsp;|IPv6 address  |
+    |ipv4    &emsp;|IPv4 address  |
+    |ipv6    &emsp;|IPv6 address  |
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

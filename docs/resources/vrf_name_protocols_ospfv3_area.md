@@ -42,25 +42,25 @@ Open Shortest Path First (OSPF) for IPv6
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `area` (String) OSPFv3 Area
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|u32     &emsp;|Area ID as a decimal value   |
-    &emsp;|ipv4    &emsp;|Area ID in IP address forma  |
+    |u32     &emsp;|Area ID as a decimal value   |
+    |ipv4    &emsp;|Area ID in IP address forma  |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 
-&lt;a id=&#34;nestedatt--area_type&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--area_type"></a>
 ### Nested Schema for `area_type`
 
 Optional:
@@ -68,7 +68,7 @@ Optional:
 - `nssa` (Attributes) NSSA OSPFv3 area (see [below for nested schema](#nestedatt--area_type--nssa))
 - `stub` (Attributes) Stub OSPFv3 area (see [below for nested schema](#nestedatt--area_type--stub))
 
-&lt;a id=&#34;nestedatt--area_type--nssa&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--area_type--nssa"></a>
 ### Nested Schema for `area_type.nssa`
 
 Optional:
@@ -77,7 +77,7 @@ Optional:
 - `no_summary` (Boolean) Do not inject inter-area routes into the stub
 
 
-&lt;a id=&#34;nestedatt--area_type--stub&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--area_type--stub"></a>
 ### Nested Schema for `area_type.stub`
 
 Optional:
@@ -86,7 +86,7 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

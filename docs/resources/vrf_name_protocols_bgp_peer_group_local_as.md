@@ -42,25 +42,25 @@ Name of peer-group
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `local_as` (Number) Specify alternate ASN for this BGP process
 
-    &emsp;|Format        &emsp;|Description                     |
+    |Format        &emsp;|Description                     |
     |----------------|----------------------------------|
-    &emsp;|1-4294967294  &emsp;|Autonomous System Number (ASN)  |
+    |1-4294967294  &emsp;|Autonomous System Number (ASN)  |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `peer_group` (String) Name of peer-group
 
 
-&lt;a id=&#34;nestedatt--no_prepend&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--no_prepend"></a>
 ### Nested Schema for `no_prepend`
 
 Optional:
@@ -68,7 +68,7 @@ Optional:
 - `replace_as` (Boolean) Prepend only local-as from/to updates for eBGP peers
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

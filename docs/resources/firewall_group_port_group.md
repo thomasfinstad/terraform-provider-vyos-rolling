@@ -31,24 +31,24 @@ Firewall group
 
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `include` (List of String) Include another port-group
 - `port` (List of String) Port-group member
 
-    &emsp;|Format     &emsp;|Description                                         |
+    |Format     &emsp;|Description                                         |
     |-------------|------------------------------------------------------|
-    &emsp;|txt        &emsp;|Named port (any name in /etc/services, e.g., http)  |
-    &emsp;|1-65535    &emsp;|Numbered port                                       |
-    &emsp;|start-end  &emsp;|Numbered port range (e.g. 1001-1050)                |
+    |txt        &emsp;|Named port (any name in /etc/services, e.g., http)  |
+    |1-65535    &emsp;|Numbered port                                       |
+    |start-end  &emsp;|Numbered port range (e.g. 1001-1050)                |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -56,7 +56,7 @@ Required:
 - `port_group` (String) Firewall port-group
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

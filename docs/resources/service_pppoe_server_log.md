@@ -30,21 +30,21 @@ Point to Point over Ethernet (PPPoE) Server
 
 - `level` (String) Specifies log level
 
-    &emsp;|Format  &emsp;|Description                                          |
+    |Format  &emsp;|Description                                          |
     |----------|-------------------------------------------------------|
-    &emsp;|0       &emsp;|Turn off logging                                     |
-    &emsp;|1       &emsp;|Log only error messages                              |
-    &emsp;|2       &emsp;|Log error and warning messages                       |
-    &emsp;|3       &emsp;|Log error, warning and minimum information messages  |
-    &emsp;|4       &emsp;|Log error, warning and full information messages     |
-    &emsp;|5       &emsp;|Log all messages including debug messages            |
+    |0       &emsp;|Turn off logging                                     |
+    |1       &emsp;|Log only error messages                              |
+    |2       &emsp;|Log error and warning messages                       |
+    |3       &emsp;|Log error, warning and minimum information messages  |
+    |4       &emsp;|Log error, warning and full information messages     |
+    |5       &emsp;|Log all messages including debug messages            |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

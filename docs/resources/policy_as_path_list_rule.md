@@ -31,44 +31,44 @@ Add a BGP autonomous system path filter
 
 - `action` (String) Action to take on entries matching this rule
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|permit  &emsp;|Permit matching entries  |
-    &emsp;|deny    &emsp;|Deny matching entries    |
+    |permit  &emsp;|Permit matching entries  |
+    |deny    &emsp;|Deny matching entries    |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `regex` (String) Regular expression to match against an AS path
 
-    &emsp;|Format  &emsp;|Description                                     |
+    |Format  &emsp;|Description                                     |
     |----------|--------------------------------------------------|
-    &emsp;|txt     &emsp;|AS path regular expression (ex: &#34;64501 64502&#34;)  |
+    |txt     &emsp;|AS path regular expression (ex: &#34;64501 64502&#34;)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `as_path_list` (String) Add a BGP autonomous system path filter
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|AS path list name  |
+    |txt     &emsp;|AS path list name  |
 - `rule` (Number) Rule for this as-path-list
 
-    &emsp;|Format   &emsp;|Description               |
+    |Format   &emsp;|Description               |
     |-----------|----------------------------|
-    &emsp;|1-65535  &emsp;|AS path list rule number  |
+    |1-65535  &emsp;|AS path list rule number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

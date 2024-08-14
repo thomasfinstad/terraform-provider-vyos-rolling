@@ -32,31 +32,31 @@ Global firewall state-policy
 
 - `action` (String) Action for packets
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|accept  &emsp;|Action to accept  |
-    &emsp;|drop    &emsp;|Action to drop    |
-    &emsp;|reject  &emsp;|Action to reject  |
+    |accept  &emsp;|Action to accept  |
+    |drop    &emsp;|Action to drop    |
+    |reject  &emsp;|Action to reject  |
 - `log` (Boolean) Log packets hitting this rule
 - `log_level` (String) Set log-level. Log must be enable.
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|emerg   &emsp;|Emerg log level     |
-    &emsp;|alert   &emsp;|Alert log level     |
-    &emsp;|crit    &emsp;|Critical log level  |
-    &emsp;|err     &emsp;|Error log level     |
-    &emsp;|warn    &emsp;|Warning log level   |
-    &emsp;|notice  &emsp;|Notice log level    |
-    &emsp;|info    &emsp;|Info log level      |
-    &emsp;|debug   &emsp;|Debug log level     |
+    |emerg   &emsp;|Emerg log level     |
+    |alert   &emsp;|Alert log level     |
+    |crit    &emsp;|Critical log level  |
+    |err     &emsp;|Error log level     |
+    |warn    &emsp;|Warning log level   |
+    |notice  &emsp;|Notice log level    |
+    |info    &emsp;|Info log level      |
+    |debug   &emsp;|Debug log level     |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

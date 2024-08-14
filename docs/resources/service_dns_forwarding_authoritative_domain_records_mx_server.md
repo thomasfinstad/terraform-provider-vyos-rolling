@@ -39,39 +39,39 @@ MX record
 
 - `priority` (Number) Server priority
 
-    &emsp;|Format  &emsp;|Description                                          |
+    |Format  &emsp;|Description                                          |
     |----------|-------------------------------------------------------|
-    &emsp;|1-999   &emsp;|Server priority (lower numbers are higher priority)  |
+    |1-999   &emsp;|Server priority (lower numbers are higher priority)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `authoritative_domain` (String) Domain to host authoritative records for
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|txt     &emsp;|An absolute DNS domain name  |
+    |txt     &emsp;|An absolute DNS domain name  |
 - `mx` (String) MX record
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|txt     &emsp;|A DNS name relative to the root record  |
-    &emsp;|@       &emsp;|Root record                             |
+    |txt     &emsp;|A DNS name relative to the root record  |
+    |@       &emsp;|Root record                             |
 - `server` (String) Mail server
 
-    &emsp;|Format            &emsp;|Description        |
+    |Format            &emsp;|Description        |
     |--------------------|---------------------|
-    &emsp;|name.example.com  &emsp;|Absolute DNS name  |
+    |name.example.com  &emsp;|Absolute DNS name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

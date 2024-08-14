@@ -30,28 +30,28 @@ Configuration management settings
 
 - `location` (List of String) Commit archive location
 
-    &emsp;|Format                                     &emsp;|Description  |
+    |Format                                     &emsp;|Description  |
     |---------------------------------------------|---------------|
-    &emsp;|http://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;       &emsp;|N/A          |
-    &emsp;|https://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;      &emsp;|N/A          |
-    &emsp;|ftp://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;        &emsp;|N/A          |
-    &emsp;|sftp://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;       &emsp;|N/A          |
-    &emsp;|scp://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;        &emsp;|N/A          |
-    &emsp;|tftp://&lt;host&gt;/&lt;path&gt;                       &emsp;|N/A          |
-    &emsp;|git+https://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;  &emsp;|N/A          |
+    |http://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;       &emsp;|N/A          |
+    |https://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;      &emsp;|N/A          |
+    |ftp://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;        &emsp;|N/A          |
+    |sftp://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;       &emsp;|N/A          |
+    |scp://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;        &emsp;|N/A          |
+    |tftp://&lt;host&gt;/&lt;path&gt;                       &emsp;|N/A          |
+    |git+https://&lt;user&gt;:&lt;passwd&gt;@&lt;host&gt;/&lt;path&gt;  &emsp;|N/A          |
 - `source_address` (String) Source IP address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
-    &emsp;|ipv6    &emsp;|IPv6 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
+    |ipv6    &emsp;|IPv6 source address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

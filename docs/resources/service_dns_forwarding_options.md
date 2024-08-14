@@ -32,29 +32,29 @@ DNS forwarding
 
 - `ecs_add_for` (List of String) Client netmask for which EDNS Client Subnet will be added
 
-    &emsp;|Format    &emsp;|Description                                        |
+    |Format    &emsp;|Description                                        |
     |------------|-----------------------------------------------------|
-    &emsp;|ipv4net   &emsp;|IPv4 prefix to match                               |
-    &emsp;|!ipv4net  &emsp;|Match everything except the specified IPv4 prefix  |
-    &emsp;|ipv6net   &emsp;|IPv6 prefix to match                               |
-    &emsp;|!ipv6net  &emsp;|Match everything except the specified IPv6 prefix  |
+    |ipv4net   &emsp;|IPv4 prefix to match                               |
+    |!ipv4net  &emsp;|Match everything except the specified IPv4 prefix  |
+    |ipv6net   &emsp;|IPv6 prefix to match                               |
+    |!ipv6net  &emsp;|Match everything except the specified IPv6 prefix  |
 - `ecs_ipv4_bits` (Number) Number of bits of IPv4 address to pass for EDNS Client Subnet
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|0-32    &emsp;|Number of bits of IPv4 address  |
+    |0-32    &emsp;|Number of bits of IPv4 address  |
 - `edns_subnet_allow_list` (List of String) Netmask or domain that we should enable EDNS subnet for
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|Netmask or domain  |
+    |txt     &emsp;|Netmask or domain  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

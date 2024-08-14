@@ -33,9 +33,9 @@ Serial Console Server
 - `data_bits` (String) Serial port data bits
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `parity` (String) Parity setting
 - `speed` (String) Serial port baud rate
 - `ssh` (Attributes) SSH remote access to this console (see [below for nested schema](#nestedatt--ssh))
@@ -46,32 +46,32 @@ Serial Console Server
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `device` (String) System serial interface name (ttyS or ttyUSB)
 
-    &emsp;|Format    &emsp;|Description                 |
+    |Format    &emsp;|Description                 |
     |------------|------------------------------|
-    &emsp;|ttySxxx   &emsp;|Regular serial interface    |
-    &emsp;|usbxbxpx  &emsp;|USB based serial interface  |
+    |ttySxxx   &emsp;|Regular serial interface    |
+    |usbxbxpx  &emsp;|USB based serial interface  |
 
 
-&lt;a id=&#34;nestedatt--ssh&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--ssh"></a>
 ### Nested Schema for `ssh`
 
 Optional:
 
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

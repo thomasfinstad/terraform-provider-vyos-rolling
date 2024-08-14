@@ -36,57 +36,57 @@ Open Shortest Path First (OSPF)
 - `area_type` (Attributes) Area type (see [below for nested schema](#nestedatt--area_type))
 - `authentication` (String) OSPF area authentication type
 
-    &emsp;|Format              &emsp;|Description                    |
+    |Format              &emsp;|Description                    |
     |----------------------|---------------------------------|
-    &emsp;|plaintext-password  &emsp;|Use plain-text authentication  |
-    &emsp;|md5                 &emsp;|Use MD5 authentication         |
+    |plaintext-password  &emsp;|Use plain-text authentication  |
+    |md5                 &emsp;|Use MD5 authentication         |
 - `export_list` (Number) Set the filter for networks announced to other areas
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|u32     &emsp;|Access-list number  |
+    |u32     &emsp;|Access-list number  |
 - `import_list` (Number) Set the filter for networks from other areas announced
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|u32     &emsp;|Access-list number  |
+    |u32     &emsp;|Access-list number  |
 - `network` (List of String) OSPF network
 
-    &emsp;|Format   &emsp;|Description   |
+    |Format   &emsp;|Description   |
     |-----------|----------------|
-    &emsp;|ipv4net  &emsp;|OSPF network  |
+    |ipv4net  &emsp;|OSPF network  |
 - `shortcut` (String) Area shortcut mode
 
-    &emsp;|Format   &emsp;|Description                |
+    |Format   &emsp;|Description                |
     |-----------|-----------------------------|
-    &emsp;|default  &emsp;|Set default                |
-    &emsp;|disable  &emsp;|Disable shortcutting mode  |
-    &emsp;|enable   &emsp;|Enable shortcutting mode   |
+    |default  &emsp;|Set default                |
+    |disable  &emsp;|Disable shortcutting mode  |
+    |enable   &emsp;|Enable shortcutting mode   |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `area` (String) OSPF area settings
 
-    &emsp;|Format  &emsp;|Description                                  |
+    |Format  &emsp;|Description                                  |
     |----------|-----------------------------------------------|
-    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
-    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
+    |u32     &emsp;|OSPF area number in decimal notation         |
+    |ipv4    &emsp;|OSPF area number in dotted decimal notation  |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 
-&lt;a id=&#34;nestedatt--area_type&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--area_type"></a>
 ### Nested Schema for `area_type`
 
 Optional:
@@ -95,41 +95,41 @@ Optional:
 - `nssa` (Attributes) Not-So-Stubby OSPF area (see [below for nested schema](#nestedatt--area_type--nssa))
 - `stub` (Attributes) Stub OSPF area (see [below for nested schema](#nestedatt--area_type--stub))
 
-&lt;a id=&#34;nestedatt--area_type--nssa&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--area_type--nssa"></a>
 ### Nested Schema for `area_type.nssa`
 
 Optional:
 
 - `default_cost` (Number) Summary-default cost of an NSSA area
 
-    &emsp;|Format      &emsp;|Description           |
+    |Format      &emsp;|Description           |
     |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Summary default cost  |
+    |0-16777215  &emsp;|Summary default cost  |
 - `no_summary` (Boolean) Do not inject inter-area routes into stub
 - `translate` (String) Configure NSSA-ABR
 
-    &emsp;|Format     &emsp;|Description                 |
+    |Format     &emsp;|Description                 |
     |-------------|------------------------------|
-    &emsp;|always     &emsp;|Always translate LSA types  |
-    &emsp;|candidate  &emsp;|Translate for election      |
-    &emsp;|never      &emsp;|Never translate LSA types   |
+    |always     &emsp;|Always translate LSA types  |
+    |candidate  &emsp;|Translate for election      |
+    |never      &emsp;|Never translate LSA types   |
 
 
-&lt;a id=&#34;nestedatt--area_type--stub&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--area_type--stub"></a>
 ### Nested Schema for `area_type.stub`
 
 Optional:
 
 - `default_cost` (Number) Summary-default cost
 
-    &emsp;|Format      &emsp;|Description           |
+    |Format      &emsp;|Description           |
     |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Summary default cost  |
+    |0-16777215  &emsp;|Summary default cost  |
 - `no_summary` (Boolean) Do not inject inter-area routes into the stub
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -35,25 +35,25 @@ DHCP subnet for shared network
 
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `disable` (Boolean) Disable instance
 - `duid` (String) DHCP unique identifier (DUID) to be sent by client
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|duid    &emsp;|DHCP unique identifier  |
+    |duid    &emsp;|DHCP unique identifier  |
 - `ip_address` (String) Fixed IP address of static mapping
 
-    &emsp;|Format  &emsp;|Description                          |
+    |Format  &emsp;|Description                          |
     |----------|---------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address used in static mapping  |
+    |ipv4    &emsp;|IPv4 address used in static mapping  |
 - `mac` (String) Media Access Control (MAC) address
 
-    &emsp;|Format   &emsp;|Description             |
+    |Format   &emsp;|Description             |
     |-----------|--------------------------|
-    &emsp;|macaddr  &emsp;|Hardware (MAC) address  |
+    |macaddr  &emsp;|Hardware (MAC) address  |
 - `option` (Attributes) DHCP option (see [below for nested schema](#nestedatt--option))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -61,7 +61,7 @@ DHCP subnet for shared network
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -70,12 +70,12 @@ Required:
 - `static_mapping` (String) Hostname for static mapping reservation
 - `subnet` (String) DHCP subnet for shared network
 
-    &emsp;|Format   &emsp;|Description                     |
+    |Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 address and prefix length  |
+    |ipv4net  &emsp;|IPv4 address and prefix length  |
 
 
-&lt;a id=&#34;nestedatt--option&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--option"></a>
 ### Nested Schema for `option`
 
 Optional:
@@ -83,110 +83,110 @@ Optional:
 - `bootfile_name` (String) Bootstrap file name
 - `bootfile_server` (String) Server from which the initial boot file is to be loaded
 
-    &emsp;|Format    &emsp;|Description                   |
+    |Format    &emsp;|Description                   |
     |------------|--------------------------------|
-    &emsp;|ipv4      &emsp;|Bootfile server IPv4 address  |
-    &emsp;|hostname  &emsp;|Bootfile server FQDN          |
+    |ipv4      &emsp;|Bootfile server IPv4 address  |
+    |hostname  &emsp;|Bootfile server FQDN          |
 - `bootfile_size` (Number) Bootstrap file size
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|1-16    &emsp;|Bootstrap file size in 512 byte blocks  |
+    |1-16    &emsp;|Bootstrap file size in 512 byte blocks  |
 - `captive_portal` (String) Captive portal API endpoint
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|txt     &emsp;|Captive portal API endpoint  |
+    |txt     &emsp;|Captive portal API endpoint  |
 - `client_prefix_length` (Number) Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
 
-    &emsp;|Format  &emsp;|Description                                |
+    |Format  &emsp;|Description                                |
     |----------|---------------------------------------------|
-    &emsp;|0-32    &emsp;|DHCP client prefix length must be 0 to 32  |
+    |0-32    &emsp;|DHCP client prefix length must be 0 to 32  |
 - `default_router` (String) IP address of default router
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|ipv4    &emsp;|Default router IPv4 address  |
+    |ipv4    &emsp;|Default router IPv4 address  |
 - `domain_name` (String) Client Domain Name
 - `domain_search` (List of String) Client Domain Name search list
 - `ip_forwarding` (Boolean) Enable IP forwarding on client
 - `ipv6_only_preferred` (Number) Disable IPv4 on IPv6 only hosts (RFC 8925)
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|u32     &emsp;|Seconds      |
+    |u32     &emsp;|Seconds      |
 - `name_server` (List of String) Domain Name Servers (DNS) addresses
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
+    |ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
 - `ntp_server` (List of String) IP address of NTP server
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|ipv4    &emsp;|NTP server IPv4 address  |
+    |ipv4    &emsp;|NTP server IPv4 address  |
 - `pop_server` (List of String) IP address of POP3 server
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|POP3 server IPv4 address  |
+    |ipv4    &emsp;|POP3 server IPv4 address  |
 - `server_identifier` (String) Address for DHCP server identifier
 
-    &emsp;|Format  &emsp;|Description                          |
+    |Format  &emsp;|Description                          |
     |----------|---------------------------------------|
-    &emsp;|ipv4    &emsp;|DHCP server identifier IPv4 address  |
+    |ipv4    &emsp;|DHCP server identifier IPv4 address  |
 - `smtp_server` (List of String) IP address of SMTP server
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|SMTP server IPv4 address  |
+    |ipv4    &emsp;|SMTP server IPv4 address  |
 - `tftp_server_name` (String) TFTP server name
 
-    &emsp;|Format    &emsp;|Description               |
+    |Format    &emsp;|Description               |
     |------------|----------------------------|
-    &emsp;|ipv4      &emsp;|TFTP server IPv4 address  |
-    &emsp;|hostname  &emsp;|TFTP server FQDN          |
+    |ipv4      &emsp;|TFTP server IPv4 address  |
+    |hostname  &emsp;|TFTP server FQDN          |
 - `time_offset` (String) Client subnet offset in seconds from Coordinated Universal Time (UTC)
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|[-]N    &emsp;|Time offset (number, may be negative)  |
+    |[-]N    &emsp;|Time offset (number, may be negative)  |
 - `time_server` (List of String) IP address of time server
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|Time server IPv4 address  |
+    |ipv4    &emsp;|Time server IPv4 address  |
 - `time_zone` (String) Time zone to send to clients. Uses RFC4833 options 100 and 101
 - `vendor_option` (Attributes) Vendor Specific Options (see [below for nested schema](#nestedatt--option--vendor_option))
 - `wins_server` (List of String) IP address for Windows Internet Name Service (WINS) server
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|WINS server IPv4 address  |
+    |ipv4    &emsp;|WINS server IPv4 address  |
 - `wpad_url` (String) Web Proxy Autodiscovery (WPAD) URL
 
-&lt;a id=&#34;nestedatt--option--vendor_option&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--option--vendor_option"></a>
 ### Nested Schema for `option.vendor_option`
 
 Optional:
 
 - `ubiquiti` (Attributes) Ubiquiti specific parameters (see [below for nested schema](#nestedatt--option--vendor_option--ubiquiti))
 
-&lt;a id=&#34;nestedatt--option--vendor_option--ubiquiti&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--option--vendor_option--ubiquiti"></a>
 ### Nested Schema for `option.vendor_option.ubiquiti`
 
 Optional:
 
 - `unifi_controller` (String) Address of UniFi controller
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|ipv4    &emsp;|IP address of UniFi controller  |
+    |ipv4    &emsp;|IP address of UniFi controller  |
 
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

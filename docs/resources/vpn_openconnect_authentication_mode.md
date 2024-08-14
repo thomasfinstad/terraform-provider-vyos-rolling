@@ -32,11 +32,11 @@ Authentication for remote access SSL VPN Server
 
 - `local` (String) Use local username/password configuration (OTP supported)
 
-    &emsp;|Format        &emsp;|Description                                  |
+    |Format        &emsp;|Description                                  |
     |----------------|-----------------------------------------------|
-    &emsp;|password      &emsp;|Password-only local authentication           |
-    &emsp;|otp           &emsp;|OTP-only local authentication                |
-    &emsp;|password-otp  &emsp;|Password (first) + OTP local authentication  |
+    |password      &emsp;|Password-only local authentication           |
+    |otp           &emsp;|OTP-only local authentication                |
+    |password-otp  &emsp;|Password (first) + OTP local authentication  |
 - `radius` (Boolean) Use RADIUS server for user autentication
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -44,7 +44,7 @@ Authentication for remote access SSL VPN Server
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

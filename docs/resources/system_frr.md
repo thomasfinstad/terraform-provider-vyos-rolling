@@ -29,9 +29,9 @@ description: |-
 - `bmp` (Boolean) Enable BGP Monitoring Protocol support
 - `descriptors` (Number) Number of open file descriptors a process is allowed to use
 
-    &emsp;|Format     &emsp;|Description                 |
+    |Format     &emsp;|Description                 |
     |-------------|------------------------------|
-    &emsp;|1024-8192  &emsp;|Number of file descriptors  |
+    |1024-8192  &emsp;|Number of file descriptors  |
 - `irdp` (Boolean) Enable ICMP Router Discovery Protocol support
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -39,7 +39,7 @@ description: |-
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

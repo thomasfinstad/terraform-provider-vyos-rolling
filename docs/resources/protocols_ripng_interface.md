@@ -36,19 +36,19 @@ Routing Information Protocol (RIPng) parameters
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) Interface name
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 
 
-&lt;a id=&#34;nestedatt--split_horizon&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--split_horizon"></a>
 ### Nested Schema for `split_horizon`
 
 Optional:
@@ -57,7 +57,7 @@ Optional:
 - `poison_reverse` (Boolean) Disable split horizon on specified interface
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

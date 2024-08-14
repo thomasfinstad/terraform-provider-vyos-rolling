@@ -33,17 +33,17 @@ Simple Network Management Protocol (SNMP) v3
 
 - `mode` (String) Define access permission
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|ro      &emsp;|Read-Only    |
-    &emsp;|rw      &emsp;|read write   |
+    |ro      &emsp;|Read-Only    |
+    |rw      &emsp;|read write   |
 - `seclevel` (String) Security levels
 
-    &emsp;|Format  &emsp;|Description                                                  |
+    |Format  &emsp;|Description                                                  |
     |----------|---------------------------------------------------------------|
-    &emsp;|noauth  &emsp;|Messages not authenticated and not encrypted (noAuthNoPriv)  |
-    &emsp;|auth    &emsp;|Messages are authenticated but not encrypted (authNoPriv)    |
-    &emsp;|priv    &emsp;|Messages are authenticated and encrypted (authPriv)          |
+    |noauth  &emsp;|Messages not authenticated and not encrypted (noAuthNoPriv)  |
+    |auth    &emsp;|Messages are authenticated but not encrypted (authNoPriv)    |
+    |priv    &emsp;|Messages are authenticated and encrypted (authPriv)          |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `view` (String) Defines the name of view
 
@@ -51,7 +51,7 @@ Simple Network Management Protocol (SNMP) v3
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -59,7 +59,7 @@ Required:
 - `group` (String) Specifies the group with name groupname
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

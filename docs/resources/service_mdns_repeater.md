@@ -30,27 +30,27 @@ Multicast DNS (mDNS) parameters
 
 - `allow_service` (List of String) Allowed mDNS services to be repeated
 
-    &emsp;|Format  &emsp;|Description   |
+    |Format  &emsp;|Description   |
     |----------|----------------|
-    &emsp;|txt     &emsp;|mDNS service  |
+    |txt     &emsp;|mDNS service  |
 - `browse_domain` (List of String) mDNS browsing domains in addition to the default one
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|txt     &emsp;|mDNS browsing domain  |
+    |txt     &emsp;|mDNS browsing domain  |
 - `disable` (Boolean) Disable instance
 - `interface` (List of String) Interface to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 - `ip_version` (String) IP address version to use
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|_ipv4   &emsp;|Use only IPv4 address           |
-    &emsp;|_ipv6   &emsp;|Use only IPv6 address           |
-    &emsp;|both    &emsp;|Use both IPv4 and IPv6 address  |
+    |_ipv4   &emsp;|Use only IPv4 address           |
+    |_ipv6   &emsp;|Use only IPv6 address           |
+    |both    &emsp;|Use both IPv4 and IPv6 address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrrp_disable` (Boolean) Disables mDNS repeater on VRRP interfaces not in MASTER state
 
@@ -58,7 +58,7 @@ Multicast DNS (mDNS) parameters
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

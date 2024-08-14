@@ -35,87 +35,87 @@ Open Shortest Path First (OSPF)
 
 - `area` (String) Enable OSPF on this interface
 
-    &emsp;|Format  &emsp;|Description                          |
+    |Format  &emsp;|Description                          |
     |----------|---------------------------------------|
-    &emsp;|u32     &emsp;|OSPF area ID as decimal notation     |
-    &emsp;|ipv4    &emsp;|OSPF area ID in IP address notation  |
+    |u32     &emsp;|OSPF area ID as decimal notation     |
+    |ipv4    &emsp;|OSPF area ID in IP address notation  |
 - `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
 - `bandwidth` (Number) Interface bandwidth (Mbit/s)
 
-    &emsp;|Format    &emsp;|Description                                           |
+    |Format    &emsp;|Description                                           |
     |------------|--------------------------------------------------------|
-    &emsp;|1-100000  &emsp;|Bandwidth in Megabit/sec (for calculating OSPF cost)  |
+    |1-100000  &emsp;|Bandwidth in Megabit/sec (for calculating OSPF cost)  |
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
 - `cost` (Number) Interface cost
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|1-65535  &emsp;|OSPF interface cost  |
+    |1-65535  &emsp;|OSPF interface cost  |
 - `dead_interval` (Number) Interval after which a neighbor is declared dead
 
-    &emsp;|Format   &emsp;|Description                       |
+    |Format   &emsp;|Description                       |
     |-----------|------------------------------------|
-    &emsp;|1-65535  &emsp;|Neighbor dead interval (seconds)  |
+    |1-65535  &emsp;|Neighbor dead interval (seconds)  |
 - `hello_interval` (Number) Interval between hello packets
 
-    &emsp;|Format   &emsp;|Description               |
+    |Format   &emsp;|Description               |
     |-----------|----------------------------|
-    &emsp;|1-65535  &emsp;|Hello interval (seconds)  |
+    |1-65535  &emsp;|Hello interval (seconds)  |
 - `hello_multiplier` (Number) Hello multiplier factor
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|1-10    &emsp;|Number of Hellos to send each second  |
+    |1-10    &emsp;|Number of Hellos to send each second  |
 - `ldp_sync` (Attributes) LDP-IGP synchronization configuration for interface (see [below for nested schema](#nestedatt--ldp_sync))
 - `mtu_ignore` (Boolean) Disable Maximum Transmission Unit (MTU) mismatch detection
 - `network` (String) Network type
 
-    &emsp;|Format               &emsp;|Description                       |
+    |Format               &emsp;|Description                       |
     |-----------------------|------------------------------------|
-    &emsp;|broadcast            &emsp;|Broadcast network type            |
-    &emsp;|non-broadcast        &emsp;|Non-broadcast network type        |
-    &emsp;|point-to-multipoint  &emsp;|Point-to-multipoint network type  |
-    &emsp;|point-to-point       &emsp;|Point-to-point network type       |
+    |broadcast            &emsp;|Broadcast network type            |
+    |non-broadcast        &emsp;|Non-broadcast network type        |
+    |point-to-multipoint  &emsp;|Point-to-multipoint network type  |
+    |point-to-point       &emsp;|Point-to-point network type       |
 - `passive` (Attributes) Suppress routing updates on an interface (see [below for nested schema](#nestedatt--passive))
 - `priority` (Number) Router priority
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|0-255   &emsp;|OSPF router priority cost  |
+    |0-255   &emsp;|OSPF router priority cost  |
 - `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
-    &emsp;|Format   &emsp;|Description                    |
+    |Format   &emsp;|Description                    |
     |-----------|---------------------------------|
-    &emsp;|1-65535  &emsp;|Retransmit interval (seconds)  |
+    |1-65535  &emsp;|Retransmit interval (seconds)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `transmit_delay` (Number) Link state transmit delay
 
-    &emsp;|Format   &emsp;|Description                          |
+    |Format   &emsp;|Description                          |
     |-----------|---------------------------------------|
-    &emsp;|1-65535  &emsp;|Link state transmit delay (seconds)  |
+    |1-65535  &emsp;|Link state transmit delay (seconds)  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) Interface configuration
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 
-&lt;a id=&#34;nestedatt--authentication&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 
 Optional:
@@ -123,28 +123,28 @@ Optional:
 - `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--authentication--md5))
 - `plaintext_password` (String) Plain text password
 
-    &emsp;|Format  &emsp;|Description                                 |
+    |Format  &emsp;|Description                                 |
     |----------|----------------------------------------------|
-    &emsp;|txt     &emsp;|Plain text password (8 characters or less)  |
+    |txt     &emsp;|Plain text password (8 characters or less)  |
 
-&lt;a id=&#34;nestedatt--authentication--md5&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--authentication--md5"></a>
 ### Nested Schema for `authentication.md5`
 
 
 
-&lt;a id=&#34;nestedatt--bfd&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--bfd"></a>
 ### Nested Schema for `bfd`
 
 Optional:
 
 - `profile` (String) Use settings from BFD profile
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|txt     &emsp;|BFD profile name  |
+    |txt     &emsp;|BFD profile name  |
 
 
-&lt;a id=&#34;nestedatt--ldp_sync&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--ldp_sync"></a>
 ### Nested Schema for `ldp_sync`
 
 Optional:
@@ -152,12 +152,12 @@ Optional:
 - `disable` (Boolean) Disable instance
 - `holddown` (Number) Hold down timer for LDP-IGP cost restoration
 
-    &emsp;|Format   &emsp;|Description                                                                                   |
+    |Format   &emsp;|Description                                                                                   |
     |-----------|------------------------------------------------------------------------------------------------|
-    &emsp;|0-10000  &emsp;|Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
+    |0-10000  &emsp;|Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 
 
-&lt;a id=&#34;nestedatt--passive&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--passive"></a>
 ### Nested Schema for `passive`
 
 Optional:
@@ -165,7 +165,7 @@ Optional:
 - `disable` (Boolean) Disable instance
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

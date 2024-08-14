@@ -28,41 +28,41 @@ description: |-
 
 - `aggregate_address` (List of String) Aggregate RIPng route announcement
 
-    &emsp;|Format   &emsp;|Description                         |
+    |Format   &emsp;|Description                         |
     |-----------|--------------------------------------|
-    &emsp;|ipv6net  &emsp;|Aggregate RIPng route announcement  |
+    |ipv6net  &emsp;|Aggregate RIPng route announcement  |
 - `default_metric` (Number) Metric of redistributed routes
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|1-16    &emsp;|Default metric  |
+    |1-16    &emsp;|Default metric  |
 - `network` (List of String) RIPng network
 
-    &emsp;|Format   &emsp;|Description    |
+    |Format   &emsp;|Description    |
     |-----------|-----------------|
-    &emsp;|ipv6net  &emsp;|RIPng network  |
+    |ipv6net  &emsp;|RIPng network  |
 - `passive_interface` (List of String) Passive interface
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|txt     &emsp;|Suppress routing updates on interface  |
+    |txt     &emsp;|Suppress routing updates on interface  |
 - `route` (List of String) RIPng static route
 
-    &emsp;|Format   &emsp;|Description         |
+    |Format   &emsp;|Description         |
     |-----------|----------------------|
-    &emsp;|ipv6net  &emsp;|RIPng static route  |
+    |ipv6net  &emsp;|RIPng static route  |
 - `route_map` (String) Specify route-map name to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
+    |txt     &emsp;|Route map name  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

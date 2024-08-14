@@ -30,36 +30,36 @@ Intermediate System to Intermediate System (IS-IS)
 
 - `holddown` (Number) Time with no received IGP events before considering IGP stable
 
-    &emsp;|Format   &emsp;|Description                                                           |
+    |Format   &emsp;|Description                                                           |
     |-----------|------------------------------------------------------------------------|
-    &emsp;|0-60000  &emsp;|Time with no received IGP events before considering IGP stable in ms  |
+    |0-60000  &emsp;|Time with no received IGP events before considering IGP stable in ms  |
 - `init_delay` (Number) Delay used while in QUIET state
 
-    &emsp;|Format   &emsp;|Description                              |
+    |Format   &emsp;|Description                              |
     |-----------|-------------------------------------------|
-    &emsp;|0-60000  &emsp;|Delay used while in QUIET state (in ms)  |
+    |0-60000  &emsp;|Delay used while in QUIET state (in ms)  |
 - `long_delay` (Number) Delay used while in LONG_WAIT
 
-    &emsp;|Format   &emsp;|Description                                |
+    |Format   &emsp;|Description                                |
     |-----------|---------------------------------------------|
-    &emsp;|0-60000  &emsp;|Delay used while in LONG_WAIT state in ms  |
+    |0-60000  &emsp;|Delay used while in LONG_WAIT state in ms  |
 - `short_delay` (Number) Delay used while in SHORT_WAIT state
 
-    &emsp;|Format   &emsp;|Description                                   |
+    |Format   &emsp;|Description                                   |
     |-----------|------------------------------------------------|
-    &emsp;|0-60000  &emsp;|Delay used while in SHORT_WAIT state (in ms)  |
+    |0-60000  &emsp;|Delay used while in SHORT_WAIT state (in ms)  |
 - `time_to_learn` (Number) Maximum duration needed to learn all the events related to a single failure
 
-    &emsp;|Format   &emsp;|Description                                                                        |
+    |Format   &emsp;|Description                                                                        |
     |-----------|-------------------------------------------------------------------------------------|
-    &emsp;|0-60000  &emsp;|Maximum duration needed to learn all the events related to a single failure in ms  |
+    |0-60000  &emsp;|Maximum duration needed to learn all the events related to a single failure in ms  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

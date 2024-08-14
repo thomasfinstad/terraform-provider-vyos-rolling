@@ -37,38 +37,38 @@ Time period name
 
 - `time` (String) Time for time-period
 
-    &emsp;|Format           &emsp;|Description              |
+    |Format           &emsp;|Description              |
     |-------------------|---------------------------|
-    &emsp;|&lt;hh:mm - hh:mm&gt;  &emsp;|Time range in 24hr time  |
+    |&lt;hh:mm - hh:mm&gt;  &emsp;|Time range in 24hr time  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `days` (String) Time-period days
 
-    &emsp;|Format    &emsp;|Description            |
+    |Format    &emsp;|Description            |
     |------------|-------------------------|
-    &emsp;|Sun       &emsp;|Sunday                 |
-    &emsp;|Mon       &emsp;|Monday                 |
-    &emsp;|Tue       &emsp;|Tuesday                |
-    &emsp;|Wed       &emsp;|Wednesday              |
-    &emsp;|Thu       &emsp;|Thursday               |
-    &emsp;|Fri       &emsp;|Friday                 |
-    &emsp;|Sat       &emsp;|Saturday               |
-    &emsp;|weekdays  &emsp;|Monday through Friday  |
-    &emsp;|weekend   &emsp;|Saturday and Sunday    |
-    &emsp;|all       &emsp;|All days of the week   |
+    |Sun       &emsp;|Sunday                 |
+    |Mon       &emsp;|Monday                 |
+    |Tue       &emsp;|Tuesday                |
+    |Wed       &emsp;|Wednesday              |
+    |Thu       &emsp;|Thursday               |
+    |Fri       &emsp;|Friday                 |
+    |Sat       &emsp;|Saturday               |
+    |weekdays  &emsp;|Monday through Friday  |
+    |weekend   &emsp;|Saturday and Sunday    |
+    |all       &emsp;|All days of the week   |
 - `time_period` (String) Time period name
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

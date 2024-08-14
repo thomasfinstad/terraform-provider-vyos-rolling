@@ -39,20 +39,20 @@ Segment-Routing (SPRING) settings
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `prefix` (String) Static IPv4/IPv6 prefix segment/label mapping
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 prefix segment  |
-    &emsp;|ipv6net  &emsp;|IPv6 prefix segment  |
+    |ipv4net  &emsp;|IPv4 prefix segment  |
+    |ipv6net  &emsp;|IPv6 prefix segment  |
 
 
-&lt;a id=&#34;nestedatt--absolute&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--absolute"></a>
 ### Nested Schema for `absolute`
 
 Optional:
@@ -61,12 +61,12 @@ Optional:
 - `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
 - `value` (Number) Specify the absolute value of prefix segment/label ID
 
-    &emsp;|Format      &emsp;|Description                          |
+    |Format      &emsp;|Description                          |
     |--------------|---------------------------------------|
-    &emsp;|16-1048575  &emsp;|The absolute segment/label ID value  |
+    |16-1048575  &emsp;|The absolute segment/label ID value  |
 
 
-&lt;a id=&#34;nestedatt--index&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--index"></a>
 ### Nested Schema for `index`
 
 Optional:
@@ -75,12 +75,12 @@ Optional:
 - `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
 - `value` (Number) Specify the index value of prefix segment/label ID
 
-    &emsp;|Format   &emsp;|Description                       |
+    |Format   &emsp;|Description                       |
     |-----------|------------------------------------|
-    &emsp;|0-65535  &emsp;|The index segment/label ID value  |
+    |0-65535  &emsp;|The index segment/label ID value  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

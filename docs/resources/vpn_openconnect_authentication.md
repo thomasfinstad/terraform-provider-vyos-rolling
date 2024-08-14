@@ -30,16 +30,16 @@ SSL VPN OpenConnect, AnyConnect compatible server
 
 - `group` (List of String) Group that a client is allowed to select (from a list). Maps to RADIUS Class attribute.
 
-    &emsp;|Format  &emsp;|Description                                                                                       |
+    |Format  &emsp;|Description                                                                                       |
     |----------|----------------------------------------------------------------------------------------------------|
-    &emsp;|txt     &emsp;|Group string. The group may be followed by a user-friendly name in brackets: group1[First Group]  |
+    |txt     &emsp;|Group string. The group may be followed by a user-friendly name in brackets: group1[First Group]  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

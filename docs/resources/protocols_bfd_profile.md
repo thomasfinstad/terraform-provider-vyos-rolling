@@ -33,9 +33,9 @@ Bidirectional Forwarding Detection (BFD)
 - `interval` (Attributes) Configure timer intervals (see [below for nested schema](#nestedatt--interval))
 - `minimum_ttl` (Number) Expect packets with at least this TTL
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|1-254   &emsp;|Minimum TTL expected  |
+    |1-254   &emsp;|Minimum TTL expected  |
 - `passive` (Boolean) Do not attempt to start sessions
 - `shutdown` (Boolean) Disable this peer
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -44,46 +44,46 @@ Bidirectional Forwarding Detection (BFD)
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `profile` (String) Configure BFD profile used by individual peer
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|txt     &emsp;|Name of BFD profile  |
+    |txt     &emsp;|Name of BFD profile  |
 
 
-&lt;a id=&#34;nestedatt--interval&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--interval"></a>
 ### Nested Schema for `interval`
 
 Optional:
 
 - `echo_interval` (Number) Echo receive transmission interval
 
-    &emsp;|Format    &emsp;|Description                                                                             |
+    |Format    &emsp;|Description                                                                             |
     |------------|------------------------------------------------------------------------------------------|
-    &emsp;|10-60000  &emsp;|The minimal echo receive transmission interval that this system is capable of handling  |
+    |10-60000  &emsp;|The minimal echo receive transmission interval that this system is capable of handling  |
 - `multiplier` (Number) Multiplier to determine packet loss
 
-    &emsp;|Format  &emsp;|Description                                                    |
+    |Format  &emsp;|Description                                                    |
     |----------|-----------------------------------------------------------------|
-    &emsp;|2-255   &emsp;|Remote transmission interval will be multiplied by this value  |
+    |2-255   &emsp;|Remote transmission interval will be multiplied by this value  |
 - `receive` (Number) Minimum interval of receiving control packets
 
-    &emsp;|Format    &emsp;|Description               |
+    |Format    &emsp;|Description               |
     |------------|----------------------------|
-    &emsp;|10-60000  &emsp;|Interval in milliseconds  |
+    |10-60000  &emsp;|Interval in milliseconds  |
 - `transmit` (Number) Minimum interval of transmitting control packets
 
-    &emsp;|Format    &emsp;|Description               |
+    |Format    &emsp;|Description               |
     |------------|----------------------------|
-    &emsp;|10-60000  &emsp;|Interval in milliseconds  |
+    |10-60000  &emsp;|Interval in milliseconds  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

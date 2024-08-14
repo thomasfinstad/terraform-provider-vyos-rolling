@@ -30,36 +30,36 @@ Simple Network Management Protocol (SNMP)
 
 - `interface` (List of String) Sets the interface name prefix to include in the IF-MIB data collection
 
-    &emsp;|Format  &emsp;|Description                              |
+    |Format  &emsp;|Description                              |
     |----------|-------------------------------------------|
-    &emsp;|br      &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|bond    &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|dum     &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|eth     &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|gnv     &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|macsec  &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|peth    &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|sstpc   &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|tun     &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|veth    &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|vti     &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|vtun    &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|vxlan   &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|wg      &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|wlan    &emsp;|Allow prefix for IF-MIB data collection  |
-    &emsp;|wwan    &emsp;|Allow prefix for IF-MIB data collection  |
+    |br      &emsp;|Allow prefix for IF-MIB data collection  |
+    |bond    &emsp;|Allow prefix for IF-MIB data collection  |
+    |dum     &emsp;|Allow prefix for IF-MIB data collection  |
+    |eth     &emsp;|Allow prefix for IF-MIB data collection  |
+    |gnv     &emsp;|Allow prefix for IF-MIB data collection  |
+    |macsec  &emsp;|Allow prefix for IF-MIB data collection  |
+    |peth    &emsp;|Allow prefix for IF-MIB data collection  |
+    |sstpc   &emsp;|Allow prefix for IF-MIB data collection  |
+    |tun     &emsp;|Allow prefix for IF-MIB data collection  |
+    |veth    &emsp;|Allow prefix for IF-MIB data collection  |
+    |vti     &emsp;|Allow prefix for IF-MIB data collection  |
+    |vtun    &emsp;|Allow prefix for IF-MIB data collection  |
+    |vxlan   &emsp;|Allow prefix for IF-MIB data collection  |
+    |wg      &emsp;|Allow prefix for IF-MIB data collection  |
+    |wlan    &emsp;|Allow prefix for IF-MIB data collection  |
+    |wwan    &emsp;|Allow prefix for IF-MIB data collection  |
 - `interface_max` (Number) Sets the maximum number of interfaces included in IF-MIB data collection
 
-    &emsp;|Format        &emsp;|Description                                                               |
+    |Format        &emsp;|Description                                                               |
     |----------------|----------------------------------------------------------------------------|
-    &emsp;|1-4294967295  &emsp;|Sets the maximum number of interfaces included in IF-MIB data collection  |
+    |1-4294967295  &emsp;|Sets the maximum number of interfaces included in IF-MIB data collection  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

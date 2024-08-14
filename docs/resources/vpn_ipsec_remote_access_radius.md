@@ -33,21 +33,21 @@ IKEv2 remote access VPN
 - `nas_identifier` (String) NAS-Identifier attribute sent to RADIUS
 - `source_address` (String) IPv4 source address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
 - `timeout` (Number) Session timeout
 
-    &emsp;|Format  &emsp;|Description                              |
+    |Format  &emsp;|Description                              |
     |----------|-------------------------------------------|
-    &emsp;|1-240   &emsp;|Session timeout in seconds (default: 2)  |
+    |1-240   &emsp;|Session timeout in seconds (default: 2)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -32,27 +32,27 @@ IPv4 TCP parameters
 
 - `base` (Number) Base MSS to start probing from (applicable to &#34;probing force&#34;)
 
-    &emsp;|Format   &emsp;|Description                                 |
+    |Format   &emsp;|Description                                 |
     |-----------|----------------------------------------------|
-    &emsp;|48-1460  &emsp;|Base MSS value for probing (default: 1024)  |
+    |48-1460  &emsp;|Base MSS value for probing (default: 1024)  |
 - `floor` (Number) Minimum MSS to stop probing at (default: 48)
 
-    &emsp;|Format   &emsp;|Description                 |
+    |Format   &emsp;|Description                 |
     |-----------|------------------------------|
-    &emsp;|48-1460  &emsp;|Minimum MSS value to probe  |
+    |48-1460  &emsp;|Minimum MSS value to probe  |
 - `probing` (String) Attempt to lower the MSS if TCP connections fail to establish
 
-    &emsp;|Format              &emsp;|Description                                                  |
+    |Format              &emsp;|Description                                                  |
     |----------------------|---------------------------------------------------------------|
-    &emsp;|on-icmp-black-hole  &emsp;|Attempt TCP MSS probing when an ICMP black hole is detected  |
-    &emsp;|force               &emsp;|Attempt TCP MSS probing by default                           |
+    |on-icmp-black-hole  &emsp;|Attempt TCP MSS probing when an ICMP black hole is detected  |
+    |force               &emsp;|Attempt TCP MSS probing by default                           |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

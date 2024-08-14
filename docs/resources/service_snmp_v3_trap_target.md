@@ -34,43 +34,43 @@ Simple Network Management Protocol (SNMP) v3
 - `auth` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--auth))
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `privacy` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--privacy))
 - `protocol` (String) Protocol to be used (TCP/UDP)
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|udp     &emsp;|Listen protocol UDP  |
-    &emsp;|tcp     &emsp;|Listen protocol TCP  |
+    |udp     &emsp;|Listen protocol UDP  |
+    |tcp     &emsp;|Listen protocol TCP  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `type` (String) Specifies the type of notification between inform and trap
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|inform  &emsp;|Use INFORM   |
-    &emsp;|trap    &emsp;|Use TRAP     |
+    |inform  &emsp;|Use INFORM   |
+    |trap    &emsp;|Use TRAP     |
 - `user` (String) Defines username for authentication
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `trap_target` (String) Defines SNMP target for inform or traps for IP
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|ipv4    &emsp;|IP address of trap target    |
-    &emsp;|ipv6    &emsp;|IPv6 address of trap target  |
+    |ipv4    &emsp;|IP address of trap target    |
+    |ipv6    &emsp;|IPv6 address of trap target  |
 
 
-&lt;a id=&#34;nestedatt--auth&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--auth"></a>
 ### Nested Schema for `auth`
 
 Optional:
@@ -79,13 +79,13 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for authentication
 - `type` (String) Define used protocol
 
-    &emsp;|Format  &emsp;|Description            |
+    |Format  &emsp;|Description            |
     |----------|-------------------------|
-    &emsp;|md5     &emsp;|Message Digest 5       |
-    &emsp;|sha     &emsp;|Secure Hash Algorithm  |
+    |md5     &emsp;|Message Digest 5       |
+    |sha     &emsp;|Secure Hash Algorithm  |
 
 
-&lt;a id=&#34;nestedatt--privacy&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--privacy"></a>
 ### Nested Schema for `privacy`
 
 Optional:
@@ -94,13 +94,13 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for privacy protocol
 - `type` (String) Defines the protocol for privacy
 
-    &emsp;|Format  &emsp;|Description                   |
+    |Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|des     &emsp;|Data Encryption Standard      |
-    &emsp;|aes     &emsp;|Advanced Encryption Standard  |
+    |des     &emsp;|Data Encryption Standard      |
+    |aes     &emsp;|Advanced Encryption Standard  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

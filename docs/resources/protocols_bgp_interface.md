@@ -36,19 +36,19 @@ Border Gateway Protocol (BGP)
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) Configure interface related parameters, e.g. MPLS
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 
 
-&lt;a id=&#34;nestedatt--mpls&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--mpls"></a>
 ### Nested Schema for `mpls`
 
 Optional:
@@ -56,7 +56,7 @@ Optional:
 - `forwarding` (Boolean) Enable MPLS forwarding for eBGP directly connected peers
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

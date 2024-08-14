@@ -29,48 +29,48 @@ System services
 - `ciphers` (List of String) Allowed ciphers
 - `client_keepalive_interval` (Number) Enable transmission of keepalives from server to client
 
-    &emsp;|Format   &emsp;|Description                                     |
+    |Format   &emsp;|Description                                     |
     |-----------|--------------------------------------------------|
-    &emsp;|1-65535  &emsp;|Time interval in seconds for keepalive message  |
+    |1-65535  &emsp;|Time interval in seconds for keepalive message  |
 - `disable_host_validation` (Boolean) Disable IP Address to Hostname lookup
 - `disable_password_authentication` (Boolean) Disable password-based authentication
 - `hostkey_algorithm` (List of String) Allowed host key signature algorithms
 - `key_exchange` (List of String) Allowed key exchange (KEX) algorithms
 - `listen_address` (List of String) Local IP addresses to listen on
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address to listen for incoming connections  |
-    &emsp;|ipv6    &emsp;|IPv6 address to listen for incoming connections  |
+    |ipv4    &emsp;|IPv4 address to listen for incoming connections  |
+    |ipv6    &emsp;|IPv6 address to listen for incoming connections  |
 - `loglevel` (String) Log level
 
-    &emsp;|Format   &emsp;|Description                              |
+    |Format   &emsp;|Description                              |
     |-----------|-------------------------------------------|
-    &emsp;|quiet    &emsp;|stay silent                              |
-    &emsp;|fatal    &emsp;|log fatals only                          |
-    &emsp;|error    &emsp;|log errors and fatals only               |
-    &emsp;|info     &emsp;|default log level                        |
-    &emsp;|verbose  &emsp;|enable logging of failed login attempts  |
+    |quiet    &emsp;|stay silent                              |
+    |fatal    &emsp;|log fatals only                          |
+    |error    &emsp;|log errors and fatals only               |
+    |info     &emsp;|default log level                        |
+    |verbose  &emsp;|enable logging of failed login attempts  |
 - `mac` (List of String) Allowed message authentication code (MAC) algorithms
 - `port` (List of Number) Port for SSH service
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `pubkey_accepted_algorithm` (List of String) Allowed pubkey signature algorithms
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (List of String) VRF instance name
 
-    &emsp;|Format   &emsp;|Description                      |
+    |Format   &emsp;|Description                      |
     |-----------|-----------------------------------|
-    &emsp;|default  &emsp;|Explicitly start in default VRF  |
-    &emsp;|txt      &emsp;|VRF instance name                |
+    |default  &emsp;|Explicitly start in default VRF  |
+    |txt      &emsp;|VRF instance name                |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

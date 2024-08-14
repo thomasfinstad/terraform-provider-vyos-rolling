@@ -33,63 +33,63 @@ Logging to remote host
 
 - `level` (String) Logging level
 
-    &emsp;|Format   &emsp;|Description                         |
+    |Format   &emsp;|Description                         |
     |-----------|--------------------------------------|
-    &emsp;|emerg    &emsp;|Emergency messages                  |
-    &emsp;|alert    &emsp;|Urgent messages                     |
-    &emsp;|crit     &emsp;|Critical messages                   |
-    &emsp;|err      &emsp;|Error messages                      |
-    &emsp;|warning  &emsp;|Warning messages                    |
-    &emsp;|notice   &emsp;|Messages for further investigation  |
-    &emsp;|info     &emsp;|Informational messages              |
-    &emsp;|debug    &emsp;|Debug messages                      |
-    &emsp;|all      &emsp;|Log everything                      |
+    |emerg    &emsp;|Emergency messages                  |
+    |alert    &emsp;|Urgent messages                     |
+    |crit     &emsp;|Critical messages                   |
+    |err      &emsp;|Error messages                      |
+    |warning  &emsp;|Warning messages                    |
+    |notice   &emsp;|Messages for further investigation  |
+    |info     &emsp;|Informational messages              |
+    |debug    &emsp;|Debug messages                      |
+    |all      &emsp;|Log everything                      |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `facility` (String) Facility for logging
 
-    &emsp;|Format    &emsp;|Description                       |
+    |Format    &emsp;|Description                       |
     |------------|------------------------------------|
-    &emsp;|all       &emsp;|All facilities excluding &#34;mark&#34;   |
-    &emsp;|auth      &emsp;|Authentication and authorization  |
-    &emsp;|authpriv  &emsp;|Non-system authorization          |
-    &emsp;|cron      &emsp;|Cron daemon                       |
-    &emsp;|daemon    &emsp;|System daemons                    |
-    &emsp;|kern      &emsp;|Kernel                            |
-    &emsp;|lpr       &emsp;|Line printer spooler              |
-    &emsp;|mail      &emsp;|Mail subsystem                    |
-    &emsp;|mark      &emsp;|Timestamp                         |
-    &emsp;|news      &emsp;|USENET subsystem                  |
-    &emsp;|syslog    &emsp;|Authentication and authorization  |
-    &emsp;|user      &emsp;|Application processes             |
-    &emsp;|uucp      &emsp;|UUCP subsystem                    |
-    &emsp;|local0    &emsp;|Local facility 0                  |
-    &emsp;|local1    &emsp;|Local facility 1                  |
-    &emsp;|local2    &emsp;|Local facility 2                  |
-    &emsp;|local3    &emsp;|Local facility 3                  |
-    &emsp;|local4    &emsp;|Local facility 4                  |
-    &emsp;|local5    &emsp;|Local facility 5                  |
-    &emsp;|local6    &emsp;|Local facility 6                  |
-    &emsp;|local7    &emsp;|Local facility 7                  |
+    |all       &emsp;|All facilities excluding &#34;mark&#34;   |
+    |auth      &emsp;|Authentication and authorization  |
+    |authpriv  &emsp;|Non-system authorization          |
+    |cron      &emsp;|Cron daemon                       |
+    |daemon    &emsp;|System daemons                    |
+    |kern      &emsp;|Kernel                            |
+    |lpr       &emsp;|Line printer spooler              |
+    |mail      &emsp;|Mail subsystem                    |
+    |mark      &emsp;|Timestamp                         |
+    |news      &emsp;|USENET subsystem                  |
+    |syslog    &emsp;|Authentication and authorization  |
+    |user      &emsp;|Application processes             |
+    |uucp      &emsp;|UUCP subsystem                    |
+    |local0    &emsp;|Local facility 0                  |
+    |local1    &emsp;|Local facility 1                  |
+    |local2    &emsp;|Local facility 2                  |
+    |local3    &emsp;|Local facility 3                  |
+    |local4    &emsp;|Local facility 4                  |
+    |local5    &emsp;|Local facility 5                  |
+    |local6    &emsp;|Local facility 6                  |
+    |local7    &emsp;|Local facility 7                  |
 - `host` (String) Logging to remote host
 
-    &emsp;|Format    &emsp;|Description                        |
+    |Format    &emsp;|Description                        |
     |------------|-------------------------------------|
-    &emsp;|ipv4      &emsp;|Remote syslog server IPv4 address  |
-    &emsp;|ipv6      &emsp;|Remote syslog server IPv6 address  |
-    &emsp;|hostname  &emsp;|Remote syslog server FQDN          |
+    |ipv4      &emsp;|Remote syslog server IPv4 address  |
+    |ipv6      &emsp;|Remote syslog server IPv6 address  |
+    |hostname  &emsp;|Remote syslog server FQDN          |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

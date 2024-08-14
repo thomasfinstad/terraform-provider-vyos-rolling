@@ -36,34 +36,34 @@ Use static keys for MACsec [static Secure Authentication Key (SAK) mode]
 - `disable` (Boolean) Disable instance
 - `key` (String) MACsec static key
 
-    &emsp;|Format  &emsp;|Description                                                                                                                   |
+    |Format  &emsp;|Description                                                                                                                   |
     |----------|--------------------------------------------------------------------------------------------------------------------------------|
-    &emsp;|txt     &emsp;|16-byte (128-bit) hex-string (32 hex-digits) for gcm-aes-128 or 32-byte (256-bit) hex-string (64 hex-digits) for gcm-aes-256  |
+    |txt     &emsp;|16-byte (128-bit) hex-string (32 hex-digits) for gcm-aes-128 or 32-byte (256-bit) hex-string (64 hex-digits) for gcm-aes-256  |
 - `mac` (String) Media Access Control (MAC) address
 
-    &emsp;|Format   &emsp;|Description             |
+    |Format   &emsp;|Description             |
     |-----------|--------------------------|
-    &emsp;|macaddr  &emsp;|Hardware (MAC) address  |
+    |macaddr  &emsp;|Hardware (MAC) address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `macsec` (String) MACsec Interface (802.1ae)
 
-    &emsp;|Format   &emsp;|Description            |
+    |Format   &emsp;|Description            |
     |-----------|-------------------------|
-    &emsp;|macsecN  &emsp;|MACsec interface name  |
+    |macsecN  &emsp;|MACsec interface name  |
 - `peer` (String) MACsec peer name
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

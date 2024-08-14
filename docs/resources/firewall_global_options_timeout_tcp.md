@@ -32,51 +32,51 @@ Connection timeout options
 
 - `close` (Number) TCP CLOSE timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                   |
+    |Format      &emsp;|Description                   |
     |--------------|--------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP CLOSE timeout in seconds  |
+    |1-21474836  &emsp;|TCP CLOSE timeout in seconds  |
 - `close_wait` (Number) TCP CLOSE-WAIT timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                        |
+    |Format      &emsp;|Description                        |
     |--------------|-------------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP CLOSE-WAIT timeout in seconds  |
+    |1-21474836  &emsp;|TCP CLOSE-WAIT timeout in seconds  |
 - `established` (Number) TCP ESTABLISHED timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                         |
+    |Format      &emsp;|Description                         |
     |--------------|--------------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP ESTABLISHED timeout in seconds  |
+    |1-21474836  &emsp;|TCP ESTABLISHED timeout in seconds  |
 - `fin_wait` (Number) TCP FIN-WAIT timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                      |
+    |Format      &emsp;|Description                      |
     |--------------|-----------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP FIN-WAIT timeout in seconds  |
+    |1-21474836  &emsp;|TCP FIN-WAIT timeout in seconds  |
 - `last_ack` (Number) TCP LAST-ACK timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                      |
+    |Format      &emsp;|Description                      |
     |--------------|-----------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP LAST-ACK timeout in seconds  |
+    |1-21474836  &emsp;|TCP LAST-ACK timeout in seconds  |
 - `syn_recv` (Number) TCP SYN-RECEIVED timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                          |
+    |Format      &emsp;|Description                          |
     |--------------|---------------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP SYN-RECEIVED timeout in seconds  |
+    |1-21474836  &emsp;|TCP SYN-RECEIVED timeout in seconds  |
 - `syn_sent` (Number) TCP SYN-SENT timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                      |
+    |Format      &emsp;|Description                      |
     |--------------|-----------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP SYN-SENT timeout in seconds  |
+    |1-21474836  &emsp;|TCP SYN-SENT timeout in seconds  |
 - `time_wait` (Number) TCP TIME-WAIT timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                       |
+    |Format      &emsp;|Description                       |
     |--------------|------------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP TIME-WAIT timeout in seconds  |
+    |1-21474836  &emsp;|TCP TIME-WAIT timeout in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -31,36 +31,36 @@ Intrusion Detection System
 - `alert_script` (String) Path to fastnetmon alert script
 - `ban_time` (Number) How long we should keep an IP in blocked state
 
-    &emsp;|Format        &emsp;|Description      |
+    |Format        &emsp;|Description      |
     |----------------|-------------------|
-    &emsp;|1-4294967294  &emsp;|Time in seconds  |
+    |1-4294967294  &emsp;|Time in seconds  |
 - `direction` (List of String) Direction for processing traffic
 - `excluded_network` (List of String) Specify IPv4 and IPv6 networks which are going to be excluded from protection
 
-    &emsp;|Format   &emsp;|Description                 |
+    |Format   &emsp;|Description                 |
     |-----------|------------------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 prefix(es) to exclude  |
-    &emsp;|ipv6net  &emsp;|IPv6 prefix(es) to exclude  |
+    |ipv4net  &emsp;|IPv4 prefix(es) to exclude  |
+    |ipv6net  &emsp;|IPv6 prefix(es) to exclude  |
 - `listen_interface` (List of String) Listen interface for mirroring traffic
 - `mode` (String) Traffic capture mode
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|mirror  &emsp;|Listen to mirrored traffic  |
-    &emsp;|sflow   &emsp;|Capture sFlow flows         |
+    |mirror  &emsp;|Listen to mirrored traffic  |
+    |sflow   &emsp;|Capture sFlow flows         |
 - `network` (List of String) Specify IPv4 and IPv6 networks which belong to you
 
-    &emsp;|Format   &emsp;|Description           |
+    |Format   &emsp;|Description           |
     |-----------|------------------------|
-    &emsp;|ipv4net  &emsp;|Your IPv4 prefix(es)  |
-    &emsp;|ipv6net  &emsp;|Your IPv6 prefix(es)  |
+    |ipv4net  &emsp;|Your IPv4 prefix(es)  |
+    |ipv6net  &emsp;|Your IPv6 prefix(es)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

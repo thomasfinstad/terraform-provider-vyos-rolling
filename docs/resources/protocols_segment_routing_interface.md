@@ -36,33 +36,33 @@ Segment Routing
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) Interface specific Segment Routing options
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Interface name  |
+    |txt     &emsp;|Interface name  |
 
 
-&lt;a id=&#34;nestedatt--srv6&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--srv6"></a>
 ### Nested Schema for `srv6`
 
 Optional:
 
 - `hmac` (String) Define HMAC policy for ingress SR-enabled packets on this interface
 
-    &emsp;|Format  &emsp;|Description                                              |
+    |Format  &emsp;|Description                                              |
     |----------|-----------------------------------------------------------|
-    &emsp;|accept  &emsp;|Accept packets without HMAC, validate packets with HMAC  |
-    &emsp;|drop    &emsp;|Drop packets without HMAC, validate packets with HMAC    |
-    &emsp;|ignore  &emsp;|Ignore HMAC field.                                       |
+    |accept  &emsp;|Accept packets without HMAC, validate packets with HMAC  |
+    |drop    &emsp;|Drop packets without HMAC, validate packets with HMAC    |
+    |ignore  &emsp;|Ignore HMAC field.                                       |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

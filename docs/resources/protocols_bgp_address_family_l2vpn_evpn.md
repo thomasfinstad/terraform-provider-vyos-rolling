@@ -34,17 +34,17 @@ BGP address-family parameters
 - `advertise_default_gw` (Boolean) Advertise All default g/w mac-ip routes in EVPN
 - `advertise_pip` (String) EVPN system primary IP
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|ipv4    &emsp;|IP address   |
+    |ipv4    &emsp;|IP address   |
 - `advertise_svi_ip` (Boolean) Advertise svi mac-ip routes in EVPN
 - `disable_ead_evi_rx` (Boolean) Activate PE on EAD-ES even if EAD-EVI is not received
 - `disable_ead_evi_tx` (Boolean) Do not advertise EAD-EVI for local ESs
 - `rd` (String) Route Distinguisher
 
-    &emsp;|Format                   &emsp;|Description                                   |
+    |Format                   &emsp;|Description                                   |
     |---------------------------|------------------------------------------------|
-    &emsp;|ASN:NN_OR_IP-ADDRESS:NN  &emsp;|Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |ASN:NN_OR_IP-ADDRESS:NN  &emsp;|Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `rt_auto_derive` (Boolean) Auto derivation of Route Target (RFC8365)
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -52,7 +52,7 @@ BGP address-family parameters
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

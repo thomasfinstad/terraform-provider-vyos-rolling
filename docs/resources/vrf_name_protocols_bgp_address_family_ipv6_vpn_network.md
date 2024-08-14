@@ -39,38 +39,38 @@ Unicast VPN IPv6 BGP settings
 
 - `label` (Number) MPLS label value assigned to route
 
-    &emsp;|Format     &emsp;|Description       |
+    |Format     &emsp;|Description       |
     |-------------|--------------------|
-    &emsp;|0-1048575  &emsp;|MPLS label value  |
+    |0-1048575  &emsp;|MPLS label value  |
 - `rd` (String) Route Distinguisher
 
-    &emsp;|Format                   &emsp;|Description                                   |
+    |Format                   &emsp;|Description                                   |
     |---------------------------|------------------------------------------------|
-    &emsp;|ASN:NN_OR_IP-ADDRESS:NN  &emsp;|Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |ASN:NN_OR_IP-ADDRESS:NN  &emsp;|Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `network` (String) Import BGP network/prefix into unicast VPN IPv6 RIB
 
-    &emsp;|Format   &emsp;|Description                          |
+    |Format   &emsp;|Description                          |
     |-----------|---------------------------------------|
-    &emsp;|ipv6net  &emsp;|Unicast VPN IPv6 BGP network/prefix  |
+    |ipv6net  &emsp;|Unicast VPN IPv6 BGP network/prefix  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

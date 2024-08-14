@@ -31,32 +31,32 @@ Configure reverse-proxy
 
 - `backend` (List of String) Backend member
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|txt     &emsp;|Name of reverse-proxy backend system  |
+    |txt     &emsp;|Name of reverse-proxy backend system  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `listen_address` (List of String) Local IP addresses to listen on
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address to listen for incoming connections  |
-    &emsp;|ipv6    &emsp;|IPv6 address to listen for incoming connections  |
+    |ipv4    &emsp;|IPv4 address to listen for incoming connections  |
+    |ipv6    &emsp;|IPv6 address to listen for incoming connections  |
 - `logging` (Attributes) Logging parameters (see [below for nested schema](#nestedatt--logging))
 - `mode` (String) Proxy mode
 
-    &emsp;|Format  &emsp;|Description      |
+    |Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|http    &emsp;|HTTP proxy mode  |
-    &emsp;|tcp     &emsp;|TCP proxy mode   |
+    |http    &emsp;|HTTP proxy mode  |
+    |tcp     &emsp;|TCP proxy mode   |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `redirect_http_to_https` (Boolean) Redirect HTTP to HTTPS
 - `ssl` (Attributes) SSL Certificate, SSL Key and CA (see [below for nested schema](#nestedatt--ssl))
 - `tcp_request` (Attributes) TCP request directive (see [below for nested schema](#nestedatt--tcp_request))
@@ -66,7 +66,7 @@ Configure reverse-proxy
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -74,35 +74,35 @@ Required:
 - `service` (String) Frontend service name
 
 
-&lt;a id=&#34;nestedatt--logging&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--logging"></a>
 ### Nested Schema for `logging`
 
 
-&lt;a id=&#34;nestedatt--ssl&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--ssl"></a>
 ### Nested Schema for `ssl`
 
 Optional:
 
 - `certificate` (List of String) Certificate in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                               |
+    |Format  &emsp;|Description                               |
     |----------|--------------------------------------------|
-    &emsp;|txt     &emsp;|Name of certificate in PKI configuration  |
+    |txt     &emsp;|Name of certificate in PKI configuration  |
 
 
-&lt;a id=&#34;nestedatt--tcp_request&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--tcp_request"></a>
 ### Nested Schema for `tcp_request`
 
 Optional:
 
 - `inspect_delay` (Number) Set the maximum allowed time to wait for data during content inspection
 
-    &emsp;|Format   &emsp;|Description                                  |
+    |Format   &emsp;|Description                                  |
     |-----------|-----------------------------------------------|
-    &emsp;|1-65535  &emsp;|The timeout value specified in milliseconds  |
+    |1-65535  &emsp;|The timeout value specified in milliseconds  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

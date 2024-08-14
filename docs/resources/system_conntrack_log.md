@@ -30,15 +30,15 @@ Connection Tracking Engine Options
 
 - `log_level` (String) Set log-level. Log must be enable.
 
-    &emsp;|Format  &emsp;|Description      |
+    |Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|info    &emsp;|Info log level   |
-    &emsp;|debug   &emsp;|Debug log level  |
+    |info    &emsp;|Info log level   |
+    |debug   &emsp;|Debug log level  |
 - `queue_size` (Number) Internal message queue size
 
-    &emsp;|Format      &emsp;|Description  |
+    |Format      &emsp;|Description  |
     |--------------|---------------|
-    &emsp;|100-999999  &emsp;|Queue size   |
+    |100-999999  &emsp;|Queue size   |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `timestamp` (Boolean) Log connection tracking events include flow-based timestamp
 
@@ -46,7 +46,7 @@ Connection Tracking Engine Options
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

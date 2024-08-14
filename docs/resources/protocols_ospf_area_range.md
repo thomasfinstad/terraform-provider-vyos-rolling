@@ -33,40 +33,40 @@ OSPF area settings
 
 - `cost` (Number) Metric for this range
 
-    &emsp;|Format      &emsp;|Description            |
+    |Format      &emsp;|Description            |
     |--------------|-------------------------|
-    &emsp;|0-16777215  &emsp;|Metric for this range  |
+    |0-16777215  &emsp;|Metric for this range  |
 - `not_advertise` (Boolean) Do not advertise this range
 - `substitute` (String) Advertise area range as another prefix
 
-    &emsp;|Format   &emsp;|Description                             |
+    |Format   &emsp;|Description                             |
     |-----------|------------------------------------------|
-    &emsp;|ipv4net  &emsp;|Advertise area range as another prefix  |
+    |ipv4net  &emsp;|Advertise area range as another prefix  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `area` (String) OSPF area settings
 
-    &emsp;|Format  &emsp;|Description                                  |
+    |Format  &emsp;|Description                                  |
     |----------|-----------------------------------------------|
-    &emsp;|u32     &emsp;|OSPF area number in decimal notation         |
-    &emsp;|ipv4    &emsp;|OSPF area number in dotted decimal notation  |
+    |u32     &emsp;|OSPF area number in decimal notation         |
+    |ipv4    &emsp;|OSPF area number in dotted decimal notation  |
 - `range` (String) Summarize routes matching a prefix (border routers only)
 
-    &emsp;|Format   &emsp;|Description        |
+    |Format   &emsp;|Description        |
     |-----------|---------------------|
-    &emsp;|ipv4net  &emsp;|Area range prefix  |
+    |ipv4net  &emsp;|Area range prefix  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

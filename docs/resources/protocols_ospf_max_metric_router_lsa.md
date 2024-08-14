@@ -33,21 +33,21 @@ OSPF maximum and infinite-distance metric
 - `administrative` (Boolean) Administratively apply, for an indefinite period
 - `on_shutdown` (Number) Advertise stub-router prior to full shutdown of OSPF
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|5-100   &emsp;|Time (seconds) to advertise self as stub-router  |
+    |5-100   &emsp;|Time (seconds) to advertise self as stub-router  |
 - `on_startup` (Number) Automatically advertise stub Router-LSA on startup of OSPF
 
-    &emsp;|Format   &emsp;|Description                                      |
+    |Format   &emsp;|Description                                      |
     |-----------|---------------------------------------------------|
-    &emsp;|5-86400  &emsp;|Time (seconds) to advertise self as stub-router  |
+    |5-86400  &emsp;|Time (seconds) to advertise self as stub-router  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

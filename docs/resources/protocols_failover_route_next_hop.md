@@ -34,14 +34,14 @@ Failover IPv4 route
 - `check` (Attributes) Check target options (see [below for nested schema](#nestedatt--check))
 - `interface` (String) Gateway interface name
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|Gateway interface name  |
+    |txt     &emsp;|Gateway interface name  |
 - `metric` (Number) Route metric for this gateway
 
-    &emsp;|Format  &emsp;|Description   |
+    |Format  &emsp;|Description   |
     |----------|----------------|
-    &emsp;|1-255   &emsp;|Route metric  |
+    |1-255   &emsp;|Route metric  |
 - `onlink` (Boolean) The next hop is directly connected to the interface, even if it does not match interface prefix
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -49,59 +49,59 @@ Failover IPv4 route
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `next_hop` (String) Next-hop IPv4 router address
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|ipv4    &emsp;|Next-hop router address  |
+    |ipv4    &emsp;|Next-hop router address  |
 - `route` (String) Failover IPv4 route
 
-    &emsp;|Format   &emsp;|Description          |
+    |Format   &emsp;|Description          |
     |-----------|-----------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 failover route  |
+    |ipv4net  &emsp;|IPv4 failover route  |
 
 
-&lt;a id=&#34;nestedatt--check&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--check"></a>
 ### Nested Schema for `check`
 
 Optional:
 
 - `policy` (String) Policy for check targets
 
-    &emsp;|Format         &emsp;|Description                |
+    |Format         &emsp;|Description                |
     |-----------------|-----------------------------|
-    &emsp;|all-available  &emsp;|All targets must be alive  |
-    &emsp;|any-available  &emsp;|Any target must be alive   |
+    |all-available  &emsp;|All targets must be alive  |
+    |any-available  &emsp;|Any target must be alive   |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `target` (List of String) Check target address
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|ipv4    &emsp;|Address to check  |
+    |ipv4    &emsp;|Address to check  |
 - `timeout` (Number) Timeout between checks
 
-    &emsp;|Format  &emsp;|Description                        |
+    |Format  &emsp;|Description                        |
     |----------|-------------------------------------|
-    &emsp;|1-300   &emsp;|Timeout in seconds between checks  |
+    |1-300   &emsp;|Timeout in seconds between checks  |
 - `type` (String) Check type
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|arp     &emsp;|Check target by ARP   |
-    &emsp;|icmp    &emsp;|Check target by ICMP  |
-    &emsp;|tcp     &emsp;|Check target by TCP   |
+    |arp     &emsp;|Check target by ARP   |
+    |icmp    &emsp;|Check target by ICMP  |
+    |tcp     &emsp;|Check target by TCP   |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

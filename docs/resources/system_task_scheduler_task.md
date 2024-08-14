@@ -33,31 +33,31 @@ Task scheduler settings
 - `executable` (Attributes) Executable path and arguments (see [below for nested schema](#nestedatt--executable))
 - `interval` (String) Execution interval
 
-    &emsp;|Format      &emsp;|Description                    |
+    |Format      &emsp;|Description                    |
     |--------------|---------------------------------|
-    &emsp;|&lt;minutes&gt;   &emsp;|Execution interval in minutes  |
-    &emsp;|&lt;minutes&gt;m  &emsp;|Execution interval in minutes  |
-    &emsp;|&lt;hours&gt;h    &emsp;|Execution interval in hours    |
-    &emsp;|&lt;days&gt;d     &emsp;|Execution interval in days     |
+    |&lt;minutes&gt;   &emsp;|Execution interval in minutes  |
+    |&lt;minutes&gt;m  &emsp;|Execution interval in minutes  |
+    |&lt;hours&gt;h    &emsp;|Execution interval in hours    |
+    |&lt;days&gt;d     &emsp;|Execution interval in days     |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `task` (String) Scheduled task
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Task name    |
+    |txt     &emsp;|Task name    |
 
 
-&lt;a id=&#34;nestedatt--executable&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--executable"></a>
 ### Nested Schema for `executable`
 
 Optional:
@@ -66,7 +66,7 @@ Optional:
 - `path` (String) Path to executable
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

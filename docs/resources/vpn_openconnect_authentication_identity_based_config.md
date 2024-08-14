@@ -32,28 +32,28 @@ Authentication for remote access SSL VPN Server
 
 - `default_config` (String) Default configuration if discrete config could not be found
 
-    &emsp;|Format    &emsp;|Description                                                 |
+    |Format    &emsp;|Description                                                 |
     |------------|--------------------------------------------------------------|
-    &emsp;|filename  &emsp;|Default configuration filename, must be under /config/auth  |
+    |filename  &emsp;|Default configuration filename, must be under /config/auth  |
 - `directory` (String) Directory to containing configuration files
 
-    &emsp;|Format  &emsp;|Description                                                  |
+    |Format  &emsp;|Description                                                  |
     |----------|---------------------------------------------------------------|
-    &emsp;|path    &emsp;|Path to configuration directory, must be under /config/auth  |
+    |path    &emsp;|Path to configuration directory, must be under /config/auth  |
 - `disable` (Boolean) Disable instance
 - `mode` (String) Select per user or per group configuration file - ignored if authentication group is configured
 
-    &emsp;|Format  &emsp;|Description                                         |
+    |Format  &emsp;|Description                                         |
     |----------|------------------------------------------------------|
-    &emsp;|user    &emsp;|Match configuration file on username                |
-    &emsp;|group   &emsp;|Match RADIUS response class attribute as file name  |
+    |user    &emsp;|Match configuration file on username                |
+    |group   &emsp;|Match RADIUS response class attribute as file name  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

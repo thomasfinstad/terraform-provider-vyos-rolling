@@ -22,6 +22,7 @@ type FirewallIPvsixForwardFilterRuleGre struct {
 	LeafFirewallIPvsixForwardFilterRuleGreVersion    types.String `tfsdk:"version" vyos:"version,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
 	// Nodes
 	NodeFirewallIPvsixForwardFilterRuleGreFlags *FirewallIPvsixForwardFilterRuleGreFlags `tfsdk:"flags" vyos:"flags,omitempty"`

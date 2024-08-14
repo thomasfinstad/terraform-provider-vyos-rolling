@@ -37,31 +37,31 @@ Carrier-grade NAT (CGNAT) parameters
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `rule` (Number) Rule
 
-    &emsp;|Format    &emsp;|Description                 |
+    |Format    &emsp;|Description                 |
     |------------|------------------------------|
-    &emsp;|1-999999  &emsp;|Number for this CGNAT rule  |
+    |1-999999  &emsp;|Number for this CGNAT rule  |
 
 
-&lt;a id=&#34;nestedatt--source&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 
 Optional:
 
 - `pool` (String) Source internal pool
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|txt     &emsp;|Source internal pool name  |
+    |txt     &emsp;|Source internal pool name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:
@@ -69,13 +69,13 @@ Optional:
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
 
 
-&lt;a id=&#34;nestedatt--translation&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--translation"></a>
 ### Nested Schema for `translation`
 
 Optional:
 
 - `pool` (String) Translation external pool
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|txt     &emsp;|Translation external pool name  |  
+    |txt     &emsp;|Translation external pool name  |  

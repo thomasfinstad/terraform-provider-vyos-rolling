@@ -35,21 +35,21 @@ URL filtering via squidGuard redirector
 
 - `address` (List of String) Address for source-group
 
-    &emsp;|Format     &emsp;|Description                  |
+    |Format     &emsp;|Description                  |
     |-------------|-------------------------------|
-    &emsp;|ipv4       &emsp;|IPv4 address to match        |
-    &emsp;|ipv4net    &emsp;|IPv4 prefix to match         |
-    &emsp;|ipv4range  &emsp;|IPv4 address range to match  |
+    |ipv4       &emsp;|IPv4 address to match        |
+    |ipv4net    &emsp;|IPv4 prefix to match         |
+    |ipv4range  &emsp;|IPv4 address range to match  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `domain` (List of String) Domain for source-group
 
-    &emsp;|Format  &emsp;|Description                       |
+    |Format  &emsp;|Description                       |
     |----------|------------------------------------|
-    &emsp;|domain  &emsp;|Domain name for the source-group  |
+    |domain  &emsp;|Domain name for the source-group  |
 - `ldap_ip_search` (List of String) LDAP search expression for an IP address list
 - `ldap_user_search` (List of String) LDAP search expression for a user group
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -59,19 +59,19 @@ URL filtering via squidGuard redirector
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `source_group` (String) Source group name
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|name    &emsp;|Name of source group  |
+    |name    &emsp;|Name of source group  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -31,49 +31,49 @@ Add a BGP community list entry
 
 - `action` (String) Action to take on entries matching this rule
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|permit  &emsp;|Permit matching entries  |
-    &emsp;|deny    &emsp;|Deny matching entries    |
+    |permit  &emsp;|Permit matching entries  |
+    |deny    &emsp;|Deny matching entries    |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `regex` (String) Regular expression to match against a community-list
 
-    &emsp;|Format        &emsp;|Description                                                  |
+    |Format        &emsp;|Description                                                  |
     |----------------|---------------------------------------------------------------|
-    &emsp;|&lt;aa:nn&gt;       &emsp;|Community number in AA:NN format                             |
-    &emsp;|local-AS      &emsp;|Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    &emsp;|no-advertise  &emsp;|Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
-    &emsp;|no-export     &emsp;|Well-known communities value NO_EXPORT 0xFFFFFF01            |
-    &emsp;|internet      &emsp;|Well-known communities value 0                               |
-    &emsp;|additive      &emsp;|New value is appended to the existing value                  |
+    |&lt;aa:nn&gt;       &emsp;|Community number in AA:NN format                             |
+    |local-AS      &emsp;|Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
+    |no-advertise  &emsp;|Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
+    |no-export     &emsp;|Well-known communities value NO_EXPORT 0xFFFFFF01            |
+    |internet      &emsp;|Well-known communities value 0                               |
+    |additive      &emsp;|New value is appended to the existing value                  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `community_list` (String) Add a BGP community list entry
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|txt     &emsp;|BGP community-list name  |
+    |txt     &emsp;|BGP community-list name  |
 - `rule` (Number) Rule for this BGP community list
 
-    &emsp;|Format   &emsp;|Description                 |
+    |Format   &emsp;|Description                 |
     |-----------|------------------------------|
-    &emsp;|1-65535  &emsp;|Community-list rule number  |
+    |1-65535  &emsp;|Community-list rule number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

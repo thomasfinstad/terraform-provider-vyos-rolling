@@ -41,21 +41,21 @@ NAPTR record
 - `lookup_srv` (Boolean) S flag
 - `order` (Number) Rule order
 
-    &emsp;|Format   &emsp;|Description                                  |
+    |Format   &emsp;|Description                                  |
     |-----------|-----------------------------------------------|
-    &emsp;|0-65535  &emsp;|Rule order (lower order is evaluated first)  |
+    |0-65535  &emsp;|Rule order (lower order is evaluated first)  |
 - `preference` (Number) Rule preference
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|0-65535  &emsp;|Rule preference  |
+    |0-65535  &emsp;|Rule preference  |
 - `protocol_specific` (Boolean) P flag
 - `regexp` (String) Regular expression
 - `replacement` (String) Replacement DNS name
 
-    &emsp;|Format            &emsp;|Description        |
+    |Format            &emsp;|Description        |
     |--------------------|---------------------|
-    &emsp;|name.example.com  &emsp;|Absolute DNS name  |
+    |name.example.com  &emsp;|Absolute DNS name  |
 - `resolve_uri` (Boolean) U flag
 - `service` (String) Service type
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -64,30 +64,30 @@ NAPTR record
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `authoritative_domain` (String) Domain to host authoritative records for
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|txt     &emsp;|An absolute DNS domain name  |
+    |txt     &emsp;|An absolute DNS domain name  |
 - `naptr` (String) NAPTR record
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|txt     &emsp;|A DNS name relative to the root record  |
-    &emsp;|@       &emsp;|Root record                             |
+    |txt     &emsp;|A DNS name relative to the root record  |
+    |@       &emsp;|Root record                             |
 - `rule` (Number) NAPTR rule
 
-    &emsp;|Format   &emsp;|Description  |
+    |Format   &emsp;|Description  |
     |-----------|---------------|
-    &emsp;|0-65535  &emsp;|Rule number  |
+    |0-65535  &emsp;|Rule number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

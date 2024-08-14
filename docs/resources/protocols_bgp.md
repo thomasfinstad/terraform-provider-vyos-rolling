@@ -28,16 +28,16 @@ description: |-
 
 - `system_as` (Number) Autonomous System Number (ASN)
 
-    &emsp;|Format        &emsp;|Description               |
+    |Format        &emsp;|Description               |
     |----------------|----------------------------|
-    &emsp;|1-4294967294  &emsp;|Autonomous System Number  |
+    |1-4294967294  &emsp;|Autonomous System Number  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

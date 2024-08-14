@@ -31,33 +31,33 @@ Open Shortest Path First (OSPF)
 
 - `export` (List of String) Filter for outgoing routing update
 
-    &emsp;|Format     &emsp;|Description              |
+    |Format     &emsp;|Description              |
     |-------------|---------------------------|
-    &emsp;|bgp        &emsp;|Filter BGP routes        |
-    &emsp;|connected  &emsp;|Filter connected routes  |
-    &emsp;|isis       &emsp;|Filter IS-IS routes      |
-    &emsp;|kernel     &emsp;|Filter Kernel routes     |
-    &emsp;|rip        &emsp;|Filter RIP routes        |
-    &emsp;|static     &emsp;|Filter static routes     |
+    |bgp        &emsp;|Filter BGP routes        |
+    |connected  &emsp;|Filter connected routes  |
+    |isis       &emsp;|Filter IS-IS routes      |
+    |kernel     &emsp;|Filter Kernel routes     |
+    |rip        &emsp;|Filter RIP routes        |
+    |static     &emsp;|Filter static routes     |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `access_list` (Number) Access list to filter networks in routing updates
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|u32     &emsp;|Access-list number  |
+    |u32     &emsp;|Access-list number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

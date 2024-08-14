@@ -37,9 +37,9 @@ IPv6 rules
 
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
 - `inbound_interface` (String) Interface to apply custom connection timers on
 - `protocol` (Attributes) Customize protocol specific timers, one protocol configuration per rule (see [below for nested schema](#nestedatt--protocol))
@@ -50,44 +50,44 @@ IPv6 rules
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `rule` (Number) Rule number
 
-    &emsp;|Format    &emsp;|Description               |
+    |Format    &emsp;|Description               |
     |------------|----------------------------|
-    &emsp;|1-999999  &emsp;|Number of conntrack rule  |
+    |1-999999  &emsp;|Number of conntrack rule  |
 
 
-&lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--destination"></a>
 ### Nested Schema for `destination`
 
 Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    &emsp;|Format      &emsp;|Description                                    |
+    |Format      &emsp;|Description                                    |
     |--------------|-------------------------------------------------|
-    &emsp;|ipv6        &emsp;|IP address to match                            |
-    &emsp;|ipv6net     &emsp;|Subnet to match                                |
-    &emsp;|ipv6range   &emsp;|IP range to match                              |
-    &emsp;|!ipv6       &emsp;|Match everything except the specified address  |
-    &emsp;|!ipv6net    &emsp;|Match everything except the specified prefix   |
-    &emsp;|!ipv6range  &emsp;|Match everything except the specified range    |
+    |ipv6        &emsp;|IP address to match                            |
+    |ipv6net     &emsp;|Subnet to match                                |
+    |ipv6range   &emsp;|IP range to match                              |
+    |!ipv6       &emsp;|Match everything except the specified address  |
+    |!ipv6net    &emsp;|Match everything except the specified prefix   |
+    |!ipv6range  &emsp;|Match everything except the specified range    |
 - `port` (String) Port number
 
-    &emsp;|Format     &emsp;|Description                                                                                                                                                              |
+    |Format     &emsp;|Description                                                                                                                                                              |
     |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    &emsp;|txt        &emsp;|Named port (any name in /etc/services, e.g., http)                                                                                                                       |
-    &emsp;|1-65535    &emsp;|Numeric IP port                                                                                                                                                          |
-    &emsp;|start-end  &emsp;|Numbered port range (e.g. 1001-1005)                                                                                                                                     |
-    &emsp;|           &emsp;|\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using &#39;!&#39;.\nFor example: &#39;!22,telnet,http,123,1001-1005&#39;  |
+    |txt        &emsp;|Named port (any name in /etc/services, e.g., http)                                                                                                                       |
+    |1-65535    &emsp;|Numeric IP port                                                                                                                                                          |
+    |start-end  &emsp;|Numbered port range (e.g. 1001-1005)                                                                                                                                     |
+    |           &emsp;|\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using &#39;!&#39;.\nFor example: &#39;!22,telnet,http,123,1001-1005&#39;  |
 
 
-&lt;a id=&#34;nestedatt--protocol&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--protocol"></a>
 ### Nested Schema for `protocol`
 
 Optional:
@@ -95,97 +95,97 @@ Optional:
 - `tcp` (Attributes) TCP connection timeout options (see [below for nested schema](#nestedatt--protocol--tcp))
 - `udp` (Attributes) UDP timeout options (see [below for nested schema](#nestedatt--protocol--udp))
 
-&lt;a id=&#34;nestedatt--protocol--tcp&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--protocol--tcp"></a>
 ### Nested Schema for `protocol.tcp`
 
 Optional:
 
 - `close` (Number) TCP CLOSE timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                   |
+    |Format      &emsp;|Description                   |
     |--------------|--------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP CLOSE timeout in seconds  |
+    |1-21474836  &emsp;|TCP CLOSE timeout in seconds  |
 - `close_wait` (Number) TCP CLOSE-WAIT timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                        |
+    |Format      &emsp;|Description                        |
     |--------------|-------------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP CLOSE-WAIT timeout in seconds  |
+    |1-21474836  &emsp;|TCP CLOSE-WAIT timeout in seconds  |
 - `established` (Number) TCP ESTABLISHED timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                         |
+    |Format      &emsp;|Description                         |
     |--------------|--------------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP ESTABLISHED timeout in seconds  |
+    |1-21474836  &emsp;|TCP ESTABLISHED timeout in seconds  |
 - `fin_wait` (Number) TCP FIN-WAIT timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                      |
+    |Format      &emsp;|Description                      |
     |--------------|-----------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP FIN-WAIT timeout in seconds  |
+    |1-21474836  &emsp;|TCP FIN-WAIT timeout in seconds  |
 - `last_ack` (Number) TCP LAST-ACK timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                      |
+    |Format      &emsp;|Description                      |
     |--------------|-----------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP LAST-ACK timeout in seconds  |
+    |1-21474836  &emsp;|TCP LAST-ACK timeout in seconds  |
 - `syn_recv` (Number) TCP SYN-RECEIVED timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                          |
+    |Format      &emsp;|Description                          |
     |--------------|---------------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP SYN-RECEIVED timeout in seconds  |
+    |1-21474836  &emsp;|TCP SYN-RECEIVED timeout in seconds  |
 - `syn_sent` (Number) TCP SYN-SENT timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                      |
+    |Format      &emsp;|Description                      |
     |--------------|-----------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP SYN-SENT timeout in seconds  |
+    |1-21474836  &emsp;|TCP SYN-SENT timeout in seconds  |
 - `time_wait` (Number) TCP TIME-WAIT timeout in seconds
 
-    &emsp;|Format      &emsp;|Description                       |
+    |Format      &emsp;|Description                       |
     |--------------|------------------------------------|
-    &emsp;|1-21474836  &emsp;|TCP TIME-WAIT timeout in seconds  |
+    |1-21474836  &emsp;|TCP TIME-WAIT timeout in seconds  |
 
 
-&lt;a id=&#34;nestedatt--protocol--udp&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--protocol--udp"></a>
 ### Nested Schema for `protocol.udp`
 
 Optional:
 
 - `replied` (Number) Timeout for UDP connection seen in both directions
 
-    &emsp;|Format      &emsp;|Description                                         |
+    |Format      &emsp;|Description                                         |
     |--------------|------------------------------------------------------|
-    &emsp;|1-21474836  &emsp;|Timeout for UDP connection seen in both directions  |
+    |1-21474836  &emsp;|Timeout for UDP connection seen in both directions  |
 - `unreplied` (Number) Timeout for unreplied UDP
 
-    &emsp;|Format      &emsp;|Description                |
+    |Format      &emsp;|Description                |
     |--------------|-----------------------------|
-    &emsp;|1-21474836  &emsp;|Timeout for unreplied UDP  |
+    |1-21474836  &emsp;|Timeout for unreplied UDP  |
 
 
 
-&lt;a id=&#34;nestedatt--source&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 
 Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    &emsp;|Format      &emsp;|Description                                    |
+    |Format      &emsp;|Description                                    |
     |--------------|-------------------------------------------------|
-    &emsp;|ipv6        &emsp;|IP address to match                            |
-    &emsp;|ipv6net     &emsp;|Subnet to match                                |
-    &emsp;|ipv6range   &emsp;|IP range to match                              |
-    &emsp;|!ipv6       &emsp;|Match everything except the specified address  |
-    &emsp;|!ipv6net    &emsp;|Match everything except the specified prefix   |
-    &emsp;|!ipv6range  &emsp;|Match everything except the specified range    |
+    |ipv6        &emsp;|IP address to match                            |
+    |ipv6net     &emsp;|Subnet to match                                |
+    |ipv6range   &emsp;|IP range to match                              |
+    |!ipv6       &emsp;|Match everything except the specified address  |
+    |!ipv6net    &emsp;|Match everything except the specified prefix   |
+    |!ipv6range  &emsp;|Match everything except the specified range    |
 - `port` (String) Port number
 
-    &emsp;|Format     &emsp;|Description                                                                                                                                                              |
+    |Format     &emsp;|Description                                                                                                                                                              |
     |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    &emsp;|txt        &emsp;|Named port (any name in /etc/services, e.g., http)                                                                                                                       |
-    &emsp;|1-65535    &emsp;|Numeric IP port                                                                                                                                                          |
-    &emsp;|start-end  &emsp;|Numbered port range (e.g. 1001-1005)                                                                                                                                     |
-    &emsp;|           &emsp;|\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using &#39;!&#39;.\nFor example: &#39;!22,telnet,http,123,1001-1005&#39;  |
+    |txt        &emsp;|Named port (any name in /etc/services, e.g., http)                                                                                                                       |
+    |1-65535    &emsp;|Numeric IP port                                                                                                                                                          |
+    |start-end  &emsp;|Numbered port range (e.g. 1001-1005)                                                                                                                                     |
+    |           &emsp;|\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using &#39;!&#39;.\nFor example: &#39;!22,telnet,http,123,1001-1005&#39;  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

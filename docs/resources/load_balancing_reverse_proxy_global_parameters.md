@@ -30,34 +30,34 @@ Configure reverse-proxy
 
 - `max_connections` (Number) Maximum allowed connections
 
-    &emsp;|Format     &emsp;|Description                  |
+    |Format     &emsp;|Description                  |
     |-------------|-------------------------------|
-    &emsp;|1-2000000  &emsp;|Maximum allowed connections  |
+    |1-2000000  &emsp;|Maximum allowed connections  |
 - `ssl_bind_ciphers` (List of String) Cipher algorithms (&#34;cipher suite&#34;) used during SSL/TLS handshake for all frontend servers
 
-    &emsp;|Format                         &emsp;|Description                    |
+    |Format                         &emsp;|Description                    |
     |---------------------------------|---------------------------------|
-    &emsp;|ecdhe-ecdsa-aes128-gcm-sha256  &emsp;|ecdhe-ecdsa-aes128-gcm-sha256  |
-    &emsp;|ecdhe-rsa-aes128-gcm-sha256    &emsp;|ecdhe-rsa-aes128-gcm-sha256    |
-    &emsp;|ecdhe-ecdsa-aes256-gcm-sha384  &emsp;|ecdhe-ecdsa-aes256-gcm-sha384  |
-    &emsp;|ecdhe-rsa-aes256-gcm-sha384    &emsp;|ecdhe-rsa-aes256-gcm-sha384    |
-    &emsp;|ecdhe-ecdsa-chacha20-poly1305  &emsp;|ecdhe-ecdsa-chacha20-poly1305  |
-    &emsp;|ecdhe-rsa-chacha20-poly1305    &emsp;|ecdhe-rsa-chacha20-poly1305    |
-    &emsp;|dhe-rsa-aes128-gcm-sha256      &emsp;|dhe-rsa-aes128-gcm-sha256      |
-    &emsp;|dhe-rsa-aes256-gcm-sha384      &emsp;|dhe-rsa-aes256-gcm-sha384      |
+    |ecdhe-ecdsa-aes128-gcm-sha256  &emsp;|ecdhe-ecdsa-aes128-gcm-sha256  |
+    |ecdhe-rsa-aes128-gcm-sha256    &emsp;|ecdhe-rsa-aes128-gcm-sha256    |
+    |ecdhe-ecdsa-aes256-gcm-sha384  &emsp;|ecdhe-ecdsa-aes256-gcm-sha384  |
+    |ecdhe-rsa-aes256-gcm-sha384    &emsp;|ecdhe-rsa-aes256-gcm-sha384    |
+    |ecdhe-ecdsa-chacha20-poly1305  &emsp;|ecdhe-ecdsa-chacha20-poly1305  |
+    |ecdhe-rsa-chacha20-poly1305    &emsp;|ecdhe-rsa-chacha20-poly1305    |
+    |dhe-rsa-aes128-gcm-sha256      &emsp;|dhe-rsa-aes128-gcm-sha256      |
+    |dhe-rsa-aes256-gcm-sha384      &emsp;|dhe-rsa-aes256-gcm-sha384      |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `tls_version_min` (String) Specify the minimum required TLS version
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|1.2     &emsp;|TLS v1.2     |
-    &emsp;|1.3     &emsp;|TLS v1.3     |
+    |1.2     &emsp;|TLS v1.2     |
+    |1.3     &emsp;|TLS v1.3     |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

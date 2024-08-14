@@ -34,24 +34,24 @@ Interface to send RA on
 - `no_remove_route` (Boolean) Do not announce this route with a zero second lifetime upon shutdown
 - `route_preference` (String) Preference associated with the route,
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|low     &emsp;|Route has low preference     |
-    &emsp;|medium  &emsp;|Route has medium preference  |
-    &emsp;|high    &emsp;|Route has high preference    |
+    |low     &emsp;|Route has low preference     |
+    |medium  &emsp;|Route has medium preference  |
+    |high    &emsp;|Route has high preference    |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `valid_lifetime` (String) Time in seconds that the route will remain valid
 
-    &emsp;|Format        &emsp;|Description                                       |
+    |Format        &emsp;|Description                                       |
     |----------------|----------------------------------------------------|
-    &emsp;|1-4294967295  &emsp;|Time in seconds that the route will remain valid  |
-    &emsp;|infinity      &emsp;|Route will remain preferred forever               |
+    |1-4294967295  &emsp;|Time in seconds that the route will remain valid  |
+    |infinity      &emsp;|Route will remain preferred forever               |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -59,12 +59,12 @@ Required:
 - `interface` (String) Interface to send RA on
 - `route` (String) IPv6 route to be advertised in Router Advertisements (RAs)
 
-    &emsp;|Format   &emsp;|Description                  |
+    |Format   &emsp;|Description                  |
     |-----------|-------------------------------|
-    &emsp;|ipv6net  &emsp;|IPv6 route to be advertized  |
+    |ipv6net  &emsp;|IPv6 route to be advertized  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

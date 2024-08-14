@@ -31,54 +31,54 @@ IP prefix-list filter
 
 - `action` (String) Action to take on entries matching this rule
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|permit  &emsp;|Permit matching entries  |
-    &emsp;|deny    &emsp;|Deny matching entries    |
+    |permit  &emsp;|Permit matching entries  |
+    |deny    &emsp;|Deny matching entries    |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `ge` (Number) Prefix length to match a netmask greater than or equal to it
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|0-32    &emsp;|Netmask greater than length  |
+    |0-32    &emsp;|Netmask greater than length  |
 - `le` (Number) Prefix length to match a netmask less than or equal to it
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|0-32    &emsp;|Netmask less than length  |
+    |0-32    &emsp;|Netmask less than length  |
 - `prefix` (String) Prefix to match
 
-    &emsp;|Format   &emsp;|Description              |
+    |Format   &emsp;|Description              |
     |-----------|---------------------------|
-    &emsp;|ipv4net  &emsp;|Prefix to match against  |
+    |ipv4net  &emsp;|Prefix to match against  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `prefix_list` (String) IP prefix-list filter
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|txt     &emsp;|Name of IPv4 prefix-list  |
+    |txt     &emsp;|Name of IPv4 prefix-list  |
 - `rule` (Number) Rule for this prefix-list
 
-    &emsp;|Format   &emsp;|Description              |
+    |Format   &emsp;|Description              |
     |-----------|---------------------------|
-    &emsp;|1-65535  &emsp;|Prefix-list rule number  |
+    |1-65535  &emsp;|Prefix-list rule number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

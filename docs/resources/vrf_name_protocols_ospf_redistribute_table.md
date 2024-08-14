@@ -37,43 +37,43 @@ Redistribute information from another routing protocol
 
 - `metric` (Number) OSPF default metric
 
-    &emsp;|Format      &emsp;|Description     |
+    |Format      &emsp;|Description     |
     |--------------|------------------|
-    &emsp;|0-16777214  &emsp;|Default metric  |
+    |0-16777214  &emsp;|Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    &emsp;|Format  &emsp;|Description                         |
+    |Format  &emsp;|Description                         |
     |----------|--------------------------------------|
-    &emsp;|1-2     &emsp;|Set OSPF External Type 1/2 metrics  |
+    |1-2     &emsp;|Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
+    |txt     &emsp;|Route map name  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `table` (Number) Redistribute non-main Kernel Routing Table
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|1-200   &emsp;|Policy route table number  |
+    |1-200   &emsp;|Policy route table number  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -37,29 +37,29 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"connection_mark": schema.NumberAttribute{
 			Optional: true,
-			MarkdownDescription: `Connection marking
+			MarkdownDescription: `Set connection mark
 
-    |  Format        |  Description         |
-    |----------------|----------------------|
-    |  0-2147483647  |  Connection marking  |
+    |  Format        |  Description      |
+    |----------------|-------------------|
+    |  0-2147483647  |  Connection mark  |
 `,
-			Description: `Connection marking
+			Description: `Set connection mark
 
-    |  Format        |  Description         |
-    |----------------|----------------------|
-    |  0-2147483647  |  Connection marking  |
+    |  Format        |  Description      |
+    |----------------|-------------------|
+    |  0-2147483647  |  Connection mark  |
 `,
 		},
 
 		"dscp": schema.NumberAttribute{
 			Optional: true,
-			MarkdownDescription: `Packet Differentiated Services Codepoint (DSCP)
+			MarkdownDescription: `Set DSCP (Packet Differentiated Services Codepoint) bits
 
     |  Format  |  Description  |
     |----------|---------------|
     |  0-63    |  DSCP number  |
 `,
-			Description: `Packet Differentiated Services Codepoint (DSCP)
+			Description: `Set DSCP (Packet Differentiated Services Codepoint) bits
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -69,30 +69,30 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"mark": schema.NumberAttribute{
 			Optional: true,
-			MarkdownDescription: `Packet marking
+			MarkdownDescription: `Set packet mark
 
-    |  Format        |  Description     |
-    |----------------|------------------|
-    |  1-2147483647  |  Packet marking  |
+    |  Format        |  Description  |
+    |----------------|---------------|
+    |  1-2147483647  |  Packet mark  |
 `,
-			Description: `Packet marking
+			Description: `Set packet mark
 
-    |  Format        |  Description     |
-    |----------------|------------------|
-    |  1-2147483647  |  Packet marking  |
+    |  Format        |  Description  |
+    |----------------|---------------|
+    |  1-2147483647  |  Packet mark  |
 `,
 		},
 
 		"table": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Routing table to forward packet with
+			MarkdownDescription: `Set the routing table for matched packets
 
     |  Format  |  Description   |
     |----------|----------------|
     |  1-200   |  Table number  |
     |  main    |  Main table    |
 `,
-			Description: `Routing table to forward packet with
+			Description: `Set the routing table for matched packets
 
     |  Format  |  Description   |
     |----------|----------------|
@@ -121,13 +121,13 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"tcp_mss": schema.NumberAttribute{
 			Optional: true,
-			MarkdownDescription: `TCP Maximum Segment Size
+			MarkdownDescription: `Set TCP Maximum Segment Size
 
     |  Format    |  Description                   |
     |------------|--------------------------------|
     |  500-1460  |  Explicitly set TCP MSS value  |
 `,
-			Description: `TCP Maximum Segment Size
+			Description: `Set TCP Maximum Segment Size
 
     |  Format    |  Description                   |
     |------------|--------------------------------|

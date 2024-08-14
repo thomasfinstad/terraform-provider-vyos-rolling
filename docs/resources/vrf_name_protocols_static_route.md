@@ -36,14 +36,14 @@ Static Routing
 - `blackhole` (Attributes) Silently discard pkts when matched (see [below for nested schema](#nestedatt--blackhole))
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `dhcp_interface` (String) DHCP interface supplying next-hop IP address
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|txt     &emsp;|DHCP interface name  |
+    |txt     &emsp;|DHCP interface name  |
 - `reject` (Attributes) Emit an ICMP unreachable when matched (see [below for nested schema](#nestedatt--reject))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -51,58 +51,58 @@ Static Routing
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `name` (String) Virtual Routing and Forwarding instance
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 - `route` (String) Static IPv4 route
 
-    &emsp;|Format   &emsp;|Description        |
+    |Format   &emsp;|Description        |
     |-----------|---------------------|
-    &emsp;|ipv4net  &emsp;|IPv4 static route  |
+    |ipv4net  &emsp;|IPv4 static route  |
 
 
-&lt;a id=&#34;nestedatt--blackhole&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--blackhole"></a>
 ### Nested Schema for `blackhole`
 
 Optional:
 
 - `distance` (Number) Distance for this route
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-255   &emsp;|Distance for this route  |
+    |1-255   &emsp;|Distance for this route  |
 - `tag` (Number) Tag value for this route
 
-    &emsp;|Format        &emsp;|Description               |
+    |Format        &emsp;|Description               |
     |----------------|----------------------------|
-    &emsp;|1-4294967295  &emsp;|Tag value for this route  |
+    |1-4294967295  &emsp;|Tag value for this route  |
 
 
-&lt;a id=&#34;nestedatt--reject&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--reject"></a>
 ### Nested Schema for `reject`
 
 Optional:
 
 - `distance` (Number) Distance for this route
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-255   &emsp;|Distance for this route  |
+    |1-255   &emsp;|Distance for this route  |
 - `tag` (Number) Tag value for this route
 
-    &emsp;|Format        &emsp;|Description               |
+    |Format        &emsp;|Description               |
     |----------------|----------------------------|
-    &emsp;|1-4294967295  &emsp;|Tag value for this route  |
+    |1-4294967295  &emsp;|Tag value for this route  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

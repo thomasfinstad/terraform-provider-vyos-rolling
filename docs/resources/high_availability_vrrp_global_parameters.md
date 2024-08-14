@@ -30,22 +30,22 @@ Virtual Router Redundancy Protocol settings
 
 - `startup_delay` (Number) Time VRRP startup process (in seconds)
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|1-600   &emsp;|Interval in seconds  |
+    |1-600   &emsp;|Interval in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `version` (String) Default VRRP version to use, IPv6 always uses VRRP version 3
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|2       &emsp;|VRRP version 2  |
-    &emsp;|3       &emsp;|VRRP version 3  |
+    |2       &emsp;|VRRP version 2  |
+    |3       &emsp;|VRRP version 3  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

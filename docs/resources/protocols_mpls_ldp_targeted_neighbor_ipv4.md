@@ -34,27 +34,27 @@ Targeted LDP neighbor/session parameters
 
 - `address` (List of String) Neighbor/session address
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|ipv4    &emsp;|Neighbor/session address  |
+    |ipv4    &emsp;|Neighbor/session address  |
 - `enable` (Boolean) Accept and respond to targeted hellos
 - `hello_holdtime` (Number) Hello hold time
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Time in seconds  |
+    |1-65535  &emsp;|Time in seconds  |
 - `hello_interval` (Number) Hello interval
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Time in seconds  |
+    |1-65535  &emsp;|Time in seconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

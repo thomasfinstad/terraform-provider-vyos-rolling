@@ -28,49 +28,49 @@ description: |-
 
 - `maximum_paths` (Number) Forward packets over multiple paths
 
-    &emsp;|Format  &emsp;|Description      |
+    |Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|1-32    &emsp;|Number of paths  |
+    |1-32    &emsp;|Number of paths  |
 - `network` (List of String) Enable routing on an IP network
 
-    &emsp;|Format   &emsp;|Description           |
+    |Format   &emsp;|Description           |
     |-----------|------------------------|
-    &emsp;|ipv4net  &emsp;|EIGRP network prefix  |
+    |ipv4net  &emsp;|EIGRP network prefix  |
 - `passive_interface` (List of String) Suppress routing updates on an interface
 - `redistribute` (List of String) Redistribute information from another routing protocol
 
-    &emsp;|Format     &emsp;|Description                          |
+    |Format     &emsp;|Description                          |
     |-------------|---------------------------------------|
-    &emsp;|bgp        &emsp;|Border Gateway Protocol (BGP)        |
-    &emsp;|connected  &emsp;|Connected routes                     |
-    &emsp;|nhrp       &emsp;|Next Hop Resolution Protocol (NHRP)  |
-    &emsp;|ospf       &emsp;|Open Shortest Path First (OSPFv2)    |
-    &emsp;|rip        &emsp;|Routing Information Protocol (RIP)   |
-    &emsp;|babel      &emsp;|Babel routing protocol (Babel)       |
-    &emsp;|static     &emsp;|Statically configured routes         |
-    &emsp;|vnc        &emsp;|Virtual Network Control (VNC)        |
+    |bgp        &emsp;|Border Gateway Protocol (BGP)        |
+    |connected  &emsp;|Connected routes                     |
+    |nhrp       &emsp;|Next Hop Resolution Protocol (NHRP)  |
+    |ospf       &emsp;|Open Shortest Path First (OSPFv2)    |
+    |rip        &emsp;|Routing Information Protocol (RIP)   |
+    |babel      &emsp;|Babel routing protocol (Babel)       |
+    |static     &emsp;|Statically configured routes         |
+    |vnc        &emsp;|Virtual Network Control (VNC)        |
 - `router_id` (String) Override default router identifier
 
-    &emsp;|Format  &emsp;|Description                     |
+    |Format  &emsp;|Description                     |
     |----------|----------------------------------|
-    &emsp;|ipv4    &emsp;|Router-ID in IP address format  |
+    |ipv4    &emsp;|Router-ID in IP address format  |
 - `system_as` (Number) Autonomous System Number (ASN)
 
-    &emsp;|Format   &emsp;|Description               |
+    |Format   &emsp;|Description               |
     |-----------|----------------------------|
-    &emsp;|1-65535  &emsp;|Autonomous System Number  |
+    |1-65535  &emsp;|Autonomous System Number  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `variance` (Number) Control load balancing variance
 
-    &emsp;|Format  &emsp;|Description                 |
+    |Format  &emsp;|Description                 |
     |----------|------------------------------|
-    &emsp;|1-128   &emsp;|Metric variance multiplier  |
+    |1-128   &emsp;|Metric variance multiplier  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

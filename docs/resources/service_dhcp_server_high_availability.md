@@ -30,44 +30,44 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
 
 - `ca_certificate` (String) Certificate Authority in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                      |
+    |Format  &emsp;|Description                      |
     |----------|-----------------------------------|
-    &emsp;|txt     &emsp;|Name of CA in PKI configuration  |
+    |txt     &emsp;|Name of CA in PKI configuration  |
 - `certificate` (String) Certificate in PKI configuration
 
-    &emsp;|Format  &emsp;|Description                               |
+    |Format  &emsp;|Description                               |
     |----------|--------------------------------------------|
-    &emsp;|txt     &emsp;|Name of certificate in PKI configuration  |
+    |txt     &emsp;|Name of certificate in PKI configuration  |
 - `mode` (String) Configure high availability mode
 
-    &emsp;|Format          &emsp;|Description                                |
+    |Format          &emsp;|Description                                |
     |------------------|---------------------------------------------|
-    &emsp;|active-active   &emsp;|Both server attend DHCP requests           |
-    &emsp;|active-passive  &emsp;|Only primary server attends DHCP requests  |
+    |active-active   &emsp;|Both server attend DHCP requests           |
+    |active-passive  &emsp;|Only primary server attends DHCP requests  |
 - `name` (String) Peer name used to identify connection
 - `remote` (String) IPv4 remote address used for connection
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address of high availability peer  |
+    |ipv4    &emsp;|IPv4 address of high availability peer  |
 - `source_address` (String) IPv4 source address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
 - `status` (String) High availability hierarchy
 
-    &emsp;|Format     &emsp;|Description                                     |
+    |Format     &emsp;|Description                                     |
     |-------------|--------------------------------------------------|
-    &emsp;|primary    &emsp;|Configure this server to be the primary node    |
-    &emsp;|secondary  &emsp;|Configure this server to be the secondary node  |
+    |primary    &emsp;|Configure this server to be the primary node    |
+    |secondary  &emsp;|Configure this server to be the secondary node  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

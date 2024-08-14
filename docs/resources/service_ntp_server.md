@@ -39,21 +39,21 @@ Network Time Protocol (NTP) configuration
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `server` (String) Network Time Protocol (NTP) server
 
-    &emsp;|Format    &emsp;|Description                                |
+    |Format    &emsp;|Description                                |
     |------------|---------------------------------------------|
-    &emsp;|ipv4      &emsp;|IP address of NTP server                   |
-    &emsp;|ipv6      &emsp;|IPv6 address of NTP server                 |
-    &emsp;|hostname  &emsp;|Fully qualified domain name of NTP server  |
+    |ipv4      &emsp;|IP address of NTP server                   |
+    |ipv6      &emsp;|IPv6 address of NTP server                 |
+    |hostname  &emsp;|Fully qualified domain name of NTP server  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

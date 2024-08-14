@@ -33,17 +33,17 @@ Backend server name
 
 - `domain_name` (List of String) Domain name to match
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|txt     &emsp;|Domain address to match  |
+    |txt     &emsp;|Domain address to match  |
 - `set` (Attributes) Proxy modifications (see [below for nested schema](#nestedatt--set))
 - `ssl` (String) SSL match options
 
-    &emsp;|Format          &emsp;|Description                                                  |
+    |Format          &emsp;|Description                                                  |
     |------------------|---------------------------------------------------------------|
-    &emsp;|req-ssl-sni     &emsp;|SSL Server Name Indication (SNI) request match               |
-    &emsp;|ssl-fc-sni      &emsp;|SSL frontend connection Server Name Indication match         |
-    &emsp;|ssl-fc-sni-end  &emsp;|SSL frontend match end of connection Server Name Indication  |
+    |req-ssl-sni     &emsp;|SSL Server Name Indication (SNI) request match               |
+    |ssl-fc-sni      &emsp;|SSL frontend connection Server Name Indication match         |
+    |ssl-fc-sni-end  &emsp;|SSL frontend match end of connection Server Name Indication  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `url_path` (Attributes) URL path match (see [below for nested schema](#nestedatt--url_path))
 
@@ -51,7 +51,7 @@ Backend server name
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -59,25 +59,25 @@ Required:
 - `backend` (String) Backend server name
 - `rule` (Number) Proxy rule number
 
-    &emsp;|Format   &emsp;|Description                 |
+    |Format   &emsp;|Description                 |
     |-----------|------------------------------|
-    &emsp;|1-10000  &emsp;|Number for this proxy rule  |
+    |1-10000  &emsp;|Number for this proxy rule  |
 
 
-&lt;a id=&#34;nestedatt--set&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--set"></a>
 ### Nested Schema for `set`
 
 Optional:
 
 - `redirect_location` (String) Set URL location
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|url     &emsp;|Set URL location  |
+    |url     &emsp;|Set URL location  |
 - `server` (String) Server name
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:
@@ -85,23 +85,23 @@ Optional:
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
 
 
-&lt;a id=&#34;nestedatt--url_path&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--url_path"></a>
 ### Nested Schema for `url_path`
 
 Optional:
 
 - `begin` (List of String) Begin URL match
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|url     &emsp;|Begin URL    |
+    |url     &emsp;|Begin URL    |
 - `end` (List of String) End URL match
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|url     &emsp;|End URL      |
+    |url     &emsp;|End URL      |
 - `exact` (List of String) Exactly URL match
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|url     &emsp;|Exactly URL  |  
+    |url     &emsp;|Exactly URL  |  

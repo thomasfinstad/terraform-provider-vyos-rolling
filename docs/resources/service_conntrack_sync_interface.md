@@ -31,21 +31,21 @@ Connection tracking synchronization
 
 - `peer` (String) IP address of the peer to send the UDP conntrack info too. This disable multicast.
 
-    &emsp;|Format  &emsp;|Description                                    |
+    |Format  &emsp;|Description                                    |
     |----------|-------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IP address to listen for incoming connections  |
+    |ipv4    &emsp;|IP address to listen for incoming connections  |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -53,7 +53,7 @@ Required:
 - `interface` (String) Interface to use for syncing conntrack entries
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

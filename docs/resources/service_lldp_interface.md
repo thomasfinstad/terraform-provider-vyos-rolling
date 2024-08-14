@@ -37,20 +37,20 @@ LLDP settings
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `interface` (String) Location data for interface
 
-    &emsp;|Format  &emsp;|Description                             |
+    |Format  &emsp;|Description                             |
     |----------|------------------------------------------|
-    &emsp;|all     &emsp;|Location data all interfaces            |
-    &emsp;|txt     &emsp;|Location data for a specific interface  |
+    |all     &emsp;|Location data all interfaces            |
+    |txt     &emsp;|Location data for a specific interface  |
 
 
-&lt;a id=&#34;nestedatt--location&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--location"></a>
 ### Nested Schema for `location`
 
 Optional:
@@ -58,42 +58,42 @@ Optional:
 - `coordinate_based` (Attributes) Coordinate based location (see [below for nested schema](#nestedatt--location--coordinate_based))
 - `elin` (Number) ECS ELIN (Emergency location identifier number)
 
-    &emsp;|Format        &emsp;|Description                                                 |
+    |Format        &emsp;|Description                                                 |
     |----------------|--------------------------------------------------------------|
-    &emsp;|0-9999999999  &emsp;|Emergency Call Service ELIN number (between 10-25 numbers)  |
+    |0-9999999999  &emsp;|Emergency Call Service ELIN number (between 10-25 numbers)  |
 
-&lt;a id=&#34;nestedatt--location--coordinate_based&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--location--coordinate_based"></a>
 ### Nested Schema for `location.coordinate_based`
 
 Optional:
 
 - `altitude` (String) Altitude in meters
 
-    &emsp;|Format        &emsp;|Description         |
+    |Format        &emsp;|Description         |
     |----------------|----------------------|
-    &emsp;|0             &emsp;|No altitude         |
-    &emsp;|[+-]&lt;meters&gt;  &emsp;|Altitude in meters  |
+    |0             &emsp;|No altitude         |
+    |[+-]&lt;meters&gt;  &emsp;|Altitude in meters  |
 - `datum` (String) Coordinate datum type
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|WGS84   &emsp;|WGS84        |
-    &emsp;|NAD83   &emsp;|NAD83        |
-    &emsp;|MLLW    &emsp;|NAD83/MLLW   |
+    |WGS84   &emsp;|WGS84        |
+    |NAD83   &emsp;|NAD83        |
+    |MLLW    &emsp;|NAD83/MLLW   |
 - `latitude` (String) Latitude
 
-    &emsp;|Format      &emsp;|Description                      |
+    |Format      &emsp;|Description                      |
     |--------------|-----------------------------------|
-    &emsp;|&lt;latitude&gt;  &emsp;|Latitude (example &#34;37.524449N&#34;)  |
+    |&lt;latitude&gt;  &emsp;|Latitude (example &#34;37.524449N&#34;)  |
 - `longitude` (String) Longitude
 
-    &emsp;|Format       &emsp;|Description                        |
+    |Format       &emsp;|Description                        |
     |---------------|-------------------------------------|
-    &emsp;|&lt;longitude&gt;  &emsp;|Longitude (example &#34;122.267255W&#34;)  |
+    |&lt;longitude&gt;  &emsp;|Longitude (example &#34;122.267255W&#34;)  |
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

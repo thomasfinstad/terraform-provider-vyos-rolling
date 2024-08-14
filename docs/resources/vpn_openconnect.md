@@ -29,24 +29,24 @@ description: |-
 - `http_security_headers` (Boolean) Enable HTTP security headers
 - `listen_address` (String) Local IPv4 addresses to listen on
 
-    &emsp;|Format  &emsp;|Description                                      |
+    |Format  &emsp;|Description                                      |
     |----------|---------------------------------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 address to listen for incoming connections  |
+    |ipv4    &emsp;|IPv4 address to listen for incoming connections  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `tls_version_min` (String) Specify the minimum required TLS version
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|1.0     &emsp;|TLS v1.0     |
-    &emsp;|1.1     &emsp;|TLS v1.1     |
-    &emsp;|1.2     &emsp;|TLS v1.2     |
-    &emsp;|1.3     &emsp;|TLS v1.3     |
+    |1.0     &emsp;|TLS v1.0     |
+    |1.1     &emsp;|TLS v1.1     |
+    |1.2     &emsp;|TLS v1.2     |
+    |1.3     &emsp;|TLS v1.3     |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -32,30 +32,30 @@ Protocol Independent Multicast (PIM) and IGMP
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
 - `dr_priority` (Number) Designated router election priority
 
-    &emsp;|Format        &emsp;|Description  |
+    |Format        &emsp;|Description  |
     |----------------|---------------|
-    &emsp;|1-4294967295  &emsp;|DR Priority  |
+    |1-4294967295  &emsp;|DR Priority  |
 - `hello` (Number) Hello Interval
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|1-180   &emsp;|Hello Interval in seconds  |
+    |1-180   &emsp;|Hello Interval in seconds  |
 - `igmp` (Attributes) Internet Group Management Protocol (IGMP) options (see [below for nested schema](#nestedatt--igmp))
 - `no_bsm` (Boolean) Do not process bootstrap messages
 - `no_unicast_bsm` (Boolean) Do not process unicast bootstrap messages
 - `passive` (Boolean) Disable sending and receiving PIM control packets on the interface
 - `source_address` (String) IPv4 source address used to initiate connection
 
-    &emsp;|Format  &emsp;|Description          |
+    |Format  &emsp;|Description          |
     |----------|-----------------------|
-    &emsp;|ipv4    &emsp;|IPv4 source address  |
+    |ipv4    &emsp;|IPv4 source address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -63,19 +63,19 @@ Required:
 - `interface` (String) PIM interface
 
 
-&lt;a id=&#34;nestedatt--bfd&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--bfd"></a>
 ### Nested Schema for `bfd`
 
 Optional:
 
 - `profile` (String) Use settings from BFD profile
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|txt     &emsp;|BFD profile name  |
+    |txt     &emsp;|BFD profile name  |
 
 
-&lt;a id=&#34;nestedatt--igmp&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--igmp"></a>
 ### Nested Schema for `igmp`
 
 Optional:
@@ -83,23 +83,23 @@ Optional:
 - `disable` (Boolean) Disable instance
 - `query_interval` (Number) IGMP host query interval
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|1-1800  &emsp;|Query interval in seconds  |
+    |1-1800  &emsp;|Query interval in seconds  |
 - `query_max_response_time` (Number) IGMP max query response time
 
-    &emsp;|Format  &emsp;|Description                           |
+    |Format  &emsp;|Description                           |
     |----------|----------------------------------------|
-    &emsp;|10-250  &emsp;|Query response value in deci-seconds  |
+    |10-250  &emsp;|Query response value in deci-seconds  |
 - `version` (String) Interface IGMP version
 
-    &emsp;|Format  &emsp;|Description     |
+    |Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|2       &emsp;|IGMP version 2  |
-    &emsp;|3       &emsp;|IGMP version 3  |
+    |2       &emsp;|IGMP version 2  |
+    |3       &emsp;|IGMP version 3  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

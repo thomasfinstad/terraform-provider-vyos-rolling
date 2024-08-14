@@ -32,25 +32,25 @@ BGP parameters
 
 - `bandwidth` (String) Link Bandwidth attribute
 
-    &emsp;|Format                      &emsp;|Description                                                            |
+    |Format                      &emsp;|Description                                                            |
     |------------------------------|-------------------------------------------------------------------------|
-    &emsp;|default-weight-for-missing  &emsp;|Assign low default weight (1) to paths not having link bandwidth       |
-    &emsp;|ignore                      &emsp;|Ignore link bandwidth (do regular ECMP, not weighted)                  |
-    &emsp;|skip-missing                &emsp;|Ignore paths without link bandwidth for ECMP (if other paths have it)  |
+    |default-weight-for-missing  &emsp;|Assign low default weight (1) to paths not having link bandwidth       |
+    |ignore                      &emsp;|Ignore link bandwidth (do regular ECMP, not weighted)                  |
+    |skip-missing                &emsp;|Ignore paths without link bandwidth for ECMP (if other paths have it)  |
 - `compare_routerid` (Boolean) Compare the router-id for identical EBGP paths
 - `med` (List of String) MED attribute comparison parameters
 
-    &emsp;|Format            &emsp;|Description                                              |
+    |Format            &emsp;|Description                                              |
     |--------------------|-----------------------------------------------------------|
-    &emsp;|confed            &emsp;|Compare MEDs among confederation paths                   |
-    &emsp;|missing-as-worst  &emsp;|Treat missing route as a MED as the least preferred one  |
+    |confed            &emsp;|Compare MEDs among confederation paths                   |
+    |missing-as-worst  &emsp;|Treat missing route as a MED as the least preferred one  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

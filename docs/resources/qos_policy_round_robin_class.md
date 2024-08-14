@@ -33,77 +33,77 @@ Deficit Round Robin Scheduler
 
 - `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
-    &emsp;|Format     &emsp;|Description                        |
+    |Format     &emsp;|Description                        |
     |-------------|-------------------------------------|
-    &emsp;|0-1048576  &emsp;|Number of bytes used as &#39;deficit&#39;  |
+    |0-1048576  &emsp;|Number of bytes used as &#39;deficit&#39;  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `flows` (Number) Number of flows into which the incoming packets are classified
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65536  &emsp;|Number of flows  |
+    |1-65536  &emsp;|Number of flows  |
 - `interval` (Number) Interval used to measure the delay
 
-    &emsp;|Format  &emsp;|Description               |
+    |Format  &emsp;|Description               |
     |----------|----------------------------|
-    &emsp;|u32     &emsp;|Interval in milliseconds  |
+    |u32     &emsp;|Interval in milliseconds  |
 - `match_group` (List of String) Filter group for QoS policy
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|txt     &emsp;|Match group name  |
+    |txt     &emsp;|Match group name  |
 - `quantum` (Number) Packet scheduling quantum
 
-    &emsp;|Format        &emsp;|Description                        |
+    |Format        &emsp;|Description                        |
     |----------------|-------------------------------------|
-    &emsp;|1-4294967295  &emsp;|Packet scheduling quantum (bytes)  |
+    |1-4294967295  &emsp;|Packet scheduling quantum (bytes)  |
 - `queue_limit` (Number) Maximum queue size
 
-    &emsp;|Format        &emsp;|Description            |
+    |Format        &emsp;|Description            |
     |----------------|-------------------------|
-    &emsp;|1-4294967295  &emsp;|Queue size in packets  |
+    |1-4294967295  &emsp;|Queue size in packets  |
 - `queue_type` (String) Queue type for default traffic
 
-    &emsp;|Format         &emsp;|Description                   |
+    |Format         &emsp;|Description                   |
     |-----------------|--------------------------------|
-    &emsp;|drop-tail      &emsp;|First-In-First-Out (FIFO)     |
-    &emsp;|fair-queue     &emsp;|Stochastic Fair Queue (SFQ)   |
-    &emsp;|fq-codel       &emsp;|Fair Queue Codel              |
-    &emsp;|priority       &emsp;|Priority queuing              |
-    &emsp;|random-detect  &emsp;|Random Early Detection (RED)  |
+    |drop-tail      &emsp;|First-In-First-Out (FIFO)     |
+    |fair-queue     &emsp;|Stochastic Fair Queue (SFQ)   |
+    |fq-codel       &emsp;|Fair Queue Codel              |
+    |priority       &emsp;|Priority queuing              |
+    |random-detect  &emsp;|Random Early Detection (RED)  |
 - `target` (Number) Acceptable minimum standing/persistent queue delay
 
-    &emsp;|Format  &emsp;|Description                  |
+    |Format  &emsp;|Description                  |
     |----------|-------------------------------|
-    &emsp;|u32     &emsp;|Queue delay in milliseconds  |
+    |u32     &emsp;|Queue delay in milliseconds  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `class` (Number) Class ID
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|1-4095  &emsp;|Class Identifier  |
+    |1-4095  &emsp;|Class Identifier  |
 - `round_robin` (String) Deficit Round Robin Scheduler
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Policy name  |
+    |txt     &emsp;|Policy name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

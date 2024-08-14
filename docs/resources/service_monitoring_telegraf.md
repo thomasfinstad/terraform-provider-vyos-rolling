@@ -30,26 +30,26 @@ Monitoring services
 
 - `source` (List of String) Source parameters for monitoring
 
-    &emsp;|Format                &emsp;|Description                                          |
+    |Format                &emsp;|Description                                          |
     |------------------------|-------------------------------------------------------|
-    &emsp;|all                   &emsp;|All parameters                                       |
-    &emsp;|hardware-utilization  &emsp;|Hardware-utilization parameters (CPU, disk, memory)  |
-    &emsp;|logs                  &emsp;|Logs parameters                                      |
-    &emsp;|network               &emsp;|Network parameters (net, netstat, nftables)          |
-    &emsp;|system                &emsp;|System parameters (system, processes, interrupts)    |
-    &emsp;|telegraf              &emsp;|Telegraf internal statistics                         |
+    |all                   &emsp;|All parameters                                       |
+    |hardware-utilization  &emsp;|Hardware-utilization parameters (CPU, disk, memory)  |
+    |logs                  &emsp;|Logs parameters                                      |
+    |network               &emsp;|Network parameters (net, netstat, nftables)          |
+    |system                &emsp;|System parameters (system, processes, interrupts)    |
+    |telegraf              &emsp;|Telegraf internal statistics                         |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF instance name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|VRF instance name  |
+    |txt     &emsp;|VRF instance name  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

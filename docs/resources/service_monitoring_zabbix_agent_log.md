@@ -32,27 +32,27 @@ Zabbix-agent settings
 
 - `debug_level` (String) Debug level
 
-    &emsp;|Format          &emsp;|Description                 |
+    |Format          &emsp;|Description                 |
     |------------------|------------------------------|
-    &emsp;|basic           &emsp;|Basic information           |
-    &emsp;|critical        &emsp;|Critical information        |
-    &emsp;|error           &emsp;|Error information           |
-    &emsp;|warning         &emsp;|Warnings                    |
-    &emsp;|debug           &emsp;|Debug information           |
-    &emsp;|extended-debug  &emsp;|Extended debug information  |
+    |basic           &emsp;|Basic information           |
+    |critical        &emsp;|Critical information        |
+    |error           &emsp;|Error information           |
+    |warning         &emsp;|Warnings                    |
+    |debug           &emsp;|Debug information           |
+    |extended-debug  &emsp;|Extended debug information  |
 - `remote_commands` (Boolean) Enable logging of executed shell commands as warnings
 - `size` (Number) Log file size in megabytes
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|0-1024  &emsp;|Megabytes    |
+    |0-1024  &emsp;|Megabytes    |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

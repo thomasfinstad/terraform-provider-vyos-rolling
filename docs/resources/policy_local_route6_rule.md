@@ -32,16 +32,16 @@ IPv6 policy route of local traffic
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
 - `fwmark` (Number) Match fwmark value
 
-    &emsp;|Format        &emsp;|Description               |
+    |Format        &emsp;|Description               |
     |----------------|----------------------------|
-    &emsp;|1-2147483647  &emsp;|Address to match against  |
+    |1-2147483647  &emsp;|Address to match against  |
 - `inbound_interface` (String) Inbound Interface
 - `protocol` (String) Protocol to match (protocol name or number)
 
-    &emsp;|Format      &emsp;|Description         |
+    |Format      &emsp;|Description         |
     |--------------|----------------------|
-    &emsp;|0-255       &emsp;|IP protocol number  |
-    &emsp;|&lt;protocol&gt;  &emsp;|IP protocol name    |
+    |0-255       &emsp;|IP protocol number  |
+    |&lt;protocol&gt;  &emsp;|IP protocol name    |
 - `set` (Attributes) Packet modifications (see [below for nested schema](#nestedatt--set))
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -50,67 +50,67 @@ IPv6 policy route of local traffic
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `rule` (Number) IPv6 policy local-route rule set number
 
-    &emsp;|Format   &emsp;|Description                        |
+    |Format   &emsp;|Description                        |
     |-----------|-------------------------------------|
-    &emsp;|1-32765  &emsp;|Local-route rule number (1-32765)  |
+    |1-32765  &emsp;|Local-route rule number (1-32765)  |
 
 
-&lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--destination"></a>
 ### Nested Schema for `destination`
 
 Optional:
 
 - `address` (List of String) IPv6 address or prefix
 
-    &emsp;|Format   &emsp;|Description               |
+    |Format   &emsp;|Description               |
     |-----------|----------------------------|
-    &emsp;|ipv6     &emsp;|Address to match against  |
-    &emsp;|ipv6net  &emsp;|Prefix to match against   |
+    |ipv6     &emsp;|Address to match against  |
+    |ipv6net  &emsp;|Prefix to match against   |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 
 
-&lt;a id=&#34;nestedatt--set&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--set"></a>
 ### Nested Schema for `set`
 
 Optional:
 
 - `table` (Number) Routing table to forward packet with
 
-    &emsp;|Format  &emsp;|Description   |
+    |Format  &emsp;|Description   |
     |----------|----------------|
-    &emsp;|1-200   &emsp;|Table number  |
+    |1-200   &emsp;|Table number  |
 
 
-&lt;a id=&#34;nestedatt--source&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 
 Optional:
 
 - `address` (List of String) IPv6 address or prefix
 
-    &emsp;|Format   &emsp;|Description               |
+    |Format   &emsp;|Description               |
     |-----------|----------------------------|
-    &emsp;|ipv6     &emsp;|Address to match against  |
-    &emsp;|ipv6net  &emsp;|Prefix to match against   |
+    |ipv6     &emsp;|Address to match against  |
+    |ipv6net  &emsp;|Prefix to match against   |
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

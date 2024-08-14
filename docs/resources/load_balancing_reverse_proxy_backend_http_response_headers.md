@@ -34,15 +34,15 @@ Backend server name
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `value` (String) HTTP header value
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|HTTP header value  |
+    |txt     &emsp;|HTTP header value  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -50,12 +50,12 @@ Required:
 - `backend` (String) Backend server name
 - `http_response_headers` (String) Headers to include in HTTP response
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|txt     &emsp;|HTTP header name  |
+    |txt     &emsp;|HTTP header name  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

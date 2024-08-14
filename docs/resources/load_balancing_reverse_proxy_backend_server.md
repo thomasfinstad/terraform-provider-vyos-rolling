@@ -33,17 +33,17 @@ Backend server name
 
 - `address` (String) Backend server address
 
-    &emsp;|Format  &emsp;|Description                |
+    |Format  &emsp;|Description                |
     |----------|-----------------------------|
-    &emsp;|ipv4    &emsp;|IPv4 unicast peer address  |
-    &emsp;|ipv6    &emsp;|IPv6 unicast peer address  |
+    |ipv4    &emsp;|IPv4 unicast peer address  |
+    |ipv6    &emsp;|IPv6 unicast peer address  |
 - `backup` (Boolean) Use backup server if other servers are not available
 - `check` (Boolean) Active health check backend server
 - `port` (Number) Port number used by connection
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 - `send_proxy` (Boolean) Send a Proxy Protocol version 1 header (text format)
 - `send_proxy_v2` (Boolean) Send a Proxy Protocol version 2 header (binary format)
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
@@ -52,7 +52,7 @@ Backend server name
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
@@ -61,7 +61,7 @@ Required:
 - `server` (String) Backend server name
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

@@ -35,48 +35,48 @@ Static IPv6 route
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
-    &emsp;|Format  &emsp;|Description              |
+    |Format  &emsp;|Description              |
     |----------|---------------------------|
-    &emsp;|1-255   &emsp;|Distance for this route  |
+    |1-255   &emsp;|Distance for this route  |
 - `interface` (String) Gateway interface name
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|Gateway interface name  |
+    |txt     &emsp;|Gateway interface name  |
 - `segments` (String) SRv6 segments
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Segs (SIDs)  |
+    |txt     &emsp;|Segs (SIDs)  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `vrf` (String) VRF to leak route
 
-    &emsp;|Format  &emsp;|Description             |
+    |Format  &emsp;|Description             |
     |----------|--------------------------|
-    &emsp;|txt     &emsp;|Name of VRF to leak to  |
+    |txt     &emsp;|Name of VRF to leak to  |
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `next_hop` (String) IPv6 gateway address
 
-    &emsp;|Format  &emsp;|Description           |
+    |Format  &emsp;|Description           |
     |----------|------------------------|
-    &emsp;|ipv6    &emsp;|Next-hop IPv6 router  |
+    |ipv6    &emsp;|Next-hop IPv6 router  |
 - `route6` (String) Static IPv6 route
 
-    &emsp;|Format   &emsp;|Description        |
+    |Format   &emsp;|Description        |
     |-----------|---------------------|
-    &emsp;|ipv6net  &emsp;|IPv6 static route  |
+    |ipv6net  &emsp;|IPv6 static route  |
 
 
-&lt;a id=&#34;nestedatt--bfd&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--bfd"></a>
 ### Nested Schema for `bfd`
 
 Optional:
@@ -84,16 +84,16 @@ Optional:
 - `multi_hop` (Attributes) Use BFD multi hop session (see [below for nested schema](#nestedatt--bfd--multi_hop))
 - `profile` (String) Use settings from BFD profile
 
-    &emsp;|Format  &emsp;|Description       |
+    |Format  &emsp;|Description       |
     |----------|--------------------|
-    &emsp;|txt     &emsp;|BFD profile name  |
+    |txt     &emsp;|BFD profile name  |
 
-&lt;a id=&#34;nestedatt--bfd--multi_hop&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--bfd--multi_hop"></a>
 ### Nested Schema for `bfd.multi_hop`
 
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

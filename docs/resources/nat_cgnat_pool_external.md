@@ -33,9 +33,9 @@ External and internal pool parameters
 
 - `external_port_range` (String) Port range
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|range   &emsp;|Numbered port range (e.g., 1001-1005)  |
+    |range   &emsp;|Numbered port range (e.g., 1001-1005)  |
 - `per_user_limit` (Attributes) Per user limits for the pool (see [below for nested schema](#nestedatt--per_user_limit))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -43,31 +43,31 @@ External and internal pool parameters
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--identifier&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--identifier"></a>
 ### Nested Schema for `identifier`
 
 Required:
 
 - `external` (String) External pool name
 
-    &emsp;|Format  &emsp;|Description         |
+    |Format  &emsp;|Description         |
     |----------|----------------------|
-    &emsp;|txt     &emsp;|External pool name  |
+    |txt     &emsp;|External pool name  |
 
 
-&lt;a id=&#34;nestedatt--per_user_limit&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--per_user_limit"></a>
 ### Nested Schema for `per_user_limit`
 
 Optional:
 
 - `port` (Number) Ports per user
 
-    &emsp;|Format   &emsp;|Description      |
+    |Format   &emsp;|Description      |
     |-----------|-------------------|
-    &emsp;|1-65535  &emsp;|Numeric IP port  |
+    |1-65535  &emsp;|Numeric IP port  |
 
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:

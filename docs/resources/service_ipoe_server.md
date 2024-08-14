@@ -28,42 +28,42 @@ description: |-
 
 - `default_ipv6_pool` (String) Default client IPv6 pool name
 
-    &emsp;|Format  &emsp;|Description        |
+    |Format  &emsp;|Description        |
     |----------|---------------------|
-    &emsp;|txt     &emsp;|Default IPv6 pool  |
+    |txt     &emsp;|Default IPv6 pool  |
 - `default_pool` (String) Default client IP pool name
 
-    &emsp;|Format  &emsp;|Description      |
+    |Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|txt     &emsp;|Default IP pool  |
+    |txt     &emsp;|Default IP pool  |
 - `description` (String) Description
 
-    &emsp;|Format  &emsp;|Description  |
+    |Format  &emsp;|Description  |
     |----------|---------------|
-    &emsp;|txt     &emsp;|Description  |
+    |txt     &emsp;|Description  |
 - `gateway_address` (List of String) Gateway IP address
 
-    &emsp;|Format   &emsp;|Description                               |
+    |Format   &emsp;|Description                               |
     |-----------|--------------------------------------------|
-    &emsp;|ipv4net  &emsp;|Default Gateway, mask send to the client  |
+    |ipv4net  &emsp;|Default Gateway, mask send to the client  |
 - `max_concurrent_sessions` (Number) Maximum number of concurrent session start attempts
 
-    &emsp;|Format   &emsp;|Description                                          |
+    |Format   &emsp;|Description                                          |
     |-----------|-------------------------------------------------------|
-    &emsp;|0-65535  &emsp;|Maximum number of concurrent session start attempts  |
+    |0-65535  &emsp;|Maximum number of concurrent session start attempts  |
 - `name_server` (List of String) Domain Name Servers (DNS) addresses
 
-    &emsp;|Format  &emsp;|Description                            |
+    |Format  &emsp;|Description                            |
     |----------|-----------------------------------------|
-    &emsp;|ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
-    &emsp;|ipv6    &emsp;|Domain Name Server (DNS) IPv6 address  |
+    |ipv4    &emsp;|Domain Name Server (DNS) IPv4 address  |
+    |ipv6    &emsp;|Domain Name Server (DNS) IPv6 address  |
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
-&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+<a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
 
 Optional:
