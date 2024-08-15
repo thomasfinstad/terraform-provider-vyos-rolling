@@ -4,18 +4,22 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 1.4.202408151 (2024-08-15 16-16-24 UTC)](#release-14202408151-2024-08-15-16-16-24-utc)
+  - [Release 1.4.202408152 (2024-08-15 17-55-10 UTC)](#release-14202408152-2024-08-15-17-55-10-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
       - [Bug fixes](#bug-fixes)
-    - [Schema changes](#schema-changes)
+  - [Release 1.4.202408151 (2024-08-15 16-16-24 UTC)](#release-14202408151-2024-08-15-16-16-24-utc)
+    - [Project changes](#project-changes-1)
       - [Notes](#notes-1)
+      - [Bug fixes](#bug-fixes-1)
+    - [Schema changes](#schema-changes)
+      - [Notes](#notes-2)
         - [Resources](#resources)
   - [Release 1.4.202408150 (2024-08-15 11-31-13 UTC)](#release-14202408150-2024-08-15-11-31-13-utc)
-    - [Project changes](#project-changes-1)
-      - [Notes](#notes-2)
+    - [Project changes](#project-changes-2)
+      - [Notes](#notes-3)
       - [Features](#features)
-      - [Bug fixes](#bug-fixes-1)
+      - [Bug fixes](#bug-fixes-2)
     - [Schema changes](#schema-changes-1)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources-1)
@@ -24,6 +28,14 @@
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 1.4.202408152 (2024-08-15 17-55-10 UTC)
+### Project changes
+#### Notes
+* Fix load balancer resources subcategory
+#### Bug fixes
+* Makefile shell substitution and git cmd error
 
 
 ## Release 1.4.202408151 (2024-08-15 16-16-24 UTC)
