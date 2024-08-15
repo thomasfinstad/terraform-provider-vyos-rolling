@@ -346,43 +346,70 @@ version:
 	echo Initialize terraform provider
 	make init
 	echo Generate provider json schema
-	terraform providers schema -json | jq '.' > ../../.build/provider-schema.json
+	terraform providers schema -json | jq '.' > ../../.build/new-provider-schema.json
 	cd $(ROOT_DIR)
 
 	echo Last 5 releases:
 	git tag -l | sort -V | tail -n5
 
+	echo Move old changelog into .build dir
+	mv CHANGELOG.md .build/old-CHANGELOG.md
+
 	echo Copy out provider schema from last tagged release
 	git show "$$(git tag | sort -V | tail -n1)":data/provider-schema.json > .build/old-provider-schema.json
 	cd tools/generate-changelog
 	echo Generate changelog
-	go run *.go ../../.build/old-provider-schema.json ../../.build/provider-schema.json
+	go run *.go ../../.build/old-provider-schema.json ../../.build/new-provider-schema.json
 	cd $(ROOT_DIR)
 
-	echo Overwrite old json schema with new
-	mv .build/provider-schema.json data/provider-schema.json
-	echo Move old changelog
-	mv CHANGELOG.md .build/CHANGELOG.md.old
-	echo Copy new changelog into place
-	cat .build/CHANGELOG.md > CHANGELOG.md
-	echo Append old changelog to end of new changelog
-	tail -n +2  .build/CHANGELOG.md.old >> CHANGELOG.md
-
 	echo Extract latest version from changelog
-	grep "^##" CHANGELOG.md | head -n1 | cut -d" " -f3 > VERSION
+	prev_version="$$(cat VERSION)"
+	grep -E -o "[0-9]+\.[0-9]+\.[0-9]+" .build/CHANGELOG.md | sort -V | tail -n1 > VERSION
+	new_version="$$(cat VERSION)"
+
+	echo "Old version: $$prev_version"
+	echo "New version: $$new_version"
+
+	echo Overwrite old json schema with new
+	mv .build/new-provider-schema.json data/provider-schema.json
+
+	echo Check if previous MAJOR version is different than the new/current one
+	prev_major="$$(echo $$prev_version | cut -d. -f1)"
+	new_major="$$(echo $$new_version | cut -d. -f1)"
+	if [ "$$prev_major" != "$$new_major" ]; then
+		echo Move old changelog into archive
+		mkdir -p "data/changelogs"
+		mv ".build/old-CHANGELOG.md" "data/changelogs/CHANGELOG-v$$prev_major.md"
+		cat .build/CHANGELOG.md > CHANGELOG.md
+		cat <<- EOF >> "CHANGELOG.md"
+			## Previous changelogs
+
+			For older versions see changelog archive [directory](data/changelogs/) or changelog for [version $$prev_major](data/changelogs/CHANGELOG-v$$prev_major.md)
+		EOF
+	else
+		echo Copy new changelog into place
+		cat .build/CHANGELOG.md > CHANGELOG.md
+		echo Append old changelog to end of new changelog
+		echo "" >> CHANGELOG.md
+		cat .build/old-CHANGELOG.md | sed -n '/^##/,$$p' >> CHANGELOG.md
+	fi
 
 	echo Add TOC to changelog
-	markdown-toc --no-header --skip-headers=1 --replace --inline CHANGELOG.md
+	markdown-toc --no-header --replace --inline CHANGELOG.md
 
 	echo Stage files in git
 	git add -A
+
 	echo Run pre-commit and stage any changed files
 	pre-commit run || git add -A
 
 	echo Commit meta files for release to git
 	git commit -m "chore: Prepare for release v$$(cat VERSION)"
+
 	echo Create git release tag
 	git tag "v$$(cat VERSION)"
+
+	cp .build/CHANGELOG.md CHANGELOG-FOR-GO-RELEASER.md.tmp
 
 .PHONY: ci-update
 ci-update:
@@ -440,7 +467,7 @@ clean:
 	go clean -modcache
 	go clean -testcache
 	go clean -fuzzcache
-	rm -rf "${DIST_DIR}"
+	rm -rf "${DIST_DIR}/*"
 	rm -rf .build
 	rm generate
 	rm test

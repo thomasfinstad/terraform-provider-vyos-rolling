@@ -234,7 +234,7 @@ func (c ChangeLog) Version() *version.Version {
 }
 
 func (c ChangeLog) Date() string {
-	return time.Now().UTC().Format("2006-01-02 15:04:05 MST")
+	return time.Now().UTC().Format("2006-01-02 15-04-05 MST")
 }
 
 func (c *ChangeLog) addCc(m conventionalcommits.Message) {
