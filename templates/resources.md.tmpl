@@ -3,6 +3,8 @@ page_title: "{{.Name}} {{.Type}} - {{.ProviderName}}"
 {{ $n := index (split .Name "_") 1 }}
 {{ if eq $n "high" -}}
     subcategory: "High Availability"
+{{ else if eq $n "load" -}}
+    subcategory: "Load Balancing"
 {{ else -}}
     subcategory: "{{ title $n }}"
 {{ end }}
