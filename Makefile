@@ -274,8 +274,6 @@ test:	generate \
 
 	@echo Make test
 
-	echo Input Args: $(INPUT_ARGS)
-
 	# VyOS API can often take ~1 second to respond to a configure request.
 	# This means we attempt to tune retrys and delays around this.
 	# The end result is that to be able to test retry functionality we will need a bit of head room,
@@ -323,11 +321,26 @@ docs/index.md: \
 	# Create docs
 	tfplugindocs generate --provider-name vyos > /dev/null
 
-	# Fix links that have been html escaped
+	###
+	echo Reverse html escaping for known parts that should stay as html code
+
+	echo Fix comments
+	sed -r -i 's/&lt;!-- (.*) --&gt;/<!-- \1 -->/' docs/resources/*.md
+
+	echo Add whitespace to make the tables readable on docs website
+	sed -r -i 's/^(\s*[|].*[^-])[|](.*[|])$$/\1\&emsp;|\2/' docs/resources/*.md
+
+	echo Fix header links
 	sed -r -i 's|&lt;a id=&#34;([A-Za-z0-9_-]+)&#34;&gt;&lt;/a&gt;|<a id="\1"></a>|' docs/resources/*.md
 
-	# Remove redundant spacing infront of md tables
-	sed -i 's/^    &emsp;|/    |/' docs/resources/*.md
+	echo Fix description/help linebreaks
+	sed -r -i 's|&lt;/br&gt;|</br>|g' docs/resources/*.md
+
+	echo Turn top level attributes into headers
+	sed -r -i '/## Schema/,/### Nested Schema for/s/- `([A-Za-z0-9_]+)`/#### \1\n- `\1`/' docs/resources/*.md
+
+	echo Add TOC etc
+	pre-commit run --files docs/* docs/resources/* || git add docs/
 
 .PHONY: version
 version:
@@ -393,9 +406,8 @@ version:
 		echo "" >> CHANGELOG.md
 		cat .build/old-CHANGELOG.md | sed -n '/^##/,$$p' >> CHANGELOG.md
 	fi
-
-	echo Add TOC to changelog
-	markdown-toc --no-header --replace --inline CHANGELOG.md
+	echo Add TOC etc to changelog
+	pre-commit run --files CHANGELOG.md
 
 	echo Stage files in git
 	git add -A

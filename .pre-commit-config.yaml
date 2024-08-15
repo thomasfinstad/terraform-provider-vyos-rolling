@@ -1,8 +1,8 @@
 exclude: |
   (?x)^(
-      docs/.*\.md|
       data/provider-schema/.*\.json|
-      .*/autogen.*
+      .*/autogen.*|
+      .*tmp
   )$
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -36,3 +36,13 @@ repos:
       #       ^internal/terraform/resource/full/auto.*
       #     )
       - id: go-fmt
+  - repo: https://github.com/frnmst/md-toc
+    rev: 9.0.0
+    hooks:
+      - id: md-toc
+        args: ['-p', 'cmark', '-l6']
+        exclude: |
+          (?x)^(
+            .*\.gotmpl|
+            .*\.tmpl
+          )$

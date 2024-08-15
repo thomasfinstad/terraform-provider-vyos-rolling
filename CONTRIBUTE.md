@@ -1,5 +1,18 @@
 # Development
 
+<!--TOC-->
+
+- [Development](#development)
+  - [Intro](#intro)
+  - [Workflow](#workflow)
+  - [Troubleshooting](#troubleshooting)
+    - [Dev Container](#dev-container)
+      - [Linux](#linux)
+        - [Podman](#podman)
+      - [WSL2](#wsl2)
+
+<!--TOC-->
+
 ## Intro
 
 This repo is highly reliant on using devcontainers to keep the development environment the same over time and for all contributors.

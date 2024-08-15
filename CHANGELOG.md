@@ -1,20 +1,21 @@
-
 # CHANGELOG
 
-<!-- ToC start -->
-1. [CHANGELOG](#changelog)
-   1. [Release 1.4.202408150 (2024-08-15 11-31-13 UTC)](#release-14202408150-2024-08-15-11-31-13-utc)
-      1. [Project changes](#project-changes)
-         1. [Notes](#notes)
-         1. [Features](#features)
-         1. [Bug fixes](#bug-fixes)
-      1. [Schema changes](#schema-changes)
-         1. [BREAKING CHANGES](#breaking-changes)
-            1. [Resources](#resources)
-         1. [Features](#features-1)
-            1. [Resources](#resources-1)
-   1. [Previous changelogs](#previous-changelogs)
-<!-- ToC end -->
+<!--TOC-->
+
+- [CHANGELOG](#changelog)
+  - [Release 1.4.202408150 (2024-08-15 11-31-13 UTC)](#release-14202408150-2024-08-15-11-31-13-utc)
+    - [Project changes](#project-changes)
+      - [Notes](#notes)
+      - [Features](#features)
+      - [Bug fixes](#bug-fixes)
+    - [Schema changes](#schema-changes)
+      - [BREAKING CHANGES](#breaking-changes)
+        - [Resources](#resources)
+      - [Features](#features-1)
+        - [Resources](#resources-1)
+  - [Previous changelogs](#previous-changelogs)
+
+<!--TOC-->
 
 
 ## Release 1.4.202408150 (2024-08-15 11-31-13 UTC)

@@ -141,6 +141,7 @@ func (o LeafNode) Description() string {
 func (o LeafNode) MarkdownDescription() string {
 	regexReplaceWithString := map[string]string{
 		`u32:`: "",
+		`\\n`:  "</br>",
 	}
 
 	var desc string
@@ -149,7 +150,6 @@ func (o LeafNode) MarkdownDescription() string {
 			desc = fmt.Sprintf("%s\n\n", strings.Join(p.Help, "\n"))
 		}
 
-		// Adding &emsp; gives tables better readability on terraform registry documentation page
 		if p.ValueHelp != nil {
 			var valueHelp [][]string
 			formatMaxLen := len("Format")

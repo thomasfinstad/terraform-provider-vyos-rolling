@@ -170,6 +170,7 @@ func (o Node) Description() string {
 func (o Node) MarkdownDescription() string {
 	regexReplaceWithString := map[string]string{
 		`u32:`: "",
+		`\\n`:  "</br>",
 	}
 
 	var desc string

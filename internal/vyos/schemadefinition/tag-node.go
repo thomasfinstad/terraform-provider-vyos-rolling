@@ -168,6 +168,7 @@ func (o TagNode) Description() string {
 func (o TagNode) MarkdownDescription() string {
 	regexReplaceWithString := map[string]string{
 		`u32:`: "",
+		`\\n`:  "</br>",
 	}
 
 	var desc string
