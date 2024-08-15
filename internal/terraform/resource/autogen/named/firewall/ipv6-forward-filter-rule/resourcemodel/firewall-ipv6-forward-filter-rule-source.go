@@ -116,21 +116,21 @@ func (o FirewallIPvsixForwardFilterRuleSource) ResourceSchemaAttributes(ctx cont
 			Optional: true,
 			MarkdownDescription: `Port
 
-    |  Format       |  Description                                                                                                               |
-    |---------------|----------------------------------------------------------------------------------------------------------------------------|
-    |  txt          |  Named port (any name in /etc/services, e.g., http)                                                                        |
-    |  1-65535      |  Numbered port                                                                                                             |
-    |  <start-end>  |  Numbered port range (e.g. 1001-1005)                                                                                      |
-    |               |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  Format       |  Description                                                                                                                        |
+    |---------------|-------------------------------------------------------------------------------------------------------------------------------------|
+    |  txt          |  Named port (any name in /etc/services, e.g., http)                                                                                 |
+    |  1-65535      |  Numbered port                                                                                                                      |
+    |  <start-end>  |  Numbered port range (e.g. 1001-1005)                                                                                               |
+    |               |  </br></br>  Multiple destination ports can be specified as a comma-separated list.</br>  For example: 'telnet,http,123,1001-1005'  |
 `,
 			Description: `Port
 
-    |  Format       |  Description                                                                                                               |
-    |---------------|----------------------------------------------------------------------------------------------------------------------------|
-    |  txt          |  Named port (any name in /etc/services, e.g., http)                                                                        |
-    |  1-65535      |  Numbered port                                                                                                             |
-    |  <start-end>  |  Numbered port range (e.g. 1001-1005)                                                                                      |
-    |               |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  Format       |  Description                                                                                                                        |
+    |---------------|-------------------------------------------------------------------------------------------------------------------------------------|
+    |  txt          |  Named port (any name in /etc/services, e.g., http)                                                                                 |
+    |  1-65535      |  Numbered port                                                                                                                      |
+    |  <start-end>  |  Numbered port range (e.g. 1001-1005)                                                                                               |
+    |               |  </br></br>  Multiple destination ports can be specified as a comma-separated list.</br>  For example: 'telnet,http,123,1001-1005'  |
 `,
 		},
 

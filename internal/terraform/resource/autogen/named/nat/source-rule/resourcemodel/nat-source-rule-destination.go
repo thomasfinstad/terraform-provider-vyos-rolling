@@ -62,21 +62,21 @@ func (o NatSourceRuleDestination) ResourceSchemaAttributes(ctx context.Context) 
 			Optional: true,
 			MarkdownDescription: `Port number
 
-    |  Format     |  Description                                                                                                                                                              |
-    |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    |  txt        |  Named port (any name in /etc/services, e.g., http)                                                                                                                       |
-    |  1-65535    |  Numeric IP port                                                                                                                                                          |
-    |  start-end  |  Numbered port range (e.g. 1001-1005)                                                                                                                                     |
-    |             |  \n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'  |
+    |  Format     |  Description                                                                                                                                                                          |
+    |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    |  txt        |  Named port (any name in /etc/services, e.g., http)                                                                                                                                   |
+    |  1-65535    |  Numeric IP port                                                                                                                                                                      |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)                                                                                                                                                 |
+    |             |  </br></br>Multiple destination ports can be specified as a comma-separated list.</br>The whole list can also be negated using '!'.</br>For example: '!22,telnet,http,123,1001-1005'  |
 `,
 			Description: `Port number
 
-    |  Format     |  Description                                                                                                                                                              |
-    |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    |  txt        |  Named port (any name in /etc/services, e.g., http)                                                                                                                       |
-    |  1-65535    |  Numeric IP port                                                                                                                                                          |
-    |  start-end  |  Numbered port range (e.g. 1001-1005)                                                                                                                                     |
-    |             |  \n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'  |
+    |  Format     |  Description                                                                                                                                                                          |
+    |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    |  txt        |  Named port (any name in /etc/services, e.g., http)                                                                                                                                   |
+    |  1-65535    |  Numeric IP port                                                                                                                                                                      |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)                                                                                                                                                 |
+    |             |  </br></br>Multiple destination ports can be specified as a comma-separated list.</br>The whole list can also be negated using '!'.</br>For example: '!22,telnet,http,123,1001-1005'  |
 `,
 		},
 
