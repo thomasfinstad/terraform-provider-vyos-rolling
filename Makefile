@@ -349,11 +349,14 @@ version:
 	terraform providers schema -json | jq '.' > ../../.build/provider-schema.json
 	cd $(ROOT_DIR)
 
-	echo Latest releases:
-	git tag -l | sort -V | tail
+	echo Last 5 releases:
+	git tag -l | sort -V | tail -n5
+
+	echo Copy out provider schema from last tagged release
+	git show "$$(git tag | sort -V | tail -n1)":data/provider-schema.json > .build/old-provider-schema.json
 	cd tools/generate-changelog
 	echo Generate changelog
-	go run *.go ../../data/provider-schema.json ../../.build/provider-schema.json
+	go run *.go ../../.build/old-provider-schema.json ../../.build/provider-schema.json
 	cd $(ROOT_DIR)
 
 	echo Overwrite old json schema with new
@@ -380,53 +383,6 @@ version:
 	git commit -m "chore: Prepare for release v$$(cat VERSION)"
 	echo Create git release tag
 	git tag "v$$(cat VERSION)"
-
-release: version
-	@echo Make release
-	# This is depriciated, release should be done via github actions
-
-	rm -rf "${DIST_DIR}/publish" || true
-	mkdir -p "${DIST_DIR}/publish" || true
-
-	version="$$(cat VERSION)";
-	build_dir=".build/release-build";
-	mkdir -p "$${build_dir}/";
-	for os in $(BUILD_OS); do
-		for arch in $(BUILD_ARCH); do
-			if [ "$${os}/$${arch}" == "darwin/arm" -o "$${os}/$${arch}" == "darwin/386" ]; then
-				echo "Skipping unsupported os/arch combination: $${os}/$${arch}";
-				continue;
-			fi;
-			echo -n "Packaging for $${os} ($${arch})"
-			pub_dir="${DIST_DIR}/publish"
-
-			go build \
-				-ldflags "-X main.version=$${version} -X main.address=${ADDRESS}" \
-				-o "$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$${version}";
-			cd "$${build_dir}"
-			zip \
-				"$${pub_dir}/terraform-provider-$(PROVIDER_NAME)_$${version}_$${os}_$${arch}.zip" \
-				"terraform-provider-$(PROVIDER_NAME)_v$${version}"
-			rm "terraform-provider-$(PROVIDER_NAME)_v$${version}"
-			cd "$(ROOT_DIR)";
-		done;
-	done;
-
-	echo '{"version":1,"metadata":{"protocol_versions":["6.0"]}}' > "dist/publish/terraform-provider-$(PROVIDER_NAME)_$$(cat VERSION)_manifest.json"
-
-	cd dist/publish && shasum -a 256 * > "terraform-provider-$(PROVIDER_NAME)_$$(cat ../../VERSION)_SHA256SUMS"
-	gpg --detach-sign "terraform-provider-$(PROVIDER_NAME)_$$(cat VERSION)_SHA256SUMS"
-	cd $(ROOT_DIR)
-
-	gh release create \
-		"v$$(cat VERSION)" \
-		--title "v$$(cat VERSION)" \
-		--notes-file .build/CHANGELOG.md \
-		dist/publish/*
-
-
-	# Caching timestamp
-	date > release
 
 .PHONY: ci-update
 ci-update:
@@ -472,6 +428,9 @@ ci-update:
 	echo Version the new changes
 	make version
 
+	echo Run clean to free up space before goreleaser runs
+	make clean
+
 	echo "Update to rolling release '$$(cat data/vyos-1x-info.txt)' complete, ready to release provider."
 
 .PHONY: clean
@@ -481,13 +440,14 @@ clean:
 	go clean -modcache
 	go clean -testcache
 	go clean -fuzzcache
-	rm -rf dist
+	rm -rf "${DIST_DIR}"
 	rm -rf .build
 	rm generate
 	rm test
 	rm build
 	rm version
 	rm release
+
 
 
 ################
