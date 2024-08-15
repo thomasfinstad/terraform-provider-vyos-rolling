@@ -1,21 +1,152 @@
+
 # CHANGELOG
 
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 1.4.202408150 (2024-08-15 11-31-13 UTC)](#release-14202408150-2024-08-15-11-31-13-utc)
+  - [Release 1.4.202408151 (2024-08-15 16-16-24 UTC)](#release-14202408151-2024-08-15-16-16-24-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
-      - [Features](#features)
       - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
-      - [BREAKING CHANGES](#breaking-changes)
+      - [Notes](#notes-1)
         - [Resources](#resources)
-      - [Features](#features-1)
+  - [Release 1.4.202408150 (2024-08-15 11-31-13 UTC)](#release-14202408150-2024-08-15-11-31-13-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-2)
+      - [Features](#features)
+      - [Bug fixes](#bug-fixes-1)
+    - [Schema changes](#schema-changes-1)
+      - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources-1)
+      - [Features](#features-1)
+        - [Resources](#resources-2)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 1.4.202408151 (2024-08-15 16-16-24 UTC)
+### Project changes
+#### Notes
+* improve documentation with extra focus on adding better table of contents
+#### Bug fixes
+* remove redundant and error prone pre-commit run
+
+### Schema changes
+#### Notes
+
+##### Resources
+* Modified Resource `vyos_firewall_ipv4_output_raw_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_bridge_forward_filter_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv6_name_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_system_conntrack_timeout_custom_ipv4_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv4_prerouting_raw_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv6_prerouting_raw_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv6_output_raw_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_firewall_bridge_output_filter_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_firewall_bridge_input_filter_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_nat_destination_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv6_output_filter_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_system_conntrack_ignore_ipv6_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_system_conntrack_timeout_custom_ipv6_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv4_name_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_policy_route_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_firewall_bridge_name_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_system_conntrack_ignore_ipv4_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_bridge_prerouting_filter_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv4_forward_filter_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv6_forward_filter_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_policy_route6_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv6_input_filter_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv4_output_filter_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_load_balancing_wan_rule`
+	* Modified attribute `source.port.` changed description
+	* Modified attribute `destination.port.` changed description
+
+* Modified Resource `vyos_firewall_ipv4_input_filter_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+* Modified Resource `vyos_nat_source_rule`
+	* Modified attribute `destination.port.` changed description
+	* Modified attribute `source.port.` changed description
+
+
+
+
+
+
+
 
 
 ## Release 1.4.202408150 (2024-08-15 11-31-13 UTC)
