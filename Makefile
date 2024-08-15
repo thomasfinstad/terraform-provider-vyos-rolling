@@ -406,8 +406,6 @@ version:
 		echo "" >> CHANGELOG.md
 		cat .build/old-CHANGELOG.md | sed -n '/^##/,$$p' >> CHANGELOG.md
 	fi
-	echo Add TOC etc to changelog
-	pre-commit run --files CHANGELOG.md
 
 	echo Stage files in git
 	git add -A
