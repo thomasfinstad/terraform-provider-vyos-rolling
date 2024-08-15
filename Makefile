@@ -347,10 +347,10 @@ version:
 	@echo Make version
 
 	echo Verify that there are no unstaged changes
-	if [ -n "$(shell git status -s | head)" ]; then
-		git status -s | head;
-		echo "Can not create version when git is not in a clean, committed, and pushed state" >&2;
-		exit 1;
+	if [ -n "$$(git status -s | head)" ]; then
+		git status | head -n 20
+		echo "Can not create version when git is not in a clean, committed, and pushed state" >&2
+		exit 1
 	fi
 
 	mkdir -p ".build" || true
@@ -451,9 +451,9 @@ ci-update:
 		exit 0
 	fi
 
-	if [ -n "$$(git diff --stat)" ]; then
+	if [ -n "$$(git status -s)" ]; then
 		echo "Changes detected:"
-		git diff --stat
+		git status | head -n 20
 
 		echo Stage changed files to git
 		git add -A
