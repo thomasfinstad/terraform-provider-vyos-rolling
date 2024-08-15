@@ -1,7 +1,7 @@
 ---
 page_title: "vyos_load_balancing_reverse_proxy_global_parameters_logging_facility Resource - vyos"
 
-subcategory: "Load"
+subcategory: "Load Balancing"
 
 description: |-
   load-balancing⯯Configure reverse-proxy⯯Global perfomance parameters and limits⯯Logging parameters⯯Facility for logging

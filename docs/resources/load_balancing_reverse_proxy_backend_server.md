@@ -1,7 +1,7 @@
 ---
 page_title: "vyos_load_balancing_reverse_proxy_backend_server Resource - vyos"
 
-subcategory: "Load"
+subcategory: "Load Balancing"
 
 description: |-
   load-balancing⯯Configure reverse-proxy⯯Backend server name⯯Backend server name

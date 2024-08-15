@@ -1,7 +1,7 @@
 ---
 page_title: "vyos_load_balancing_wan_interface_health_test Resource - vyos"
 
-subcategory: "Load"
+subcategory: "Load Balancing"
 
 description: |-
   Configure load-balancing⯯Configure Wide Area Network (WAN) load-balancing⯯Interface name⯯Rule number

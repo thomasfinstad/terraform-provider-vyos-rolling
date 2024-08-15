@@ -1,7 +1,7 @@
 ---
 page_title: "vyos_load_balancing_wan Resource - vyos"
 
-subcategory: "Load"
+subcategory: "Load Balancing"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.

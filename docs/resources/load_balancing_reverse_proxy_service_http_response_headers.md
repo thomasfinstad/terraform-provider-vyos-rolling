@@ -1,7 +1,7 @@
 ---
 page_title: "vyos_load_balancing_reverse_proxy_service_http_response_headers Resource - vyos"
 
-subcategory: "Load"
+subcategory: "Load Balancing"
 
 description: |-
   load-balancing⯯Configure reverse-proxy⯯Frontend service name⯯Headers to include in HTTP response
