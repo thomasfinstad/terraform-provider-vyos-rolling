@@ -17,6 +17,9 @@ init
 apply
 secrets.tfvars
 
+# Github actions
+semicolon_delimited_script
+
 # Misc
 tmp
 tmp/
