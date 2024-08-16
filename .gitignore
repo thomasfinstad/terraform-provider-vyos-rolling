@@ -6,6 +6,7 @@
 dist/
 test
 build
+build-all
 generate
 version
 release

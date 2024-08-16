@@ -130,7 +130,8 @@ func (c change) IsNote() bool {
 	}
 	return (!c.conventionalCommit.Ok() ||
 		c.conventionalCommit.Type == "docs" ||
-		c.conventionalCommit.Type == "refactor")
+		c.conventionalCommit.Type == "refactor" ||
+		c.conventionalCommit.Type == "ci")
 }
 
 func (c change) IsFeature() bool {

@@ -55,7 +55,8 @@ endif
 # Fetch and format newest successful rolling ISO build time
 # ref: https://vyos.dev/T6156
 data/vyos-1x-info.txt:
-	@echo Make data/vyos-1x-info.txt
+	@echo ###########################################################################
+	echo Make data/vyos-1x-info.txt
 
 	mkdir -p data || true
 	-mkdir -p .build || true
@@ -83,7 +84,8 @@ data/vyos-1x-info.txt:
 ###
 # VyOS src repo at correct commit
 .build/vyos-1x: data/vyos-1x-info.txt
-	@echo Make .build/vyos-1x
+	@echo ###########################################################################
+	echo Make .build/vyos-1x
 
 	mkdir -p .build || true
 
@@ -108,7 +110,8 @@ data/vyos-1x-info.txt:
 
 # Convert from relaxng to XSD
 .build/schema-definitions.xsd: data/vyos-1x-info.txt |.build/vyos-1x
-	@echo Make .build/schema-definitions.xsd
+	@echo ###########################################################################
+	echo Make .build/schema-definitions.xsd
 
 	mkdir -p .build || true
 
@@ -117,7 +120,8 @@ data/vyos-1x-info.txt:
 
 # Generate go structs from XSD
 internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt internal/vyos/schemadefinition/interface-definition.go .build/schema-definitions.xsd
-	@echo Make internal/vyos/schemadefinition/autogen-structs.go
+	@echo ###########################################################################
+	echo Make internal/vyos/schemadefinition/autogen-structs.go
 
 	go get
 
@@ -150,7 +154,8 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 
 # Compile interface devfinitions
 .build/interface-definitions: data/vyos-1x-info.txt |.build/vyos-1x
-	@echo Make .build/interface-definitions
+	@echo ###########################################################################
+	echo Make .build/interface-definitions
 
 	rm -rf ".build/interface-definitions"
 	mkdir -p .build || true
@@ -181,7 +186,8 @@ internal/vyos/vyosinterfaces/autogen.go: \
 											tools/build-vyos-infterface-definition-structs \
 											$(shell find internal/vyos/schemadefinition -type f) \
 											.build/interface-definitions
-	@echo Make internal/vyos/vyosinterfaces/autogen.go
+	@echo ###########################################################################
+	echo Make internal/vyos/vyosinterfaces/autogen.go
 
 	mkdir -p "internal/vyos/vyosinterfaces"
 
@@ -223,7 +229,8 @@ internal/terraform/resource/autogen/package.go: \
 									data/vyos-1x-info.txt \
 									internal/vyos/vyosinterfaces/autogen.go \
 									$(shell find tools/build-terraform-resource-full -type f)
-	@echo Make internal/terraform/resource/autogen
+	@echo ###########################################################################
+	echo Make internal/terraform/resource/autogen
 
 	# Prep dirs
 	rm -rf "internal/terraform/resource/autogen/named"
@@ -244,7 +251,8 @@ internal/terraform/resource/autogen/package.go: \
 
 # Pretty-name target for human usage
 generate: internal/terraform/resource/autogen/package.go
-	@echo Make generate
+	@echo ###########################################################################
+	echo Make generate
 
 	# Caching timestamp
 	date > generate
@@ -272,7 +280,8 @@ test:	generate \
 		$(shell find . -type f -name "*_test.go"  -not \( -path "*/.build/*" \) ) \
 		$(shell find . -type f -name "*.go" -not \( -path "*autogen*" -or -path "*/.build/*" -or -path "*/tools/*" \) )
 
-	@echo Make test
+	@echo ###########################################################################
+	echo Make test
 
 	# VyOS API can often take ~1 second to respond to a configure request.
 	# This means we attempt to tune retrys and delays around this.
@@ -285,7 +294,45 @@ test:	generate \
 	date > test
 
 build: test
-	@echo Make build
+	@echo ###########################################################################
+	echo Make build
+
+	rm -rf "${DIST_DIR}/providers.localhost" || true
+
+	os=""
+	case "$$OSTYPE" in
+		linux-gnu)	os="linux" ;;
+		darwin)		os="darwin" ;;
+		freebsd)	os="freebsd" ;;
+		*)			echo "Unsupported OSTYPE: '$$OSTYPE'"; exit 1 ;;
+	esac
+
+	arch=""
+	case $$(uname -m) in
+		i386 | i686)	arch="386" ;;
+		x86_64)			arch="amd64" ;;
+		arm)			arch="arm" ;;
+		aarch64)		arch="arm64" ;;
+		*)				echo "Unsupported system architecture: '$$(uname -m)'"; exit 1 ;;
+	esac
+
+	version=$(shell date +%Y%m%d.%H%M.%S);
+	echo "Building for $${os} ($${arch})"
+	build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$${version}/$${os}_$${arch}"
+
+	mkdir -p "$${build_dir}/";
+	GOOS="$$os" \
+	GOARCH="$$arch" \
+		go build \
+			-ldflags "-X main.version=$${version} -X main.address=${ADDRESS}" \
+			-o "$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$${version}";
+
+	# Caching timestamp
+	date > build
+
+build-all: test
+	@echo ###########################################################################
+	echo Make build-all
 
 	rm -rf "${DIST_DIR}/providers.localhost" || true
 
@@ -300,20 +347,23 @@ build: test
 			build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$${version}/$${os}_$${arch}"
 
 			mkdir -p "$${build_dir}/";
-			go build \
-				-ldflags "-X main.version=$${version} -X main.address=${ADDRESS}" \
-				-o "$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$${version}";
+			GOOS="$$os" \
+			GOARCH="$$arch" \
+				go build \
+					-ldflags "-X main.version=$${version} -X main.address=${ADDRESS}" \
+					-o "$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$${version}";
 		done;
 	done;
 
 	# Caching timestamp
-	date > build
+	date > build-all
 
 docs/index.md: \
 				build \
 				internal/terraform/resource/autogen/package.go \
 				$(shell find templates/ -type f)
-	@echo Make docs/index.md
+	@echo ###########################################################################
+	echo Make docs/index.md
 
 	# Prep dirs
 	rm -rf "docs/"
@@ -344,7 +394,8 @@ docs/index.md: \
 
 .PHONY: version
 version:
-	@echo Make version
+	@echo ###########################################################################
+	echo Make version
 
 	echo Verify that there are no unstaged changes
 	if [ -n "$$(git status -s | head)" ]; then
@@ -416,24 +467,25 @@ version:
 	echo Commit meta files for release to git
 	git commit -m "chore: Prepare for release v$$(cat VERSION)"
 
-	echo Create git release tag
+	echo "Create git release tag v$$(cat VERSION)"
 	git tag "v$$(cat VERSION)"
 
 	cp .build/CHANGELOG.md CHANGELOG-FOR-GO-RELEASER.md.tmp
 
 .PHONY: ci-update
 ci-update:
-	@echo Make ci-update
+	@echo ###########################################################################
+	echo Make ci-update
 
-	id
+	echo "Previous release: $$(git tag -l v* | sort -V | tail -n1)"
 
 	git config --global user.name "Github Action"
 	git config --global user.email "noreply@github.com"
 
 	make --always-make data/vyos-1x-info.txt
-	if [ -n "$$(git diff --stat "data/vyos-1x-info.txt")" ]; then
+	if ! git diff --exit-code --stat "data/vyos-1x-info.txt"; then
+		echo "Detected new rolling release: $$(cat data/vyos-1x-info.txt)"
 		git add "data/vyos-1x-info.txt"
-		git commit -m "refactor: update to rolling release $$(cat data/vyos-1x-info.txt)"
 	fi
 
 	echo Generate files
@@ -446,33 +498,34 @@ ci-update:
 	make docs/index.md
 
 	echo Check for changes since last release
-	if [ -z "$$(git diff --stat "$$(git tag -l v* | sort -V | tail -n1)")" ]; then
+	if git diff -I '[0-9-]+T[0-9:]+Z' --exit-code --stat  "$$(git tag -l v* | sort -V | tail -n1)" >/dev/null; then
 		echo "No changes to provider files since last release"
 		exit 0
 	fi
 
 	if [ -n "$$(git status -s)" ]; then
 		echo "Changes detected:"
-		git status | head -n 20
+		git status --short | sed 's|/.*$$|/|' | uniq -c | sort -n
 
 		echo Stage changed files to git
 		git add -A
 
 		echo Commit files updated by CI
-		git commit -m "ci: regenerate files"
+		git commit -m "ci: update to rolling release $$(cat data/vyos-1x-info.txt)"
 	fi
 
 	echo Version the new changes
 	make version
 
-	echo Run clean to free up space before goreleaser runs
+	echo Run clean target to free up space before goreleaser runs
 	make clean
 
 	echo "Update to rolling release '$$(cat data/vyos-1x-info.txt)' complete, ready to release provider."
 
 .PHONY: clean
 clean:
-	-@echo Make clean
+	-@echo ###########################################################################
+	echo Make clean
 
 	go clean -modcache
 	go clean -testcache
