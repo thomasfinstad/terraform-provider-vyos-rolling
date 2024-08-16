@@ -4,20 +4,23 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 1.4.202408152 (2024-08-15 17-55-10 UTC)](#release-14202408152-2024-08-15-17-55-10-utc)
+  - [Release 1.4.202408160 (2024-08-16 16-29-03 UTC)](#release-14202408160-2024-08-16-16-29-03-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
-      - [Bug fixes](#bug-fixes)
-  - [Release 1.4.202408151 (2024-08-15 16-16-24 UTC)](#release-14202408151-2024-08-15-16-16-24-utc)
+  - [Release 1.4.202408152 (2024-08-15 17-55-10 UTC)](#release-14202408152-2024-08-15-17-55-10-utc)
     - [Project changes](#project-changes-1)
       - [Notes](#notes-1)
+      - [Bug fixes](#bug-fixes)
+  - [Release 1.4.202408151 (2024-08-15 16-16-24 UTC)](#release-14202408151-2024-08-15-16-16-24-utc)
+    - [Project changes](#project-changes-2)
+      - [Notes](#notes-2)
       - [Bug fixes](#bug-fixes-1)
     - [Schema changes](#schema-changes)
-      - [Notes](#notes-2)
+      - [Notes](#notes-3)
         - [Resources](#resources)
   - [Release 1.4.202408150 (2024-08-15 11-31-13 UTC)](#release-14202408150-2024-08-15-11-31-13-utc)
-    - [Project changes](#project-changes-2)
-      - [Notes](#notes-3)
+    - [Project changes](#project-changes-3)
+      - [Notes](#notes-4)
       - [Features](#features)
       - [Bug fixes](#bug-fixes-2)
     - [Schema changes](#schema-changes-1)
@@ -28,6 +31,13 @@
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 1.4.202408160 (2024-08-16 16-29-03 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-08-16T00:20:42Z
+* improve change detection and build target during ci run
 
 
 ## Release 1.4.202408152 (2024-08-15 17-55-10 UTC)
