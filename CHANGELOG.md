@@ -4,33 +4,62 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 1.4.202408160 (2024-08-16 16-29-03 UTC)](#release-14202408160-2024-08-16-16-29-03-utc)
+  - [Release 1.5.202408170 (2024-08-17 08-23-43 UTC)](#release-15202408170-2024-08-17-08-23-43-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
-  - [Release 1.4.202408152 (2024-08-15 17-55-10 UTC)](#release-14202408152-2024-08-15-17-55-10-utc)
+    - [Schema changes](#schema-changes)
+      - [Features](#features)
+        - [Resources](#resources)
+  - [Release 1.4.202408160 (2024-08-16 16-29-03 UTC)](#release-14202408160-2024-08-16-16-29-03-utc)
     - [Project changes](#project-changes-1)
       - [Notes](#notes-1)
-      - [Bug fixes](#bug-fixes)
-  - [Release 1.4.202408151 (2024-08-15 16-16-24 UTC)](#release-14202408151-2024-08-15-16-16-24-utc)
+  - [Release 1.4.202408152 (2024-08-15 17-55-10 UTC)](#release-14202408152-2024-08-15-17-55-10-utc)
     - [Project changes](#project-changes-2)
       - [Notes](#notes-2)
-      - [Bug fixes](#bug-fixes-1)
-    - [Schema changes](#schema-changes)
-      - [Notes](#notes-3)
-        - [Resources](#resources)
-  - [Release 1.4.202408150 (2024-08-15 11-31-13 UTC)](#release-14202408150-2024-08-15-11-31-13-utc)
+      - [Bug fixes](#bug-fixes)
+  - [Release 1.4.202408151 (2024-08-15 16-16-24 UTC)](#release-14202408151-2024-08-15-16-16-24-utc)
     - [Project changes](#project-changes-3)
-      - [Notes](#notes-4)
-      - [Features](#features)
-      - [Bug fixes](#bug-fixes-2)
+      - [Notes](#notes-3)
+      - [Bug fixes](#bug-fixes-1)
     - [Schema changes](#schema-changes-1)
-      - [BREAKING CHANGES](#breaking-changes)
+      - [Notes](#notes-4)
         - [Resources](#resources-1)
+  - [Release 1.4.202408150 (2024-08-15 11-31-13 UTC)](#release-14202408150-2024-08-15-11-31-13-utc)
+    - [Project changes](#project-changes-4)
+      - [Notes](#notes-5)
       - [Features](#features-1)
+      - [Bug fixes](#bug-fixes-2)
+    - [Schema changes](#schema-changes-2)
+      - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources-2)
+      - [Features](#features-2)
+        - [Resources](#resources-3)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 1.5.202408170 (2024-08-17 08-23-43 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-08-17T00:20:00Z
+
+### Schema changes
+#### Features
+
+##### Resources
+* Modified Resource `vyos_service_ipoe_server_interface`
+	* New attribute `vlan_mon`
+
+* Modified Resource `vyos_service_pppoe_server_interface`
+	* New attribute `vlan_mon`
+
+
+
+
+
+
+
 
 
 ## Release 1.4.202408160 (2024-08-16 16-29-03 UTC)
