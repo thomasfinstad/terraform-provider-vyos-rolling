@@ -25,7 +25,7 @@ func firewall() schemadefinition.InterfaceDefinition {
 					Local: "properties",
 				},
 				Help:     []string{"Firewall"},
-				Priority: []string{"319"},
+				Priority: []string{"489"},
 			}},
 			Children: []*schemadefinition.Children{{
 				XMLName: xml.Name{

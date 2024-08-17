@@ -34,6 +34,7 @@ Internet Protocol over Ethernet (IPoE) Server
       - [network](#network)
       - [timeouts](#timeouts)
       - [vlan](#vlan)
+      - [vlan_mon](#vlan_mon)
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
@@ -83,6 +84,8 @@ Internet Protocol over Ethernet (IPoE) Server
     |-------------|---------------------------------------------------|
     |  1-4094     &emsp;|  VLAN for automatic creation                      |
     |  start-end  &emsp;|  VLAN range for automatic creation (e.g. 1-4094)  |
+#### vlan_mon
+- `vlan_mon` (Boolean) Automatically create VLAN interfaces
 
 ### Read-Only
 

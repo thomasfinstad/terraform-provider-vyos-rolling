@@ -30,6 +30,7 @@ Point to Point over Ethernet (PPPoE) Server
     - [Optional](#optional)
       - [timeouts](#timeouts)
       - [vlan](#vlan)
+      - [vlan_mon](#vlan_mon)
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
@@ -56,6 +57,8 @@ Point to Point over Ethernet (PPPoE) Server
     |-------------|---------------------------------------------------|
     |  1-4094     &emsp;|  VLAN for automatic creation                      |
     |  start-end  &emsp;|  VLAN range for automatic creation (e.g. 1-4094)  |
+#### vlan_mon
+- `vlan_mon` (Boolean) Automatically create VLAN interfaces
 
 ### Read-Only
 

@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -35,6 +36,7 @@ type ServiceIPoeServerInterface struct {
 	LeafServiceIPoeServerInterfaceNetwork      types.String `tfsdk:"network" vyos:"network,omitempty"`
 	LeafServiceIPoeServerInterfaceClientSubnet types.String `tfsdk:"client_subnet" vyos:"client-subnet,omitempty"`
 	LeafServiceIPoeServerInterfaceVlan         types.List   `tfsdk:"vlan" vyos:"vlan,omitempty"`
+	LeafServiceIPoeServerInterfaceVlanMon      types.Bool   `tfsdk:"vlan_mon" vyos:"vlan-mon,omitempty"`
 
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
@@ -212,6 +214,18 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
     |  1-4094     |  VLAN for automatic creation                      |
     |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
 `,
+		},
+
+		"vlan_mon": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Automatically create VLAN interfaces
+
+`,
+			Description: `Automatically create VLAN interfaces
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
