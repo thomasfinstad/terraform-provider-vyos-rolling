@@ -2716,6 +2716,56 @@ func interfaces_openvpn() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
+							NodeNameAttr: "ip-version",
+							DefaultValue: []string{"auto"},
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Force OpenVPN to use a specific IP protocol version"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"(auto|ipv4|ipv6|dual-stack)"},
+								}},
+								ValueHelp: []*schemadefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "auto",
+									Description: "Select one IP protocol to use based on local or remote host",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "_ipv4",
+									Description: "Accept connections on or initate connections to IPv4 addresses only",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "_ipv6",
+									Description: "Accept connections on or initate connections to IPv6 addresses only",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "dual-stack",
+									Description: "Accept connections on both protocols simultaneously (only supported in server mode)",
+								}},
+								CompletionHelp: []*schemadefinition.CompletionHelp{{
+									XMLName: xml.Name{
+										Local: "completionHelp",
+									},
+									List: []string{"auto ipv4 ipv6 dual-stack"},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
 							NodeNameAttr: "remote-address",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{

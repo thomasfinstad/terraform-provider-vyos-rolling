@@ -42,6 +42,7 @@ type InterfacesOpenvpn struct {
 	LeafInterfacesOpenvpnOpenvpnOption     types.List   `tfsdk:"openvpn_option" vyos:"openvpn-option,omitempty"`
 	LeafInterfacesOpenvpnPersistentTunnel  types.Bool   `tfsdk:"persistent_tunnel" vyos:"persistent-tunnel,omitempty"`
 	LeafInterfacesOpenvpnProtocol          types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
+	LeafInterfacesOpenvpnIPVersion         types.String `tfsdk:"ip_version" vyos:"ip-version,omitempty"`
 	LeafInterfacesOpenvpnRemoteAddress     types.List   `tfsdk:"remote_address" vyos:"remote-address,omitempty"`
 	LeafInterfacesOpenvpnRemoteHost        types.List   `tfsdk:"remote_host" vyos:"remote-host,omitempty"`
 	LeafInterfacesOpenvpnRemotePort        types.Number `tfsdk:"remote_port" vyos:"remote-port,omitempty"`
@@ -336,6 +337,31 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 `,
 
 			// Default:          stringdefault.StaticString(`udp`),
+			Computed: true,
+		},
+
+		"ip_version": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Force OpenVPN to use a specific IP protocol version
+
+    |  Format      |  Description                                                                          |
+    |--------------|---------------------------------------------------------------------------------------|
+    |  auto        |  Select one IP protocol to use based on local or remote host                          |
+    |  _ipv4       |  Accept connections on or initate connections to IPv4 addresses only                  |
+    |  _ipv6       |  Accept connections on or initate connections to IPv6 addresses only                  |
+    |  dual-stack  |  Accept connections on both protocols simultaneously (only supported in server mode)  |
+`,
+			Description: `Force OpenVPN to use a specific IP protocol version
+
+    |  Format      |  Description                                                                          |
+    |--------------|---------------------------------------------------------------------------------------|
+    |  auto        |  Select one IP protocol to use based on local or remote host                          |
+    |  _ipv4       |  Accept connections on or initate connections to IPv4 addresses only                  |
+    |  _ipv6       |  Accept connections on or initate connections to IPv6 addresses only                  |
+    |  dual-stack  |  Accept connections on both protocols simultaneously (only supported in server mode)  |
+`,
+
+			// Default:          stringdefault.StaticString(`auto`),
 			Computed: true,
 		},
 

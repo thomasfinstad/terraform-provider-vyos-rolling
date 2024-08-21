@@ -33,6 +33,7 @@ description: |-
       - [encryption](#encryption)
       - [hash](#hash)
       - [ip](#ip)
+      - [ip_version](#ip_version)
       - [ipv6](#ipv6)
       - [keep_alive](#keep_alive)
       - [local_host](#local_host)
@@ -118,6 +119,15 @@ description: |-
     |  sha512  &emsp;|  SHA-512 algorithm  |
 #### ip
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
+#### ip_version
+- `ip_version` (String) Force OpenVPN to use a specific IP protocol version
+
+    |  Format      &emsp;|  Description                                                                          |
+    |--------------|---------------------------------------------------------------------------------------|
+    |  auto        &emsp;|  Select one IP protocol to use based on local or remote host                          |
+    |  _ipv4       &emsp;|  Accept connections on or initate connections to IPv4 addresses only                  |
+    |  _ipv6       &emsp;|  Accept connections on or initate connections to IPv6 addresses only                  |
+    |  dual-stack  &emsp;|  Accept connections on both protocols simultaneously (only supported in server mode)  |
 #### ipv6
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 #### keep_alive
