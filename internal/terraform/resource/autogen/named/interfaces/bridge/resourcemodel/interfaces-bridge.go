@@ -117,40 +117,38 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"bridge": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Bridge Interface
+			Attributes: map[string]schema.Attribute{
+				"bridge": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Bridge Interface
 
     |  Format  |  Description            |
     |----------|-------------------------|
     |  brN     |  Bridge interface name  |
 `,
-						Description: `Bridge Interface
+					Description: `Bridge Interface
 
     |  Format  |  Description            |
     |----------|-------------------------|
     |  brN     |  Bridge interface name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in bridge, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  bridge, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in bridge, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  bridge, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

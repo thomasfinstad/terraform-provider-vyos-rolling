@@ -113,59 +113,57 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes(ctx context.Context) 
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"class": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Class ID
+			Attributes: map[string]schema.Attribute{
+				"class": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4095  |  Class Identifier  |
 `,
-						Description: `Class ID
+					Description: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4095  |  Class Identifier  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"shaper_hfsc": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Hierarchical Fair Service Curve's policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Policy name  |
-`,
-						Description: `Hierarchical Fair Service Curve's policy
+				"shaper_hfsc": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Hierarchical Fair Service Curve's policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in shaper_hfsc, conflicts with the internal resource id",
-									),
-								),
+					Description: `Hierarchical Fair Service Curve's policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  shaper_hfsc, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in shaper_hfsc, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  shaper_hfsc, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

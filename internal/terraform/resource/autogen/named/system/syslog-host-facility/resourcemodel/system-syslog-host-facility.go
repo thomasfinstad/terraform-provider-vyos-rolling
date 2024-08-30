@@ -106,13 +106,12 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes(ctx context.Context) 
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"facility": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Facility for logging
+			Attributes: map[string]schema.Attribute{
+				"facility": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Facility for logging
 
     |  Format    |  Description                       |
     |------------|------------------------------------|
@@ -138,7 +137,7 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes(ctx context.Context) 
     |  local6    |  Local facility 6                  |
     |  local7    |  Local facility 7                  |
 `,
-						Description: `Facility for logging
+					Description: `Facility for logging
 
     |  Format    |  Description                       |
     |------------|------------------------------------|
@@ -164,35 +163,27 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes(ctx context.Context) 
     |  local6    |  Local facility 6                  |
     |  local7    |  Local facility 7                  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in facility, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  facility, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in facility, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  facility, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"host": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Logging to remote host
-
-    |  Format    |  Description                        |
-    |------------|-------------------------------------|
-    |  ipv4      |  Remote syslog server IPv4 address  |
-    |  ipv6      |  Remote syslog server IPv6 address  |
-    |  hostname  |  Remote syslog server FQDN          |
-`,
-						Description: `Logging to remote host
+				"host": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Logging to remote host
 
     |  Format    |  Description                        |
     |------------|-------------------------------------|
@@ -200,22 +191,29 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes(ctx context.Context) 
     |  ipv6      |  Remote syslog server IPv6 address  |
     |  hostname  |  Remote syslog server FQDN          |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in host, conflicts with the internal resource id",
-									),
-								),
+					Description: `Logging to remote host
+
+    |  Format    |  Description                        |
+    |------------|-------------------------------------|
+    |  ipv4      |  Remote syslog server IPv4 address  |
+    |  ipv6      |  Remote syslog server IPv6 address  |
+    |  hostname  |  Remote syslog server FQDN          |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  host, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in host, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  host, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

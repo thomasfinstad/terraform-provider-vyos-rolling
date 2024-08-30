@@ -106,66 +106,64 @@ func (o LoadBalancingReverseProxyServiceHTTPResponseHeaders) ResourceSchemaAttri
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"http_response_headers": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Headers to include in HTTP response
+			Attributes: map[string]schema.Attribute{
+				"http_response_headers": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Headers to include in HTTP response
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  txt     |  HTTP header name  |
 `,
-						Description: `Headers to include in HTTP response
+					Description: `Headers to include in HTTP response
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  txt     |  HTTP header name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in http_response_headers, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  http_response_headers, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in http_response_headers, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  http_response_headers, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"service": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Frontend service name
-
-`,
-						Description: `Frontend service name
+				"service": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Frontend service name
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in service, conflicts with the internal resource id",
-									),
-								),
+					Description: `Frontend service name
+
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  service, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in service, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  service, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

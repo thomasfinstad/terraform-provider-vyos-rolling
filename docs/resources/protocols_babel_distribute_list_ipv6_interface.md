@@ -50,7 +50,7 @@ Filter IPv6 routes
 ### Required
 
 #### identifier
-- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
+- `identifier` (Attributes) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 

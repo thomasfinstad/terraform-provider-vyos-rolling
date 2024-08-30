@@ -54,7 +54,7 @@ Name of DHCP shared network
 ### Required
 
 #### identifier
-- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
+- `identifier` (Attributes) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 

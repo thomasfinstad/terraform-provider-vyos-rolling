@@ -119,13 +119,12 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes(ctx conte
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"local_role": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Local role for BGP neighbor (RFC9234)
+			Attributes: map[string]schema.Attribute{
+				"local_role": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Local role for BGP neighbor (RFC9234)
 
     |  Format     |  Description             |
     |-------------|--------------------------|
@@ -135,7 +134,7 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes(ctx conte
     |  rs-client  |  RS Client               |
     |  rs-server  |  Route Server            |
 `,
-						Description: `Local role for BGP neighbor (RFC9234)
+					Description: `Local role for BGP neighbor (RFC9234)
 
     |  Format     |  Description             |
     |-------------|--------------------------|
@@ -145,59 +144,59 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes(ctx conte
     |  rs-client  |  RS Client               |
     |  rs-server  |  Route Server            |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in local_role, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  local_role, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in local_role, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  local_role, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"name": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Virtual Routing and Forwarding instance
+				"name": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-						Description: `Virtual Routing and Forwarding instance
+					Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in name, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in name, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"neighbor": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `BGP neighbor
+				"neighbor": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `BGP neighbor
 
     |  Format  |  Description                |
     |----------|-----------------------------|
@@ -205,7 +204,7 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes(ctx conte
     |  ipv6    |  BGP neighbor IPv6 address  |
     |  txt     |  Interface name             |
 `,
-						Description: `BGP neighbor
+					Description: `BGP neighbor
 
     |  Format  |  Description                |
     |----------|-----------------------------|
@@ -213,22 +212,21 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes(ctx conte
     |  ipv6    |  BGP neighbor IPv6 address  |
     |  txt     |  Interface name             |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in neighbor, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  neighbor, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in neighbor, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  neighbor, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

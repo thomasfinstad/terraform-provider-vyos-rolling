@@ -100,27 +100,25 @@ func (o SystemConntrackIgnoreIPvsixRule) ResourceSchemaAttributes(ctx context.Co
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Rule number
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Rule number
 
     |  Format    |  Description                      |
     |------------|-----------------------------------|
     |  1-999999  |  Number of conntrack ignore rule  |
 `,
-						Description: `Rule number
+					Description: `Rule number
 
     |  Format    |  Description                      |
     |------------|-----------------------------------|
     |  1-999999  |  Number of conntrack ignore rule  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

@@ -107,53 +107,51 @@ func (o ProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes(ctx context.Conte
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"local_as": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Specify alternate ASN for this BGP process
+			Attributes: map[string]schema.Attribute{
+				"local_as": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Specify alternate ASN for this BGP process
 
     |  Format        |  Description                     |
     |----------------|----------------------------------|
     |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
-						Description: `Specify alternate ASN for this BGP process
+					Description: `Specify alternate ASN for this BGP process
 
     |  Format        |  Description                     |
     |----------------|----------------------------------|
     |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"peer_group": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Name of peer-group
-
-`,
-						Description: `Name of peer-group
+				"peer_group": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Name of peer-group
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in peer_group, conflicts with the internal resource id",
-									),
-								),
+					Description: `Name of peer-group
+
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  peer_group, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in peer_group, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  peer_group, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

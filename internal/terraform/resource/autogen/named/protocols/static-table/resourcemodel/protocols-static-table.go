@@ -95,27 +95,25 @@ func (o ProtocolsStaticTable) ResourceSchemaAttributes(ctx context.Context) map[
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"table": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Policy route table number
+			Attributes: map[string]schema.Attribute{
+				"table": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Policy route table number
 
     |  Format  |  Description                |
     |----------|-----------------------------|
     |  1-200   |  Policy route table number  |
 `,
-						Description: `Policy route table number
+					Description: `Policy route table number
 
     |  Format  |  Description                |
     |----------|-----------------------------|
     |  1-200   |  Policy route table number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

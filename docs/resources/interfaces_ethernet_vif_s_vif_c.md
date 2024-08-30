@@ -63,7 +63,7 @@ QinQ TAG-S Virtual Local Area Network (VLAN) ID
 ### Required
 
 #### identifier
-- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
+- `identifier` (Attributes) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 

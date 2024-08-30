@@ -103,40 +103,38 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"sstpc": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Secure Socket Tunneling Protocol (SSTP) client Interface
+			Attributes: map[string]schema.Attribute{
+				"sstpc": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Secure Socket Tunneling Protocol (SSTP) client Interface
 
     |  Format  |  Description                                      |
     |----------|---------------------------------------------------|
     |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
 `,
-						Description: `Secure Socket Tunneling Protocol (SSTP) client Interface
+					Description: `Secure Socket Tunneling Protocol (SSTP) client Interface
 
     |  Format  |  Description                                      |
     |----------|---------------------------------------------------|
     |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in sstpc, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  sstpc, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in sstpc, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  sstpc, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

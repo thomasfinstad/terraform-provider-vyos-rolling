@@ -117,59 +117,57 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes(ctx context.Conte
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"tunnel": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Peer tunnel
+			Attributes: map[string]schema.Attribute{
+				"tunnel": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Peer tunnel
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32     |  Peer tunnel  |
 `,
-						Description: `Peer tunnel
+					Description: `Peer tunnel
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32     |  Peer tunnel  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"peer": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Connection name of the peer
-
-    |  Format  |  Description                  |
-    |----------|-------------------------------|
-    |  txt     |  Connection name of the peer  |
-`,
-						Description: `Connection name of the peer
+				"peer": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Connection name of the peer
 
     |  Format  |  Description                  |
     |----------|-------------------------------|
     |  txt     |  Connection name of the peer  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in peer, conflicts with the internal resource id",
-									),
-								),
+					Description: `Connection name of the peer
+
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  txt     |  Connection name of the peer  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  peer, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in peer, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  peer, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

@@ -123,27 +123,25 @@ func (o FirewallBrIDgePreroutingFilterRule) ResourceSchemaAttributes(ctx context
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Bridge firewall prerouting filter rule number
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Bridge firewall prerouting filter rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-						Description: `Bridge firewall prerouting filter rule number
+					Description: `Bridge firewall prerouting filter rule number
 
     |  Format    |  Description                    |
     |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

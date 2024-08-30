@@ -106,72 +106,70 @@ func (o ServicePppoeServerClientIPvsixPoolPrefix) ResourceSchemaAttributes(ctx c
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"prefix": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Pool of addresses used to assign to clients
+			Attributes: map[string]schema.Attribute{
+				"prefix": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Pool of addresses used to assign to clients
 
     |  Format   |  Description                     |
     |-----------|----------------------------------|
     |  ipv6net  |  IPv6 address and prefix length  |
 `,
-						Description: `Pool of addresses used to assign to clients
+					Description: `Pool of addresses used to assign to clients
 
     |  Format   |  Description                     |
     |-----------|----------------------------------|
     |  ipv6net  |  IPv6 address and prefix length  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in prefix, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  prefix, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in prefix, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  prefix, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"client_ipv6_pool": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Pool of client IPv6 addresses
-
-    |  Format  |  Description        |
-    |----------|---------------------|
-    |  txt     |  Name of IPv6 pool  |
-`,
-						Description: `Pool of client IPv6 addresses
+				"client_ipv6_pool": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Pool of client IPv6 addresses
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  Name of IPv6 pool  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in client_ipv6_pool, conflicts with the internal resource id",
-									),
-								),
+					Description: `Pool of client IPv6 addresses
+
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  Name of IPv6 pool  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  client_ipv6_pool, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in client_ipv6_pool, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  client_ipv6_pool, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

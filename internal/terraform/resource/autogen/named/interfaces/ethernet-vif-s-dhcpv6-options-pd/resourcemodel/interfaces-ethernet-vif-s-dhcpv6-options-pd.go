@@ -115,91 +115,89 @@ func (o InterfacesEthernetVifSDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx co
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"pd": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `DHCPv6 prefix delegation interface statement
+			Attributes: map[string]schema.Attribute{
+				"pd": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
     |  Format           |  Description                        |
     |-------------------|-------------------------------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
 `,
-						Description: `DHCPv6 prefix delegation interface statement
+					Description: `DHCPv6 prefix delegation interface statement
 
     |  Format           |  Description                        |
     |-------------------|-------------------------------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in pd, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  pd, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in pd, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  pd, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"ethernet": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Ethernet Interface
+				"ethernet": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Ethernet Interface
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  ethN    |  Ethernet interface name  |
 `,
-						Description: `Ethernet Interface
+					Description: `Ethernet Interface
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  ethN    |  Ethernet interface name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in ethernet, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  ethernet, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in ethernet, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  ethernet, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"vif_s": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
-
-    |  Format  |  Description                                |
-    |----------|---------------------------------------------|
-    |  0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
-`,
-						Description: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
+				"vif_s": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
     |  Format  |  Description                                |
     |----------|---------------------------------------------|
     |  0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					Description: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description                                |
+    |----------|---------------------------------------------|
+    |  0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+`,
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

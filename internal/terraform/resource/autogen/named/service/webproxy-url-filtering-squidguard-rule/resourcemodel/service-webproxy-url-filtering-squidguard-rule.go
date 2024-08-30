@@ -109,27 +109,25 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes(ctx 
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `URL filter rule for a source-group
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `URL filter rule for a source-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-1024  |  Rule Number  |
 `,
-						Description: `URL filter rule for a source-group
+					Description: `URL filter rule for a source-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-1024  |  Rule Number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

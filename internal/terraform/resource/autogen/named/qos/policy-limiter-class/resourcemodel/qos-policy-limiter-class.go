@@ -116,59 +116,57 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes(ctx context.Context) map
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"class": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Class ID
+			Attributes: map[string]schema.Attribute{
+				"class": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4090  |  Class Identifier  |
 `,
-						Description: `Class ID
+					Description: `Class ID
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  1-4090  |  Class Identifier  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"limiter": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Traffic input limiting policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Policy name  |
-`,
-						Description: `Traffic input limiting policy
+				"limiter": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Traffic input limiting policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in limiter, conflicts with the internal resource id",
-									),
-								),
+					Description: `Traffic input limiting policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  limiter, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in limiter, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  limiter, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

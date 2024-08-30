@@ -49,7 +49,7 @@ Failover IPv4 route
 ### Required
 
 #### identifier
-- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
+- `identifier` (Attributes) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 

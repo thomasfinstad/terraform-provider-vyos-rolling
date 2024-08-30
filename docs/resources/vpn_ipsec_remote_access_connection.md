@@ -61,7 +61,7 @@ IKEv2 remote access VPN
 ### Required
 
 #### identifier
-- `identifier` (Attributes Map) (see [below for nested schema](#nestedatt--identifier))
+- `identifier` (Attributes) (see [below for nested schema](#nestedatt--identifier))
 
 ### Optional
 

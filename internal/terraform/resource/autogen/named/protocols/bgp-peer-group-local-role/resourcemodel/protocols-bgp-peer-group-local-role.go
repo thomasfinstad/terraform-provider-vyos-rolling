@@ -107,13 +107,12 @@ func (o ProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes(ctx context.Con
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"local_role": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Local role for BGP neighbor (RFC9234)
+			Attributes: map[string]schema.Attribute{
+				"local_role": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Local role for BGP neighbor (RFC9234)
 
     |  Format     |  Description             |
     |-------------|--------------------------|
@@ -123,7 +122,7 @@ func (o ProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes(ctx context.Con
     |  rs-client  |  RS Client               |
     |  rs-server  |  Route Server            |
 `,
-						Description: `Local role for BGP neighbor (RFC9234)
+					Description: `Local role for BGP neighbor (RFC9234)
 
     |  Format     |  Description             |
     |-------------|--------------------------|
@@ -133,48 +132,47 @@ func (o ProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes(ctx context.Con
     |  rs-client  |  RS Client               |
     |  rs-server  |  Route Server            |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in local_role, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  local_role, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in local_role, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  local_role, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"peer_group": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Name of peer-group
-
-`,
-						Description: `Name of peer-group
+				"peer_group": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Name of peer-group
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in peer_group, conflicts with the internal resource id",
-									),
-								),
+					Description: `Name of peer-group
+
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  peer_group, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in peer_group, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  peer_group, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

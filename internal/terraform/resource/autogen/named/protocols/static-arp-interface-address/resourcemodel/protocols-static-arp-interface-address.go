@@ -111,72 +111,70 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes(ctx context
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"address": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `IP address for static ARP entry
+			Attributes: map[string]schema.Attribute{
+				"address": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `IP address for static ARP entry
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  ipv4    |  IPv4 destination address  |
 `,
-						Description: `IP address for static ARP entry
+					Description: `IP address for static ARP entry
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  ipv4    |  IPv4 destination address  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in address, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  address, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in address, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  address, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"interface": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Interface configuration
-
-    |  Format  |  Description     |
-    |----------|------------------|
-    |  txt     |  Interface name  |
-`,
-						Description: `Interface configuration
+				"interface": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Interface configuration
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Interface name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in interface, conflicts with the internal resource id",
-									),
-								),
+					Description: `Interface configuration
+
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in interface, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

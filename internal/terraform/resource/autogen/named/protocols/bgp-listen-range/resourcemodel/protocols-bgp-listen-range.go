@@ -96,42 +96,40 @@ func (o ProtocolsBgpListenRange) ResourceSchemaAttributes(ctx context.Context) m
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"range": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `BGP dynamic neighbors listen range
+			Attributes: map[string]schema.Attribute{
+				"range": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `BGP dynamic neighbors listen range
 
     |  Format   |  Description                          |
     |-----------|---------------------------------------|
     |  ipv4net  |  IPv4 dynamic neighbors listen range  |
     |  ipv6net  |  IPv6 dynamic neighbors listen range  |
 `,
-						Description: `BGP dynamic neighbors listen range
+					Description: `BGP dynamic neighbors listen range
 
     |  Format   |  Description                          |
     |-----------|---------------------------------------|
     |  ipv4net  |  IPv4 dynamic neighbors listen range  |
     |  ipv6net  |  IPv6 dynamic neighbors listen range  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in range, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  range, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in range, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  range, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

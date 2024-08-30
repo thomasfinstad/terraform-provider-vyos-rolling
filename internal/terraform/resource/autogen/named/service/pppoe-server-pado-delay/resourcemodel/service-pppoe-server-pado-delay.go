@@ -94,42 +94,40 @@ func (o ServicePppoeServerPadoDelay) ResourceSchemaAttributes(ctx context.Contex
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"pado_delay": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `PADO delays
+			Attributes: map[string]schema.Attribute{
+				"pado_delay": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `PADO delays
 
     |  Format    |  Description              |
     |------------|---------------------------|
     |  disable   |  Disable new connections  |
     |  1-999999  |  Number in ms             |
 `,
-						Description: `PADO delays
+					Description: `PADO delays
 
     |  Format    |  Description              |
     |------------|---------------------------|
     |  disable   |  Disable new connections  |
     |  1-999999  |  Number in ms             |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in pado_delay, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  pado_delay, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in pado_delay, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  pado_delay, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

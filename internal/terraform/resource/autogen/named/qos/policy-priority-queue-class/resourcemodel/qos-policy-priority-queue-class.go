@@ -116,59 +116,57 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes(ctx context.Contex
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"class": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Class Handle
+			Attributes: map[string]schema.Attribute{
+				"class": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Class Handle
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-7     |  Priority     |
 `,
-						Description: `Class Handle
+					Description: `Class Handle
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-7     |  Priority     |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"priority_queue": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Priority queuing based policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Policy name  |
-`,
-						Description: `Priority queuing based policy
+				"priority_queue": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Priority queuing based policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Policy name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in priority_queue, conflicts with the internal resource id",
-									),
-								),
+					Description: `Priority queuing based policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  priority_queue, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in priority_queue, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  priority_queue, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

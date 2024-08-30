@@ -98,13 +98,12 @@ func (o SystemSyslogHost) ResourceSchemaAttributes(ctx context.Context) map[stri
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"host": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Logging to remote host
+			Attributes: map[string]schema.Attribute{
+				"host": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Logging to remote host
 
     |  Format    |  Description                        |
     |------------|-------------------------------------|
@@ -112,7 +111,7 @@ func (o SystemSyslogHost) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  ipv6      |  Remote syslog server IPv6 address  |
     |  hostname  |  Remote syslog server FQDN          |
 `,
-						Description: `Logging to remote host
+					Description: `Logging to remote host
 
     |  Format    |  Description                        |
     |------------|-------------------------------------|
@@ -120,22 +119,21 @@ func (o SystemSyslogHost) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  ipv6      |  Remote syslog server IPv6 address  |
     |  hostname  |  Remote syslog server FQDN          |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in host, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  host, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in host, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  host, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

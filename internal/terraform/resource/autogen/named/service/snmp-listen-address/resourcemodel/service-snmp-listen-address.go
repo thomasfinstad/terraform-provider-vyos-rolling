@@ -94,42 +94,40 @@ func (o ServiceSnmpListenAddress) ResourceSchemaAttributes(ctx context.Context) 
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"listen_address": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `IP address to listen for incoming SNMP requests
+			Attributes: map[string]schema.Attribute{
+				"listen_address": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `IP address to listen for incoming SNMP requests
 
     |  Format  |  Description                                        |
     |----------|-----------------------------------------------------|
     |  ipv4    |  IPv4 address to listen for incoming SNMP requests  |
     |  ipv6    |  IPv6 address to listen for incoming SNMP requests  |
 `,
-						Description: `IP address to listen for incoming SNMP requests
+					Description: `IP address to listen for incoming SNMP requests
 
     |  Format  |  Description                                        |
     |----------|-----------------------------------------------------|
     |  ipv4    |  IPv4 address to listen for incoming SNMP requests  |
     |  ipv6    |  IPv6 address to listen for incoming SNMP requests  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in listen_address, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  listen_address, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in listen_address, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  listen_address, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

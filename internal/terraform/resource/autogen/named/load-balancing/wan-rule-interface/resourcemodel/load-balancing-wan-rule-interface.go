@@ -107,53 +107,51 @@ func (o LoadBalancingWanRuleInterface) ResourceSchemaAttributes(ctx context.Cont
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"interface": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Interface name [REQUIRED]
+			Attributes: map[string]schema.Attribute{
+				"interface": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Interface name [REQUIRED]
 
 `,
-						Description: `Interface name [REQUIRED]
+					Description: `Interface name [REQUIRED]
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in interface, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in interface, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Rule number (1-9999)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  1-9999  |  Rule number  |
-`,
-						Description: `Rule number (1-9999)
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Rule number (1-9999)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  1-9999  |  Rule number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					Description: `Rule number (1-9999)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  1-9999  |  Rule number  |
+`,
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

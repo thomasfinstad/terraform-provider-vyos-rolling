@@ -94,40 +94,38 @@ func (o PolicyPrefixListsix) ResourceSchemaAttributes(ctx context.Context) map[s
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"prefix_list6": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `IPv6 prefix-list filter
+			Attributes: map[string]schema.Attribute{
+				"prefix_list6": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `IPv6 prefix-list filter
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  txt     |  Name of IPv6 prefix-list  |
 `,
-						Description: `IPv6 prefix-list filter
+					Description: `IPv6 prefix-list filter
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  txt     |  Name of IPv6 prefix-list  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in prefix_list6, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  prefix_list6, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in prefix_list6, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  prefix_list6, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

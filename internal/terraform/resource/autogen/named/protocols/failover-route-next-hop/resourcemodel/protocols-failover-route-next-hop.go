@@ -110,72 +110,70 @@ func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes(ctx context.Cont
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"next_hop": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Next-hop IPv4 router address
+			Attributes: map[string]schema.Attribute{
+				"next_hop": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Next-hop IPv4 router address
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  ipv4    |  Next-hop router address  |
 `,
-						Description: `Next-hop IPv4 router address
+					Description: `Next-hop IPv4 router address
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  ipv4    |  Next-hop router address  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in next_hop, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  next_hop, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in next_hop, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  next_hop, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"route": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Failover IPv4 route
-
-    |  Format   |  Description          |
-    |-----------|-----------------------|
-    |  ipv4net  |  IPv4 failover route  |
-`,
-						Description: `Failover IPv4 route
+				"route": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Failover IPv4 route
 
     |  Format   |  Description          |
     |-----------|-----------------------|
     |  ipv4net  |  IPv4 failover route  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in route, conflicts with the internal resource id",
-									),
-								),
+					Description: `Failover IPv4 route
+
+    |  Format   |  Description          |
+    |-----------|-----------------------|
+    |  ipv4net  |  IPv4 failover route  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  route, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in route, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  route, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

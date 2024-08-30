@@ -96,27 +96,25 @@ func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes(ctx context.Context) m
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `IPv6 policy local-route rule set number
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `IPv6 policy local-route rule set number
 
     |  Format   |  Description                        |
     |-----------|-------------------------------------|
     |  1-32765  |  Local-route rule number (1-32765)  |
 `,
-						Description: `IPv6 policy local-route rule set number
+					Description: `IPv6 policy local-route rule set number
 
     |  Format   |  Description                        |
     |-----------|-------------------------------------|
     |  1-32765  |  Local-route rule number (1-32765)  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

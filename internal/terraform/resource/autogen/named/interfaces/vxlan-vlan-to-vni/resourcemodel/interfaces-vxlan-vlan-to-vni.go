@@ -102,74 +102,72 @@ func (o InterfacesVxlanVlanToVni) ResourceSchemaAttributes(ctx context.Context) 
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"vlan_to_vni": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Configuring VLAN-to-VNI mappings for EVPN-VXLAN
+			Attributes: map[string]schema.Attribute{
+				"vlan_to_vni": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Configuring VLAN-to-VNI mappings for EVPN-VXLAN
 
     |  Format       |  Description                            |
     |---------------|-----------------------------------------|
     |  0-4094       |  Virtual Local Area Network (VLAN) ID   |
     |  <start-end>  |  VLAN IDs range (use '-' as delimiter)  |
 `,
-						Description: `Configuring VLAN-to-VNI mappings for EVPN-VXLAN
+					Description: `Configuring VLAN-to-VNI mappings for EVPN-VXLAN
 
     |  Format       |  Description                            |
     |---------------|-----------------------------------------|
     |  0-4094       |  Virtual Local Area Network (VLAN) ID   |
     |  <start-end>  |  VLAN IDs range (use '-' as delimiter)  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in vlan_to_vni, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  vlan_to_vni, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in vlan_to_vni, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  vlan_to_vni, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"vxlan": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Virtual Extensible LAN (VXLAN) Interface
-
-    |  Format  |  Description           |
-    |----------|------------------------|
-    |  vxlanN  |  VXLAN interface name  |
-`,
-						Description: `Virtual Extensible LAN (VXLAN) Interface
+				"vxlan": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Virtual Extensible LAN (VXLAN) Interface
 
     |  Format  |  Description           |
     |----------|------------------------|
     |  vxlanN  |  VXLAN interface name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in vxlan, conflicts with the internal resource id",
-									),
-								),
+					Description: `Virtual Extensible LAN (VXLAN) Interface
+
+    |  Format  |  Description           |
+    |----------|------------------------|
+    |  vxlanN  |  VXLAN interface name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  vxlan, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in vxlan, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  vxlan, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

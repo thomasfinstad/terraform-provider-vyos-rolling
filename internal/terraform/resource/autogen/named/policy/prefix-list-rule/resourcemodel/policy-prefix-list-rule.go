@@ -107,59 +107,57 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes(ctx context.Context) map[
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Rule for this prefix-list
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Rule for this prefix-list
 
     |  Format   |  Description              |
     |-----------|---------------------------|
     |  1-65535  |  Prefix-list rule number  |
 `,
-						Description: `Rule for this prefix-list
+					Description: `Rule for this prefix-list
 
     |  Format   |  Description              |
     |-----------|---------------------------|
     |  1-65535  |  Prefix-list rule number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"prefix_list": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `IP prefix-list filter
-
-    |  Format  |  Description               |
-    |----------|----------------------------|
-    |  txt     |  Name of IPv4 prefix-list  |
-`,
-						Description: `IP prefix-list filter
+				"prefix_list": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `IP prefix-list filter
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  txt     |  Name of IPv4 prefix-list  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in prefix_list, conflicts with the internal resource id",
-									),
-								),
+					Description: `IP prefix-list filter
+
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv4 prefix-list  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  prefix_list, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in prefix_list, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  prefix_list, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

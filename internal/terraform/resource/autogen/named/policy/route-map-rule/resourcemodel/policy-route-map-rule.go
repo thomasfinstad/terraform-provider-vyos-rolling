@@ -109,59 +109,57 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Rule for this route-map
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Rule for this route-map
 
     |  Format   |  Description            |
     |-----------|-------------------------|
     |  1-65535  |  Route-map rule number  |
 `,
-						Description: `Rule for this route-map
+					Description: `Rule for this route-map
 
     |  Format   |  Description            |
     |-----------|-------------------------|
     |  1-65535  |  Route-map rule number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"route_map": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `IP route-map
-
-    |  Format  |  Description     |
-    |----------|------------------|
-    |  txt     |  Route map name  |
-`,
-						Description: `IP route-map
+				"route_map": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `IP route-map
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Route map name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in route_map, conflicts with the internal resource id",
-									),
-								),
+					Description: `IP route-map
+
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  route_map, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in route_map, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  route_map, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

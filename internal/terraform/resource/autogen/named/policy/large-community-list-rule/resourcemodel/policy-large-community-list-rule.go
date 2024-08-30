@@ -105,59 +105,57 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes(ctx context.Conte
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Rule for this BGP extended community list
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Rule for this BGP extended community list
 
     |  Format   |  Description                       |
     |-----------|------------------------------------|
     |  1-65535  |  Large community-list rule number  |
 `,
-						Description: `Rule for this BGP extended community list
+					Description: `Rule for this BGP extended community list
 
     |  Format   |  Description                       |
     |-----------|------------------------------------|
     |  1-65535  |  Large community-list rule number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"large_community_list": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Add a BGP large community list entry
-
-    |  Format  |  Description                    |
-    |----------|---------------------------------|
-    |  txt     |  BGP large-community-list name  |
-`,
-						Description: `Add a BGP large community list entry
+				"large_community_list": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Add a BGP large community list entry
 
     |  Format  |  Description                    |
     |----------|---------------------------------|
     |  txt     |  BGP large-community-list name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in large_community_list, conflicts with the internal resource id",
-									),
-								),
+					Description: `Add a BGP large community list entry
+
+    |  Format  |  Description                    |
+    |----------|---------------------------------|
+    |  txt     |  BGP large-community-list name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  large_community_list, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in large_community_list, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  large_community_list, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

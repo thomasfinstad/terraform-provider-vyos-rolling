@@ -96,13 +96,12 @@ func (o ServiceMonitoringZabbixAgentServerActive) ResourceSchemaAttributes(ctx c
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"server_active": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Remote server address to get active checks from
+			Attributes: map[string]schema.Attribute{
+				"server_active": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Remote server address to get active checks from
 
     |  Format    |  Description           |
     |------------|------------------------|
@@ -110,7 +109,7 @@ func (o ServiceMonitoringZabbixAgentServerActive) ResourceSchemaAttributes(ctx c
     |  ipv6      |  Server IPv6 address   |
     |  hostname  |  Server hostname/FQDN  |
 `,
-						Description: `Remote server address to get active checks from
+					Description: `Remote server address to get active checks from
 
     |  Format    |  Description           |
     |------------|------------------------|
@@ -118,22 +117,21 @@ func (o ServiceMonitoringZabbixAgentServerActive) ResourceSchemaAttributes(ctx c
     |  ipv6      |  Server IPv6 address   |
     |  hostname  |  Server hostname/FQDN  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in server_active, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  server_active, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in server_active, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  server_active, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

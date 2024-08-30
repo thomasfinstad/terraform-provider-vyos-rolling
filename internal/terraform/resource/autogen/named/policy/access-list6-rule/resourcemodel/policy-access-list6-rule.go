@@ -105,59 +105,57 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes(ctx context.Context) m
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Rule for this access-list6
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Rule for this access-list6
 
     |  Format   |  Description               |
     |-----------|----------------------------|
     |  1-65535  |  Access-list6 rule number  |
 `,
-						Description: `Rule for this access-list6
+					Description: `Rule for this access-list6
 
     |  Format   |  Description               |
     |-----------|----------------------------|
     |  1-65535  |  Access-list6 rule number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"access_list6": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `IPv6 access-list filter
-
-    |  Format  |  Description               |
-    |----------|----------------------------|
-    |  txt     |  Name of IPv6 access-list  |
-`,
-						Description: `IPv6 access-list filter
+				"access_list6": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `IPv6 access-list filter
 
     |  Format  |  Description               |
     |----------|----------------------------|
     |  txt     |  Name of IPv6 access-list  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in access_list6, conflicts with the internal resource id",
-									),
-								),
+					Description: `IPv6 access-list filter
+
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv6 access-list  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  access_list6, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in access_list6, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  access_list6, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

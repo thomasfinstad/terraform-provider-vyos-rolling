@@ -99,40 +99,38 @@ func (o VpnIPsecProfile) ResourceSchemaAttributes(ctx context.Context) map[strin
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"profile": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `VPN IPsec profile
+			Attributes: map[string]schema.Attribute{
+				"profile": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `VPN IPsec profile
 
     |  Format  |  Description   |
     |----------|----------------|
     |  txt     |  Profile name  |
 `,
-						Description: `VPN IPsec profile
+					Description: `VPN IPsec profile
 
     |  Format  |  Description   |
     |----------|----------------|
     |  txt     |  Profile name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in profile, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  profile, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in profile, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  profile, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

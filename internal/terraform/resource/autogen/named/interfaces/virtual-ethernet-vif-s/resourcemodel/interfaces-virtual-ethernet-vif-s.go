@@ -119,59 +119,57 @@ func (o InterfacesVirtualEthernetVifS) ResourceSchemaAttributes(ctx context.Cont
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"vif_s": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
+			Attributes: map[string]schema.Attribute{
+				"vif_s": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
     |  Format  |  Description                                |
     |----------|---------------------------------------------|
     |  0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
 `,
-						Description: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
+					Description: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
     |  Format  |  Description                                |
     |----------|---------------------------------------------|
     |  0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"virtual_ethernet": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Virtual Ethernet (veth) Interface
-
-    |  Format  |  Description                      |
-    |----------|-----------------------------------|
-    |  vethN   |  Virtual Ethernet interface name  |
-`,
-						Description: `Virtual Ethernet (veth) Interface
+				"virtual_ethernet": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Virtual Ethernet (veth) Interface
 
     |  Format  |  Description                      |
     |----------|-----------------------------------|
     |  vethN   |  Virtual Ethernet interface name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in virtual_ethernet, conflicts with the internal resource id",
-									),
-								),
+					Description: `Virtual Ethernet (veth) Interface
+
+    |  Format  |  Description                      |
+    |----------|-----------------------------------|
+    |  vethN   |  Virtual Ethernet interface name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  virtual_ethernet, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in virtual_ethernet, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  virtual_ethernet, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

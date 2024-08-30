@@ -106,66 +106,64 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes(ctx context.
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"shortcut_target": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+			Attributes: map[string]schema.Attribute{
+				"shortcut_target": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
 
 `,
-						Description: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+					Description: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in shortcut_target, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  shortcut_target, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in shortcut_target, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  shortcut_target, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"tunnel": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Tunnel for NHRP
-
-    |  Format  |  Description       |
-    |----------|--------------------|
-    |  tunN    |  NHRP tunnel name  |
-`,
-						Description: `Tunnel for NHRP
+				"tunnel": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Tunnel for NHRP
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  tunN    |  NHRP tunnel name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in tunnel, conflicts with the internal resource id",
-									),
-								),
+					Description: `Tunnel for NHRP
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  tunN    |  NHRP tunnel name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  tunnel, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in tunnel, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  tunnel, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

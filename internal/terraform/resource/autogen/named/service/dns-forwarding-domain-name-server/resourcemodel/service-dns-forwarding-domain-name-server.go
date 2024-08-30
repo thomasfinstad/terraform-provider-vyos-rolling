@@ -110,74 +110,72 @@ func (o ServiceDNSForwardingDomainNameServer) ResourceSchemaAttributes(ctx conte
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"name_server": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Domain Name Servers (DNS) addresses to forward queries to
+			Attributes: map[string]schema.Attribute{
+				"name_server": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Domain Name Servers (DNS) addresses to forward queries to
 
     |  Format  |  Description                            |
     |----------|-----------------------------------------|
     |  ipv4    |  Domain Name Server (DNS) IPv4 address  |
     |  ipv6    |  Domain Name Server (DNS) IPv6 address  |
 `,
-						Description: `Domain Name Servers (DNS) addresses to forward queries to
+					Description: `Domain Name Servers (DNS) addresses to forward queries to
 
     |  Format  |  Description                            |
     |----------|-----------------------------------------|
     |  ipv4    |  Domain Name Server (DNS) IPv4 address  |
     |  ipv6    |  Domain Name Server (DNS) IPv6 address  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in name_server, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  name_server, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in name_server, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  name_server, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"domain": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Domain to forward to a custom DNS server
-
-    |  Format  |  Description                  |
-    |----------|-------------------------------|
-    |  txt     |  An absolute DNS domain name  |
-`,
-						Description: `Domain to forward to a custom DNS server
+				"domain": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Domain to forward to a custom DNS server
 
     |  Format  |  Description                  |
     |----------|-------------------------------|
     |  txt     |  An absolute DNS domain name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in domain, conflicts with the internal resource id",
-									),
-								),
+					Description: `Domain to forward to a custom DNS server
+
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  txt     |  An absolute DNS domain name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  domain, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in domain, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  domain, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

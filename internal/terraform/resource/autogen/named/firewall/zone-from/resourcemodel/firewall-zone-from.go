@@ -102,66 +102,64 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes(ctx context.Context) map[stri
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"from": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Zone from which to filter traffic
+			Attributes: map[string]schema.Attribute{
+				"from": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Zone from which to filter traffic
 
 `,
-						Description: `Zone from which to filter traffic
+					Description: `Zone from which to filter traffic
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in from, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  from, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in from, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  from, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"zone": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Zone-policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt     |  Zone name    |
-`,
-						Description: `Zone-policy
+				"zone": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Zone-policy
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Zone name    |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in zone, conflicts with the internal resource id",
-									),
-								),
+					Description: `Zone-policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Zone name    |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  zone, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in zone, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  zone, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

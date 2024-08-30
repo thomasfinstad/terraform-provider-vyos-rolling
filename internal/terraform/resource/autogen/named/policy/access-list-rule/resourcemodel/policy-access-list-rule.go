@@ -102,41 +102,31 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes(ctx context.Context) map[
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Rule for this access-list
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Rule for this access-list
 
     |  Format   |  Description              |
     |-----------|---------------------------|
     |  1-65535  |  Access-list rule number  |
 `,
-						Description: `Rule for this access-list
+					Description: `Rule for this access-list
 
     |  Format   |  Description              |
     |-----------|---------------------------|
     |  1-65535  |  Access-list rule number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"access_list": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `IP access-list filter
-
-    |  Format     |  Description                               |
-    |-------------|--------------------------------------------|
-    |  1-99       |  IP standard access list                   |
-    |  100-199    |  IP extended access list                   |
-    |  1300-1999  |  IP standard access list (expanded range)  |
-    |  2000-2699  |  IP extended access list (expanded range)  |
-`,
-						Description: `IP access-list filter
+				"access_list": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `IP access-list filter
 
     |  Format     |  Description                               |
     |-------------|--------------------------------------------|
@@ -145,9 +135,17 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes(ctx context.Context) map[
     |  1300-1999  |  IP standard access list (expanded range)  |
     |  2000-2699  |  IP extended access list (expanded range)  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					Description: `IP access-list filter
+
+    |  Format     |  Description                               |
+    |-------------|--------------------------------------------|
+    |  1-99       |  IP standard access list                   |
+    |  100-199    |  IP extended access list                   |
+    |  1300-1999  |  IP standard access list (expanded range)  |
+    |  2000-2699  |  IP extended access list (expanded range)  |
+`,
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

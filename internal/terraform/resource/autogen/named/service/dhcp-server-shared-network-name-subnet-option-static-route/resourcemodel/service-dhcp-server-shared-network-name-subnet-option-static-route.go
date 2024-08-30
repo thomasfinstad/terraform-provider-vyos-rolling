@@ -116,98 +116,96 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetOptionStaticRoute) ResourceSchem
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"static_route": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Classless static route destination subnet
+			Attributes: map[string]schema.Attribute{
+				"static_route": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Classless static route destination subnet
 
     |  Format   |  Description                     |
     |-----------|----------------------------------|
     |  ipv4net  |  IPv4 address and prefix length  |
 `,
-						Description: `Classless static route destination subnet
+					Description: `Classless static route destination subnet
 
     |  Format   |  Description                     |
     |-----------|----------------------------------|
     |  ipv4net  |  IPv4 address and prefix length  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in static_route, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  static_route, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in static_route, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  static_route, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"shared_network_name": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Name of DHCP shared network
-
-`,
-						Description: `Name of DHCP shared network
+				"shared_network_name": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Name of DHCP shared network
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in shared_network_name, conflicts with the internal resource id",
-									),
-								),
+					Description: `Name of DHCP shared network
+
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  shared_network_name, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in shared_network_name, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  shared_network_name, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"subnet": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `DHCP subnet for shared network
-
-    |  Format   |  Description                     |
-    |-----------|----------------------------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-`,
-						Description: `DHCP subnet for shared network
+				"subnet": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `DHCP subnet for shared network
 
     |  Format   |  Description                     |
     |-----------|----------------------------------|
     |  ipv4net  |  IPv4 address and prefix length  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in subnet, conflicts with the internal resource id",
-									),
-								),
+					Description: `DHCP subnet for shared network
+
+    |  Format   |  Description                     |
+    |-----------|----------------------------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  subnet, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in subnet, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  subnet, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

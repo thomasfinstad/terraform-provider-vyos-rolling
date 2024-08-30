@@ -109,74 +109,72 @@ func (o ProtocolsOspfAreaRange) ResourceSchemaAttributes(ctx context.Context) ma
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"range": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Summarize routes matching a prefix (border routers only)
+			Attributes: map[string]schema.Attribute{
+				"range": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Summarize routes matching a prefix (border routers only)
 
     |  Format   |  Description        |
     |-----------|---------------------|
     |  ipv4net  |  Area range prefix  |
 `,
-						Description: `Summarize routes matching a prefix (border routers only)
+					Description: `Summarize routes matching a prefix (border routers only)
 
     |  Format   |  Description        |
     |-----------|---------------------|
     |  ipv4net  |  Area range prefix  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in range, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  range, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in range, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  range, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"area": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `OSPF area settings
-
-    |  Format  |  Description                                  |
-    |----------|-----------------------------------------------|
-    |  u32     |  OSPF area number in decimal notation         |
-    |  ipv4    |  OSPF area number in dotted decimal notation  |
-`,
-						Description: `OSPF area settings
+				"area": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `OSPF area settings
 
     |  Format  |  Description                                  |
     |----------|-----------------------------------------------|
     |  u32     |  OSPF area number in decimal notation         |
     |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in area, conflicts with the internal resource id",
-									),
-								),
+					Description: `OSPF area settings
+
+    |  Format  |  Description                                  |
+    |----------|-----------------------------------------------|
+    |  u32     |  OSPF area number in decimal notation         |
+    |  ipv4    |  OSPF area number in dotted decimal notation  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  area, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in area, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  area, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

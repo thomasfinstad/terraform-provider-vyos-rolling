@@ -91,13 +91,12 @@ func (o PolicyAccessList) ResourceSchemaAttributes(ctx context.Context) map[stri
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"access_list": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `IP access-list filter
+			Attributes: map[string]schema.Attribute{
+				"access_list": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `IP access-list filter
 
     |  Format     |  Description                               |
     |-------------|--------------------------------------------|
@@ -106,7 +105,7 @@ func (o PolicyAccessList) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  1300-1999  |  IP standard access list (expanded range)  |
     |  2000-2699  |  IP extended access list (expanded range)  |
 `,
-						Description: `IP access-list filter
+					Description: `IP access-list filter
 
     |  Format     |  Description                               |
     |-------------|--------------------------------------------|
@@ -115,9 +114,8 @@ func (o PolicyAccessList) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  1300-1999  |  IP standard access list (expanded range)  |
     |  2000-2699  |  IP extended access list (expanded range)  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

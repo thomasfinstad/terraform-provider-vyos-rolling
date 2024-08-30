@@ -110,72 +110,70 @@ func (o ProtocolsStaticRoutesixInterface) ResourceSchemaAttributes(ctx context.C
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"interface": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `IPv6 gateway interface name
+			Attributes: map[string]schema.Attribute{
+				"interface": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `IPv6 gateway interface name
 
     |  Format  |  Description             |
     |----------|--------------------------|
     |  txt     |  Gateway interface name  |
 `,
-						Description: `IPv6 gateway interface name
+					Description: `IPv6 gateway interface name
 
     |  Format  |  Description             |
     |----------|--------------------------|
     |  txt     |  Gateway interface name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in interface, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in interface, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"route6": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Static IPv6 route
-
-    |  Format   |  Description        |
-    |-----------|---------------------|
-    |  ipv6net  |  IPv6 static route  |
-`,
-						Description: `Static IPv6 route
+				"route6": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Static IPv6 route
 
     |  Format   |  Description        |
     |-----------|---------------------|
     |  ipv6net  |  IPv6 static route  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in route6, conflicts with the internal resource id",
-									),
-								),
+					Description: `Static IPv6 route
+
+    |  Format   |  Description        |
+    |-----------|---------------------|
+    |  ipv6net  |  IPv6 static route  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  route6, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in route6, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  route6, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

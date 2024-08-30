@@ -97,40 +97,38 @@ func (o VpnSstpClientIPvsixPool) ResourceSchemaAttributes(ctx context.Context) m
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"client_ipv6_pool": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Pool of client IPv6 addresses
+			Attributes: map[string]schema.Attribute{
+				"client_ipv6_pool": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Pool of client IPv6 addresses
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  Name of IPv6 pool  |
 `,
-						Description: `Pool of client IPv6 addresses
+					Description: `Pool of client IPv6 addresses
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  Name of IPv6 pool  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in client_ipv6_pool, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  client_ipv6_pool, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in client_ipv6_pool, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  client_ipv6_pool, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

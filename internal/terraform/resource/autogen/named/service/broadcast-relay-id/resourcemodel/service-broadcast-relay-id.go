@@ -96,27 +96,25 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes(ctx context.Context) m
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"id": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Unique ID for each UDP port to forward
+			Attributes: map[string]schema.Attribute{
+				"id": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Unique ID for each UDP port to forward
 
     |  Format  |  Description                  |
     |----------|-------------------------------|
     |  1-99    |  Broadcast relay instance ID  |
 `,
-						Description: `Unique ID for each UDP port to forward
+					Description: `Unique ID for each UDP port to forward
 
     |  Format  |  Description                  |
     |----------|-------------------------------|
     |  1-99    |  Broadcast relay instance ID  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

@@ -109,68 +109,66 @@ func (o ServiceNdpProxyInterfacePrefix) ResourceSchemaAttributes(ctx context.Con
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"prefix": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Prefix target addresses are matched against
+			Attributes: map[string]schema.Attribute{
+				"prefix": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Prefix target addresses are matched against
 
     |  Format   |  Description          |
     |-----------|-----------------------|
     |  ipv6net  |  IPv6 network prefix  |
     |  ipv6     |  IPv6 address         |
 `,
-						Description: `Prefix target addresses are matched against
+					Description: `Prefix target addresses are matched against
 
     |  Format   |  Description          |
     |-----------|-----------------------|
     |  ipv6net  |  IPv6 network prefix  |
     |  ipv6     |  IPv6 address         |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in prefix, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  prefix, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in prefix, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  prefix, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"interface": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `NDP proxy listener interface
-
-`,
-						Description: `NDP proxy listener interface
+				"interface": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `NDP proxy listener interface
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in interface, conflicts with the internal resource id",
-									),
-								),
+					Description: `NDP proxy listener interface
+
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in interface, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

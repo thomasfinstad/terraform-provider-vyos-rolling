@@ -103,27 +103,25 @@ func (o ProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtectingIndex) ResourceS
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"index": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Set preference order among tiebreakers
+			Attributes: map[string]schema.Attribute{
+				"index": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Set preference order among tiebreakers
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  1-255   |  The index integer value  |
 `,
-						Description: `Set preference order among tiebreakers
+					Description: `Set preference order among tiebreakers
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  1-255   |  The index integer value  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

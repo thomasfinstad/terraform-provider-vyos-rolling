@@ -105,59 +105,57 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes(ctx context.Context) m
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"rule": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Rule for this BGP community list
+			Attributes: map[string]schema.Attribute{
+				"rule": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Rule for this BGP community list
 
     |  Format   |  Description                 |
     |-----------|------------------------------|
     |  1-65535  |  Community-list rule number  |
 `,
-						Description: `Rule for this BGP community list
+					Description: `Rule for this BGP community list
 
     |  Format   |  Description                 |
     |-----------|------------------------------|
     |  1-65535  |  Community-list rule number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
+				},
 
-					"community_list": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Add a BGP community list entry
-
-    |  Format  |  Description              |
-    |----------|---------------------------|
-    |  txt     |  BGP community-list name  |
-`,
-						Description: `Add a BGP community list entry
+				"community_list": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Add a BGP community list entry
 
     |  Format  |  Description              |
     |----------|---------------------------|
     |  txt     |  BGP community-list name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in community_list, conflicts with the internal resource id",
-									),
-								),
+					Description: `Add a BGP community list entry
+
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  txt     |  BGP community-list name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  community_list, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in community_list, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  community_list, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

@@ -99,27 +99,25 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes(ctx co
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"vni": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `VXLAN Network Identifier
+			Attributes: map[string]schema.Attribute{
+				"vni": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `VXLAN Network Identifier
 
     |  Format      |  Description  |
     |--------------|---------------|
     |  1-16777215  |  VNI number   |
 `,
-						Description: `VXLAN Network Identifier
+					Description: `VXLAN Network Identifier
 
     |  Format      |  Description  |
     |--------------|---------------|
     |  1-16777215  |  VNI number   |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

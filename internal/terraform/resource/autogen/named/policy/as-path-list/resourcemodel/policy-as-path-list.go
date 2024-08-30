@@ -94,40 +94,38 @@ func (o PolicyAsPathList) ResourceSchemaAttributes(ctx context.Context) map[stri
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"as_path_list": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Add a BGP autonomous system path filter
+			Attributes: map[string]schema.Attribute{
+				"as_path_list": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Add a BGP autonomous system path filter
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  AS path list name  |
 `,
-						Description: `Add a BGP autonomous system path filter
+					Description: `Add a BGP autonomous system path filter
 
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  AS path list name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in as_path_list, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  as_path_list, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in as_path_list, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  as_path_list, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

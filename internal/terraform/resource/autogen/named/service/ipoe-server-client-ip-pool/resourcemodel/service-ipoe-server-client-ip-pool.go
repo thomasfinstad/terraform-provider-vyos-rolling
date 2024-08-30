@@ -95,40 +95,38 @@ func (o ServiceIPoeServerClientIPPool) ResourceSchemaAttributes(ctx context.Cont
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"client_ip_pool": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Client IP pool
+			Attributes: map[string]schema.Attribute{
+				"client_ip_pool": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Client IP pool
 
     |  Format  |  Description      |
     |----------|-------------------|
     |  txt     |  Name of IP pool  |
 `,
-						Description: `Client IP pool
+					Description: `Client IP pool
 
     |  Format  |  Description      |
     |----------|-------------------|
     |  txt     |  Name of IP pool  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in client_ip_pool, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  client_ip_pool, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in client_ip_pool, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  client_ip_pool, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

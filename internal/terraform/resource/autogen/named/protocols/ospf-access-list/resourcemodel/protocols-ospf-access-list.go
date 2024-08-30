@@ -91,27 +91,25 @@ func (o ProtocolsOspfAccessList) ResourceSchemaAttributes(ctx context.Context) m
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"access_list": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Access list to filter networks in routing updates
+			Attributes: map[string]schema.Attribute{
+				"access_list": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Access list to filter networks in routing updates
 
     |  Format  |  Description         |
     |----------|----------------------|
     |  u32     |  Access-list number  |
 `,
-						Description: `Access list to filter networks in routing updates
+					Description: `Access list to filter networks in routing updates
 
     |  Format  |  Description         |
     |----------|----------------------|
     |  u32     |  Access-list number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

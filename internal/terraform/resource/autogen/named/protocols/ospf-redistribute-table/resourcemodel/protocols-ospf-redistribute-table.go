@@ -95,27 +95,25 @@ func (o ProtocolsOspfRedistributeTable) ResourceSchemaAttributes(ctx context.Con
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"table": schema.NumberAttribute{
-						Required: true,
-						MarkdownDescription: `Redistribute non-main Kernel Routing Table
+			Attributes: map[string]schema.Attribute{
+				"table": schema.NumberAttribute{
+					Required: true,
+					MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
     |  Format  |  Description                |
     |----------|-----------------------------|
     |  1-200   |  Policy route table number  |
 `,
-						Description: `Redistribute non-main Kernel Routing Table
+					Description: `Redistribute non-main Kernel Routing Table
 
     |  Format  |  Description                |
     |----------|-----------------------------|
     |  1-200   |  Policy route table number  |
 `,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplace(),
-						},
+					PlanModifiers: []planmodifier.Number{
+						numberplanmodifier.RequiresReplace(),
 					},
 				},
 			},

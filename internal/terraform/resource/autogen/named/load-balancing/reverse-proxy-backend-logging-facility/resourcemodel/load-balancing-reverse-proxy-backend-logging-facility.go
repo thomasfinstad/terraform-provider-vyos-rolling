@@ -108,13 +108,12 @@ func (o LoadBalancingReverseProxyBackendLoggingFacility) ResourceSchemaAttribute
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"facility": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Facility for logging
+			Attributes: map[string]schema.Attribute{
+				"facility": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Facility for logging
 
     |  Format    |  Description                       |
     |------------|------------------------------------|
@@ -140,7 +139,7 @@ func (o LoadBalancingReverseProxyBackendLoggingFacility) ResourceSchemaAttribute
     |  local6    |  Local facility 6                  |
     |  local7    |  Local facility 7                  |
 `,
-						Description: `Facility for logging
+					Description: `Facility for logging
 
     |  Format    |  Description                       |
     |------------|------------------------------------|
@@ -166,48 +165,47 @@ func (o LoadBalancingReverseProxyBackendLoggingFacility) ResourceSchemaAttribute
     |  local6    |  Local facility 6                  |
     |  local7    |  Local facility 7                  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in facility, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  facility, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in facility, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  facility, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"backend": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Backend server name
-
-`,
-						Description: `Backend server name
+				"backend": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Backend server name
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in backend, conflicts with the internal resource id",
-									),
-								),
+					Description: `Backend server name
+
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  backend, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in backend, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  backend, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

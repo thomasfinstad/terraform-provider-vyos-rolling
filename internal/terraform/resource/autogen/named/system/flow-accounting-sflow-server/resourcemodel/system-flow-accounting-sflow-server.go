@@ -96,42 +96,40 @@ func (o SystemFlowAccountingSflowServer) ResourceSchemaAttributes(ctx context.Co
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"server": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `sFlow destination server
+			Attributes: map[string]schema.Attribute{
+				"server": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `sFlow destination server
 
     |  Format  |  Description                  |
     |----------|-------------------------------|
     |  ipv4    |  IPv4 server to export sFlow  |
     |  ipv6    |  IPv6 server to export sFlow  |
 `,
-						Description: `sFlow destination server
+					Description: `sFlow destination server
 
     |  Format  |  Description                  |
     |----------|-------------------------------|
     |  ipv4    |  IPv4 server to export sFlow  |
     |  ipv6    |  IPv6 server to export sFlow  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in server, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  server, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in server, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  server, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

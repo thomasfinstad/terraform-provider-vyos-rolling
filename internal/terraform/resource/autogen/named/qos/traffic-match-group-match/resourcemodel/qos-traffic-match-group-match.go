@@ -106,66 +106,64 @@ func (o QosTrafficMatchGroupMatch) ResourceSchemaAttributes(ctx context.Context)
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"match": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Class matching rule name
+			Attributes: map[string]schema.Attribute{
+				"match": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Class matching rule name
 
 `,
-						Description: `Class matching rule name
+					Description: `Class matching rule name
 
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in match, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  match, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in match, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  match, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
+				},
 
-					"traffic_match_group": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Filter group for QoS policy
-
-    |  Format  |  Description       |
-    |----------|--------------------|
-    |  txt     |  Match group name  |
-`,
-						Description: `Filter group for QoS policy
+				"traffic_match_group": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Filter group for QoS policy
 
     |  Format  |  Description       |
     |----------|--------------------|
     |  txt     |  Match group name  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in traffic_match_group, conflicts with the internal resource id",
-									),
-								),
+					Description: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  traffic_match_group, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in traffic_match_group, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  traffic_match_group, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},

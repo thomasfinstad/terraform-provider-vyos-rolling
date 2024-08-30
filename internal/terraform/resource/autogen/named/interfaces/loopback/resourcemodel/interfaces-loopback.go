@@ -96,40 +96,38 @@ func (o InterfacesLoopback) ResourceSchemaAttributes(ctx context.Context) map[st
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
-		"identifier": schema.MapNestedAttribute{
+		"identifier": schema.SingleNestedAttribute{
 			Required: true,
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: map[string]schema.Attribute{
-					"loopback": schema.StringAttribute{
-						Required: true,
-						MarkdownDescription: `Loopback Interface
+			Attributes: map[string]schema.Attribute{
+				"loopback": schema.StringAttribute{
+					Required: true,
+					MarkdownDescription: `Loopback Interface
 
     |  Format  |  Description         |
     |----------|----------------------|
     |  lo      |  Loopback interface  |
 `,
-						Description: `Loopback Interface
+					Description: `Loopback Interface
 
     |  Format  |  Description         |
     |----------|----------------------|
     |  lo      |  Loopback interface  |
 `,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplace(),
-						}, Validators: []validator.String{
-							stringvalidator.All(
-								helpers.StringNot(
-									stringvalidator.RegexMatches(
-										regexp.MustCompile(`^.*__.*$`),
-										"double underscores in loopback, conflicts with the internal resource id",
-									),
-								),
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					}, Validators: []validator.String{
+						stringvalidator.All(
+							helpers.StringNot(
 								stringvalidator.RegexMatches(
-									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illegal character in  loopback, value must match: ^[a-zA-Z0-9-_]*$",
+									regexp.MustCompile(`^.*__.*$`),
+									"double underscores in loopback, conflicts with the internal resource id",
 								),
 							),
-						},
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+								"illegal character in  loopback, value must match: ^[a-zA-Z0-9-_]*$",
+							),
+						),
 					},
 				},
 			},
