@@ -4,16 +4,60 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
+  - [Release 2.7.202409090 (2024-09-09 08-28-41 UTC)](#release-27202409090-2024-09-09-08-28-41-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
-      - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
-      - [BREAKING CHANGES](#breaking-changes)
+      - [Features](#features)
         - [Resources](#resources)
+  - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
+      - [Bug fixes](#bug-fixes)
+    - [Schema changes](#schema-changes-1)
+      - [BREAKING CHANGES](#breaking-changes)
+        - [Resources](#resources-1)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 2.7.202409090 (2024-09-09 08-28-41 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-09-09T00:06:05Z
+
+### Schema changes
+#### Features
+
+##### Resources
+* Modified Resource `vyos_firewall_global_options_apply_to_bridged_traffic`
+	* New attribute `invalid_connections`
+
+* Modified Resource `vyos_firewall_bridge_prerouting_filter_rule`
+	* New attribute `ethernet_type`
+
+* Modified Resource `vyos_firewall_bridge_input_filter_rule`
+	* New attribute `ethernet_type`
+
+* Modified Resource `vyos_service_router_advert_interface`
+	* New attribute `no_send_interval`
+
+* Modified Resource `vyos_firewall_bridge_name_rule`
+	* New attribute `ethernet_type`
+
+* Modified Resource `vyos_firewall_bridge_output_filter_rule`
+	* New attribute `ethernet_type`
+
+* Modified Resource `vyos_firewall_bridge_forward_filter_rule`
+	* New attribute `ethernet_type`
+
+
+
+
+
+
+
 
 
 ## Release 2.6.202408230 (2024-08-30 00-43-22 UTC)
