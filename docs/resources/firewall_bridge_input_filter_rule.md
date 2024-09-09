@@ -40,6 +40,7 @@ Bridge firewall input filter
       - [disable](#disable)
       - [dscp](#dscp)
       - [dscp_exclude](#dscp_exclude)
+      - [ethernet_type](#ethernet_type)
       - [fragment](#fragment)
       - [hop_limit](#hop_limit)
       - [icmp](#icmp)
@@ -143,6 +144,16 @@ Bridge firewall input filter
     |---------------|---------------------------|
     |  0-63         &emsp;|  DSCP value not to match  |
     |  &lt;start-end&gt;  &emsp;|  DSCP range not to match  |
+#### ethernet_type
+- `ethernet_type` (String) Ethernet type
+
+    |  Format   &emsp;|  Description                  |
+    |-----------|-------------------------------|
+    |  802.1q   &emsp;|  Customer VLAN tag type       |
+    |  802.1ad  &emsp;|  Service VLAN tag type        |
+    |  arp      &emsp;|  Adress Resolution Protocol   |
+    |  _ipv4    &emsp;|  Internet Protocol version 4  |
+    |  _ipv6    &emsp;|  Internet Protocol version 6  |
 #### fragment
 - `fragment` (Attributes) IP fragment match (see [below for nested schema](#nestedatt--fragment))
 #### hop_limit

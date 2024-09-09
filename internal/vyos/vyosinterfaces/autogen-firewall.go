@@ -68,6 +68,23 @@ func firewall() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
+									NodeNameAttr: "invalid-connections",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Accept ARP and DHCP despite they are marked as invalid connection"},
+										Valueless: []*schemadefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
 									NodeNameAttr: "ipv4",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
@@ -5578,6 +5595,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
+													NodeNameAttr: "ethernet-type",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Ethernet type"},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1q",
+															Description: "Customer VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1ad",
+															Description: "Service VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "arp",
+															Description: "Adress Resolution Protocol",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv4",
+															Description: "Internet Protocol version 4",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv6",
+															Description: "Internet Protocol version 6",
+														}},
+														CompletionHelp: []*schemadefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
 													NodeNameAttr: "queue",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -8977,6 +9043,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "valueless",
 															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "ethernet-type",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Ethernet type"},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1q",
+															Description: "Customer VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1ad",
+															Description: "Service VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "arp",
+															Description: "Adress Resolution Protocol",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv4",
+															Description: "Internet Protocol version 4",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv6",
+															Description: "Internet Protocol version 6",
+														}},
+														CompletionHelp: []*schemadefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
 														}},
 													}},
 												}, {
@@ -12390,6 +12505,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
+													NodeNameAttr: "ethernet-type",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Ethernet type"},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1q",
+															Description: "Customer VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1ad",
+															Description: "Service VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "arp",
+															Description: "Adress Resolution Protocol",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv4",
+															Description: "Internet Protocol version 4",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv6",
+															Description: "Internet Protocol version 6",
+														}},
+														CompletionHelp: []*schemadefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
 													NodeNameAttr: "queue",
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
@@ -15734,6 +15898,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "valueless",
 															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "ethernet-type",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Ethernet type"},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1q",
+															Description: "Customer VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1ad",
+															Description: "Service VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "arp",
+															Description: "Adress Resolution Protocol",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv4",
+															Description: "Internet Protocol version 4",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv6",
+															Description: "Internet Protocol version 6",
+														}},
+														CompletionHelp: []*schemadefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
 														}},
 													}},
 												}, {
@@ -19152,6 +19365,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "valueless",
 													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "ethernet-type",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Ethernet type"},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "802.1q",
+													Description: "Customer VLAN tag type",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "802.1ad",
+													Description: "Service VLAN tag type",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "arp",
+													Description: "Adress Resolution Protocol",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "_ipv4",
+													Description: "Internet Protocol version 4",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "_ipv6",
+													Description: "Internet Protocol version 6",
+												}},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
 												}},
 											}},
 										}, {

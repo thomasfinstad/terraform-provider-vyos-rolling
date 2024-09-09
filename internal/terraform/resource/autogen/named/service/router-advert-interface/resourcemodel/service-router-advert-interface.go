@@ -45,6 +45,7 @@ type ServiceRouterAdvertInterface struct {
 	LeafServiceRouterAdvertInterfaceReachableTime      types.Number `tfsdk:"reachable_time" vyos:"reachable-time,omitempty"`
 	LeafServiceRouterAdvertInterfaceRetransTimer       types.Number `tfsdk:"retrans_timer" vyos:"retrans-timer,omitempty"`
 	LeafServiceRouterAdvertInterfaceNoSendAdvert       types.Bool   `tfsdk:"no_send_advert" vyos:"no-send-advert,omitempty"`
+	LeafServiceRouterAdvertInterfaceNoSendInterval     types.Bool   `tfsdk:"no_send_interval" vyos:"no-send-interval,omitempty"`
 
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
@@ -364,6 +365,18 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 `,
 			Description: `Do not send router adverts
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"no_send_interval": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Do not send Advertisement Interval option in RAs
+
+`,
+			Description: `Do not send Advertisement Interval option in RAs
 
 `,
 			Default:  booldefault.StaticBool(false),

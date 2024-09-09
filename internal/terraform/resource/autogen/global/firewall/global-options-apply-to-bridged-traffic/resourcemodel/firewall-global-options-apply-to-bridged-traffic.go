@@ -24,8 +24,9 @@ type FirewallGlobalOptionsApplyToBrIDgedTraffic struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafFirewallGlobalOptionsApplyToBrIDgedTrafficIPvfour types.Bool `tfsdk:"ipv4" vyos:"ipv4,omitempty"`
-	LeafFirewallGlobalOptionsApplyToBrIDgedTrafficIPvsix  types.Bool `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+	LeafFirewallGlobalOptionsApplyToBrIDgedTrafficInvalIDConnections types.Bool `tfsdk:"invalid_connections" vyos:"invalid-connections,omitempty"`
+	LeafFirewallGlobalOptionsApplyToBrIDgedTrafficIPvfour            types.Bool `tfsdk:"ipv4" vyos:"ipv4,omitempty"`
+	LeafFirewallGlobalOptionsApplyToBrIDgedTrafficIPvsix             types.Bool `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -90,6 +91,18 @@ func (o FirewallGlobalOptionsApplyToBrIDgedTraffic) ResourceSchemaAttributes(ctx
 		}),
 
 		// LeafNodes
+
+		"invalid_connections": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Accept ARP and DHCP despite they are marked as invalid connection
+
+`,
+			Description: `Accept ARP and DHCP despite they are marked as invalid connection
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
 
 		"ipv4": schema.BoolAttribute{
 			Optional: true,

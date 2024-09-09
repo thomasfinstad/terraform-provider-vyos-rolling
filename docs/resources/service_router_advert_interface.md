@@ -38,6 +38,7 @@ IPv6 Router Advertisements (RAs) service
       - [name_server](#name_server)
       - [name_server_lifetime](#name_server_lifetime)
       - [no_send_advert](#no_send_advert)
+      - [no_send_interval](#no_send_interval)
       - [other_config_flag](#other_config_flag)
       - [reachable_time](#reachable_time)
       - [retrans_timer](#retrans_timer)
@@ -110,6 +111,8 @@ IPv6 Router Advertisements (RAs) service
     |  1-7200  &emsp;|  Maximum interval in seconds            |
 #### no_send_advert
 - `no_send_advert` (Boolean) Do not send router adverts
+#### no_send_interval
+- `no_send_interval` (Boolean) Do not send Advertisement Interval option in RAs
 #### other_config_flag
 - `other_config_flag` (Boolean) Hosts use the administered (stateful) protocol for autoconfiguration of other (non-address) information
 #### reachable_time

@@ -29,6 +29,7 @@ Global Options
 - [vyos_firewall_global_options_apply_to_bridged_traffic (Resource)](#vyos_firewall_global_options_apply_to_bridged_traffic-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [invalid_connections](#invalid_connections)
       - [ipv4](#ipv4)
       - [ipv6](#ipv6)
       - [timeouts](#timeouts)
@@ -43,6 +44,8 @@ Global Options
 
 ### Optional
 
+#### invalid_connections
+- `invalid_connections` (Boolean) Accept ARP and DHCP despite they are marked as invalid connection
 #### ipv4
 - `ipv4` (Boolean) Apply configured IPv4 firewall rules
 #### ipv6

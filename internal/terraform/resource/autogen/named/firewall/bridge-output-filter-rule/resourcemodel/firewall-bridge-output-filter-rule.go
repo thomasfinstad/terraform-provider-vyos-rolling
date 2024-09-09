@@ -35,6 +35,7 @@ type FirewallBrIDgeOutputFilterRule struct {
 	LeafFirewallBrIDgeOutputFilterRuleDscpExclude         types.List   `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleMark                types.String `tfsdk:"mark" vyos:"mark,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleLog                 types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
+	LeafFirewallBrIDgeOutputFilterRuleEthernetType        types.String `tfsdk:"ethernet_type" vyos:"ethernet-type,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleQueue               types.Number `tfsdk:"queue" vyos:"queue,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleQueueOptions        types.List   `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRulePacketLength        types.List   `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
@@ -254,6 +255,30 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		"ethernet_type": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Ethernet type
+
+    |  Format   |  Description                  |
+    |-----------|-------------------------------|
+    |  802.1q   |  Customer VLAN tag type       |
+    |  802.1ad  |  Service VLAN tag type        |
+    |  arp      |  Adress Resolution Protocol   |
+    |  _ipv4    |  Internet Protocol version 4  |
+    |  _ipv6    |  Internet Protocol version 6  |
+`,
+			Description: `Ethernet type
+
+    |  Format   |  Description                  |
+    |-----------|-------------------------------|
+    |  802.1q   |  Customer VLAN tag type       |
+    |  802.1ad  |  Service VLAN tag type        |
+    |  arp      |  Adress Resolution Protocol   |
+    |  _ipv4    |  Internet Protocol version 4  |
+    |  _ipv6    |  Internet Protocol version 6  |
+`,
 		},
 
 		"queue": schema.NumberAttribute{
