@@ -39,13 +39,17 @@ resource "vyos_firewall_ipv4_name" "example" {
 
 // Empty named resource
 resource "vyos_policy_access_list" "name" {
-  access_list_id = 42
+  identifier = {
+    access_list = 42
+  }
 }
 
 // Child of empty
 resource "vyos_policy_access_list_rule" "name" {
-  access_list_id = 42
-  rule_id        = 69
+  identifier = {
+    access_list = 42
+    rule        = 69
+  }
 
   description = plantimestamp()
   action      = "permit"

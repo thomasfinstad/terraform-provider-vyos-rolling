@@ -2,6 +2,7 @@
 #  milestone: 3
 
 terraform {
+  required_version = "~> 1.0"
   required_providers {
     vyos = {
       source = "thomasfinstad/vyos-rolling"

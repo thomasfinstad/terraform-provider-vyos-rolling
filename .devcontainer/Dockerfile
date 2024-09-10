@@ -30,12 +30,9 @@ RUN apt-get install -y pipx
 ENV DEBIAN_FRONTEND=""
 
 ###
-# TF Env
-RUN git clone --depth=1 https://github.com/tfutils/tfenv.git /tfenv
-RUN ln -s /tfenv/bin/tfenv /usr/local/bin/tfenv
-RUN ln -s /tfenv/bin/terraform /usr/local/bin/terraform
-RUN mkdir /tfenv/versions && chgrp vscode /tfenv/versions && chmod 775 /tfenv/versions
-RUN tfenv use 1.5.7
+# TENV
+RUN curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_v3.2.2_amd64.deb"
+RUN sudo dpkg -i "tenv_v3.2.2_amd64.deb"
 
 ###
 # Dist directory is hard coded due to .terraformrc file

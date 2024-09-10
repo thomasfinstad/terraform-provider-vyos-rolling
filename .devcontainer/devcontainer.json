@@ -1,6 +1,5 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/go
-
 //  Should be compatible with working as a pure container using the Makefile if possible
 //  This is to enable those that do not wish to use devcontainers, docker or vscode
 //  to be able to easily follow this repositorys guidelines and formatting, and use the
@@ -9,37 +8,31 @@
 	"name": "vyos_api",
 	// "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"build": { "dockerfile": "Dockerfile" },
-
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
 	"containerUser": "vscode",
 	"remoteUser": "vscode",
 	"updateRemoteUserUID": true,
 	"runArgs": [
 		// This is needed for podman, hopefully docker will not mind.
 		"--userns=keep-id:uid=1000,gid=1000",
-
 		// Needed together with the docker socket mount for vyos-1x Makefile in (nested) docker during generation of interface definitions
 		"--init"
 	],
-
-
 	// ------ Docker socket mount START
-
 	// If using docker:
 	// "mounts": [ "type=bind,readonly=false,source=/var/run/docker.sock,target=/var/run/docker.sock" ],
-
 	// If using rootless podman (you might need to change 1000 to what is printed by `id -u`):
-	"mounts": [ "type=bind,readonly=false,source=/run/user/1000/podman/podman.sock,target=/var/run/docker.sock" ],
+	"mounts": [
+		"type=bind,readonly=false,source=/run/user/1000/podman/podman.sock,target=/var/run/docker.sock"
+	],
 	// ------ Docker socket mount END
-
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "bash .devcontainer/post-create-script.sh",
 	//"postStartCommand": "",
-
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
@@ -48,7 +41,7 @@
 				"ms-azuretools.vscode-docker",
 				"redhat.vscode-xml",
 				"Gruntfuggly.todo-tree",
-				"hashicorp.terraform",
+				"gamunu.opentofu",
 				"casualjim.gotemplate",
 				"ms-vscode.makefile-tools",
 				"github.vscode-github-actions"

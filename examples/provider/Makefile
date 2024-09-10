@@ -1,10 +1,14 @@
 DIST_DIR:=$(shell sed -n -e '/^DIST_DIR=/s/.*=//p' ../../Makefile)
+PROVIDER_DIR:=$(DIST_DIR)/$(shell sed -n -e '/^\s*source\s*=/s/.*=\s"\(.*\)"/\1/p' local_override.tf)
 
 default: plan
 
-init: ../.terraform-version $(shell find $(DIST_DIR) -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
+$(PROVIDER_DIR):
+	cd ../.. && make build
+
+init: $(PROVIDER_DIR) $(shell find $(PROVIDER_DIR) -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
 	-rm -rf .terraform .terraform.lock.hcl
-	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform init -upgrade
+	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu init -upgrade
 
 	# Cache timestamp
 	date > init
@@ -19,7 +23,7 @@ ifeq (plan,$(firstword $(MAKECMDGOALS)))
 endif
 plan: init $(shell find . -type f -name "*.tf")
 	-rm -fv trace.log
-	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform plan -out=plan $(DYN_ARGS)
+	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu plan -out=plan $(DYN_ARGS)
 
 # Ref: "Optional dynamic parameters" section below
 # Example usage: make apply -- -target vyos_banana.nomnom
@@ -31,7 +35,7 @@ ifeq (apply,$(firstword $(MAKECMDGOALS)))
 endif
 apply: plan
 	-rm -fv trace.log
-	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform apply -auto-approve $(DYN_ARGS) plan
+	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu apply -auto-approve $(DYN_ARGS) plan
 
 	# Cache timestamp
 	date > apply

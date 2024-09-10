@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "gamunu.opentofu",
+        "golang.go",
+        "gruntfuggly.todo-tree",
+        "redhat.vscode-xml",
+        "aaron-bond.better-comments"
+    ]
+}

@@ -1,6 +1,5 @@
 {
     "go.formatTool": "gofumpt",
-    "terraform.experimentalFeatures.prefillRequiredFields": true,
     "editor.suggest.preview": true,
     "files.associations": {
         "*.gotmpl": "gotemplate"
@@ -18,5 +17,14 @@
         "docs/**/*.md": true,
         "internal/terraform/resource/autogen/**/*.go": true,
         "internal/vyos/vyosinterfaces/**/*.go": true
-    }
+    },
+    "[terraform]": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "gamunu.opentofu"
+    },
+    "opentofu.codelens.referenceCount": true,
+    "opentofu.experimentalFeatures.prefillRequiredFields": true,
+    "opentofu.experimentalFeatures.validateOnSave": true,
+    "editor.formatOnSave": true
 }

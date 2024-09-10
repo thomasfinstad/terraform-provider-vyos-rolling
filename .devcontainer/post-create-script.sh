@@ -11,3 +11,10 @@ register-python-argcomplete pre-commit >> ~/.bashrc
 
 # Used to improve commits before they are committed
 pre-commit install --hook-type pre-commit --hook-type commit-msg
+
+# tenv setup
+tenv completion bash >> ~/.bashrc
+cd examples/provider
+tenv tofu install
+cd ../..
+tofu -install-autocomplete
