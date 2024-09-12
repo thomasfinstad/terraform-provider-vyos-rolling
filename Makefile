@@ -276,7 +276,7 @@ generate: internal/terraform/resource/autogen/package.go
 #
 # If the first argument is "test"...
 # Example usage: make test -- -test.run TestPolicyAccessListEmptyResponseFromApi
-test:	generate \
+test: generate \
 		$(shell find . -type f -name "*_test.go"  -not \( -path "*/.build/*" \) ) \
 		$(shell find . -type f -name "*.go" -not \( -path "*autogen*" -or -path "*/.build/*" -or -path "*/tools/*" \) )
 
@@ -368,8 +368,21 @@ docs/index.md: \
 	# Prep dirs
 	rm -rf "docs/"
 
+	#
+	echo Generate provider json schema
+	rm examples/provider/.tmp/provider-schema.json
+	cd examples/provider
+	make .tmp/provider-schema.json
+	cd $(ROOT_DIR)
+	set -x
 	# Create docs
-	tfplugindocs generate --provider-name vyos > /dev/null
+	old_name="$$(cat examples/provider/.tmp/provider-schema.json | jq -r '.provider_schemas | keys | .[0]')"
+	jq \
+		--arg old_name "$$old_name" \
+		'.provider_schemas.vyos=.provider_schemas[$$old_name] | del(.provider_schemas[$$old_name])' \
+		examples/provider/.tmp/provider-schema.json \
+		> examples/provider/.tmp/provider-schema-modified.json
+	tfplugindocs generate --provider-name "vyos" --providers-schema "examples/provider/.tmp/provider-schema-modified.json" --rendered-provider-name vyos
 
 	###
 	echo Reverse html escaping for known parts that should stay as html code
@@ -406,11 +419,11 @@ version:
 
 	mkdir -p ".build" || true
 
-	cd examples/provider
-	echo Initialize terraform provider
-	make init
 	echo Generate provider json schema
-	terraform providers schema -json | jq '.' > ../../.build/new-provider-schema.json
+	cd examples/provider
+	rm ../../.build/new-provider-schema.json
+	make .tmp/provider-schema.json
+	cp .tmp/provider-schema.json ../../.build/new-provider-schema.json
 	cd $(ROOT_DIR)
 
 	echo Last 5 releases:

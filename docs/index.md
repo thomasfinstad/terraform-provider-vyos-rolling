@@ -43,6 +43,7 @@ To use this provider you must enable the HTTP(S) API on the target instances. Se
 #  milestone: 3
 
 terraform {
+  required_version = "~> 1.0"
   required_providers {
     vyos = {
       source = "thomasfinstad/vyos-rolling"
@@ -52,12 +53,12 @@ terraform {
 
 variable "vyos_host" {
   type    = string
-  default = "https://vyos.local"
+  default = "https://vyos.local:8443"
 }
 
 variable "vyos_key" {
   type    = string
-  default = "one two three four five"
+  default = "MySuperSecretKey"
 }
 
 provider "vyos" {

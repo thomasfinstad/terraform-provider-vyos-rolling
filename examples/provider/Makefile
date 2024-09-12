@@ -72,3 +72,7 @@ why:
 #
 # 	it uses eval to modify the makefile at runtime. how much worse can you go in terms of readability and debugability and the Principle of least astonishment.
 # 	workaround: don't!
+
+.tmp/provider-schema.json: init
+	@echo Make .tmp/provider-schema.json
+	tofu providers schema -json | jq '.' > .tmp/provider-schema.json
