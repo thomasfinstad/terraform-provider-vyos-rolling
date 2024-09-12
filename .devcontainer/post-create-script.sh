@@ -14,7 +14,4 @@ pre-commit install --hook-type pre-commit --hook-type commit-msg
 
 # tenv setup
 tenv completion bash >> ~/.bashrc
-cd examples/provider
-tenv tofu install
-cd ../..
 tofu -install-autocomplete
