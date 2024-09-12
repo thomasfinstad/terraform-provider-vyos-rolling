@@ -125,7 +125,7 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 
 	go get
 
-	rm -v internal/vyos/schemadefinition/autogen-structs.go || true
+	[ ! -e internal/vyos/schemadefinition/autogen-structs.go ] || rm -v internal/vyos/schemadefinition/autogen-structs.go
 	mkdir -p internal/vyos/schemadefinition || true
 	mkdir .build || true
 
@@ -157,7 +157,7 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 	@echo ###########################################################################
 	echo Make .build/interface-definitions
 
-	rm -rf ".build/interface-definitions"
+	[ ! -e ".build/interface-definitions" ] || rm -rf ".build/interface-definitions"
 	mkdir -p .build || true
 
 	# Making a temporary copy means we don't touch
@@ -191,8 +191,7 @@ internal/vyos/vyosinterfaces/autogen.go: \
 
 	mkdir -p "internal/vyos/vyosinterfaces"
 
-	rm -f internal/vyos/vyosinterfaces/autogen.go
-	rm -f internal/vyos/vyosinterfaces/autogen-*.go
+	[ ! -e internal/vyos/vyosinterfaces/autogen.go ] || rm -f internal/vyos/vyosinterfaces/autogen*.go
 
 	# Generate interfaces, skip xml component version metadata file
 	for xmlFile in $$(ls ".build/interface-definitions/" | grep -v "xml-component-version.xml"); do
@@ -233,10 +232,10 @@ internal/terraform/resource/autogen/package.go: \
 	echo Make internal/terraform/resource/autogen
 
 	# Prep dirs
-	rm -rf "internal/terraform/resource/autogen/named"
+	[ ! -e "internal/terraform/resource/autogen/named" ] || rm -rf "internal/terraform/resource/autogen/named"
 	mkdir -p "internal/terraform/resource/autogen/named"
 
-	rm -rf "internal/terraform/resource/autogen/global"
+	[ ! -e "internal/terraform/resource/autogen/global" ] || rm -rf "internal/terraform/resource/autogen/global"
 	mkdir -p "internal/terraform/resource/autogen/global"
 
 	# Generate
@@ -297,7 +296,7 @@ build: test
 	@echo ###########################################################################
 	echo Make build
 
-	rm -rf "${DIST_DIR}/providers.localhost" || true
+	[ ! -e "${DIST_DIR}/providers.localhost" ] || rm -rf "${DIST_DIR}/providers.localhost"
 
 	os=""
 	case "$$OSTYPE" in
@@ -366,11 +365,11 @@ docs/index.md: \
 	echo Make docs/index.md
 
 	# Prep dirs
-	rm -rf "docs/"
+	[ ! -e "docs/" ] || rm -rf "docs/"
 
 	#
 	echo Generate provider json schema
-	rm examples/provider/.tmp/provider-schema.json
+	[ ! -e examples/provider/.tmp/provider-schema.json ] || rm examples/provider/.tmp/provider-schema.json
 	cd examples/provider
 	make .tmp/provider-schema.json
 	cd $(ROOT_DIR)
@@ -421,7 +420,7 @@ version:
 
 	echo Generate provider json schema
 	cd examples/provider
-	rm ../../.build/new-provider-schema.json
+	[ ! -e "../../.build/new-provider-schema.json" ] || rm -rf "../../.build/new-provider-schema.json"
 	make .tmp/provider-schema.json
 	cp .tmp/provider-schema.json ../../.build/new-provider-schema.json
 	cd $(ROOT_DIR)
