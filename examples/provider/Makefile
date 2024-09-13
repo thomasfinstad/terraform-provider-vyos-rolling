@@ -75,4 +75,5 @@ why:
 
 .tmp/provider-schema.json: init
 	@echo Make .tmp/provider-schema.json
+	mkdir -p .tmp/
 	tofu providers schema -json | jq '.' > .tmp/provider-schema.json
