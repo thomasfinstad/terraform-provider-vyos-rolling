@@ -12,20 +12,23 @@ RUN apt-get update
 RUN apt-get dist-upgrade -y
 
 RUN apt-get install -y software-properties-common
-
 RUN add-apt-repository ppa:longsleep/golang-backports
 
-RUN apt-get install -y python3
-RUN apt-get install -y jq
-RUN apt-get install -y make
-RUN apt-get install -y openjdk-17-jre
-RUN apt-get install -y golang-go
-RUN apt-get install -y git
-RUN apt-get install -y docker.io
-RUN apt-get install -y bash-completion
-RUN apt-get install -y libxml2-utils
-RUN apt-get install -y gh
-RUN apt-get install -y pipx
+RUN apt-get install -y \
+    python3 \
+    jq \
+    make \
+    openjdk-17-jre \
+    golang-go \
+    git \
+    docker.io \
+    bash-completion \
+    libxml2-utils \
+    gh \
+    pipx \
+    xorriso \
+    squashfs-tools
+
 
 ENV DEBIAN_FRONTEND=""
 

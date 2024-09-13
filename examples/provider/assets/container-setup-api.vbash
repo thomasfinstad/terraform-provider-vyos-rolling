@@ -1,0 +1,40 @@
+#!/bin/vbash
+if [ "$(id -g -n)" != 'vyattacfg' ] ; then
+    exec sg vyattacfg -c "/bin/vbash $(readlink -f $0) $@"
+fi
+
+source /opt/vyatta/etc/functions/script-template
+
+configure
+set system host-name "$(hostname)"
+until commit | grep -v "temporarily locked"; do
+    echo retrying commit in 5 seconds
+    sleep 5
+done
+
+set interfaces loopback lo
+set pki certificate MySuperCert certificate 'MIIDsTCCApmgAwIBAgIUCDwtgX2Ymg9CRrwGzeSn11TvlBIwDQYJKoZIhvcNAQELBQAwVzELMAkGA1UEBhMCR0IxEzARBgNVBAgMClNvbWUtU3RhdGUxEjAQBgNVBAcMCVNvbWUtQ2l0eTENMAsGA1UECgwEVnlPUzEQMA4GA1UEAwwHdnlvcy5pbzAeFw0yNDA5MTExNDIzNDBaFw0yNTA5MTExNDIzNDBaMFcxCzAJBgNVBAYTAkdCMRMwEQYDVQQIDApTb21lLVN0YXRlMRIwEAYDVQQHDAlTb21lLUNpdHkxDTALBgNVBAoMBFZ5T1MxEDAOBgNVBAMMB3Z5b3MuaW8wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAzUO5ZA2f+01aKA58y3Yk0Qh6ePBQiaVN3YMPEO564q6Iou/EtMzNV73PSW8dFoXYYC6a4PQzXrRZzGc8Vx0O61IFV6IPCuJ+4j1VaNtfdQuRiJ68fpcdbF9DF6iwB/jwI4zv2/faShxT622QeNLKRz+yz5Xadzxl32V/1ycA85liXlKzpCC6cuTQuXHXS55fev3yuwg87lzAjk+cwieth7XdEb6kt/9r2WkvSD6dwHUCvE5GX7MZaxYXhoR6z51rF4SIjYsTg+BVo2pWIscFO3QrwIOFoHQ1AxQF2Fu9lvtvHkrkWRGDW4RNOozvQh6HETmO4Zl+k5feBrbKjOnxAgMBAAGjdTBzMAwGA1UdEwEB/wQCMAAwDgYDVR0PAQH/BAQDAgeAMBMGA1UdJQQMMAoGCCsGAQUFBwMBMB0GA1UdDgQWBBSOHcyTQ66v4TXTzcNhCeK2hDvprzAfBgNVHSMEGDAWgBSOHcyTQ66v4TXTzcNhCeK2hDvprzANBgkqhkiG9w0BAQsFAAOCAQEACQlGiJzvxctwOXyXKZ6zX/vzhDHap2uYV0RWmW5EZy5ryNF1LM9BmMhpbZb0c1Ce74bE5hLxQdvViByUZ3m5CfNT/voUrmqhP6UMkukN/8WC+Ku6dnkl2r2I9feJxwLlcJSTJnQJdq/XlRAsf3gl/Ha9McE6F4LVhsiPU/uCcj4Wu6Qn00KPkK6U1E5oGIVfPT7/To5oFZiM9kC+VSj/cmUsVpqIhV9XqtYF7UGgnK+YN2SefXIQPxClvG2LMEhfsx9L0U5R1Esn8vcvhcv0JK8wrtDVwIk4pp3ynZug+bo8MWZ+R/1DX5GyWkYhvWeHSJaVOEqdI7q44lmJ68oJcg=='
+set pki certificate MySuperCert private key 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDAzUO5ZA2f+01aKA58y3Yk0Qh6ePBQiaVN3YMPEO564q6Iou/EtMzNV73PSW8dFoXYYC6a4PQzXrRZzGc8Vx0O61IFV6IPCuJ+4j1VaNtfdQuRiJ68fpcdbF9DF6iwB/jwI4zv2/faShxT622QeNLKRz+yz5Xadzxl32V/1ycA85liXlKzpCC6cuTQuXHXS55fev3yuwg87lzAjk+cwieth7XdEb6kt/9r2WkvSD6dwHUCvE5GX7MZaxYXhoR6z51rF4SIjYsTg+BVo2pWIscFO3QrwIOFoHQ1AxQF2Fu9lvtvHkrkWRGDW4RNOozvQh6HETmO4Zl+k5feBrbKjOnxAgMBAAECggEACx5rVvA1tvGzsszXlQvYyuPBNOrvlP1zKovpSH+l+TFEdn3LDRGONBNoz2EBRvCrFGDrnyP1AVdnWDxpAbpWYytgBg3ZOzvZ9w5OEjRjXlxuJ9z0ppM4XMqIreJZ6Jj1Gsg6EwUhBJY8jvxnS6skIOU9/65oCnrQ4WEiRd6fEbdg5Ia4vkzIqQkG9rawF+vjF3gkqCKqoCIPF0xTMwreZxhoFIHByNhwtKWCa5EHQN0hQhXCqNLDJShmCXl+zWSCGklgOGN60A4vnEj5oLktgd5ikvrARHhmFFaEBgfswO4V1jHCXQlyaUyEs5+aE/FhRo2SzkP2B9qxmycWUO0WVwKBgQD6c9RhKHp8oPNmhVH1E4rsotzNBbgNkm4xLOU0OCbbsSrtmLrK9qPw4RpL/HQ3k8+UskN1NRjw9fW3GSKpLPvuKWoZrpD9j40T9ugfJSeZyl/PsOTAFI9elPav4ESwhRM4NX57rBD8mUgnCO7mlbt0bCPFbkdxYvnOTBA503T8owKBgQDFEogYsTortwjBibWHoOesmUdhtYyyvwuedopsereUU/SHLjxQD97qiRs6QE+NZWxhbzAnKK8JZmBk7dOzR+m7dmjeyz2qTMuBUqtQfrgJbe/DaNpkXLw+lo8pJb/p4mbsfWtYfwralDGkLKtyFwxSh6aLvlYQadoadGr1ZSI0WwKBgA4QMvzBqR8WapR3KAL69fITsxJQH+WjM0zPmI82F/h+Gkr9KH/9GXeNLEzYAC6evik7WU5bjOr65LFDWA7n172n1a1bgAi85s8YLjCRhYe9NWQUKsQeY26MLs3xaen/jvS5DEEliE6mzMZkWgXYoo4HBHsxlhFn3V8YJlEY7pjBAoGBAKuNOEAWd0b6rHqdwBJy9XoAbG0YN4SaXijxlApewVQzyVer3gDr7+dGtxb8SMQTmEcxHT/ZYJXUMvFpPrKAVW1E5IGddu66ryTCrDMEPHyo4ODAc+yN9aieM71kCS42UdZoT3vYC8C+5H/ACvbkLWvifg6EADOFkcEZuson4aClAoGBAOLgIHBM2mC0JK2fpgKsXWjVnFLIa05PHruo8jIbqdGXu9PWfCV3TWghAjXTKTRRURr9fphgi+/94YliczhijJGjWqLwWniuj44M3dDQDyTc2D1CQHaOtHx+SWOQEAfJM95TzVqk0o9iLC8PMS/PCpoE0cwWt3O9aIUt75Jt8sJF'
+set service https api keys id testing key 'MySuperSecretKey'
+set service https certificates certificate 'MySuperCert'
+set service ntp allow-client address '127.0.0.0/8'
+set service ntp allow-client address '169.254.0.0/16'
+set service ntp allow-client address '10.0.0.0/8'
+set service ntp allow-client address '172.16.0.0/12'
+set service ntp allow-client address '192.168.0.0/16'
+set service ntp allow-client address '::1/128'
+set service ntp allow-client address 'fe80::/10'
+set service ntp allow-client address 'fc00::/7'
+set service ntp server time1.vyos.net
+set service ntp server time2.vyos.net
+set service ntp server time3.vyos.net
+set system config-management commit-revisions '100'
+set system login user vyos authentication plaintext-password 'vyos'
+set system syslog global facility all level 'info'
+set system syslog global facility local7 level 'debug'
+
+until commit | grep -v "temporarily locked"; do
+    echo retrying commit in 5 seconds
+    sleep 5
+done
+exit

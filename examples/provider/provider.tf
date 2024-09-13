@@ -17,7 +17,7 @@ variable "vyos_host" {
 
 variable "vyos_key" {
   type    = string
-  default = "one two three four five"
+  default = "MySuperSecretKey"
 }
 
 provider "vyos" {

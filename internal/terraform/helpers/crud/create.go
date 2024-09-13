@@ -55,8 +55,9 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	tools.Info(ctx, "setting newly created resource id", map[string]interface{}{"vyos-path": planModel.GetVyosPath()})
 
 	// Save data to Terraform state
-	tools.Trace(ctx, "resource created")
-	tools.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", planModel)})
+	tools.Debug(ctx, "resource created")
+	tools.Trace(ctx, "Setting state", map[string]interface{}{"state": fmt.Sprintf("%#v", resp.State), "data": fmt.Sprintf("%#v", planModel)})
+
 	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
 }
 
@@ -76,7 +77,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 		boMaxS := 10.0
 		retryTotalDelay := time.Duration(0)
 		retryCnt := 0
-	PL:
+	OuterLoop:
 		for {
 			select {
 			case <-ctx.Done():
@@ -90,7 +91,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 				}
 
 				if parentExists {
-					break PL
+					break OuterLoop
 				} else {
 					tools.Warn(ctx, "parent resource missing, retrying", map[string]interface{}{"resource": planModel.GetVyosPath()})
 					lastErr = fmt.Errorf("parent resource missing: '%s': ", planModel.GetVyosNamedParentPath())
@@ -103,7 +104,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 					if lastErr != nil {
 						return lastErr
 					}
-					break PL
+					break OuterLoop
 				}
 
 				// Wait a bit before allowing the next attempt
@@ -141,14 +142,13 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 				return lastErr
 			default:
 				resourceExists, err := c.Has(ctx, planModel.GetVyosPath())
-				if !resourceExists {
+				if err != nil {
+					return fmt.Errorf("resource check error for: [%s]: %w", strings.Join(planModel.GetVyosPath(), " "), err)
+				} else if !resourceExists {
 					break EL
 				} else {
-					tools.Warn(ctx, "resource already exists, retrying", map[string]interface{}{"resource": planModel.GetVyosPath()})
-					lastErr = fmt.Errorf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " "))
-				}
-				if err != nil {
-					return fmt.Errorf("resource check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
+					tools.Info(ctx, "resource already exists, retrying", map[string]interface{}{"resource": planModel.GetVyosPath()})
+					lastErr = fmt.Errorf("resource already exists: [%s]", strings.Join(planModel.GetVyosPath(), " "))
 				}
 
 				// No Deadline means we do not wish to retry

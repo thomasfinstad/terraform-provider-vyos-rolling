@@ -373,7 +373,7 @@ docs/index.md: \
 	cd examples/provider
 	make .tmp/provider-schema.json
 	cd $(ROOT_DIR)
-	set -x
+
 	# Create docs
 	old_name="$$(cat examples/provider/.tmp/provider-schema.json | jq -r '.provider_schemas | keys | .[0]')"
 	jq \

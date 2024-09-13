@@ -38,16 +38,18 @@ resource "vyos_firewall_ipv4_name" "example" {
 
 
 // Empty named resource
-resource "vyos_policy_access_list" "name" {
+resource "vyos_policy_access_list" "this" {
   identifier = {
     access_list = 42
   }
+
+  description = "value"
 }
 
 // Child of empty
-resource "vyos_policy_access_list_rule" "name" {
+resource "vyos_policy_access_list_rule" "this" {
   identifier = {
-    access_list = 42
+    access_list = vyos_policy_access_list.this.identifier.access_list
     rule        = 69
   }
 

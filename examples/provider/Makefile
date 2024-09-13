@@ -1,13 +1,28 @@
-DIST_DIR:=$(shell sed -n -e '/^DIST_DIR=/s/.*=//p' ../../Makefile)
+SHELL := bash
+.SHELLFLAGS := -eu -x -o pipefail -c
+# .SHELLFLAGS := -eu -o pipefail -c
+.ONESHELL:
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
+ROOT_DIR := $(CURDIR)
+
+DIST_DIR:=$(shell sed -n -e '/^DIST_DIR=/s/.*=//p' ../../Makefile | tr -d '"')
 PROVIDER_DIR:=$(DIST_DIR)/$(shell sed -n -e '/^\s*source\s*=/s/.*=\s"\(.*\)"/\1/p' local_override.tf)
 
 default: plan
 
 $(PROVIDER_DIR):
-	cd ../.. && make build
+	@echo Make $(PROVIDER_DIR)
 
-init: $(PROVIDER_DIR) $(shell find $(PROVIDER_DIR) -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
-	-rm -rf .terraform .terraform.lock.hcl
+	cd ../..
+	rm build
+	make build
+
+init: $(PROVIDER_DIR) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
+	@echo Make init
+
+	rm -rf .terraform .terraform.lock.hcl || true
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu init -upgrade
 
 	# Cache timestamp
@@ -21,8 +36,10 @@ ifeq (plan,$(firstword $(MAKECMDGOALS)))
   # ...and turn them into do-nothing targets
   $(eval $(DYN_ARGS):;@:)
 endif
-plan: init $(shell find . -type f -name "*.tf")
-	-rm -fv trace.log
+plan: init $(shell find . -type f -name "*.tf") .tmp/container
+	@echo Make plan
+
+	rm -fv trace.log || true
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu plan -out=plan $(DYN_ARGS)
 
 # Ref: "Optional dynamic parameters" section below
@@ -34,7 +51,9 @@ ifeq (apply,$(firstword $(MAKECMDGOALS)))
   $(eval $(DYN_ARGS):;@:)
 endif
 apply: plan
-	-rm -fv trace.log
+	@echo Make apply
+
+	rm -fv trace.log || true
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu apply -auto-approve $(DYN_ARGS) plan
 
 	# Cache timestamp
@@ -42,14 +61,22 @@ apply: plan
 
 .PHONY: clean
 clean:
-	-rm init plan apply
+	@echo Make clean
 
-	-rm -rf .terraform .terraform.lock.hcl
-	-rm -fv trace.log
+	rm init plan apply || true
+
+	rm -rf .terraform .terraform.lock.hcl || true
+	rm -fv trace.log || true
+	sudo rm -rf .tmp/ || true
+	docker stop vyos || true
+	sleep 2
+	docker rmi -f $$(docker images -a -q vyos) || true
 
 .PHONY: why
 why:
-	@make -and apply \
+	@echo Make why
+
+	make -nd .tmp/container \
 		| sed -rn 's/^ *([A-Za-z ]*Must remake target.*| Prerequisite.*is newer than.*)/\1/p' \
 			| tac
 
@@ -77,3 +104,71 @@ why:
 	@echo Make .tmp/provider-schema.json
 	mkdir -p .tmp/
 	tofu providers schema -json | jq '.' > .tmp/provider-schema.json
+
+.tmp/vyos.iso: ../../data/vyos-1x-info.txt
+	@echo Make .tmp/vyos.iso
+
+	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
+
+	mkdir -p .tmp/
+	download_url="$$( \
+		curl -L \
+			-H "Accept: application/vnd.github+json" \
+			-H "X-GitHub-Api-Version: 2022-11-28" \
+			"https://api.github.com/repos/vyos/vyos-nightly-build/releases?per_page=100" \
+			| jq -r --arg var_date "$${build_date}" '.[] | select(.published_at|startswith($$var_date)) | .assets[] | select(.name|endswith(".iso")) | .browser_download_url')"
+
+	wget -O .tmp/vyos.iso "$${download_url}"
+	touch .tmp/vyos.iso
+
+.tmp/filesystem.squashfs: .tmp/vyos.iso
+	@echo Make .tmp/filesystem.squashfs
+	mkdir -p .tmp/
+	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
+
+	cd .tmp
+	rm -f filesystem.squashfs
+	xorriso -osirrox on -indev vyos.iso -extract /live/filesystem.squashfs filesystem.squashfs
+	touch filesystem.squashfs
+
+.tmp/container-img: .tmp/filesystem.squashfs
+	@echo Make .tmp/vyos-unsquashfs
+	mkdir -p .tmp/
+
+	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
+
+	sudo rm -rf .tmp/vyos-unsquashfs || true
+	mkdir -p .tmp/vyos-unsquashfs
+	cd .tmp
+
+	sudo unsquashfs -f -d "vyos-unsquashfs" -excludes filesystem.squashfs /dev
+	sudo touch vyos-unsquashfs
+	sudo tar -C vyos-unsquashfs -c . | docker import - "vyos:$${build_date}"
+	docker tag "vyos:$${build_date}" vyos:latest
+	touch container-img
+	sudo rm -rf vyos-unsquashfs
+
+
+.tmp/container: .tmp/container-img
+	@echo Make .tmp/container
+	mkdir -p .tmp/
+
+	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
+
+	bash -c "touch .tmp/container; docker run --rm --name vyos --privileged --network=bridge -p 8443:443 "vyos:latest" /sbin/init; rm -f .tmp/container" &
+	sleep 5
+
+	docker cp assets/container-setup-api.vbash vyos:/container-setup-api.vbash
+	docker exec -t vyos chmod +x /container-setup-api.vbash
+	docker exec -t vyos /container-setup-api.vbash
+
+	#vyos_ip="$$(docker exec -t vyos ip -4 --color=never --brief address show dev eth0 | sed -r 's|^eth0[^0-9]+([.0-9]+)/.*$$|\1|')"
+	vyos_ip="$$(docker inspect --format json --type container vyos | jq -r '.[].NetworkSettings.IPAddress')"
+
+	if grep vyos.local /etc/hosts; then
+		sudo cp /etc/hosts /etc/hosts.old
+		sudo sed -i "s/^.* vyos.local$$/$${vyos_ip}  vyos.local/" /etc/hosts.old
+		cat /etc/hosts.old | sudo tee /etc/hosts
+	else
+		echo "$${vyos_ip}  vyos.local" | sudo tee -a /etc/hosts
+	fi

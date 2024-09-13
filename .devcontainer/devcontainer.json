@@ -18,7 +18,9 @@
 		// This is needed for podman, hopefully docker will not mind.
 		"--userns=keep-id:uid=1000,gid=1000",
 		// Needed together with the docker socket mount for vyos-1x Makefile in (nested) docker during generation of interface definitions
-		"--init"
+		"--init",
+		// Bridge network required if it is desired to run the vyos container for examples/provider testing
+		"--network=bridge"
 	],
 	// ------ Docker socket mount START
 	// If using docker:
@@ -28,6 +30,7 @@
 		"type=bind,readonly=false,source=/run/user/1000/podman/podman.sock,target=/var/run/docker.sock"
 	],
 	// ------ Docker socket mount END
+	//
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.

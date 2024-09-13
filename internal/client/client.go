@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client/clienterrors"
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
@@ -180,24 +181,34 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 		return false, &MarshalError{message: "read operation", marshalErr: err}
 	}
 
+	if deadline, ok := ctx.Deadline(); ok {
+		dur := time.Until(deadline)
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, dur/10)
+		defer cancel()
+	}
+
 	payload := url.Values{
 		"key":  []string{c.apiKey},
 		"data": []string{string(operation)},
 	}
 
-	tools.Info(ctx, "Creating exists request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	tools.Debug(ctx, "Creating 'exists' request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	payloadEnc := payload.Encode()
-	tools.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
+	tools.Trace(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
 	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(payloadEnc))
+	tools.Trace(ctx, "Request created", map[string]interface{}{"error": err})
 	if err != nil {
 		return false, fmt.Errorf("failed to create http request object: %w", err)
 	}
 
 	req.Header.Set("User-Agent", c.userAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	tools.Trace(ctx, "Request headers set")
 
 	resp, err := c.httpClient.Do(req)
+	tools.Trace(ctx, "Request complete", map[string]interface{}{"error": err})
 	if err != nil {
 		return false, fmt.Errorf("failed to complete http request: %w", err)
 	}
@@ -218,6 +229,7 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 	if ret["success"] == true {
 
 		if retB, ok := ret["data"].(bool); ok {
+			tools.Trace(ctx, "resource check complete", map[string]interface{}{"result": retB})
 			return retB, nil
 		}
 		return false, fmt.Errorf("[api error]: could not convert returned 'data' field to bool: %v", ret)
