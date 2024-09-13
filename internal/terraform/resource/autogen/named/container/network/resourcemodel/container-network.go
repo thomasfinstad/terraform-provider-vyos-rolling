@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -31,9 +32,10 @@ type ContainerNetwork struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafContainerNetworkDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafContainerNetworkPrefix      types.List   `tfsdk:"prefix" vyos:"prefix,omitempty"`
-	LeafContainerNetworkVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
+	LeafContainerNetworkDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
+	LeafContainerNetworkPrefix       types.List   `tfsdk:"prefix" vyos:"prefix,omitempty"`
+	LeafContainerNetworkNoNameServer types.Bool   `tfsdk:"no_name_server" vyos:"no-name-server,omitempty"`
+	LeafContainerNetworkVrf          types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
@@ -164,6 +166,18 @@ func (o ContainerNetwork) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  ipv4net  |  IPv4 network prefix  |
     |  ipv6net  |  IPv6 network prefix  |
 `,
+		},
+
+		"no_name_server": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Disable Domain Name System (DNS) plugin for this network
+
+`,
+			Description: `Disable Domain Name System (DNS) plugin for this network
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"vrf": schema.StringAttribute{

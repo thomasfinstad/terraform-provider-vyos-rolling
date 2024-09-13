@@ -17,8 +17,9 @@ var _ helpers.VyosResourceDataModel = &FirewallBrIDgePreroutingFilterRuleVlan{}
 // FirewallBrIDgePreroutingFilterRuleVlan describes the resource data model.
 type FirewallBrIDgePreroutingFilterRuleVlan struct {
 	// LeafNodes
-	LeafFirewallBrIDgePreroutingFilterRuleVlanID       types.String `tfsdk:"id" vyos:"id,omitempty"`
-	LeafFirewallBrIDgePreroutingFilterRuleVlanPriority types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafFirewallBrIDgePreroutingFilterRuleVlanID           types.String `tfsdk:"id" vyos:"id,omitempty"`
+	LeafFirewallBrIDgePreroutingFilterRuleVlanPriority     types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafFirewallBrIDgePreroutingFilterRuleVlanEthernetType types.String `tfsdk:"ethernet_type" vyos:"ethernet-type,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
@@ -64,6 +65,30 @@ func (o FirewallBrIDgePreroutingFilterRuleVlan) ResourceSchemaAttributes(ctx con
     |---------------|--------------------------------|
     |  0-7          |  Vlan priority                 |
     |  <start-end>  |  Vlan priority range to match  |
+`,
+		},
+
+		"ethernet_type": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Ethernet type
+
+    |  Format   |  Description                  |
+    |-----------|-------------------------------|
+    |  802.1q   |  Customer VLAN tag type       |
+    |  802.1ad  |  Service VLAN tag type        |
+    |  arp      |  Adress Resolution Protocol   |
+    |  _ipv4    |  Internet Protocol version 4  |
+    |  _ipv6    |  Internet Protocol version 6  |
+`,
+			Description: `Ethernet type
+
+    |  Format   |  Description                  |
+    |-----------|-------------------------------|
+    |  802.1q   |  Customer VLAN tag type       |
+    |  802.1ad  |  Service VLAN tag type        |
+    |  arp      |  Adress Resolution Protocol   |
+    |  _ipv4    |  Internet Protocol version 4  |
+    |  _ipv6    |  Internet Protocol version 6  |
 `,
 		},
 

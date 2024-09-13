@@ -119,8 +119,8 @@ description: |-
     |  Format  &emsp;|  Description                        |
     |----------|-------------------------------------|
     |  0       &emsp;|  Automatic Channel Selection (ACS)  |
-    |  1-14    &emsp;|  2.4Ghz (802.11 b/g/n) Channel      |
-    |  34-173  &emsp;|  5Ghz (802.11 a/h/j/n/ac) Channel   |
+    |  1-14    &emsp;|  2.4Ghz (802.11 b/g/n/ax) Channel   |
+    |  34-177  &emsp;|  5Ghz (802.11 a/h/j/n/ac) Channel   |
     |  1-233   &emsp;|  6Ghz (802.11 ax) Channel           |
 #### description
 - `description` (String) Description
@@ -266,13 +266,24 @@ Optional:
 - `center_channel_freq` (Attributes) HE operating channel center frequency (see [below for nested schema](#nestedatt--capabilities--he--center_channel_freq))
 - `channel_set_width` (String) HE operating channel width
 
+    |  Format  &emsp;|  Description                                                                  |
+    |----------|-------------------------------------------------------------------------------|
+    |  81      &emsp;|  2.4GHz, 20 MHz channel width                                                 |
+    |  83      &emsp;|  2.4GHz, 40 MHz channel width, secondary 20MHz channel above primary channel  |
+    |  84      &emsp;|  2.4GHz, 40 MHz channel width, secondary 20MHz channel below primary channel  |
+    |  131     &emsp;|  6GHz, 20 MHz channel width                                                   |
+    |  132     &emsp;|  6GHz, 40 MHz channel width                                                   |
+    |  133     &emsp;|  6GHz, 80 MHz channel width                                                   |
+    |  134     &emsp;|  6GHz, 160 MHz channel width                                                  |
+    |  135     &emsp;|  6GHz, 80+80 MHz channel width                                                |
+- `coding_scheme` (Number) Spacial Stream and Modulation Coding Scheme settings
+
     |  Format  &emsp;|  Description              |
     |----------|---------------------------|
-    |  131     &emsp;|  20 MHz channel width     |
-    |  132     &emsp;|  40 MHz channel width     |
-    |  133     &emsp;|  80 MHz channel width     |
-    |  134     &emsp;|  160 MHz channel width    |
-    |  135     &emsp;|  80+80 MHz channel width  |
+    |  0       &emsp;|  HE-MCS 0-7               |
+    |  1       &emsp;|  HE-MCS 0-9               |
+    |  2       &emsp;|  HE-MCS 0-11              |
+    |  3       &emsp;|  HE-MCS is not supported  |
 
 <a id="nestedatt--capabilities--he--beamform"></a>
 ### Nested Schema for `capabilities.he.beamform`
@@ -420,12 +431,12 @@ Optional:
 
     |  Format  &emsp;|  Description                                                                          |
     |----------|---------------------------------------------------------------------------------------|
-    |  34-173  &emsp;|  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
+    |  34-177  &emsp;|  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
 - `freq_2` (Number) VHT operating channel center frequency - center freq 2 (for use with the 80+80 mode)
 
     |  Format  &emsp;|  Description                                                                    |
     |----------|---------------------------------------------------------------------------------|
-    |  34-173  &emsp;|  5Ghz (802.11 ac) center channel index (use 58 for secondary 80MHz channel 52)  |
+    |  34-177  &emsp;|  5Ghz (802.11 ac) center channel index (use 58 for secondary 80MHz channel 52)  |
 
 
 <a id="nestedatt--capabilities--vht--stbc"></a>

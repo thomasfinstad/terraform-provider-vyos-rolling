@@ -27,6 +27,8 @@ description: |-
 - [vyos_service_pppoe_server (Resource)](#vyos_service_pppoe_server-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [accept_any_service](#accept_any_service)
+      - [accept_blank_service](#accept_blank_service)
       - [access_concentrator](#access_concentrator)
       - [default_ipv6_pool](#default_ipv6_pool)
       - [default_pool](#default_pool)
@@ -50,6 +52,10 @@ description: |-
 
 ### Optional
 
+#### accept_any_service
+- `accept_any_service` (Boolean) Accept any service name in PPPoE Active Discovery Request (PADR)
+#### accept_blank_service
+- `accept_blank_service` (Boolean) Accept blank service name in PADR
 #### access_concentrator
 - `access_concentrator` (String) Access concentrator name
 #### default_ipv6_pool

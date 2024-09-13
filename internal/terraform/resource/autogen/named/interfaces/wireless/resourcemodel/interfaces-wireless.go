@@ -199,8 +199,8 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
     |  Format  |  Description                        |
     |----------|-------------------------------------|
     |  0       |  Automatic Channel Selection (ACS)  |
-    |  1-14    |  2.4Ghz (802.11 b/g/n) Channel      |
-    |  34-173  |  5Ghz (802.11 a/h/j/n/ac) Channel   |
+    |  1-14    |  2.4Ghz (802.11 b/g/n/ax) Channel   |
+    |  34-177  |  5Ghz (802.11 a/h/j/n/ac) Channel   |
     |  1-233   |  6Ghz (802.11 ax) Channel           |
 `,
 			Description: `Wireless radio channel
@@ -208,8 +208,8 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
     |  Format  |  Description                        |
     |----------|-------------------------------------|
     |  0       |  Automatic Channel Selection (ACS)  |
-    |  1-14    |  2.4Ghz (802.11 b/g/n) Channel      |
-    |  34-173  |  5Ghz (802.11 a/h/j/n/ac) Channel   |
+    |  1-14    |  2.4Ghz (802.11 b/g/n/ax) Channel   |
+    |  34-177  |  5Ghz (802.11 a/h/j/n/ac) Channel   |
     |  1-233   |  6Ghz (802.11 ax) Channel           |
 `,
 

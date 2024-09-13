@@ -21,6 +21,7 @@ type InterfacesWirelessCapabilitiesHe struct {
 	LeafInterfacesWirelessCapabilitiesHeChannelSetWIDth     types.String `tfsdk:"channel_set_width" vyos:"channel-set-width,omitempty"`
 	LeafInterfacesWirelessCapabilitiesHeAntennaPatternFixed types.Bool   `tfsdk:"antenna_pattern_fixed" vyos:"antenna-pattern-fixed,omitempty"`
 	LeafInterfacesWirelessCapabilitiesHeBssColor            types.String `tfsdk:"bss_color" vyos:"bss-color,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHeCodingScheme        types.Number `tfsdk:"coding_scheme" vyos:"coding-scheme,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
@@ -39,23 +40,29 @@ func (o InterfacesWirelessCapabilitiesHe) ResourceSchemaAttributes(ctx context.C
 			Optional: true,
 			MarkdownDescription: `HE operating channel width
 
-    |  Format  |  Description              |
-    |----------|---------------------------|
-    |  131     |  20 MHz channel width     |
-    |  132     |  40 MHz channel width     |
-    |  133     |  80 MHz channel width     |
-    |  134     |  160 MHz channel width    |
-    |  135     |  80+80 MHz channel width  |
+    |  Format  |  Description                                                                  |
+    |----------|-------------------------------------------------------------------------------|
+    |  81      |  2.4GHz, 20 MHz channel width                                                 |
+    |  83      |  2.4GHz, 40 MHz channel width, secondary 20MHz channel above primary channel  |
+    |  84      |  2.4GHz, 40 MHz channel width, secondary 20MHz channel below primary channel  |
+    |  131     |  6GHz, 20 MHz channel width                                                   |
+    |  132     |  6GHz, 40 MHz channel width                                                   |
+    |  133     |  6GHz, 80 MHz channel width                                                   |
+    |  134     |  6GHz, 160 MHz channel width                                                  |
+    |  135     |  6GHz, 80+80 MHz channel width                                                |
 `,
 			Description: `HE operating channel width
 
-    |  Format  |  Description              |
-    |----------|---------------------------|
-    |  131     |  20 MHz channel width     |
-    |  132     |  40 MHz channel width     |
-    |  133     |  80 MHz channel width     |
-    |  134     |  160 MHz channel width    |
-    |  135     |  80+80 MHz channel width  |
+    |  Format  |  Description                                                                  |
+    |----------|-------------------------------------------------------------------------------|
+    |  81      |  2.4GHz, 20 MHz channel width                                                 |
+    |  83      |  2.4GHz, 40 MHz channel width, secondary 20MHz channel above primary channel  |
+    |  84      |  2.4GHz, 40 MHz channel width, secondary 20MHz channel below primary channel  |
+    |  131     |  6GHz, 20 MHz channel width                                                   |
+    |  132     |  6GHz, 40 MHz channel width                                                   |
+    |  133     |  6GHz, 80 MHz channel width                                                   |
+    |  134     |  6GHz, 160 MHz channel width                                                  |
+    |  135     |  6GHz, 80+80 MHz channel width                                                |
 `,
 		},
 
@@ -78,6 +85,28 @@ func (o InterfacesWirelessCapabilitiesHe) ResourceSchemaAttributes(ctx context.C
 `,
 			Description: `BSS coloring helps to prevent channel jamming when multiple APs use the same channels
 
+`,
+		},
+
+		"coding_scheme": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Spacial Stream and Modulation Coding Scheme settings
+
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  0       |  HE-MCS 0-7               |
+    |  1       |  HE-MCS 0-9               |
+    |  2       |  HE-MCS 0-11              |
+    |  3       |  HE-MCS is not supported  |
+`,
+			Description: `Spacial Stream and Modulation Coding Scheme settings
+
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  0       |  HE-MCS 0-7               |
+    |  1       |  HE-MCS 0-9               |
+    |  2       |  HE-MCS 0-11              |
+    |  3       |  HE-MCS is not supported  |
 `,
 		},
 

@@ -44,6 +44,7 @@ type ServiceDNSForwarding struct {
 	ExistsTagServiceDNSForwardingDomain              bool `tfsdk:"-" vyos:"domain,child"`
 	ExistsTagServiceDNSForwardingAuthoritativeDomain bool `tfsdk:"-" vyos:"authoritative-domain,child"`
 	ExistsTagServiceDNSForwardingNameServer          bool `tfsdk:"-" vyos:"name-server,child"`
+	ExistsTagServiceDNSForwardingZoneCache           bool `tfsdk:"-" vyos:"zone-cache,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 	ExistsNodeServiceDNSForwardingOptions bool `tfsdk:"-" vyos:"options,child"`

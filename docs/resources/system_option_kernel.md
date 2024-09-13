@@ -29,6 +29,7 @@ System Options
 - [vyos_system_option_kernel (Resource)](#vyos_system_option_kernel-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [amd_pstate_driver](#amd_pstate_driver)
       - [disable_mitigations](#disable_mitigations)
       - [disable_power_saving](#disable_power_saving)
       - [timeouts](#timeouts)
@@ -43,6 +44,14 @@ System Options
 
 ### Optional
 
+#### amd_pstate_driver
+- `amd_pstate_driver` (String) Enables and configures pstate driver for AMD Ryzen and Epyc CPUs
+
+    |  Format   &emsp;|  Description                                                                     |
+    |-----------|----------------------------------------------------------------------------------|
+    |  active   &emsp;|  The firmware controls performance states and the system governor has no effect  |
+    |  passive  &emsp;|  Allow the system governor to manage performance states                          |
+    |  guided   &emsp;|  The firmware controls performance states guided by the system governor          |
 #### disable_mitigations
 - `disable_mitigations` (Boolean) Disable all optional CPU mitigations
 #### disable_power_saving

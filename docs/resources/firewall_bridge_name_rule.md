@@ -717,6 +717,15 @@ Optional:
 
 Optional:
 
+- `ethernet_type` (String) Ethernet type
+
+    |  Format   &emsp;|  Description                  |
+    |-----------|-------------------------------|
+    |  802.1q   &emsp;|  Customer VLAN tag type       |
+    |  802.1ad  &emsp;|  Service VLAN tag type        |
+    |  arp      &emsp;|  Adress Resolution Protocol   |
+    |  _ipv4    &emsp;|  Internet Protocol version 4  |
+    |  _ipv6    &emsp;|  Internet Protocol version 6  |
 - `id` (String) Vlan id
 
     |  Format       &emsp;|  Description             |

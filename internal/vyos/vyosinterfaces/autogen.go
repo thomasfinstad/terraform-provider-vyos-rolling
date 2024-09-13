@@ -46,6 +46,7 @@ func GetInterfaces() []schemadefinition.InterfaceDefinition {
 		protocols_isis(),
 		protocols_mpls(),
 		protocols_nhrp(),
+		protocols_openfabric(),
 		protocols_ospf(),
 		protocols_pim(),
 		protocols_rip(),

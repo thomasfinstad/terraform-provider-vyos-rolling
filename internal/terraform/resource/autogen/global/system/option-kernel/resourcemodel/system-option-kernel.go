@@ -24,8 +24,9 @@ type SystemOptionKernel struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafSystemOptionKernelDisableMitigations types.Bool `tfsdk:"disable_mitigations" vyos:"disable-mitigations,omitempty"`
-	LeafSystemOptionKernelDisablePowerSaving types.Bool `tfsdk:"disable_power_saving" vyos:"disable-power-saving,omitempty"`
+	LeafSystemOptionKernelDisableMitigations types.Bool   `tfsdk:"disable_mitigations" vyos:"disable-mitigations,omitempty"`
+	LeafSystemOptionKernelDisablePowerSaving types.Bool   `tfsdk:"disable_power_saving" vyos:"disable-power-saving,omitempty"`
+	LeafSystemOptionKernelAmdPstateDriver    types.String `tfsdk:"amd_pstate_driver" vyos:"amd-pstate-driver,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -114,6 +115,26 @@ func (o SystemOptionKernel) ResourceSchemaAttributes(ctx context.Context) map[st
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		"amd_pstate_driver": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Enables and configures pstate driver for AMD Ryzen and Epyc CPUs
+
+    |  Format   |  Description                                                                     |
+    |-----------|----------------------------------------------------------------------------------|
+    |  active   |  The firmware controls performance states and the system governor has no effect  |
+    |  passive  |  Allow the system governor to manage performance states                          |
+    |  guided   |  The firmware controls performance states guided by the system governor          |
+`,
+			Description: `Enables and configures pstate driver for AMD Ryzen and Epyc CPUs
+
+    |  Format   |  Description                                                                     |
+    |-----------|----------------------------------------------------------------------------------|
+    |  active   |  The firmware controls performance states and the system governor has no effect  |
+    |  passive  |  Allow the system governor to manage performance states                          |
+    |  guided   |  The firmware controls performance states guided by the system governor          |
+`,
 		},
 	}
 }

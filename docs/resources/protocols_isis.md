@@ -70,7 +70,7 @@ description: |-
     |  level-1-2  &emsp;|  Act as both a station and an area router  |
     |  level-2    &emsp;|  Act as an area router                     |
 #### log_adjacency_changes
-- `log_adjacency_changes` (Boolean) Log adjacency state changes
+- `log_adjacency_changes` (Boolean) Log changes in adjacency state
 #### lsp_gen_interval
 - `lsp_gen_interval` (Number) Minimum interval between regenerating same LSP
 
@@ -104,7 +104,7 @@ description: |-
     |  transition  &emsp;|  Send and accept both styles of TLVs during transition  |
     |  wide        &emsp;|  Use new style of TLVs to carry wider metric            |
 #### net
-- `net` (String) A Network Entity Title for this process (ISO only)
+- `net` (String) A Network Entity Title for the process (ISO only)
 
     |  Format                &emsp;|  Description                 |
     |------------------------|------------------------------|

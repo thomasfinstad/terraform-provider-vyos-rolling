@@ -5155,7 +5155,7 @@ func protocols_isis() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Log adjacency state changes"},
+								Help: []string{"Log changes in adjacency state"},
 								Valueless: []*schemadefinition.Valueless{{
 									XMLName: xml.Name{
 										Local: "valueless",
@@ -5401,7 +5401,7 @@ func protocols_isis() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"A Network Entity Title for this process (ISO only)"},
+								Help: []string{"A Network Entity Title for the process (ISO only)"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",

@@ -53,12 +53,12 @@ terraform {
 
 variable "vyos_host" {
   type    = string
-  default = "https://vyos.local:8443"
+  default = "https://vyos.local"
 }
 
 variable "vyos_key" {
   type    = string
-  default = "MySuperSecretKey"
+  default = "one two three four five"
 }
 
 provider "vyos" {

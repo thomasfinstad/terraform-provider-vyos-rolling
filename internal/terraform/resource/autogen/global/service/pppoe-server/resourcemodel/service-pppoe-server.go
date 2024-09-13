@@ -7,6 +7,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
@@ -25,6 +26,8 @@ type ServicePppoeServer struct {
 	// LeafNodes
 	LeafServicePppoeServerAccessConcentrator    types.String `tfsdk:"access_concentrator" vyos:"access-concentrator,omitempty"`
 	LeafServicePppoeServerServiceName           types.List   `tfsdk:"service_name" vyos:"service-name,omitempty"`
+	LeafServicePppoeServerAcceptAnyService      types.Bool   `tfsdk:"accept_any_service" vyos:"accept-any-service,omitempty"`
+	LeafServicePppoeServerAcceptBlankService    types.Bool   `tfsdk:"accept_blank_service" vyos:"accept-blank-service,omitempty"`
 	LeafServicePppoeServerSessionControl        types.String `tfsdk:"session_control" vyos:"session-control,omitempty"`
 	LeafServicePppoeServerDefaultPool           types.String `tfsdk:"default_pool" vyos:"default-pool,omitempty"`
 	LeafServicePppoeServerDefaultIPvsixPool     types.String `tfsdk:"default_ipv6_pool" vyos:"default-ipv6-pool,omitempty"`
@@ -130,6 +133,30 @@ func (o ServicePppoeServer) ResourceSchemaAttributes(ctx context.Context) map[st
 			Description: `Service name
 
 `,
+		},
+
+		"accept_any_service": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Accept any service name in PPPoE Active Discovery Request (PADR)
+
+`,
+			Description: `Accept any service name in PPPoE Active Discovery Request (PADR)
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"accept_blank_service": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Accept blank service name in PADR
+
+`,
+			Description: `Accept blank service name in PADR
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"session_control": schema.StringAttribute{

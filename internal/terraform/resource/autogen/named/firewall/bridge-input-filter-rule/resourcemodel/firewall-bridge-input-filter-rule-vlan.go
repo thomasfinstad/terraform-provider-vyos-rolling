@@ -17,8 +17,9 @@ var _ helpers.VyosResourceDataModel = &FirewallBrIDgeInputFilterRuleVlan{}
 // FirewallBrIDgeInputFilterRuleVlan describes the resource data model.
 type FirewallBrIDgeInputFilterRuleVlan struct {
 	// LeafNodes
-	LeafFirewallBrIDgeInputFilterRuleVlanID       types.String `tfsdk:"id" vyos:"id,omitempty"`
-	LeafFirewallBrIDgeInputFilterRuleVlanPriority types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafFirewallBrIDgeInputFilterRuleVlanID           types.String `tfsdk:"id" vyos:"id,omitempty"`
+	LeafFirewallBrIDgeInputFilterRuleVlanPriority     types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafFirewallBrIDgeInputFilterRuleVlanEthernetType types.String `tfsdk:"ethernet_type" vyos:"ethernet-type,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
@@ -64,6 +65,30 @@ func (o FirewallBrIDgeInputFilterRuleVlan) ResourceSchemaAttributes(ctx context.
     |---------------|--------------------------------|
     |  0-7          |  Vlan priority                 |
     |  <start-end>  |  Vlan priority range to match  |
+`,
+		},
+
+		"ethernet_type": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Ethernet type
+
+    |  Format   |  Description                  |
+    |-----------|-------------------------------|
+    |  802.1q   |  Customer VLAN tag type       |
+    |  802.1ad  |  Service VLAN tag type        |
+    |  arp      |  Adress Resolution Protocol   |
+    |  _ipv4    |  Internet Protocol version 4  |
+    |  _ipv6    |  Internet Protocol version 6  |
+`,
+			Description: `Ethernet type
+
+    |  Format   |  Description                  |
+    |-----------|-------------------------------|
+    |  802.1q   |  Customer VLAN tag type       |
+    |  802.1ad  |  Service VLAN tag type        |
+    |  arp      |  Adress Resolution Protocol   |
+    |  _ipv4    |  Internet Protocol version 4  |
+    |  _ipv6    |  Internet Protocol version 6  |
 `,
 		},
 

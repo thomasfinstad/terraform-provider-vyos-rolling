@@ -3683,6 +3683,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	Description: "Vlan priority range to match",
 																}},
 															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "ethernet-type",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Ethernet type"},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802.1q",
+																	Description: "Customer VLAN tag type",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802.1ad",
+																	Description: "Service VLAN tag type",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "arp",
+																	Description: "Adress Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "_ipv4",
+																	Description: "Internet Protocol version 4",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "_ipv6",
+																	Description: "Internet Protocol version 6",
+																}},
+																CompletionHelp: []*schemadefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
+																}},
+															}},
 														}},
 													}},
 												}, {
@@ -7237,6 +7286,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	Description: "Vlan priority range to match",
 																}},
 															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "ethernet-type",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Ethernet type"},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802.1q",
+																	Description: "Customer VLAN tag type",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802.1ad",
+																	Description: "Service VLAN tag type",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "arp",
+																	Description: "Adress Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "_ipv4",
+																	Description: "Internet Protocol version 4",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "_ipv6",
+																	Description: "Internet Protocol version 6",
+																}},
+																CompletionHelp: []*schemadefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
+																}},
+															}},
 														}},
 													}},
 												}, {
@@ -10690,6 +10788,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      "<start-end>",
 																	Description: "Vlan priority range to match",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "ethernet-type",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Ethernet type"},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802.1q",
+																	Description: "Customer VLAN tag type",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802.1ad",
+																	Description: "Service VLAN tag type",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "arp",
+																	Description: "Adress Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "_ipv4",
+																	Description: "Internet Protocol version 4",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "_ipv6",
+																	Description: "Internet Protocol version 6",
+																}},
+																CompletionHelp: []*schemadefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
 																}},
 															}},
 														}},
@@ -14147,6 +14294,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 																	Description: "Vlan priority range to match",
 																}},
 															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "ethernet-type",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Ethernet type"},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802.1q",
+																	Description: "Customer VLAN tag type",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802.1ad",
+																	Description: "Service VLAN tag type",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "arp",
+																	Description: "Adress Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "_ipv4",
+																	Description: "Internet Protocol version 4",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "_ipv6",
+																	Description: "Internet Protocol version 6",
+																}},
+																CompletionHelp: []*schemadefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
+																}},
+															}},
 														}},
 													}},
 												}, {
@@ -17458,6 +17654,55 @@ func firewall() schemadefinition.InterfaceDefinition {
 															},
 															Format:      "<start-end>",
 															Description: "Vlan priority range to match",
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "ethernet-type",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Ethernet type"},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1q",
+															Description: "Customer VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "802.1ad",
+															Description: "Service VLAN tag type",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "arp",
+															Description: "Adress Resolution Protocol",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv4",
+															Description: "Internet Protocol version 4",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "_ipv6",
+															Description: "Internet Protocol version 6",
+														}},
+														CompletionHelp: []*schemadefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															List: []string{"802.1q 802.1ad arp ipv4 ipv6"},
 														}},
 													}},
 												}},

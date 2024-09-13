@@ -27,6 +27,7 @@ Container applications
       - [identifier](#identifier)
     - [Optional](#optional)
       - [description](#description)
+      - [no_name_server](#no_name_server)
       - [prefix](#prefix)
       - [timeouts](#timeouts)
       - [vrf](#vrf)
@@ -53,6 +54,8 @@ Container applications
     |  Format  &emsp;|  Description  |
     |----------|---------------|
     |  txt     &emsp;|  Description  |
+#### no_name_server
+- `no_name_server` (Boolean) Disable Domain Name System (DNS) plugin for this network
 #### prefix
 - `prefix` (List of String) Prefix which allocated to that network
 

@@ -115,10 +115,10 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"log_adjacency_changes": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Log adjacency state changes
+			MarkdownDescription: `Log changes in adjacency state
 
 `,
-			Description: `Log adjacency state changes
+			Description: `Log changes in adjacency state
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -240,13 +240,13 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"net": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `A Network Entity Title for this process (ISO only)
+			MarkdownDescription: `A Network Entity Title for the process (ISO only)
 
     |  Format                |  Description                 |
     |------------------------|------------------------------|
     |  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
 `,
-			Description: `A Network Entity Title for this process (ISO only)
+			Description: `A Network Entity Title for the process (ISO only)
 
     |  Format                |  Description                 |
     |------------------------|------------------------------|

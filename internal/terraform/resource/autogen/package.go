@@ -173,6 +173,7 @@ import (
 	globalprotocolsmplsldptargetedneighboripvfour "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-targeted-neighbor-ipv4"
 	globalprotocolsmplsldptargetedneighboripvsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-ldp-targeted-neighbor-ipv6"
 	globalprotocolsmplsparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/mpls-parameters"
+	globalprotocolsopenfabric "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/openfabric"
 	globalprotocolsospf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf"
 	globalprotocolsospfaggregation "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-aggregation"
 	globalprotocolsospfautocost "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-auto-cost"
@@ -651,6 +652,8 @@ import (
 	namedprotocolsnhrptunneldynamicmap "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-dynamic-map"
 	namedprotocolsnhrptunnelmap "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-map"
 	namedprotocolsnhrptunnelshortcuttarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-shortcut-target"
+	namedprotocolsopenfabricdomain "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/openfabric-domain"
+	namedprotocolsopenfabricdomaininterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/openfabric-domain-interface"
 	namedprotocolsospfaccesslist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-access-list"
 	namedprotocolsospfarea "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-area"
 	namedprotocolsospfarearange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-area-range"
@@ -754,6 +757,7 @@ import (
 	namedservicednsforwardingdomain "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-domain"
 	namedservicednsforwardingdomainnameserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-domain-name-server"
 	namedservicednsforwardingnameserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-name-server"
+	namedservicednsforwardingzonecache "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-zone-cache"
 	namedserviceeventhandlerevent "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/event-handler-event"
 	namedserviceeventhandlereventscriptenvironment "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/event-handler-event-script-environment"
 	namedservicehttpsapikeysid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/https-api-keys-id"
@@ -1331,6 +1335,9 @@ func GetResources() []func() resource.Resource {
 		namedprotocolsnhrptunneldynamicmap.NewProtocolsNhrpTunnelDynamicMap,
 		namedprotocolsnhrptunnelmap.NewProtocolsNhrpTunnelMap,
 		namedprotocolsnhrptunnelshortcuttarget.NewProtocolsNhrpTunnelShortcutTarget,
+		namedprotocolsopenfabricdomain.NewProtocolsOpenfabricDomain,
+		namedprotocolsopenfabricdomaininterface.NewProtocolsOpenfabricDomainInterface,
+		globalprotocolsopenfabric.NewProtocolsOpenfabric,
 		namedprotocolsospfsegmentroutingprefix.NewProtocolsOspfSegmentRoutingPrefix,
 		namedprotocolsospfredistributetable.NewProtocolsOspfRedistributeTable,
 		namedprotocolsospfaccesslist.NewProtocolsOspfAccessList,
@@ -1512,6 +1519,7 @@ func GetResources() []func() resource.Resource {
 		namedservicednsforwardingauthoritativedomainrecordsnaptr.NewServiceDNSForwardingAuthoritativeDomainRecordsNaptr,
 		namedservicednsforwardingauthoritativedomainrecordsnaptrrule.NewServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule,
 		namedservicednsforwardingnameserver.NewServiceDNSForwardingNameServer,
+		namedservicednsforwardingzonecache.NewServiceDNSForwardingZoneCache,
 		globalservicednsforwarding.NewServiceDNSForwarding,
 		globalservicednsforwardingoptions.NewServiceDNSForwardingOptions,
 		namedserviceeventhandlerevent.NewServiceEventHandlerEvent,

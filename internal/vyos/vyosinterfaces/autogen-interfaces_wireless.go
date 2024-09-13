@@ -492,17 +492,17 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 																	Local: "validator",
 																},
 																NameAttr:     "numeric",
-																ArgumentAttr: "--range 34-173",
+																ArgumentAttr: "--range 34-177",
 															}},
 														}},
 														ValueHelp: []*schemadefinition.ValueHelp{{
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "u32:34-173",
+															Format:      "u32:34-177",
 															Description: "5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)",
 														}},
-														ConstraintErrorMessage: []string{"Channel center value must be between 34 and 173"},
+														ConstraintErrorMessage: []string{"Channel center value must be between 34 and 177"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -524,17 +524,17 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 																	Local: "validator",
 																},
 																NameAttr:     "numeric",
-																ArgumentAttr: "--range 34-173",
+																ArgumentAttr: "--range 34-177",
 															}},
 														}},
 														ValueHelp: []*schemadefinition.ValueHelp{{
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "u32:34-173",
+															Format:      "u32:34-177",
 															Description: "5Ghz (802.11 ac) center channel index (use 58 for secondary 80MHz channel 52)",
 														}},
-														ConstraintErrorMessage: []string{"Channel center value must be between 34 and 173"},
+														ConstraintErrorMessage: []string{"Channel center value must be between 34 and 177"},
 													}},
 												}},
 											}},
@@ -1141,44 +1141,62 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(131|132|133|134|135)"},
+													Regex: []string{"(81|83|84|131|132|133|134|135)"},
 												}},
 												ValueHelp: []*schemadefinition.ValueHelp{{
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
+													Format:      "81",
+													Description: "2.4GHz, 20 MHz channel width",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "83",
+													Description: "2.4GHz, 40 MHz channel width, secondary 20MHz channel above primary channel",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "84",
+													Description: "2.4GHz, 40 MHz channel width, secondary 20MHz channel below primary channel",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
 													Format:      "131",
-													Description: "20 MHz channel width",
+													Description: "6GHz, 20 MHz channel width",
 												}, {
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
 													Format:      "132",
-													Description: "40 MHz channel width",
+													Description: "6GHz, 40 MHz channel width",
 												}, {
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
 													Format:      "133",
-													Description: "80 MHz channel width",
+													Description: "6GHz, 80 MHz channel width",
 												}, {
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
 													Format:      "134",
-													Description: "160 MHz channel width",
+													Description: "6GHz, 160 MHz channel width",
 												}, {
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
 													Format:      "135",
-													Description: "80+80 MHz channel width",
+													Description: "6GHz, 80+80 MHz channel width",
 												}},
 												CompletionHelp: []*schemadefinition.CompletionHelp{{
 													XMLName: xml.Name{
 														Local: "completionHelp",
 													},
-													List: []string{"131 132 133 134 135"},
+													List: []string{"81 83 84 131 132 133 134 135"},
 												}},
 											}},
 										}, {
@@ -1220,6 +1238,55 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 														NameAttr:     "numeric",
 														ArgumentAttr: "--range 1-63",
 													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "coding-scheme",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Spacial Stream and Modulation Coding Scheme settings"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr:     "numeric",
+														ArgumentAttr: "--range 0-3",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:0",
+													Description: "HE-MCS 0-7",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1",
+													Description: "HE-MCS 0-9",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:2",
+													Description: "HE-MCS 0-11",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:3",
+													Description: "HE-MCS is not supported",
 												}},
 											}},
 										}},
@@ -7632,7 +7699,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 											Local: "validator",
 										},
 										NameAttr:     "numeric",
-										ArgumentAttr: "--range 0-0 --range 1-14 --range 34-173 --range 1-233",
+										ArgumentAttr: "--range 0-0 --range 1-14 --range 34-177 --range 1-233",
 									}},
 								}},
 								ValueHelp: []*schemadefinition.ValueHelp{{
@@ -7646,12 +7713,12 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 										Local: "valueHelp",
 									},
 									Format:      "u32:1-14",
-									Description: "2.4Ghz (802.11 b/g/n) Channel",
+									Description: "2.4Ghz (802.11 b/g/n/ax) Channel",
 								}, {
 									XMLName: xml.Name{
 										Local: "valueHelp",
 									},
-									Format:      "u32:34-173",
+									Format:      "u32:34-177",
 									Description: "5Ghz (802.11 a/h/j/n/ac) Channel",
 								}, {
 									XMLName: xml.Name{
