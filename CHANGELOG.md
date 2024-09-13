@@ -4,22 +4,113 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 2.7.202409090 (2024-09-09 08-28-41 UTC)](#release-27202409090-2024-09-09-08-28-41-utc)
+  - [Release 2.8.202409130 (2024-09-13 07-18-47 UTC)](#release-28202409130-2024-09-13-07-18-47-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
-    - [Schema changes](#schema-changes)
-      - [Features](#features)
-        - [Resources](#resources)
-  - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
-    - [Project changes](#project-changes-1)
-      - [Notes](#notes-1)
       - [Bug fixes](#bug-fixes)
-    - [Schema changes](#schema-changes-1)
-      - [BREAKING CHANGES](#breaking-changes)
+    - [Schema changes](#schema-changes)
+      - [Notes](#notes-1)
+        - [Resources](#resources)
+      - [Features](#features)
         - [Resources](#resources-1)
+  - [Release 2.7.202409090 (2024-09-09 08-28-41 UTC)](#release-27202409090-2024-09-09-08-28-41-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-2)
+    - [Schema changes](#schema-changes-1)
+      - [Features](#features-1)
+        - [Resources](#resources-2)
+  - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
+    - [Project changes](#project-changes-2)
+      - [Notes](#notes-3)
+      - [Bug fixes](#bug-fixes-1)
+    - [Schema changes](#schema-changes-2)
+      - [BREAKING CHANGES](#breaking-changes)
+        - [Resources](#resources-3)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 2.8.202409130 (2024-09-13 07-18-47 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-09-13T00:06:00Z
+* move to opensource tooling
+#### Bug fixes
+* temporary directory creation
+* tenv autoinstall
+* fix makefile erroring out on file deletion
+* doc generation with opensource tooling
+
+### Schema changes
+#### Notes
+
+##### Resources
+* Modified Resource `vyos_vrf_name`
+	* Modified attributes under: `protocols.isis`
+		* Modified attribute `log_adjacency_changes.` changed description
+		* Modified attribute `net.` changed description
+
+* Modified Resource `vyos_protocols_isis`
+	* Modified attribute `net.` changed description
+	* Modified attribute `log_adjacency_changes.` changed description
+
+
+
+
+
+#### Features
+
+##### Resources
+* Modified Resource `vyos_firewall_bridge_forward_filter_rule`
+	* New attribute `vlan.ethernet_type`
+
+* Modified Resource `vyos_firewall_bridge_name_rule`
+	* New attribute `vlan.ethernet_type`
+
+* Modified Resource `vyos_service_pppoe_server`
+	* New attribute `accept_blank_service`
+	* New attribute `accept_any_service`
+
+* Modified Resource `vyos_firewall_bridge_input_filter_rule`
+	* New attribute `vlan.ethernet_type`
+
+* Modified Resource `vyos_interfaces_wireless`
+	* Modified attributes under: `capabilities`
+		* Modified attributes under: `vht.center_channel_freq`
+			* Modified attribute `freq_1.` changed description
+			* Modified attribute `freq_2.` changed description
+		* Modified attributes under: `he`
+			* Modified attribute `channel_set_width.` changed description
+			* New attribute `coding_scheme`
+	* Modified attribute `channel.` changed description
+
+* Modified Resource `vyos_firewall_bridge_prerouting_filter_rule`
+	* New attribute `vlan.ethernet_type`
+
+* Modified Resource `vyos_system_option_kernel`
+	* New attribute `amd_pstate_driver`
+
+* Modified Resource `vyos_firewall_bridge_output_filter_rule`
+	* New attribute `vlan.ethernet_type`
+
+* Modified Resource `vyos_container_network`
+	* New attribute `no_name_server`
+
+* New Resource `vyos_protocols_openfabric_domain_interface`
+
+* New Resource `vyos_protocols_openfabric`
+
+* New Resource `vyos_protocols_openfabric_domain`
+
+* New Resource `vyos_service_dns_forwarding_zone_cache`
+
+
+
+
+
+
+
 
 
 ## Release 2.7.202409090 (2024-09-09 08-28-41 UTC)
