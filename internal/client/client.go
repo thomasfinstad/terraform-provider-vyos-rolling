@@ -184,7 +184,7 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 	if deadline, ok := ctx.Deadline(); ok {
 		dur := time.Until(deadline)
 		var cancel context.CancelFunc
-		ctx, cancel = context.WithTimeout(ctx, dur/10)
+		ctx, cancel = context.WithTimeout(ctx, dur/3)
 		defer cancel()
 	}
 
