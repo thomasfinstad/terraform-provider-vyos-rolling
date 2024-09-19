@@ -1,6 +1,6 @@
 SHELL := bash
-.SHELLFLAGS := -eu -x -o pipefail -c
-# .SHELLFLAGS := -eu -o pipefail -c
+# .SHELLFLAGS := -eu -x -o pipefail -c
+.SHELLFLAGS := -eu -o pipefail -c
 .ONESHELL:
 .DELETE_ON_ERROR:
 MAKEFLAGS += --warn-undefined-variables
@@ -56,11 +56,30 @@ apply: plan
 	rm -fv trace.log || true
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu apply -auto-approve $(DYN_ARGS) plan
 
+	rm plan
+
 	# Cache timestamp
 	date > apply
 
+# Ref: "Optional dynamic parameters" section below
+# Example usage: make destroy -- -target vyos_banana.nomnom
+ifeq (destroy,$(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for target
+  DYN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(DYN_ARGS):;@:)
+endif
+destroy: init
+	@echo Make destroy
+
+	rm -fv trace.log || true
+	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu apply -destroy -auto-approve $(DYN_ARGS) || true
+
+	rm plan || true
+	rm apply || true
+
 .PHONY: clean
-clean:
+clean: destroy
 	@echo Make clean
 
 	rm init plan apply || true
@@ -71,6 +90,18 @@ clean:
 	docker stop vyos || true
 	sleep 2
 	docker rmi -f $$(docker images -a -q vyos) || true
+
+.PHONY: stresstest
+stresstest: init
+	@echo Running 100 iterations of apply before cleaning up
+
+	for i in {1..100}; do
+		echo "Run nr $$i / 100"
+		make apply
+		sleep 10
+	done
+
+	make clean
 
 .PHONY: why
 why:

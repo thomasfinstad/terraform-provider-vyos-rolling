@@ -55,9 +55,8 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	tools.Info(ctx, "setting newly created resource id", map[string]interface{}{"vyos-path": planModel.GetVyosPath()})
 
 	// Save data to Terraform state
-	tools.Debug(ctx, "resource created")
-	tools.Trace(ctx, "Setting state", map[string]interface{}{"state": fmt.Sprintf("%#v", resp.State), "data": fmt.Sprintf("%#v", planModel)})
-
+	tools.Debug(ctx, "resource created, saving state")
+	helpers.UnknownToNull(ctx, planModel)
 	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
 }
 

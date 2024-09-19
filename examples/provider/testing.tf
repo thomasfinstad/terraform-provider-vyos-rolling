@@ -1,63 +1,32 @@
+// There are in general 2 types of resources
+//
+// Named: can have multiple different resources of the same kind, contains an "identifier" attribute.
+// Global: can have one resource of this kind, having multiple will result in configuration conflicts between the two.
 
-/* resource "vyos_firewall_group_port_group" "example" {
-  port_group_id = "TF-Examples"
-
-  description = "Example of terraform created resource ${plantimestamp()}"
-  port        = [8080, "27015-27020", 44]
-}
-
-resource "vyos_firewall_ipv4_name" "example" {
-  name_id = "TF-Example"
-
-  default_action = "accept"
-  description    = "Another terraform t ${plantimestamp()}"
-} */
-
-# resource "vyos_firewall_ipv4_name" "example2" {
-#   count = 1
-
-#   name_id = "TF-Example2-${count.index}-${replace(plantimestamp(), ":", "-")}"
-
-#   default_action = "accept"
-#   description    = "Another terraform test"
-# }
-
-# resource "vyos_firewall_ipv4_name_rule" "example2" {
-#   count = length(vyos_firewall_ipv4_name.example2)
-
-#   name_id = vyos_firewall_ipv4_name.example2[count.index].name_id
-#   rule_id = 99
-
-#   action = "accept"
-
-#   icmp = {
-#     code = 0
-#     type = 0
-#   }
-# }
-
-
-// Empty named resource
+// Empty named parent resource
 resource "vyos_policy_access_list" "this" {
   identifier = {
-    access_list = 42
+    access_list = tonumber(regex("[0-9]{2}", md5(plantimestamp()))) + 1
   }
-
-  description = "value"
 }
 
-// Child of empty
+// Named child resource
 resource "vyos_policy_access_list_rule" "this" {
   identifier = {
     access_list = vyos_policy_access_list.this.identifier.access_list
     rule        = 69
   }
 
-  description = plantimestamp()
-  action      = "permit"
+  description = tonumber(regex("[0-9]{2}", md5(plantimestamp())))
+
+  action = "permit"
   source = {
     host = "55.55.55.55"
   }
 }
 
-# vyos_policy_access_list_rule.name: Modifications complete after 10s [id=policy__access-list__42__rule__69]
+// Global resource
+resource "vyos_system_conntrack_tcp" "this" {
+  half_open_connections = tonumber(regex("[0-9]{2}", md5(plantimestamp()))) + 1
+  loose                 = "enable"
+}

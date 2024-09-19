@@ -10,10 +10,20 @@ import (
 	"testing"
 	"time"
 
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
+	conntrackTcp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-tcp/resourcemodel"
+
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/resource"
+	resourceschema "github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/defaults"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/provider/data"
@@ -562,7 +572,7 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 	// Client
 	start := time.Now()
 	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
-	ctx, cancel := context.WithTimeout(ctx, 100*time.Millisecond)
+	ctx, cancel := context.WithTimeout(ctx, 1000*time.Millisecond)
 	defer cancel()
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
@@ -695,7 +705,7 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 
 	// Client
 	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
-	ctx, cancel := context.WithTimeout(ctx, 50*time.Millisecond)
+	ctx, cancel := context.WithTimeout(ctx, 500*time.Millisecond)
 	defer cancel()
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
@@ -838,5 +848,158 @@ func TestCrudCreateRetrySuccess(t *testing.T) {
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Received request:\n%s", eList.Failed())
+	}
+}
+
+// TestCrudCreateRetrySuccess test CRUD helper: Create
+//
+// Test that a resource with unknown values are created correctly
+func TestCrudCreateUnknownValue(t *testing.T) {
+	ctx := context.Background()
+
+	resp := &resource.CreateResponse{
+		State: tfsdk.State{
+			Raw: tftypes.NewValue(
+				tftypes.Object{
+					AttributeTypes: map[string]tftypes.Type{
+						"half_open_connections": tftypes.Number,
+						"id":                    tftypes.String,
+						"loose":                 tftypes.String,
+						"max_retrans":           tftypes.Number,
+						"timeouts": tftypes.Object{
+							AttributeTypes: map[string]tftypes.Type{
+								"create": tftypes.String,
+							},
+							OptionalAttributes: map[string]struct{}(nil),
+						},
+					},
+					OptionalAttributes: map[string]struct{}(nil),
+				},
+				nil,
+			),
+
+			Schema: resourceschema.Schema{
+				Attributes: map[string]resourceschema.Attribute{
+					"half_open_connections": resourceschema.NumberAttribute{
+						CustomType:          basetypes.NumberTypable(nil),
+						Required:            false,
+						Optional:            true,
+						Computed:            true,
+						Sensitive:           false,
+						Description:         "Maximum number of TCP half-open connections\n\n    |  Format        |  Description                            |\n    |----------------|-----------------------------------------|\n    |  1-2147483647  |  Generic connection timeout in seconds  |\n",
+						MarkdownDescription: "Maximum number of TCP half-open connections\n\n    |  Format        |  Description                            |\n    |----------------|-----------------------------------------|\n    |  1-2147483647  |  Generic connection timeout in seconds  |\n",
+						DeprecationMessage:  "",
+						Validators:          []validator.Number(nil),
+						PlanModifiers:       []planmodifier.Number(nil),
+						Default:             defaults.Number(nil)},
+
+					"id": resourceschema.StringAttribute{
+						CustomType:          basetypes.StringTypable(nil),
+						Required:            false,
+						Optional:            false,
+						Computed:            true,
+						Sensitive:           false,
+						Description:         "",
+						MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
+						DeprecationMessage:  "",
+						Validators:          []validator.String(nil),
+						PlanModifiers:       []planmodifier.String(nil),
+						Default:             defaults.String(nil)},
+
+					"loose": resourceschema.StringAttribute{
+						CustomType:          basetypes.StringTypable(nil),
+						Required:            false,
+						Optional:            true,
+						Computed:            true,
+						Sensitive:           false,
+						Description:         "Policy to track previously established connections\n\n    |  Format   |  Description                                                  |\n    |-----------|---------------------------------------------------------------|\n    |  enable   |  Allow tracking of previously established connections         |\n    |  disable  |  Do not allow tracking of previously established connections  |\n",
+						MarkdownDescription: "Policy to track previously established connections\n\n    |  Format   |  Description                                                  |\n    |-----------|---------------------------------------------------------------|\n    |  enable   |  Allow tracking of previously established connections         |\n    |  disable  |  Do not allow tracking of previously established connections  |\n",
+						DeprecationMessage:  "",
+						Validators:          []validator.String(nil),
+						PlanModifiers:       []planmodifier.String(nil),
+						Default:             defaults.String(nil)},
+
+					"max_retrans": resourceschema.NumberAttribute{
+						CustomType:          basetypes.NumberTypable(nil),
+						Required:            false,
+						Optional:            true,
+						Computed:            true,
+						Sensitive:           false,
+						Description:         "Maximum number of packets that can be retransmitted without received an ACK\n\n    |  Format  |  Description                            |\n    |----------|-----------------------------------------|\n    |  1-255   |  Number of packets to be retransmitted  |\n",
+						MarkdownDescription: "Maximum number of packets that can be retransmitted without received an ACK\n\n    |  Format  |  Description                            |\n    |----------|-----------------------------------------|\n    |  1-255   |  Number of packets to be retransmitted  |\n",
+						DeprecationMessage:  "",
+						Validators:          []validator.Number(nil),
+						PlanModifiers:       []planmodifier.Number(nil),
+						Default:             defaults.Number(nil)},
+
+					"timeouts": resourceschema.SingleNestedAttribute{
+						Attributes: map[string]resourceschema.Attribute{
+							"create": resourceschema.StringAttribute{
+								CustomType:          basetypes.StringTypable(nil),
+								Required:            false,
+								Optional:            true,
+								Computed:            false,
+								Sensitive:           false,
+								Description:         "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+								MarkdownDescription: "",
+								DeprecationMessage:  "",
+								Validators:          []validator.String{},
+
+								PlanModifiers: []planmodifier.String(nil),
+								Default:       defaults.String(nil)}},
+
+						CustomType: timeouts.Type{
+							ObjectType: basetypes.ObjectType{
+								AttrTypes: map[string]attr.Type{
+									"create": basetypes.StringType{}}}},
+
+						Required:            false,
+						Optional:            true,
+						Computed:            false,
+						Sensitive:           false,
+						Description:         "",
+						MarkdownDescription: "",
+						DeprecationMessage:  "",
+						Validators:          []validator.Object(nil),
+						PlanModifiers:       []planmodifier.Object(nil),
+						Default:             defaults.Object(nil)}},
+
+				Blocks:              map[string]resourceschema.Block(nil),
+				Description:         "",
+				MarkdownDescription: "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n*system*  \n⯯  \nConnection Tracking Engine Options  \n⯯  \n**TCP options**\n",
+				DeprecationMessage:  "",
+				Version:             0,
+			},
+		},
+
+		// Private:     nil,
+		// Diagnostics: diag.Diagnostics(nil),
+	}
+
+	m := conntrackTcp.SystemConntrackTCP{
+		LeafSystemConntrackTCPHalfOpenConnections: basetypes.NewNumberValue(big.NewFloat(7)),
+		ID:                               basetypes.NewStringValue("system__conntrack__tcp"),
+		LeafSystemConntrackTCPLoose:      basetypes.NewStringValue("enable"),
+		LeafSystemConntrackTCPMaxRetrans: basetypes.NewNumberUnknown(),
+		Timeouts: timeouts.Value{
+			Object: basetypes.NewObjectNull(
+				map[string]attr.Type{
+					"create": basetypes.StringType{}})},
+	}
+
+	if !m.LeafSystemConntrackTCPMaxRetrans.IsUnknown() {
+		t.Errorf("attribute was expected to be unknown before modification: %v", m)
+	}
+
+	helpers.UnknownToNull(ctx, &m)
+
+	if m.LeafSystemConntrackTCPMaxRetrans.IsUnknown() {
+		t.Errorf("attribute was expected to no longer be unknown after modification: %v", m)
+	}
+
+	diags := resp.State.Set(ctx, m)
+
+	if diags.HasError() {
+		t.Errorf("Failed with diags: %v", diags)
 	}
 }

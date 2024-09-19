@@ -53,9 +53,9 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 		return
 	}
 
-	// Save updated data into Terraform state
-	tools.Info(ctx, "Saving state")
-	tools.Trace(ctx, "Setting state to", map[string]interface{}{"data": fmt.Sprintf("%#v", stateModel)})
+	// Save data to Terraform state
+	tools.Debug(ctx, "resource created, saving state")
+	helpers.UnknownToNull(ctx, stateModel)
 	resp.Diagnostics.Append(resp.State.Set(ctx, stateModel)...)
 }
 

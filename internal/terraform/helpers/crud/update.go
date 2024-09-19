@@ -54,8 +54,8 @@ func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequ
 	}
 
 	// Save data to Terraform state
-	tools.Trace(ctx, "resource updated")
-	tools.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", planModel)})
+	tools.Debug(ctx, "resource created, saving state")
+	helpers.UnknownToNull(ctx, planModel)
 	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
 }
 
