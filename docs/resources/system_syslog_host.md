@@ -92,6 +92,7 @@ Required:
 
 Optional:
 
+- `include_timezone` (Boolean) Include system timezone in syslog message
 - `octet_counted` (Boolean) Allows for the transmission of all characters inside a syslog message
 
 

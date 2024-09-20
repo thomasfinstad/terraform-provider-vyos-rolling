@@ -59,6 +59,7 @@ type InterfacesBonding struct {
 	NodeInterfacesBondingDhcpOptions     *InterfacesBondingDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
 	NodeInterfacesBondingDhcpvsixOptions *InterfacesBondingDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
 	NodeInterfacesBondingMirror          *InterfacesBondingMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
+	NodeInterfacesBondingEapol           *InterfacesBondingEapol           `tfsdk:"eapol" vyos:"eapol,omitempty"`
 	NodeInterfacesBondingEvpn            *InterfacesBondingEvpn            `tfsdk:"evpn" vyos:"evpn,omitempty"`
 	NodeInterfacesBondingIP              *InterfacesBondingIP              `tfsdk:"ip" vyos:"ip,omitempty"`
 	NodeInterfacesBondingIPvsix          *InterfacesBondingIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
@@ -485,6 +486,17 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 `,
 			Description: `Mirror ingress/egress packets
+
+`,
+		},
+
+		"eapol": schema.SingleNestedAttribute{
+			Attributes: InterfacesBondingEapol{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Extensible Authentication Protocol over Local Area Network
+
+`,
+			Description: `Extensible Authentication Protocol over Local Area Network
 
 `,
 		},

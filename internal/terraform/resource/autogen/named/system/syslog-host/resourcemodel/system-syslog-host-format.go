@@ -18,7 +18,8 @@ var _ helpers.VyosResourceDataModel = &SystemSyslogHostFormat{}
 // SystemSyslogHostFormat describes the resource data model.
 type SystemSyslogHostFormat struct {
 	// LeafNodes
-	LeafSystemSyslogHostFormatOctetCounted types.Bool `tfsdk:"octet_counted" vyos:"octet-counted,omitempty"`
+	LeafSystemSyslogHostFormatOctetCounted    types.Bool `tfsdk:"octet_counted" vyos:"octet-counted,omitempty"`
+	LeafSystemSyslogHostFormatIncludeTimezone types.Bool `tfsdk:"include_timezone" vyos:"include-timezone,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
@@ -37,6 +38,18 @@ func (o SystemSyslogHostFormat) ResourceSchemaAttributes(ctx context.Context) ma
 
 `,
 			Description: `Allows for the transmission of all characters inside a syslog message
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"include_timezone": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Include system timezone in syslog message
+
+`,
+			Description: `Include system timezone in syslog message
 
 `,
 			Default:  booldefault.StaticBool(false),

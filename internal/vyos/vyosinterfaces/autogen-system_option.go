@@ -127,6 +127,43 @@ func system_option() schemadefinition.InterfaceDefinition {
 											},
 										}},
 									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "amd-pstate-driver",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Enables and configures pstate driver for AMD Ryzen and Epyc CPUs"},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "active",
+											Description: "The firmware controls performance states and the system governor has no effect",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "passive",
+											Description: "Allow the system governor to manage performance states",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "guided",
+											Description: "The firmware controls performance states guided by the system governor",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"active passive guided"},
+										}},
+									}},
 								}},
 							}},
 						}, {

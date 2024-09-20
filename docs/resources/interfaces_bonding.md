@@ -33,6 +33,7 @@ description: |-
       - [dhcpv6_options](#dhcpv6_options)
       - [disable](#disable)
       - [disable_link_detect](#disable_link_detect)
+      - [eapol](#eapol)
       - [evpn](#evpn)
       - [hash_policy](#hash_policy)
       - [ip](#ip)
@@ -56,6 +57,7 @@ description: |-
     - [Nested Schema for `arp_monitor`](#nested-schema-for-arp_monitor)
     - [Nested Schema for `dhcp_options`](#nested-schema-for-dhcp_options)
     - [Nested Schema for `dhcpv6_options`](#nested-schema-for-dhcpv6_options)
+    - [Nested Schema for `eapol`](#nested-schema-for-eapol)
     - [Nested Schema for `evpn`](#nested-schema-for-evpn)
     - [Nested Schema for `ip`](#nested-schema-for-ip)
     - [Nested Schema for `ipv6`](#nested-schema-for-ipv6)
@@ -101,6 +103,8 @@ description: |-
 - `disable` (Boolean) Administratively disable interface
 #### disable_link_detect
 - `disable_link_detect` (Boolean) Ignore link state changes
+#### eapol
+- `eapol` (Attributes) Extensible Authentication Protocol over Local Area Network (see [below for nested schema](#nestedatt--eapol))
 #### evpn
 - `evpn` (Attributes) EVPN Multihoming (see [below for nested schema](#nestedatt--evpn))
 #### hash_policy
@@ -276,6 +280,28 @@ Optional:
 - `parameters_only` (Boolean) Acquire only config parameters, no address
 - `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
 - `temporary` (Boolean) IPv6 temporary address
+
+
+<a id="nestedatt--eapol"></a>
+### Nested Schema for `eapol`
+
+Optional:
+
+- `ca_certificate` (List of String) Certificate Authority chain in PKI configuration
+
+    |  Format  &emsp;|  Description                      |
+    |----------|-----------------------------------|
+    |  txt     &emsp;|  Name of CA in PKI configuration  |
+- `certificate` (String) Certificate in PKI configuration
+
+    |  Format  &emsp;|  Description                               |
+    |----------|--------------------------------------------|
+    |  txt     &emsp;|  Name of certificate in PKI configuration  |
+- `passphrase` (String) Private key passphrase
+
+    |  Format  &emsp;|  Description                            |
+    |----------|-----------------------------------------|
+    |  txt     &emsp;|  Passphrase to decrypt the private key  |
 
 
 <a id="nestedatt--evpn"></a>
