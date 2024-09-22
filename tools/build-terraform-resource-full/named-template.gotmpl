@@ -331,7 +331,7 @@ import (
 				// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 				{{range .TagNodes -}}
 					{{if .GetIsBaseNode }}
-						ExistsTag{{.BaseNameCG}} bool `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},child"`
+						ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
 					{{else}}
 						Tag{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
 					{{end}}
