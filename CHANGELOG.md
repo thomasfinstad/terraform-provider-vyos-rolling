@@ -4,38 +4,50 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 2.9.202409200 (2024-09-20 08-26-48 UTC)](#release-29202409200-2024-09-20-08-26-48-utc)
+  - [Release 2.9.202409220 (2024-09-22 13-07-12 UTC)](#release-29202409220-2024-09-22-13-07-12-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
       - [Bug fixes](#bug-fixes)
+  - [Release 2.9.202409200 (2024-09-20 08-26-48 UTC)](#release-29202409200-2024-09-20-08-26-48-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
+      - [Bug fixes](#bug-fixes-1)
     - [Schema changes](#schema-changes)
       - [Features](#features)
         - [Resources](#resources)
   - [Release 2.8.202409130 (2024-09-13 07-18-47 UTC)](#release-28202409130-2024-09-13-07-18-47-utc)
-    - [Project changes](#project-changes-1)
-      - [Notes](#notes-1)
-      - [Bug fixes](#bug-fixes-1)
-    - [Schema changes](#schema-changes-1)
+    - [Project changes](#project-changes-2)
       - [Notes](#notes-2)
+      - [Bug fixes](#bug-fixes-2)
+    - [Schema changes](#schema-changes-1)
+      - [Notes](#notes-3)
         - [Resources](#resources-1)
       - [Features](#features-1)
         - [Resources](#resources-2)
   - [Release 2.7.202409090 (2024-09-09 08-28-41 UTC)](#release-27202409090-2024-09-09-08-28-41-utc)
-    - [Project changes](#project-changes-2)
-      - [Notes](#notes-3)
+    - [Project changes](#project-changes-3)
+      - [Notes](#notes-4)
     - [Schema changes](#schema-changes-2)
       - [Features](#features-2)
         - [Resources](#resources-3)
   - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
-    - [Project changes](#project-changes-3)
-      - [Notes](#notes-4)
-      - [Bug fixes](#bug-fixes-2)
+    - [Project changes](#project-changes-4)
+      - [Notes](#notes-5)
+      - [Bug fixes](#bug-fixes-3)
     - [Schema changes](#schema-changes-3)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources-4)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 2.9.202409220 (2024-09-22 13-07-12 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-09-22T00:06:41Z
+#### Bug fixes
+* remove tfsdk tags for child-exists parameters
 
 
 ## Release 2.9.202409200 (2024-09-20 08-26-48 UTC)
