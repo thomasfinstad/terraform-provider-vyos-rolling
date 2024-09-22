@@ -24,7 +24,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix bool `tfsdk:"prefix" vyos:"prefix,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
 	// Nodes
 }

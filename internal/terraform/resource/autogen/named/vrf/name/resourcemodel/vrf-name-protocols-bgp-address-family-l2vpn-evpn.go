@@ -30,7 +30,7 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"vni" vyos:"vni,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"-" vyos:"vni,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise        *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise        `tfsdk:"advertise" vyos:"advertise,omitempty"`

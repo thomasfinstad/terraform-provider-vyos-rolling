@@ -20,7 +20,7 @@ type LoadBalancingReverseProxyBackendLogging struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagLoadBalancingReverseProxyBackendLoggingFacility bool `tfsdk:"facility" vyos:"facility,child"`
+	ExistsTagLoadBalancingReverseProxyBackendLoggingFacility bool `tfsdk:"-" vyos:"facility,child"`
 
 	// Nodes
 }

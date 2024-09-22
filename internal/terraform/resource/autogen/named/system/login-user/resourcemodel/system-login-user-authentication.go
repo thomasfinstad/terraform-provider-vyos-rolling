@@ -23,7 +23,7 @@ type SystemLoginUserAuthentication struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagSystemLoginUserAuthenticationPublicKeys bool `tfsdk:"public_keys" vyos:"public-keys,child"`
+	ExistsTagSystemLoginUserAuthenticationPublicKeys bool `tfsdk:"-" vyos:"public-keys,child"`
 
 	// Nodes
 	NodeSystemLoginUserAuthenticationOtp *SystemLoginUserAuthenticationOtp `tfsdk:"otp" vyos:"otp,omitempty"`

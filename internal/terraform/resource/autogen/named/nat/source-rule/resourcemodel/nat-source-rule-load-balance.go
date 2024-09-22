@@ -22,7 +22,7 @@ type NatSourceRuleLoadBalance struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagNatSourceRuleLoadBalanceBackend bool `tfsdk:"backend" vyos:"backend,child"`
+	ExistsTagNatSourceRuleLoadBalanceBackend bool `tfsdk:"-" vyos:"backend,child"`
 
 	// Nodes
 }

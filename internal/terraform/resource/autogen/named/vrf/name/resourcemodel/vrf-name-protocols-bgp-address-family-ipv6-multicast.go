@@ -20,9 +20,9 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixMulticast struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress bool `tfsdk:"aggregate_address" vyos:"aggregate-address,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress bool `tfsdk:"-" vyos:"aggregate-address,child"`
 
-	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork bool `tfsdk:"network" vyos:"network,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork bool `tfsdk:"-" vyos:"network,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance `tfsdk:"distance" vyos:"distance,omitempty"`

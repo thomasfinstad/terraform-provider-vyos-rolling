@@ -22,7 +22,7 @@ type ProtocolsRIPInterfaceAuthentication struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagProtocolsRIPInterfaceAuthenticationMdfive bool `tfsdk:"md5" vyos:"md5,child"`
+	ExistsTagProtocolsRIPInterfaceAuthenticationMdfive bool `tfsdk:"-" vyos:"md5,child"`
 
 	// Nodes
 }

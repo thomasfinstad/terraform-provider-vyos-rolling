@@ -27,7 +27,7 @@ type InterfacesWirelessVifSDhcpvsixOptions struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagInterfacesWirelessVifSDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,child"`
+	ExistsTagInterfacesWirelessVifSDhcpvsixOptionsPd bool `tfsdk:"-" vyos:"pd,child"`
 
 	// Nodes
 }

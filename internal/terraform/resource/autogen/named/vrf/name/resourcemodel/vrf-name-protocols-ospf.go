@@ -24,15 +24,15 @@ type VrfNameProtocolsOspf struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsOspfAccessList bool `tfsdk:"access_list" vyos:"access-list,child"`
+	ExistsTagVrfNameProtocolsOspfAccessList bool `tfsdk:"-" vyos:"access-list,child"`
 
-	ExistsTagVrfNameProtocolsOspfArea bool `tfsdk:"area" vyos:"area,child"`
+	ExistsTagVrfNameProtocolsOspfArea bool `tfsdk:"-" vyos:"area,child"`
 
-	ExistsTagVrfNameProtocolsOspfInterface bool `tfsdk:"interface" vyos:"interface,child"`
+	ExistsTagVrfNameProtocolsOspfInterface bool `tfsdk:"-" vyos:"interface,child"`
 
-	ExistsTagVrfNameProtocolsOspfNeighbor bool `tfsdk:"neighbor" vyos:"neighbor,child"`
+	ExistsTagVrfNameProtocolsOspfNeighbor bool `tfsdk:"-" vyos:"neighbor,child"`
 
-	ExistsTagVrfNameProtocolsOspfSummaryAddress bool `tfsdk:"summary_address" vyos:"summary-address,child"`
+	ExistsTagVrfNameProtocolsOspfSummaryAddress bool `tfsdk:"-" vyos:"summary-address,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsOspfAggregation         *VrfNameProtocolsOspfAggregation         `tfsdk:"aggregation" vyos:"aggregation,omitempty"`

@@ -27,7 +27,7 @@ type InterfacesBondingVifDhcpvsixOptions struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagInterfacesBondingVifDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,child"`
+	ExistsTagInterfacesBondingVifDhcpvsixOptionsPd bool `tfsdk:"-" vyos:"pd,child"`
 
 	// Nodes
 }

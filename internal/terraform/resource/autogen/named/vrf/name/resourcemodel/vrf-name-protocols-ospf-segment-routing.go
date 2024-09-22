@@ -22,7 +22,7 @@ type VrfNameProtocolsOspfSegmentRouting struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsOspfSegmentRoutingPrefix bool `tfsdk:"prefix" vyos:"prefix,child"`
+	ExistsTagVrfNameProtocolsOspfSegmentRoutingPrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock *VrfNameProtocolsOspfSegmentRoutingGlobalBlock `tfsdk:"global_block" vyos:"global-block,omitempty"`

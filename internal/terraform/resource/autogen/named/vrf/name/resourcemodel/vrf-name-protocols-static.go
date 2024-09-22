@@ -20,9 +20,9 @@ type VrfNameProtocolsStatic struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsStaticRoute bool `tfsdk:"route" vyos:"route,child"`
+	ExistsTagVrfNameProtocolsStaticRoute bool `tfsdk:"-" vyos:"route,child"`
 
-	ExistsTagVrfNameProtocolsStaticRoutesix bool `tfsdk:"route6" vyos:"route6,child"`
+	ExistsTagVrfNameProtocolsStaticRoutesix bool `tfsdk:"-" vyos:"route6,child"`
 
 	// Nodes
 }

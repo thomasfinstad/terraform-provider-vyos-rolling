@@ -22,7 +22,7 @@ type InterfacesMacsecSecURItyStatic struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagInterfacesMacsecSecURItyStaticPeer bool `tfsdk:"peer" vyos:"peer,child"`
+	ExistsTagInterfacesMacsecSecURItyStaticPeer bool `tfsdk:"-" vyos:"peer,child"`
 
 	// Nodes
 }

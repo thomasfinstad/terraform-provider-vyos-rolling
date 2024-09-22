@@ -22,7 +22,7 @@ type VrfNameProtocolsBgpBmp struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsBgpBmpTarget bool `tfsdk:"target" vyos:"target,child"`
+	ExistsTagVrfNameProtocolsBgpBmpTarget bool `tfsdk:"-" vyos:"target,child"`
 
 	// Nodes
 }

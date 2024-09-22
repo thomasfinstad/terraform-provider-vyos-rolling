@@ -23,7 +23,7 @@ type VrfNameIPvsix struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameIPvsixProtocol bool `tfsdk:"protocol" vyos:"protocol,child"`
+	ExistsTagVrfNameIPvsixProtocol bool `tfsdk:"-" vyos:"protocol,child"`
 
 	// Nodes
 	NodeVrfNameIPvsixNht *VrfNameIPvsixNht `tfsdk:"nht" vyos:"nht,omitempty"`

@@ -22,7 +22,7 @@ type VrfNameProtocolsBgpListen struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsBgpListenRange bool `tfsdk:"range" vyos:"range,child"`
+	ExistsTagVrfNameProtocolsBgpListenRange bool `tfsdk:"-" vyos:"range,child"`
 
 	// Nodes
 }

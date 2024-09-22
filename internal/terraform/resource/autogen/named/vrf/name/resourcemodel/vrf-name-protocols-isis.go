@@ -38,7 +38,7 @@ type VrfNameProtocolsIsis struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsIsisInterface bool `tfsdk:"interface" vyos:"interface,child"`
+	ExistsTagVrfNameProtocolsIsisInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsIsisAreaPassword       *VrfNameProtocolsIsisAreaPassword       `tfsdk:"area_password" vyos:"area-password,omitempty"`

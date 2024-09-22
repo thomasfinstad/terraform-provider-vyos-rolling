@@ -20,7 +20,7 @@ type VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex bool `tfsdk:"index" vyos:"index,child"`
+	ExistsTagVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex bool `tfsdk:"-" vyos:"index,child"`
 
 	// Nodes
 }

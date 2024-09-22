@@ -22,11 +22,11 @@ type VrfNameProtocolsBgp struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagVrfNameProtocolsBgpInterface bool `tfsdk:"interface" vyos:"interface,child"`
+	ExistsTagVrfNameProtocolsBgpInterface bool `tfsdk:"-" vyos:"interface,child"`
 
-	ExistsTagVrfNameProtocolsBgpNeighbor bool `tfsdk:"neighbor" vyos:"neighbor,child"`
+	ExistsTagVrfNameProtocolsBgpNeighbor bool `tfsdk:"-" vyos:"neighbor,child"`
 
-	ExistsTagVrfNameProtocolsBgpPeerGroup bool `tfsdk:"peer_group" vyos:"peer-group,child"`
+	ExistsTagVrfNameProtocolsBgpPeerGroup bool `tfsdk:"-" vyos:"peer-group,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamily *VrfNameProtocolsBgpAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`

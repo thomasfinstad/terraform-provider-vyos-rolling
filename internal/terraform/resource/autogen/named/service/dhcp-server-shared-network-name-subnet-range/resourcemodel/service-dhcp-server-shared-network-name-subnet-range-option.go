@@ -43,7 +43,7 @@ type ServiceDhcpServerSharedNetworkNameSubnetRangeOption struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute bool `tfsdk:"static_route" vyos:"static-route,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute bool `tfsdk:"-" vyos:"static-route,child"`
 
 	// Nodes
 	NodeServiceDhcpServerSharedNetworkNameSubnetRangeOptionVendorOption *ServiceDhcpServerSharedNetworkNameSubnetRangeOptionVendorOption `tfsdk:"vendor_option" vyos:"vendor-option,omitempty"`

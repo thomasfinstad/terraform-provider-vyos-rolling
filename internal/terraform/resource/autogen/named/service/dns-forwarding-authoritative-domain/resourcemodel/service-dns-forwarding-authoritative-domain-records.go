@@ -20,25 +20,25 @@ type ServiceDNSForwardingAuthoritativeDomainRecords struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsA bool `tfsdk:"a" vyos:"a,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsA bool `tfsdk:"-" vyos:"a,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsAaaa bool `tfsdk:"aaaa" vyos:"aaaa,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsAaaa bool `tfsdk:"-" vyos:"aaaa,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsCname bool `tfsdk:"cname" vyos:"cname,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsCname bool `tfsdk:"-" vyos:"cname,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsMx bool `tfsdk:"mx" vyos:"mx,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsMx bool `tfsdk:"-" vyos:"mx,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNs bool `tfsdk:"ns" vyos:"ns,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNs bool `tfsdk:"-" vyos:"ns,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsPtr bool `tfsdk:"ptr" vyos:"ptr,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsPtr bool `tfsdk:"-" vyos:"ptr,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsTxt bool `tfsdk:"txt" vyos:"txt,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsTxt bool `tfsdk:"-" vyos:"txt,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSpf bool `tfsdk:"spf" vyos:"spf,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSpf bool `tfsdk:"-" vyos:"spf,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSrv bool `tfsdk:"srv" vyos:"srv,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSrv bool `tfsdk:"-" vyos:"srv,child"`
 
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNaptr bool `tfsdk:"naptr" vyos:"naptr,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNaptr bool `tfsdk:"-" vyos:"naptr,child"`
 
 	// Nodes
 }

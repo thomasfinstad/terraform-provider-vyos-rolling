@@ -22,7 +22,7 @@ type InterfacesWirelessSecURItyWpaRadius struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagInterfacesWirelessSecURItyWpaRadiusServer bool `tfsdk:"server" vyos:"server,child"`
+	ExistsTagInterfacesWirelessSecURItyWpaRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes
 }

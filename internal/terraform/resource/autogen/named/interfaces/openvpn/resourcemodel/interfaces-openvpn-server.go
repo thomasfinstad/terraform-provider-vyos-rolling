@@ -30,7 +30,7 @@ type InterfacesOpenvpnServer struct {
 
 	TagInterfacesOpenvpnServerClient *InterfacesOpenvpnServerClient `tfsdk:"client" vyos:"client,omitempty"`
 
-	ExistsTagInterfacesOpenvpnServerPushRoute bool `tfsdk:"push_route" vyos:"push-route,child"`
+	ExistsTagInterfacesOpenvpnServerPushRoute bool `tfsdk:"-" vyos:"push-route,child"`
 
 	// Nodes
 	NodeInterfacesOpenvpnServerBrIDge           *InterfacesOpenvpnServerBrIDge           `tfsdk:"bridge" vyos:"bridge,omitempty"`

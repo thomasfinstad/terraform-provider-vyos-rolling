@@ -20,7 +20,7 @@ type ProtocolsStaticTableRouteNextHopBfdMultiHop struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagProtocolsStaticTableRouteNextHopBfdMultiHopSource bool `tfsdk:"source" vyos:"source,child"`
+	ExistsTagProtocolsStaticTableRouteNextHopBfdMultiHopSource bool `tfsdk:"-" vyos:"source,child"`
 
 	// Nodes
 }

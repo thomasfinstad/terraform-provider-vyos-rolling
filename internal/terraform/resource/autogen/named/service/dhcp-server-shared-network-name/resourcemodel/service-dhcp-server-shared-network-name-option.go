@@ -43,7 +43,7 @@ type ServiceDhcpServerSharedNetworkNameOption struct {
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
-	ExistsTagServiceDhcpServerSharedNetworkNameOptionStaticRoute bool `tfsdk:"static_route" vyos:"static-route,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameOptionStaticRoute bool `tfsdk:"-" vyos:"static-route,child"`
 
 	// Nodes
 	NodeServiceDhcpServerSharedNetworkNameOptionVendorOption *ServiceDhcpServerSharedNetworkNameOptionVendorOption `tfsdk:"vendor_option" vyos:"vendor-option,omitempty"`
