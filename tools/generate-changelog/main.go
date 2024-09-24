@@ -241,6 +241,8 @@ func (c ChangeLog) Date() string {
 func (c *ChangeLog) addCc(m conventionalcommits.Message) {
 	if mc, ok := m.(*conventionalcommits.ConventionalCommit); ok {
 		c.msgs = append(c.msgs, change{conventionalCommit: mc})
+	} else if m == nil {
+		return
 	} else {
 		die(fmt.Errorf("failed to assert as conventionalcommits.ConventionalCommit: %v", m))
 	}
