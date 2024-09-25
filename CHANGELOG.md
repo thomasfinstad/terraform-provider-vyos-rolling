@@ -4,52 +4,206 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 2.10.202409250 (2024-09-25 08-29-28 UTC)](#release-210202409250-2024-09-25-08-29-28-utc)
+  - [Release 2.11.202409250 (2024-09-25 14-51-39 UTC)](#release-211202409250-2024-09-25-14-51-39-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
-    - [Schema changes](#schema-changes)
       - [Features](#features)
+    - [Schema changes](#schema-changes)
+      - [Features](#features-1)
         - [Resources](#resources)
-  - [Release 2.9.202409240 (2024-09-24 15-56-00 UTC)](#release-29202409240-2024-09-24-15-56-00-utc)
+  - [Release 2.10.202409250 (2024-09-25 08-29-28 UTC)](#release-210202409250-2024-09-25-08-29-28-utc)
     - [Project changes](#project-changes-1)
       - [Notes](#notes-1)
-      - [Bug fixes](#bug-fixes)
-  - [Release 2.9.202409220 (2024-09-22 13-07-12 UTC)](#release-29202409220-2024-09-22-13-07-12-utc)
+    - [Schema changes](#schema-changes-1)
+      - [Features](#features-2)
+        - [Resources](#resources-1)
+  - [Release 2.9.202409240 (2024-09-24 15-56-00 UTC)](#release-29202409240-2024-09-24-15-56-00-utc)
     - [Project changes](#project-changes-2)
       - [Notes](#notes-2)
-      - [Bug fixes](#bug-fixes-1)
-  - [Release 2.9.202409200 (2024-09-20 08-26-48 UTC)](#release-29202409200-2024-09-20-08-26-48-utc)
+      - [Bug fixes](#bug-fixes)
+  - [Release 2.9.202409220 (2024-09-22 13-07-12 UTC)](#release-29202409220-2024-09-22-13-07-12-utc)
     - [Project changes](#project-changes-3)
       - [Notes](#notes-3)
-      - [Bug fixes](#bug-fixes-2)
-    - [Schema changes](#schema-changes-1)
-      - [Features](#features-1)
-        - [Resources](#resources-1)
-  - [Release 2.8.202409130 (2024-09-13 07-18-47 UTC)](#release-28202409130-2024-09-13-07-18-47-utc)
+      - [Bug fixes](#bug-fixes-1)
+  - [Release 2.9.202409200 (2024-09-20 08-26-48 UTC)](#release-29202409200-2024-09-20-08-26-48-utc)
     - [Project changes](#project-changes-4)
       - [Notes](#notes-4)
-      - [Bug fixes](#bug-fixes-3)
+      - [Bug fixes](#bug-fixes-2)
     - [Schema changes](#schema-changes-2)
-      - [Notes](#notes-5)
-        - [Resources](#resources-2)
-      - [Features](#features-2)
-        - [Resources](#resources-3)
-  - [Release 2.7.202409090 (2024-09-09 08-28-41 UTC)](#release-27202409090-2024-09-09-08-28-41-utc)
-    - [Project changes](#project-changes-5)
-      - [Notes](#notes-6)
-    - [Schema changes](#schema-changes-3)
       - [Features](#features-3)
+        - [Resources](#resources-2)
+  - [Release 2.8.202409130 (2024-09-13 07-18-47 UTC)](#release-28202409130-2024-09-13-07-18-47-utc)
+    - [Project changes](#project-changes-5)
+      - [Notes](#notes-5)
+      - [Bug fixes](#bug-fixes-3)
+    - [Schema changes](#schema-changes-3)
+      - [Notes](#notes-6)
+        - [Resources](#resources-3)
+      - [Features](#features-4)
         - [Resources](#resources-4)
-  - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
+  - [Release 2.7.202409090 (2024-09-09 08-28-41 UTC)](#release-27202409090-2024-09-09-08-28-41-utc)
     - [Project changes](#project-changes-6)
       - [Notes](#notes-7)
-      - [Bug fixes](#bug-fixes-4)
     - [Schema changes](#schema-changes-4)
-      - [BREAKING CHANGES](#breaking-changes)
+      - [Features](#features-5)
         - [Resources](#resources-5)
+  - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
+    - [Project changes](#project-changes-7)
+      - [Notes](#notes-8)
+      - [Bug fixes](#bug-fixes-4)
+    - [Schema changes](#schema-changes-5)
+      - [BREAKING CHANGES](#breaking-changes)
+        - [Resources](#resources-6)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 2.11.202409250 (2024-09-25 14-51-39 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-09-25T00:06:04Z
+#### Features
+* improve interface definition merging
+
+### Schema changes
+#### Features
+
+##### Resources
+* Modified Resource `vyos_system`
+	* New attribute `domain_name`
+	* New attribute `domain_search`
+	* New attribute `host_name`
+	* New attribute `name_server`
+
+* New Resource `vyos_interfaces_l2tpv3`
+
+* New Resource `vyos_vpn_l2tp_remote_access_lns`
+
+* New Resource `vyos_vpn_l2tp_remote_access_ipsec_settings_authentication_x509`
+
+* New Resource `vyos_protocols_ospfv3_redistribute_babel`
+
+* New Resource `vyos_vpn_l2tp_remote_access`
+
+* New Resource `vyos_vpn_l2tp_remote_access_authentication_radius_rate_limit`
+
+* New Resource `vyos_vpn_l2tp_remote_access_extended_scripts`
+
+* New Resource `vyos_protocols_pim6_rp_address`
+
+* New Resource `vyos_protocols_ospfv3_graceful_restart_helper_enable`
+
+* New Resource `vyos_vpn_l2tp_remote_access_ipsec_settings_authentication`
+
+* New Resource `vyos_system_ipv6_multipath`
+
+* New Resource `vyos_vpn_l2tp_remote_access_client_ipv6_pool`
+
+* New Resource `vyos_service_dhcpv6_server_global_parameters`
+
+* New Resource `vyos_protocols_ospfv3_redistribute_ripng`
+
+* New Resource `vyos_service_dhcpv6_relay`
+
+* New Resource `vyos_vpn_l2tp_remote_access_client_ipv6_pool_delegate`
+
+* New Resource `vyos_protocols_ospfv3_area`
+
+* New Resource `vyos_protocols_ospfv3_log_adjacency_changes`
+
+* New Resource `vyos_vpn_l2tp_remote_access_authentication_radius_dynamic_author`
+
+* New Resource `vyos_protocols_pim6_interface`
+
+* New Resource `vyos_vpn_l2tp_remote_access_authentication_local_users_username`
+
+* New Resource `vyos_protocols_ospfv3_redistribute_static`
+
+* New Resource `vyos_protocols_ospfv3_distance`
+
+* New Resource `vyos_service_dhcpv6_server_shared_network_name_subnet_range`
+
+* New Resource `vyos_protocols_ospfv3_area_range`
+
+* New Resource `vyos_vpn_l2tp_remote_access_ipsec_settings`
+
+* New Resource `vyos_protocols_ospfv3_interface`
+
+* New Resource `vyos_protocols_pim6`
+
+* New Resource `vyos_service_dhcpv6_server_shared_network_name_subnet_prefix_delegation_prefix`
+
+* New Resource `vyos_service_dhcpv6_server_shared_network_name_subnet_static_mapping`
+
+* New Resource `vyos_protocols_ospfv3_redistribute_bgp`
+
+* New Resource `vyos_system_ipv6`
+
+* New Resource `vyos_protocols_ospfv3_graceful_restart`
+
+* New Resource `vyos_protocols_ospfv3_graceful_restart_helper`
+
+* New Resource `vyos_protocols_pim6_rp`
+
+* New Resource `vyos_protocols_ospfv3_auto_cost`
+
+* New Resource `vyos_vpn_l2tp_remote_access_limits`
+
+* New Resource `vyos_protocols_ospfv3_distance_ospfv3`
+
+* New Resource `vyos_protocols_ospfv3_redistribute_kernel`
+
+* New Resource `vyos_service_dhcpv6_server_shared_network_name_subnet`
+
+* New Resource `vyos_system_ipv6_nht`
+
+* New Resource `vyos_vpn_l2tp_remote_access_log`
+
+* New Resource `vyos_vpn_l2tp_remote_access_authentication_radius_server`
+
+* New Resource `vyos_service_dhcpv6_server`
+
+* New Resource `vyos_protocols_ospfv3_redistribute_connected`
+
+* New Resource `vyos_vpn_l2tp_remote_access_snmp`
+
+* New Resource `vyos_vpn_l2tp_remote_access_client_ipv6_pool_prefix`
+
+* New Resource `vyos_protocols_ospfv3_redistribute_isis`
+
+* New Resource `vyos_vpn_l2tp_remote_access_ppp_options`
+
+* New Resource `vyos_protocols_ospfv3_default_information_originate`
+
+* New Resource `vyos_vpn_l2tp_remote_access_client_ip_pool`
+
+* New Resource `vyos_system_ipv6_protocol`
+
+* New Resource `vyos_vpn_l2tp_remote_access_shaper`
+
+* New Resource `vyos_system_ipv6_neighbor`
+
+* New Resource `vyos_protocols_ospfv3_parameters`
+
+* New Resource `vyos_vpn_l2tp_remote_access_authentication`
+
+* New Resource `vyos_service_dhcpv6_server_shared_network_name`
+
+* New Resource `vyos_service_dhcpv6_relay_upstream_interface`
+
+* New Resource `vyos_protocols_pim6_interface_mld_join`
+
+* New Resource `vyos_vpn_l2tp_remote_access_authentication_radius`
+
+* New Resource `vyos_service_dhcpv6_relay_listen_interface`
+
+
+
+
+
+
+
 
 
 ## Release 2.10.202409250 (2024-09-25 08-29-28 UTC)
