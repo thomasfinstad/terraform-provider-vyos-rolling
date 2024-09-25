@@ -4,46 +4,77 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 2.9.202409240 (2024-09-24 15-56-00 UTC)](#release-29202409240-2024-09-24-15-56-00-utc)
+  - [Release 2.10.202409250 (2024-09-25 08-29-28 UTC)](#release-210202409250-2024-09-25-08-29-28-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
-      - [Bug fixes](#bug-fixes)
-  - [Release 2.9.202409220 (2024-09-22 13-07-12 UTC)](#release-29202409220-2024-09-22-13-07-12-utc)
-    - [Project changes](#project-changes-1)
-      - [Notes](#notes-1)
-      - [Bug fixes](#bug-fixes-1)
-  - [Release 2.9.202409200 (2024-09-20 08-26-48 UTC)](#release-29202409200-2024-09-20-08-26-48-utc)
-    - [Project changes](#project-changes-2)
-      - [Notes](#notes-2)
-      - [Bug fixes](#bug-fixes-2)
     - [Schema changes](#schema-changes)
       - [Features](#features)
         - [Resources](#resources)
-  - [Release 2.8.202409130 (2024-09-13 07-18-47 UTC)](#release-28202409130-2024-09-13-07-18-47-utc)
+  - [Release 2.9.202409240 (2024-09-24 15-56-00 UTC)](#release-29202409240-2024-09-24-15-56-00-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
+      - [Bug fixes](#bug-fixes)
+  - [Release 2.9.202409220 (2024-09-22 13-07-12 UTC)](#release-29202409220-2024-09-22-13-07-12-utc)
+    - [Project changes](#project-changes-2)
+      - [Notes](#notes-2)
+      - [Bug fixes](#bug-fixes-1)
+  - [Release 2.9.202409200 (2024-09-20 08-26-48 UTC)](#release-29202409200-2024-09-20-08-26-48-utc)
     - [Project changes](#project-changes-3)
       - [Notes](#notes-3)
-      - [Bug fixes](#bug-fixes-3)
+      - [Bug fixes](#bug-fixes-2)
     - [Schema changes](#schema-changes-1)
-      - [Notes](#notes-4)
-        - [Resources](#resources-1)
       - [Features](#features-1)
-        - [Resources](#resources-2)
-  - [Release 2.7.202409090 (2024-09-09 08-28-41 UTC)](#release-27202409090-2024-09-09-08-28-41-utc)
+        - [Resources](#resources-1)
+  - [Release 2.8.202409130 (2024-09-13 07-18-47 UTC)](#release-28202409130-2024-09-13-07-18-47-utc)
     - [Project changes](#project-changes-4)
-      - [Notes](#notes-5)
+      - [Notes](#notes-4)
+      - [Bug fixes](#bug-fixes-3)
     - [Schema changes](#schema-changes-2)
+      - [Notes](#notes-5)
+        - [Resources](#resources-2)
       - [Features](#features-2)
         - [Resources](#resources-3)
-  - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
+  - [Release 2.7.202409090 (2024-09-09 08-28-41 UTC)](#release-27202409090-2024-09-09-08-28-41-utc)
     - [Project changes](#project-changes-5)
       - [Notes](#notes-6)
-      - [Bug fixes](#bug-fixes-4)
     - [Schema changes](#schema-changes-3)
-      - [BREAKING CHANGES](#breaking-changes)
+      - [Features](#features-3)
         - [Resources](#resources-4)
+  - [Release 2.6.202408230 (2024-08-30 00-43-22 UTC)](#release-26202408230-2024-08-30-00-43-22-utc)
+    - [Project changes](#project-changes-6)
+      - [Notes](#notes-7)
+      - [Bug fixes](#bug-fixes-4)
+    - [Schema changes](#schema-changes-4)
+      - [BREAKING CHANGES](#breaking-changes)
+        - [Resources](#resources-5)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 2.10.202409250 (2024-09-25 08-29-28 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-09-25T00:06:04Z
+
+### Schema changes
+#### Features
+
+##### Resources
+* Modified Resource `vyos_service_ntp_server`
+	* New attribute `interleave`
+	* New attribute `ptp`
+
+* New Resource `vyos_service_ntp_ptp_timestamp_interface`
+
+* New Resource `vyos_service_ntp_ptp`
+
+
+
+
+
+
+
 
 
 ## Release 2.9.202409240 (2024-09-24 15-56-00 UTC)
