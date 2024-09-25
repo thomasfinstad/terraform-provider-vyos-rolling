@@ -21,66 +21,113 @@ import (
 
 func main() {
 	args := os.Args[1:]
-	inputXMLFilePath := args[0]
-	outputDirectory := args[1]
+	inputXMLDirPath, err := filepath.Abs(args[0])
+	die(err)
+	inputXMLDir, err := os.ReadDir(inputXMLDirPath)
+	die(err)
+	outputDirectory, err := filepath.Abs(args[1])
+	die(err)
 	pkgName := args[2]
 
 	_, thisFilename, _, ok := runtime.Caller(0)
 	if !ok {
-		panic("Did not get path info")
+		panic("Could not get path info")
 	}
 
 	slog.SetLogLoggerLevel(slog.LevelInfo)
 
-	outputBaseName := strings.TrimSuffix(filepath.Base(inputXMLFilePath), filepath.Ext(inputXMLFilePath))
-	outputFile := fmt.Sprintf("%s/autogen-%s.go", outputDirectory, outputBaseName)
+	topLevelInterfaces := make([]schemadefinition.InterfaceDefinition, 0)
 
-	slog.Info(fmt.Sprintf("->\tOutput Go file: %s", outputFile))
+Outer:
+	for _, xmlFile := range inputXMLDir {
 
-	dat, err := os.ReadFile(inputXMLFilePath)
-	die(err)
+		if xmlFile.IsDir() {
+			slog.Info("Skipping directory: " + xmlFile.Name())
+			continue
+		} else if xmlFile.Name() == "xml-component-version.xml" {
+			slog.Info(("Skipping xml component version metadata file"))
+			continue
+		}
 
-	topLevelInterface := schemadefinition.InterfaceDefinition{}
-	err = xml.Unmarshal(dat, &topLevelInterface)
-	die(err)
+		slog.Info("Input file: " + xmlFile.Name())
 
-	rootNode, err := topLevelInterface.GetRootNode()
-	die(err)
+		inputXMLFilePath := filepath.FromSlash(inputXMLDirPath + "/" + xmlFile.Name())
 
-	mergeNodeParents(rootNode)
+		dat, err := os.ReadFile(inputXMLFilePath)
+		die(err)
 
-	output := render.AsCode(topLevelInterface)
+		topLevelInterface := schemadefinition.InterfaceDefinition{}
+		err = xml.Unmarshal(dat, &topLevelInterface)
+		die(err)
 
-	outputFormatted := []byte(output)
+		rootNode, err := topLevelInterface.GetRootNode()
+		die(err)
 
-	// TODO improve interface definition generation
-	//  milestone: 6
-	//  look into using dst instead of regex replace
+		for _, checkIface := range topLevelInterfaces {
+			checkRootNode, err := checkIface.GetRootNode()
+			die(err)
 
-	// Change recursive attributes with nil as these can not be dumped as code
-	// Rendered example: Parent:<REC(&interfacedefinition.Node)>,
-	// Rendered example: LeafNode:[]*interfacedefinition.LeafNode{<REC()>}
-	outputFormatted = regexp.MustCompile(`<REC\([&A-Za-z.]*\)>?`).ReplaceAll(outputFormatted, []byte("nil"))
+			if rootNode.NodeNameAttr == checkRootNode.NodeNameAttr {
+				checkRootNode.Children[0].Node = append(checkRootNode.Children[0].Node, rootNode.GetChildren().Node...)
+				checkRootNode.Children[0].TagNode = append(checkRootNode.Children[0].TagNode, rootNode.GetChildren().TagNode...)
+				checkRootNode.Children[0].LeafNode = append(checkRootNode.Children[0].LeafNode, rootNode.GetChildren().LeafNode...)
+				continue Outer
+			}
+		}
 
-	// Remove nil values, example:
-	// VersionAttr: (&interfacedefinition.VersionAttr)(nil)}
-	// Parent: nil,
-	outputFormatted = regexp.MustCompile(`\w+:[^:]+nil\),?`).ReplaceAll(outputFormatted, []byte(""))
-	outputFormatted = regexp.MustCompile(`\w+:[ ]*nil,?`).ReplaceAll(outputFormatted, []byte(""))
-
-	// Remove empty string values, example:
-	// OwnerAttr:"",
-	outputFormatted = regexp.MustCompile(`\w+:\s*"",?`).ReplaceAll(outputFormatted, []byte(""))
-
-	file, err := os.Create(outputFile)
-	if err != nil {
-		return
+		// If we did not find a mitching interface then we append the interface
+		topLevelInterfaces = append(topLevelInterfaces, topLevelInterface)
 	}
-	defer file.Close()
 
-	funcName := strings.ReplaceAll(cases.Lower(language.Norwegian).String(outputBaseName), "-", "")
+	for _, topLevelInterface := range topLevelInterfaces {
+		rootNode, err := topLevelInterface.GetRootNode()
+		die(err)
 
-	outputBase := fmt.Sprintf(`
+		slog.Info("Merging children under: " + rootNode.NodeNameAttr)
+
+		mergeChildNodes(rootNode)
+	}
+
+	// Write files
+	for _, topLevelInterface := range topLevelInterfaces {
+		rootNode, err := topLevelInterface.GetRootNode()
+		die(err)
+
+		outputBaseName := rootNode.NodeNameAttr
+		outputFile := fmt.Sprintf("%s/autogen-%s.go", outputDirectory, outputBaseName)
+		slog.Info(fmt.Sprintf("Writing Output Go file: %s", outputFile))
+		output := render.AsCode(topLevelInterface)
+
+		outputFormatted := []byte(output)
+
+		// TODO improve interface definition generation
+		//  milestone: 6
+		//  look into using dst instead of regex replace
+
+		// Change recursive attributes with nil as these can not be dumped as code
+		// Rendered example: Parent:<REC(&interfacedefinition.Node)>,
+		// Rendered example: LeafNode:[]*interfacedefinition.LeafNode{<REC()>}
+		outputFormatted = regexp.MustCompile(`<REC\([&A-Za-z.]*\)>?`).ReplaceAll(outputFormatted, []byte("nil"))
+
+		// Remove nil values, example:
+		// VersionAttr: (&interfacedefinition.VersionAttr)(nil)}
+		// Parent: nil,
+		outputFormatted = regexp.MustCompile(`\w+:[^:]+nil\),?`).ReplaceAll(outputFormatted, []byte(""))
+		outputFormatted = regexp.MustCompile(`\w+:[ ]*nil,?`).ReplaceAll(outputFormatted, []byte(""))
+
+		// Remove empty string values, example:
+		// OwnerAttr:"",
+		outputFormatted = regexp.MustCompile(`\w+:\s*"",?`).ReplaceAll(outputFormatted, []byte(""))
+
+		file, err := os.Create(outputFile)
+		if err != nil {
+			return
+		}
+		defer file.Close()
+
+		funcName := strings.ReplaceAll(cases.Lower(language.Norwegian).String(outputBaseName), "-", "")
+
+		outputBase := fmt.Sprintf(`
 			// Code generated by %s. DO NOT EDIT.
 
 			package %s
@@ -95,33 +142,34 @@ func main() {
 				return %s
 			}
 			`,
-		strings.TrimPrefix(thisFilename, getModuleRoot()),
-		pkgName,
-		funcName,
-		outputFormatted,
-	)
+			strings.TrimPrefix(thisFilename, getModuleRoot()),
+			pkgName,
+			funcName,
+			outputFormatted,
+		)
 
-	// Use DST to add linebreaks in generated code for readability
-	fset, err := decorator.Parse(outputBase)
-	if err != nil {
-		os.WriteFile("ERROR-FILE", []byte(outputBase), 0644)
-		panic(fmt.Sprintf("%s: '%#v'\nCode written to: %s", err, err, "ERROR-FILE"))
-	}
-
-	dstutil.Apply(fset, nil, func(c *dstutil.Cursor) bool {
-		n := c.Node()
-
-		switch x := n.(type) {
-		case *dst.KeyValueExpr:
-			x.Decorations().Before = dst.NewLine
-
-		case *dst.Package:
-			slog.Info("Skipping package node")
+		// Use DST to add linebreaks in generated code for readability
+		fset, err := decorator.Parse(outputBase)
+		if err != nil {
+			os.WriteFile("ERROR-FILE", []byte(outputBase), 0644)
+			panic(fmt.Sprintf("%s: '%#v'\nCode written to: %s", err, err, "ERROR-FILE"))
 		}
 
-		return true
-	})
+		dstutil.Apply(fset, nil, func(c *dstutil.Cursor) bool {
+			n := c.Node()
 
-	err = decorator.Fprint(file, fset)
-	die(err)
+			switch x := n.(type) {
+			case *dst.KeyValueExpr:
+				x.Decorations().Before = dst.NewLine
+
+			case *dst.Package:
+				slog.Info("Skipping package node")
+			}
+
+			return true
+		})
+
+		err = decorator.Fprint(file, fset)
+		die(err)
+	}
 }

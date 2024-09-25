@@ -185,7 +185,8 @@ internal/vyos/vyosinterfaces/autogen.go: \
 											data/vyos-1x-info.txt \
 											tools/build-vyos-infterface-definition-structs \
 											$(shell find internal/vyos/schemadefinition -type f) \
-											.build/interface-definitions
+											.build/interface-definitions \
+											internal/vyos/schemadefinition/autogen-structs.go
 	@echo ###########################################################################
 	echo Make internal/vyos/vyosinterfaces/autogen.go
 
@@ -193,15 +194,11 @@ internal/vyos/vyosinterfaces/autogen.go: \
 
 	[ ! -e internal/vyos/vyosinterfaces/autogen.go ] || rm -f internal/vyos/vyosinterfaces/autogen*.go
 
-	# Generate interfaces, skip xml component version metadata file
-	for xmlFile in $$(ls ".build/interface-definitions/" | grep -v "xml-component-version.xml"); do
-		echo -en "Input xml: '$${xmlFile}'\t";
-		go run tools/build-vyos-infterface-definition-structs/*.go \
-			".build/interface-definitions/$${xmlFile}" \
+	# Generate interfaces
+	go run tools/build-vyos-infterface-definition-structs/*.go \
+			".build/interface-definitions/" \
 			"internal/vyos/vyosinterfaces" \
 			"vyosinterface"
-		echo;
-	done
 
 	# TODO clean up generation of vyosinterfaces/autogen.go
 	#  either use HEREDOC to make it prettier or create a gotemplate

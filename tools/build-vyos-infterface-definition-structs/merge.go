@@ -127,7 +127,7 @@ func populateDuplicateChildIndexes(node schemadefinition.NodeParent) (dups dupli
 	return dups
 }
 
-func mergeNodeParents(rootNode schemadefinition.NodeParent) {
+func mergeChildNodes(rootNode schemadefinition.NodeParent) {
 	// Find and move duplicate data from TagNode children
 	if reflect.ValueOf(rootNode).Kind() != reflect.Ptr {
 		panic("node parameter must be a pointer for merge to have any effect")
@@ -224,9 +224,9 @@ func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 
 	// Recurse
 	for _, c := range siblings.TagNodes() {
-		mergeNodeParents(c)
+		mergeChildNodes(c)
 	}
 	for _, c := range siblings.Nodes() {
-		mergeNodeParents(c)
+		mergeChildNodes(c)
 	}
 }
