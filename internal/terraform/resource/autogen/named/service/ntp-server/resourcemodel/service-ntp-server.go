@@ -32,10 +32,12 @@ type ServiceNtpServer struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafServiceNtpServerNoselect types.Bool `tfsdk:"noselect" vyos:"noselect,omitempty"`
-	LeafServiceNtpServerNts      types.Bool `tfsdk:"nts" vyos:"nts,omitempty"`
-	LeafServiceNtpServerPool     types.Bool `tfsdk:"pool" vyos:"pool,omitempty"`
-	LeafServiceNtpServerPrefer   types.Bool `tfsdk:"prefer" vyos:"prefer,omitempty"`
+	LeafServiceNtpServerNoselect   types.Bool `tfsdk:"noselect" vyos:"noselect,omitempty"`
+	LeafServiceNtpServerNts        types.Bool `tfsdk:"nts" vyos:"nts,omitempty"`
+	LeafServiceNtpServerPool       types.Bool `tfsdk:"pool" vyos:"pool,omitempty"`
+	LeafServiceNtpServerPrefer     types.Bool `tfsdk:"prefer" vyos:"prefer,omitempty"`
+	LeafServiceNtpServerPtp        types.Bool `tfsdk:"ptp" vyos:"ptp,omitempty"`
+	LeafServiceNtpServerInterleave types.Bool `tfsdk:"interleave" vyos:"interleave,omitempty"`
 
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
 
@@ -187,6 +189,30 @@ func (o ServiceNtpServer) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 `,
 			Description: `Marks the server as preferred
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"ptp": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Use Precision Time Protocol (PTP) transport for the server
+
+`,
+			Description: `Use Precision Time Protocol (PTP) transport for the server
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"interleave": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Use the interleaved mode for the server
+
+`,
+			Description: `Use the interleaved mode for the server
 
 `,
 			Default:  booldefault.StaticBool(false),

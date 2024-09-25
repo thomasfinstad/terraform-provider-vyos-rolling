@@ -33,6 +33,7 @@ type ServiceNtp struct {
 
 	// Nodes (Bools that show if child resources have been configured)
 	ExistsNodeServiceNtpAllowClient bool `tfsdk:"-" vyos:"allow-client,child"`
+	ExistsNodeServiceNtpPtp         bool `tfsdk:"-" vyos:"ptp,child"`
 }
 
 // SetID configures the resource ID

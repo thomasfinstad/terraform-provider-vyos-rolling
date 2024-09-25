@@ -28,10 +28,12 @@ Network Time Protocol (NTP) configuration
     - [Required](#required)
       - [identifier](#identifier)
     - [Optional](#optional)
+      - [interleave](#interleave)
       - [noselect](#noselect)
       - [nts](#nts)
       - [pool](#pool)
       - [prefer](#prefer)
+      - [ptp](#ptp)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -50,6 +52,8 @@ Network Time Protocol (NTP) configuration
 
 ### Optional
 
+#### interleave
+- `interleave` (Boolean) Use the interleaved mode for the server
 #### noselect
 - `noselect` (Boolean) Marks the server as unused
 #### nts
@@ -58,6 +62,8 @@ Network Time Protocol (NTP) configuration
 - `pool` (Boolean) Associate with a number of remote servers
 #### prefer
 - `prefer` (Boolean) Marks the server as preferred
+#### ptp
+- `ptp` (Boolean) Use Precision Time Protocol (PTP) transport for the server
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
