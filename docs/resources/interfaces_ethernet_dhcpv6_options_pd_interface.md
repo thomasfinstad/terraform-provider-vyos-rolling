@@ -4,13 +4,13 @@ page_title: "vyos_interfaces_ethernet_dhcpv6_options_pd_interface Resource - vyo
 subcategory: "Interfaces"
 
 description: |-
-  Network interfaces⯯Ethernet Interface⯯DHCPv6 client settings/options⯯DHCPv6 prefix delegation interface statement⯯Delegate IPv6 prefix from provider to this interface
+  interfaces⯯Ethernet Interface⯯DHCPv6 client settings/options⯯DHCPv6 prefix delegation interface statement⯯Delegate IPv6 prefix from provider to this interface
 ---
 
 # vyos_interfaces_ethernet_dhcpv6_options_pd_interface (Resource)
 <center>
 
-Network interfaces  
+*interfaces*  
 ⯯  
 Ethernet Interface  
 ⯯  

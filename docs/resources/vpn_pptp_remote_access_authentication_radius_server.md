@@ -4,13 +4,13 @@ page_title: "vyos_vpn_pptp_remote_access_authentication_radius_server Resource -
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Authentication for remote access PPTP VPN⯯RADIUS based user authentication⯯RADIUS server configuration
+  Virtual Private Network (VPN)⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Authentication for remote access PPTP VPN⯯RADIUS based user authentication⯯RADIUS server configuration
 ---
 
 # vyos_vpn_pptp_remote_access_authentication_radius_server (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  
 ⯯  

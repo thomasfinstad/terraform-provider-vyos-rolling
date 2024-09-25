@@ -4,13 +4,13 @@ page_title: "vyos_policy_route6_rule Resource - vyos"
 subcategory: "Policy"
 
 description: |-
-  policy⯯Policy route rule set name for IPv6⯯Policy rule number
+  Routing policy⯯Policy route rule set name for IPv6⯯Policy rule number
 ---
 
 # vyos_policy_route6_rule (Resource)
 <center>
 
-*policy*  
+Routing policy  
 ⯯  
 Policy route rule set name for IPv6  
 ⯯  

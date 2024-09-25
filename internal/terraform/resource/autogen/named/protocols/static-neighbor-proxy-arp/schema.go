@@ -14,7 +14,7 @@ func (r protocolsStaticNeighborProxyArp) Schema(ctx context.Context, req resourc
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `*protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Neighbor proxy parameters  
 ⯯  

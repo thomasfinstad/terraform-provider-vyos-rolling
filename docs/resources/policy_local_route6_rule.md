@@ -4,13 +4,13 @@ page_title: "vyos_policy_local_route6_rule Resource - vyos"
 subcategory: "Policy"
 
 description: |-
-  policy⯯IPv6 policy route of local traffic⯯IPv6 policy local-route rule set number
+  Routing policy⯯IPv6 policy route of local traffic⯯IPv6 policy local-route rule set number
 ---
 
 # vyos_policy_local_route6_rule (Resource)
 <center>
 
-*policy*  
+Routing policy  
 ⯯  
 IPv6 policy route of local traffic  
 ⯯  

@@ -32585,32 +32585,6 @@ func vrf() schemadefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
-															Parent: &schemadefinition.Node{
-																Parent: &schemadefinition.Node{
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "node",
-																	},
-																	NodeNameAttr: "graceful-restart",
-																	Children: []*schemadefinition.Children{{
-																		XMLName: xml.Name{
-																			Local: "children",
-																		},
-																		Node: []*schemadefinition.Node{nil},
-																	}},
-																},
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "helper",
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -37134,32 +37108,6 @@ func vrf() schemadefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
-															Parent: &schemadefinition.Node{
-																Parent: &schemadefinition.Node{
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "node",
-																	},
-																	NodeNameAttr: "graceful-restart",
-																	Children: []*schemadefinition.Children{{
-																		XMLName: xml.Name{
-																			Local: "children",
-																		},
-																		Node: []*schemadefinition.Node{nil},
-																	}},
-																},
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "helper",
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",

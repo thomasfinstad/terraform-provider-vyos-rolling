@@ -4,13 +4,13 @@ page_title: "vyos_vpn_sstp_authentication_radius_server Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Secure Socket Tunneling Protocol (SSTP) server⯯Authentication for remote access SSTP Server⯯RADIUS based user authentication⯯RADIUS server configuration
+  Virtual Private Network (VPN)⯯Secure Socket Tunneling Protocol (SSTP) server⯯Authentication for remote access SSTP Server⯯RADIUS based user authentication⯯RADIUS server configuration
 ---
 
 # vyos_vpn_sstp_authentication_radius_server (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  
 ⯯  

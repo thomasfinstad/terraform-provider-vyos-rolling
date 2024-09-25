@@ -14,7 +14,7 @@ func (r protocolsStaticMulticastInterfaceRoute) Schema(ctx context.Context, req 
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `*protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Multicast static route  
 ⯯  

@@ -5,7 +5,7 @@ subcategory: "Vpn"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  vpn⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Limits the connection rate from a single source
+  Virtual Private Network (VPN)⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Limits the connection rate from a single source
 ---
 
 # vyos_vpn_pptp_remote_access_limits (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  
 ⯯  

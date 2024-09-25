@@ -4,13 +4,13 @@ page_title: "vyos_service_stunnel_server Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  System services⯯Stunnel TLS Proxy⯯Stunnel server config
+  service⯯Stunnel TLS Proxy⯯Stunnel server config
 ---
 
 # vyos_service_stunnel_server (Resource)
 <center>
 
-System services  
+*service*  
 ⯯  
 Stunnel TLS Proxy  
 ⯯  

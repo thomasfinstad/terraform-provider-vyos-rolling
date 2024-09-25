@@ -4,13 +4,13 @@ page_title: "vyos_vpn_pptp_remote_access_client_ipv6_pool_delegate Resource - vy
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Pool of client IPv6 addresses⯯Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
+  Virtual Private Network (VPN)⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Pool of client IPv6 addresses⯯Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 ---
 
 # vyos_vpn_pptp_remote_access_client_ipv6_pool_delegate (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  
 ⯯  

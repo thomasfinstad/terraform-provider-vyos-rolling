@@ -5,7 +5,7 @@ subcategory: "Vpn"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  vpn⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Authentication for remote access SSL VPN Server⯯Include configuration file by username or RADIUS group attribute
+  Virtual Private Network (VPN)⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Authentication for remote access SSL VPN Server⯯Include configuration file by username or RADIUS group attribute
 ---
 
 # vyos_vpn_openconnect_authentication_identity_based_config (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 SSL VPN OpenConnect, AnyConnect compatible server  
 ⯯  

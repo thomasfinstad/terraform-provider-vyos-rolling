@@ -4,13 +4,13 @@ page_title: "vyos_system_sysctl_parameter Resource - vyos"
 subcategory: "System"
 
 description: |-
-  System parameters⯯Configure kernel parameters at runtime⯯Sysctl key name
+  system⯯Configure kernel parameters at runtime⯯Sysctl key name
 ---
 
 # vyos_system_sysctl_parameter (Resource)
 <center>
 
-System parameters  
+*system*  
 ⯯  
 Configure kernel parameters at runtime  
 ⯯  

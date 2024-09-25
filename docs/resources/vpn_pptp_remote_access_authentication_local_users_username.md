@@ -4,13 +4,13 @@ page_title: "vyos_vpn_pptp_remote_access_authentication_local_users_username Res
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Authentication for remote access PPTP VPN⯯Local user authentication for PPPoE server⯯User name for authentication
+  Virtual Private Network (VPN)⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Authentication for remote access PPTP VPN⯯Local user authentication for PPPoE server⯯User name for authentication
 ---
 
 # vyos_vpn_pptp_remote_access_authentication_local_users_username (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  
 ⯯  

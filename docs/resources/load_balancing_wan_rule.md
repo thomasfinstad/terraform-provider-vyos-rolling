@@ -4,13 +4,13 @@ page_title: "vyos_load_balancing_wan_rule Resource - vyos"
 subcategory: "Load Balancing"
 
 description: |-
-  Configure load-balancing⯯Configure Wide Area Network (WAN) load-balancing⯯Rule number (1-9999)
+  load-balancing⯯Configure Wide Area Network (WAN) load-balancing⯯Rule number (1-9999)
 ---
 
 # vyos_load_balancing_wan_rule (Resource)
 <center>
 
-Configure load-balancing  
+*load-balancing*  
 ⯯  
 Configure Wide Area Network (WAN) load-balancing  
 ⯯  

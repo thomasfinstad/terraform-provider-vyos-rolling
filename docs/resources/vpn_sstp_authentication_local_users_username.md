@@ -4,13 +4,13 @@ page_title: "vyos_vpn_sstp_authentication_local_users_username Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Secure Socket Tunneling Protocol (SSTP) server⯯Authentication for remote access SSTP Server⯯Local user authentication for PPPoE server⯯User name for authentication
+  Virtual Private Network (VPN)⯯Secure Socket Tunneling Protocol (SSTP) server⯯Authentication for remote access SSTP Server⯯Local user authentication for PPPoE server⯯User name for authentication
 ---
 
 # vyos_vpn_sstp_authentication_local_users_username (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  
 ⯯  

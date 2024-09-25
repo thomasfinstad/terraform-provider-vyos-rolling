@@ -4,13 +4,13 @@ page_title: "vyos_load_balancing_wan_interface_health Resource - vyos"
 subcategory: "Load Balancing"
 
 description: |-
-  Configure load-balancing⯯Configure Wide Area Network (WAN) load-balancing⯯Interface name
+  load-balancing⯯Configure Wide Area Network (WAN) load-balancing⯯Interface name
 ---
 
 # vyos_load_balancing_wan_interface_health (Resource)
 <center>
 
-Configure load-balancing  
+*load-balancing*  
 ⯯  
 Configure Wide Area Network (WAN) load-balancing  
 ⯯  

@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_neighbor_proxy_nd Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯static⯯Neighbor proxy parameters⯯IPv6 address for selective NDP proxy
+  protocols⯯Static Routing⯯Neighbor proxy parameters⯯IPv6 address for selective NDP proxy
 ---
 
 # vyos_protocols_static_neighbor_proxy_nd (Resource)
@@ -12,7 +12,7 @@ description: |-
 
 *protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Neighbor proxy parameters  
 ⯯  

@@ -23,6 +23,10 @@ description: |-
 - [vyos_system (Resource)](#vyos_system-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [domain_name](#domain_name)
+      - [domain_search](#domain_search)
+      - [host_name](#host_name)
+      - [name_server](#name_server)
       - [time_zone](#time_zone)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
@@ -36,6 +40,20 @@ description: |-
 
 ### Optional
 
+#### domain_name
+- `domain_name` (String) System domain name
+#### domain_search
+- `domain_search` (List of String) Domain Name Server (DNS) domain completion order
+#### host_name
+- `host_name` (String) System host name (default: vyos)
+#### name_server
+- `name_server` (List of String) System Domain Name Servers (DNS)
+
+    |  Format  &emsp;|  Description                                 |
+    |----------|----------------------------------------------|
+    |  ipv4    &emsp;|  Domain Name Server IPv4 address             |
+    |  ipv6    &emsp;|  Domain Name Server IPv6 address             |
+    |  txt     &emsp;|  Use Domain Name Server from DHCP interface  |
 #### time_zone
 - `time_zone` (String) Local time zone (default UTC)
 #### timeouts

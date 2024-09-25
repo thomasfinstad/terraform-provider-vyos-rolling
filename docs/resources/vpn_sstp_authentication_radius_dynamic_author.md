@@ -5,7 +5,7 @@ subcategory: "Vpn"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  vpn⯯Secure Socket Tunneling Protocol (SSTP) server⯯Authentication for remote access SSTP Server⯯RADIUS based user authentication⯯Dynamic Authorization Extension/Change of Authorization server
+  Virtual Private Network (VPN)⯯Secure Socket Tunneling Protocol (SSTP) server⯯Authentication for remote access SSTP Server⯯RADIUS based user authentication⯯Dynamic Authorization Extension/Change of Authorization server
 ---
 
 # vyos_vpn_sstp_authentication_radius_dynamic_author (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  
 ⯯  

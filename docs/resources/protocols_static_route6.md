@@ -4,13 +4,13 @@ page_title: "vyos_protocols_static_route6 Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  Routing protocols⯯Static Routing⯯Static IPv6 route
+  protocols⯯Static Routing⯯Static IPv6 route
 ---
 
 # vyos_protocols_static_route6 (Resource)
 <center>
 
-Routing protocols  
+*protocols*  
 ⯯  
 Static Routing  
 ⯯  

@@ -14,7 +14,7 @@ func (r vpnSstp) Schema(ctx context.Context, req resource.SchemaRequest, resp *r
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 **Secure Socket Tunneling Protocol (SSTP) server**
 `,

@@ -4,13 +4,13 @@ page_title: "vyos_vpn_openconnect_accounting_radius_server Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Accounting for users OpenConnect VPN Sessions⯯RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication mode radius⯯RADIUS server configuration
+  Virtual Private Network (VPN)⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Accounting for users OpenConnect VPN Sessions⯯RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication mode radius⯯RADIUS server configuration
 ---
 
 # vyos_vpn_openconnect_accounting_radius_server (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 SSL VPN OpenConnect, AnyConnect compatible server  
 ⯯  

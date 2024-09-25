@@ -4,13 +4,13 @@ page_title: "vyos_nat_cgnat_rule Resource - vyos"
 subcategory: "Nat"
 
 description: |-
-  nat⯯Carrier-grade NAT (CGNAT) parameters⯯Rule
+  Network Address Translation (NAT) parameters⯯Carrier-grade NAT (CGNAT) parameters⯯Rule
 ---
 
 # vyos_nat_cgnat_rule (Resource)
 <center>
 
-*nat*  
+Network Address Translation (NAT) parameters  
 ⯯  
 Carrier-grade NAT (CGNAT) parameters  
 ⯯  

@@ -4,13 +4,13 @@ page_title: "vyos_vpn_sstp_client_ip_pool Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Secure Socket Tunneling Protocol (SSTP) server⯯Client IP pool
+  Virtual Private Network (VPN)⯯Secure Socket Tunneling Protocol (SSTP) server⯯Client IP pool
 ---
 
 # vyos_vpn_sstp_client_ip_pool (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  
 ⯯  

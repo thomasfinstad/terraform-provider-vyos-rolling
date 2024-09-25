@@ -4,13 +4,13 @@ page_title: "vyos_policy_local_route_rule Resource - vyos"
 subcategory: "Policy"
 
 description: |-
-  policy⯯IPv4 policy route of local traffic⯯Policy local-route rule set number
+  Routing policy⯯IPv4 policy route of local traffic⯯Policy local-route rule set number
 ---
 
 # vyos_policy_local_route_rule (Resource)
 <center>
 
-*policy*  
+Routing policy  
 ⯯  
 IPv4 policy route of local traffic  
 ⯯  

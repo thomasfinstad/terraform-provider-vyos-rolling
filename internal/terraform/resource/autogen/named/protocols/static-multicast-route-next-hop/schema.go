@@ -14,7 +14,7 @@ func (r protocolsStaticMulticastRouteNextHop) Schema(ctx context.Context, req re
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `*protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Multicast static route  
 ⯯  

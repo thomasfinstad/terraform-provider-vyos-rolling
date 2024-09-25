@@ -749,274 +749,6 @@ func nat() schemadefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
-									Parent: &schemadefinition.TagNode{
-										IsBaseNode: false,
-										XMLName: xml.Name{
-											Local: "tagNode",
-										},
-										NodeNameAttr: "rule",
-										Children: []*schemadefinition.Children{{
-											XMLName: xml.Name{
-												Local: "children",
-											},
-											Node: []*schemadefinition.Node{nil, {
-												IsBaseNode: false,
-												XMLName: xml.Name{
-													Local: "node",
-												},
-												NodeNameAttr: "translation",
-												Properties: []*schemadefinition.Properties{{
-													XMLName: xml.Name{
-														Local: "properties",
-													},
-													Help: []string{"Inside NAT IP (destination NAT only)"},
-												}},
-												Children: []*schemadefinition.Children{{
-													XMLName: xml.Name{
-														Local: "children",
-													},
-													Node: []*schemadefinition.Node{{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "node",
-														},
-														NodeNameAttr: "options",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Translation options"},
-														}},
-														Children: []*schemadefinition.Children{{
-															XMLName: xml.Name{
-																Local: "children",
-															},
-															LeafNode: []*schemadefinition.LeafNode{{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "leafNode",
-																},
-																NodeNameAttr: "address-mapping",
-																DefaultValue: []string{"random"},
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Address mapping options"},
-																	Constraint: []*schemadefinition.Constraint{{
-																		XMLName: xml.Name{
-																			Local: "constraint",
-																		},
-																		Regex: []string{"(persistent|random)"},
-																	}},
-																	ValueHelp: []*schemadefinition.ValueHelp{{
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "persistent",
-																		Description: "Gives a client the same source or destination-address for each connection",
-																	}, {
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "random",
-																		Description: "Random source or destination address allocation for each connection",
-																	}},
-																	CompletionHelp: []*schemadefinition.CompletionHelp{{
-																		XMLName: xml.Name{
-																			Local: "completionHelp",
-																		},
-																		List: []string{"persistent random"},
-																	}},
-																}},
-															}, {
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "leafNode",
-																},
-																NodeNameAttr: "port-mapping",
-																DefaultValue: []string{"none"},
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Port mapping options"},
-																	Constraint: []*schemadefinition.Constraint{{
-																		XMLName: xml.Name{
-																			Local: "constraint",
-																		},
-																		Regex: []string{"(random|none)"},
-																	}},
-																	ValueHelp: []*schemadefinition.ValueHelp{{
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "random",
-																		Description: "Randomize source port mapping",
-																	}, {
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "none",
-																		Description: "Do not apply port randomization",
-																	}},
-																	CompletionHelp: []*schemadefinition.CompletionHelp{{
-																		XMLName: xml.Name{
-																			Local: "completionHelp",
-																		},
-																		List: []string{"random none"},
-																	}},
-																}},
-															}},
-														}},
-													}, {
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "node",
-														},
-														NodeNameAttr: "redirect",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Redirect to local host"},
-														}},
-														Children: []*schemadefinition.Children{{
-															XMLName: xml.Name{
-																Local: "children",
-															},
-															LeafNode: []*schemadefinition.LeafNode{{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "leafNode",
-																},
-																NodeNameAttr: "port",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Port number"},
-																	Constraint: []*schemadefinition.Constraint{{
-																		XMLName: xml.Name{
-																			Local: "constraint",
-																		},
-																		Validator: []*schemadefinition.Validator{{
-																			XMLName: xml.Name{
-																				Local: "validator",
-																			},
-																			NameAttr: "port-range",
-																		}},
-																	}},
-																	ValueHelp: []*schemadefinition.ValueHelp{{
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "u32:1-65535",
-																		Description: "Numeric IP port",
-																	}, {
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "range",
-																		Description: "Numbered port range (e.g., 1001-1005)",
-																	}},
-																}},
-															}},
-														}},
-													}},
-													LeafNode: []*schemadefinition.LeafNode{{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "leafNode",
-														},
-														NodeNameAttr: "address",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"IP address, subnet, or range"},
-															Constraint: []*schemadefinition.Constraint{{
-																XMLName: xml.Name{
-																	Local: "constraint",
-																},
-																Validator: []*schemadefinition.Validator{{
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "ipv4-prefix",
-																}, {
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "ipv4-address",
-																}, {
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "ipv4-range",
-																}},
-															}},
-															ValueHelp: []*schemadefinition.ValueHelp{{
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "ipv4",
-																Description: "IPv4 address to match",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "ipv4net",
-																Description: "IPv4 prefix to match",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "ipv4range",
-																Description: "IPv4 address range to match",
-															}},
-														}},
-													}, {
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "leafNode",
-														},
-														NodeNameAttr: "port",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Port number"},
-															Constraint: []*schemadefinition.Constraint{{
-																XMLName: xml.Name{
-																	Local: "constraint",
-																},
-																Validator: []*schemadefinition.Validator{{
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "port-range",
-																}},
-															}},
-															ValueHelp: []*schemadefinition.ValueHelp{{
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "u32:1-65535",
-																Description: "Numeric IP port",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "range",
-																Description: "Numbered port range (e.g., 1001-1005)",
-															}},
-														}},
-													}},
-												}},
-											}},
-										}},
-									},
 									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
@@ -1116,118 +848,6 @@ func nat() schemadefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
-									Parent: &schemadefinition.TagNode{
-										IsBaseNode: false,
-										XMLName: xml.Name{
-											Local: "tagNode",
-										},
-										NodeNameAttr: "rule",
-										Children: []*schemadefinition.Children{{
-											XMLName: xml.Name{
-												Local: "children",
-											},
-											Node: []*schemadefinition.Node{{
-												IsBaseNode: false,
-												XMLName: xml.Name{
-													Local: "node",
-												},
-												NodeNameAttr: "inbound-interface",
-												Properties: []*schemadefinition.Properties{{
-													XMLName: xml.Name{
-														Local: "properties",
-													},
-													Help: []string{"Match inbound-interface"},
-												}},
-												Children: []*schemadefinition.Children{{
-													XMLName: xml.Name{
-														Local: "children",
-													},
-													LeafNode: []*schemadefinition.LeafNode{{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "leafNode",
-														},
-														NodeNameAttr: "name",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Match interface"},
-															Constraint: []*schemadefinition.Constraint{{
-																XMLName: xml.Name{
-																	Local: "constraint",
-																},
-																Regex: []string{"(\\!?)(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)([0-9]?)(\\&?)(.+)?|(\\!?)lo"},
-																Validator: []*schemadefinition.Validator{{
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "vrf-name",
-																}},
-															}},
-															ValueHelp: []*schemadefinition.ValueHelp{{
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "txt",
-																Description: "Interface name",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "txt&",
-																Description: "Interface name with wildcard",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "!txt",
-																Description: "Inverted interface name to match",
-															}},
-															CompletionHelp: []*schemadefinition.CompletionHelp{{
-																XMLName: xml.Name{
-																	Local: "completionHelp",
-																},
-																Path:   []string{"vrf name"},
-																Script: []string{"${vyos_completion_dir}/list_interfaces"},
-															}},
-														}},
-													}, {
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "leafNode",
-														},
-														NodeNameAttr: "group",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Match interface-group"},
-															ValueHelp: []*schemadefinition.ValueHelp{{
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "txt",
-																Description: "Interface-group name to match",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "!txt",
-																Description: "Inverted interface-group name to match",
-															}},
-															CompletionHelp: []*schemadefinition.CompletionHelp{{
-																XMLName: xml.Name{
-																	Local: "completionHelp",
-																},
-																Path: []string{"firewall group interface-group"},
-															}},
-														}},
-													}},
-												}},
-											}, nil},
-										}},
-									},
 									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
@@ -2716,259 +2336,6 @@ func nat() schemadefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
-									Parent: &schemadefinition.TagNode{
-										IsBaseNode: false,
-										XMLName: xml.Name{
-											Local: "tagNode",
-										},
-										NodeNameAttr: "rule",
-										Properties: []*schemadefinition.Properties{{
-											XMLName: xml.Name{
-												Local: "properties",
-											},
-											Help: []string{"Rule number for NAT"},
-											Constraint: []*schemadefinition.Constraint{{
-												XMLName: xml.Name{
-													Local: "constraint",
-												},
-												Validator: []*schemadefinition.Validator{{
-													XMLName: xml.Name{
-														Local: "validator",
-													},
-													NameAttr:     "numeric",
-													ArgumentAttr: "--range 1-999999",
-												}},
-											}},
-											ValueHelp: []*schemadefinition.ValueHelp{{
-												XMLName: xml.Name{
-													Local: "valueHelp",
-												},
-												Format:      "u32:1-999999",
-												Description: "Number of NAT rule",
-											}},
-											ConstraintErrorMessage: []string{"NAT rule number must be between 1 and 999999"},
-										}},
-										Children: []*schemadefinition.Children{{
-											XMLName: xml.Name{
-												Local: "children",
-											},
-											Node: []*schemadefinition.Node{nil, {
-												IsBaseNode: false,
-												XMLName: xml.Name{
-													Local: "node",
-												},
-												NodeNameAttr: "translation",
-												Properties: []*schemadefinition.Properties{{
-													XMLName: xml.Name{
-														Local: "properties",
-													},
-													Help: []string{"Outside NAT IP (source NAT only)"},
-												}},
-												Children: []*schemadefinition.Children{{
-													XMLName: xml.Name{
-														Local: "children",
-													},
-													Node: []*schemadefinition.Node{{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "node",
-														},
-														NodeNameAttr: "options",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Translation options"},
-														}},
-														Children: []*schemadefinition.Children{{
-															XMLName: xml.Name{
-																Local: "children",
-															},
-															LeafNode: []*schemadefinition.LeafNode{{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "leafNode",
-																},
-																NodeNameAttr: "address-mapping",
-																DefaultValue: []string{"random"},
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Address mapping options"},
-																	Constraint: []*schemadefinition.Constraint{{
-																		XMLName: xml.Name{
-																			Local: "constraint",
-																		},
-																		Regex: []string{"(persistent|random)"},
-																	}},
-																	ValueHelp: []*schemadefinition.ValueHelp{{
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "persistent",
-																		Description: "Gives a client the same source or destination-address for each connection",
-																	}, {
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "random",
-																		Description: "Random source or destination address allocation for each connection",
-																	}},
-																	CompletionHelp: []*schemadefinition.CompletionHelp{{
-																		XMLName: xml.Name{
-																			Local: "completionHelp",
-																		},
-																		List: []string{"persistent random"},
-																	}},
-																}},
-															}, {
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "leafNode",
-																},
-																NodeNameAttr: "port-mapping",
-																DefaultValue: []string{"none"},
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Port mapping options"},
-																	Constraint: []*schemadefinition.Constraint{{
-																		XMLName: xml.Name{
-																			Local: "constraint",
-																		},
-																		Regex: []string{"(random|none)"},
-																	}},
-																	ValueHelp: []*schemadefinition.ValueHelp{{
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "random",
-																		Description: "Randomize source port mapping",
-																	}, {
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
-																		Format:      "none",
-																		Description: "Do not apply port randomization",
-																	}},
-																	CompletionHelp: []*schemadefinition.CompletionHelp{{
-																		XMLName: xml.Name{
-																			Local: "completionHelp",
-																		},
-																		List: []string{"random none"},
-																	}},
-																}},
-															}},
-														}},
-													}},
-													LeafNode: []*schemadefinition.LeafNode{{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "leafNode",
-														},
-														NodeNameAttr: "address",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"IP address, subnet, or range"},
-															Constraint: []*schemadefinition.Constraint{{
-																XMLName: xml.Name{
-																	Local: "constraint",
-																},
-																Regex: []string{"(masquerade)"},
-																Validator: []*schemadefinition.Validator{{
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "ipv4-prefix",
-																}, {
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "ipv4-address",
-																}, {
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "ipv4-range",
-																}},
-															}},
-															ValueHelp: []*schemadefinition.ValueHelp{{
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "ipv4",
-																Description: "IPv4 address to match",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "ipv4net",
-																Description: "IPv4 prefix to match",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "ipv4range",
-																Description: "IPv4 address range to match",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "masquerade",
-																Description: "NAT to the primary address of outbound-interface",
-															}},
-															CompletionHelp: []*schemadefinition.CompletionHelp{{
-																XMLName: xml.Name{
-																	Local: "completionHelp",
-																},
-																List: []string{"masquerade"},
-															}},
-														}},
-													}, {
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "leafNode",
-														},
-														NodeNameAttr: "port",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Port number"},
-															Constraint: []*schemadefinition.Constraint{{
-																XMLName: xml.Name{
-																	Local: "constraint",
-																},
-																Validator: []*schemadefinition.Validator{{
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "port-range",
-																}},
-															}},
-															ValueHelp: []*schemadefinition.ValueHelp{{
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "u32:1-65535",
-																Description: "Numeric IP port",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "range",
-																Description: "Numbered port range (e.g., 1001-1005)",
-															}},
-														}},
-													}},
-												}},
-											}},
-										}},
-									},
 									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
@@ -3068,144 +2435,6 @@ func nat() schemadefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
-									Parent: &schemadefinition.TagNode{
-										IsBaseNode: false,
-										XMLName: xml.Name{
-											Local: "tagNode",
-										},
-										NodeNameAttr: "rule",
-										Properties: []*schemadefinition.Properties{{
-											XMLName: xml.Name{
-												Local: "properties",
-											},
-											Help: []string{"Rule number for NAT"},
-											Constraint: []*schemadefinition.Constraint{{
-												XMLName: xml.Name{
-													Local: "constraint",
-												},
-												Validator: []*schemadefinition.Validator{{
-													XMLName: xml.Name{
-														Local: "validator",
-													},
-													NameAttr:     "numeric",
-													ArgumentAttr: "--range 1-999999",
-												}},
-											}},
-											ValueHelp: []*schemadefinition.ValueHelp{{
-												XMLName: xml.Name{
-													Local: "valueHelp",
-												},
-												Format:      "u32:1-999999",
-												Description: "Number of NAT rule",
-											}},
-											ConstraintErrorMessage: []string{"NAT rule number must be between 1 and 999999"},
-										}},
-										Children: []*schemadefinition.Children{{
-											XMLName: xml.Name{
-												Local: "children",
-											},
-											Node: []*schemadefinition.Node{{
-												IsBaseNode: false,
-												XMLName: xml.Name{
-													Local: "node",
-												},
-												NodeNameAttr: "outbound-interface",
-												Properties: []*schemadefinition.Properties{{
-													XMLName: xml.Name{
-														Local: "properties",
-													},
-													Help: []string{"Match outbound-interface"},
-												}},
-												Children: []*schemadefinition.Children{{
-													XMLName: xml.Name{
-														Local: "children",
-													},
-													LeafNode: []*schemadefinition.LeafNode{{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "leafNode",
-														},
-														NodeNameAttr: "name",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Match interface"},
-															Constraint: []*schemadefinition.Constraint{{
-																XMLName: xml.Name{
-																	Local: "constraint",
-																},
-																Regex: []string{"(\\!?)(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)([0-9]?)(\\&?)(.+)?|(\\!?)lo"},
-																Validator: []*schemadefinition.Validator{{
-																	XMLName: xml.Name{
-																		Local: "validator",
-																	},
-																	NameAttr: "vrf-name",
-																}},
-															}},
-															ValueHelp: []*schemadefinition.ValueHelp{{
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "txt",
-																Description: "Interface name",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "txt&",
-																Description: "Interface name with wildcard",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "!txt",
-																Description: "Inverted interface name to match",
-															}},
-															CompletionHelp: []*schemadefinition.CompletionHelp{{
-																XMLName: xml.Name{
-																	Local: "completionHelp",
-																},
-																Path:   []string{"vrf name"},
-																Script: []string{"${vyos_completion_dir}/list_interfaces"},
-															}},
-														}},
-													}, {
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "leafNode",
-														},
-														NodeNameAttr: "group",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"Match interface-group"},
-															ValueHelp: []*schemadefinition.ValueHelp{{
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "txt",
-																Description: "Interface-group name to match",
-															}, {
-																XMLName: xml.Name{
-																	Local: "valueHelp",
-																},
-																Format:      "!txt",
-																Description: "Inverted interface-group name to match",
-															}},
-															CompletionHelp: []*schemadefinition.CompletionHelp{{
-																XMLName: xml.Name{
-																	Local: "completionHelp",
-																},
-																Path: []string{"firewall group interface-group"},
-															}},
-														}},
-													}},
-												}},
-											}, nil},
-										}},
-									},
 									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
@@ -4148,6 +3377,483 @@ func nat() schemadefinition.InterfaceDefinition {
 											},
 										}},
 									}},
+								}},
+							}},
+						}},
+					}},
+				}, {
+					IsBaseNode: false,
+					XMLName: xml.Name{
+						Local: "node",
+					},
+					NodeNameAttr: "cgnat",
+					OwnerAttr:    "${vyos_conf_scripts_dir}/nat_cgnat.py",
+					Properties: []*schemadefinition.Properties{{
+						XMLName: xml.Name{
+							Local: "properties",
+						},
+						Help:     []string{"Carrier-grade NAT (CGNAT) parameters"},
+						Priority: []string{"221"},
+					}},
+					Children: []*schemadefinition.Children{{
+						XMLName: xml.Name{
+							Local: "children",
+						},
+						Node: []*schemadefinition.Node{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "pool",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"External and internal pool parameters"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								TagNode: []*schemadefinition.TagNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "tagNode",
+									},
+									NodeNameAttr: "external",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"External pool name"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[-_a-zA-Z0-9][\\w\\-\\.\\+]&"},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "External pool name",
+										}},
+										ConstraintErrorMessage: []string{"Name of pool can only contain alpha-numeric letters, hyphen and underscores"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										Node: []*schemadefinition.Node{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "per-user-limit",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Per user limits for the pool"},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port",
+													DefaultValue: []string{"2000"},
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Ports per user"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-65535",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-65535",
+															Description: "Numeric IP port",
+														}},
+													}},
+												}},
+											}},
+										}},
+										TagNode: []*schemadefinition.TagNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "tagNode",
+											},
+											NodeNameAttr: "range",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Range of IP addresses"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-host",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4net",
+													Description: "IPv4 prefix",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4range",
+													Description: "IPv4 address range",
+												}},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "seq",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Sequence"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-999999",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-999999",
+															Description: "Sequence number",
+														}},
+														ConstraintErrorMessage: []string{"Sequence number must be between 1 and 999999"},
+													}},
+												}},
+											}},
+										}},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "external-port-range",
+											DefaultValue: []string{"1024-65535"},
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Port range"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "port-range",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "range",
+													Description: "Numbered port range (e.g., 1001-1005)",
+												}},
+											}},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "tagNode",
+									},
+									NodeNameAttr: "internal",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Internal pool name"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[-_a-zA-Z0-9][\\w\\-\\.\\+]&"},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Internal pool name",
+										}},
+										ConstraintErrorMessage: []string{"Name of pool can only contain alpha-numeric letters, hyphen and underscores"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "range",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Range of IP addresses"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-host",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4net",
+													Description: "IPv4 prefix",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4range",
+													Description: "IPv4 address range",
+												}},
+												Multi: []*schemadefinition.Multi{{
+													XMLName: xml.Name{
+														Local: "multi",
+													},
+												}},
+											}},
+										}},
+									}},
+								}},
+							}},
+						}},
+						TagNode: []*schemadefinition.TagNode{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "tagNode",
+							},
+							NodeNameAttr: "rule",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Rule"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*schemadefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr:     "numeric",
+										ArgumentAttr: "--range 1-999999",
+									}},
+								}},
+								ValueHelp: []*schemadefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "u32:1-999999",
+									Description: "Number for this CGNAT rule",
+								}},
+								ConstraintErrorMessage: []string{"Rule number must be between 1 and 999999"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								Node: []*schemadefinition.Node{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "source",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Source parameters"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "pool",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Source internal pool"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"[-_a-zA-Z0-9][\\w\\-\\.\\+]&"},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Source internal pool name",
+												}},
+												ConstraintErrorMessage: []string{"Name of pool can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Path: []string{"nat cgnat pool internal"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "translation",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Translation parameters"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "pool",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Translation external pool"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"[-_a-zA-Z0-9][\\w\\-\\.\\+]&"},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Translation external pool name",
+												}},
+												ConstraintErrorMessage: []string{"Name of pool can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Path: []string{"nat cgnat pool external"},
+												}},
+											}},
+										}},
+									}},
+								}},
+							}},
+						}},
+						LeafNode: []*schemadefinition.LeafNode{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "log-allocation",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Log IP address and port allocation"},
+								Valueless: []*schemadefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
 								}},
 							}},
 						}},

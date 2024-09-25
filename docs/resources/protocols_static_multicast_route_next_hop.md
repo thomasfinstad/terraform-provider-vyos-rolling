@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_multicast_route_next_hop Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯static⯯Multicast static route⯯Configure static unicast route into MRIB for multicast RPF lookup⯯Nexthop IPv4 address
+  protocols⯯Static Routing⯯Multicast static route⯯Configure static unicast route into MRIB for multicast RPF lookup⯯Nexthop IPv4 address
 ---
 
 # vyos_protocols_static_multicast_route_next_hop (Resource)
@@ -12,7 +12,7 @@ description: |-
 
 *protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Multicast static route  
 ⯯  

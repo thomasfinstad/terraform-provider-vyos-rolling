@@ -4,13 +4,13 @@ page_title: "vyos_interfaces_ethernet Resource - vyos"
 subcategory: "Interfaces"
 
 description: |-
-  Network interfaces⯯Ethernet Interface
+  interfaces⯯Ethernet Interface
 ---
 
 # vyos_interfaces_ethernet (Resource)
 <center>
 
-Network interfaces  
+*interfaces*  
 ⯯  
 **Ethernet Interface**
 

@@ -14,7 +14,7 @@ func (r serviceMonitoringZabbixAgentServerActive) Schema(ctx context.Context, re
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `*service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Zabbix-agent settings  
 ⯯  

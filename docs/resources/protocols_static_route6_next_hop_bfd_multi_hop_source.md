@@ -4,13 +4,13 @@ page_title: "vyos_protocols_static_route6_next_hop_bfd_multi_hop_source Resource
 subcategory: "Protocols"
 
 description: |-
-  Routing protocols⯯Static Routing⯯Static IPv6 route⯯IPv6 gateway address⯯BFD monitoring⯯Use BFD multi hop session⯯Use source for BFD session
+  protocols⯯Static Routing⯯Static IPv6 route⯯IPv6 gateway address⯯BFD monitoring⯯Use BFD multi hop session⯯Use source for BFD session
 ---
 
 # vyos_protocols_static_route6_next_hop_bfd_multi_hop_source (Resource)
 <center>
 
-Routing protocols  
+*protocols*  
 ⯯  
 Static Routing  
 ⯯  

@@ -4,13 +4,13 @@ page_title: "vyos_vpn_pptp_remote_access_client_ip_pool Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Client IP pool
+  Virtual Private Network (VPN)⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Client IP pool
 ---
 
 # vyos_vpn_pptp_remote_access_client_ip_pool (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  
 ⯯  

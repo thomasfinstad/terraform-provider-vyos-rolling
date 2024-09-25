@@ -4,13 +4,13 @@ page_title: "vyos_vpn_sstp_client_ipv6_pool_prefix Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Secure Socket Tunneling Protocol (SSTP) server⯯Pool of client IPv6 addresses⯯Pool of addresses used to assign to clients
+  Virtual Private Network (VPN)⯯Secure Socket Tunneling Protocol (SSTP) server⯯Pool of client IPv6 addresses⯯Pool of addresses used to assign to clients
 ---
 
 # vyos_vpn_sstp_client_ipv6_pool_prefix (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  
 ⯯  

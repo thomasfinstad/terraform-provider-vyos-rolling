@@ -31,6 +31,9 @@ type ProtocolsStatic struct {
 	ExistsTagProtocolsStaticTable    bool `tfsdk:"-" vyos:"table,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
+	ExistsNodeProtocolsStaticArp           bool `tfsdk:"-" vyos:"arp,child"`
+	ExistsNodeProtocolsStaticMulticast     bool `tfsdk:"-" vyos:"multicast,child"`
+	ExistsNodeProtocolsStaticNeighborProxy bool `tfsdk:"-" vyos:"neighbor-proxy,child"`
 }
 
 // SetID configures the resource ID

@@ -14,7 +14,7 @@ func (r protocolsStaticMulticastInterfaceRouteNextHopInterface) Schema(ctx conte
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `*protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Multicast static route  
 ⯯  

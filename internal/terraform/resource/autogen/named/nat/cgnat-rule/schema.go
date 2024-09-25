@@ -12,7 +12,7 @@ import (
 func (r natCgnatRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `*nat*  
+		MarkdownDescription: `Network Address Translation (NAT) parameters  
 ⯯  
 Carrier-grade NAT (CGNAT) parameters  
 ⯯  

@@ -4,13 +4,13 @@ page_title: "vyos_vpn_openconnect_authentication_radius_server Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Authentication for remote access SSL VPN Server⯯RADIUS based user authentication⯯RADIUS server configuration
+  Virtual Private Network (VPN)⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Authentication for remote access SSL VPN Server⯯RADIUS based user authentication⯯RADIUS server configuration
 ---
 
 # vyos_vpn_openconnect_authentication_radius_server (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 SSL VPN OpenConnect, AnyConnect compatible server  
 ⯯  

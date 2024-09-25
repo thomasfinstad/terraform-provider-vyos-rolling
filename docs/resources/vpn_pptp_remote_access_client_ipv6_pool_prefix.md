@@ -4,13 +4,13 @@ page_title: "vyos_vpn_pptp_remote_access_client_ipv6_pool_prefix Resource - vyos
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Pool of client IPv6 addresses⯯Pool of addresses used to assign to clients
+  Virtual Private Network (VPN)⯯Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)⯯Remote access PPTP VPN⯯Pool of client IPv6 addresses⯯Pool of addresses used to assign to clients
 ---
 
 # vyos_vpn_pptp_remote_access_client_ipv6_pool_prefix (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  
 ⯯  

@@ -4,13 +4,13 @@ page_title: "vyos_vpn_sstp_client_ipv6_pool_delegate Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯Secure Socket Tunneling Protocol (SSTP) server⯯Pool of client IPv6 addresses⯯Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
+  Virtual Private Network (VPN)⯯Secure Socket Tunneling Protocol (SSTP) server⯯Pool of client IPv6 addresses⯯Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 ---
 
 # vyos_vpn_sstp_client_ipv6_pool_delegate (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  
 ⯯  

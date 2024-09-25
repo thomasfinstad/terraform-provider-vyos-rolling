@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_arp_interface Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯static⯯Static ARP translation⯯Interface configuration
+  protocols⯯Static Routing⯯Static ARP translation⯯Interface configuration
 ---
 
 # vyos_protocols_static_arp_interface (Resource)
@@ -12,7 +12,7 @@ description: |-
 
 *protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Static ARP translation  
 ⯯  

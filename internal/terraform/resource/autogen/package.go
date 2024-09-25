@@ -201,6 +201,22 @@ import (
 	globalprotocolsospfsegmentroutingglobalblock "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-segment-routing-global-block"
 	globalprotocolsospfsegmentroutinglocalblock "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-segment-routing-local-block"
 	globalprotocolsospftimersthrottlespf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospf-timers-throttle-spf"
+	globalprotocolsospfvthreeautocost "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-auto-cost"
+	globalprotocolsospfvthreedefaultinformationoriginate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-default-information-originate"
+	globalprotocolsospfvthreedistance "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-distance"
+	globalprotocolsospfvthreedistanceospfvthree "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-distance-ospfv3"
+	globalprotocolsospfvthreegracefulrestart "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-graceful-restart"
+	globalprotocolsospfvthreegracefulrestarthelper "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-graceful-restart-helper"
+	globalprotocolsospfvthreegracefulrestarthelperenable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-graceful-restart-helper-enable"
+	globalprotocolsospfvthreelogadjacencychanges "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-log-adjacency-changes"
+	globalprotocolsospfvthreeparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-parameters"
+	globalprotocolsospfvthreeredistributebabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-redistribute-babel"
+	globalprotocolsospfvthreeredistributebgp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-redistribute-bgp"
+	globalprotocolsospfvthreeredistributeconnected "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-redistribute-connected"
+	globalprotocolsospfvthreeredistributeisis "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-redistribute-isis"
+	globalprotocolsospfvthreeredistributekernel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-redistribute-kernel"
+	globalprotocolsospfvthreeredistributeripng "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-redistribute-ripng"
+	globalprotocolsospfvthreeredistributestatic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/ospfv3-redistribute-static"
 	globalprotocolspim "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim"
 	globalprotocolspimecmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-ecmp"
 	globalprotocolspimigmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-igmp"
@@ -208,6 +224,8 @@ import (
 	globalprotocolspimrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-rp"
 	globalprotocolspimsptswitchoverinfinityandbeyond "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-spt-switchover-infinity-and-beyond"
 	globalprotocolspimssm "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim-ssm"
+	globalprotocolspimsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim6"
+	globalprotocolspimsixrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/pim6-rp"
 	globalprotocolsrip "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip"
 	globalprotocolsripdefaultinformation "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-default-information"
 	globalprotocolsripdistributelistaccesslist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/rip-distribute-list-access-list"
@@ -251,6 +269,9 @@ import (
 	globalservicedhcprelayrelayoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-relay-relay-options"
 	globalservicedhcpserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-server"
 	globalservicedhcpserverhighavailability "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-server-high-availability"
+	globalservicedhcpvsixrelay "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcpv6-relay"
+	globalservicedhcpvsixserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcpv6-server"
+	globalservicedhcpvsixserverglobalparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcpv6-server-global-parameters"
 	globalservicednsdynamic "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dns-dynamic"
 	globalservicednsforwarding "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dns-forwarding"
 	globalservicednsforwardingoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dns-forwarding-options"
@@ -353,6 +374,10 @@ import (
 	globalsystemipmultipath "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip-multipath"
 	globalsystemipnht "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip-nht"
 	globalsystemiptcpmss "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip-tcp-mss"
+	globalsystemipvsix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ipv6"
+	globalsystemipvsixmultipath "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ipv6-multipath"
+	globalsystemipvsixneighbor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ipv6-neighbor"
+	globalsystemipvsixnht "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ipv6-nht"
 	globalsystemlcd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/lcd"
 	globalsystemlogin "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/login"
 	globalsystemloginbanner "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/login-banner"
@@ -377,6 +402,21 @@ import (
 	globalvpnipsecoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec-options"
 	globalvpnipsecremoteaccessdhcp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec-remote-access-dhcp"
 	globalvpnipsecremoteaccessradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec-remote-access-radius"
+	globalvpnltwotpremoteaccess "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access"
+	globalvpnltwotpremoteaccessauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-authentication"
+	globalvpnltwotpremoteaccessauthenticationradius "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-authentication-radius"
+	globalvpnltwotpremoteaccessauthenticationradiusdynamicauthor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-authentication-radius-dynamic-author"
+	globalvpnltwotpremoteaccessauthenticationradiusratelimit "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-authentication-radius-rate-limit"
+	globalvpnltwotpremoteaccessextendedscripts "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-extended-scripts"
+	globalvpnltwotpremoteaccessipsecsettings "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-ipsec-settings"
+	globalvpnltwotpremoteaccessipsecsettingsauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-ipsec-settings-authentication"
+	globalvpnltwotpremoteaccessipsecsettingsauthenticationxfivezeronine "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-ipsec-settings-authentication-x509"
+	globalvpnltwotpremoteaccesslimits "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-limits"
+	globalvpnltwotpremoteaccesslns "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-lns"
+	globalvpnltwotpremoteaccesslog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-log"
+	globalvpnltwotpremoteaccesspppoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-ppp-options"
+	globalvpnltwotpremoteaccessshaper "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-shaper"
+	globalvpnltwotpremoteaccesssnmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/l2tp-remote-access-snmp"
 	globalvpnopenconnect "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect"
 	globalvpnopenconnectaccountingmode "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-accounting-mode"
 	globalvpnopenconnectauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/openconnect-authentication"
@@ -494,6 +534,7 @@ import (
 	namedinterfacesethernetvifsvifcdhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/ethernet-vif-s-vif-c-dhcpv6-options-pd-interface"
 	namedinterfacesgeneve "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/geneve"
 	namedinterfacesinput "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/input"
+	namedinterfacesltwotpvthree "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/l2tpv3"
 	namedinterfacesloopback "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/loopback"
 	namedinterfacesmacsec "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/macsec"
 	namedinterfacesmacsecdhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/macsec-dhcpv6-options-pd"
@@ -666,9 +707,15 @@ import (
 	namedprotocolsospfredistributetable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-redistribute-table"
 	namedprotocolsospfsegmentroutingprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-segment-routing-prefix"
 	namedprotocolsospfsummaryaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-summary-address"
+	namedprotocolsospfvthreearea "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospfv3-area"
+	namedprotocolsospfvthreearearange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospfv3-area-range"
+	namedprotocolsospfvthreeinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospfv3-interface"
 	namedprotocolspiminterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim-interface"
 	namedprotocolspiminterfaceigmpjoin "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim-interface-igmp-join"
 	namedprotocolspimrpaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim-rp-address"
+	namedprotocolspimsixinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim6-interface"
+	namedprotocolspimsixinterfacemldjoin "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim6-interface-mld-join"
+	namedprotocolspimsixrpaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/pim6-rp-address"
 	namedprotocolsripdistributelistinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/rip-distribute-list-interface"
 	namedprotocolsripinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/rip-interface"
 	namedprotocolsripinterfaceauthenticationmdfive "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/rip-interface-authentication-md5"
@@ -740,6 +787,13 @@ import (
 	namedservicedhcpserversharednetworknamesubnetrangeoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-range-option-static-route"
 	namedservicedhcpserversharednetworknamesubnetstaticmapping "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-static-mapping"
 	namedservicedhcpserversharednetworknamesubnetstaticmappingoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-static-mapping-option-static-route"
+	namedservicedhcpvsixrelaylisteninterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcpv6-relay-listen-interface"
+	namedservicedhcpvsixrelayupstreaminterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcpv6-relay-upstream-interface"
+	namedservicedhcpvsixserversharednetworkname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcpv6-server-shared-network-name"
+	namedservicedhcpvsixserversharednetworknamesubnet "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcpv6-server-shared-network-name-subnet"
+	namedservicedhcpvsixserversharednetworknamesubnetprefixdelegationprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcpv6-server-shared-network-name-subnet-prefix-delegation-prefix"
+	namedservicedhcpvsixserversharednetworknamesubnetrange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcpv6-server-shared-network-name-subnet-range"
+	namedservicedhcpvsixserversharednetworknamesubnetstaticmapping "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcpv6-server-shared-network-name-subnet-static-mapping"
 	namedservicednsdynamicname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-dynamic-name"
 	namedservicednsforwardingauthoritativedomain "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain"
 	namedservicednsforwardingauthoritativedomainrecordsa "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dns-forwarding-authoritative-domain-records-a"
@@ -818,6 +872,7 @@ import (
 	namedsystemflowaccountingnetflowserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/flow-accounting-netflow-server"
 	namedsystemflowaccountingsflowserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/flow-accounting-sflow-server"
 	namedsystemipprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/ip-protocol"
+	namedsystemipvsixprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/ipv6-protocol"
 	namedsystemloginradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/login-radius-server"
 	namedsystemlogintacacsserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/login-tacacs-server"
 	namedsystemloginuser "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/login-user"
@@ -846,6 +901,12 @@ import (
 	namedvpnipsecremoteaccessradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-remote-access-radius-server"
 	namedvpnipsecsitetositepeer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-site-to-site-peer"
 	namedvpnipsecsitetositepeertunnel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-site-to-site-peer-tunnel"
+	namedvpnltwotpremoteaccessauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/l2tp-remote-access-authentication-local-users-username"
+	namedvpnltwotpremoteaccessauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/l2tp-remote-access-authentication-radius-server"
+	namedvpnltwotpremoteaccessclientippool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/l2tp-remote-access-client-ip-pool"
+	namedvpnltwotpremoteaccessclientipvsixpool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/l2tp-remote-access-client-ipv6-pool"
+	namedvpnltwotpremoteaccessclientipvsixpooldelegate "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/l2tp-remote-access-client-ipv6-pool-delegate"
+	namedvpnltwotpremoteaccessclientipvsixpoolprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/l2tp-remote-access-client-ipv6-pool-prefix"
 	namedvpnopenconnectaccountingradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/openconnect-accounting-radius-server"
 	namedvpnopenconnectauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/openconnect-authentication-local-users-username"
 	namedvpnopenconnectauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/openconnect-authentication-radius-server"
@@ -1034,6 +1095,7 @@ func GetResources() []func() resource.Resource {
 		namedinterfacesethernet.NewInterfacesEthernet,
 		namedinterfacesgeneve.NewInterfacesGeneve,
 		namedinterfacesinput.NewInterfacesInput,
+		namedinterfacesltwotpvthree.NewInterfacesLtwotpvthree,
 		namedinterfacesloopback.NewInterfacesLoopback,
 		namedinterfacesmacsecdhcpvsixoptionspd.NewInterfacesMacsecDhcpvsixOptionsPd,
 		namedinterfacesmacsecdhcpvsixoptionspdinterface.NewInterfacesMacsecDhcpvsixOptionsPdInterface,
@@ -1101,12 +1163,12 @@ func GetResources() []func() resource.Resource {
 		namedloadbalancingreverseproxybackendhttpresponseheaders.NewLoadBalancingReverseProxyBackendHTTPResponseHeaders,
 		namedloadbalancingreverseproxybackendrule.NewLoadBalancingReverseProxyBackendRule,
 		namedloadbalancingreverseproxybackendserver.NewLoadBalancingReverseProxyBackendServer,
-		globalloadbalancingreverseproxy.NewLoadBalancingReverseProxy,
-		globalloadbalancingreverseproxyglobalparameters.NewLoadBalancingReverseProxyGlobalParameters,
 		namedloadbalancingwaninterfacehealth.NewLoadBalancingWanInterfaceHealth,
 		namedloadbalancingwaninterfacehealthtest.NewLoadBalancingWanInterfaceHealthTest,
 		namedloadbalancingwanrule.NewLoadBalancingWanRule,
 		namedloadbalancingwanruleinterface.NewLoadBalancingWanRuleInterface,
+		globalloadbalancingreverseproxy.NewLoadBalancingReverseProxy,
+		globalloadbalancingreverseproxyglobalparameters.NewLoadBalancingReverseProxyGlobalParameters,
 		globalloadbalancingwan.NewLoadBalancingWan,
 		globalloadbalancingwanstickyconnections.NewLoadBalancingWanStickyConnections,
 		namednatdestinationrule.NewNatDestinationRule,
@@ -1127,6 +1189,8 @@ func GetResources() []func() resource.Resource {
 		namedpkikeypair.NewPkiKeyPair,
 		namedpkiopentcp.NewPkiOpenTCP,
 		globalpkixfivezeroninedefault.NewPkiXfivezeronineDefault,
+		namedpolicylocalrouterule.NewPolicyLocalRouteRule,
+		namedpolicylocalroutesixrule.NewPolicyLocalRoutesixRule,
 		namedpolicyaccesslist.NewPolicyAccessList,
 		namedpolicyaccesslistrule.NewPolicyAccessListRule,
 		namedpolicyaccesslistsix.NewPolicyAccessListsix,
@@ -1145,8 +1209,6 @@ func GetResources() []func() resource.Resource {
 		namedpolicyprefixlistsixrule.NewPolicyPrefixListsixRule,
 		namedpolicyroutemap.NewPolicyRouteMap,
 		namedpolicyroutemaprule.NewPolicyRouteMapRule,
-		namedpolicylocalrouterule.NewPolicyLocalRouteRule,
-		namedpolicylocalroutesixrule.NewPolicyLocalRoutesixRule,
 		namedpolicyroutesix.NewPolicyRoutesix,
 		namedpolicyroutesixrule.NewPolicyRoutesixRule,
 		namedpolicyroute.NewPolicyRoute,
@@ -1154,13 +1216,6 @@ func GetResources() []func() resource.Resource {
 		namedprotocolsbabeldistributelistipvfourinterface.NewProtocolsBabelDistributeListIPvfourInterface,
 		namedprotocolsbabeldistributelistipvsixinterface.NewProtocolsBabelDistributeListIPvsixInterface,
 		namedprotocolsbabelinterface.NewProtocolsBabelInterface,
-		globalprotocolsbabelparameters.NewProtocolsBabelParameters,
-		globalprotocolsbabelredistributeipvfour.NewProtocolsBabelRedistributeIPvfour,
-		globalprotocolsbabelredistributeipvsix.NewProtocolsBabelRedistributeIPvsix,
-		globalprotocolsbabeldistributelistipvfouraccesslist.NewProtocolsBabelDistributeListIPvfourAccessList,
-		globalprotocolsbabeldistributelistipvfourprefixlist.NewProtocolsBabelDistributeListIPvfourPrefixList,
-		globalprotocolsbabeldistributelistipvsixaccesslist.NewProtocolsBabelDistributeListIPvsixAccessList,
-		globalprotocolsbabeldistributelistipvsixprefixlist.NewProtocolsBabelDistributeListIPvsixPrefixList,
 		namedprotocolsbfdpeer.NewProtocolsBfdPeer,
 		namedprotocolsbfdprofile.NewProtocolsBfdProfile,
 		namedprotocolsbgpaddressfamilyipvfourunicastdistanceprefix.NewProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix,
@@ -1192,6 +1247,83 @@ func GetResources() []func() resource.Resource {
 		namedprotocolsbgppeergroup.NewProtocolsBgpPeerGroup,
 		namedprotocolsbgppeergrouplocalas.NewProtocolsBgpPeerGroupLocalAs,
 		namedprotocolsbgppeergrouplocalrole.NewProtocolsBgpPeerGroupLocalRole,
+		namedprotocolsfailoverroute.NewProtocolsFailoverRoute,
+		namedprotocolsfailoverroutenexthop.NewProtocolsFailoverRouteNextHop,
+		namedprotocolsigmpproxyinterface.NewProtocolsIgmpProxyInterface,
+		namedprotocolsisisfastreroutelfaremoteprefixlist.NewProtocolsIsisFastRerouteLfaRemotePrefixList,
+		namedprotocolsisisfastreroutelfalocaltiebreakerdownstreamindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex,
+		namedprotocolsisisfastreroutelfalocaltiebreakerlowestbackupmetricindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex,
+		namedprotocolsisisfastreroutelfalocaltiebreakernodeprotectingindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtectingIndex,
+		namedprotocolsisissegmentroutingprefix.NewProtocolsIsisSegmentRoutingPrefix,
+		namedprotocolsisisinterface.NewProtocolsIsisInterface,
+		namedprotocolsmplsldpneighbor.NewProtocolsMplsLdpNeighbor,
+		namedprotocolsnhrptunnel.NewProtocolsNhrpTunnel,
+		namedprotocolsnhrptunneldynamicmap.NewProtocolsNhrpTunnelDynamicMap,
+		namedprotocolsnhrptunnelmap.NewProtocolsNhrpTunnelMap,
+		namedprotocolsnhrptunnelshortcuttarget.NewProtocolsNhrpTunnelShortcutTarget,
+		namedprotocolsopenfabricdomain.NewProtocolsOpenfabricDomain,
+		namedprotocolsopenfabricdomaininterface.NewProtocolsOpenfabricDomainInterface,
+		namedprotocolsospfsegmentroutingprefix.NewProtocolsOspfSegmentRoutingPrefix,
+		namedprotocolsospfredistributetable.NewProtocolsOspfRedistributeTable,
+		namedprotocolsospfaccesslist.NewProtocolsOspfAccessList,
+		namedprotocolsospfarea.NewProtocolsOspfArea,
+		namedprotocolsospfarearange.NewProtocolsOspfAreaRange,
+		namedprotocolsospfareavirtuallink.NewProtocolsOspfAreaVirtualLink,
+		namedprotocolsospfareavirtuallinkauthenticationmdfivekeyid.NewProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID,
+		namedprotocolsospfinterface.NewProtocolsOspfInterface,
+		namedprotocolsospfinterfaceauthenticationmdfivekeyid.NewProtocolsOspfInterfaceAuthenticationMdfiveKeyID,
+		namedprotocolsospfneighbor.NewProtocolsOspfNeighbor,
+		namedprotocolsospfsummaryaddress.NewProtocolsOspfSummaryAddress,
+		namedprotocolsospfvthreearea.NewProtocolsOspfvthreeArea,
+		namedprotocolsospfvthreearearange.NewProtocolsOspfvthreeAreaRange,
+		namedprotocolsospfvthreeinterface.NewProtocolsOspfvthreeInterface,
+		namedprotocolspimrpaddress.NewProtocolsPimRpAddress,
+		namedprotocolspiminterface.NewProtocolsPimInterface,
+		namedprotocolspiminterfaceigmpjoin.NewProtocolsPimInterfaceIgmpJoin,
+		namedprotocolspimsixrpaddress.NewProtocolsPimsixRpAddress,
+		namedprotocolspimsixinterface.NewProtocolsPimsixInterface,
+		namedprotocolspimsixinterfacemldjoin.NewProtocolsPimsixInterfaceMldJoin,
+		namedprotocolsripdistributelistinterface.NewProtocolsRIPDistributeListInterface,
+		namedprotocolsripinterface.NewProtocolsRIPInterface,
+		namedprotocolsripinterfaceauthenticationmdfive.NewProtocolsRIPInterfaceAuthenticationMdfive,
+		namedprotocolsripnetworkdistance.NewProtocolsRIPNetworkDistance,
+		namedprotocolsripngdistributelistinterface.NewProtocolsRIPngDistributeListInterface,
+		namedprotocolsripnginterface.NewProtocolsRIPngInterface,
+		namedprotocolsrpkicache.NewProtocolsRpkiCache,
+		namedprotocolssegmentroutingsrvsixlocator.NewProtocolsSegmentRoutingSrvsixLocator,
+		namedprotocolssegmentroutinginterface.NewProtocolsSegmentRoutingInterface,
+		namedprotocolsstaticarpinterface.NewProtocolsStaticArpInterface,
+		namedprotocolsstaticarpinterfaceaddress.NewProtocolsStaticArpInterfaceAddress,
+		namedprotocolsstaticmulticastroute.NewProtocolsStaticMulticastRoute,
+		namedprotocolsstaticmulticastroutenexthop.NewProtocolsStaticMulticastRouteNextHop,
+		namedprotocolsstaticmulticastinterfaceroute.NewProtocolsStaticMulticastInterfaceRoute,
+		namedprotocolsstaticmulticastinterfaceroutenexthopinterface.NewProtocolsStaticMulticastInterfaceRouteNextHopInterface,
+		namedprotocolsstaticneighborproxyarp.NewProtocolsStaticNeighborProxyArp,
+		namedprotocolsstaticneighborproxynd.NewProtocolsStaticNeighborProxyNd,
+		namedprotocolsstaticroute.NewProtocolsStaticRoute,
+		namedprotocolsstaticrouteinterface.NewProtocolsStaticRouteInterface,
+		namedprotocolsstaticroutenexthop.NewProtocolsStaticRouteNextHop,
+		namedprotocolsstaticroutenexthopbfdmultihopsource.NewProtocolsStaticRouteNextHopBfdMultiHopSource,
+		namedprotocolsstaticroutesix.NewProtocolsStaticRoutesix,
+		namedprotocolsstaticroutesixinterface.NewProtocolsStaticRoutesixInterface,
+		namedprotocolsstaticroutesixnexthop.NewProtocolsStaticRoutesixNextHop,
+		namedprotocolsstaticroutesixnexthopbfdmultihopsource.NewProtocolsStaticRoutesixNextHopBfdMultiHopSource,
+		namedprotocolsstatictable.NewProtocolsStaticTable,
+		namedprotocolsstatictableroute.NewProtocolsStaticTableRoute,
+		namedprotocolsstatictablerouteinterface.NewProtocolsStaticTableRouteInterface,
+		namedprotocolsstatictableroutenexthop.NewProtocolsStaticTableRouteNextHop,
+		namedprotocolsstatictableroutenexthopbfdmultihopsource.NewProtocolsStaticTableRouteNextHopBfdMultiHopSource,
+		namedprotocolsstatictableroutesix.NewProtocolsStaticTableRoutesix,
+		namedprotocolsstatictableroutesixinterface.NewProtocolsStaticTableRoutesixInterface,
+		namedprotocolsstatictableroutesixnexthop.NewProtocolsStaticTableRoutesixNextHop,
+		namedprotocolsstatictableroutesixnexthopbfdmultihopsource.NewProtocolsStaticTableRoutesixNextHopBfdMultiHopSource,
+		globalprotocolsbabelparameters.NewProtocolsBabelParameters,
+		globalprotocolsbabelredistributeipvfour.NewProtocolsBabelRedistributeIPvfour,
+		globalprotocolsbabelredistributeipvsix.NewProtocolsBabelRedistributeIPvsix,
+		globalprotocolsbabeldistributelistipvfouraccesslist.NewProtocolsBabelDistributeListIPvfourAccessList,
+		globalprotocolsbabeldistributelistipvfourprefixlist.NewProtocolsBabelDistributeListIPvfourPrefixList,
+		globalprotocolsbabeldistributelistipvsixaccesslist.NewProtocolsBabelDistributeListIPvsixAccessList,
+		globalprotocolsbabeldistributelistipvsixprefixlist.NewProtocolsBabelDistributeListIPvsixPrefixList,
 		globalprotocolsbgp.NewProtocolsBgp,
 		globalprotocolsbgpaddressfamilyipvfourunicastdistance.NewProtocolsBgpAddressFamilyIPvfourUnicastDistance,
 		globalprotocolsbgpaddressfamilyipvfourunicastexport.NewProtocolsBgpAddressFamilyIPvfourUnicastExport,
@@ -1262,16 +1394,7 @@ func GetResources() []func() resource.Resource {
 		globalprotocolsbgptimers.NewProtocolsBgpTimers,
 		globalprotocolseigrp.NewProtocolsEigrp,
 		globalprotocolseigrpmetric.NewProtocolsEigrpMetric,
-		namedprotocolsfailoverroute.NewProtocolsFailoverRoute,
-		namedprotocolsfailoverroutenexthop.NewProtocolsFailoverRouteNextHop,
-		namedprotocolsigmpproxyinterface.NewProtocolsIgmpProxyInterface,
 		globalprotocolsigmpproxy.NewProtocolsIgmpProxy,
-		namedprotocolsisisfastreroutelfaremoteprefixlist.NewProtocolsIsisFastRerouteLfaRemotePrefixList,
-		namedprotocolsisisfastreroutelfalocaltiebreakerdownstreamindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex,
-		namedprotocolsisisfastreroutelfalocaltiebreakerlowestbackupmetricindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex,
-		namedprotocolsisisfastreroutelfalocaltiebreakernodeprotectingindex.NewProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtectingIndex,
-		namedprotocolsisissegmentroutingprefix.NewProtocolsIsisSegmentRoutingPrefix,
-		namedprotocolsisisinterface.NewProtocolsIsisInterface,
 		globalprotocolsisis.NewProtocolsIsis,
 		globalprotocolsisisareapassword.NewProtocolsIsisAreaPassword,
 		globalprotocolsisisdefaultinformationoriginateipvfourlevelone.NewProtocolsIsisDefaultInformationOriginateIPvfourLevelOne,
@@ -1317,7 +1440,6 @@ func GetResources() []func() resource.Resource {
 		globalprotocolsisisredistributeipvsixstaticlevelone.NewProtocolsIsisRedistributeIPvsixStaticLevelOne,
 		globalprotocolsisisredistributeipvsixstaticleveltwo.NewProtocolsIsisRedistributeIPvsixStaticLevelTwo,
 		globalprotocolsisisspfdelayietf.NewProtocolsIsisSpfDelayIetf,
-		namedprotocolsmplsldpneighbor.NewProtocolsMplsLdpNeighbor,
 		globalprotocolsmpls.NewProtocolsMpls,
 		globalprotocolsmplsldp.NewProtocolsMplsLdp,
 		globalprotocolsmplsldpallocationipvfour.NewProtocolsMplsLdpAllocationIPvfour,
@@ -1333,24 +1455,7 @@ func GetResources() []func() resource.Resource {
 		globalprotocolsmplsldpimportipvfourimportfilter.NewProtocolsMplsLdpImportIPvfourImportFilter,
 		globalprotocolsmplsldpimportipvsiximportfilter.NewProtocolsMplsLdpImportIPvsixImportFilter,
 		globalprotocolsmplsparameters.NewProtocolsMplsParameters,
-		namedprotocolsnhrptunnel.NewProtocolsNhrpTunnel,
-		namedprotocolsnhrptunneldynamicmap.NewProtocolsNhrpTunnelDynamicMap,
-		namedprotocolsnhrptunnelmap.NewProtocolsNhrpTunnelMap,
-		namedprotocolsnhrptunnelshortcuttarget.NewProtocolsNhrpTunnelShortcutTarget,
-		namedprotocolsopenfabricdomain.NewProtocolsOpenfabricDomain,
-		namedprotocolsopenfabricdomaininterface.NewProtocolsOpenfabricDomainInterface,
 		globalprotocolsopenfabric.NewProtocolsOpenfabric,
-		namedprotocolsospfsegmentroutingprefix.NewProtocolsOspfSegmentRoutingPrefix,
-		namedprotocolsospfredistributetable.NewProtocolsOspfRedistributeTable,
-		namedprotocolsospfaccesslist.NewProtocolsOspfAccessList,
-		namedprotocolsospfarea.NewProtocolsOspfArea,
-		namedprotocolsospfarearange.NewProtocolsOspfAreaRange,
-		namedprotocolsospfareavirtuallink.NewProtocolsOspfAreaVirtualLink,
-		namedprotocolsospfareavirtuallinkauthenticationmdfivekeyid.NewProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID,
-		namedprotocolsospfinterface.NewProtocolsOspfInterface,
-		namedprotocolsospfinterfaceauthenticationmdfivekeyid.NewProtocolsOspfInterfaceAuthenticationMdfiveKeyID,
-		namedprotocolsospfneighbor.NewProtocolsOspfNeighbor,
-		namedprotocolsospfsummaryaddress.NewProtocolsOspfSummaryAddress,
 		globalprotocolsospf.NewProtocolsOspf,
 		globalprotocolsospfaggregation.NewProtocolsOspfAggregation,
 		globalprotocolsospfautocost.NewProtocolsOspfAutoCost,
@@ -1378,9 +1483,22 @@ func GetResources() []func() resource.Resource {
 		globalprotocolsospfredistributestatic.NewProtocolsOspfRedistributeStatic,
 		globalprotocolsospfrefresh.NewProtocolsOspfRefresh,
 		globalprotocolsospftimersthrottlespf.NewProtocolsOspfTimersThroTTLeSpf,
-		namedprotocolspimrpaddress.NewProtocolsPimRpAddress,
-		namedprotocolspiminterface.NewProtocolsPimInterface,
-		namedprotocolspiminterfaceigmpjoin.NewProtocolsPimInterfaceIgmpJoin,
+		globalprotocolsospfvthreeautocost.NewProtocolsOspfvthreeAutoCost,
+		globalprotocolsospfvthreedefaultinformationoriginate.NewProtocolsOspfvthreeDefaultInformationOriginate,
+		globalprotocolsospfvthreedistance.NewProtocolsOspfvthreeDistance,
+		globalprotocolsospfvthreedistanceospfvthree.NewProtocolsOspfvthreeDistanceOspfvthree,
+		globalprotocolsospfvthreegracefulrestart.NewProtocolsOspfvthreeGracefulRestart,
+		globalprotocolsospfvthreegracefulrestarthelper.NewProtocolsOspfvthreeGracefulRestartHelper,
+		globalprotocolsospfvthreegracefulrestarthelperenable.NewProtocolsOspfvthreeGracefulRestartHelperEnable,
+		globalprotocolsospfvthreelogadjacencychanges.NewProtocolsOspfvthreeLogAdjacencyChanges,
+		globalprotocolsospfvthreeparameters.NewProtocolsOspfvthreeParameters,
+		globalprotocolsospfvthreeredistributebabel.NewProtocolsOspfvthreeRedistributeBabel,
+		globalprotocolsospfvthreeredistributebgp.NewProtocolsOspfvthreeRedistributeBgp,
+		globalprotocolsospfvthreeredistributeconnected.NewProtocolsOspfvthreeRedistributeConnected,
+		globalprotocolsospfvthreeredistributeisis.NewProtocolsOspfvthreeRedistributeIsis,
+		globalprotocolsospfvthreeredistributekernel.NewProtocolsOspfvthreeRedistributeKernel,
+		globalprotocolsospfvthreeredistributeripng.NewProtocolsOspfvthreeRedistributeRIPng,
+		globalprotocolsospfvthreeredistributestatic.NewProtocolsOspfvthreeRedistributeStatic,
 		globalprotocolspim.NewProtocolsPim,
 		globalprotocolspimecmp.NewProtocolsPimEcmp,
 		globalprotocolspimigmp.NewProtocolsPimIgmp,
@@ -1388,10 +1506,8 @@ func GetResources() []func() resource.Resource {
 		globalprotocolspimrp.NewProtocolsPimRp,
 		globalprotocolspimsptswitchoverinfinityandbeyond.NewProtocolsPimSptSwitchoverInfinityAndBeyond,
 		globalprotocolspimssm.NewProtocolsPimSsm,
-		namedprotocolsripdistributelistinterface.NewProtocolsRIPDistributeListInterface,
-		namedprotocolsripinterface.NewProtocolsRIPInterface,
-		namedprotocolsripinterfaceauthenticationmdfive.NewProtocolsRIPInterfaceAuthenticationMdfive,
-		namedprotocolsripnetworkdistance.NewProtocolsRIPNetworkDistance,
+		globalprotocolspimsix.NewProtocolsPimsix,
+		globalprotocolspimsixrp.NewProtocolsPimsixRp,
 		globalprotocolsrip.NewProtocolsRIP,
 		globalprotocolsripdefaultinformation.NewProtocolsRIPDefaultInformation,
 		globalprotocolsripdistributelistaccesslist.NewProtocolsRIPDistributeListAccessList,
@@ -1404,8 +1520,6 @@ func GetResources() []func() resource.Resource {
 		globalprotocolsripredistributestatic.NewProtocolsRIPRedistributeStatic,
 		globalprotocolsripredistributebabel.NewProtocolsRIPRedistributeBabel,
 		globalprotocolsriptimers.NewProtocolsRIPTimers,
-		namedprotocolsripngdistributelistinterface.NewProtocolsRIPngDistributeListInterface,
-		namedprotocolsripnginterface.NewProtocolsRIPngInterface,
 		globalprotocolsripng.NewProtocolsRIPng,
 		globalprotocolsripngdefaultinformation.NewProtocolsRIPngDefaultInformation,
 		globalprotocolsripngdistributelistaccesslist.NewProtocolsRIPngDistributeListAccessList,
@@ -1417,36 +1531,8 @@ func GetResources() []func() resource.Resource {
 		globalprotocolsripngredistributestatic.NewProtocolsRIPngRedistributeStatic,
 		globalprotocolsripngredistributebabel.NewProtocolsRIPngRedistributeBabel,
 		globalprotocolsripngtimers.NewProtocolsRIPngTimers,
-		namedprotocolsrpkicache.NewProtocolsRpkiCache,
 		globalprotocolsrpki.NewProtocolsRpki,
-		namedprotocolssegmentroutingsrvsixlocator.NewProtocolsSegmentRoutingSrvsixLocator,
-		namedprotocolssegmentroutinginterface.NewProtocolsSegmentRoutingInterface,
-		namedprotocolsstaticroute.NewProtocolsStaticRoute,
-		namedprotocolsstaticrouteinterface.NewProtocolsStaticRouteInterface,
-		namedprotocolsstaticroutenexthop.NewProtocolsStaticRouteNextHop,
-		namedprotocolsstaticroutenexthopbfdmultihopsource.NewProtocolsStaticRouteNextHopBfdMultiHopSource,
-		namedprotocolsstaticroutesix.NewProtocolsStaticRoutesix,
-		namedprotocolsstaticroutesixinterface.NewProtocolsStaticRoutesixInterface,
-		namedprotocolsstaticroutesixnexthop.NewProtocolsStaticRoutesixNextHop,
-		namedprotocolsstaticroutesixnexthopbfdmultihopsource.NewProtocolsStaticRoutesixNextHopBfdMultiHopSource,
-		namedprotocolsstatictable.NewProtocolsStaticTable,
-		namedprotocolsstatictableroute.NewProtocolsStaticTableRoute,
-		namedprotocolsstatictablerouteinterface.NewProtocolsStaticTableRouteInterface,
-		namedprotocolsstatictableroutenexthop.NewProtocolsStaticTableRouteNextHop,
-		namedprotocolsstatictableroutenexthopbfdmultihopsource.NewProtocolsStaticTableRouteNextHopBfdMultiHopSource,
-		namedprotocolsstatictableroutesix.NewProtocolsStaticTableRoutesix,
-		namedprotocolsstatictableroutesixinterface.NewProtocolsStaticTableRoutesixInterface,
-		namedprotocolsstatictableroutesixnexthop.NewProtocolsStaticTableRoutesixNextHop,
-		namedprotocolsstatictableroutesixnexthopbfdmultihopsource.NewProtocolsStaticTableRoutesixNextHopBfdMultiHopSource,
 		globalprotocolsstatic.NewProtocolsStatic,
-		namedprotocolsstaticarpinterface.NewProtocolsStaticArpInterface,
-		namedprotocolsstaticarpinterfaceaddress.NewProtocolsStaticArpInterfaceAddress,
-		namedprotocolsstaticmulticastroute.NewProtocolsStaticMulticastRoute,
-		namedprotocolsstaticmulticastroutenexthop.NewProtocolsStaticMulticastRouteNextHop,
-		namedprotocolsstaticmulticastinterfaceroute.NewProtocolsStaticMulticastInterfaceRoute,
-		namedprotocolsstaticmulticastinterfaceroutenexthopinterface.NewProtocolsStaticMulticastInterfaceRouteNextHopInterface,
-		namedprotocolsstaticneighborproxyarp.NewProtocolsStaticNeighborProxyArp,
-		namedprotocolsstaticneighborproxynd.NewProtocolsStaticNeighborProxyNd,
 		namedqospolicycake.NewQosPolicyCake,
 		namedqospolicydroptail.NewQosPolicyDropTail,
 		namedqospolicyfairqueue.NewQosPolicyFairQueue,
@@ -1473,25 +1559,9 @@ func GetResources() []func() resource.Resource {
 		namedqosinterface.NewQosInterface,
 		namedqostrafficmatchgroup.NewQosTrafficMatchGroup,
 		namedqostrafficmatchgroupmatch.NewQosTrafficMatchGroupMatch,
-		globalserviceawsglbscript.NewServiceAwsGlbScrIPt,
-		globalserviceawsglbstatus.NewServiceAwsGlbStatus,
-		globalserviceawsglbthreads.NewServiceAwsGlbThreads,
 		namedservicebroadcastrelayid.NewServiceBroadcastRelayID,
-		globalservicebroadcastrelay.NewServiceBroadcastRelay,
-		globalserviceconfigsync.NewServiceConfigSync,
-		globalserviceconfigsyncsecondary.NewServiceConfigSyncSecondary,
-		globalserviceconfigsyncsection.NewServiceConfigSyncSection,
-		globalserviceconfigsyncsectioninterfaces.NewServiceConfigSyncSectionInterfaces,
-		globalserviceconfigsyncsectionprotocols.NewServiceConfigSyncSectionProtocols,
-		globalserviceconfigsyncsectionqos.NewServiceConfigSyncSectionQos,
-		globalserviceconfigsyncsectionservice.NewServiceConfigSyncSectionService,
-		globalserviceconfigsyncsectionsystem.NewServiceConfigSyncSectionSystem,
 		namedserviceconntracksyncinterface.NewServiceConntrackSyncInterface,
-		globalserviceconntracksync.NewServiceConntrackSync,
-		globalserviceconntracksyncfailovermechanismvrrp.NewServiceConntrackSyncFailoverMechanismVrrp,
 		namedserviceconsoleserverdevice.NewServiceConsoleServerDevice,
-		globalservicedhcprelay.NewServiceDhcpRelay,
-		globalservicedhcprelayrelayoptions.NewServiceDhcpRelayRelayOptions,
 		namedservicedhcpserversharednetworkname.NewServiceDhcpServerSharedNetworkName,
 		namedservicedhcpserversharednetworknameoptionstaticroute.NewServiceDhcpServerSharedNetworkNameOptionStaticRoute,
 		namedservicedhcpserversharednetworknamesubnet.NewServiceDhcpServerSharedNetworkNameSubnet,
@@ -1500,10 +1570,14 @@ func GetResources() []func() resource.Resource {
 		namedservicedhcpserversharednetworknamesubnetrangeoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute,
 		namedservicedhcpserversharednetworknamesubnetstaticmapping.NewServiceDhcpServerSharedNetworkNameSubnetStaticMapping,
 		namedservicedhcpserversharednetworknamesubnetstaticmappingoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetStaticMappingOptionStaticRoute,
-		globalservicedhcpserver.NewServiceDhcpServer,
-		globalservicedhcpserverhighavailability.NewServiceDhcpServerHighAvailability,
+		namedservicedhcpvsixrelaylisteninterface.NewServiceDhcpvsixRelayListenInterface,
+		namedservicedhcpvsixrelayupstreaminterface.NewServiceDhcpvsixRelayUpstreamInterface,
+		namedservicedhcpvsixserversharednetworkname.NewServiceDhcpvsixServerSharedNetworkName,
+		namedservicedhcpvsixserversharednetworknamesubnet.NewServiceDhcpvsixServerSharedNetworkNameSubnet,
+		namedservicedhcpvsixserversharednetworknamesubnetprefixdelegationprefix.NewServiceDhcpvsixServerSharedNetworkNameSubnetPrefixDelegationPrefix,
+		namedservicedhcpvsixserversharednetworknamesubnetrange.NewServiceDhcpvsixServerSharedNetworkNameSubnetRange,
+		namedservicedhcpvsixserversharednetworknamesubnetstaticmapping.NewServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping,
 		namedservicednsdynamicname.NewServiceDNSDynamicName,
-		globalservicednsdynamic.NewServiceDNSDynamic,
 		namedservicednsforwardingdomain.NewServiceDNSForwardingDomain,
 		namedservicednsforwardingdomainnameserver.NewServiceDNSForwardingDomainNameServer,
 		namedservicednsforwardingauthoritativedomain.NewServiceDNSForwardingAuthoritativeDomain,
@@ -1522,11 +1596,81 @@ func GetResources() []func() resource.Resource {
 		namedservicednsforwardingauthoritativedomainrecordsnaptrrule.NewServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule,
 		namedservicednsforwardingnameserver.NewServiceDNSForwardingNameServer,
 		namedservicednsforwardingzonecache.NewServiceDNSForwardingZoneCache,
-		globalservicednsforwarding.NewServiceDNSForwarding,
-		globalservicednsforwardingoptions.NewServiceDNSForwardingOptions,
 		namedserviceeventhandlerevent.NewServiceEventHandlerEvent,
 		namedserviceeventhandlereventscriptenvironment.NewServiceEventHandlerEventScrIPtEnvironment,
 		namedservicehttpsapikeysid.NewServiceHTTPSAPIKeysID,
+		namedserviceipoeserverauthenticationradiusserver.NewServiceIPoeServerAuthenticationRadiusServer,
+		namedserviceipoeserverauthenticationinterface.NewServiceIPoeServerAuthenticationInterface,
+		namedserviceipoeserverauthenticationinterfacemac.NewServiceIPoeServerAuthenticationInterfaceMac,
+		namedserviceipoeserverinterface.NewServiceIPoeServerInterface,
+		namedserviceipoeserverclientippool.NewServiceIPoeServerClientIPPool,
+		namedserviceipoeserverclientipvsixpool.NewServiceIPoeServerClientIPvsixPool,
+		namedserviceipoeserverclientipvsixpoolprefix.NewServiceIPoeServerClientIPvsixPoolPrefix,
+		namedserviceipoeserverclientipvsixpooldelegate.NewServiceIPoeServerClientIPvsixPoolDelegate,
+		namedservicelldpinterface.NewServiceLldpInterface,
+		namedservicemonitoringzabbixagentserveractive.NewServiceMonitoringZabbixAgentServerActive,
+		namedservicendpproxyinterface.NewServiceNdpProxyInterface,
+		namedservicendpproxyinterfaceprefix.NewServiceNdpProxyInterfacePrefix,
+		namedservicentpptptimestampinterface.NewServiceNtpPtpTimestampInterface,
+		namedservicentpserver.NewServiceNtpServer,
+		namedservicepppoeserverauthenticationlocalusersusername.NewServicePppoeServerAuthenticationLocalUsersUsername,
+		namedservicepppoeserverauthenticationradiusserver.NewServicePppoeServerAuthenticationRadiusServer,
+		namedservicepppoeserverinterface.NewServicePppoeServerInterface,
+		namedservicepppoeserverpadodelay.NewServicePppoeServerPadoDelay,
+		namedservicepppoeserverclientippool.NewServicePppoeServerClientIPPool,
+		namedservicepppoeserverclientipvsixpool.NewServicePppoeServerClientIPvsixPool,
+		namedservicepppoeserverclientipvsixpoolprefix.NewServicePppoeServerClientIPvsixPoolPrefix,
+		namedservicepppoeserverclientipvsixpooldelegate.NewServicePppoeServerClientIPvsixPoolDelegate,
+		namedservicerouteradvertinterface.NewServiceRouterAdvertInterface,
+		namedservicerouteradvertinterfaceroute.NewServiceRouterAdvertInterfaceRoute,
+		namedservicerouteradvertinterfacenatsixfourprefix.NewServiceRouterAdvertInterfaceNatsixfourprefix,
+		namedservicerouteradvertinterfaceprefix.NewServiceRouterAdvertInterfacePrefix,
+		namedservicesnmpvthreegroup.NewServiceSnmpVthreeGroup,
+		namedservicesnmpvthreetraptarget.NewServiceSnmpVthreeTrapTarget,
+		namedservicesnmpvthreeuser.NewServiceSnmpVthreeUser,
+		namedservicesnmpvthreeview.NewServiceSnmpVthreeView,
+		namedservicesnmpvthreeviewoid.NewServiceSnmpVthreeViewOID,
+		namedservicesnmpscriptextensionsextensionname.NewServiceSnmpScrIPtExtensionsExtensionName,
+		namedservicesnmpcommunity.NewServiceSnmpCommunity,
+		namedservicesnmplistenaddress.NewServiceSnmpListenAddress,
+		namedservicesnmptraptarget.NewServiceSnmpTrapTarget,
+		namedservicestunnelserver.NewServiceStunnelServer,
+		namedservicestunnelserverpsk.NewServiceStunnelServerPsk,
+		namedservicestunnelclient.NewServiceStunnelClient,
+		namedservicestunnelclientpsk.NewServiceStunnelClientPsk,
+		namedservicesuricataaddressgroup.NewServiceSURIcataAddressGroup,
+		namedservicesuricataportgroup.NewServiceSURIcataPortGroup,
+		namedservicetftpserverlistenaddress.NewServiceTftpServerListenAddress,
+		namedservicewebproxyurlfilteringsquidguardrule.NewServiceWebproxyURLFilteringSquIDguardRule,
+		namedservicewebproxyurlfilteringsquidguardsourcegroup.NewServiceWebproxyURLFilteringSquIDguardSourceGroup,
+		namedservicewebproxyurlfilteringsquidguardtimeperiod.NewServiceWebproxyURLFilteringSquIDguardTimePeriod,
+		namedservicewebproxyurlfilteringsquidguardtimeperioddays.NewServiceWebproxyURLFilteringSquIDguardTimePeriodDays,
+		namedservicewebproxycachepeer.NewServiceWebproxyCachePeer,
+		namedservicewebproxylistenaddress.NewServiceWebproxyListenAddress,
+		globalserviceawsglbscript.NewServiceAwsGlbScrIPt,
+		globalserviceawsglbstatus.NewServiceAwsGlbStatus,
+		globalserviceawsglbthreads.NewServiceAwsGlbThreads,
+		globalservicebroadcastrelay.NewServiceBroadcastRelay,
+		globalserviceconfigsync.NewServiceConfigSync,
+		globalserviceconfigsyncsecondary.NewServiceConfigSyncSecondary,
+		globalserviceconfigsyncsection.NewServiceConfigSyncSection,
+		globalserviceconfigsyncsectioninterfaces.NewServiceConfigSyncSectionInterfaces,
+		globalserviceconfigsyncsectionprotocols.NewServiceConfigSyncSectionProtocols,
+		globalserviceconfigsyncsectionqos.NewServiceConfigSyncSectionQos,
+		globalserviceconfigsyncsectionservice.NewServiceConfigSyncSectionService,
+		globalserviceconfigsyncsectionsystem.NewServiceConfigSyncSectionSystem,
+		globalserviceconntracksync.NewServiceConntrackSync,
+		globalserviceconntracksyncfailovermechanismvrrp.NewServiceConntrackSyncFailoverMechanismVrrp,
+		globalservicedhcprelay.NewServiceDhcpRelay,
+		globalservicedhcprelayrelayoptions.NewServiceDhcpRelayRelayOptions,
+		globalservicedhcpserver.NewServiceDhcpServer,
+		globalservicedhcpserverhighavailability.NewServiceDhcpServerHighAvailability,
+		globalservicedhcpvsixrelay.NewServiceDhcpvsixRelay,
+		globalservicedhcpvsixserver.NewServiceDhcpvsixServer,
+		globalservicedhcpvsixserverglobalparameters.NewServiceDhcpvsixServerGlobalParameters,
+		globalservicednsdynamic.NewServiceDNSDynamic,
+		globalservicednsforwarding.NewServiceDNSForwarding,
+		globalservicednsforwardingoptions.NewServiceDNSForwardingOptions,
 		globalservicehttps.NewServiceHTTPS,
 		globalservicehttpsapi.NewServiceHTTPSAPI,
 		globalservicehttpsapigraphql.NewServiceHTTPSAPIGraphql,
@@ -1540,14 +1684,6 @@ func GetResources() []func() resource.Resource {
 		globalserviceidsddosprotectionthresholdtcp.NewServiceIDsDdosProtectionThresholdTCP,
 		globalserviceidsddosprotectionthresholdudp.NewServiceIDsDdosProtectionThresholdUDP,
 		globalserviceidsddosprotectionthresholdicmp.NewServiceIDsDdosProtectionThresholdIcmp,
-		namedserviceipoeserverauthenticationradiusserver.NewServiceIPoeServerAuthenticationRadiusServer,
-		namedserviceipoeserverauthenticationinterface.NewServiceIPoeServerAuthenticationInterface,
-		namedserviceipoeserverauthenticationinterfacemac.NewServiceIPoeServerAuthenticationInterfaceMac,
-		namedserviceipoeserverinterface.NewServiceIPoeServerInterface,
-		namedserviceipoeserverclientippool.NewServiceIPoeServerClientIPPool,
-		namedserviceipoeserverclientipvsixpool.NewServiceIPoeServerClientIPvsixPool,
-		namedserviceipoeserverclientipvsixpoolprefix.NewServiceIPoeServerClientIPvsixPoolPrefix,
-		namedserviceipoeserverclientipvsixpooldelegate.NewServiceIPoeServerClientIPvsixPoolDelegate,
 		globalserviceipoeserver.NewServiceIPoeServer,
 		globalserviceipoeserverauthentication.NewServiceIPoeServerAuthentication,
 		globalserviceipoeserverauthenticationradius.NewServiceIPoeServerAuthenticationRadius,
@@ -1558,7 +1694,6 @@ func GetResources() []func() resource.Resource {
 		globalserviceipoeservershaper.NewServiceIPoeServerShaper,
 		globalserviceipoeserversnmp.NewServiceIPoeServerSnmp,
 		globalserviceipoeserverlog.NewServiceIPoeServerLog,
-		namedservicelldpinterface.NewServiceLldpInterface,
 		globalservicelldp.NewServiceLldp,
 		globalservicelldplegacyprotocols.NewServiceLldpLegacyProtocols,
 		globalservicemdnsrepeater.NewServiceMDNSRepeater,
@@ -1573,26 +1708,13 @@ func GetResources() []func() resource.Resource {
 		globalservicemonitoringtelegrafprometheusclientauthentication.NewServiceMonitoringTelegrafPrometheusClientAuthentication,
 		globalservicemonitoringtelegrafsplunk.NewServiceMonitoringTelegrafSplunk,
 		globalservicemonitoringtelegrafsplunkauthentication.NewServiceMonitoringTelegrafSplunkAuthentication,
-		namedservicemonitoringzabbixagentserveractive.NewServiceMonitoringZabbixAgentServerActive,
 		globalservicemonitoringzabbixagent.NewServiceMonitoringZabbixAgent,
 		globalservicemonitoringzabbixagentlimits.NewServiceMonitoringZabbixAgentLimits,
 		globalservicemonitoringzabbixagentlog.NewServiceMonitoringZabbixAgentLog,
-		namedservicendpproxyinterface.NewServiceNdpProxyInterface,
-		namedservicendpproxyinterfaceprefix.NewServiceNdpProxyInterfacePrefix,
 		globalservicendpproxy.NewServiceNdpProxy,
-		namedservicentpptptimestampinterface.NewServiceNtpPtpTimestampInterface,
-		namedservicentpserver.NewServiceNtpServer,
 		globalservicentp.NewServiceNtp,
 		globalservicentpallowclient.NewServiceNtpAllowClient,
 		globalservicentpptp.NewServiceNtpPtp,
-		namedservicepppoeserverauthenticationlocalusersusername.NewServicePppoeServerAuthenticationLocalUsersUsername,
-		namedservicepppoeserverauthenticationradiusserver.NewServicePppoeServerAuthenticationRadiusServer,
-		namedservicepppoeserverinterface.NewServicePppoeServerInterface,
-		namedservicepppoeserverpadodelay.NewServicePppoeServerPadoDelay,
-		namedservicepppoeserverclientippool.NewServicePppoeServerClientIPPool,
-		namedservicepppoeserverclientipvsixpool.NewServicePppoeServerClientIPvsixPool,
-		namedservicepppoeserverclientipvsixpoolprefix.NewServicePppoeServerClientIPvsixPoolPrefix,
-		namedservicepppoeserverclientipvsixpooldelegate.NewServicePppoeServerClientIPvsixPoolDelegate,
 		globalservicepppoeserver.NewServicePppoeServer,
 		globalservicepppoeserverauthentication.NewServicePppoeServerAuthentication,
 		globalservicepppoeserverauthenticationradius.NewServicePppoeServerAuthenticationRadius,
@@ -1604,22 +1726,9 @@ func GetResources() []func() resource.Resource {
 		globalservicepppoeservershaper.NewServicePppoeServerShaper,
 		globalservicepppoeserversnmp.NewServicePppoeServerSnmp,
 		globalservicepppoeserverlog.NewServicePppoeServerLog,
-		namedservicerouteradvertinterface.NewServiceRouterAdvertInterface,
-		namedservicerouteradvertinterfaceroute.NewServiceRouterAdvertInterfaceRoute,
-		namedservicerouteradvertinterfacenatsixfourprefix.NewServiceRouterAdvertInterfaceNatsixfourprefix,
-		namedservicerouteradvertinterfaceprefix.NewServiceRouterAdvertInterfacePrefix,
 		globalservicesaltminion.NewServiceSaltMinion,
 		globalserviceslaowampserver.NewServiceSLAOwampServer,
 		globalserviceslatwampserver.NewServiceSLATwampServer,
-		namedservicesnmpvthreegroup.NewServiceSnmpVthreeGroup,
-		namedservicesnmpvthreetraptarget.NewServiceSnmpVthreeTrapTarget,
-		namedservicesnmpvthreeuser.NewServiceSnmpVthreeUser,
-		namedservicesnmpvthreeview.NewServiceSnmpVthreeView,
-		namedservicesnmpvthreeviewoid.NewServiceSnmpVthreeViewOID,
-		namedservicesnmpscriptextensionsextensionname.NewServiceSnmpScrIPtExtensionsExtensionName,
-		namedservicesnmpcommunity.NewServiceSnmpCommunity,
-		namedservicesnmplistenaddress.NewServiceSnmpListenAddress,
-		namedservicesnmptraptarget.NewServiceSnmpTrapTarget,
 		globalservicesnmp.NewServiceSnmp,
 		globalservicesnmpmib.NewServiceSnmpMib,
 		globalservicesnmpvthree.NewServiceSnmpVthree,
@@ -1628,36 +1737,45 @@ func GetResources() []func() resource.Resource {
 		globalservicetcpaccesscontroldeny.NewServiceTCPAccessControlDeny,
 		globalservicetcpdynamicprotection.NewServiceTCPDynamicProtection,
 		globalservicetcprekey.NewServiceTCPRekey,
-		namedservicestunnelserver.NewServiceStunnelServer,
-		namedservicestunnelserverpsk.NewServiceStunnelServerPsk,
-		namedservicestunnelclient.NewServiceStunnelClient,
-		namedservicestunnelclientpsk.NewServiceStunnelClientPsk,
 		globalservicestunnellog.NewServiceStunnelLog,
-		namedservicesuricataaddressgroup.NewServiceSURIcataAddressGroup,
-		namedservicesuricataportgroup.NewServiceSURIcataPortGroup,
 		globalservicesuricata.NewServiceSURIcata,
 		globalservicesuricatalogeve.NewServiceSURIcataLogEve,
-		namedservicetftpserverlistenaddress.NewServiceTftpServerListenAddress,
 		globalservicetftpserver.NewServiceTftpServer,
-		namedservicewebproxyurlfilteringsquidguardrule.NewServiceWebproxyURLFilteringSquIDguardRule,
-		namedservicewebproxyurlfilteringsquidguardsourcegroup.NewServiceWebproxyURLFilteringSquIDguardSourceGroup,
-		namedservicewebproxyurlfilteringsquidguardtimeperiod.NewServiceWebproxyURLFilteringSquIDguardTimePeriod,
-		namedservicewebproxyurlfilteringsquidguardtimeperioddays.NewServiceWebproxyURLFilteringSquIDguardTimePeriodDays,
-		namedservicewebproxycachepeer.NewServiceWebproxyCachePeer,
-		namedservicewebproxylistenaddress.NewServiceWebproxyListenAddress,
 		globalservicewebproxy.NewServiceWebproxy,
 		globalservicewebproxyauthentication.NewServiceWebproxyAuthentication,
 		globalservicewebproxyauthenticationldap.NewServiceWebproxyAuthenticationLdap,
 		globalservicewebproxyurlfiltering.NewServiceWebproxyURLFiltering,
 		globalservicewebproxyurlfilteringsquidguard.NewServiceWebproxyURLFilteringSquIDguard,
 		globalservicewebproxyurlfilteringsquidguardautoupdate.NewServiceWebproxyURLFilteringSquIDguardAutoUpdate,
-		globalsystemacceleration.NewSystemAcceleration,
-		globalsystemconfigmanagement.NewSystemConfigManagement,
-		globalsystemconfigmanagementcommitarchive.NewSystemConfigManagementCommitArchive,
 		namedsystemconntrackignoreipvfourrule.NewSystemConntrackIgnoreIPvfourRule,
 		namedsystemconntrackignoreipvsixrule.NewSystemConntrackIgnoreIPvsixRule,
 		namedsystemconntracktimeoutcustomipvfourrule.NewSystemConntrackTimeoutCustomIPvfourRule,
 		namedsystemconntracktimeoutcustomipvsixrule.NewSystemConntrackTimeoutCustomIPvsixRule,
+		namedsystemconsoledevice.NewSystemConsoleDevice,
+		namedsystemflowaccountingnetflowserver.NewSystemFlowAccountingNetflowServer,
+		namedsystemflowaccountingsflowserver.NewSystemFlowAccountingSflowServer,
+		namedsystemipprotocol.NewSystemIPProtocol,
+		namedsystemipvsixprotocol.NewSystemIPvsixProtocol,
+		namedsystemloginradiusserver.NewSystemLoginRadiusServer,
+		namedsystemlogintacacsserver.NewSystemLoginTacacsServer,
+		namedsystemloginuser.NewSystemLoginUser,
+		namedsystemloginuserauthenticationpublickeys.NewSystemLoginUserAuthenticationPublicKeys,
+		namedsystemsflowserver.NewSystemSflowServer,
+		namedsystemstatichostmappinghostname.NewSystemStaticHostMappingHostName,
+		namedsystemsysctlparameter.NewSystemSysctlParameter,
+		namedsystemsyslogglobalfacility.NewSystemSyslogGlobalFacility,
+		namedsystemsyslogconsolefacility.NewSystemSyslogConsoleFacility,
+		namedsystemsysloguser.NewSystemSyslogUser,
+		namedsystemsysloguserfacility.NewSystemSyslogUserFacility,
+		namedsystemsysloghost.NewSystemSyslogHost,
+		namedsystemsysloghostfacility.NewSystemSyslogHostFacility,
+		namedsystemsyslogfile.NewSystemSyslogFile,
+		namedsystemsyslogfilefacility.NewSystemSyslogFileFacility,
+		namedsystemtaskschedulertask.NewSystemTaskSchedulerTask,
+		globalsystem.NewSystem,
+		globalsystemacceleration.NewSystemAcceleration,
+		globalsystemconfigmanagement.NewSystemConfigManagement,
+		globalsystemconfigmanagementcommitarchive.NewSystemConfigManagementCommitArchive,
 		globalsystemconntrack.NewSystemConntrack,
 		globalsystemconntracklog.NewSystemConntrackLog,
 		globalsystemconntracklogeventdestroy.NewSystemConntrackLogEventDestroy,
@@ -1665,28 +1783,23 @@ func GetResources() []func() resource.Resource {
 		globalsystemconntracklogeventupdate.NewSystemConntrackLogEventUpdate,
 		globalsystemconntrackmodules.NewSystemConntrackModules,
 		globalsystemconntracktcp.NewSystemConntrackTCP,
-		namedsystemconsoledevice.NewSystemConsoleDevice,
 		globalsystemconsole.NewSystemConsole,
-		globalsystem.NewSystem,
-		namedsystemflowaccountingnetflowserver.NewSystemFlowAccountingNetflowServer,
-		namedsystemflowaccountingsflowserver.NewSystemFlowAccountingSflowServer,
 		globalsystemflowaccounting.NewSystemFlowAccounting,
 		globalsystemflowaccountingnetflow.NewSystemFlowAccountingNetflow,
 		globalsystemflowaccountingnetflowtimeout.NewSystemFlowAccountingNetflowTimeout,
 		globalsystemflowaccountingsflow.NewSystemFlowAccountingSflow,
 		globalsystemfrr.NewSystemFrr,
 		globalsystemfrrsnmp.NewSystemFrrSnmp,
-		namedsystemipprotocol.NewSystemIPProtocol,
 		globalsystemip.NewSystemIP,
 		globalsystemiparp.NewSystemIPArp,
 		globalsystemipmultipath.NewSystemIPMultIPath,
 		globalsystemipnht.NewSystemIPNht,
 		globalsystemiptcpmss.NewSystemIPTCPMss,
+		globalsystemipvsix.NewSystemIPvsix,
+		globalsystemipvsixmultipath.NewSystemIPvsixMultIPath,
+		globalsystemipvsixneighbor.NewSystemIPvsixNeighbor,
+		globalsystemipvsixnht.NewSystemIPvsixNht,
 		globalsystemlcd.NewSystemLcd,
-		namedsystemloginradiusserver.NewSystemLoginRadiusServer,
-		namedsystemlogintacacsserver.NewSystemLoginTacacsServer,
-		namedsystemloginuser.NewSystemLoginUser,
-		namedsystemloginuserauthenticationpublickeys.NewSystemLoginUserAuthenticationPublicKeys,
 		globalsystemlogin.NewSystemLogin,
 		globalsystemloginradius.NewSystemLoginRadius,
 		globalsystemlogintacacs.NewSystemLoginTacacs,
@@ -1699,22 +1812,10 @@ func GetResources() []func() resource.Resource {
 		globalsystemoptionhttpclient.NewSystemOptionHTTPClient,
 		globalsystemoptiontcpclient.NewSystemOptionTCPClient,
 		globalsystemproxy.NewSystemProxy,
-		namedsystemsflowserver.NewSystemSflowServer,
 		globalsystemsflow.NewSystemSflow,
-		namedsystemstatichostmappinghostname.NewSystemStaticHostMappingHostName,
-		namedsystemsysctlparameter.NewSystemSysctlParameter,
-		namedsystemsyslogglobalfacility.NewSystemSyslogGlobalFacility,
-		namedsystemsyslogconsolefacility.NewSystemSyslogConsoleFacility,
-		namedsystemsysloguser.NewSystemSyslogUser,
-		namedsystemsysloguserfacility.NewSystemSyslogUserFacility,
-		namedsystemsysloghost.NewSystemSyslogHost,
-		namedsystemsysloghostfacility.NewSystemSyslogHostFacility,
-		namedsystemsyslogfile.NewSystemSyslogFile,
-		namedsystemsyslogfilefacility.NewSystemSyslogFileFacility,
 		globalsystemsyslog.NewSystemSyslog,
 		globalsystemsyslogglobal.NewSystemSyslogGlobal,
 		globalsystemsyslogglobalmarker.NewSystemSyslogGlobalMarker,
-		namedsystemtaskschedulertask.NewSystemTaskSchedulerTask,
 		globalsystemupdatecheck.NewSystemUpdateCheck,
 		globalsystemwireless.NewSystemWireless,
 		namedvpnipsecauthenticationpsk.NewVpnIPsecAuthenticationPsk,
@@ -1729,14 +1830,47 @@ func GetResources() []func() resource.Resource {
 		namedvpnipsecikegroup.NewVpnIPsecIkeGroup,
 		namedvpnipsecikegroupproposal.NewVpnIPsecIkeGroupProposal,
 		namedvpnipsecprofile.NewVpnIPsecProfile,
+		namedvpnltwotpremoteaccessauthenticationlocalusersusername.NewVpnLtwotpRemoteAccessAuthenticationLocalUsersUsername,
+		namedvpnltwotpremoteaccessauthenticationradiusserver.NewVpnLtwotpRemoteAccessAuthenticationRadiusServer,
+		namedvpnltwotpremoteaccessclientippool.NewVpnLtwotpRemoteAccessClientIPPool,
+		namedvpnltwotpremoteaccessclientipvsixpool.NewVpnLtwotpRemoteAccessClientIPvsixPool,
+		namedvpnltwotpremoteaccessclientipvsixpoolprefix.NewVpnLtwotpRemoteAccessClientIPvsixPoolPrefix,
+		namedvpnltwotpremoteaccessclientipvsixpooldelegate.NewVpnLtwotpRemoteAccessClientIPvsixPoolDelegate,
+		namedvpnopenconnectaccountingradiusserver.NewVpnOpenconnectAccountingRadiusServer,
+		namedvpnopenconnectauthenticationlocalusersusername.NewVpnOpenconnectAuthenticationLocalUsersUsername,
+		namedvpnopenconnectauthenticationradiusserver.NewVpnOpenconnectAuthenticationRadiusServer,
+		namedvpnpptpremoteaccessauthenticationlocalusersusername.NewVpnPptpRemoteAccessAuthenticationLocalUsersUsername,
+		namedvpnpptpremoteaccessauthenticationradiusserver.NewVpnPptpRemoteAccessAuthenticationRadiusServer,
+		namedvpnpptpremoteaccessclientippool.NewVpnPptpRemoteAccessClientIPPool,
+		namedvpnpptpremoteaccessclientipvsixpool.NewVpnPptpRemoteAccessClientIPvsixPool,
+		namedvpnpptpremoteaccessclientipvsixpoolprefix.NewVpnPptpRemoteAccessClientIPvsixPoolPrefix,
+		namedvpnpptpremoteaccessclientipvsixpooldelegate.NewVpnPptpRemoteAccessClientIPvsixPoolDelegate,
+		namedvpnsstpauthenticationlocalusersusername.NewVpnSstpAuthenticationLocalUsersUsername,
+		namedvpnsstpauthenticationradiusserver.NewVpnSstpAuthenticationRadiusServer,
+		namedvpnsstpclientippool.NewVpnSstpClientIPPool,
+		namedvpnsstpclientipvsixpool.NewVpnSstpClientIPvsixPool,
+		namedvpnsstpclientipvsixpoolprefix.NewVpnSstpClientIPvsixPoolPrefix,
+		namedvpnsstpclientipvsixpooldelegate.NewVpnSstpClientIPvsixPoolDelegate,
 		globalvpnipsec.NewVpnIPsec,
 		globalvpnipseclog.NewVpnIPsecLog,
 		globalvpnipsecoptions.NewVpnIPsecOptions,
 		globalvpnipsecremoteaccessdhcp.NewVpnIPsecRemoteAccessDhcp,
 		globalvpnipsecremoteaccessradius.NewVpnIPsecRemoteAccessRadius,
-		namedvpnopenconnectaccountingradiusserver.NewVpnOpenconnectAccountingRadiusServer,
-		namedvpnopenconnectauthenticationlocalusersusername.NewVpnOpenconnectAuthenticationLocalUsersUsername,
-		namedvpnopenconnectauthenticationradiusserver.NewVpnOpenconnectAuthenticationRadiusServer,
+		globalvpnltwotpremoteaccess.NewVpnLtwotpRemoteAccess,
+		globalvpnltwotpremoteaccessauthentication.NewVpnLtwotpRemoteAccessAuthentication,
+		globalvpnltwotpremoteaccessauthenticationradius.NewVpnLtwotpRemoteAccessAuthenticationRadius,
+		globalvpnltwotpremoteaccessauthenticationradiusdynamicauthor.NewVpnLtwotpRemoteAccessAuthenticationRadiusDynamicAuthor,
+		globalvpnltwotpremoteaccessauthenticationradiusratelimit.NewVpnLtwotpRemoteAccessAuthenticationRadiusRateLimit,
+		globalvpnltwotpremoteaccessipsecsettings.NewVpnLtwotpRemoteAccessIPsecSettings,
+		globalvpnltwotpremoteaccessipsecsettingsauthentication.NewVpnLtwotpRemoteAccessIPsecSettingsAuthentication,
+		globalvpnltwotpremoteaccessipsecsettingsauthenticationxfivezeronine.NewVpnLtwotpRemoteAccessIPsecSettingsAuthenticationXfivezeronine,
+		globalvpnltwotpremoteaccesslns.NewVpnLtwotpRemoteAccessLns,
+		globalvpnltwotpremoteaccessextendedscripts.NewVpnLtwotpRemoteAccessExtendedScrIPts,
+		globalvpnltwotpremoteaccesslimits.NewVpnLtwotpRemoteAccessLimits,
+		globalvpnltwotpremoteaccesspppoptions.NewVpnLtwotpRemoteAccessPppOptions,
+		globalvpnltwotpremoteaccessshaper.NewVpnLtwotpRemoteAccessShaper,
+		globalvpnltwotpremoteaccesssnmp.NewVpnLtwotpRemoteAccessSnmp,
+		globalvpnltwotpremoteaccesslog.NewVpnLtwotpRemoteAccessLog,
 		globalvpnopenconnect.NewVpnOpenconnect,
 		globalvpnopenconnectaccountingmode.NewVpnOpenconnectAccountingMode,
 		globalvpnopenconnectauthentication.NewVpnOpenconnectAuthentication,
@@ -1748,12 +1882,6 @@ func GetResources() []func() resource.Resource {
 		globalvpnopenconnectnetworksettings.NewVpnOpenconnectNetworkSettings,
 		globalvpnopenconnectnetworksettingsclientipsettings.NewVpnOpenconnectNetworkSettingsClientIPSettings,
 		globalvpnopenconnectnetworksettingsclientipvsixpool.NewVpnOpenconnectNetworkSettingsClientIPvsixPool,
-		namedvpnpptpremoteaccessauthenticationlocalusersusername.NewVpnPptpRemoteAccessAuthenticationLocalUsersUsername,
-		namedvpnpptpremoteaccessauthenticationradiusserver.NewVpnPptpRemoteAccessAuthenticationRadiusServer,
-		namedvpnpptpremoteaccessclientippool.NewVpnPptpRemoteAccessClientIPPool,
-		namedvpnpptpremoteaccessclientipvsixpool.NewVpnPptpRemoteAccessClientIPvsixPool,
-		namedvpnpptpremoteaccessclientipvsixpoolprefix.NewVpnPptpRemoteAccessClientIPvsixPoolPrefix,
-		namedvpnpptpremoteaccessclientipvsixpooldelegate.NewVpnPptpRemoteAccessClientIPvsixPoolDelegate,
 		globalvpnpptpremoteaccess.NewVpnPptpRemoteAccess,
 		globalvpnpptpremoteaccessauthentication.NewVpnPptpRemoteAccessAuthentication,
 		globalvpnpptpremoteaccessauthenticationradius.NewVpnPptpRemoteAccessAuthenticationRadius,
@@ -1765,12 +1893,6 @@ func GetResources() []func() resource.Resource {
 		globalvpnpptpremoteaccessshaper.NewVpnPptpRemoteAccessShaper,
 		globalvpnpptpremoteaccesssnmp.NewVpnPptpRemoteAccessSnmp,
 		globalvpnpptpremoteaccesslog.NewVpnPptpRemoteAccessLog,
-		namedvpnsstpauthenticationlocalusersusername.NewVpnSstpAuthenticationLocalUsersUsername,
-		namedvpnsstpauthenticationradiusserver.NewVpnSstpAuthenticationRadiusServer,
-		namedvpnsstpclientippool.NewVpnSstpClientIPPool,
-		namedvpnsstpclientipvsixpool.NewVpnSstpClientIPvsixPool,
-		namedvpnsstpclientipvsixpoolprefix.NewVpnSstpClientIPvsixPoolPrefix,
-		namedvpnsstpclientipvsixpooldelegate.NewVpnSstpClientIPvsixPoolDelegate,
 		globalvpnsstp.NewVpnSstp,
 		globalvpnsstpauthentication.NewVpnSstpAuthentication,
 		globalvpnsstpauthenticationradius.NewVpnSstpAuthenticationRadius,

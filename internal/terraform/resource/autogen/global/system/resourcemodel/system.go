@@ -23,11 +23,35 @@ type System struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafSystemTimeZone types.String `tfsdk:"time_zone" vyos:"time-zone,omitempty"`
+	LeafSystemDomainName   types.String `tfsdk:"domain_name" vyos:"domain-name,omitempty"`
+	LeafSystemDomainSearch types.List   `tfsdk:"domain_search" vyos:"domain-search,omitempty"`
+	LeafSystemHostName     types.String `tfsdk:"host_name" vyos:"host-name,omitempty"`
+	LeafSystemNameServer   types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
+	LeafSystemTimeZone     types.String `tfsdk:"time_zone" vyos:"time-zone,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
+	ExistsNodeSystemAcceleration      bool `tfsdk:"-" vyos:"acceleration,child"`
+	ExistsNodeSystemConfigManagement  bool `tfsdk:"-" vyos:"config-management,child"`
+	ExistsNodeSystemConntrack         bool `tfsdk:"-" vyos:"conntrack,child"`
+	ExistsNodeSystemConsole           bool `tfsdk:"-" vyos:"console,child"`
+	ExistsNodeSystemFlowAccounting    bool `tfsdk:"-" vyos:"flow-accounting,child"`
+	ExistsNodeSystemFrr               bool `tfsdk:"-" vyos:"frr,child"`
+	ExistsNodeSystemIP                bool `tfsdk:"-" vyos:"ip,child"`
+	ExistsNodeSystemIPvsix            bool `tfsdk:"-" vyos:"ipv6,child"`
+	ExistsNodeSystemLcd               bool `tfsdk:"-" vyos:"lcd,child"`
+	ExistsNodeSystemLogin             bool `tfsdk:"-" vyos:"login,child"`
+	ExistsNodeSystemLogs              bool `tfsdk:"-" vyos:"logs,child"`
+	ExistsNodeSystemOption            bool `tfsdk:"-" vyos:"option,child"`
+	ExistsNodeSystemProxy             bool `tfsdk:"-" vyos:"proxy,child"`
+	ExistsNodeSystemSflow             bool `tfsdk:"-" vyos:"sflow,child"`
+	ExistsNodeSystemStaticHostMapping bool `tfsdk:"-" vyos:"static-host-mapping,child"`
+	ExistsNodeSystemSysctl            bool `tfsdk:"-" vyos:"sysctl,child"`
+	ExistsNodeSystemSyslog            bool `tfsdk:"-" vyos:"syslog,child"`
+	ExistsNodeSystemTaskScheduler     bool `tfsdk:"-" vyos:"task-scheduler,child"`
+	ExistsNodeSystemUpdateCheck       bool `tfsdk:"-" vyos:"update-check,child"`
+	ExistsNodeSystemWireless          bool `tfsdk:"-" vyos:"wireless,child"`
 }
 
 // SetID configures the resource ID
@@ -84,6 +108,58 @@ func (o System) ResourceSchemaAttributes(ctx context.Context) map[string]schema.
 		}),
 
 		// LeafNodes
+
+		"domain_name": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `System domain name
+
+`,
+			Description: `System domain name
+
+`,
+		},
+
+		"domain_search": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Domain Name Server (DNS) domain completion order
+
+`,
+			Description: `Domain Name Server (DNS) domain completion order
+
+`,
+		},
+
+		"host_name": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `System host name (default: vyos)
+
+`,
+			Description: `System host name (default: vyos)
+
+`,
+		},
+
+		"name_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `System Domain Name Servers (DNS)
+
+    |  Format  |  Description                                 |
+    |----------|----------------------------------------------|
+    |  ipv4    |  Domain Name Server IPv4 address             |
+    |  ipv6    |  Domain Name Server IPv6 address             |
+    |  txt     |  Use Domain Name Server from DHCP interface  |
+`,
+			Description: `System Domain Name Servers (DNS)
+
+    |  Format  |  Description                                 |
+    |----------|----------------------------------------------|
+    |  ipv4    |  Domain Name Server IPv4 address             |
+    |  ipv6    |  Domain Name Server IPv6 address             |
+    |  txt     |  Use Domain Name Server from DHCP interface  |
+`,
+		},
 
 		"time_zone": schema.StringAttribute{
 			Optional: true,

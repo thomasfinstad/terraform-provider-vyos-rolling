@@ -4,13 +4,13 @@ page_title: "vyos_protocols_static_table_route_next_hop_bfd_multi_hop_source Res
 subcategory: "Protocols"
 
 description: |-
-  Routing protocols⯯Static Routing⯯Policy route table number⯯Static IPv4 route⯯Next-hop IPv4 router address⯯BFD monitoring⯯Use BFD multi hop session⯯Use source for BFD session
+  protocols⯯Static Routing⯯Policy route table number⯯Static IPv4 route⯯Next-hop IPv4 router address⯯BFD monitoring⯯Use BFD multi hop session⯯Use source for BFD session
 ---
 
 # vyos_protocols_static_table_route_next_hop_bfd_multi_hop_source (Resource)
 <center>
 
-Routing protocols  
+*protocols*  
 ⯯  
 Static Routing  
 ⯯  

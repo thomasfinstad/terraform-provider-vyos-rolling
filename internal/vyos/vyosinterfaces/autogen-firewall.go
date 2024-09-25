@@ -4061,25 +4061,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -7664,25 +7645,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -11168,25 +11130,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -14672,25 +14615,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -18034,25 +17958,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*schemadefinition.LeafNode{{
-													Parent: &schemadefinition.Node{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "node",
-														},
-														NodeNameAttr: "tcp",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"TCP options to match"},
-														}},
-														Children: []*schemadefinition.Children{{
-															XMLName: xml.Name{
-																Local: "children",
-															},
-															LeafNode: []*schemadefinition.LeafNode{nil},
-														}},
-													},
 													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
@@ -21370,25 +21275,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -22349,25 +22235,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -22812,25 +22679,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -25330,25 +25178,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -26309,25 +26138,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -26772,25 +26582,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -29139,25 +28930,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -30118,25 +29890,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -30581,25 +30334,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -32972,25 +32706,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -35895,25 +35610,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -38786,25 +38482,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*schemadefinition.LeafNode{{
-													Parent: &schemadefinition.Node{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "node",
-														},
-														NodeNameAttr: "tcp",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"TCP options to match"},
-														}},
-														Children: []*schemadefinition.Children{{
-															XMLName: xml.Name{
-																Local: "children",
-															},
-															LeafNode: []*schemadefinition.LeafNode{nil},
-														}},
-													},
 													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
@@ -39765,25 +39442,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "group",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Group"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -40228,25 +39886,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "group",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Group"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -42804,25 +42443,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -43801,25 +43421,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -44254,25 +43855,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -46762,25 +46344,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -47759,25 +47322,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -48212,25 +47756,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -50569,25 +50094,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -51566,25 +51072,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -52019,25 +51506,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -54418,25 +53886,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -54917,25 +54366,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -55370,25 +54800,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -57413,25 +56824,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*schemadefinition.LeafNode{{
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "tcp",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"TCP options to match"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -57912,25 +57304,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -58365,25 +57738,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
-																	Parent: &schemadefinition.Node{
-																		IsBaseNode: false,
-																		XMLName: xml.Name{
-																			Local: "node",
-																		},
-																		NodeNameAttr: "group",
-																		Properties: []*schemadefinition.Properties{{
-																			XMLName: xml.Name{
-																				Local: "properties",
-																			},
-																			Help: []string{"Group"},
-																		}},
-																		Children: []*schemadefinition.Children{{
-																			XMLName: xml.Name{
-																				Local: "children",
-																			},
-																			LeafNode: []*schemadefinition.LeafNode{nil},
-																		}},
-																	},
 																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
@@ -60358,25 +59712,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*schemadefinition.LeafNode{{
-													Parent: &schemadefinition.Node{
-														IsBaseNode: false,
-														XMLName: xml.Name{
-															Local: "node",
-														},
-														NodeNameAttr: "tcp",
-														Properties: []*schemadefinition.Properties{{
-															XMLName: xml.Name{
-																Local: "properties",
-															},
-															Help: []string{"TCP options to match"},
-														}},
-														Children: []*schemadefinition.Children{{
-															XMLName: xml.Name{
-																Local: "children",
-															},
-															LeafNode: []*schemadefinition.LeafNode{nil},
-														}},
-													},
 													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
@@ -61355,25 +60690,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "group",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Group"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -61808,25 +61124,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
-															Parent: &schemadefinition.Node{
-																IsBaseNode: false,
-																XMLName: xml.Name{
-																	Local: "node",
-																},
-																NodeNameAttr: "group",
-																Properties: []*schemadefinition.Properties{{
-																	XMLName: xml.Name{
-																		Local: "properties",
-																	},
-																	Help: []string{"Group"},
-																}},
-																Children: []*schemadefinition.Children{{
-																	XMLName: xml.Name{
-																		Local: "children",
-																	},
-																	LeafNode: []*schemadefinition.LeafNode{nil},
-																}},
-															},
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",

@@ -5,7 +5,7 @@ subcategory: "Protocols"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  Routing protocols⯯Static Routing
+  protocols⯯Static Routing
 ---
 
 # vyos_protocols_static (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-Routing protocols  
+*protocols*  
 ⯯  
 **Static Routing**
 

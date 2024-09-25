@@ -14,7 +14,7 @@ func (r vpnPptpRemoteAccessAuthenticationRadiusRateLimit) Schema(ctx context.Con
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  
 ⯯  

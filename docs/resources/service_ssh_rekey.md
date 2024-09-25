@@ -5,7 +5,7 @@ subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  System services⯯Secure Shell (SSH)⯯SSH session rekey limit
+  service⯯Secure Shell (SSH)⯯SSH session rekey limit
 ---
 
 # vyos_service_ssh_rekey (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-System services  
+*service*  
 ⯯  
 Secure Shell (SSH)  
 ⯯  

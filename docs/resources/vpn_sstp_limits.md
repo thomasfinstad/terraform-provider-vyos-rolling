@@ -5,7 +5,7 @@ subcategory: "Vpn"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  vpn⯯Secure Socket Tunneling Protocol (SSTP) server⯯Limits the connection rate from a single source
+  Virtual Private Network (VPN)⯯Secure Socket Tunneling Protocol (SSTP) server⯯Limits the connection rate from a single source
 ---
 
 # vyos_vpn_sstp_limits (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  
 ⯯  

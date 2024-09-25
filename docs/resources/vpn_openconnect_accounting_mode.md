@@ -5,7 +5,7 @@ subcategory: "Vpn"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  vpn⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Accounting for users OpenConnect VPN Sessions⯯Accounting mode used by this server
+  Virtual Private Network (VPN)⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Accounting for users OpenConnect VPN Sessions⯯Accounting mode used by this server
 ---
 
 # vyos_vpn_openconnect_accounting_mode (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 SSL VPN OpenConnect, AnyConnect compatible server  
 ⯯  

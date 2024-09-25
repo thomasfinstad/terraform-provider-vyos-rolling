@@ -4,13 +4,13 @@ page_title: "vyos_vpn_openconnect_authentication_local_users_username Resource -
 subcategory: "Vpn"
 
 description: |-
-  vpn⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Authentication for remote access SSL VPN Server⯯Local user authentication⯯Username used for authentication
+  Virtual Private Network (VPN)⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Authentication for remote access SSL VPN Server⯯Local user authentication⯯Username used for authentication
 ---
 
 # vyos_vpn_openconnect_authentication_local_users_username (Resource)
 <center>
 
-*vpn*  
+Virtual Private Network (VPN)  
 ⯯  
 SSL VPN OpenConnect, AnyConnect compatible server  
 ⯯  

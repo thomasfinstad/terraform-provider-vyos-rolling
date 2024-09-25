@@ -4,13 +4,13 @@ page_title: "vyos_service_stunnel_server_psk Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  System services⯯Stunnel TLS Proxy⯯Stunnel server config⯯Pre-shared key name
+  service⯯Stunnel TLS Proxy⯯Stunnel server config⯯Pre-shared key name
 ---
 
 # vyos_service_stunnel_server_psk (Resource)
 <center>
 
-System services  
+*service*  
 ⯯  
 Stunnel TLS Proxy  
 ⯯  

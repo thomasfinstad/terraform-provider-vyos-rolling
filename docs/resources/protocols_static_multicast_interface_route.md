@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_multicast_interface_route Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯static⯯Multicast static route⯯Multicast interface based route
+  protocols⯯Static Routing⯯Multicast static route⯯Multicast interface based route
 ---
 
 # vyos_protocols_static_multicast_interface_route (Resource)
@@ -12,7 +12,7 @@ description: |-
 
 *protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Multicast static route  
 ⯯  

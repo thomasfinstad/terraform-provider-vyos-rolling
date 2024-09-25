@@ -4,13 +4,13 @@ page_title: "vyos_interfaces_ethernet_vif Resource - vyos"
 subcategory: "Interfaces"
 
 description: |-
-  Network interfaces⯯Ethernet Interface⯯Virtual Local Area Network (VLAN) ID
+  interfaces⯯Ethernet Interface⯯Virtual Local Area Network (VLAN) ID
 ---
 
 # vyos_interfaces_ethernet_vif (Resource)
 <center>
 
-Network interfaces  
+*interfaces*  
 ⯯  
 Ethernet Interface  
 ⯯  

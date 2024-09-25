@@ -12,7 +12,7 @@ import (
 func (r loadBalancingWanRuleInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Configure load-balancing  
+		MarkdownDescription: `*load-balancing*  
 ⯯  
 Configure Wide Area Network (WAN) load-balancing  
 ⯯  

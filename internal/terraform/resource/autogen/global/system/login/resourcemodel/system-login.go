@@ -32,6 +32,7 @@ type SystemLogin struct {
 	// Nodes (Bools that show if child resources have been configured)
 	ExistsNodeSystemLoginRadius bool `tfsdk:"-" vyos:"radius,child"`
 	ExistsNodeSystemLoginTacacs bool `tfsdk:"-" vyos:"tacacs,child"`
+	ExistsNodeSystemLoginBanner bool `tfsdk:"-" vyos:"banner,child"`
 }
 
 // SetID configures the resource ID

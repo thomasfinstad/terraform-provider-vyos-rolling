@@ -4,13 +4,13 @@ page_title: "vyos_nat_cgnat_pool_internal Resource - vyos"
 subcategory: "Nat"
 
 description: |-
-  nat⯯Carrier-grade NAT (CGNAT) parameters⯯External and internal pool parameters⯯Internal pool name
+  Network Address Translation (NAT) parameters⯯Carrier-grade NAT (CGNAT) parameters⯯External and internal pool parameters⯯Internal pool name
 ---
 
 # vyos_nat_cgnat_pool_internal (Resource)
 <center>
 
-*nat*  
+Network Address Translation (NAT) parameters  
 ⯯  
 Carrier-grade NAT (CGNAT) parameters  
 ⯯  

@@ -5,7 +5,7 @@ subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  System services⯯Stunnel TLS Proxy⯯Service logging
+  service⯯Stunnel TLS Proxy⯯Service logging
 ---
 
 # vyos_service_stunnel_log (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-System services  
+*service*  
 ⯯  
 Stunnel TLS Proxy  
 ⯯  

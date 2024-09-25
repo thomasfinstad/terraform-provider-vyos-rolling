@@ -4,13 +4,13 @@ page_title: "vyos_interfaces_ethernet_vif_dhcpv6_options_pd Resource - vyos"
 subcategory: "Interfaces"
 
 description: |-
-  Network interfaces⯯Ethernet Interface⯯Virtual Local Area Network (VLAN) ID⯯DHCPv6 client settings/options⯯DHCPv6 prefix delegation interface statement
+  interfaces⯯Ethernet Interface⯯Virtual Local Area Network (VLAN) ID⯯DHCPv6 client settings/options⯯DHCPv6 prefix delegation interface statement
 ---
 
 # vyos_interfaces_ethernet_vif_dhcpv6_options_pd (Resource)
 <center>
 
-Network interfaces  
+*interfaces*  
 ⯯  
 Ethernet Interface  
 ⯯  

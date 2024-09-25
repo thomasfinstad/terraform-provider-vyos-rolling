@@ -4,13 +4,13 @@ page_title: "vyos_protocols_static_table_route_next_hop Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  Routing protocols⯯Static Routing⯯Policy route table number⯯Static IPv4 route⯯Next-hop IPv4 router address
+  protocols⯯Static Routing⯯Policy route table number⯯Static IPv4 route⯯Next-hop IPv4 router address
 ---
 
 # vyos_protocols_static_table_route_next_hop (Resource)
 <center>
 
-Routing protocols  
+*protocols*  
 ⯯  
 Static Routing  
 ⯯  

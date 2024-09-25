@@ -4,13 +4,13 @@ page_title: "vyos_protocols_static_route Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  Routing protocols⯯Static Routing⯯Static IPv4 route
+  protocols⯯Static Routing⯯Static IPv4 route
 ---
 
 # vyos_protocols_static_route (Resource)
 <center>
 
-Routing protocols  
+*protocols*  
 ⯯  
 Static Routing  
 ⯯  

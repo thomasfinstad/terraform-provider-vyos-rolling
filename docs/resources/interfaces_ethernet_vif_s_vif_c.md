@@ -4,13 +4,13 @@ page_title: "vyos_interfaces_ethernet_vif_s_vif_c Resource - vyos"
 subcategory: "Interfaces"
 
 description: |-
-  Network interfaces⯯Ethernet Interface⯯QinQ TAG-S Virtual Local Area Network (VLAN) ID⯯QinQ TAG-C Virtual Local Area Network (VLAN) ID
+  interfaces⯯Ethernet Interface⯯QinQ TAG-S Virtual Local Area Network (VLAN) ID⯯QinQ TAG-C Virtual Local Area Network (VLAN) ID
 ---
 
 # vyos_interfaces_ethernet_vif_s_vif_c (Resource)
 <center>
 
-Network interfaces  
+*interfaces*  
 ⯯  
 Ethernet Interface  
 ⯯  

@@ -5,7 +5,7 @@ subcategory: "Nat"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  nat⯯Carrier-grade NAT (CGNAT) parameters
+  Network Address Translation (NAT) parameters⯯Carrier-grade NAT (CGNAT) parameters
 ---
 
 # vyos_nat_cgnat (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-*nat*  
+Network Address Translation (NAT) parameters  
 ⯯  
 **Carrier-grade NAT (CGNAT) parameters**
 

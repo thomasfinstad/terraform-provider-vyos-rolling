@@ -14,7 +14,7 @@ func (r protocolsStaticArpInterfaceAddress) Schema(ctx context.Context, req reso
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `*protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Static ARP translation  
 ⯯  

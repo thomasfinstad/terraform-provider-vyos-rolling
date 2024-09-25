@@ -4,13 +4,13 @@ page_title: "vyos_policy_route Resource - vyos"
 subcategory: "Policy"
 
 description: |-
-  policy⯯Policy route rule set name for IPv4
+  Routing policy⯯Policy route rule set name for IPv4
 ---
 
 # vyos_policy_route (Resource)
 <center>
 
-*policy*  
+Routing policy  
 ⯯  
 **Policy route rule set name for IPv4**
 

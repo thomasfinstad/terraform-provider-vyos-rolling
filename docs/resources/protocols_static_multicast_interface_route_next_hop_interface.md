@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_multicast_interface_route_next_hop_interface 
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯static⯯Multicast static route⯯Multicast interface based route⯯Next-hop interface
+  protocols⯯Static Routing⯯Multicast static route⯯Multicast interface based route⯯Next-hop interface
 ---
 
 # vyos_protocols_static_multicast_interface_route_next_hop_interface (Resource)
@@ -12,7 +12,7 @@ description: |-
 
 *protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Multicast static route  
 ⯯  

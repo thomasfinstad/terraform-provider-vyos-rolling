@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_multicast_route Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯static⯯Multicast static route⯯Configure static unicast route into MRIB for multicast RPF lookup
+  protocols⯯Static Routing⯯Multicast static route⯯Configure static unicast route into MRIB for multicast RPF lookup
 ---
 
 # vyos_protocols_static_multicast_route (Resource)
@@ -12,7 +12,7 @@ description: |-
 
 *protocols*  
 ⯯  
-*static*  
+Static Routing  
 ⯯  
 Multicast static route  
 ⯯  

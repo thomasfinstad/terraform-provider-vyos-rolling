@@ -4,13 +4,13 @@ page_title: "vyos_protocols_static_route6_next_hop Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  Routing protocols⯯Static Routing⯯Static IPv6 route⯯IPv6 gateway address
+  protocols⯯Static Routing⯯Static IPv6 route⯯IPv6 gateway address
 ---
 
 # vyos_protocols_static_route6_next_hop (Resource)
 <center>
 
-Routing protocols  
+*protocols*  
 ⯯  
 Static Routing  
 ⯯  

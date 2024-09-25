@@ -12,7 +12,7 @@ import (
 func (r policyRouteRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `*policy*  
+		MarkdownDescription: `Routing policy  
 ⯯  
 Policy route rule set name for IPv4  
 ⯯  
