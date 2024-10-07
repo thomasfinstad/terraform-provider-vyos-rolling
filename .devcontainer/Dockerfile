@@ -34,8 +34,8 @@ ENV DEBIAN_FRONTEND=""
 
 ###
 # TENV
-RUN curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_v3.2.2_amd64.deb"
-RUN sudo dpkg -i "tenv_v3.2.2_amd64.deb"
+RUN curl -O -L "https://github.com/tofuutils/tenv/releases/download/v3.2.4/tenv_v3.2.4_amd64.deb"
+RUN sudo dpkg -i "tenv_v3.2.4_amd64.deb"
 
 ###
 # Dist directory is hard coded due to .terraformrc file
