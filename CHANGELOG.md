@@ -4,6 +4,7 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
+  - [Release 3.11.202410081 (????)](#release-311202410081-)
   - [Release 3.0.202410080 (2024-10-08 16-52-50 UTC)](#release-30202410080-2024-10-08-16-52-50-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
@@ -19,6 +20,8 @@
 
 <!--TOC-->
 
+## Release 3.11.202410081 (????)
+bugged release
 
 ## Release 3.0.202410080 (2024-10-08 16-52-50 UTC)
 ### Project changes
