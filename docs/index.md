@@ -21,7 +21,7 @@ Use Terraform to configure your VyOS instances via API calls.
 ## Requirements
 To use this provider you must enable the HTTP(S) API on the target instances. See [VyOS documentation](https://docs.vyos.io/en/latest/configuration/service/https.html) for more information.
 
--> This provider is in "early access", please see the current status at: https://github.com/thomasfinstad/terraform-provider-vyos-rolling/milestones?state=open
+-> This provider is in "early access", issues are to be expected, please report any you find as a Github issue. Please see the current status over at: https://github.com/thomasfinstad/terraform-provider-vyos-rolling/milestones?state=open
 
 <!--TOC-->
 
