@@ -4,21 +4,35 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 3.11.202410081 (????)](#release-311202410081-)
-  - [Release 3.0.202410080 (2024-10-08 16-52-50 UTC)](#release-30202410080-2024-10-08-16-52-50-utc)
+  - [Release 3.11.202410080 (2024-10-08 17-54-22 UTC)](#release-311202410080-2024-10-08-17-54-22-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
       - [Bug fixes](#bug-fixes)
+  - [Release 3.11.202410081 (????)](#release-311202410081-)
+  - [Release 3.0.202410080 (2024-10-08 16-52-50 UTC)](#release-30202410080-2024-10-08-16-52-50-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
+      - [Bug fixes](#bug-fixes-1)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources)
-      - [Notes](#notes-1)
+      - [Notes](#notes-2)
         - [Resources](#resources-1)
       - [Features](#features)
         - [Resources](#resources-2)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 3.11.202410080 (2024-10-08 17-54-22 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-10-08T12:08:53Z
+* simplify global resource warning language
+#### Bug fixes
+* skip bugged release
+
 
 ## Release 3.11.202410081 (????)
 bugged release
