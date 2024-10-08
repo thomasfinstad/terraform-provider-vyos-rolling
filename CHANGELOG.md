@@ -126,4 +126,4 @@
 
 
 ## Previous changelogs
-For previous version see [changelog for vv2](data/changelogs/CHANGELOG-vv2.md) or older archives [directory](data/changelogs/)
+For previous version see [changelog for v2](data/changelogs/CHANGELOG-v2.md) or older archives [directory](data/changelogs/)

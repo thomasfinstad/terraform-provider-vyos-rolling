@@ -457,7 +457,7 @@ version:
 		cat <<- EOF >> "CHANGELOG.md"
 			## Previous changelogs
 
-			For previous version see [changelog for v$$prev_major](data/changelogs/CHANGELOG-v$$prev_major.md) or older archives [directory](data/changelogs/)
+			For previous version see [changelog for $$prev_major](data/changelogs/CHANGELOG-$$prev_major.md) or older archives [directory](data/changelogs/)
 		EOF
 
 		sed -i "s|data/changelogs/CHANGELOG|CHANGELOG|" data/changelogs/*.md
