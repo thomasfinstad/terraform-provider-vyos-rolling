@@ -2476,4 +2476,4 @@
 
 
 ## Previous changelogs
-For older versions see changelog archive [directory](data/changelogs/) or changelog for [version 0](data/changelogs/CHANGELOG-v0.md)
+For older versions see changelog archive [directory](data/changelogs/) or changelog for [version 0](CHANGELOG-v0.md)
