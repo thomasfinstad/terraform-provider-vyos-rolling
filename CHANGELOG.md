@@ -4,20 +4,29 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 3.11.202410080 (2024-10-08 15-47-34 UTC)](#release-311202410080-2024-10-08-15-47-34-utc)
+  - [Release 3.11.202410081 (2024-10-08 16-16-46 UTC)](#release-311202410081-2024-10-08-16-16-46-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
+  - [Release 3.11.202410080 (2024-10-08 15-47-34 UTC)](#release-311202410080-2024-10-08-15-47-34-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
       - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources)
-      - [Notes](#notes-1)
+      - [Notes](#notes-2)
         - [Resources](#resources-1)
       - [Features](#features)
         - [Resources](#resources-2)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 3.11.202410081 (2024-10-08 16-16-46 UTC)
+### Project changes
+#### Notes
+* clean up CI instance disk space before building release
 
 
 ## Release 3.11.202410080 (2024-10-08 15-47-34 UTC)
