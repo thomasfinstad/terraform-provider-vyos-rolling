@@ -509,7 +509,7 @@ ci-update:
 	make docs/index.md
 
 	echo Check for changes since last release
-	if git diff -I '[0-9-]+T[0-9:]+Z' --exit-code --stat  "$$(git tag -l v* | sort -V | tail -n1)" >/dev/null; then
+	if git diff --ignore-matching-lines='[0-9-]+T[0-9:]+Z' --exit-code --stat  "$$(git tag -l v* | sort -V | tail -n1)" >/dev/null; then
 		echo "No changes to provider files since last release"
 		exit 0
 	fi
