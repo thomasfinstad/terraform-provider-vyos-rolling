@@ -4,14 +4,14 @@ page_title: "vyos_protocols_bgp_address_family_ipv4_unicast_sid_vpn Resource - v
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯IPv4 BGP settings⯯SID value for VRF⯯Between current VRF and VPN
 ---
 
 # vyos_protocols_bgp_address_family_ipv4_unicast_sid_vpn (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

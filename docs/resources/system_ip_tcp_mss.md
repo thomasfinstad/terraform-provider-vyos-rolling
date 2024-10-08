@@ -4,14 +4,14 @@ page_title: "vyos_system_ip_tcp_mss Resource - vyos"
 subcategory: "System"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   system⯯IPv4 Settings⯯IPv4 TCP parameters⯯IPv4 TCP MSS probing options
 ---
 
 # vyos_system_ip_tcp_mss (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *system*  
 ⯯  

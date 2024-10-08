@@ -4,14 +4,14 @@ page_title: "vyos_protocols_mpls_ldp_targeted_neighbor_ipv4 Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Multiprotocol Label Switching (MPLS)⯯Label Distribution Protocol (LDP)⯯Targeted LDP neighbor/session parameters⯯Targeted IPv4 neighbor/session parameters
 ---
 
 # vyos_protocols_mpls_ldp_targeted_neighbor_ipv4 (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

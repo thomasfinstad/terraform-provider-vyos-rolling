@@ -4,14 +4,14 @@ page_title: "vyos_protocols_isis Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Intermediate System to Intermediate System (IS-IS)
 ---
 
 # vyos_protocols_isis (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

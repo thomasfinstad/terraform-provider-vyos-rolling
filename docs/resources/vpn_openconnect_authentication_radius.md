@@ -4,14 +4,14 @@ page_title: "vyos_vpn_openconnect_authentication_radius Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   Virtual Private Network (VPN)⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Authentication for remote access SSL VPN Server⯯RADIUS based user authentication
 ---
 
 # vyos_vpn_openconnect_authentication_radius (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 Virtual Private Network (VPN)  
 ⯯  

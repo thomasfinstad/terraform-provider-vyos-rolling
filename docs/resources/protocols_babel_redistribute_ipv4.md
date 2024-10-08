@@ -4,14 +4,14 @@ page_title: "vyos_protocols_babel_redistribute_ipv4 Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Babel Routing Protocol⯯Redistribute information from another routing protocol⯯Redistribute IPv4 routes
 ---
 
 # vyos_protocols_babel_redistribute_ipv4 (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

@@ -4,14 +4,14 @@ page_title: "vyos_vpn_openconnect_network_settings Resource - vyos"
 subcategory: "Vpn"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   Virtual Private Network (VPN)⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Network settings
 ---
 
 # vyos_vpn_openconnect_network_settings (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 Virtual Private Network (VPN)  
 ⯯  

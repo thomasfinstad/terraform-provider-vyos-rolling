@@ -4,14 +4,14 @@ page_title: "vyos_service_sla_owamp_server Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   service⯯Service level agreement (SLA)⯯One-way active measurement protocol (OWAMP) server
 ---
 
 # vyos_service_sla_owamp_server (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *service*  
 ⯯  

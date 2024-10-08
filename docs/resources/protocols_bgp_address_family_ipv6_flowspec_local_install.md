@@ -4,14 +4,14 @@ page_title: "vyos_protocols_bgp_address_family_ipv6_flowspec_local_install Resou
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯Flowspec IPv6 BGP settings⯯Apply local policy routing to interface
 ---
 
 # vyos_protocols_bgp_address_family_ipv6_flowspec_local_install (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

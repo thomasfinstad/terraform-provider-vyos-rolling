@@ -4,14 +4,14 @@ page_title: "vyos_vpn_l2tp_remote_access_ipsec_settings_authentication Resource 
 subcategory: "Vpn"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   Virtual Private Network (VPN)⯯L2TP Virtual Private Network (VPN)⯯Remote access L2TP VPN⯯Internet Protocol Security (IPsec) for remote access L2TP VPN⯯IPsec authentication settings
 ---
 
 # vyos_vpn_l2tp_remote_access_ipsec_settings_authentication (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 Virtual Private Network (VPN)  
 ⯯  

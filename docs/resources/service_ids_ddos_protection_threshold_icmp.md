@@ -4,14 +4,14 @@ page_title: "vyos_service_ids_ddos_protection_threshold_icmp Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   service⯯Intrusion Detection System⯯FastNetMon detection and protection parameters⯯Attack limits thresholds⯯ICMP threshold
 ---
 
 # vyos_service_ids_ddos_protection_threshold_icmp (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *service*  
 ⯯  

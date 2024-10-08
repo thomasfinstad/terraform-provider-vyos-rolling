@@ -4,14 +4,14 @@ page_title: "vyos_protocols_isis_redistribute_ipv4_static_level_2 Resource - vyo
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Intermediate System to Intermediate System (IS-IS)⯯Redistribute information from another routing protocol⯯Redistribute IPv4 routes⯯Redistribute static routes into IS-IS⯯Redistribute into level-2
 ---
 
 # vyos_protocols_isis_redistribute_ipv4_static_level_2 (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

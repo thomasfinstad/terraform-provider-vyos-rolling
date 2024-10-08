@@ -4,14 +4,14 @@ page_title: "vyos_load_balancing_wan_sticky_connections Resource - vyos"
 subcategory: "Load Balancing"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   load-balancing⯯Configure Wide Area Network (WAN) load-balancing⯯Configure sticky connections
 ---
 
 # vyos_load_balancing_wan_sticky_connections (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *load-balancing*  
 ⯯  

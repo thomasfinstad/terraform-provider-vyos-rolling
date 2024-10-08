@@ -4,14 +4,14 @@ page_title: "vyos_service_monitoring_telegraf_splunk Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   service⯯monitoring⯯Telegraf metric collector⯯Output plugin Splunk
 ---
 
 # vyos_service_monitoring_telegraf_splunk (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *service*  
 ⯯  

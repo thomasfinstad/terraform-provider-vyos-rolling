@@ -4,14 +4,14 @@ page_title: "vyos_protocols_rip_redistribute_ospf Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Routing Information Protocol (RIP) parameters⯯Redistribute information from another routing protocol⯯Redistribute OSPF routes
 ---
 
 # vyos_protocols_rip_redistribute_ospf (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

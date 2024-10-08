@@ -4,14 +4,14 @@ page_title: "vyos_system_wireless Resource - vyos"
 subcategory: "System"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   system⯯Wireless (IEEE-802.11) subsystem settings
 ---
 
 # vyos_system_wireless (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *system*  
 ⯯  

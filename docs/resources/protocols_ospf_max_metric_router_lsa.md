@@ -4,14 +4,14 @@ page_title: "vyos_protocols_ospf_max_metric_router_lsa Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Open Shortest Path First (OSPF)⯯OSPF maximum and infinite-distance metric⯯Advertise own Router-LSA with infinite distance (stub router)
 ---
 
 # vyos_protocols_ospf_max_metric_router_lsa (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

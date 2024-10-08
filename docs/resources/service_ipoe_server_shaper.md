@@ -4,14 +4,14 @@ page_title: "vyos_service_ipoe_server_shaper Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   service⯯Internet Protocol over Ethernet (IPoE) Server⯯Traffic shaper bandwidth parameters
 ---
 
 # vyos_service_ipoe_server_shaper (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *service*  
 ⯯  

@@ -4,14 +4,14 @@ page_title: "vyos_firewall_ipv4_input_filter Resource - vyos"
 subcategory: "Firewall"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   Firewall⯯IPv4 firewall⯯IPv4 input firewall⯯IPv4 firewall input filter
 ---
 
 # vyos_firewall_ipv4_input_filter (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 Firewall  
 ⯯  

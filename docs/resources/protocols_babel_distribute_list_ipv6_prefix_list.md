@@ -4,14 +4,14 @@ page_title: "vyos_protocols_babel_distribute_list_ipv6_prefix_list Resource - vy
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Babel Routing Protocol⯯Filter networks in routing updates⯯Filter IPv6 routes⯯Prefix-list
 ---
 
 # vyos_protocols_babel_distribute_list_ipv6_prefix_list (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

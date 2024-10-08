@@ -4,14 +4,14 @@ page_title: "vyos_system_sflow Resource - vyos"
 subcategory: "System"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   system⯯sFlow settings
 ---
 
 # vyos_system_sflow (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *system*  
 ⯯  

@@ -4,14 +4,14 @@ page_title: "vyos_protocols_pim_spt_switchover_infinity_and_beyond Resource - vy
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Protocol Independent Multicast (PIM) and IGMP⯯Shortest-path tree (SPT) switchover⯯Never switch to SPT Tree
 ---
 
 # vyos_protocols_pim_spt_switchover_infinity_and_beyond (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

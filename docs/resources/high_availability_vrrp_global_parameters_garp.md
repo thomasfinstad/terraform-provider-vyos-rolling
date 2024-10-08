@@ -4,14 +4,14 @@ page_title: "vyos_high_availability_vrrp_global_parameters_garp Resource - vyos"
 subcategory: "High Availability"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   High availability settings⯯Virtual Router Redundancy Protocol settings⯯VRRP global parameters⯯Gratuitous ARP parameters
 ---
 
 # vyos_high_availability_vrrp_global_parameters_garp (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 High availability settings  
 ⯯  

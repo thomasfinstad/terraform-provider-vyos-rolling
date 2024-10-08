@@ -4,14 +4,14 @@ page_title: "vyos_service_config_sync_section_protocols Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   service⯯Configuration synchronization⯯Section for synchronization⯯Routing protocols
 ---
 
 # vyos_service_config_sync_section_protocols (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *service*  
 ⯯  

@@ -4,14 +4,14 @@ page_title: "vyos_protocols_pim_register_accept_list Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Protocol Independent Multicast (PIM) and IGMP⯯Only accept registers from a specific source prefix list
 ---
 
 # vyos_protocols_pim_register_accept_list (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

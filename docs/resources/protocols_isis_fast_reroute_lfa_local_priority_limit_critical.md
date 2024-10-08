@@ -4,14 +4,14 @@ page_title: "vyos_protocols_isis_fast_reroute_lfa_local_priority_limit_critical 
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Intermediate System to Intermediate System (IS-IS)⯯IS-IS fast reroute configuration⯯Loop free alternate functionality⯯Local loop free alternate options⯯Limit backup computation up to the prefix priority⯯Compute for critical priority prefixes only
 ---
 
 # vyos_protocols_isis_fast_reroute_lfa_local_priority_limit_critical (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

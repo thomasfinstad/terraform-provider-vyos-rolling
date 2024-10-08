@@ -4,14 +4,14 @@ page_title: "vyos_vpn_l2tp_remote_access_authentication_radius_dynamic_author Re
 subcategory: "Vpn"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   Virtual Private Network (VPN)⯯L2TP Virtual Private Network (VPN)⯯Remote access L2TP VPN⯯Authentication for remote access L2TP VPN⯯RADIUS based user authentication⯯Dynamic Authorization Extension/Change of Authorization server
 ---
 
 # vyos_vpn_l2tp_remote_access_authentication_radius_dynamic_author (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 Virtual Private Network (VPN)  
 ⯯  

@@ -4,14 +4,14 @@ page_title: "vyos_system_logs_logrotate_messages Resource - vyos"
 subcategory: "System"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   system⯯Logging options⯯Logrotate options⯯The /var/log/messages file rotation
 ---
 
 # vyos_system_logs_logrotate_messages (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *system*  
 ⯯  

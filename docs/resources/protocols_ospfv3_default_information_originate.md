@@ -4,14 +4,14 @@ page_title: "vyos_protocols_ospfv3_default_information_originate Resource - vyos
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Open Shortest Path First (OSPF) for IPv6⯯Default route advertisment settings⯯Distribute a default route
 ---
 
 # vyos_protocols_ospfv3_default_information_originate (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

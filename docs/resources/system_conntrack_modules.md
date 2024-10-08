@@ -4,14 +4,14 @@ page_title: "vyos_system_conntrack_modules Resource - vyos"
 subcategory: "System"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   system⯯Connection Tracking Engine Options⯯Connection tracking modules
 ---
 
 # vyos_system_conntrack_modules (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *system*  
 ⯯  

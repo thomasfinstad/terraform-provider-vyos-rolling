@@ -4,14 +4,14 @@ page_title: "vyos_service_pppoe_server_snmp Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   service⯯Point to Point over Ethernet (PPPoE) Server⯯Enable SNMP
 ---
 
 # vyos_service_pppoe_server_snmp (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *service*  
 ⯯  

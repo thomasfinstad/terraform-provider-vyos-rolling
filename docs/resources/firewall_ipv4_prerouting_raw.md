@@ -4,14 +4,14 @@ page_title: "vyos_firewall_ipv4_prerouting_raw Resource - vyos"
 subcategory: "Firewall"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   Firewall⯯IPv4 firewall⯯IPv4 prerouting firewall⯯IPv4 firewall prerouting raw
 ---
 
 # vyos_firewall_ipv4_prerouting_raw (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 Firewall  
 ⯯  

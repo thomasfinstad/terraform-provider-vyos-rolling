@@ -4,14 +4,14 @@ page_title: "vyos_protocols_isis_default_information_originate_ipv6_level_1 Reso
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Intermediate System to Intermediate System (IS-IS)⯯Control distribution of default information⯯Distribute a default route⯯Distribute default route for IPv6⯯Distribute default route into level-1
 ---
 
 # vyos_protocols_isis_default_information_originate_ipv6_level_1 (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  

@@ -4,14 +4,14 @@ page_title: "vyos_service_suricata_log_eve Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   service⯯Network IDS, IPS and Security Monitoring⯯Suricata log outputs⯯Extensible Event Format (EVE)
 ---
 
 # vyos_service_suricata_log_eve (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *service*  
 ⯯  

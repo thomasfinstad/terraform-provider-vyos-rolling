@@ -4,14 +4,14 @@ page_title: "vyos_vpn_openconnect_network_settings_client_ipv6_pool Resource - v
 subcategory: "Vpn"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   Virtual Private Network (VPN)⯯SSL VPN OpenConnect, AnyConnect compatible server⯯Network settings⯯Pool of client IPv6 addresses
 ---
 
 # vyos_vpn_openconnect_network_settings_client_ipv6_pool (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 Virtual Private Network (VPN)  
 ⯯  

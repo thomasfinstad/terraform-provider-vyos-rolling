@@ -4,14 +4,14 @@ page_title: "vyos_nat_cgnat Resource - vyos"
 subcategory: "Nat"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   Network Address Translation (NAT) parameters⯯Carrier-grade NAT (CGNAT) parameters
 ---
 
 # vyos_nat_cgnat (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 Network Address Translation (NAT) parameters  
 ⯯  

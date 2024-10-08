@@ -4,14 +4,14 @@ page_title: "vyos_protocols_eigrp_metric Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+  ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
   protocols⯯Enhanced Interior Gateway Routing Protocol (EIGRP)⯯Modify metrics and parameters for advertisement
 ---
 
 # vyos_protocols_eigrp_metric (Resource)
 <center>
 
-~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
+~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *protocols*  
 ⯯  
