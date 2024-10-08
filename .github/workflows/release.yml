@@ -1,4 +1,4 @@
-name: "Rebase on latest rolling release"
+name: "Rebase on latest rolling build and publish release"
 on:
   workflow_dispatch:
   schedule:
@@ -56,8 +56,21 @@ jobs:
             echo "git_status=pushed" | tee -a "$GITHUB_OUTPUT"
           fi
 
-      # Go Releaser
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+      # Release to github
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+      - name: Setup Golang
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           go-version-file: 'go.mod'
           cache: true
