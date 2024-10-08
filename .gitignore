@@ -16,6 +16,7 @@ release
 plan
 init
 apply
+validate
 secrets.tfvars
 
 # Github actions
