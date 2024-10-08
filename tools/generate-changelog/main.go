@@ -207,6 +207,7 @@ func (c ChangeLog) Version() *version.Version {
 
 	if isMajor {
 		major = major + 1
+		minor = 0
 	} else if isMinor {
 		minor = minor + 1
 	} else {

@@ -457,8 +457,10 @@ version:
 		cat <<- EOF >> "CHANGELOG.md"
 			## Previous changelogs
 
-			For older versions see changelog archive [directory](data/changelogs/) or changelog for [version $$prev_major](data/changelogs/CHANGELOG-v$$prev_major.md)
+			For previous version see [changelog for v$$prev_major](data/changelogs/CHANGELOG-v$$prev_major.md) or older archives [directory](data/changelogs/)
 		EOF
+
+		sed -i "s|data/changelogs/CHANGELOG|CHANGELOG|" data/changelogs/*.md
 	else
 		echo Copy new changelog into place
 		cat .build/CHANGELOG.md > CHANGELOG.md
@@ -535,6 +537,8 @@ ci-update:
 clean:
 	-@echo ###########################################################################
 	echo Make clean
+
+	set +e
 
 	go clean -modcache
 	go clean -testcache

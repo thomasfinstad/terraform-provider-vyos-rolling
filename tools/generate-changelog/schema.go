@@ -128,7 +128,7 @@ func (c SchemaChange) Description(parentAddress ...string) (descriptionLines []s
 			descriptionLines = []string{fmt.Sprintf("* **Removed attribute** `%s`", strings.Join(append(parentAddress, c.Address), "."))}
 			return descriptionLines
 		case SchemaChangeOperationChg:
-			descriptionLines = []string{fmt.Sprintf("* Modified attribute `%s` %s", strings.Join(append(parentAddress, c.Address), "."), c.CustomMsg)}
+			descriptionLines = []string{fmt.Sprintf("* Modified attribute `%s` %s", strings.Trim(strings.Join(append(parentAddress, c.Address), "."), "."), c.CustomMsg)}
 			return descriptionLines
 		case SchemaChangeOperationSub:
 			if c.SubChanges.Count() == 1 {
