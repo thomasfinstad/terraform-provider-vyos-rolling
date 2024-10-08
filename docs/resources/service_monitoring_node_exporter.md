@@ -1,25 +1,23 @@
 ---
-page_title: "vyos_service_https_api_cors Resource - vyos"
+page_title: "vyos_service_monitoring_node_exporter Resource - vyos"
 
 subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  service⯯HTTPS configuration⯯VyOS HTTP API configuration⯯Set CORS options
+  service⯯monitoring⯯Prometheus exporter for hardware and operating system metrics
 ---
 
-# vyos_service_https_api_cors (Resource)
+# vyos_service_monitoring_node_exporter (Resource)
 <center>
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
 *service*  
 ⯯  
-HTTPS configuration  
+*monitoring*  
 ⯯  
-VyOS HTTP API configuration  
-⯯  
-**Set CORS options**
+**Prometheus exporter for hardware and operating system metrics**
 
 
 </center>
@@ -28,11 +26,13 @@ VyOS HTTP API configuration
 
 <!--TOC-->
 
-- [vyos_service_https_api_cors (Resource)](#vyos_service_https_api_cors-resource)
+- [vyos_service_monitoring_node_exporter (Resource)](#vyos_service_monitoring_node_exporter-resource)
   - [Schema](#schema)
     - [Optional](#optional)
-      - [allow_origin](#allow_origin)
+      - [listen_address](#listen_address)
+      - [port](#port)
       - [timeouts](#timeouts)
+      - [vrf](#vrf)
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
@@ -44,10 +44,27 @@ VyOS HTTP API configuration
 
 ### Optional
 
-#### allow_origin
-- `allow_origin` (List of String) Allow resource request from origin
+#### listen_address
+- `listen_address` (List of String) Local IP addresses to listen on
+
+    |  Format  &emsp;|  Description                                      |
+    |----------|---------------------------------------------------|
+    |  ipv4    &emsp;|  IPv4 address to listen for incoming connections  |
+    |  ipv6    &emsp;|  IPv6 address to listen for incoming connections  |
+#### port
+- `port` (Number) Port number used by connection
+
+    |  Format   &emsp;|  Description      |
+    |-----------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
+#### vrf
+- `vrf` (String) VRF instance name
+
+    |  Format  &emsp;|  Description        |
+    |----------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 
 ### Read-Only
 

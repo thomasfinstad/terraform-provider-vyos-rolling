@@ -18,6 +18,7 @@ var _ helpers.VyosResourceDataModel = &PolicyLocalRoutesixRuleSet{}
 type PolicyLocalRoutesixRuleSet struct {
 	// LeafNodes
 	LeafPolicyLocalRoutesixRuleSetTable types.Number `tfsdk:"table" vyos:"table,omitempty"`
+	LeafPolicyLocalRoutesixRuleSetVrf   types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
@@ -43,6 +44,24 @@ func (o PolicyLocalRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context
     |  Format  |  Description   |
     |----------|----------------|
     |  1-200   |  Table number  |
+`,
+		},
+
+		"vrf": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `VRF to forward packet with
+
+    |  Format   |  Description                      |
+    |-----------|-----------------------------------|
+    |  txt      |  VRF instance name                |
+    |  default  |  Forward into default global VRF  |
+`,
+			Description: `VRF to forward packet with
+
+    |  Format   |  Description                      |
+    |-----------|-----------------------------------|
+    |  txt      |  VRF instance name                |
+    |  default  |  Forward into default global VRF  |
 `,
 		},
 

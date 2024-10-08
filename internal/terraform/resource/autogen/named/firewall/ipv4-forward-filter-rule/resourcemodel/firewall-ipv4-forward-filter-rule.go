@@ -68,6 +68,7 @@ type FirewallIPvfourForwardFilterRule struct {
 	NodeFirewallIPvfourForwardFilterRuleInboundInterface  *FirewallIPvfourForwardFilterRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 	NodeFirewallIPvfourForwardFilterRuleIPsec             *FirewallIPvfourForwardFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvfourForwardFilterRuleOutboundInterface *FirewallIPvfourForwardFilterRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
+	NodeFirewallIPvfourForwardFilterRuleSet               *FirewallIPvfourForwardFilterRuleSet               `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -687,6 +688,17 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes(ctx context.C
 
 `,
 			Description: `Match outbound-interface
+
+`,
+		},
+
+		"set": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourForwardFilterRuleSet{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Packet modifications
+
+`,
+			Description: `Packet modifications
 
 `,
 		},

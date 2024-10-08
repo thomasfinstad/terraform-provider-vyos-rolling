@@ -5,7 +5,7 @@ subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  service⯯HTTPS configuration⯯VyOS HTTP API configuration⯯GraphQL support
+  service⯯HTTPS configuration⯯VyOS HTTP API configuration⯯GraphQL API
 ---
 
 # vyos_service_https_api_graphql (Resource)
@@ -19,7 +19,7 @@ HTTPS configuration
 ⯯  
 VyOS HTTP API configuration  
 ⯯  
-**GraphQL support**
+**GraphQL API**
 
 
 </center>

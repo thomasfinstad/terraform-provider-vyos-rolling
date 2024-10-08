@@ -66,6 +66,7 @@ type FirewallIPvfourOutputFilterRule struct {
 	NodeFirewallIPvfourOutputFilterRuleSource            *FirewallIPvfourOutputFilterRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
 	NodeFirewallIPvfourOutputFilterRuleIPsec             *FirewallIPvfourOutputFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvfourOutputFilterRuleOutboundInterface *FirewallIPvfourOutputFilterRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
+	NodeFirewallIPvfourOutputFilterRuleSet               *FirewallIPvfourOutputFilterRuleSet               `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -664,6 +665,17 @@ func (o FirewallIPvfourOutputFilterRule) ResourceSchemaAttributes(ctx context.Co
 
 `,
 			Description: `Match outbound-interface
+
+`,
+		},
+
+		"set": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourOutputFilterRuleSet{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Packet modifications
+
+`,
+			Description: `Packet modifications
 
 `,
 		},

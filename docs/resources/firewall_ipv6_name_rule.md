@@ -60,6 +60,7 @@ IPv6 custom firewall
       - [queue](#queue)
       - [queue_options](#queue_options)
       - [recent](#recent)
+      - [set](#set)
       - [source](#source)
       - [state](#state)
       - [synproxy](#synproxy)
@@ -90,6 +91,7 @@ IPv6 custom firewall
     - [Nested Schema for `log_options`](#nested-schema-for-log_options)
     - [Nested Schema for `outbound_interface`](#nested-schema-for-outbound_interface)
     - [Nested Schema for `recent`](#nested-schema-for-recent)
+    - [Nested Schema for `set`](#nested-schema-for-set)
     - [Nested Schema for `source`](#nested-schema-for-source)
     - [Nested Schema for `source.geoip`](#nested-schema-for-sourcegeoip)
     - [Nested Schema for `source.group`](#nested-schema-for-sourcegroup)
@@ -255,6 +257,8 @@ IPv6 custom firewall
     |  fanout  &emsp;|  Distribute packets between several queues                        |
 #### recent
 - `recent` (Attributes) Parameters for matching recently seen sources (see [below for nested schema](#nestedatt--recent))
+#### set
+- `set` (Attributes) Packet modifications (see [below for nested schema](#nestedatt--set))
 #### source
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
 #### state
@@ -670,6 +674,38 @@ Optional:
     |  second  &emsp;|  Source addresses seen COUNT times in the last second  |
     |  minute  &emsp;|  Source addresses seen COUNT times in the last minute  |
     |  hour    &emsp;|  Source addresses seen COUNT times in the last hour    |
+
+
+<a id="nestedatt--set"></a>
+### Nested Schema for `set`
+
+Optional:
+
+- `connection_mark` (Number) Set connection mark
+
+    |  Format        &emsp;|  Description      |
+    |----------------|-------------------|
+    |  0-2147483647  &emsp;|  Connection mark  |
+- `dscp` (Number) Set DSCP (Packet Differentiated Services Codepoint) bits
+
+    |  Format  &emsp;|  Description  |
+    |----------|---------------|
+    |  0-63    &emsp;|  DSCP number  |
+- `hop_limit` (Number) Set hop limit
+
+    |  Format  &emsp;|  Description       |
+    |----------|--------------------|
+    |  0-255   &emsp;|  Hop limit number  |
+- `mark` (Number) Set packet mark
+
+    |  Format        &emsp;|  Description  |
+    |----------------|---------------|
+    |  1-2147483647  &emsp;|  Packet mark  |
+- `tcp_mss` (Number) Set TCP Maximum Segment Size
+
+    |  Format    &emsp;|  Description                   |
+    |------------|--------------------------------|
+    |  500-1460  &emsp;|  Explicitly set TCP MSS value  |
 
 
 <a id="nestedatt--source"></a>

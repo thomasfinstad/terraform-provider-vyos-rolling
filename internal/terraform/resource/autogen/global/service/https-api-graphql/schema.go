@@ -20,7 +20,7 @@ HTTPS configuration
 ⯯  
 VyOS HTTP API configuration  
 ⯯  
-**GraphQL support**
+**GraphQL API**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}

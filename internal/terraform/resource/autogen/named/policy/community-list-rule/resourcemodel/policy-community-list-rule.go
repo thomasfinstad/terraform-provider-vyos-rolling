@@ -205,25 +205,47 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes(ctx context.Context) m
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against a community-list
 
-    |  Format        |  Description                                                  |
-    |----------------|---------------------------------------------------------------|
-    |  <aa:nn>       |  Community number in AA:NN format                             |
-    |  local-AS      |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
-    |  no-export     |  Well-known communities value NO_EXPORT 0xFFFFFF01            |
-    |  internet      |  Well-known communities value 0                               |
-    |  additive      |  New value is appended to the existing value                  |
+    |  Format                      |  Description                                                                 |
+    |------------------------------|------------------------------------------------------------------------------|
+    |  <aa:nn>                     |  Community number in AA:NN format where AA and NN are (0-65535)              |
+    |  local-AS                    |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03                 |
+    |  no-advertise                |  Well-known communities value NO_ADVERTISE 0xFFFFFF02                        |
+    |  no-export                   |  Well-known communities value NO_EXPORT 0xFFFFFF01                           |
+    |  internet                    |  Well-known communities value 0                                              |
+    |  graceful-shutdown           |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000                   |
+    |  accept-own-nexthop          |  Well-known communities value ACCEPT_OWN_NEXTHOP 0xFFFF0008                  |
+    |  accept-own                  |  Well-known communities value ACCEPT_OWN 0xFFFF0001 65535:1                  |
+    |  route-filter-translated-v4  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002 65535:2  |
+    |  route-filter-v4             |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003 65535:3             |
+    |  route-filter-translated-v6  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004 65535:4  |
+    |  route-filter-v6             |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005 65535:5             |
+    |  llgr-stale                  |  Well-known communities value LLGR_STALE 0xFFFF0006 65535:6                  |
+    |  no-llgr                     |  Well-known communities value NO_LLGR 0xFFFF0007 65535:7                     |
+    |  blackhole                   |  Well-known communities value BLACKHOLE 0xFFFF029A 65535:666                 |
+    |  no-peer                     |  Well-known communities value NOPEER 0xFFFFFF04 65535:65284                  |
+    |  additive                    |  New value is appended to the existing value                                 |
 `,
 			Description: `Regular expression to match against a community-list
 
-    |  Format        |  Description                                                  |
-    |----------------|---------------------------------------------------------------|
-    |  <aa:nn>       |  Community number in AA:NN format                             |
-    |  local-AS      |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
-    |  no-export     |  Well-known communities value NO_EXPORT 0xFFFFFF01            |
-    |  internet      |  Well-known communities value 0                               |
-    |  additive      |  New value is appended to the existing value                  |
+    |  Format                      |  Description                                                                 |
+    |------------------------------|------------------------------------------------------------------------------|
+    |  <aa:nn>                     |  Community number in AA:NN format where AA and NN are (0-65535)              |
+    |  local-AS                    |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03                 |
+    |  no-advertise                |  Well-known communities value NO_ADVERTISE 0xFFFFFF02                        |
+    |  no-export                   |  Well-known communities value NO_EXPORT 0xFFFFFF01                           |
+    |  internet                    |  Well-known communities value 0                                              |
+    |  graceful-shutdown           |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000                   |
+    |  accept-own-nexthop          |  Well-known communities value ACCEPT_OWN_NEXTHOP 0xFFFF0008                  |
+    |  accept-own                  |  Well-known communities value ACCEPT_OWN 0xFFFF0001 65535:1                  |
+    |  route-filter-translated-v4  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002 65535:2  |
+    |  route-filter-v4             |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003 65535:3             |
+    |  route-filter-translated-v6  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004 65535:4  |
+    |  route-filter-v6             |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005 65535:5             |
+    |  llgr-stale                  |  Well-known communities value LLGR_STALE 0xFFFF0006 65535:6                  |
+    |  no-llgr                     |  Well-known communities value NO_LLGR 0xFFFF0007 65535:7                     |
+    |  blackhole                   |  Well-known communities value BLACKHOLE 0xFFFF029A 65535:666                 |
+    |  no-peer                     |  Well-known communities value NOPEER 0xFFFFFF04 65535:65284                  |
+    |  additive                    |  New value is appended to the existing value                                 |
 `,
 		},
 

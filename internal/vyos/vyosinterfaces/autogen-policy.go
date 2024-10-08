@@ -125,6 +125,50 @@ func policy() schemadefinition.InterfaceDefinition {
 													List: []string{"main"},
 												}},
 											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "vrf",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"VRF to forward packet with"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "vrf-name",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "VRF instance name",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "default",
+													Description: "Forward into default global VRF",
+												}},
+												ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"default"},
+													Path: []string{"vrf name"},
+												}},
+											}},
 										}},
 									}},
 								}, {
@@ -507,6 +551,50 @@ func policy() schemadefinition.InterfaceDefinition {
 														Local: "completionHelp",
 													},
 													List: []string{"main"},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "vrf",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"VRF to forward packet with"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "vrf-name",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "VRF instance name",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "default",
+													Description: "Forward into default global VRF",
+												}},
+												ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"default"},
+													Path: []string{"vrf name"},
 												}},
 											}},
 										}},
@@ -1764,7 +1852,7 @@ func policy() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "<aa:nn>",
-											Description: "Community number in AA:NN format",
+											Description: "Community number in AA:NN format where AA and NN are (0-65535)",
 										}, {
 											XMLName: xml.Name{
 												Local: "valueHelp",
@@ -1793,6 +1881,72 @@ func policy() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
+											Format:      "graceful-shutdown",
+											Description: "Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "accept-own-nexthop",
+											Description: "Well-known communities value ACCEPT_OWN_NEXTHOP 0xFFFF0008",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "accept-own",
+											Description: "Well-known communities value ACCEPT_OWN 0xFFFF0001 65535:1",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "route-filter-translated-v4",
+											Description: "Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002 65535:2",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "route-filter-v4",
+											Description: "Well-known communities value ROUTE_FILTER_v4 0xFFFF0003 65535:3",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "route-filter-translated-v6",
+											Description: "Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004 65535:4",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "route-filter-v6",
+											Description: "Well-known communities value ROUTE_FILTER_v6 0xFFFF0005 65535:5",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "llgr-stale",
+											Description: "Well-known communities value LLGR_STALE 0xFFFF0006 65535:6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "no-llgr",
+											Description: "Well-known communities value NO_LLGR 0xFFFF0007 65535:7",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "blackhole",
+											Description: "Well-known communities value BLACKHOLE 0xFFFF029A 65535:666",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "no-peer",
+											Description: "Well-known communities value NOPEER 0xFFFFFF04 65535:65284",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
 											Format:      "additive",
 											Description: "New value is appended to the existing value",
 										}},
@@ -1800,7 +1954,7 @@ func policy() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "completionHelp",
 											},
-											List: []string{"local-AS no-advertise no-export internet additive"},
+											List: []string{"local-AS no-advertise no-export internet graceful-shutdown accept-own-nexthop accept-own route-filter-translated-v4 route-filter-v4 route-filter-translated-v6 route-filter-v6 llgr-stale no-llgr blackhole no-peer additive"},
 										}},
 									}},
 								}},

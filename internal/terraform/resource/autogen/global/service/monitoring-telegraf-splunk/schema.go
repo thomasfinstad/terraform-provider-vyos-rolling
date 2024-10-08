@@ -16,7 +16,7 @@ func (r serviceMonitoringTelegrafSplunk) Schema(ctx context.Context, req resourc
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 Telegraf metric collector  
 ⯯  

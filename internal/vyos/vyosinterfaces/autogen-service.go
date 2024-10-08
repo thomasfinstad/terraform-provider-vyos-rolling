@@ -13610,12 +13610,69 @@ func service() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "node",
 									},
+									NodeNameAttr: "rest",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"REST API"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "strict",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Enforce strict path checking"},
+												Valueless: []*schemadefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "debug",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Debug"},
+												Valueless: []*schemadefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+												Hidden: []*schemadefinition.Hidden{{
+													XMLName: xml.Name{
+														Local: "hidden",
+													},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "node",
+									},
 									NodeNameAttr: "graphql",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"GraphQL support"},
+										Help: []string{"GraphQL API"},
 									}},
 									Children: []*schemadefinition.Children{{
 										XMLName: xml.Name{
@@ -13741,6 +13798,41 @@ func service() schemadefinition.InterfaceDefinition {
 													}},
 												}},
 											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "cors",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Set CORS options"},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "allow-origin",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Allow resource request from origin"},
+														Multi: []*schemadefinition.Multi{{
+															XMLName: xml.Name{
+																Local: "multi",
+															},
+														}},
+													}},
+												}},
+											}},
 										}},
 										LeafNode: []*schemadefinition.LeafNode{{
 											IsBaseNode: false,
@@ -13759,81 +13851,6 @@ func service() schemadefinition.InterfaceDefinition {
 													},
 												}},
 											}},
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "node",
-									},
-									NodeNameAttr: "cors",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Set CORS options"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "allow-origin",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Allow resource request from origin"},
-												Multi: []*schemadefinition.Multi{{
-													XMLName: xml.Name{
-														Local: "multi",
-													},
-												}},
-											}},
-										}},
-									}},
-								}},
-								LeafNode: []*schemadefinition.LeafNode{{
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "strict",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Enforce strict path checking"},
-										Valueless: []*schemadefinition.Valueless{{
-											XMLName: xml.Name{
-												Local: "valueless",
-											},
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "debug",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Debug"},
-										Valueless: []*schemadefinition.Valueless{{
-											XMLName: xml.Name{
-												Local: "valueless",
-											},
-										}},
-										Hidden: []*schemadefinition.Hidden{{
-											XMLName: xml.Name{
-												Local: "hidden",
-											},
 										}},
 									}},
 								}},
@@ -17735,17 +17752,153 @@ func service() schemadefinition.InterfaceDefinition {
 						Local: "node",
 					},
 					NodeNameAttr: "monitoring",
-					Properties: []*schemadefinition.Properties{{
-						XMLName: xml.Name{
-							Local: "properties",
-						},
-						Help: []string{"Monitoring services"},
-					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{
 							Local: "children",
 						},
 						Node: []*schemadefinition.Node{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "node-exporter",
+							OwnerAttr:    "${vyos_conf_scripts_dir}/service_monitoring_node-exporter.py",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help:     []string{"Prometheus exporter for hardware and operating system metrics"},
+								Priority: []string{"1280"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*schemadefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "listen-address",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Local IP addresses to listen on"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ip-address",
+											}, {
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ipv6-link-local",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv4",
+											Description: "IPv4 address to listen for incoming connections",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6",
+											Description: "IPv6 address to listen for incoming connections",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
+										}},
+										Multi: []*schemadefinition.Multi{{
+											XMLName: xml.Name{
+												Local: "multi",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "port",
+									DefaultValue: []string{"9100"},
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Port number used by connection"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr:     "numeric",
+												ArgumentAttr: "--range 1-65535",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "u32:1-65535",
+											Description: "Numeric IP port",
+										}},
+										ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "vrf",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"VRF instance name"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "vrf-name",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "VRF instance name",
+										}},
+										ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Path: []string{"vrf name"},
+										}},
+									}},
+								}},
+							}},
+						}, {
 							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",

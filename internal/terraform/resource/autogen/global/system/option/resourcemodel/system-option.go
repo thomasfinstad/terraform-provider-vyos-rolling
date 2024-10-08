@@ -130,6 +130,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
     |  de         |  Germany         |
     |  es         |  Spain           |
     |  fi         |  Finland         |
+    |  it         |  Italy           |
     |  jp106      |  Japan           |
     |  no         |  Norway          |
     |  dk         |  Denmark         |
@@ -146,6 +147,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
     |  de         |  Germany         |
     |  es         |  Spain           |
     |  fi         |  Finland         |
+    |  it         |  Italy           |
     |  jp106      |  Japan           |
     |  no         |  Norway          |
     |  dk         |  Denmark         |

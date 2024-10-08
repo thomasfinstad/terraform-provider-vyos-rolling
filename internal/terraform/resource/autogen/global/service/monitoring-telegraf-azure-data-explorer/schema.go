@@ -16,7 +16,7 @@ func (r serviceMonitoringTelegrafAzureDataExplorer) Schema(ctx context.Context, 
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 Telegraf metric collector  
 ⯯  

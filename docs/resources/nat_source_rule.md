@@ -195,6 +195,11 @@ Optional:
     |  !ipv4       &emsp;|  Match everything except the specified address  |
     |  !ipv4net    &emsp;|  Match everything except the specified prefix   |
     |  !ipv4range  &emsp;|  Match everything except the specified range    |
+- `fqdn` (String) Fully qualified domain name
+
+    |  Format  &emsp;|  Description                  |
+    |----------|-------------------------------|
+    |  &lt;fqdn&gt;  &emsp;|  Fully qualified domain name  |
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--destination--group))
 - `port` (String) Port number
 
@@ -269,6 +274,11 @@ Optional:
     |  !ipv4       &emsp;|  Match everything except the specified address  |
     |  !ipv4net    &emsp;|  Match everything except the specified prefix   |
     |  !ipv4range  &emsp;|  Match everything except the specified range    |
+- `fqdn` (String) Fully qualified domain name
+
+    |  Format  &emsp;|  Description                  |
+    |----------|-------------------------------|
+    |  &lt;fqdn&gt;  &emsp;|  Fully qualified domain name  |
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--source--group))
 - `port` (String) Port number
 

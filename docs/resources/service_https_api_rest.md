@@ -1,14 +1,14 @@
 ---
-page_title: "vyos_service_https_api Resource - vyos"
+page_title: "vyos_service_https_api_rest Resource - vyos"
 
 subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  service⯯HTTPS configuration⯯VyOS HTTP API configuration
+  service⯯HTTPS configuration⯯VyOS HTTP API configuration⯯REST API
 ---
 
-# vyos_service_https_api (Resource)
+# vyos_service_https_api_rest (Resource)
 <center>
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
@@ -17,7 +17,9 @@ description: |-
 ⯯  
 HTTPS configuration  
 ⯯  
-**VyOS HTTP API configuration**
+VyOS HTTP API configuration  
+⯯  
+**REST API**
 
 
 </center>
@@ -26,7 +28,7 @@ HTTPS configuration
 
 <!--TOC-->
 
-- [vyos_service_https_api (Resource)](#vyos_service_https_api-resource)
+- [vyos_service_https_api_rest (Resource)](#vyos_service_https_api_rest-resource)
   - [Schema](#schema)
     - [Optional](#optional)
       - [debug](#debug)

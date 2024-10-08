@@ -65,14 +65,25 @@ Add a BGP community list entry
 #### regex
 - `regex` (String) Regular expression to match against a community-list
 
-    |  Format        &emsp;|  Description                                                  |
-    |----------------|---------------------------------------------------------------|
-    |  &lt;aa:nn&gt;       &emsp;|  Community number in AA:NN format                             |
-    |  local-AS      &emsp;|  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  &emsp;|  Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
-    |  no-export     &emsp;|  Well-known communities value NO_EXPORT 0xFFFFFF01            |
-    |  internet      &emsp;|  Well-known communities value 0                               |
-    |  additive      &emsp;|  New value is appended to the existing value                  |
+    |  Format                      &emsp;|  Description                                                                 |
+    |------------------------------|------------------------------------------------------------------------------|
+    |  &lt;aa:nn&gt;                     &emsp;|  Community number in AA:NN format where AA and NN are (0-65535)              |
+    |  local-AS                    &emsp;|  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03                 |
+    |  no-advertise                &emsp;|  Well-known communities value NO_ADVERTISE 0xFFFFFF02                        |
+    |  no-export                   &emsp;|  Well-known communities value NO_EXPORT 0xFFFFFF01                           |
+    |  internet                    &emsp;|  Well-known communities value 0                                              |
+    |  graceful-shutdown           &emsp;|  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000                   |
+    |  accept-own-nexthop          &emsp;|  Well-known communities value ACCEPT_OWN_NEXTHOP 0xFFFF0008                  |
+    |  accept-own                  &emsp;|  Well-known communities value ACCEPT_OWN 0xFFFF0001 65535:1                  |
+    |  route-filter-translated-v4  &emsp;|  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002 65535:2  |
+    |  route-filter-v4             &emsp;|  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003 65535:3             |
+    |  route-filter-translated-v6  &emsp;|  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004 65535:4  |
+    |  route-filter-v6             &emsp;|  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005 65535:5             |
+    |  llgr-stale                  &emsp;|  Well-known communities value LLGR_STALE 0xFFFF0006 65535:6                  |
+    |  no-llgr                     &emsp;|  Well-known communities value NO_LLGR 0xFFFF0007 65535:7                     |
+    |  blackhole                   &emsp;|  Well-known communities value BLACKHOLE 0xFFFF029A 65535:666                 |
+    |  no-peer                     &emsp;|  Well-known communities value NOPEER 0xFFFFFF04 65535:65284                  |
+    |  additive                    &emsp;|  New value is appended to the existing value                                 |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

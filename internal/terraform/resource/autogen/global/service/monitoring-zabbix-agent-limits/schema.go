@@ -16,7 +16,7 @@ func (r serviceMonitoringZabbixAgentLimits) Schema(ctx context.Context, req reso
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 Zabbix-agent settings  
 ⯯  

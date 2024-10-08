@@ -5,7 +5,7 @@ subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  service⯯Monitoring services⯯Telegraf metric collector⯯Output plugin Prometheus client⯯HTTP basic authentication parameters
+  service⯯monitoring⯯Telegraf metric collector⯯Output plugin Prometheus client⯯HTTP basic authentication parameters
 ---
 
 # vyos_service_monitoring_telegraf_prometheus_client_authentication (Resource)
@@ -15,7 +15,7 @@ description: |-
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 Telegraf metric collector  
 ⯯  

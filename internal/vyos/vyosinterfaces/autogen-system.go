@@ -8574,7 +8574,7 @@ func system() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"(us|uk|fr|de|es|fi|jp106|no|dk|se-latin1|dvorak)"},
+									Regex: []string{"(us|uk|fr|de|es|fi|it|jp106|no|dk|se-latin1|dvorak)"},
 								}},
 								ValueHelp: []*schemadefinition.ValueHelp{{
 									XMLName: xml.Name{
@@ -8616,6 +8616,12 @@ func system() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "valueHelp",
 									},
+									Format:      "it",
+									Description: "Italy",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
 									Format:      "jp106",
 									Description: "Japan",
 								}, {
@@ -8648,7 +8654,7 @@ func system() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "completionHelp",
 									},
-									List: []string{"us uk fr de es fi jp106 no dk se-latin1 dvorak"},
+									List: []string{"us uk fr de es fi it jp106 no dk se-latin1 dvorak"},
 								}},
 							}},
 						}, {

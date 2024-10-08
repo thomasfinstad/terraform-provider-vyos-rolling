@@ -16,7 +16,7 @@ func (r serviceMonitoringTelegrafInfluxdbAuthentication) Schema(ctx context.Cont
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 Telegraf metric collector  
 ⯯  

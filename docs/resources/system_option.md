@@ -68,6 +68,7 @@ description: |-
     |  de         &emsp;|  Germany         |
     |  es         &emsp;|  Spain           |
     |  fi         &emsp;|  Finland         |
+    |  it         &emsp;|  Italy           |
     |  jp106      &emsp;|  Japan           |
     |  no         &emsp;|  Norway          |
     |  dk         &emsp;|  Denmark         |

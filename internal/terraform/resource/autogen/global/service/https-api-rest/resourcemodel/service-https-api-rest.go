@@ -7,6 +7,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
@@ -14,16 +15,17 @@ import (
 )
 
 // Validate compliance
-var _ helpers.VyosTopResourceDataModel = &ServiceHTTPSAPICors{}
+var _ helpers.VyosTopResourceDataModel = &ServiceHTTPSAPIRest{}
 
-// ServiceHTTPSAPICors describes the resource data model.
-type ServiceHTTPSAPICors struct {
+// ServiceHTTPSAPIRest describes the resource data model.
+type ServiceHTTPSAPIRest struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafServiceHTTPSAPICorsAllowOrigin types.List `tfsdk:"allow_origin" vyos:"allow-origin,omitempty"`
+	LeafServiceHTTPSAPIRestStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
+	LeafServiceHTTPSAPIRestDebug  types.Bool `tfsdk:"debug" vyos:"debug,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,26 +33,26 @@ type ServiceHTTPSAPICors struct {
 }
 
 // SetID configures the resource ID
-func (o *ServiceHTTPSAPICors) SetID(id []string) {
+func (o *ServiceHTTPSAPIRest) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *ServiceHTTPSAPICors) GetTimeouts() timeouts.Value {
+func (o *ServiceHTTPSAPIRest) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *ServiceHTTPSAPICors) IsGlobalResource() bool {
+func (o *ServiceHTTPSAPIRest) IsGlobalResource() bool {
 	return (true)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *ServiceHTTPSAPICors) GetVyosPath() []string {
+func (o *ServiceHTTPSAPIRest) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
-		"cors",
+		"rest",
 	)
 }
 
@@ -58,7 +60,7 @@ func (o *ServiceHTTPSAPICors) GetVyosPath() []string {
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *ServiceHTTPSAPICors) GetVyosParentPath() []string {
+func (o *ServiceHTTPSAPIRest) GetVyosParentPath() []string {
 	return []string{
 		"service",
 
@@ -73,12 +75,12 @@ func (o *ServiceHTTPSAPICors) GetVyosParentPath() []string {
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 // ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
-func (o *ServiceHTTPSAPICors) GetVyosNamedParentPath() []string {
+func (o *ServiceHTTPSAPIRest) GetVyosNamedParentPath() []string {
 	return []string{}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ServiceHTTPSAPICors) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o ServiceHTTPSAPIRest) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -91,15 +93,28 @@ func (o ServiceHTTPSAPICors) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		// LeafNodes
 
-		"allow_origin": schema.ListAttribute{
-			ElementType: types.StringType,
-			Optional:    true,
-			MarkdownDescription: `Allow resource request from origin
+		"strict": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Enforce strict path checking
 
 `,
-			Description: `Allow resource request from origin
+			Description: `Enforce strict path checking
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"debug": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Debug
+
+`,
+			Description: `Debug
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 	}
 }

@@ -56,6 +56,7 @@ Bridge firewall prerouting filter
       - [protocol](#protocol)
       - [queue](#queue)
       - [queue_options](#queue_options)
+      - [set](#set)
       - [source](#source)
       - [tcp](#tcp)
       - [time](#time)
@@ -75,6 +76,7 @@ Bridge firewall prerouting filter
     - [Nested Schema for `ipsec`](#nested-schema-for-ipsec)
     - [Nested Schema for `limit`](#nested-schema-for-limit)
     - [Nested Schema for `log_options`](#nested-schema-for-log_options)
+    - [Nested Schema for `set`](#nested-schema-for-set)
     - [Nested Schema for `source`](#nested-schema-for-source)
     - [Nested Schema for `source.group`](#nested-schema-for-sourcegroup)
     - [Nested Schema for `tcp`](#nested-schema-for-tcp)
@@ -219,6 +221,8 @@ Bridge firewall prerouting filter
     |----------|-------------------------------------------------------------------|
     |  bypass  &emsp;|  Let packets go through if userspace application cannot back off  |
     |  fanout  &emsp;|  Distribute packets between several queues                        |
+#### set
+- `set` (Attributes) Packet modifications (see [below for nested schema](#nestedatt--set))
 #### source
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
 #### tcp
@@ -491,6 +495,38 @@ Optional:
     |  Format  &emsp;|  Description                                             |
     |----------|----------------------------------------------------------|
     |  0-9000  &emsp;|  Length of packet payload to include in netlink message  |
+
+
+<a id="nestedatt--set"></a>
+### Nested Schema for `set`
+
+Optional:
+
+- `dscp` (Number) Set DSCP (Packet Differentiated Services Codepoint) bits
+
+    |  Format  &emsp;|  Description  |
+    |----------|---------------|
+    |  0-63    &emsp;|  DSCP number  |
+- `hop_limit` (Number) Set hop limit
+
+    |  Format  &emsp;|  Description       |
+    |----------|--------------------|
+    |  0-255   &emsp;|  Hop limit number  |
+- `mark` (Number) Set packet mark
+
+    |  Format        &emsp;|  Description  |
+    |----------------|---------------|
+    |  1-2147483647  &emsp;|  Packet mark  |
+- `tcp_mss` (Number) Set TCP Maximum Segment Size
+
+    |  Format    &emsp;|  Description                   |
+    |------------|--------------------------------|
+    |  500-1460  &emsp;|  Explicitly set TCP MSS value  |
+- `ttl` (Number) Set TTL (time to live)
+
+    |  Format  &emsp;|  Description  |
+    |----------|---------------|
+    |  0-255   &emsp;|  TTL number   |
 
 
 <a id="nestedatt--source"></a>

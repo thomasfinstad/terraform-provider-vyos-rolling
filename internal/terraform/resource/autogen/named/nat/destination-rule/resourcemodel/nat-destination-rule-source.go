@@ -17,6 +17,7 @@ var _ helpers.VyosResourceDataModel = &NatDestinationRuleSource{}
 // NatDestinationRuleSource describes the resource data model.
 type NatDestinationRuleSource struct {
 	// LeafNodes
+	LeafNatDestinationRuleSourceFqdn    types.String `tfsdk:"fqdn" vyos:"fqdn,omitempty"`
 	LeafNatDestinationRuleSourceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafNatDestinationRuleSourcePort    types.String `tfsdk:"port" vyos:"port,omitempty"`
 
@@ -31,6 +32,22 @@ type NatDestinationRuleSource struct {
 func (o NatDestinationRuleSource) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		"fqdn": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Fully qualified domain name
+
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  <fqdn>  |  Fully qualified domain name  |
+`,
+			Description: `Fully qualified domain name
+
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  <fqdn>  |  Fully qualified domain name  |
+`,
+		},
 
 		"address": schema.StringAttribute{
 			Optional: true,

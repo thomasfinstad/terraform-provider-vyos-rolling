@@ -16,7 +16,7 @@ func (r serviceMonitoringTelegrafPrometheusClientAuthentication) Schema(ctx cont
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 Telegraf metric collector  
 ⯯  

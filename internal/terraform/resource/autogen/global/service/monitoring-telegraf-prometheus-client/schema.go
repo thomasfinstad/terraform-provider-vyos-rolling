@@ -16,7 +16,7 @@ func (r serviceMonitoringTelegrafPrometheusClient) Schema(ctx context.Context, r
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 Telegraf metric collector  
 ⯯  

@@ -277,10 +277,10 @@ import (
 	globalservicednsforwardingoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dns-forwarding-options"
 	globalservicehttps "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https"
 	globalservicehttpsallowclient "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-allow-client"
-	globalservicehttpsapi "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api"
-	globalservicehttpsapicors "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api-cors"
 	globalservicehttpsapigraphql "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api-graphql"
 	globalservicehttpsapigraphqlauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api-graphql-authentication"
+	globalservicehttpsapigraphqlcors "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api-graphql-cors"
+	globalservicehttpsapirest "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-api-rest"
 	globalservicehttpscertificates "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/https-certificates"
 	globalserviceidsddosprotection "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ids-ddos-protection"
 	globalserviceidsddosprotectionsflow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ids-ddos-protection-sflow"
@@ -301,6 +301,7 @@ import (
 	globalservicelldp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp"
 	globalservicelldplegacyprotocols "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp-legacy-protocols"
 	globalservicemdnsrepeater "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/mdns-repeater"
+	globalservicemonitoringnodeexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-node-exporter"
 	globalservicemonitoringtelegraf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf"
 	globalservicemonitoringtelegrafazuredataexplorer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer"
 	globalservicemonitoringtelegrafazuredataexplorerauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer-authentication"
@@ -1672,10 +1673,10 @@ func GetResources() []func() resource.Resource {
 		globalservicednsforwarding.NewServiceDNSForwarding,
 		globalservicednsforwardingoptions.NewServiceDNSForwardingOptions,
 		globalservicehttps.NewServiceHTTPS,
-		globalservicehttpsapi.NewServiceHTTPSAPI,
+		globalservicehttpsapirest.NewServiceHTTPSAPIRest,
 		globalservicehttpsapigraphql.NewServiceHTTPSAPIGraphql,
 		globalservicehttpsapigraphqlauthentication.NewServiceHTTPSAPIGraphqlAuthentication,
-		globalservicehttpsapicors.NewServiceHTTPSAPICors,
+		globalservicehttpsapigraphqlcors.NewServiceHTTPSAPIGraphqlCors,
 		globalservicehttpsallowclient.NewServiceHTTPSAllowClient,
 		globalservicehttpscertificates.NewServiceHTTPSCertificates,
 		globalserviceidsddosprotection.NewServiceIDsDdosProtection,
@@ -1697,6 +1698,7 @@ func GetResources() []func() resource.Resource {
 		globalservicelldp.NewServiceLldp,
 		globalservicelldplegacyprotocols.NewServiceLldpLegacyProtocols,
 		globalservicemdnsrepeater.NewServiceMDNSRepeater,
+		globalservicemonitoringnodeexporter.NewServiceMonitoringNodeExporter,
 		globalservicemonitoringtelegraf.NewServiceMonitoringTelegraf,
 		globalservicemonitoringtelegrafinfluxdb.NewServiceMonitoringTelegrafInfluxdb,
 		globalservicemonitoringtelegrafinfluxdbauthentication.NewServiceMonitoringTelegrafInfluxdbAuthentication,

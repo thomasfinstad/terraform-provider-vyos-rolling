@@ -124,6 +124,12 @@ Optional:
     |  Format  &emsp;|  Description   |
     |----------|----------------|
     |  1-200   &emsp;|  Table number  |
+- `vrf` (String) VRF to forward packet with
+
+    |  Format   &emsp;|  Description                      |
+    |-----------|-----------------------------------|
+    |  txt      &emsp;|  VRF instance name                |
+    |  default  &emsp;|  Forward into default global VRF  |
 
 
 <a id="nestedatt--source"></a>

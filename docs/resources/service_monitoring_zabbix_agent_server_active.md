@@ -4,7 +4,7 @@ page_title: "vyos_service_monitoring_zabbix_agent_server_active Resource - vyos"
 subcategory: "Service"
 
 description: |-
-  service⯯Monitoring services⯯Zabbix-agent settings⯯Remote server address to get active checks from
+  service⯯monitoring⯯Zabbix-agent settings⯯Remote server address to get active checks from
 ---
 
 # vyos_service_monitoring_zabbix_agent_server_active (Resource)
@@ -12,7 +12,7 @@ description: |-
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 Zabbix-agent settings  
 ⯯  

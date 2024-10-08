@@ -56,6 +56,7 @@ type FirewallIPvsixPreroutingRawRule struct {
 	NodeFirewallIPvsixPreroutingRawRuleSource            *FirewallIPvsixPreroutingRawRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
 	NodeFirewallIPvsixPreroutingRawRuleIPsec             *FirewallIPvsixPreroutingRawRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvsixPreroutingRawRuleInboundInterface  *FirewallIPvsixPreroutingRawRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+	NodeFirewallIPvsixPreroutingRawRuleSet               *FirewallIPvsixPreroutingRawRuleSet               `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -466,6 +467,17 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 `,
 			Description: `Match inbound-interface
+
+`,
+		},
+
+		"set": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvsixPreroutingRawRuleSet{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Packet modifications
+
+`,
+			Description: `Packet modifications
 
 `,
 		},

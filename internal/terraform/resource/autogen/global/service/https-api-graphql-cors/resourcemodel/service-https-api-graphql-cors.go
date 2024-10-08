@@ -7,7 +7,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
@@ -15,47 +14,43 @@ import (
 )
 
 // Validate compliance
-var _ helpers.VyosTopResourceDataModel = &ServiceHTTPSAPI{}
+var _ helpers.VyosTopResourceDataModel = &ServiceHTTPSAPIGraphqlCors{}
 
-// ServiceHTTPSAPI describes the resource data model.
-type ServiceHTTPSAPI struct {
+// ServiceHTTPSAPIGraphqlCors describes the resource data model.
+type ServiceHTTPSAPIGraphqlCors struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafServiceHTTPSAPIStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
-	LeafServiceHTTPSAPIDebug  types.Bool `tfsdk:"debug" vyos:"debug,omitempty"`
+	LeafServiceHTTPSAPIGraphqlCorsAllowOrigin types.List `tfsdk:"allow_origin" vyos:"allow-origin,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceHTTPSAPIKeys    bool `tfsdk:"-" vyos:"keys,child"`
-	ExistsNodeServiceHTTPSAPIGraphql bool `tfsdk:"-" vyos:"graphql,child"`
-	ExistsNodeServiceHTTPSAPICors    bool `tfsdk:"-" vyos:"cors,child"`
 }
 
 // SetID configures the resource ID
-func (o *ServiceHTTPSAPI) SetID(id []string) {
+func (o *ServiceHTTPSAPIGraphqlCors) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *ServiceHTTPSAPI) GetTimeouts() timeouts.Value {
+func (o *ServiceHTTPSAPIGraphqlCors) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *ServiceHTTPSAPI) IsGlobalResource() bool {
+func (o *ServiceHTTPSAPIGraphqlCors) IsGlobalResource() bool {
 	return (true)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *ServiceHTTPSAPI) GetVyosPath() []string {
+func (o *ServiceHTTPSAPIGraphqlCors) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
-		"api",
+		"cors",
 	)
 }
 
@@ -63,11 +58,15 @@ func (o *ServiceHTTPSAPI) GetVyosPath() []string {
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *ServiceHTTPSAPI) GetVyosParentPath() []string {
+func (o *ServiceHTTPSAPIGraphqlCors) GetVyosParentPath() []string {
 	return []string{
 		"service",
 
 		"https",
+
+		"api",
+
+		"graphql",
 	}
 }
 
@@ -76,12 +75,12 @@ func (o *ServiceHTTPSAPI) GetVyosParentPath() []string {
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 // ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
-func (o *ServiceHTTPSAPI) GetVyosNamedParentPath() []string {
+func (o *ServiceHTTPSAPIGraphqlCors) GetVyosNamedParentPath() []string {
 	return []string{}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ServiceHTTPSAPI) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o ServiceHTTPSAPIGraphqlCors) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -94,28 +93,15 @@ func (o ServiceHTTPSAPI) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		// LeafNodes
 
-		"strict": schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Enforce strict path checking
+		"allow_origin": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Allow resource request from origin
 
 `,
-			Description: `Enforce strict path checking
+			Description: `Allow resource request from origin
 
 `,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
-		},
-
-		"debug": schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Debug
-
-`,
-			Description: `Debug
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
 		},
 	}
 }

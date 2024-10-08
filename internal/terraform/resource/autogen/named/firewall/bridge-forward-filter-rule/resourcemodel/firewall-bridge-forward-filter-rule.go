@@ -66,6 +66,7 @@ type FirewallBrIDgeForwardFilterRule struct {
 	NodeFirewallBrIDgeForwardFilterRuleConnectionStatus  *FirewallBrIDgeForwardFilterRuleConnectionStatus  `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
 	NodeFirewallBrIDgeForwardFilterRuleInboundInterface  *FirewallBrIDgeForwardFilterRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 	NodeFirewallBrIDgeForwardFilterRuleOutboundInterface *FirewallBrIDgeForwardFilterRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
+	NodeFirewallBrIDgeForwardFilterRuleSet               *FirewallBrIDgeForwardFilterRuleSet               `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -651,6 +652,17 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes(ctx context.Co
 
 `,
 			Description: `Match outbound-interface
+
+`,
+		},
+
+		"set": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgeForwardFilterRuleSet{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Packet modifications
+
+`,
+			Description: `Packet modifications
 
 `,
 		},

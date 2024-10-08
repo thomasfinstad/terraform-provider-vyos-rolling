@@ -62,6 +62,7 @@ type FirewallBrIDgePreroutingFilterRule struct {
 	NodeFirewallBrIDgePreroutingFilterRuleDestination      *FirewallBrIDgePreroutingFilterRuleDestination      `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallBrIDgePreroutingFilterRuleSource           *FirewallBrIDgePreroutingFilterRuleSource           `tfsdk:"source" vyos:"source,omitempty"`
 	NodeFirewallBrIDgePreroutingFilterRuleInboundInterface *FirewallBrIDgePreroutingFilterRuleInboundInterface `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+	NodeFirewallBrIDgePreroutingFilterRuleSet              *FirewallBrIDgePreroutingFilterRuleSet              `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -589,6 +590,17 @@ func (o FirewallBrIDgePreroutingFilterRule) ResourceSchemaAttributes(ctx context
 
 `,
 			Description: `Match inbound-interface
+
+`,
+		},
+
+		"set": schema.SingleNestedAttribute{
+			Attributes: FirewallBrIDgePreroutingFilterRuleSet{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Packet modifications
+
+`,
+			Description: `Packet modifications
 
 `,
 		},

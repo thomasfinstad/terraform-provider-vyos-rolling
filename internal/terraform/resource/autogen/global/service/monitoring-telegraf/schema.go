@@ -16,7 +16,7 @@ func (r serviceMonitoringTelegraf) Schema(ctx context.Context, req resource.Sche
 
 *service*  
 ⯯  
-Monitoring services  
+*monitoring*  
 ⯯  
 **Telegraf metric collector**
 `,

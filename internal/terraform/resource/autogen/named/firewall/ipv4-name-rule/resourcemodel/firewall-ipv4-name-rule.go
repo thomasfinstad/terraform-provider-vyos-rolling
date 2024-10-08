@@ -72,6 +72,7 @@ type FirewallIPvfourNameRule struct {
 	NodeFirewallIPvfourNameRuleInboundInterface  *FirewallIPvfourNameRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 	NodeFirewallIPvfourNameRuleIPsec             *FirewallIPvfourNameRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvfourNameRuleOutboundInterface *FirewallIPvfourNameRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
+	NodeFirewallIPvfourNameRuleSet               *FirewallIPvfourNameRuleSet               `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -725,6 +726,17 @@ func (o FirewallIPvfourNameRule) ResourceSchemaAttributes(ctx context.Context) m
 
 `,
 			Description: `Match outbound-interface
+
+`,
+		},
+
+		"set": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourNameRuleSet{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Packet modifications
+
+`,
+			Description: `Packet modifications
 
 `,
 		},
