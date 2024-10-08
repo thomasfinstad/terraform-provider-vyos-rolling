@@ -1,4 +1,4 @@
-name: "Rebase on latest rolling build and publish release"
+name: "Nightly Rolling Release"
 on:
   workflow_dispatch:
   schedule:
@@ -58,6 +58,7 @@ jobs:
 
       # Release to github
       - name: Free Disk Space (Ubuntu)
+        if: steps.git-push.outputs.git_status == 'pushed'
         uses: jlumbroso/free-disk-space@v1.3.1
         with:
           # this might remove tools that are actually needed,
@@ -70,11 +71,13 @@ jobs:
           docker-images: true
           swap-storage: true
       - name: Setup Golang
+        if: steps.git-push.outputs.git_status == 'pushed'
         uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           go-version-file: 'go.mod'
           cache: true
       - name: Import GPG key
+        if: steps.git-push.outputs.git_status == 'pushed'
         uses: crazy-max/ghaction-import-gpg@01dd5d3ca463c7f10f7f4f7b4f177225ac661ee4 # v6.1.0
         id: import_gpg
         with:
