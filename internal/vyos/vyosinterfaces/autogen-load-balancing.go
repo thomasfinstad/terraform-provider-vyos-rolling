@@ -28,13 +28,13 @@ func loadbalancing() schemadefinition.InterfaceDefinition {
 					XMLName: xml.Name{
 						Local: "node",
 					},
-					NodeNameAttr: "reverse-proxy",
-					OwnerAttr:    "${vyos_conf_scripts_dir}/load-balancing_reverse-proxy.py",
+					NodeNameAttr: "haproxy",
+					OwnerAttr:    "${vyos_conf_scripts_dir}/load-balancing_haproxy.py",
 					Properties: []*schemadefinition.Properties{{
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help:     []string{"Configure reverse-proxy"},
+						Help:     []string{"Configure haproxy"},
 						Priority: []string{"900"},
 					}},
 					Children: []*schemadefinition.Children{{
@@ -1216,14 +1216,14 @@ func loadbalancing() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "txt",
-											Description: "Name of reverse-proxy backend system",
+											Description: "Name of haproxy backend system",
 										}},
 										ConstraintErrorMessage: []string{"Backend name must be alphanumeric and can contain hyphen and underscores"},
 										CompletionHelp: []*schemadefinition.CompletionHelp{{
 											XMLName: xml.Name{
 												Local: "completionHelp",
 											},
-											Path: []string{"load-balancing reverse-proxy backend"},
+											Path: []string{"load-balancing haproxy backend"},
 										}},
 										Multi: []*schemadefinition.Multi{{
 											XMLName: xml.Name{

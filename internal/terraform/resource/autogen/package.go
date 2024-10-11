@@ -29,8 +29,8 @@ import (
 	globalhighavailabilityvrrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp"
 	globalhighavailabilityvrrpglobalparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters"
 	globalhighavailabilityvrrpglobalparametersgarp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters-garp"
-	globalloadbalancingreverseproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/reverse-proxy"
-	globalloadbalancingreverseproxyglobalparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/reverse-proxy-global-parameters"
+	globalloadbalancinghaproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/haproxy"
+	globalloadbalancinghaproxyglobalparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/haproxy-global-parameters"
 	globalloadbalancingwan "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/wan"
 	globalloadbalancingwanstickyconnections "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/load-balancing/wan-sticky-connections"
 	globalnatcgnat "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/nat/cgnat"
@@ -356,6 +356,7 @@ import (
 	globalsystemacceleration "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/acceleration"
 	globalsystemconfigmanagement "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/config-management"
 	globalsystemconfigmanagementcommitarchive "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/config-management-commit-archive"
+	globalsystemconfigmanagementcommitconfirm "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/config-management-commit-confirm"
 	globalsystemconntrack "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack"
 	globalsystemconntracklog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-log"
 	globalsystemconntracklogeventdestroy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/conntrack-log-event-destroy"
@@ -593,16 +594,16 @@ import (
 	namedinterfaceswwan "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wwan"
 	namedinterfaceswwandhcpvsixoptionspd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wwan-dhcpv6-options-pd"
 	namedinterfaceswwandhcpvsixoptionspdinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/interfaces/wwan-dhcpv6-options-pd-interface"
-	namedloadbalancingreverseproxybackend "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend"
-	namedloadbalancingreverseproxybackendhttpresponseheaders "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend-http-response-headers"
-	namedloadbalancingreverseproxybackendloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend-logging-facility"
-	namedloadbalancingreverseproxybackendrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend-rule"
-	namedloadbalancingreverseproxybackendserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-backend-server"
-	namedloadbalancingreverseproxyglobalparametersloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-global-parameters-logging-facility"
-	namedloadbalancingreverseproxyservice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-service"
-	namedloadbalancingreverseproxyservicehttpresponseheaders "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-service-http-response-headers"
-	namedloadbalancingreverseproxyserviceloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-service-logging-facility"
-	namedloadbalancingreverseproxyservicerule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/reverse-proxy-service-rule"
+	namedloadbalancinghaproxybackend "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-backend"
+	namedloadbalancinghaproxybackendhttpresponseheaders "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-backend-http-response-headers"
+	namedloadbalancinghaproxybackendloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-backend-logging-facility"
+	namedloadbalancinghaproxybackendrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-backend-rule"
+	namedloadbalancinghaproxybackendserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-backend-server"
+	namedloadbalancinghaproxyglobalparametersloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-global-parameters-logging-facility"
+	namedloadbalancinghaproxyservice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-service"
+	namedloadbalancinghaproxyservicehttpresponseheaders "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-service-http-response-headers"
+	namedloadbalancinghaproxyserviceloggingfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-service-logging-facility"
+	namedloadbalancinghaproxyservicerule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/haproxy-service-rule"
 	namedloadbalancingwaninterfacehealth "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/wan-interface-health"
 	namedloadbalancingwaninterfacehealthtest "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/wan-interface-health-test"
 	namedloadbalancingwanrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/load-balancing/wan-rule"
@@ -1154,22 +1155,22 @@ func GetResources() []func() resource.Resource {
 		namedinterfaceswwandhcpvsixoptionspd.NewInterfacesWwanDhcpvsixOptionsPd,
 		namedinterfaceswwandhcpvsixoptionspdinterface.NewInterfacesWwanDhcpvsixOptionsPdInterface,
 		namedinterfaceswwan.NewInterfacesWwan,
-		namedloadbalancingreverseproxyglobalparametersloggingfacility.NewLoadBalancingReverseProxyGlobalParametersLoggingFacility,
-		namedloadbalancingreverseproxyservice.NewLoadBalancingReverseProxyService,
-		namedloadbalancingreverseproxyserviceloggingfacility.NewLoadBalancingReverseProxyServiceLoggingFacility,
-		namedloadbalancingreverseproxyservicerule.NewLoadBalancingReverseProxyServiceRule,
-		namedloadbalancingreverseproxyservicehttpresponseheaders.NewLoadBalancingReverseProxyServiceHTTPResponseHeaders,
-		namedloadbalancingreverseproxybackend.NewLoadBalancingReverseProxyBackend,
-		namedloadbalancingreverseproxybackendloggingfacility.NewLoadBalancingReverseProxyBackendLoggingFacility,
-		namedloadbalancingreverseproxybackendhttpresponseheaders.NewLoadBalancingReverseProxyBackendHTTPResponseHeaders,
-		namedloadbalancingreverseproxybackendrule.NewLoadBalancingReverseProxyBackendRule,
-		namedloadbalancingreverseproxybackendserver.NewLoadBalancingReverseProxyBackendServer,
+		namedloadbalancinghaproxyglobalparametersloggingfacility.NewLoadBalancingHaproxyGlobalParametersLoggingFacility,
+		namedloadbalancinghaproxyservice.NewLoadBalancingHaproxyService,
+		namedloadbalancinghaproxyserviceloggingfacility.NewLoadBalancingHaproxyServiceLoggingFacility,
+		namedloadbalancinghaproxyservicerule.NewLoadBalancingHaproxyServiceRule,
+		namedloadbalancinghaproxyservicehttpresponseheaders.NewLoadBalancingHaproxyServiceHTTPResponseHeaders,
+		namedloadbalancinghaproxybackend.NewLoadBalancingHaproxyBackend,
+		namedloadbalancinghaproxybackendloggingfacility.NewLoadBalancingHaproxyBackendLoggingFacility,
+		namedloadbalancinghaproxybackendhttpresponseheaders.NewLoadBalancingHaproxyBackendHTTPResponseHeaders,
+		namedloadbalancinghaproxybackendrule.NewLoadBalancingHaproxyBackendRule,
+		namedloadbalancinghaproxybackendserver.NewLoadBalancingHaproxyBackendServer,
 		namedloadbalancingwaninterfacehealth.NewLoadBalancingWanInterfaceHealth,
 		namedloadbalancingwaninterfacehealthtest.NewLoadBalancingWanInterfaceHealthTest,
 		namedloadbalancingwanrule.NewLoadBalancingWanRule,
 		namedloadbalancingwanruleinterface.NewLoadBalancingWanRuleInterface,
-		globalloadbalancingreverseproxy.NewLoadBalancingReverseProxy,
-		globalloadbalancingreverseproxyglobalparameters.NewLoadBalancingReverseProxyGlobalParameters,
+		globalloadbalancinghaproxy.NewLoadBalancingHaproxy,
+		globalloadbalancinghaproxyglobalparameters.NewLoadBalancingHaproxyGlobalParameters,
 		globalloadbalancingwan.NewLoadBalancingWan,
 		globalloadbalancingwanstickyconnections.NewLoadBalancingWanStickyConnections,
 		namednatdestinationrule.NewNatDestinationRule,
@@ -1778,6 +1779,7 @@ func GetResources() []func() resource.Resource {
 		globalsystemacceleration.NewSystemAcceleration,
 		globalsystemconfigmanagement.NewSystemConfigManagement,
 		globalsystemconfigmanagementcommitarchive.NewSystemConfigManagementCommitArchive,
+		globalsystemconfigmanagementcommitconfirm.NewSystemConfigManagementCommitConfirm,
 		globalsystemconntrack.NewSystemConntrack,
 		globalsystemconntracklog.NewSystemConntrackLog,
 		globalsystemconntracklogeventdestroy.NewSystemConntrackLogEventDestroy,

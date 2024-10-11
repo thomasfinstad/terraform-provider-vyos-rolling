@@ -14,45 +14,46 @@ import (
 )
 
 // Validate compliance
-var _ helpers.VyosTopResourceDataModel = &SystemConfigManagement{}
+var _ helpers.VyosTopResourceDataModel = &LoadBalancingHaproxy{}
 
-// SystemConfigManagement describes the resource data model.
-type SystemConfigManagement struct {
+// LoadBalancingHaproxy describes the resource data model.
+type LoadBalancingHaproxy struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafSystemConfigManagementCommitRevisions types.Number `tfsdk:"commit_revisions" vyos:"commit-revisions,omitempty"`
+	LeafLoadBalancingHaproxyVrf types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	ExistsTagLoadBalancingHaproxyService bool `tfsdk:"-" vyos:"service,child"`
+	ExistsTagLoadBalancingHaproxyBackend bool `tfsdk:"-" vyos:"backend,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemConfigManagementCommitArchive bool `tfsdk:"-" vyos:"commit-archive,child"`
-	ExistsNodeSystemConfigManagementCommitConfirm bool `tfsdk:"-" vyos:"commit-confirm,child"`
+	ExistsNodeLoadBalancingHaproxyGlobalParameters bool `tfsdk:"-" vyos:"global-parameters,child"`
 }
 
 // SetID configures the resource ID
-func (o *SystemConfigManagement) SetID(id []string) {
+func (o *LoadBalancingHaproxy) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *SystemConfigManagement) GetTimeouts() timeouts.Value {
+func (o *LoadBalancingHaproxy) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *SystemConfigManagement) IsGlobalResource() bool {
+func (o *LoadBalancingHaproxy) IsGlobalResource() bool {
 	return (true)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *SystemConfigManagement) GetVyosPath() []string {
+func (o *LoadBalancingHaproxy) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
-		"config-management",
+		"haproxy",
 	)
 }
 
@@ -60,9 +61,9 @@ func (o *SystemConfigManagement) GetVyosPath() []string {
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *SystemConfigManagement) GetVyosParentPath() []string {
+func (o *LoadBalancingHaproxy) GetVyosParentPath() []string {
 	return []string{
-		"system",
+		"load-balancing",
 	}
 }
 
@@ -71,12 +72,12 @@ func (o *SystemConfigManagement) GetVyosParentPath() []string {
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 // ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
-func (o *SystemConfigManagement) GetVyosNamedParentPath() []string {
+func (o *LoadBalancingHaproxy) GetVyosNamedParentPath() []string {
 	return []string{}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o SystemConfigManagement) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o LoadBalancingHaproxy) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -89,19 +90,19 @@ func (o SystemConfigManagement) ResourceSchemaAttributes(ctx context.Context) ma
 
 		// LeafNodes
 
-		"commit_revisions": schema.NumberAttribute{
+		"vrf": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Commit revisions
+			MarkdownDescription: `VRF instance name
 
-    |  Format   |  Description                       |
-    |-----------|------------------------------------|
-    |  1-65535  |  Number of config backups to keep  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
-			Description: `Commit revisions
+			Description: `VRF instance name
 
-    |  Format   |  Description                       |
-    |-----------|------------------------------------|
-    |  1-65535  |  Number of config backups to keep  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 		},
 	}

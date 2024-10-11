@@ -14,45 +14,43 @@ import (
 )
 
 // Validate compliance
-var _ helpers.VyosTopResourceDataModel = &SystemConfigManagement{}
+var _ helpers.VyosTopResourceDataModel = &SystemConfigManagementCommitConfirm{}
 
-// SystemConfigManagement describes the resource data model.
-type SystemConfigManagement struct {
+// SystemConfigManagementCommitConfirm describes the resource data model.
+type SystemConfigManagementCommitConfirm struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafSystemConfigManagementCommitRevisions types.Number `tfsdk:"commit_revisions" vyos:"commit-revisions,omitempty"`
+	LeafSystemConfigManagementCommitConfirmAction types.String `tfsdk:"action" vyos:"action,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemConfigManagementCommitArchive bool `tfsdk:"-" vyos:"commit-archive,child"`
-	ExistsNodeSystemConfigManagementCommitConfirm bool `tfsdk:"-" vyos:"commit-confirm,child"`
 }
 
 // SetID configures the resource ID
-func (o *SystemConfigManagement) SetID(id []string) {
+func (o *SystemConfigManagementCommitConfirm) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *SystemConfigManagement) GetTimeouts() timeouts.Value {
+func (o *SystemConfigManagementCommitConfirm) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *SystemConfigManagement) IsGlobalResource() bool {
+func (o *SystemConfigManagementCommitConfirm) IsGlobalResource() bool {
 	return (true)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *SystemConfigManagement) GetVyosPath() []string {
+func (o *SystemConfigManagementCommitConfirm) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
-		"config-management",
+		"commit-confirm",
 	)
 }
 
@@ -60,9 +58,11 @@ func (o *SystemConfigManagement) GetVyosPath() []string {
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *SystemConfigManagement) GetVyosParentPath() []string {
+func (o *SystemConfigManagementCommitConfirm) GetVyosParentPath() []string {
 	return []string{
 		"system",
+
+		"config-management",
 	}
 }
 
@@ -71,12 +71,12 @@ func (o *SystemConfigManagement) GetVyosParentPath() []string {
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 // ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
-func (o *SystemConfigManagement) GetVyosNamedParentPath() []string {
+func (o *SystemConfigManagementCommitConfirm) GetVyosNamedParentPath() []string {
 	return []string{}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o SystemConfigManagement) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o SystemConfigManagementCommitConfirm) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -89,20 +89,25 @@ func (o SystemConfigManagement) ResourceSchemaAttributes(ctx context.Context) ma
 
 		// LeafNodes
 
-		"commit_revisions": schema.NumberAttribute{
+		"action": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Commit revisions
+			MarkdownDescription: `Commit confirm revert action
 
-    |  Format   |  Description                       |
-    |-----------|------------------------------------|
-    |  1-65535  |  Number of config backups to keep  |
+    |  Format  |  Description                                     |
+    |----------|--------------------------------------------------|
+    |  reload  |  Reload previous configuration if not confirmed  |
+    |  reboot  |  Reboot to saved configuration if not confirmed  |
 `,
-			Description: `Commit revisions
+			Description: `Commit confirm revert action
 
-    |  Format   |  Description                       |
-    |-----------|------------------------------------|
-    |  1-65535  |  Number of config backups to keep  |
+    |  Format  |  Description                                     |
+    |----------|--------------------------------------------------|
+    |  reload  |  Reload previous configuration if not confirmed  |
+    |  reboot  |  Reboot to saved configuration if not confirmed  |
 `,
+
+			// Default:          stringdefault.StaticString(`reboot`),
+			Computed: true,
 		},
 	}
 }
