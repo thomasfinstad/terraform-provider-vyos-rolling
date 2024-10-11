@@ -4,85 +4,51 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 3.11.202410082 (2024-10-08 18-31-17 UTC)](#release-311202410082-2024-10-08-18-31-17-utc)
+  - [Release 4.0.202410110 (2024-10-11 08-30-31 UTC)](#release-40202410110-2024-10-11-08-30-31-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
-      - [Bug fixes](#bug-fixes)
-  - [Release 3.11.202410080 (2024-10-08 17-54-22 UTC)](#release-311202410080-2024-10-08-17-54-22-utc)
-    - [Project changes](#project-changes-1)
-      - [Notes](#notes-1)
-      - [Bug fixes](#bug-fixes-1)
-  - [Release 3.11.202410081 (????)](#release-311202410081-)
-  - [Release 3.0.202410080 (2024-10-08 16-52-50 UTC)](#release-30202410080-2024-10-08-16-52-50-utc)
-    - [Project changes](#project-changes-2)
-      - [Notes](#notes-2)
-      - [Bug fixes](#bug-fixes-2)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources)
-      - [Notes](#notes-3)
-        - [Resources](#resources-1)
       - [Features](#features)
-        - [Resources](#resources-2)
+        - [Resources](#resources-1)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
 
 
-## Release 3.11.202410082 (2024-10-08 18-31-17 UTC)
+## Release 4.0.202410110 (2024-10-11 08-30-31 UTC)
 ### Project changes
 #### Notes
-* update to rolling release 2024-10-08T12:08:53Z
-* clarify early access warning
-* update to rolling release 2024-10-08T12:08:53Z
-* simplify global resource warning language
-#### Bug fixes
-* skip bugged release
-
-
-## Release 3.11.202410080 (2024-10-08 17-54-22 UTC)
-### Project changes
-#### Notes
-* update to rolling release 2024-10-08T12:08:53Z
-* simplify global resource warning language
-#### Bug fixes
-* skip bugged release
-
-
-## Release 3.11.202410081 (????)
-bugged release
-
-## Release 3.0.202410080 (2024-10-08 16-52-50 UTC)
-### Project changes
-#### Notes
-* reduce wasted ci resources
-* clean up CI instance disk space before building release
-* update to rolling release 2024-10-08T12:08:53Z
-* fix devcontainer tooling download
-#### Bug fixes
-* minor versioning reset bug and changelog typeos
-* multivalue elements dereferencing during vyos api data generation
+* update to rolling release 2024-10-11T00:05:55Z
 
 ### Schema changes
 #### BREAKING CHANGES
 
 ##### Resources
-* **Removed Resource** `vyos_service_https_api`
+* **Removed Resource** `vyos_load_balancing_reverse_proxy`
 
-* **Removed Resource** `vyos_service_https_api_cors`
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_service_http_response_headers`
 
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend_http_response_headers`
 
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_global_parameters_logging_facility`
 
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_global_parameters`
 
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend_server`
 
-#### Notes
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend`
 
-##### Resources
-* Modified Resource `vyos_system_option`
-	* Modified attribute `keyboard_layout` changed description
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_service_rule`
 
-* Modified Resource `vyos_policy_community_list_rule`
-	* Modified attribute `regex` changed description
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend_logging_facility`
+
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_service_logging_facility`
+
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend_rule`
+
+* **Removed Resource** `vyos_load_balancing_reverse_proxy_service`
 
 
 
@@ -91,64 +57,31 @@ bugged release
 #### Features
 
 ##### Resources
-* Modified Resource `vyos_firewall_ipv6_output_filter_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy_service`
 
-* Modified Resource `vyos_firewall_bridge_output_filter_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy`
 
-* Modified Resource `vyos_policy_local_route6_rule`
-	* New attribute `set.vrf`
+* New Resource `vyos_load_balancing_haproxy_backend_rule`
 
-* Modified Resource `vyos_policy_local_route_rule`
-	* New attribute `set.vrf`
+* New Resource `vyos_load_balancing_haproxy_service_http_response_headers`
 
-* Modified Resource `vyos_firewall_ipv4_forward_filter_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy_backend_http_response_headers`
 
-* Modified Resource `vyos_nat_source_rule`
-	* New attribute `destination.fqdn`
-	* New attribute `source.fqdn`
+* New Resource `vyos_system_config_management_commit_confirm`
 
-* Modified Resource `vyos_firewall_ipv6_output_raw_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy_backend_server`
 
-* Modified Resource `vyos_firewall_ipv4_name_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy_backend`
 
-* Modified Resource `vyos_firewall_bridge_prerouting_filter_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy_global_parameters`
 
-* Modified Resource `vyos_firewall_ipv4_output_filter_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy_backend_logging_facility`
 
-* Modified Resource `vyos_firewall_ipv6_name_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy_global_parameters_logging_facility`
 
-* Modified Resource `vyos_firewall_bridge_forward_filter_rule`
-	* New attribute `set`
+* New Resource `vyos_load_balancing_haproxy_service_logging_facility`
 
-* Modified Resource `vyos_firewall_ipv4_prerouting_raw_rule`
-	* New attribute `set`
-
-* Modified Resource `vyos_firewall_ipv6_forward_filter_rule`
-	* New attribute `set`
-
-* Modified Resource `vyos_firewall_ipv6_prerouting_raw_rule`
-	* New attribute `set`
-
-* Modified Resource `vyos_nat_destination_rule`
-	* New attribute `destination.fqdn`
-	* New attribute `source.fqdn`
-
-* Modified Resource `vyos_firewall_ipv4_output_raw_rule`
-	* New attribute `set`
-
-* New Resource `vyos_service_https_api_rest`
-
-* New Resource `vyos_service_https_api_graphql_cors`
-
-* New Resource `vyos_service_monitoring_node_exporter`
+* New Resource `vyos_load_balancing_haproxy_service_rule`
 
 
 
@@ -158,4 +91,4 @@ bugged release
 
 
 ## Previous changelogs
-For previous version see [changelog for v2](data/changelogs/CHANGELOG-v2.md) or older archives [directory](data/changelogs/)
+For previous version see [changelog for 3](data/changelogs/CHANGELOG-3.md) or older archives [directory](data/changelogs/)
