@@ -210,12 +210,14 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 	resp, err := c.httpClient.Do(req)
 	tools.Trace(ctx, "Request complete", map[string]interface{}{"error": err})
 	if err != nil {
+		tools.Trace(ctx, "failed to complete http request", map[string]interface{}{"error": err})
 		return false, fmt.Errorf("failed to complete http request: %w", err)
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
+		tools.Trace(ctx, "failed to read http response", map[string]interface{}{"error": err})
 		return false, fmt.Errorf("failed to read http response: %w", err)
 	}
 
@@ -223,6 +225,7 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 
 	err = json.Unmarshal(body, &ret)
 	if err != nil {
+		tools.Trace(ctx, "failed to unmarshal http response body", map[string]interface{}{"error": err, "body": body})
 		return false, fmt.Errorf("failed to unmarshal http response body: '%s' as json: %w", body, err)
 	}
 
@@ -232,15 +235,18 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 			tools.Trace(ctx, "resource check complete", map[string]interface{}{"result": retB})
 			return retB, nil
 		}
+		tools.Trace(ctx, "[api error]: could not convert returned 'data' field to bool", map[string]interface{}{"ret": ret})
 		return false, fmt.Errorf("[api error]: could not convert returned 'data' field to bool: %v", ret)
 	}
 
 	if errmsg, ok := ret["error"]; ok {
 		if errmsg, ok := errmsg.(string); ok {
+			tools.Trace(ctx, "[api error]", map[string]interface{}{"errmsg": errmsg})
 			return false, clienterrors.NewNotFoundError("[api error]: %s", errmsg)
 		}
 	}
 
+	tools.Trace(ctx, "[api error]", map[string]interface{}{"ret": ret})
 	return false, clienterrors.NewNotFoundError("[api error]: %v", ret)
 }
 

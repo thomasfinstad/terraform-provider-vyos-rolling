@@ -12,6 +12,8 @@ Contains structs to use with vyos schemas
 func (i *InterfaceDefinition) GetRootNode() (*Node, error) {
 	if len(i.Node) == 0 {
 		return &Node{}, fmt.Errorf("no root node found under interface")
+	} else if len(i.Node) != 1 {
+		return &Node{}, fmt.Errorf("too many root nodes found under interface: %v", i.XMLName)
 	}
 
 	ret := i.Node[0]
@@ -21,143 +23,49 @@ func (i *InterfaceDefinition) GetRootNode() (*Node, error) {
 	return ret, nil
 }
 
-// BaseTagNodes returns highest level TagNodes
+// BaseTagNodes are the resource basis. All TagNodes start with the assumption that they are base nodes, use overrides to change that.
 func (i *InterfaceDefinition) BaseTagNodes() (tagNodes []*TagNode, ok bool) {
-	var recurse func(NodeParent) []*TagNode
-	recurse = func(parent NodeParent) []*TagNode {
-		var ret []*TagNode
-		children := parent.GetChildren()
-
-		if children == nil {
-			fmt.Printf("[%s] Skipping children:nil\n", parent.BaseName())
-			return ret
-		}
-
-		for _, n := range children.Node {
-			ret = append(ret, recurse(n)...)
-		}
-
-		// Testing for (merge)override
-		for _, tn := range children.TagNode {
-			// If check if override is configured
-			shouldMerge := false
-		LO:
-			for _, override := range BaseNodeOverrides {
-				// quick skip (to keep log a bit more readable)
-				if tn.AbsName()[0] != override.Full()[0] {
-					continue
-				}
-
-				fmt.Print("Node: ", tn.AbsName(), " Test: ", override.Full(), "\t")
-
-				// recurse and skip if node name is shorter than start of override scope
-				if len(tn.AbsName()) <= len(override.from) {
-
-					fmt.Print("recurse into.", "\n")
-					ret = append(ret, recurse(tn)...)
-					continue
-				}
-
-				// skip if node name is longer than full override scope
-				if len(tn.AbsName()) > len(override.Full()) {
-					fmt.Print("too deep to match.", "\n")
-
-					continue
-				}
-
-				fmt.Print("override test result:\t")
-
-				// check each if each name segment is in the override
-				for i := 0; i < len(tn.AbsName()); i++ {
-
-					// skip if not matching
-					if tn.AbsName()[i] != override.Full()[i] {
-						fmt.Print("mismatch at index: ", i, "\n")
-
-						break
-					}
-
-					// if we are on the last segment of the node name and reach this point then it should be overridden
-					if i+1 == len(tn.AbsName()) {
-						fmt.Print("match found, merging", "\n")
-						shouldMerge = true
-						break LO
-					}
-				}
-			}
-
-			// If the tag node should not be merged into its parent we can mark it as a new basenode
-			if !shouldMerge {
-				ret = append(ret, tn)
-				tn.IsBaseNode = true
-			}
-
-			ret = append(ret, recurse(tn)...)
-		}
-
-		return ret
-	}
-
 	rootNode, err := i.GetRootNode()
 	if err != nil {
-		fmt.Printf("BaseTagNodes Skipping rootnode:nil i:%v\n", i)
+		fmt.Printf("BaseTagNodes Skipping rootnode:%v because: %s\n", i, err)
 		return nil, false
 	}
 
-	tagNodes = recurse(rootNode)
-	ok = len(tagNodes) > 0
-
-	return tagNodes, ok
-}
-
-// TagNodes returns all TagNodes (recursively)
-func (i *InterfaceDefinition) TagNodes() (tagNodes []*TagNode, ok bool) {
-	var recurse func(NodeParent) []*TagNode
-	recurse = func(parent NodeParent) []*TagNode {
+	var recursivelyGetBaseTagNodes func(rootNode NodeParent) []*TagNode
+	recursivelyGetBaseTagNodes = func(rootNode NodeParent) []*TagNode {
 		var ret []*TagNode
-		children := parent.GetChildren()
+
+		children := rootNode.GetChildren()
 
 		if children == nil {
-			fmt.Printf("[%s] Skipping children:nil\n", parent.BaseName())
+			fmt.Printf("[%s] Skipping children:nil\n", rootNode.BaseName())
 			return ret
 		}
 
-		// Add own tag node children
-		ret = append(ret, children.TagNode...)
+		// Recurse over tagnode children
+		for _, n := range children.TagNodes() {
+			if n.GetIsBaseNode() {
+				ret = append(ret, n)
+			}
+			ret = append(ret, recursivelyGetBaseTagNodes(n)...)
+		}
 
-		// Recurse for children
+		// Recurse over node children
 		for _, n := range children.Nodes() {
-			ret = append(ret, recurse(n)...)
-		}
-
-		for _, t := range children.TagNodes() {
-			ret = append(ret, recurse(t)...)
+			ret = append(ret, recursivelyGetBaseTagNodes(n)...)
 		}
 
 		return ret
 	}
 
-	rootNode, err := i.GetRootNode()
-	if err != nil {
-		fmt.Printf("BaseTagNodes Skipping rootnode:nil i:%v\n", i)
-		return nil, false
-	}
-
-	tagNodes = recurse(rootNode)
-	ok = len(tagNodes) > 0
-
-	// Let tagnode know it is the basenode
-	for _, tagNode := range tagNodes {
-		tagNode.IsBaseNode = true
-	}
-
-	return tagNodes, ok
+	btn := recursivelyGetBaseTagNodes(rootNode)
+	return btn, len(btn) > 0
 }
 
-// Nodes returns all Nodes that contain a LeafNode that is not inside a TagNode
-func (i *InterfaceDefinition) Nodes() (nodes []*Node, ok bool) {
-	var recurse func(NodeParent) []*Node
-	recurse = func(parent NodeParent) []*Node {
+// Nodes returns all Nodes that contain a LeafNode and is itself not inside a TagNode
+func (i *InterfaceDefinition) BaseNodes() (nodes []*Node, ok bool) {
+	var recursivelyGetBaseNodes func(NodeParent) []*Node
+	recursivelyGetBaseNodes = func(parent NodeParent) []*Node {
 		var ret []*Node
 		children := parent.GetChildren()
 
@@ -165,15 +73,13 @@ func (i *InterfaceDefinition) Nodes() (nodes []*Node, ok bool) {
 			fmt.Printf("[%s] Skipping children:nil\n", parent.BaseName())
 			return ret
 		}
-
-		// Add self is containing LeafNodes
-		if len(children.LeafNode) > 0 {
+		if parent.GetIsBaseNode() {
 			ret = append(ret, parent.(*Node))
 		}
 
 		// Recurse for children
 		for _, n := range children.Nodes() {
-			ret = append(ret, recurse(n)...)
+			ret = append(ret, recursivelyGetBaseNodes(n)...)
 		}
 
 		return ret
@@ -185,13 +91,6 @@ func (i *InterfaceDefinition) Nodes() (nodes []*Node, ok bool) {
 		return nil, false
 	}
 
-	nodes = recurse(rootNode)
-	ok = len(nodes) > 0
-
-	// Let node know it is the basenode (unlikely to be useful)
-	for _, node := range nodes {
-		node.IsBaseNode = true
-	}
-
-	return nodes, ok
+	nodes = recursivelyGetBaseNodes(rootNode)
+	return nodes, len(nodes) > 0
 }

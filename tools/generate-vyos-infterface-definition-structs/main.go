@@ -96,6 +96,10 @@ Outer:
 		outputBaseName := rootNode.NodeNameAttr
 		outputFile := fmt.Sprintf("%s/autogen-%s.go", outputDirectory, outputBaseName)
 		slog.Info(fmt.Sprintf("Writing Output Go file: %s", outputFile))
+
+		markBaseTagNodes(rootNode)
+		markBaseNodes(rootNode)
+
 		output := render.AsCode(topLevelInterface)
 
 		outputFormatted := []byte(output)

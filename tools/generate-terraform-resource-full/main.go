@@ -1,12 +1,13 @@
 package main
 
 import (
+	"cmp"
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strings"
 	"text/template"
 
@@ -22,9 +23,10 @@ type autogenTemplateInfo struct {
 
 func main() {
 	args := os.Args[1:]
-	rootOutputDirectory := args[0]
-	selfImportRoot := args[1]
-	skipDirAbsNames := strings.Split(args[2], ",")
+	gitRootDirectory := args[0]
+	outputDirectory := args[1]
+	selfImportRoot := args[2]
+	skipDirAbsNames := strings.Split(args[3], ",")
 
 	vyosInterfaces := vyosinterfaces.GetInterfaces()
 
@@ -32,20 +34,25 @@ func main() {
 
 	// Compile resources
 	for _, vyosInterface := range vyosInterfaces {
+		{ // Helpful for troubleshooting
+			n, err := vyosInterface.GetRootNode()
+			die(err)
+			fmt.Printf("Generating from interface: %s\n", n.NodeNameAttr)
+		}
 
 		// Named (TagNode) resources
 		TagNodes, ok := vyosInterface.BaseTagNodes()
 		if ok {
 			for _, tagNode := range TagNodes {
-				packagesToGenerate = append(packagesToGenerate, namedResources(tagNode, skipDirAbsNames, fmt.Sprintf("%s/named", rootOutputDirectory), "named", selfImportRoot)...)
+				packagesToGenerate = append(packagesToGenerate, namedResources(gitRootDirectory, tagNode, skipDirAbsNames, fmt.Sprintf("%s/named", outputDirectory), "named", selfImportRoot)...)
 			}
 		}
 
 		// Global (Node) resources
-		Nodes, ok := vyosInterface.Nodes()
+		Nodes, ok := vyosInterface.BaseNodes()
 		if ok {
 			for _, node := range Nodes {
-				packagesToGenerate = append(packagesToGenerate, globalResources(node, skipDirAbsNames, fmt.Sprintf("%s/global", rootOutputDirectory), "global", selfImportRoot)...)
+				packagesToGenerate = append(packagesToGenerate, globalResources(gitRootDirectory, node, skipDirAbsNames, fmt.Sprintf("%s/global", outputDirectory), "global", selfImportRoot)...)
 			}
 		}
 	}
@@ -82,15 +89,18 @@ func main() {
 		packagesToGenerateDeduped = append(packagesToGenerateDeduped, currentPkg)
 	}
 
+	slices.SortFunc(packagesToGenerateDeduped, func(a, b autogenTemplateInfo) int { return cmp.Compare(a.PkgName, b.PkgName) })
+
 	// Create package resource inclusion function
-	_, thisFilename, _, ok := runtime.Caller(0)
+	_, callerFileName, _, ok := runtime.Caller(0)
 	if !ok {
 		panic("Did not get path info")
 	}
-	thisDir := filepath.Dir(thisFilename)
-	outputFile := fmt.Sprintf("%s/package.go", rootOutputDirectory)
-	fmt.Printf("Creating autogen resource include file: %s\n", outputFile)
-	file, err := os.Create(outputFile)
+	thisDir := filepath.Dir(callerFileName)
+	packageOutputFile, err := filepath.Abs(filepath.FromSlash(fmt.Sprintf("%s/%s/package.go", gitRootDirectory, outputDirectory)))
+	die(err)
+	fmt.Printf("Creating autogen resource include file: %s\n", packageOutputFile)
+	file, err := os.Create(packageOutputFile)
 	if err != nil {
 		return
 	}
@@ -120,14 +130,18 @@ func main() {
 	//  Example of sensitive value:
 }
 
-func namedResources(tagNode *schemadefinition.TagNode, skipDirAbsNames []string, rootOutputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {
-	_, thisFilename, _, ok := runtime.Caller(0)
+func namedResources(gitRootDirectory string, tagNode *schemadefinition.TagNode, skipDirAbsNames []string, outputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {
+	_, callerFileName, _, ok := runtime.Caller(0)
 	if !ok {
 		panic("Did not get path info")
 	}
-	thisDir := filepath.Dir(thisFilename)
+	callerFileName, err := filepath.Abs(callerFileName)
+	die(err)
+	thisDir, err := filepath.Abs(filepath.Dir(callerFileName))
+	die(err)
+	callerFileName = strings.TrimLeft(strings.TrimPrefix(callerFileName, gitRootDirectory), string(filepath.Separator))
 
-	fmt.Printf("BaseTagNode: %s\n", tagNode.AbsName())
+	// fmt.Printf("BaseTagNode: %s\n", tagNode.AbsName())
 
 	// Absolute dir name
 	absDirNameComponents := []string{tagNode.AbsName()[0], strings.Join(tagNode.AbsName()[1:], "-")}
@@ -152,7 +166,7 @@ func namedResources(tagNode *schemadefinition.TagNode, skipDirAbsNames []string,
 	}
 
 	// Create output dir
-	resourceOutputDir := strings.Join([]string{rootOutputDirectory, absDirName}, "/")
+	resourceOutputDir := strings.Join([]string{gitRootDirectory, outputDirectory, absDirName}, "/")
 	if err := os.MkdirAll(resourceOutputDir, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
@@ -175,7 +189,7 @@ func namedResources(tagNode *schemadefinition.TagNode, skipDirAbsNames []string,
 	}
 
 	for templateName, data := range templateRuns {
-		pkgs = append(pkgs, namedResourceGeneration(resourceOutputDir, templateName, thisFilename, rootPkgName, tagNode, selfImportRoot, resourceModelSubDir, t, data))
+		pkgs = append(pkgs, namedResourceGeneration(gitRootDirectory, resourceOutputDir, templateName, callerFileName, rootPkgName, tagNode, selfImportRoot, resourceModelSubDir, t, data))
 	}
 
 	// Create Resource model in subdir
@@ -184,19 +198,25 @@ func namedResources(tagNode *schemadefinition.TagNode, skipDirAbsNames []string,
 		log.Fatal(err)
 	}
 
-	namedResourceModelGeneration(resourceModelOutputDir, tagNode, t, thisFilename, resourceModelSubDir)
+	namedResourceModelGeneration(resourceModelOutputDir, tagNode, t, callerFileName, resourceModelSubDir)
 
 	return pkgs
 }
 
-func globalResources(node *schemadefinition.Node, skipDirAbsNames []string, rootOutputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {
-	_, thisFilename, _, ok := runtime.Caller(0)
+func globalResources(gitRootDirectory string, node *schemadefinition.Node, skipDirAbsNames []string, outputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {
+	_, callerFileName, _, ok := runtime.Caller(0)
 	if !ok {
 		panic("Did not get path info")
 	}
-	thisDir := filepath.Dir(thisFilename)
+	callerFileName, err := filepath.Abs(callerFileName)
+	die(err)
 
-	fmt.Printf("BaseNode: %s\n", node.AbsName())
+	thisDir, err := filepath.Abs(filepath.Dir(callerFileName))
+	die(err)
+
+	callerFileName = strings.TrimLeft(strings.TrimPrefix(callerFileName, gitRootDirectory), string(filepath.Separator))
+
+	// fmt.Printf("BaseNode: %s\n", node.AbsName())
 
 	// Absolute dir name
 	absDirNameComponents := []string{node.AbsName()[0], strings.Join(node.AbsName()[1:], "-")}
@@ -221,7 +241,7 @@ func globalResources(node *schemadefinition.Node, skipDirAbsNames []string, root
 	}
 
 	// Create output dir
-	resourceOutputDir := strings.Join([]string{rootOutputDirectory, absDirName}, "/")
+	resourceOutputDir := strings.Join([]string{gitRootDirectory, outputDirectory, absDirName}, "/")
 	if err := os.MkdirAll(resourceOutputDir, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
@@ -244,7 +264,7 @@ func globalResources(node *schemadefinition.Node, skipDirAbsNames []string, root
 	}
 
 	for templateName, data := range templateRuns {
-		pkgs = append(pkgs, globalResourceGeneration(resourceOutputDir, templateName, thisFilename, rootPkgName, node, selfImportRoot, resourceModelSubDir, t, data))
+		pkgs = append(pkgs, globalResourceGeneration(gitRootDirectory, resourceOutputDir, templateName, callerFileName, rootPkgName, node, selfImportRoot, resourceModelSubDir, t, data))
 	}
 
 	// Create Resource model in subdir
@@ -253,7 +273,7 @@ func globalResources(node *schemadefinition.Node, skipDirAbsNames []string, root
 		log.Fatal(err)
 	}
 
-	globalResourceModelGeneration(resourceModelOutputDir, node, t, thisFilename, resourceModelSubDir)
+	globalResourceModelGeneration(resourceModelOutputDir, node, t, callerFileName, resourceModelSubDir)
 
 	return pkgs
 }
@@ -264,7 +284,7 @@ func die(err error) {
 	}
 }
 
-func globalResourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootNode *schemadefinition.Node, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
+func globalResourceGeneration(gitRootDirectory string, resourceOutputDir string, templateName string, callerFileName string, rootPkgName string, rootNode *schemadefinition.Node, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
 	// Format output file name
 	outputFile := fmt.Sprintf(
 		"%s.go",
@@ -273,19 +293,20 @@ func globalResourceGeneration(resourceOutputDir string, templateName string, thi
 			"/",
 		),
 	)
-	//fmt.Printf("Creating global resource: %s\n", outputFile)
+
+	// fmt.Printf("Creating global resource file: %s\n", outputFile)
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return
 	}
 	defer file.Close()
 
-	pkg.PkgPath = resourceOutputDir
+	pkg.PkgPath = strings.TrimLeft(strings.ReplaceAll(strings.TrimPrefix(filepath.FromSlash(resourceOutputDir), filepath.FromSlash(gitRootDirectory)), string(filepath.Separator)+string(filepath.Separator), string(filepath.Separator)), string(filepath.Separator))
 	pkg.PkgName = strings.ToLower(rootPkgName + rootNode.BaseNameCG())
 	pkg.PkgConstructor = "New" + rootNode.BaseNameCG()
 
 	// Write Package
-	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": strings.TrimPrefix(thisFilename, getModuleRoot()), "pkg": pkg.PkgName})
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": callerFileName, "pkg": pkg.PkgName})
 	if err != nil {
 		die(err)
 	}
@@ -294,7 +315,15 @@ func globalResourceGeneration(resourceOutputDir string, templateName string, thi
 	var importExtra []string
 	if templateName == "resource-node-based-full" {
 		importExtra = []string{
-			fmt.Sprintf("%s/%s/%s", selfImportRoot, resourceOutputDir, resourceModelSubDir),
+			strings.ReplaceAll(
+				filepath.FromSlash(
+					fmt.Sprintf("%s/%s/%s",
+						selfImportRoot,
+						strings.TrimPrefix(resourceOutputDir, gitRootDirectory),
+						resourceModelSubDir)),
+
+				string(filepath.Separator)+string(filepath.Separator),
+				string(filepath.Separator)),
 		}
 	}
 	err = t.ExecuteTemplate(file, "imports", importExtra)
@@ -311,7 +340,7 @@ func globalResourceGeneration(resourceOutputDir string, templateName string, thi
 	return pkg
 }
 
-func namedResourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootTagNode *schemadefinition.TagNode, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
+func namedResourceGeneration(gitRootDirectory string, resourceOutputDir string, templateName string, callerFileName string, rootPkgName string, rootTagNode *schemadefinition.TagNode, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
 	// Format output file name
 	outputFile := fmt.Sprintf(
 		"%s.go",
@@ -320,19 +349,19 @@ func namedResourceGeneration(resourceOutputDir string, templateName string, this
 			"/",
 		),
 	)
-	// fmt.Printf("Creating named resource: %s\n", outputFile)
+	// fmt.Printf("Creating named resource file: %s\n", outputFile)
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return
 	}
 	defer file.Close()
 
-	pkg.PkgPath = resourceOutputDir
+	pkg.PkgPath = strings.TrimLeft(strings.ReplaceAll(strings.TrimPrefix(filepath.FromSlash(resourceOutputDir), filepath.FromSlash(gitRootDirectory)), string(filepath.Separator)+string(filepath.Separator), string(filepath.Separator)), string(filepath.Separator))
 	pkg.PkgName = strings.ToLower(rootPkgName + rootTagNode.BaseNameCG())
 	pkg.PkgConstructor = "New" + rootTagNode.BaseNameCG()
 
 	// Write Package
-	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": strings.TrimPrefix(thisFilename, getModuleRoot()), "pkg": pkg.PkgName})
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": callerFileName, "pkg": pkg.PkgName})
 	if err != nil {
 		die(err)
 	}
@@ -341,7 +370,15 @@ func namedResourceGeneration(resourceOutputDir string, templateName string, this
 	var importExtra []string
 	if templateName == "resource-tagnode-based-full" {
 		importExtra = []string{
-			fmt.Sprintf("%s/%s/%s", selfImportRoot, resourceOutputDir, resourceModelSubDir),
+			strings.ReplaceAll(
+				filepath.FromSlash(
+					fmt.Sprintf("%s/%s/%s",
+						selfImportRoot,
+						strings.TrimPrefix(resourceOutputDir, gitRootDirectory),
+						resourceModelSubDir)),
+
+				string(filepath.Separator)+string(filepath.Separator),
+				string(filepath.Separator)),
 		}
 	}
 	err = t.ExecuteTemplate(file, "imports", importExtra)
@@ -358,7 +395,7 @@ func namedResourceGeneration(resourceOutputDir string, templateName string, this
 	return pkg
 }
 
-func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefinition.NodeParent, t *template.Template, thisFilename string, resourceModelSubDir string) {
+func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefinition.NodeParent, t *template.Template, callerFileName string, resourceModelSubDir string) {
 	outputFile := fmt.Sprintf(
 		"%s.go",
 		strings.Join(
@@ -366,7 +403,8 @@ func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefi
 			"/",
 		),
 	)
-	// fmt.Printf("Creating named resource model: %s\n", outputFile)
+
+	// fmt.Printf("Creating named resource model file: %s\n", outputFile)
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return
@@ -374,7 +412,7 @@ func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefi
 	defer file.Close()
 
 	// Write Package
-	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": strings.TrimPrefix(thisFilename, getModuleRoot()), "pkg": resourceModelSubDir})
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": callerFileName, "pkg": resourceModelSubDir})
 	if err != nil {
 		die(err)
 	}
@@ -394,17 +432,20 @@ func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefi
 	// Recurse
 	c := node.GetChildren()
 	for _, n := range c.Nodes() {
-		namedResourceModelGeneration(resourceModelOutputDir, n, t, thisFilename, resourceModelSubDir)
+		if n.GetIsBaseNode() {
+			panic(fmt.Sprintf("A basenode of type Node should not be possible here as it is below a basenode of type TagNode, offending Node: %v", n.AbsName()))
+		}
+		namedResourceModelGeneration(resourceModelOutputDir, n, t, callerFileName, resourceModelSubDir)
 	}
 	for _, n := range c.TagNodes() {
 		if n.GetIsBaseNode() {
 			continue
 		}
-		namedResourceModelGeneration(resourceModelOutputDir, n, t, thisFilename, resourceModelSubDir)
+		namedResourceModelGeneration(resourceModelOutputDir, n, t, callerFileName, resourceModelSubDir)
 	}
 }
 
-func globalResourceModelGeneration(resourceModelOutputDir string, node schemadefinition.NodeParent, t *template.Template, thisFilename string, resourceModelSubDir string) {
+func globalResourceModelGeneration(resourceModelOutputDir string, node schemadefinition.NodeParent, t *template.Template, callerFileName string, resourceModelSubDir string) {
 	outputFile := fmt.Sprintf(
 		"%s.go",
 		strings.Join(
@@ -412,7 +453,8 @@ func globalResourceModelGeneration(resourceModelOutputDir string, node schemadef
 			"/",
 		),
 	)
-	// fmt.Printf("Creating global resource model: %s\n", outputFile)
+
+	// fmt.Printf("Creating global resource model file: %s\n", outputFile)
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return
@@ -420,7 +462,7 @@ func globalResourceModelGeneration(resourceModelOutputDir string, node schemadef
 	defer file.Close()
 
 	// Write Package
-	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": strings.TrimPrefix(thisFilename, getModuleRoot()), "pkg": resourceModelSubDir})
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": callerFileName, "pkg": resourceModelSubDir})
 	if err != nil {
 		die(err)
 	}
@@ -436,11 +478,4 @@ func globalResourceModelGeneration(resourceModelOutputDir string, node schemadef
 	if err != nil {
 		die(err)
 	}
-}
-
-func getModuleRoot() (root string) {
-	cmd := exec.Command("go", "env", "GOMOD")
-	out, err := cmd.Output()
-	die(err)
-	return filepath.Dir(string(out)) + "/"
 }

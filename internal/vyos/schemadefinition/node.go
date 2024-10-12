@@ -287,3 +287,8 @@ func (o *Node) GetProperties() *Properties {
 func (o *Node) GetIsBaseNode() bool {
 	return o.IsBaseNode
 }
+
+// SetIsBaseNode configures if this node is a basenode
+func (o *Node) SetIsBaseNode(isBaseNode bool) {
+	o.IsBaseNode = isBaseNode
+}

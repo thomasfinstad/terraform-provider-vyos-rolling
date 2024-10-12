@@ -57,6 +57,7 @@ RUN sudo -u vscode bash -c "go install mvdan.cc/gofumpt@v0.6.0"
 RUN sudo -u vscode bash -c "go install golang.org/x/tools/cmd/goimports@v0.19.0"
 RUN sudo -u vscode bash -c "go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.19.4"
 RUN sudo -u vscode bash -c "go install github.com/jesseduffield/lazygit@latest"
+RUN sudo -u vscode bash -c "go install github.com/xuri/xgen/cmd/xgen@v0.0.0-20240722131518-d0691b701898"
 
 # Add our custom terraform rc config
 COPY --chown=vscode:vscode terraformrc /home/vscode/.terraformrc

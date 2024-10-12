@@ -23,3 +23,14 @@ func (c Children) LeafNodes() []*LeafNode {
 func (c Children) Count() int {
 	return len(c.LeafNode) + len(c.Node) + len(c.TagNode)
 }
+
+func (c Children) GetNodeParents() (r []NodeParent, hasNodeParents bool) {
+	for _, n := range c.Node {
+		r = append(r, n)
+	}
+	for _, n := range c.TagNode {
+		r = append(r, n)
+	}
+
+	return r, (len(r) > 0)
+}
