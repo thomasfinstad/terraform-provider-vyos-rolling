@@ -1,0 +1,22 @@
+
+{{define "resource-model-tag-node-identifier"}}
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
+
+{{/*
+	SelfIdentifier	{{ if eq .ValueType "string" -}}
+						types.String
+					{{- else  if eq .ValueType "number" -}}
+						types.Number
+					{{- else -}}
+						UNKNOWN TYPE: {{.ValueType}}
+					{{- end -}}
+						`tfsdk:"{{.BaseNameS}}" vyos:"-,self-id"`
+	{{if .Parent}}
+		{{template "resource-model-parent-id-hack" .Parent}}
+	{{end}}
+*/}}
+
+	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
+
+	Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+{{end}}

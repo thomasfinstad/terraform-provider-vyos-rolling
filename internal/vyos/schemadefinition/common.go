@@ -22,6 +22,8 @@ type NodeParent interface {
 	NodeBase
 	InformLinage()
 	GetChildren() *Children
+	GetChild(childName string) (child NodeBase, err error)
+	GetChildAbsPath([]string) (NodeBase, error)
 	GetIsBaseNode() bool
 	SetIsBaseNode(bool)
 }

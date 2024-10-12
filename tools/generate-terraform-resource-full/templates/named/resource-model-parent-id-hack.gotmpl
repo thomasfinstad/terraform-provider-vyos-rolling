@@ -1,0 +1,14 @@
+{{define "resource-model-parent-id-hack"}}
+	{{if .Parent}}
+		{{template "resource-model-parent-id-hack" .Parent}}
+	{{end}}
+	{{if eq .NodeType "TagNode"}}
+		ParentID{{.BaseNameCG}} {{ if eq .ValueType "string" -}}
+								types.String
+							{{- else  if eq .ValueType "number" -}}
+								types.Number
+							{{- else -}}
+								UNKNOWN TYPE: {{.ValueType}}
+							{{- end -}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},parent-id"`
+	{{end}}
+{{end}}

@@ -1,0 +1,13 @@
+{{define "validate"}}
+	// Ensure provider defined types fully satisfy framework interfaces.
+	var _ resource.Resource = &{{.BaseNameG}}{}
+	var _ resource.ResourceWithConfigure = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithConfigValidators = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithModifyPlan = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithUpgradeState = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithValidateConfig = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithImportState = &{{.BaseNameG}}{}
+
+	// Ensure we fully satisfy helper pkg interfaces
+	var _ helpers.VyosResource = &{{.BaseNameG}}{}
+{{end}}

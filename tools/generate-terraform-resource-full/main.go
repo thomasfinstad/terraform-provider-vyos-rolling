@@ -107,7 +107,7 @@ func main() {
 	defer file.Close()
 
 	// Render and write file
-	t, err := template.New("package_generation").ParseFiles(filepath.Join(thisDir, "package-resource-include.gotmpl"))
+	t, err := template.New("package_generation").ParseFiles(filepath.Join(thisDir, "templates", "package.gotmpl"))
 	if err != nil {
 		die(err)
 	}
@@ -172,7 +172,9 @@ func namedResources(gitRootDirectory string, tagNode *schemadefinition.TagNode, 
 	}
 
 	// Compile template
-	t, err := template.New("resource_generation").ParseFiles(filepath.Join(thisDir, "named-template.gotmpl"))
+	templateFiles, err := filepath.Glob(filepath.Join(thisDir, "templates", "named", "*.gotmpl"))
+	die(err)
+	t, err := template.New("resource_generation").ParseFiles(templateFiles...)
 	if err != nil {
 		die(err)
 	}
@@ -247,7 +249,9 @@ func globalResources(gitRootDirectory string, node *schemadefinition.Node, skipD
 	}
 
 	// Compile template
-	t, err := template.New("resource_generation").ParseFiles(filepath.Join(thisDir, "global-template.gotmpl"))
+	templateFiles, err := filepath.Glob(filepath.Join(thisDir, "templates", "global", "*.gotmpl"))
+	die(err)
+	t, err := template.New("resource_generation").ParseFiles(templateFiles...)
 	if err != nil {
 		die(err)
 	}

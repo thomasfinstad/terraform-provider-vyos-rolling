@@ -1,0 +1,36 @@
+{{define "resource-model-schema-attrtype-multi"}}
+	{{if eq .ValueType "string" -}}
+		schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:            true,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
+			{{if .Default }}
+				// Default:          stringdefault.StaticString({{.Default}}),
+				Computed:            true,
+			{{end}}
+		},
+	{{- else  if eq .ValueType "number" -}}
+		schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:            true,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
+			{{if .Default }}
+				// Default:          stringdefault.StaticString({{.Default}}),
+				Computed:            true,
+			{{end}}
+		},
+	{{- else if eq .ValueType "bool" -}}
+		schema.ListAttribute{
+			ElementType: types.BoolType,
+			Optional:            true,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
+			Default: booldefault.StaticBool(false),
+			Computed:            true,
+		},
+	{{- else -}}
+		UNKNOWN TYPE: {{.ValueType}}
+	{{- end}}
+{{end}}

@@ -1,0 +1,54 @@
+{{define "resource-model-parent-schema-hack"}}
+	{{if .Parent}}
+		{{template "resource-model-parent-schema-hack" .Parent}}
+		{{- if eq .NodeType "TagNode" -}}
+			"{{.BaseNameS}}":
+				{{- if eq .ValueType "string" -}}
+					schema.StringAttribute
+				{{- else  if eq .ValueType "number" -}}
+					schema.NumberAttribute
+				{{- else if eq .ValueType "bool" -}}
+					schema.BoolAttribute
+				{{- else -}}
+					UNKNOWN TYPE: {{.ValueType}}
+				{{- end -}}
+			{
+				Required:            true,
+				MarkdownDescription: `{{.MarkdownDescription}}`,
+				Description: `{{.Description}}`,
+				PlanModifiers:
+					{{- if eq .ValueType "string" -}}
+						[]planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						},
+					{{- else  if eq .ValueType "number" -}}
+						[]planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					{{- else if eq .ValueType "bool" -}}
+						[]planmodifier.Bool{
+							boolplanmodifier.RequiresReplace(),
+						},
+					{{- else -}}
+						UNKNOWN TYPE: {{.ValueType}}
+					{{- end -}}
+					{{if eq .ValueType "string" -}}
+						Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in {{.BaseNameS}}, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illegal character in  {{.BaseNameS}}, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					{{- end }}
+			},
+		{{end}}
+	{{end}}
+{{end}}

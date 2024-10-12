@@ -318,7 +318,6 @@ import (
 	globalservicemonitoringzabbixagentlog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent-log"
 	globalservicendpproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ndp-proxy"
 	globalservicentp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ntp"
-	globalservicentpallowclient "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ntp-allow-client"
 	globalservicentpptp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ntp-ptp"
 	globalservicepppoeserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server"
 	globalservicepppoeserverauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/pppoe-server-authentication"
@@ -831,7 +830,6 @@ import (
 	namedservicendpproxyinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ndp-proxy-interface"
 	namedservicendpproxyinterfaceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ndp-proxy-interface-prefix"
 	namedservicentpptptimestampinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ntp-ptp-timestamp-interface"
-	namedservicentpserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ntp-server"
 	namedservicepppoeserverauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-authentication-local-users-username"
 	namedservicepppoeserverauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-authentication-radius-server"
 	namedservicepppoeserverclientippool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-client-ip-pool"
@@ -1304,7 +1302,6 @@ func GetResources() []func() resource.Resource {
 		globalservicemonitoringzabbixagentlog.NewServiceMonitoringZabbixAgentLog,
 		globalservicendpproxy.NewServiceNdpProxy,
 		globalservicentp.NewServiceNtp,
-		globalservicentpallowclient.NewServiceNtpAllowClient,
 		globalservicentpptp.NewServiceNtpPtp,
 		globalservicepppoeserver.NewServicePppoeServer,
 		globalservicepppoeserverauthentication.NewServicePppoeServerAuthentication,
@@ -1817,7 +1814,6 @@ func GetResources() []func() resource.Resource {
 		namedservicendpproxyinterface.NewServiceNdpProxyInterface,
 		namedservicendpproxyinterfaceprefix.NewServiceNdpProxyInterfacePrefix,
 		namedservicentpptptimestampinterface.NewServiceNtpPtpTimestampInterface,
-		namedservicentpserver.NewServiceNtpServer,
 		namedservicepppoeserverauthenticationlocalusersusername.NewServicePppoeServerAuthenticationLocalUsersUsername,
 		namedservicepppoeserverauthenticationradiusserver.NewServicePppoeServerAuthenticationRadiusServer,
 		namedservicepppoeserverclientippool.NewServicePppoeServerClientIPPool,

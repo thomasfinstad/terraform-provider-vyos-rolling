@@ -1,0 +1,14 @@
+{{/* This is so we can check for required parents before creating a resource */}}
+{{define "resource-model-parent-vyos-path-hack-for-non-global"}}
+	{{- if  ne .NodeType "TagNode" }}
+		{{- if .Parent}}
+			{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}
+		{{end}}
+	{{ else if not .GetIsBaseNode}}
+		{{- if .Parent}}
+			{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}
+		{{end}}
+	{{ else }}
+		{{template "resource-model-parent-vyos-path-hack" .}}
+	{{ end }}
+{{end}}

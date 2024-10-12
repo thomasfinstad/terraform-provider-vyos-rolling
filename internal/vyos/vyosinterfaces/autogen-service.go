@@ -19788,7 +19788,7 @@ func service() schemadefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*schemadefinition.Node{{
-							IsBaseNode: true,
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -20034,7 +20034,7 @@ func service() schemadefinition.InterfaceDefinition {
 							}},
 						}},
 						TagNode: []*schemadefinition.TagNode{{
-							IsBaseNode: true,
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},

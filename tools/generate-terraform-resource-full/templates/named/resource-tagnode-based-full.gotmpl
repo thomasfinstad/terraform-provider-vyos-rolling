@@ -1,0 +1,49 @@
+{{define "resource-tagnode-based-full"}}
+	// New{{.BaseNameCG}} method to return the example resource reference
+	func New{{.BaseNameCG}}() resource.Resource {
+		return &{{.BaseNameG}}{
+			model: &resourcemodel.{{.BaseNameCG}}{},
+		}
+	}
+
+	// {{.BaseNameG}} defines the resource implementation.
+	type {{.BaseNameG}} struct {
+		providerData data.ProviderData
+		model  *resourcemodel.{{.BaseNameCG}}
+	}
+
+	// GetClient returns the vyos api client
+	func (r *{{.BaseNameG}}) GetClient() client.Client {
+		return r.providerData.Client
+	}
+
+	// GetModel returns the resource model
+	func (r *{{.BaseNameG}}) GetModel() helpers.VyosTopResourceDataModel {
+		return r.model
+	}
+
+	// GetProviderConfig returns global provider data config
+	func (r *{{.BaseNameG}}) GetProviderConfig() data.ProviderData {
+		return r.providerData
+	}
+
+	func (r *{{.BaseNameG}}) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+		// Prevent panic if the provider has not been configured.
+		if req.ProviderData == nil {
+			return
+		}
+
+		data, ok := req.ProviderData.(data.ProviderData)
+
+		if !ok {
+			resp.Diagnostics.AddError(
+				"Unexpected Resource Configure Type",
+				fmt.Sprintf("Expected client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			)
+
+			return
+		}
+
+		r.providerData = data
+	}
+{{end}}

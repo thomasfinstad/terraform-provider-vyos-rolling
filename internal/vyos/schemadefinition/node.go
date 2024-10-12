@@ -3,6 +3,7 @@ package schemadefinition
 import (
 	"fmt"
 	"regexp"
+	"slices"
 	"strings"
 	"unicode"
 	"unicode/utf8"
@@ -145,6 +146,63 @@ func (o *Node) BaseNameCG() string {
 // VyosPath returns the name of the node
 func (o *Node) VyosPath() []string {
 	return strings.Split(o.BaseName(), " ")
+}
+
+func (o *Node) GetChildAbsPath(absChildPath []string) (child NodeBase, err error) {
+	match := 0
+	for i := range min(len(absChildPath), len(o.AbsName())) {
+		if o.AbsName()[i] == absChildPath[i] {
+			match = i + 1
+		} else {
+			break
+		}
+	}
+	return o.getChild(absChildPath[match:], absChildPath)
+}
+
+func (o *Node) GetChild(childName string) (child NodeBase, err error) {
+	return o.getChild([]string{childName}, append(o.AbsName(), childName))
+}
+
+func (o *Node) getChild(childName, absChildPath []string) (child NodeBase, err error) {
+
+	if slices.Equal(o.AbsName(), absChildPath) {
+		return o, nil
+	}
+
+	if len(childName) < 1 {
+		return nil, fmt.Errorf("recursed too deep")
+	}
+
+	for _, t := range o.GetChildren().TagNode {
+		if t.BaseName() == childName[0] {
+			child, err = t.getChild(childName[1:], absChildPath)
+			if err == nil {
+				return child, nil
+			}
+		}
+	}
+
+	for _, n := range o.GetChildren().Node {
+		if n.BaseName() == childName[0] {
+			child, err = n.getChild(childName[1:], absChildPath)
+			if err == nil {
+				return child, nil
+			}
+		}
+	}
+
+	for _, l := range o.GetChildren().LeafNode {
+		if slices.Equal(l.AbsName(), absChildPath) {
+			return l, nil
+		}
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, fmt.Errorf("[%s] do not have child: %s", strings.Join(o.AbsName(), " "), strings.Join(childName, " "))
 }
 
 // GetChildren return Children object
