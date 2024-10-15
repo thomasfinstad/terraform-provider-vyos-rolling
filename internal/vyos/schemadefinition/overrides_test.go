@@ -10,7 +10,6 @@ import (
 )
 
 func TestTagNodeOverride(t *testing.T) {
-
 	// var baseNodes []schemadefinition.NodeParent
 	// for _, i := range vyosinterface.GetInterfaces() {
 	// 	if btn, ok := i.BaseTagNodes(); ok {

@@ -165,7 +165,6 @@ func (o *Node) GetChild(childName string) (child NodeBase, err error) {
 }
 
 func (o *Node) getChild(childName, absChildPath []string) (child NodeBase, err error) {
-
 	if slices.Equal(o.AbsName(), absChildPath) {
 		return o, nil
 	}
