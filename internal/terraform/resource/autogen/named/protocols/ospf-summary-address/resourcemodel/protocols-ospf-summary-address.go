@@ -124,8 +124,8 @@ func (o ProtocolsOspfSummaryAddress) ResourceSchemaAttributes(ctx context.Contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  summary_address, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  summary_address, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

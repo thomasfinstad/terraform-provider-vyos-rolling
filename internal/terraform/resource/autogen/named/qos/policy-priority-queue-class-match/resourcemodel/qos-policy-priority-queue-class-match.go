@@ -143,8 +143,8 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes(ctx context.C
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  match, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  match, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -175,8 +175,8 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes(ctx context.C
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  priority_queue, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  priority_queue, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

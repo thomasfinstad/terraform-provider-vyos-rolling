@@ -124,8 +124,8 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes(ctx context.Context) map[st
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  fair_queue, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  fair_queue, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

@@ -145,8 +145,8 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes(ctx context.Context) 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  area, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  area, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -177,8 +177,8 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes(ctx context.Context) 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

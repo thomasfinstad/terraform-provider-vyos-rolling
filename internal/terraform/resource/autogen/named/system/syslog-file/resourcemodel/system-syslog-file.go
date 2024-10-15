@@ -118,8 +118,8 @@ func (o SystemSyslogFile) ResourceSchemaAttributes(ctx context.Context) map[stri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  file, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  file, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

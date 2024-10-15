@@ -140,8 +140,8 @@ func (o ProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes(ctx context.Con
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  next_hop, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  next_hop, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -172,8 +172,8 @@ func (o ProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes(ctx context.Con
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  route6, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  route6, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

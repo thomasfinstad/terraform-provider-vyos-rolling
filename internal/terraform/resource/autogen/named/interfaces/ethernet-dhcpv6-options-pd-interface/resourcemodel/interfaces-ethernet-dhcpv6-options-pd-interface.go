@@ -137,8 +137,8 @@ func (o InterfacesEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttributes(c
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -169,8 +169,8 @@ func (o InterfacesEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttributes(c
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  ethernet, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  ethernet, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -201,8 +201,8 @@ func (o InterfacesEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttributes(c
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  pd, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

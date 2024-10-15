@@ -118,8 +118,8 @@ func (o FirewallGroupDynamicGroupIPvsixAddressGroup) ResourceSchemaAttributes(ct
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  ipv6_address_group, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  ipv6_address_group, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

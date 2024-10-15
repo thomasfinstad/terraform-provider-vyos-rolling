@@ -126,8 +126,8 @@ func (o VpnLtwotpRemoteAccessAuthenticationLocalUsersUsername) ResourceSchemaAtt
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  username, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  username, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

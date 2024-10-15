@@ -165,8 +165,8 @@ func (o InterfacesBrIDgeVif) ResourceSchemaAttributes(ctx context.Context) map[s
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  bridge, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  bridge, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

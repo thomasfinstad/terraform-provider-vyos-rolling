@@ -121,8 +121,8 @@ func (o NatStaticRule) ResourceSchemaAttributes(ctx context.Context) map[string]
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  rule, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  rule, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

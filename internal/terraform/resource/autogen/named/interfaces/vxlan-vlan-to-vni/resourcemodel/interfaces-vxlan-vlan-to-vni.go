@@ -132,8 +132,8 @@ func (o InterfacesVxlanVlanToVni) ResourceSchemaAttributes(ctx context.Context) 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  vlan_to_vni, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  vlan_to_vni, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -164,8 +164,8 @@ func (o InterfacesVxlanVlanToVni) ResourceSchemaAttributes(ctx context.Context) 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  vxlan, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  vxlan, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

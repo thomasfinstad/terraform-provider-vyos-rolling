@@ -116,8 +116,8 @@ func (o ContainerRegistry) ResourceSchemaAttributes(ctx context.Context) map[str
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  registry, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  registry, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

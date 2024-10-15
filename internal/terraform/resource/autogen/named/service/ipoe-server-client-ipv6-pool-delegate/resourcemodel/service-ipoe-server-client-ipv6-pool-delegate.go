@@ -134,8 +134,8 @@ func (o ServiceIPoeServerClientIPvsixPoolDelegate) ResourceSchemaAttributes(ctx 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  delegate, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  delegate, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -166,8 +166,8 @@ func (o ServiceIPoeServerClientIPvsixPoolDelegate) ResourceSchemaAttributes(ctx 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  client_ipv6_pool, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  client_ipv6_pool, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

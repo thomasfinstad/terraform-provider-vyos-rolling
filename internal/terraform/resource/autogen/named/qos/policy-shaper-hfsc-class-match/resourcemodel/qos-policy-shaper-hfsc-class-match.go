@@ -143,8 +143,8 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes(ctx context.Cont
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  match, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  match, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -175,8 +175,8 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes(ctx context.Cont
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  shaper_hfsc, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  shaper_hfsc, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

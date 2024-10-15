@@ -138,8 +138,8 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes(ctx co
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  public_keys, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  public_keys, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -164,8 +164,8 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes(ctx co
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  user, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  user, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

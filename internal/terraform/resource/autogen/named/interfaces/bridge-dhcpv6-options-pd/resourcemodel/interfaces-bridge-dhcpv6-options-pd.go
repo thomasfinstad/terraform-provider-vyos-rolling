@@ -134,8 +134,8 @@ func (o InterfacesBrIDgeDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx context.
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  pd, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -166,8 +166,8 @@ func (o InterfacesBrIDgeDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx context.
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  bridge, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  bridge, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

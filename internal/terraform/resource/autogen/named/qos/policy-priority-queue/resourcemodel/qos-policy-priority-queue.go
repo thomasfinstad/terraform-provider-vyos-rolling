@@ -125,8 +125,8 @@ func (o QosPolicyPriorityQueue) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  priority_queue, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  priority_queue, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

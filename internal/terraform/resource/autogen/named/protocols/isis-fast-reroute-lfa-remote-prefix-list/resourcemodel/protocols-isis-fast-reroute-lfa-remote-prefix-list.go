@@ -130,8 +130,8 @@ func (o ProtocolsIsisFastRerouteLfaRemotePrefixList) ResourceSchemaAttributes(ct
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  prefix_list, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  prefix_list, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

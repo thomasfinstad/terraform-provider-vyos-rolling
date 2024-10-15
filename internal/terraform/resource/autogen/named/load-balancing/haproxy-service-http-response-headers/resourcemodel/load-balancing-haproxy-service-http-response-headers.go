@@ -134,8 +134,8 @@ func (o LoadBalancingHaproxyServiceHTTPResponseHeaders) ResourceSchemaAttributes
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  http_response_headers, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  http_response_headers, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -160,8 +160,8 @@ func (o LoadBalancingHaproxyServiceHTTPResponseHeaders) ResourceSchemaAttributes
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  service, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  service, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

@@ -120,8 +120,8 @@ func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes(ctx context.Co
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  interface_health, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  interface_health, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

@@ -134,8 +134,8 @@ func (o VrfNameProtocolsBgpInterface) ResourceSchemaAttributes(ctx context.Conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -166,8 +166,8 @@ func (o VrfNameProtocolsBgpInterface) ResourceSchemaAttributes(ctx context.Conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

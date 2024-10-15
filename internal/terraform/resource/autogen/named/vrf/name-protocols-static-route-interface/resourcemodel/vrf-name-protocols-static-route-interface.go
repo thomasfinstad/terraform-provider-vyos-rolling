@@ -149,8 +149,8 @@ func (o VrfNameProtocolsStaticRouteInterface) ResourceSchemaAttributes(ctx conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  interface, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -181,8 +181,8 @@ func (o VrfNameProtocolsStaticRouteInterface) ResourceSchemaAttributes(ctx conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -213,8 +213,8 @@ func (o VrfNameProtocolsStaticRouteInterface) ResourceSchemaAttributes(ctx conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  route, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

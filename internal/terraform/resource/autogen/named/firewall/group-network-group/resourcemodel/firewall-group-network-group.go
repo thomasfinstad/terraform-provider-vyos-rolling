@@ -118,8 +118,8 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes(ctx context.Context)
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  network_group, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  network_group, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

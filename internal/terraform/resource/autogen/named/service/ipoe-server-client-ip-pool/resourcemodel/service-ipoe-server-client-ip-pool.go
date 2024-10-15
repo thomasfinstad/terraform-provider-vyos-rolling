@@ -123,8 +123,8 @@ func (o ServiceIPoeServerClientIPPool) ResourceSchemaAttributes(ctx context.Cont
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  client_ip_pool, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  client_ip_pool, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

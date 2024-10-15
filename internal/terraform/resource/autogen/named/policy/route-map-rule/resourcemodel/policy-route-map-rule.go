@@ -156,8 +156,8 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  route_map, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  route_map, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

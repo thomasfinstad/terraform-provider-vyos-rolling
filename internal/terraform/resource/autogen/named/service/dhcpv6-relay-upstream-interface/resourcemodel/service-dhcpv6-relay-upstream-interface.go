@@ -116,8 +116,8 @@ func (o ServiceDhcpvsixRelayUpstreamInterface) ResourceSchemaAttributes(ctx cont
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  upstream_interface, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  upstream_interface, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

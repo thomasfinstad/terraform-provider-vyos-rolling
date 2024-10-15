@@ -134,8 +134,8 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceSchemaAttributes(ctx context.
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  server, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  server, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

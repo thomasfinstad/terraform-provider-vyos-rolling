@@ -139,8 +139,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetRange) ResourceSchemaAttribu
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  range, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  range, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -165,8 +165,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetRange) ResourceSchemaAttribu
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  shared_network_name, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -197,8 +197,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetRange) ResourceSchemaAttribu
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  subnet, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  subnet, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

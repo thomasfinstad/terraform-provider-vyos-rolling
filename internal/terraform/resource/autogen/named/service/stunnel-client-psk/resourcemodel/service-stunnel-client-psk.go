@@ -129,8 +129,8 @@ func (o ServiceStunnelClientPsk) ResourceSchemaAttributes(ctx context.Context) m
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  psk, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  psk, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -155,8 +155,8 @@ func (o ServiceStunnelClientPsk) ResourceSchemaAttributes(ctx context.Context) m
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  client, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  client, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

@@ -122,8 +122,8 @@ func (o PolicyAsPathList) ResourceSchemaAttributes(ctx context.Context) map[stri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  as_path_list, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  as_path_list, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

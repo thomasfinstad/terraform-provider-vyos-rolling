@@ -123,8 +123,8 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes(ctx context.Context) map[str
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  drop_tail, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  drop_tail, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

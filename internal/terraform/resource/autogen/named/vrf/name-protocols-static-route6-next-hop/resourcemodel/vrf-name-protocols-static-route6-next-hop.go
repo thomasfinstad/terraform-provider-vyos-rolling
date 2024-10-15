@@ -152,8 +152,8 @@ func (o VrfNameProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes(ctx cont
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  next_hop, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  next_hop, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -184,8 +184,8 @@ func (o VrfNameProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes(ctx cont
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -216,8 +216,8 @@ func (o VrfNameProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes(ctx cont
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  route6, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  route6, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

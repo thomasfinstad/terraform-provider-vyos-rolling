@@ -152,8 +152,8 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes(ctx context.Context) m
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  access_list6, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  access_list6, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

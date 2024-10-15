@@ -118,8 +118,8 @@ func (o ServiceSnmpScrIPtExtensionsExtensionName) ResourceSchemaAttributes(ctx c
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  extension_name, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  extension_name, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

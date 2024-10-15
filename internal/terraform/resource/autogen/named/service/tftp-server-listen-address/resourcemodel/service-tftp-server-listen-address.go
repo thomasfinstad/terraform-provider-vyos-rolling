@@ -124,8 +124,8 @@ func (o ServiceTftpServerListenAddress) ResourceSchemaAttributes(ctx context.Con
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  listen_address, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  listen_address, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

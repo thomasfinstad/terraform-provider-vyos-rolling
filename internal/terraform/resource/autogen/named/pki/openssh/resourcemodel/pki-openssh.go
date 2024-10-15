@@ -115,8 +115,8 @@ func (o PkiOpenTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  openssh, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  openssh, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

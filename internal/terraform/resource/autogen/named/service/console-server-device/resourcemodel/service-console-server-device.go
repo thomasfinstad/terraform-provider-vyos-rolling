@@ -130,8 +130,8 @@ func (o ServiceConsoleServerDevice) ResourceSchemaAttributes(ctx context.Context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  device, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  device, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

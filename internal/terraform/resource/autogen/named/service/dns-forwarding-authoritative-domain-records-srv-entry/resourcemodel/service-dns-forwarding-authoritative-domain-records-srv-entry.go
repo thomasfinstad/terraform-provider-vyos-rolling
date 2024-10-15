@@ -173,8 +173,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  authoritative_domain, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  authoritative_domain, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -207,8 +207,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  srv, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  srv, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

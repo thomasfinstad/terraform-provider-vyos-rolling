@@ -166,8 +166,8 @@ func (o LoadBalancingHaproxyGlobalParametersLoggingFacility) ResourceSchemaAttri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  facility, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  facility, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

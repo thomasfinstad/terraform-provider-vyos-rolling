@@ -140,8 +140,8 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes(ctx 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  server, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  server, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -172,8 +172,8 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes(ctx 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  wireless, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  wireless, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

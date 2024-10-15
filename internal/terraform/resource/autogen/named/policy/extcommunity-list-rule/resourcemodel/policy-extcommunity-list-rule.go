@@ -152,8 +152,8 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes(ctx context.Context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  extcommunity_list, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  extcommunity_list, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

@@ -128,8 +128,8 @@ func (o ProtocolsOspfvthreeArea) ResourceSchemaAttributes(ctx context.Context) m
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  area, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  area, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

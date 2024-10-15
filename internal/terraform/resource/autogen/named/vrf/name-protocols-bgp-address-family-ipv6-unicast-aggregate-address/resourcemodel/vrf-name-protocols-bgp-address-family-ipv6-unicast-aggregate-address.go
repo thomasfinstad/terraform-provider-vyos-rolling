@@ -141,8 +141,8 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) ResourceS
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  aggregate_address, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  aggregate_address, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -173,8 +173,8 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) ResourceS
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

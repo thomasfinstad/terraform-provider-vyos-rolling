@@ -166,8 +166,8 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes(ctx contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  name, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -192,8 +192,8 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes(ctx contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  peer_group, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  peer_group, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

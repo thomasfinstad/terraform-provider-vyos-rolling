@@ -144,8 +144,8 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) Resource
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  username, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  username, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -176,8 +176,8 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) Resource
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  connection, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  connection, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

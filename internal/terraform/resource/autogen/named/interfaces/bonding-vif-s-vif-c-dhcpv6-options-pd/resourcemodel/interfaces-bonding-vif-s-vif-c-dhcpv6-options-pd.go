@@ -151,8 +151,8 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  pd, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -183,8 +183,8 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  bonding, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  bonding, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -228,8 +228,8 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  vif_c, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  vif_c, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

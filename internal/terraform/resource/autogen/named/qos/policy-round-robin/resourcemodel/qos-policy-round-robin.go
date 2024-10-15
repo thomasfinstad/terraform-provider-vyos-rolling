@@ -125,8 +125,8 @@ func (o QosPolicyRoundRobin) ResourceSchemaAttributes(ctx context.Context) map[s
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  round_robin, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  round_robin, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

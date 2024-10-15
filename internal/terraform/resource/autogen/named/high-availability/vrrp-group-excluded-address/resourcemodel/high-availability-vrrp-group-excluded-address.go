@@ -140,8 +140,8 @@ func (o HighAvailabilityVrrpGroupExcludedAddress) ResourceSchemaAttributes(ctx c
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  excluded_address, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  excluded_address, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
@@ -166,8 +166,8 @@ func (o HighAvailabilityVrrpGroupExcludedAddress) ResourceSchemaAttributes(ctx c
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  group, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  group, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},

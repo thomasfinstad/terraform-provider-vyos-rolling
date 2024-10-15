@@ -118,8 +118,8 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-								"illegal character in  port_group, value must match: ^[a-zA-Z0-9-_]*$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
+								"illegal character in  port_group, value must match: ^[.:a-zA-Z0-9-_]+$",
 							),
 						),
 					},
