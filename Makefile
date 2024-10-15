@@ -128,7 +128,7 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 	mkdir .build || true
 
 	# Generate structs from schema
-	go run github.com/xuri/xgen/cmd/xgen -p schemadefinition -i .build/schema-definitions.xsd -o internal/vyos/schemadefinition/autogen-structs.go -l Go
+	xgen -p schemadefinition -i .build/schema-definitions.xsd -o internal/vyos/schemadefinition/autogen-structs.go -l Go
 
 	# TODO convert from sed mangling to go mangling
 	#  create a go tool package and use dst in the same way
