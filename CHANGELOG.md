@@ -4,84 +4,36 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 4.0.202410110 (2024-10-11 08-30-31 UTC)](#release-40202410110-2024-10-11-08-30-31-utc)
+  - [Release 5.0.202410150 (2024-10-15 15-53-09 UTC)](#release-50202410150-2024-10-15-15-53-09-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
+      - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources)
-      - [Features](#features)
-        - [Resources](#resources-1)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
 
 
-## Release 4.0.202410110 (2024-10-11 08-30-31 UTC)
+## Release 5.0.202410150 (2024-10-15 15-53-09 UTC)
 ### Project changes
 #### Notes
-* update to rolling release 2024-10-11T00:05:55Z
+* update to rolling release 2024-10-15T00:05:58Z
+* initial res gen template merging
+* split resource templates
+* Improve code generation reliability
+#### Bug fixes
+* allows for IP addresses to be used in named resource identifiers as described in #222
+* generate go from xsd with installed tooling instead of imported tooling
 
 ### Schema changes
 #### BREAKING CHANGES
 
 ##### Resources
-* **Removed Resource** `vyos_load_balancing_reverse_proxy`
+* **Removed Resource** `vyos_service_ntp_allow_client`
 
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_service_http_response_headers`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend_http_response_headers`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_global_parameters_logging_facility`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_global_parameters`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend_server`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_service_rule`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend_logging_facility`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_service_logging_facility`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_backend_rule`
-
-* **Removed Resource** `vyos_load_balancing_reverse_proxy_service`
-
-
-
-
-
-#### Features
-
-##### Resources
-* New Resource `vyos_load_balancing_haproxy_service`
-
-* New Resource `vyos_load_balancing_haproxy`
-
-* New Resource `vyos_load_balancing_haproxy_backend_rule`
-
-* New Resource `vyos_load_balancing_haproxy_service_http_response_headers`
-
-* New Resource `vyos_load_balancing_haproxy_backend_http_response_headers`
-
-* New Resource `vyos_system_config_management_commit_confirm`
-
-* New Resource `vyos_load_balancing_haproxy_backend_server`
-
-* New Resource `vyos_load_balancing_haproxy_backend`
-
-* New Resource `vyos_load_balancing_haproxy_global_parameters`
-
-* New Resource `vyos_load_balancing_haproxy_backend_logging_facility`
-
-* New Resource `vyos_load_balancing_haproxy_global_parameters_logging_facility`
-
-* New Resource `vyos_load_balancing_haproxy_service_logging_facility`
-
-* New Resource `vyos_load_balancing_haproxy_service_rule`
+* **Removed Resource** `vyos_service_ntp_server`
 
 
 
@@ -91,4 +43,4 @@
 
 
 ## Previous changelogs
-For previous version see [changelog for 3](data/changelogs/CHANGELOG-3.md) or older archives [directory](data/changelogs/)
+For previous version see [changelog for 4](data/changelogs/CHANGELOG-4.md) or older archives [directory](data/changelogs/)
