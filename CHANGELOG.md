@@ -67,4 +67,4 @@
 
 
 ## Previous changelogs
-For previous version see [changelog for 4](data/changelogs/CHANGELOG-4.md) or older archives [directory](data/changelogs/)
+For previous version see [changelog for v4](data/changelogs/CHANGELOG-v4.md) or older archives [directory](data/changelogs/)

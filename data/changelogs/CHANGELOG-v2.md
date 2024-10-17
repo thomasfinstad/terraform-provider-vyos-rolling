@@ -1927,4 +1927,4 @@
 
 
 ## Previous changelogs
-For older versions see changelog archive [directory](data/changelogs/) or changelog for [version 1](CHANGELOG-v1.md)
+For older versions see changelog archive [directory](data/changelogs/) or changelog for [version v1](CHANGELOG-v1.md)

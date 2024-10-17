@@ -91,4 +91,4 @@
 
 
 ## Previous changelogs
-For previous version see [changelog for 3](CHANGELOG-3.md) or older archives [directory](data/changelogs/)
+For previous version see [changelog for v3](CHANGELOG-v3.md) or older archives [directory](data/changelogs/)
