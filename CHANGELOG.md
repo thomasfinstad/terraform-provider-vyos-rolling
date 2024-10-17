@@ -4,16 +4,28 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 5.0.202410150 (2024-10-15 15-53-09 UTC)](#release-50202410150-2024-10-15-15-53-09-utc)
+  - [Release 5.0.202410170 (2024-10-17 10-59-50 UTC)](#release-50202410170-2024-10-17-10-59-50-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
       - [Bug fixes](#bug-fixes)
+  - [Release 5.0.202410150 (2024-10-15 15-53-09 UTC)](#release-50202410150-2024-10-15-15-53-09-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
+      - [Bug fixes](#bug-fixes-1)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 5.0.202410170 (2024-10-17 10-59-50 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-10-17T00:06:01Z
+#### Bug fixes
+* unconfigured lists caused panic
 
 
 ## Release 5.0.202410150 (2024-10-15 15-53-09 UTC)
