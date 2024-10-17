@@ -16,7 +16,7 @@ $(PROVIDER_DIR):
 	@echo Make $(PROVIDER_DIR)
 
 	cd ../..
-	rm build
+	rm build || true
 	make build
 
 init: $(PROVIDER_DIR) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
@@ -28,6 +28,14 @@ init: $(PROVIDER_DIR) $(shell find . -type f -name "*.tf" -execdir grep -l provi
 	# Cache timestamp
 	date > init
 
+validate: init $(shell find . -type f -name "*.tf")
+	@echo Make validate
+
+	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu validate
+
+	# Cache timestamp
+	date > validate
+
 # Ref: "Optional dynamic parameters" section below
 # Example usage: make plan -- -target vyos_banana.nomnom
 ifeq (plan,$(firstword $(MAKECMDGOALS)))
@@ -36,7 +44,7 @@ ifeq (plan,$(firstword $(MAKECMDGOALS)))
   # ...and turn them into do-nothing targets
   $(eval $(DYN_ARGS):;@:)
 endif
-plan: init $(shell find . -type f -name "*.tf") .tmp/container
+plan: validate $(shell find . -type f -name "*.tf") .tmp/container
 	@echo Make plan
 
 	rm -fv trace.log || true
@@ -82,26 +90,26 @@ destroy: init
 clean: destroy
 	@echo Make clean
 
-	rm init plan apply || true
+	set +e
 
-	rm -rf .terraform .terraform.lock.hcl || true
-	rm -fv trace.log || true
-	sudo rm -rf .tmp/ || true
-	docker stop vyos || true
+	rm init plan apply validate
+
+	rm -rf .terraform .terraform.lock.hcl
+	rm -fv trace.log
+	sudo rm -rf .tmp/
+	docker stop vyos
 	sleep 2
-	docker rmi -f $$(docker images -a -q vyos) || true
+	docker rmi -f $$(docker images -a -q vyos)
 
-.PHONY: stresstest
-stresstest: init
-	@echo Running 100 iterations of apply before cleaning up
+.PHONY: test
+test:
+	@echo Make test
 
-	for i in {1..100}; do
-		echo "Run nr $$i / 100"
-		make apply
-		sleep 10
-	done
-
-	make clean
+	echo ""
+	echo "Initial apply------------------------------------------------------"
+	make apply || (echo "View ./trace.log" >&2; exit 1)
+	echo "Secondary apply------------------------------------------------------"
+	make apply || (echo "View ./trace.log" >&2; exit 1)
 
 .PHONY: why
 why:
@@ -139,6 +147,8 @@ why:
 .tmp/vyos.iso: ../../data/vyos-1x-info.txt
 	@echo Make .tmp/vyos.iso
 
+	set -x
+
 	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
 
 	mkdir -p .tmp/
@@ -147,7 +157,7 @@ why:
 			-H "Accept: application/vnd.github+json" \
 			-H "X-GitHub-Api-Version: 2022-11-28" \
 			"https://api.github.com/repos/vyos/vyos-nightly-build/releases?per_page=100" \
-			| jq -r --arg var_date "$${build_date}" '.[] | select(.published_at|startswith($$var_date)) | .assets[] | select(.name|endswith(".iso")) | .browser_download_url')"
+			| jq -r --arg var_date "$${build_date}" '.[] | select(.published_at|startswith($$var_date)) | .assets[] | select(.name|endswith(".iso")) | .browser_download_url' | head -n1)"
 
 	wget -O .tmp/vyos.iso "$${download_url}"
 	touch .tmp/vyos.iso
@@ -196,10 +206,4 @@ why:
 	#vyos_ip="$$(docker exec -t vyos ip -4 --color=never --brief address show dev eth0 | sed -r 's|^eth0[^0-9]+([.0-9]+)/.*$$|\1|')"
 	vyos_ip="$$(docker inspect --format json --type container vyos | jq -r '.[].NetworkSettings.IPAddress')"
 
-	if grep vyos.local /etc/hosts; then
-		sudo cp /etc/hosts /etc/hosts.old
-		sudo sed -i "s/^.* vyos.local$$/$${vyos_ip}  vyos.local/" /etc/hosts.old
-		cat /etc/hosts.old | sudo tee /etc/hosts
-	else
-		echo "$${vyos_ip}  vyos.local" | sudo tee -a /etc/hosts
-	fi
+	echo -ne "X\n$${vyos_ip}  vyos.local" | sudo tee -a /etc/hosts
