@@ -88,6 +88,10 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 	//  4. on success return so to the resources that succeeded
 	//  milestone: 6
 
+	// TODO retry commit on error due to commit in progress
+	//  Error msg: unable to create resource '[service dns forwarding]' due to client error: API ERROR [400 Bad Request]: Configuration system temporarily locked due to another commit in progress
+	//  milestone: 6
+
 	endpoint := c.endpoint + "/configure"
 	operations := []map[string]interface{}{}
 

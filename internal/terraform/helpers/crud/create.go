@@ -15,6 +15,8 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/provider/data"
 )
 
+type resourcePathCtxKey string
+
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
 func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequest, resp *resource.CreateResponse) {
 	tools.Debug(ctx, "New Resource")
@@ -29,6 +31,8 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	ctx = context.WithValue(ctx, resourcePathCtxKey("resource"), planModel.GetVyosPath())
 
 	// Setup timeout
 	createTimeout, diags := planModel.GetTimeouts().Create(ctx, time.Duration(r.GetProviderConfig().Config.CrudDefaultTimeouts)*time.Minute)
@@ -49,14 +53,18 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 			))
 		return
 	}
+	tools.Debug(ctx, "resource created")
 
 	// Add ID to the resource model
+	tools.Info(ctx, "setting newly created resource id")
 	planModel.SetID(planModel.GetVyosPath())
-	tools.Info(ctx, "setting newly created resource id", map[string]interface{}{"vyos-path": planModel.GetVyosPath()})
 
 	// Save data to Terraform state
-	tools.Debug(ctx, "resource created, saving state")
+	tools.Debug(ctx, "converting unknown values to null values")
+	tools.Trace(ctx, "converting unknown values to null values", map[string]interface{}{"model": planModel})
 	helpers.UnknownToNull(ctx, planModel)
+	tools.Debug(ctx, "saving state")
+	tools.Trace(ctx, "saving state", map[string]interface{}{"model": planModel})
 	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
 }
 
