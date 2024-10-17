@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &netnsName{}
-	_ resource.ResourceWithConfigure = &netnsName{}
+	_ resource.Resource                = &netnsName{}
+	_ resource.ResourceWithConfigure   = &netnsName{}
+	_ resource.ResourceWithImportState = &netnsName{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &netnsName{}
 // var _ resource.ResourceWithModifyPlan = &netnsName{}
 // var _ resource.ResourceWithUpgradeState = &netnsName{}
 // var _ resource.ResourceWithValidateConfig = &netnsName{}
-// var _ resource.ResourceWithImportState = &netnsName{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &netnsName{}

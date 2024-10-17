@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemFlowAccountingNetflowTimeout{}
-	_ resource.ResourceWithConfigure = &systemFlowAccountingNetflowTimeout{}
+	_ resource.Resource                = &systemFlowAccountingNetflowTimeout{}
+	_ resource.ResourceWithConfigure   = &systemFlowAccountingNetflowTimeout{}
+	_ resource.ResourceWithImportState = &systemFlowAccountingNetflowTimeout{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemFlowAccountingNetflowTimeout{}
 // var _ resource.ResourceWithModifyPlan = &systemFlowAccountingNetflowTimeout{}
 // var _ resource.ResourceWithUpgradeState = &systemFlowAccountingNetflowTimeout{}
 // var _ resource.ResourceWithValidateConfig = &systemFlowAccountingNetflowTimeout{}
-// var _ resource.ResourceWithImportState = &systemFlowAccountingNetflowTimeout{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemFlowAccountingNetflowTimeout{}

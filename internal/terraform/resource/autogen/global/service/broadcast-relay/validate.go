@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceBroadcastRelay{}
-	_ resource.ResourceWithConfigure = &serviceBroadcastRelay{}
+	_ resource.Resource                = &serviceBroadcastRelay{}
+	_ resource.ResourceWithConfigure   = &serviceBroadcastRelay{}
+	_ resource.ResourceWithImportState = &serviceBroadcastRelay{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceBroadcastRelay{}
 // var _ resource.ResourceWithModifyPlan = &serviceBroadcastRelay{}
 // var _ resource.ResourceWithUpgradeState = &serviceBroadcastRelay{}
 // var _ resource.ResourceWithValidateConfig = &serviceBroadcastRelay{}
-// var _ resource.ResourceWithImportState = &serviceBroadcastRelay{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceBroadcastRelay{}

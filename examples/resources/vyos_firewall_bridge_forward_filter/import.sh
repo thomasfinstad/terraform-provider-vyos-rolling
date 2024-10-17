@@ -1,0 +1,2 @@
+
+terraform import vyos_firewall_bridge_forward_filter.example "firewall__bridge__forward__filter"

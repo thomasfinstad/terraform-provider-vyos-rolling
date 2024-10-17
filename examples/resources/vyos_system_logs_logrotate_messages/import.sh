@@ -1,0 +1,2 @@
+
+terraform import vyos_system_logs_logrotate_messages.example "system__logs__logrotate__messages"

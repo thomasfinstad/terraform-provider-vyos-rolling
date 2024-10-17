@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsIsisAreaPassword{}
-	_ resource.ResourceWithConfigure = &protocolsIsisAreaPassword{}
+	_ resource.Resource                = &protocolsIsisAreaPassword{}
+	_ resource.ResourceWithConfigure   = &protocolsIsisAreaPassword{}
+	_ resource.ResourceWithImportState = &protocolsIsisAreaPassword{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsIsisAreaPassword{}
 // var _ resource.ResourceWithModifyPlan = &protocolsIsisAreaPassword{}
 // var _ resource.ResourceWithUpgradeState = &protocolsIsisAreaPassword{}
 // var _ resource.ResourceWithValidateConfig = &protocolsIsisAreaPassword{}
-// var _ resource.ResourceWithImportState = &protocolsIsisAreaPassword{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsIsisAreaPassword{}

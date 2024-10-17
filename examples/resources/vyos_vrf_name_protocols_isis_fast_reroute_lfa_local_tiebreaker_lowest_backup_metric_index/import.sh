@@ -1,0 +1,2 @@
+
+terraform import vyos_vrf_name_protocols_isis_fast_reroute_lfa_local_tiebreaker_lowest_backup_metric_index.example "vrf__name__<name>__protocols__isis__fast_reroute__lfa__local__tiebreaker__lowest_backup_metric__index__<index>"

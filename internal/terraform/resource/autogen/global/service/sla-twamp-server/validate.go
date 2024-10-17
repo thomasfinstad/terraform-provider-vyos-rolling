@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceSLATwampServer{}
-	_ resource.ResourceWithConfigure = &serviceSLATwampServer{}
+	_ resource.Resource                = &serviceSLATwampServer{}
+	_ resource.ResourceWithConfigure   = &serviceSLATwampServer{}
+	_ resource.ResourceWithImportState = &serviceSLATwampServer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceSLATwampServer{}
 // var _ resource.ResourceWithModifyPlan = &serviceSLATwampServer{}
 // var _ resource.ResourceWithUpgradeState = &serviceSLATwampServer{}
 // var _ resource.ResourceWithValidateConfig = &serviceSLATwampServer{}
-// var _ resource.ResourceWithImportState = &serviceSLATwampServer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceSLATwampServer{}

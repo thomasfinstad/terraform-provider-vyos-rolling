@@ -1,0 +1,2 @@
+
+terraform import vyos_system_login_tacacs_server.example "system__login__tacacs__server__<server>"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsRIPDistributeListAccessList{}
-	_ resource.ResourceWithConfigure = &protocolsRIPDistributeListAccessList{}
+	_ resource.Resource                = &protocolsRIPDistributeListAccessList{}
+	_ resource.ResourceWithConfigure   = &protocolsRIPDistributeListAccessList{}
+	_ resource.ResourceWithImportState = &protocolsRIPDistributeListAccessList{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsRIPDistributeListAccessList{}
 // var _ resource.ResourceWithModifyPlan = &protocolsRIPDistributeListAccessList{}
 // var _ resource.ResourceWithUpgradeState = &protocolsRIPDistributeListAccessList{}
 // var _ resource.ResourceWithValidateConfig = &protocolsRIPDistributeListAccessList{}
-// var _ resource.ResourceWithImportState = &protocolsRIPDistributeListAccessList{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsRIPDistributeListAccessList{}

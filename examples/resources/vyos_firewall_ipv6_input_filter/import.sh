@@ -1,0 +1,2 @@
+
+terraform import vyos_firewall_ipv6_input_filter.example "firewall__ipv6__input__filter"

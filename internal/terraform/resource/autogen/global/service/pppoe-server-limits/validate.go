@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &servicePppoeServerLimits{}
-	_ resource.ResourceWithConfigure = &servicePppoeServerLimits{}
+	_ resource.Resource                = &servicePppoeServerLimits{}
+	_ resource.ResourceWithConfigure   = &servicePppoeServerLimits{}
+	_ resource.ResourceWithImportState = &servicePppoeServerLimits{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &servicePppoeServerLimits{}
 // var _ resource.ResourceWithModifyPlan = &servicePppoeServerLimits{}
 // var _ resource.ResourceWithUpgradeState = &servicePppoeServerLimits{}
 // var _ resource.ResourceWithValidateConfig = &servicePppoeServerLimits{}
-// var _ resource.ResourceWithImportState = &servicePppoeServerLimits{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &servicePppoeServerLimits{}

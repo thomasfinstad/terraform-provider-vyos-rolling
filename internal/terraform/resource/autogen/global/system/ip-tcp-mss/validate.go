@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemIPTCPMss{}
-	_ resource.ResourceWithConfigure = &systemIPTCPMss{}
+	_ resource.Resource                = &systemIPTCPMss{}
+	_ resource.ResourceWithConfigure   = &systemIPTCPMss{}
+	_ resource.ResourceWithImportState = &systemIPTCPMss{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemIPTCPMss{}
 // var _ resource.ResourceWithModifyPlan = &systemIPTCPMss{}
 // var _ resource.ResourceWithUpgradeState = &systemIPTCPMss{}
 // var _ resource.ResourceWithValidateConfig = &systemIPTCPMss{}
-// var _ resource.ResourceWithImportState = &systemIPTCPMss{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemIPTCPMss{}

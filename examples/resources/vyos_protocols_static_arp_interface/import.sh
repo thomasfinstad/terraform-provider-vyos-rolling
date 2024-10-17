@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_static_arp_interface.example "protocols__static__arp__interface__<interface>"

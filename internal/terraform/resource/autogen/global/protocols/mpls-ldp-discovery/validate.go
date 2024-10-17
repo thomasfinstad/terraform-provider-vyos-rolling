@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsMplsLdpDiscovery{}
-	_ resource.ResourceWithConfigure = &protocolsMplsLdpDiscovery{}
+	_ resource.Resource                = &protocolsMplsLdpDiscovery{}
+	_ resource.ResourceWithConfigure   = &protocolsMplsLdpDiscovery{}
+	_ resource.ResourceWithImportState = &protocolsMplsLdpDiscovery{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsMplsLdpDiscovery{}
 // var _ resource.ResourceWithModifyPlan = &protocolsMplsLdpDiscovery{}
 // var _ resource.ResourceWithUpgradeState = &protocolsMplsLdpDiscovery{}
 // var _ resource.ResourceWithValidateConfig = &protocolsMplsLdpDiscovery{}
-// var _ resource.ResourceWithImportState = &protocolsMplsLdpDiscovery{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsMplsLdpDiscovery{}

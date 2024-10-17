@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &highAvailability{}
-	_ resource.ResourceWithConfigure = &highAvailability{}
+	_ resource.Resource                = &highAvailability{}
+	_ resource.ResourceWithConfigure   = &highAvailability{}
+	_ resource.ResourceWithImportState = &highAvailability{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &highAvailability{}
 // var _ resource.ResourceWithModifyPlan = &highAvailability{}
 // var _ resource.ResourceWithUpgradeState = &highAvailability{}
 // var _ resource.ResourceWithValidateConfig = &highAvailability{}
-// var _ resource.ResourceWithImportState = &highAvailability{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &highAvailability{}

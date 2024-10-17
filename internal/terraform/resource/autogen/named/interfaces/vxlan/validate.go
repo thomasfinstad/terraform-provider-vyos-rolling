@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesVxlan{}
-	_ resource.ResourceWithConfigure = &interfacesVxlan{}
+	_ resource.Resource                = &interfacesVxlan{}
+	_ resource.ResourceWithConfigure   = &interfacesVxlan{}
+	_ resource.ResourceWithImportState = &interfacesVxlan{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesVxlan{}
 // var _ resource.ResourceWithModifyPlan = &interfacesVxlan{}
 // var _ resource.ResourceWithUpgradeState = &interfacesVxlan{}
 // var _ resource.ResourceWithValidateConfig = &interfacesVxlan{}
-// var _ resource.ResourceWithImportState = &interfacesVxlan{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesVxlan{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBabelInterface{}
-	_ resource.ResourceWithConfigure = &protocolsBabelInterface{}
+	_ resource.Resource                = &protocolsBabelInterface{}
+	_ resource.ResourceWithConfigure   = &protocolsBabelInterface{}
+	_ resource.ResourceWithImportState = &protocolsBabelInterface{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBabelInterface{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBabelInterface{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBabelInterface{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBabelInterface{}
-// var _ resource.ResourceWithImportState = &protocolsBabelInterface{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBabelInterface{}

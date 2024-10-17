@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
@@ -61,4 +62,8 @@ func (r *serviceMonitoringTelegrafSplunkAuthentication) Configure(ctx context.Co
 	}
 
 	r.providerData = data
+}
+
+func (r *serviceMonitoringTelegrafSplunkAuthentication) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }

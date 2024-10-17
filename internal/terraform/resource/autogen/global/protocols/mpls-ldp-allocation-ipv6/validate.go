@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsMplsLdpAllocationIPvsix{}
-	_ resource.ResourceWithConfigure = &protocolsMplsLdpAllocationIPvsix{}
+	_ resource.Resource                = &protocolsMplsLdpAllocationIPvsix{}
+	_ resource.ResourceWithConfigure   = &protocolsMplsLdpAllocationIPvsix{}
+	_ resource.ResourceWithImportState = &protocolsMplsLdpAllocationIPvsix{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsMplsLdpAllocationIPvsix{}
 // var _ resource.ResourceWithModifyPlan = &protocolsMplsLdpAllocationIPvsix{}
 // var _ resource.ResourceWithUpgradeState = &protocolsMplsLdpAllocationIPvsix{}
 // var _ resource.ResourceWithValidateConfig = &protocolsMplsLdpAllocationIPvsix{}
-// var _ resource.ResourceWithImportState = &protocolsMplsLdpAllocationIPvsix{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsMplsLdpAllocationIPvsix{}

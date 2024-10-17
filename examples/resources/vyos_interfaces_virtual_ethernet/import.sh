@@ -1,0 +1,2 @@
+
+terraform import vyos_interfaces_virtual_ethernet.example "interfaces__virtual_ethernet__<virtual-ethernet>"

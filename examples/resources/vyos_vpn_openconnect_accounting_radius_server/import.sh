@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_openconnect_accounting_radius_server.example "vpn__openconnect__accounting__radius__server__<server>"

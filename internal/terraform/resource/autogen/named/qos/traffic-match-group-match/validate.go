@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &qosTrafficMatchGroupMatch{}
-	_ resource.ResourceWithConfigure = &qosTrafficMatchGroupMatch{}
+	_ resource.Resource                = &qosTrafficMatchGroupMatch{}
+	_ resource.ResourceWithConfigure   = &qosTrafficMatchGroupMatch{}
+	_ resource.ResourceWithImportState = &qosTrafficMatchGroupMatch{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &qosTrafficMatchGroupMatch{}
 // var _ resource.ResourceWithModifyPlan = &qosTrafficMatchGroupMatch{}
 // var _ resource.ResourceWithUpgradeState = &qosTrafficMatchGroupMatch{}
 // var _ resource.ResourceWithValidateConfig = &qosTrafficMatchGroupMatch{}
-// var _ resource.ResourceWithImportState = &qosTrafficMatchGroupMatch{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &qosTrafficMatchGroupMatch{}

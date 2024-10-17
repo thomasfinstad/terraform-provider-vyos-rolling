@@ -43,6 +43,7 @@ Hierarchical Fair Service Curve's policy
     - [Nested Schema for `realtime`](#nested-schema-for-realtime)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `upperlimit`](#nested-schema-for-upperlimit)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -201,3 +202,11 @@ Optional:
     |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
     |  &lt;number&gt;ibps  &emsp;|  kibps(1024&amp;8), mibps(1024^2&amp;8), gibps, tibps - Byte/sec  |
     |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&amp;10^3),mbps(8&amp;10^6), gbps, tbps - Byte/sec  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_qos_policy_shaper_hfsc_class.example "qos__policy__shaper_hfsc__<shaper-hfsc>__class__<class>"
+```

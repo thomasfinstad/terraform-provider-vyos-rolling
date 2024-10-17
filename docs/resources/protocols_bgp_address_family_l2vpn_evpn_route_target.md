@@ -40,6 +40,7 @@ L2VPN EVPN BGP settings
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+  - [Import](#import-1)
 
 <!--TOC-->
 
@@ -80,3 +81,11 @@ L2VPN EVPN BGP settings
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_protocols_bgp_address_family_l2vpn_evpn_route_target.example "protocols__bgp__address_family__l2vpn_evpn__route_target"
+```

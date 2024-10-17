@@ -39,6 +39,7 @@ Filter IPv6 routes
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -73,3 +74,11 @@ Filter IPv6 routes
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_protocols_babel_distribute_list_ipv6_access_list.example "protocols__babel__distribute_list__ipv6__access_list"
+```

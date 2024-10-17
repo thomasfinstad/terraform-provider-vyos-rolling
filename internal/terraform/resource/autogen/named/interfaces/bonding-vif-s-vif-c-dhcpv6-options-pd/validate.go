@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
-	_ resource.ResourceWithConfigure = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
+	_ resource.Resource                = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
+	_ resource.ResourceWithConfigure   = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
+	_ resource.ResourceWithImportState = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
 // var _ resource.ResourceWithModifyPlan = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
 // var _ resource.ResourceWithUpgradeState = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
 // var _ resource.ResourceWithValidateConfig = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
-// var _ resource.ResourceWithImportState = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesBondingVifSVifCDhcpvsixOptionsPd{}

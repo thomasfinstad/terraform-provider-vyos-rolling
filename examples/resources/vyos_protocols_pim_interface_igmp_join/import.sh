@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_pim_interface_igmp_join.example "protocols__pim__interface__<interface>__igmp__join__<join>"

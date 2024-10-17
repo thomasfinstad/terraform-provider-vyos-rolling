@@ -1,0 +1,2 @@
+
+terraform import vyos_load_balancing_haproxy.example "load_balancing__haproxy"

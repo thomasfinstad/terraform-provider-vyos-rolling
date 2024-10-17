@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
-	_ resource.ResourceWithConfigure = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
+	_ resource.Resource                = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
+	_ resource.ResourceWithConfigure   = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
+	_ resource.ResourceWithImportState = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
 // var _ resource.ResourceWithModifyPlan = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
 // var _ resource.ResourceWithUpgradeState = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
 // var _ resource.ResourceWithValidateConfig = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
-// var _ resource.ResourceWithImportState = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}

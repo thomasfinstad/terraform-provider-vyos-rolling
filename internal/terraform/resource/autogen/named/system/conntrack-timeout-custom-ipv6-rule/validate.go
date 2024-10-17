@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemConntrackTimeoutCustomIPvsixRule{}
-	_ resource.ResourceWithConfigure = &systemConntrackTimeoutCustomIPvsixRule{}
+	_ resource.Resource                = &systemConntrackTimeoutCustomIPvsixRule{}
+	_ resource.ResourceWithConfigure   = &systemConntrackTimeoutCustomIPvsixRule{}
+	_ resource.ResourceWithImportState = &systemConntrackTimeoutCustomIPvsixRule{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemConntrackTimeoutCustomIPvsixRule{}
 // var _ resource.ResourceWithModifyPlan = &systemConntrackTimeoutCustomIPvsixRule{}
 // var _ resource.ResourceWithUpgradeState = &systemConntrackTimeoutCustomIPvsixRule{}
 // var _ resource.ResourceWithValidateConfig = &systemConntrackTimeoutCustomIPvsixRule{}
-// var _ resource.ResourceWithImportState = &systemConntrackTimeoutCustomIPvsixRule{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemConntrackTimeoutCustomIPvsixRule{}

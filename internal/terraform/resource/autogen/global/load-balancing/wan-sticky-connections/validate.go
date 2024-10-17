@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &loadBalancingWanStickyConnections{}
-	_ resource.ResourceWithConfigure = &loadBalancingWanStickyConnections{}
+	_ resource.Resource                = &loadBalancingWanStickyConnections{}
+	_ resource.ResourceWithConfigure   = &loadBalancingWanStickyConnections{}
+	_ resource.ResourceWithImportState = &loadBalancingWanStickyConnections{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &loadBalancingWanStickyConnections{}
 // var _ resource.ResourceWithModifyPlan = &loadBalancingWanStickyConnections{}
 // var _ resource.ResourceWithUpgradeState = &loadBalancingWanStickyConnections{}
 // var _ resource.ResourceWithValidateConfig = &loadBalancingWanStickyConnections{}
-// var _ resource.ResourceWithImportState = &loadBalancingWanStickyConnections{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &loadBalancingWanStickyConnections{}

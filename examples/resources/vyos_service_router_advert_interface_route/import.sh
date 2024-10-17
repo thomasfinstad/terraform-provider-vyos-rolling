@@ -1,0 +1,2 @@
+
+terraform import vyos_service_router_advert_interface_route.example "service__router_advert__interface__<interface>__route__<route>"

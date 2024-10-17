@@ -102,6 +102,7 @@ IPv6 custom firewall
     - [Nested Schema for `tcp.flags.not`](#nested-schema-for-tcpflagsnot)
     - [Nested Schema for `time`](#nested-schema-for-time)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -886,3 +887,11 @@ Optional:
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_firewall_ipv6_name_rule.example "firewall__ipv6__name__<name>__rule__<rule>"
+```

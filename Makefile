@@ -366,6 +366,10 @@ docs/index.md: \
 
 	# Prep dirs
 	[ ! -e "docs/" ] || rm -rf "docs/"
+	[ ! -e "./examples/resources/" ] || find ./examples/resources/ -name import.sh -execdir bash -c 'rm {}; rmdir --ignore-fail-on-non-empty -p $$PWD' \;
+
+	# Generate import docs
+	go run ./tools/generate-import-docs/ examples/resources/
 
 	#
 	echo Generate provider json schema

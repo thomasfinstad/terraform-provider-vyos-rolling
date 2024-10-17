@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnIPsec{}
-	_ resource.ResourceWithConfigure = &vpnIPsec{}
+	_ resource.Resource                = &vpnIPsec{}
+	_ resource.ResourceWithConfigure   = &vpnIPsec{}
+	_ resource.ResourceWithImportState = &vpnIPsec{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnIPsec{}
 // var _ resource.ResourceWithModifyPlan = &vpnIPsec{}
 // var _ resource.ResourceWithUpgradeState = &vpnIPsec{}
 // var _ resource.ResourceWithValidateConfig = &vpnIPsec{}
-// var _ resource.ResourceWithImportState = &vpnIPsec{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnIPsec{}

@@ -40,6 +40,7 @@ Static NAT (one-to-one)
     - [Nested Schema for `destination`](#nested-schema-for-destination)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `translation`](#nested-schema-for-translation)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -115,3 +116,11 @@ Optional:
     |-----------|-------------------------|
     |  ipv4     &emsp;|  IPv4 address to match  |
     |  ipv4net  &emsp;|  IPv4 prefix to match   |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_nat_static_rule.example "nat__static__rule__<rule>"
+```

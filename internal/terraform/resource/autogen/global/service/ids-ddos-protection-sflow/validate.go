@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceIDsDdosProtectionSflow{}
-	_ resource.ResourceWithConfigure = &serviceIDsDdosProtectionSflow{}
+	_ resource.Resource                = &serviceIDsDdosProtectionSflow{}
+	_ resource.ResourceWithConfigure   = &serviceIDsDdosProtectionSflow{}
+	_ resource.ResourceWithImportState = &serviceIDsDdosProtectionSflow{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceIDsDdosProtectionSflow{}
 // var _ resource.ResourceWithModifyPlan = &serviceIDsDdosProtectionSflow{}
 // var _ resource.ResourceWithUpgradeState = &serviceIDsDdosProtectionSflow{}
 // var _ resource.ResourceWithValidateConfig = &serviceIDsDdosProtectionSflow{}
-// var _ resource.ResourceWithImportState = &serviceIDsDdosProtectionSflow{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceIDsDdosProtectionSflow{}

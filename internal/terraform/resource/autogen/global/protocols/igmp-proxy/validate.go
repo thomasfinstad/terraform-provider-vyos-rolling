@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsIgmpProxy{}
-	_ resource.ResourceWithConfigure = &protocolsIgmpProxy{}
+	_ resource.Resource                = &protocolsIgmpProxy{}
+	_ resource.ResourceWithConfigure   = &protocolsIgmpProxy{}
+	_ resource.ResourceWithImportState = &protocolsIgmpProxy{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsIgmpProxy{}
 // var _ resource.ResourceWithModifyPlan = &protocolsIgmpProxy{}
 // var _ resource.ResourceWithUpgradeState = &protocolsIgmpProxy{}
 // var _ resource.ResourceWithValidateConfig = &protocolsIgmpProxy{}
-// var _ resource.ResourceWithImportState = &protocolsIgmpProxy{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsIgmpProxy{}

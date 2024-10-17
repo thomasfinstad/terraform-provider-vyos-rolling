@@ -45,6 +45,7 @@ Static IPv6 route
     - [Nested Schema for `bfd`](#nested-schema-for-bfd)
     - [Nested Schema for `bfd.multi_hop`](#nested-schema-for-bfdmulti_hop)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -139,3 +140,11 @@ Optional:
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_protocols_static_table_route6_next_hop.example "protocols__static__table__<table>__route6__<route6>__next_hop__<next-hop>"
+```

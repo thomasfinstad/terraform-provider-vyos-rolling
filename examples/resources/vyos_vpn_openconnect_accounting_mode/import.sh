@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_openconnect_accounting_mode.example "vpn__openconnect__accounting__mode"

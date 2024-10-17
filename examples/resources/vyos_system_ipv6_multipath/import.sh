@@ -1,0 +1,2 @@
+
+terraform import vyos_system_ipv6_multipath.example "system__ipv6__multipath"

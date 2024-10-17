@@ -1,0 +1,2 @@
+
+terraform import vyos_service_dhcp_server_high_availability.example "service__dhcp_server__high_availability"

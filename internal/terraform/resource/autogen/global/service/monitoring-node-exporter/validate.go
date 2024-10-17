@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceMonitoringNodeExporter{}
-	_ resource.ResourceWithConfigure = &serviceMonitoringNodeExporter{}
+	_ resource.Resource                = &serviceMonitoringNodeExporter{}
+	_ resource.ResourceWithConfigure   = &serviceMonitoringNodeExporter{}
+	_ resource.ResourceWithImportState = &serviceMonitoringNodeExporter{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceMonitoringNodeExporter{}
 // var _ resource.ResourceWithModifyPlan = &serviceMonitoringNodeExporter{}
 // var _ resource.ResourceWithUpgradeState = &serviceMonitoringNodeExporter{}
 // var _ resource.ResourceWithValidateConfig = &serviceMonitoringNodeExporter{}
-// var _ resource.ResourceWithImportState = &serviceMonitoringNodeExporter{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceMonitoringNodeExporter{}

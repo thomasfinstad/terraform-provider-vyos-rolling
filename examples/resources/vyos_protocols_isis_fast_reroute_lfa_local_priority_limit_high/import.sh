@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_isis_fast_reroute_lfa_local_priority_limit_high.example "protocols__isis__fast_reroute__lfa__local__priority_limit__high"

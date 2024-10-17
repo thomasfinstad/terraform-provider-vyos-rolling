@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &qosPolicyNetworkEmulator{}
-	_ resource.ResourceWithConfigure = &qosPolicyNetworkEmulator{}
+	_ resource.Resource                = &qosPolicyNetworkEmulator{}
+	_ resource.ResourceWithConfigure   = &qosPolicyNetworkEmulator{}
+	_ resource.ResourceWithImportState = &qosPolicyNetworkEmulator{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &qosPolicyNetworkEmulator{}
 // var _ resource.ResourceWithModifyPlan = &qosPolicyNetworkEmulator{}
 // var _ resource.ResourceWithUpgradeState = &qosPolicyNetworkEmulator{}
 // var _ resource.ResourceWithValidateConfig = &qosPolicyNetworkEmulator{}
-// var _ resource.ResourceWithImportState = &qosPolicyNetworkEmulator{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &qosPolicyNetworkEmulator{}

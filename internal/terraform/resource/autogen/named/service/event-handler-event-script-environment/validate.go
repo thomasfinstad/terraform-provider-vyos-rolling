@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceEventHandlerEventScrIPtEnvironment{}
-	_ resource.ResourceWithConfigure = &serviceEventHandlerEventScrIPtEnvironment{}
+	_ resource.Resource                = &serviceEventHandlerEventScrIPtEnvironment{}
+	_ resource.ResourceWithConfigure   = &serviceEventHandlerEventScrIPtEnvironment{}
+	_ resource.ResourceWithImportState = &serviceEventHandlerEventScrIPtEnvironment{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceEventHandlerEventScrIPtEnvironment{}
 // var _ resource.ResourceWithModifyPlan = &serviceEventHandlerEventScrIPtEnvironment{}
 // var _ resource.ResourceWithUpgradeState = &serviceEventHandlerEventScrIPtEnvironment{}
 // var _ resource.ResourceWithValidateConfig = &serviceEventHandlerEventScrIPtEnvironment{}
-// var _ resource.ResourceWithImportState = &serviceEventHandlerEventScrIPtEnvironment{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceEventHandlerEventScrIPtEnvironment{}

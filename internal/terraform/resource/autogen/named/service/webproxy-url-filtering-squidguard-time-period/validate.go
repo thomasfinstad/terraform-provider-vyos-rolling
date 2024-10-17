@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
-	_ resource.ResourceWithConfigure = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
+	_ resource.Resource                = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
+	_ resource.ResourceWithConfigure   = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
+	_ resource.ResourceWithImportState = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
 // var _ resource.ResourceWithModifyPlan = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
 // var _ resource.ResourceWithUpgradeState = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
 // var _ resource.ResourceWithValidateConfig = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
-// var _ resource.ResourceWithImportState = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceWebproxyURLFilteringSquIDguardTimePeriod{}

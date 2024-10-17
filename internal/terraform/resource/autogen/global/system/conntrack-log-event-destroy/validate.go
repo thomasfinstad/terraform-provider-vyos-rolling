@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemConntrackLogEventDestroy{}
-	_ resource.ResourceWithConfigure = &systemConntrackLogEventDestroy{}
+	_ resource.Resource                = &systemConntrackLogEventDestroy{}
+	_ resource.ResourceWithConfigure   = &systemConntrackLogEventDestroy{}
+	_ resource.ResourceWithImportState = &systemConntrackLogEventDestroy{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemConntrackLogEventDestroy{}
 // var _ resource.ResourceWithModifyPlan = &systemConntrackLogEventDestroy{}
 // var _ resource.ResourceWithUpgradeState = &systemConntrackLogEventDestroy{}
 // var _ resource.ResourceWithValidateConfig = &systemConntrackLogEventDestroy{}
-// var _ resource.ResourceWithImportState = &systemConntrackLogEventDestroy{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemConntrackLogEventDestroy{}

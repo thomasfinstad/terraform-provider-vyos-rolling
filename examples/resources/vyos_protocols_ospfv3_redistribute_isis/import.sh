@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospfv3_redistribute_isis.example "protocols__ospfv3__redistribute__isis"

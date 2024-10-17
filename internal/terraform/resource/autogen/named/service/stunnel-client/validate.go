@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceStunnelClient{}
-	_ resource.ResourceWithConfigure = &serviceStunnelClient{}
+	_ resource.Resource                = &serviceStunnelClient{}
+	_ resource.ResourceWithConfigure   = &serviceStunnelClient{}
+	_ resource.ResourceWithImportState = &serviceStunnelClient{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceStunnelClient{}
 // var _ resource.ResourceWithModifyPlan = &serviceStunnelClient{}
 // var _ resource.ResourceWithUpgradeState = &serviceStunnelClient{}
 // var _ resource.ResourceWithValidateConfig = &serviceStunnelClient{}
-// var _ resource.ResourceWithImportState = &serviceStunnelClient{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceStunnelClient{}

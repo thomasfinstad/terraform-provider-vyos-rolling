@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsRIPngRedistributeStatic{}
-	_ resource.ResourceWithConfigure = &protocolsRIPngRedistributeStatic{}
+	_ resource.Resource                = &protocolsRIPngRedistributeStatic{}
+	_ resource.ResourceWithConfigure   = &protocolsRIPngRedistributeStatic{}
+	_ resource.ResourceWithImportState = &protocolsRIPngRedistributeStatic{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsRIPngRedistributeStatic{}
 // var _ resource.ResourceWithModifyPlan = &protocolsRIPngRedistributeStatic{}
 // var _ resource.ResourceWithUpgradeState = &protocolsRIPngRedistributeStatic{}
 // var _ resource.ResourceWithValidateConfig = &protocolsRIPngRedistributeStatic{}
-// var _ resource.ResourceWithImportState = &protocolsRIPngRedistributeStatic{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsRIPngRedistributeStatic{}

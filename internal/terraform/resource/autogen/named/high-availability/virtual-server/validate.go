@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &highAvailabilityVirtualServer{}
-	_ resource.ResourceWithConfigure = &highAvailabilityVirtualServer{}
+	_ resource.Resource                = &highAvailabilityVirtualServer{}
+	_ resource.ResourceWithConfigure   = &highAvailabilityVirtualServer{}
+	_ resource.ResourceWithImportState = &highAvailabilityVirtualServer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &highAvailabilityVirtualServer{}
 // var _ resource.ResourceWithModifyPlan = &highAvailabilityVirtualServer{}
 // var _ resource.ResourceWithUpgradeState = &highAvailabilityVirtualServer{}
 // var _ resource.ResourceWithValidateConfig = &highAvailabilityVirtualServer{}
-// var _ resource.ResourceWithImportState = &highAvailabilityVirtualServer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &highAvailabilityVirtualServer{}

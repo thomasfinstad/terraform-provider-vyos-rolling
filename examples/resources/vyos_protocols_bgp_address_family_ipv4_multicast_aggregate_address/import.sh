@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_address_family_ipv4_multicast_aggregate_address.example "protocols__bgp__address_family__ipv4_multicast__aggregate_address__<aggregate-address>"

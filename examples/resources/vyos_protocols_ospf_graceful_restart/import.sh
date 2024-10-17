@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_graceful_restart.example "protocols__ospf__graceful_restart"

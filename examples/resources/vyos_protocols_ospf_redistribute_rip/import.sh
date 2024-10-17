@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_redistribute_rip.example "protocols__ospf__redistribute__rip"

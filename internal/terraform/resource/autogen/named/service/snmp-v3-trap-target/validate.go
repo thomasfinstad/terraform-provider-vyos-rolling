@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceSnmpVthreeTrapTarget{}
-	_ resource.ResourceWithConfigure = &serviceSnmpVthreeTrapTarget{}
+	_ resource.Resource                = &serviceSnmpVthreeTrapTarget{}
+	_ resource.ResourceWithConfigure   = &serviceSnmpVthreeTrapTarget{}
+	_ resource.ResourceWithImportState = &serviceSnmpVthreeTrapTarget{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceSnmpVthreeTrapTarget{}
 // var _ resource.ResourceWithModifyPlan = &serviceSnmpVthreeTrapTarget{}
 // var _ resource.ResourceWithUpgradeState = &serviceSnmpVthreeTrapTarget{}
 // var _ resource.ResourceWithValidateConfig = &serviceSnmpVthreeTrapTarget{}
-// var _ resource.ResourceWithImportState = &serviceSnmpVthreeTrapTarget{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceSnmpVthreeTrapTarget{}

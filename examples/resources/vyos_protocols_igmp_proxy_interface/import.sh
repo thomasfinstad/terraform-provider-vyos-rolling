@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_igmp_proxy_interface.example "protocols__igmp_proxy__interface__<interface>"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsOspfvthreeGracefulRestartHelperEnable{}
-	_ resource.ResourceWithConfigure = &protocolsOspfvthreeGracefulRestartHelperEnable{}
+	_ resource.Resource                = &protocolsOspfvthreeGracefulRestartHelperEnable{}
+	_ resource.ResourceWithConfigure   = &protocolsOspfvthreeGracefulRestartHelperEnable{}
+	_ resource.ResourceWithImportState = &protocolsOspfvthreeGracefulRestartHelperEnable{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsOspfvthreeGracefulRestartHelperEnable{}
 // var _ resource.ResourceWithModifyPlan = &protocolsOspfvthreeGracefulRestartHelperEnable{}
 // var _ resource.ResourceWithUpgradeState = &protocolsOspfvthreeGracefulRestartHelperEnable{}
 // var _ resource.ResourceWithValidateConfig = &protocolsOspfvthreeGracefulRestartHelperEnable{}
-// var _ resource.ResourceWithImportState = &protocolsOspfvthreeGracefulRestartHelperEnable{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsOspfvthreeGracefulRestartHelperEnable{}

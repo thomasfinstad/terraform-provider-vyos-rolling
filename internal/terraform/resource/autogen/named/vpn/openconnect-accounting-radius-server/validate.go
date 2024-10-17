@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnOpenconnectAccountingRadiusServer{}
-	_ resource.ResourceWithConfigure = &vpnOpenconnectAccountingRadiusServer{}
+	_ resource.Resource                = &vpnOpenconnectAccountingRadiusServer{}
+	_ resource.ResourceWithConfigure   = &vpnOpenconnectAccountingRadiusServer{}
+	_ resource.ResourceWithImportState = &vpnOpenconnectAccountingRadiusServer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnOpenconnectAccountingRadiusServer{}
 // var _ resource.ResourceWithModifyPlan = &vpnOpenconnectAccountingRadiusServer{}
 // var _ resource.ResourceWithUpgradeState = &vpnOpenconnectAccountingRadiusServer{}
 // var _ resource.ResourceWithValidateConfig = &vpnOpenconnectAccountingRadiusServer{}
-// var _ resource.ResourceWithImportState = &vpnOpenconnectAccountingRadiusServer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnOpenconnectAccountingRadiusServer{}

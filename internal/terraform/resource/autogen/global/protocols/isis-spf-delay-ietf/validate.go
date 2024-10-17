@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsIsisSpfDelayIetf{}
-	_ resource.ResourceWithConfigure = &protocolsIsisSpfDelayIetf{}
+	_ resource.Resource                = &protocolsIsisSpfDelayIetf{}
+	_ resource.ResourceWithConfigure   = &protocolsIsisSpfDelayIetf{}
+	_ resource.ResourceWithImportState = &protocolsIsisSpfDelayIetf{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsIsisSpfDelayIetf{}
 // var _ resource.ResourceWithModifyPlan = &protocolsIsisSpfDelayIetf{}
 // var _ resource.ResourceWithUpgradeState = &protocolsIsisSpfDelayIetf{}
 // var _ resource.ResourceWithValidateConfig = &protocolsIsisSpfDelayIetf{}
-// var _ resource.ResourceWithImportState = &protocolsIsisSpfDelayIetf{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsIsisSpfDelayIetf{}

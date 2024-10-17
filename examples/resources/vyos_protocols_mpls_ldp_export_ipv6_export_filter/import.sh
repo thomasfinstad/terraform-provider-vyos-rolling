@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_mpls_ldp_export_ipv6_export_filter.example "protocols__mpls__ldp__export__ipv6__export_filter"

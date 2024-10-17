@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBgpSIDVpnPerVrf{}
-	_ resource.ResourceWithConfigure = &protocolsBgpSIDVpnPerVrf{}
+	_ resource.Resource                = &protocolsBgpSIDVpnPerVrf{}
+	_ resource.ResourceWithConfigure   = &protocolsBgpSIDVpnPerVrf{}
+	_ resource.ResourceWithImportState = &protocolsBgpSIDVpnPerVrf{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBgpSIDVpnPerVrf{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBgpSIDVpnPerVrf{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBgpSIDVpnPerVrf{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBgpSIDVpnPerVrf{}
-// var _ resource.ResourceWithImportState = &protocolsBgpSIDVpnPerVrf{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBgpSIDVpnPerVrf{}

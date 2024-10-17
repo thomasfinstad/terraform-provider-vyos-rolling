@@ -37,6 +37,7 @@ IPv6 access-list filter
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
     - [Nested Schema for `source`](#nested-schema-for-source)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -110,3 +111,11 @@ Optional:
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_policy_access_list6_rule.example "policy__access_list6__<access-list6>__rule__<rule>"
+```

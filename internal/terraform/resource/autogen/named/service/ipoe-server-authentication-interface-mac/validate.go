@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceIPoeServerAuthenticationInterfaceMac{}
-	_ resource.ResourceWithConfigure = &serviceIPoeServerAuthenticationInterfaceMac{}
+	_ resource.Resource                = &serviceIPoeServerAuthenticationInterfaceMac{}
+	_ resource.ResourceWithConfigure   = &serviceIPoeServerAuthenticationInterfaceMac{}
+	_ resource.ResourceWithImportState = &serviceIPoeServerAuthenticationInterfaceMac{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceIPoeServerAuthenticationInterfaceMac{}
 // var _ resource.ResourceWithModifyPlan = &serviceIPoeServerAuthenticationInterfaceMac{}
 // var _ resource.ResourceWithUpgradeState = &serviceIPoeServerAuthenticationInterfaceMac{}
 // var _ resource.ResourceWithValidateConfig = &serviceIPoeServerAuthenticationInterfaceMac{}
-// var _ resource.ResourceWithImportState = &serviceIPoeServerAuthenticationInterfaceMac{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceIPoeServerAuthenticationInterfaceMac{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnSstpAuthenticationLocalUsersUsername{}
-	_ resource.ResourceWithConfigure = &vpnSstpAuthenticationLocalUsersUsername{}
+	_ resource.Resource                = &vpnSstpAuthenticationLocalUsersUsername{}
+	_ resource.ResourceWithConfigure   = &vpnSstpAuthenticationLocalUsersUsername{}
+	_ resource.ResourceWithImportState = &vpnSstpAuthenticationLocalUsersUsername{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnSstpAuthenticationLocalUsersUsername{}
 // var _ resource.ResourceWithModifyPlan = &vpnSstpAuthenticationLocalUsersUsername{}
 // var _ resource.ResourceWithUpgradeState = &vpnSstpAuthenticationLocalUsersUsername{}
 // var _ resource.ResourceWithValidateConfig = &vpnSstpAuthenticationLocalUsersUsername{}
-// var _ resource.ResourceWithImportState = &vpnSstpAuthenticationLocalUsersUsername{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnSstpAuthenticationLocalUsersUsername{}

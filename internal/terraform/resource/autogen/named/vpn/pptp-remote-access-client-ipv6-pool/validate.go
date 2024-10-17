@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnPptpRemoteAccessClientIPvsixPool{}
-	_ resource.ResourceWithConfigure = &vpnPptpRemoteAccessClientIPvsixPool{}
+	_ resource.Resource                = &vpnPptpRemoteAccessClientIPvsixPool{}
+	_ resource.ResourceWithConfigure   = &vpnPptpRemoteAccessClientIPvsixPool{}
+	_ resource.ResourceWithImportState = &vpnPptpRemoteAccessClientIPvsixPool{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnPptpRemoteAccessClientIPvsixPool{}
 // var _ resource.ResourceWithModifyPlan = &vpnPptpRemoteAccessClientIPvsixPool{}
 // var _ resource.ResourceWithUpgradeState = &vpnPptpRemoteAccessClientIPvsixPool{}
 // var _ resource.ResourceWithValidateConfig = &vpnPptpRemoteAccessClientIPvsixPool{}
-// var _ resource.ResourceWithImportState = &vpnPptpRemoteAccessClientIPvsixPool{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnPptpRemoteAccessClientIPvsixPool{}

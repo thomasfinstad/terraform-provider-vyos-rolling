@@ -1,0 +1,2 @@
+
+terraform import vyos_service_https_certificates.example "service__https__certificates"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &loadBalancingHaproxyBackend{}
-	_ resource.ResourceWithConfigure = &loadBalancingHaproxyBackend{}
+	_ resource.Resource                = &loadBalancingHaproxyBackend{}
+	_ resource.ResourceWithConfigure   = &loadBalancingHaproxyBackend{}
+	_ resource.ResourceWithImportState = &loadBalancingHaproxyBackend{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &loadBalancingHaproxyBackend{}
 // var _ resource.ResourceWithModifyPlan = &loadBalancingHaproxyBackend{}
 // var _ resource.ResourceWithUpgradeState = &loadBalancingHaproxyBackend{}
 // var _ resource.ResourceWithValidateConfig = &loadBalancingHaproxyBackend{}
-// var _ resource.ResourceWithImportState = &loadBalancingHaproxyBackend{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &loadBalancingHaproxyBackend{}

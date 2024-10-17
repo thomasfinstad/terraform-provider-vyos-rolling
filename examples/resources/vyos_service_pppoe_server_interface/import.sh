@@ -1,0 +1,2 @@
+
+terraform import vyos_service_pppoe_server_interface.example "service__pppoe_server__interface__<interface>"

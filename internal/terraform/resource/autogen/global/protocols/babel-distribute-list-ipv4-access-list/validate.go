@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBabelDistributeListIPvfourAccessList{}
-	_ resource.ResourceWithConfigure = &protocolsBabelDistributeListIPvfourAccessList{}
+	_ resource.Resource                = &protocolsBabelDistributeListIPvfourAccessList{}
+	_ resource.ResourceWithConfigure   = &protocolsBabelDistributeListIPvfourAccessList{}
+	_ resource.ResourceWithImportState = &protocolsBabelDistributeListIPvfourAccessList{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBabelDistributeListIPvfourAccessList{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBabelDistributeListIPvfourAccessList{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBabelDistributeListIPvfourAccessList{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBabelDistributeListIPvfourAccessList{}
-// var _ resource.ResourceWithImportState = &protocolsBabelDistributeListIPvfourAccessList{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBabelDistributeListIPvfourAccessList{}

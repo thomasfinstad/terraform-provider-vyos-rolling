@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnLtwotpRemoteAccessAuthenticationRadius{}
-	_ resource.ResourceWithConfigure = &vpnLtwotpRemoteAccessAuthenticationRadius{}
+	_ resource.Resource                = &vpnLtwotpRemoteAccessAuthenticationRadius{}
+	_ resource.ResourceWithConfigure   = &vpnLtwotpRemoteAccessAuthenticationRadius{}
+	_ resource.ResourceWithImportState = &vpnLtwotpRemoteAccessAuthenticationRadius{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnLtwotpRemoteAccessAuthenticationRadius{}
 // var _ resource.ResourceWithModifyPlan = &vpnLtwotpRemoteAccessAuthenticationRadius{}
 // var _ resource.ResourceWithUpgradeState = &vpnLtwotpRemoteAccessAuthenticationRadius{}
 // var _ resource.ResourceWithValidateConfig = &vpnLtwotpRemoteAccessAuthenticationRadius{}
-// var _ resource.ResourceWithImportState = &vpnLtwotpRemoteAccessAuthenticationRadius{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnLtwotpRemoteAccessAuthenticationRadius{}

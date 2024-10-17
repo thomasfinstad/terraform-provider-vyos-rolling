@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_pptp_remote_access_ppp_options.example "vpn__pptp__remote_access__ppp_options"

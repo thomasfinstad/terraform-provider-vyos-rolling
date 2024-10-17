@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesMacsecSecURItyStaticPeer{}
-	_ resource.ResourceWithConfigure = &interfacesMacsecSecURItyStaticPeer{}
+	_ resource.Resource                = &interfacesMacsecSecURItyStaticPeer{}
+	_ resource.ResourceWithConfigure   = &interfacesMacsecSecURItyStaticPeer{}
+	_ resource.ResourceWithImportState = &interfacesMacsecSecURItyStaticPeer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesMacsecSecURItyStaticPeer{}
 // var _ resource.ResourceWithModifyPlan = &interfacesMacsecSecURItyStaticPeer{}
 // var _ resource.ResourceWithUpgradeState = &interfacesMacsecSecURItyStaticPeer{}
 // var _ resource.ResourceWithValidateConfig = &interfacesMacsecSecURItyStaticPeer{}
-// var _ resource.ResourceWithImportState = &interfacesMacsecSecURItyStaticPeer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesMacsecSecURItyStaticPeer{}

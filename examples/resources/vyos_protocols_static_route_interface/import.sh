@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_static_route_interface.example "protocols__static__route__<route>__interface__<interface>"

@@ -1,0 +1,2 @@
+
+terraform import vyos_firewall_ipv4_prerouting_raw.example "firewall__ipv4__prerouting__raw"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesWireguardPeer{}
-	_ resource.ResourceWithConfigure = &interfacesWireguardPeer{}
+	_ resource.Resource                = &interfacesWireguardPeer{}
+	_ resource.ResourceWithConfigure   = &interfacesWireguardPeer{}
+	_ resource.ResourceWithImportState = &interfacesWireguardPeer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesWireguardPeer{}
 // var _ resource.ResourceWithModifyPlan = &interfacesWireguardPeer{}
 // var _ resource.ResourceWithUpgradeState = &interfacesWireguardPeer{}
 // var _ resource.ResourceWithValidateConfig = &interfacesWireguardPeer{}
-// var _ resource.ResourceWithImportState = &interfacesWireguardPeer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesWireguardPeer{}

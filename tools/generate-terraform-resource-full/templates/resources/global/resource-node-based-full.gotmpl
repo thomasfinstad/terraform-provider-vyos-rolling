@@ -46,4 +46,8 @@
 
 		r.providerData = data
 	}
+
+	func (r *{{.BaseNameG}}) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	}
 {{end}}

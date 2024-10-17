@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesWireless{}
-	_ resource.ResourceWithConfigure = &interfacesWireless{}
+	_ resource.Resource                = &interfacesWireless{}
+	_ resource.ResourceWithConfigure   = &interfacesWireless{}
+	_ resource.ResourceWithImportState = &interfacesWireless{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesWireless{}
 // var _ resource.ResourceWithModifyPlan = &interfacesWireless{}
 // var _ resource.ResourceWithUpgradeState = &interfacesWireless{}
 // var _ resource.ResourceWithValidateConfig = &interfacesWireless{}
-// var _ resource.ResourceWithImportState = &interfacesWireless{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesWireless{}

@@ -1,0 +1,2 @@
+
+terraform import vyos_firewall_bridge_output_filter_rule.example "firewall__bridge__output__filter__rule__<rule>"

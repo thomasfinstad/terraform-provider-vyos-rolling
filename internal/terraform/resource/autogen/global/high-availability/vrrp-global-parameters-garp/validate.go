@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &highAvailabilityVrrpGlobalParametersGarp{}
-	_ resource.ResourceWithConfigure = &highAvailabilityVrrpGlobalParametersGarp{}
+	_ resource.Resource                = &highAvailabilityVrrpGlobalParametersGarp{}
+	_ resource.ResourceWithConfigure   = &highAvailabilityVrrpGlobalParametersGarp{}
+	_ resource.ResourceWithImportState = &highAvailabilityVrrpGlobalParametersGarp{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &highAvailabilityVrrpGlobalParametersGarp{}
 // var _ resource.ResourceWithModifyPlan = &highAvailabilityVrrpGlobalParametersGarp{}
 // var _ resource.ResourceWithUpgradeState = &highAvailabilityVrrpGlobalParametersGarp{}
 // var _ resource.ResourceWithValidateConfig = &highAvailabilityVrrpGlobalParametersGarp{}
-// var _ resource.ResourceWithImportState = &highAvailabilityVrrpGlobalParametersGarp{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &highAvailabilityVrrpGlobalParametersGarp{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceMonitoringTelegrafLoki{}
-	_ resource.ResourceWithConfigure = &serviceMonitoringTelegrafLoki{}
+	_ resource.Resource                = &serviceMonitoringTelegrafLoki{}
+	_ resource.ResourceWithConfigure   = &serviceMonitoringTelegrafLoki{}
+	_ resource.ResourceWithImportState = &serviceMonitoringTelegrafLoki{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceMonitoringTelegrafLoki{}
 // var _ resource.ResourceWithModifyPlan = &serviceMonitoringTelegrafLoki{}
 // var _ resource.ResourceWithUpgradeState = &serviceMonitoringTelegrafLoki{}
 // var _ resource.ResourceWithValidateConfig = &serviceMonitoringTelegrafLoki{}
-// var _ resource.ResourceWithImportState = &serviceMonitoringTelegrafLoki{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceMonitoringTelegrafLoki{}

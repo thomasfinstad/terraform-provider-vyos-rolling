@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &policyPrefixListRule{}
-	_ resource.ResourceWithConfigure = &policyPrefixListRule{}
+	_ resource.Resource                = &policyPrefixListRule{}
+	_ resource.ResourceWithConfigure   = &policyPrefixListRule{}
+	_ resource.ResourceWithImportState = &policyPrefixListRule{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &policyPrefixListRule{}
 // var _ resource.ResourceWithModifyPlan = &policyPrefixListRule{}
 // var _ resource.ResourceWithUpgradeState = &policyPrefixListRule{}
 // var _ resource.ResourceWithValidateConfig = &policyPrefixListRule{}
-// var _ resource.ResourceWithImportState = &policyPrefixListRule{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &policyPrefixListRule{}

@@ -1,0 +1,2 @@
+
+terraform import vyos_firewall_ipv6_output_raw.example "firewall__ipv6__output__raw"

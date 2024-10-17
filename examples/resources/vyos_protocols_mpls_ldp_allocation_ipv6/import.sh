@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_mpls_ldp_allocation_ipv6.example "protocols__mpls__ldp__allocation__ipv6"

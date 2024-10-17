@@ -1,0 +1,2 @@
+
+terraform import vyos_vrf_name_protocols_bgp_parameters_distance_prefix.example "vrf__name__<name>__protocols__bgp__parameters__distance__prefix__<prefix>"

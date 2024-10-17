@@ -1,0 +1,2 @@
+
+terraform import vyos_service_webproxy_authentication_ldap.example "service__webproxy__authentication__ldap"

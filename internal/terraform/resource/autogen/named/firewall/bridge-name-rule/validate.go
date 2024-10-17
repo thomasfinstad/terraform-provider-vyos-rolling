@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &firewallBrIDgeNameRule{}
-	_ resource.ResourceWithConfigure = &firewallBrIDgeNameRule{}
+	_ resource.Resource                = &firewallBrIDgeNameRule{}
+	_ resource.ResourceWithConfigure   = &firewallBrIDgeNameRule{}
+	_ resource.ResourceWithImportState = &firewallBrIDgeNameRule{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &firewallBrIDgeNameRule{}
 // var _ resource.ResourceWithModifyPlan = &firewallBrIDgeNameRule{}
 // var _ resource.ResourceWithUpgradeState = &firewallBrIDgeNameRule{}
 // var _ resource.ResourceWithValidateConfig = &firewallBrIDgeNameRule{}
-// var _ resource.ResourceWithImportState = &firewallBrIDgeNameRule{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &firewallBrIDgeNameRule{}

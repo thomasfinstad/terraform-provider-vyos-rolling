@@ -1,0 +1,2 @@
+
+terraform import vyos_vrf_name_protocols_bgp_address_family_ipv6_labeled_unicast_aggregate_address.example "vrf__name__<name>__protocols__bgp__address_family__ipv6_labeled_unicast__aggregate_address__<aggregate-address>"

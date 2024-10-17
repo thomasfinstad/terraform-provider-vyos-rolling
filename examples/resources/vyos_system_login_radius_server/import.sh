@@ -1,0 +1,2 @@
+
+terraform import vyos_system_login_radius_server.example "system__login__radius__server__<server>"

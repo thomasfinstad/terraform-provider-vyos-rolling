@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
-	_ resource.ResourceWithConfigure = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
+	_ resource.Resource                = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
+	_ resource.ResourceWithConfigure   = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
+	_ resource.ResourceWithImportState = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
-// var _ resource.ResourceWithImportState = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}

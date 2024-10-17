@@ -72,6 +72,7 @@ Policy route rule set name for IPv4
     - [Nested Schema for `time`](#nested-schema-for-time)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `ttl`](#nested-schema-for-ttl)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -515,3 +516,11 @@ Optional:
     |  Format  &emsp;|  Description      |
     |----------|-------------------|
     |  0-255   &emsp;|  Less then value  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_policy_route_rule.example "policy__route__<route>__rule__<rule>"
+```

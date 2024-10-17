@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &servicePppoeServerAuthenticationRadiusServer{}
-	_ resource.ResourceWithConfigure = &servicePppoeServerAuthenticationRadiusServer{}
+	_ resource.Resource                = &servicePppoeServerAuthenticationRadiusServer{}
+	_ resource.ResourceWithConfigure   = &servicePppoeServerAuthenticationRadiusServer{}
+	_ resource.ResourceWithImportState = &servicePppoeServerAuthenticationRadiusServer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &servicePppoeServerAuthenticationRadiusServer{}
 // var _ resource.ResourceWithModifyPlan = &servicePppoeServerAuthenticationRadiusServer{}
 // var _ resource.ResourceWithUpgradeState = &servicePppoeServerAuthenticationRadiusServer{}
 // var _ resource.ResourceWithValidateConfig = &servicePppoeServerAuthenticationRadiusServer{}
-// var _ resource.ResourceWithImportState = &servicePppoeServerAuthenticationRadiusServer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &servicePppoeServerAuthenticationRadiusServer{}

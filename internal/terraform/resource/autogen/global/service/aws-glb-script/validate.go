@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceAwsGlbScrIPt{}
-	_ resource.ResourceWithConfigure = &serviceAwsGlbScrIPt{}
+	_ resource.Resource                = &serviceAwsGlbScrIPt{}
+	_ resource.ResourceWithConfigure   = &serviceAwsGlbScrIPt{}
+	_ resource.ResourceWithImportState = &serviceAwsGlbScrIPt{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceAwsGlbScrIPt{}
 // var _ resource.ResourceWithModifyPlan = &serviceAwsGlbScrIPt{}
 // var _ resource.ResourceWithUpgradeState = &serviceAwsGlbScrIPt{}
 // var _ resource.ResourceWithValidateConfig = &serviceAwsGlbScrIPt{}
-// var _ resource.ResourceWithImportState = &serviceAwsGlbScrIPt{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceAwsGlbScrIPt{}

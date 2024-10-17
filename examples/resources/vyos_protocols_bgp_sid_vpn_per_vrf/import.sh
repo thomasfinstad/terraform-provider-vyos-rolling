@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_sid_vpn_per_vrf.example "protocols__bgp__sid__vpn__per_vrf"

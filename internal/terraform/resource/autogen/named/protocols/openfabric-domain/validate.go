@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsOpenfabricDomain{}
-	_ resource.ResourceWithConfigure = &protocolsOpenfabricDomain{}
+	_ resource.Resource                = &protocolsOpenfabricDomain{}
+	_ resource.ResourceWithConfigure   = &protocolsOpenfabricDomain{}
+	_ resource.ResourceWithImportState = &protocolsOpenfabricDomain{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsOpenfabricDomain{}
 // var _ resource.ResourceWithModifyPlan = &protocolsOpenfabricDomain{}
 // var _ resource.ResourceWithUpgradeState = &protocolsOpenfabricDomain{}
 // var _ resource.ResourceWithValidateConfig = &protocolsOpenfabricDomain{}
-// var _ resource.ResourceWithImportState = &protocolsOpenfabricDomain{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsOpenfabricDomain{}

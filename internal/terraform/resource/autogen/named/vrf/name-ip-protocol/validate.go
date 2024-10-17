@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vrfNameIPProtocol{}
-	_ resource.ResourceWithConfigure = &vrfNameIPProtocol{}
+	_ resource.Resource                = &vrfNameIPProtocol{}
+	_ resource.ResourceWithConfigure   = &vrfNameIPProtocol{}
+	_ resource.ResourceWithImportState = &vrfNameIPProtocol{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vrfNameIPProtocol{}
 // var _ resource.ResourceWithModifyPlan = &vrfNameIPProtocol{}
 // var _ resource.ResourceWithUpgradeState = &vrfNameIPProtocol{}
 // var _ resource.ResourceWithValidateConfig = &vrfNameIPProtocol{}
-// var _ resource.ResourceWithImportState = &vrfNameIPProtocol{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vrfNameIPProtocol{}

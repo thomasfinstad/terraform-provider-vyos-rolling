@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceDhcpvsixServerSharedNetworkName{}
-	_ resource.ResourceWithConfigure = &serviceDhcpvsixServerSharedNetworkName{}
+	_ resource.Resource                = &serviceDhcpvsixServerSharedNetworkName{}
+	_ resource.ResourceWithConfigure   = &serviceDhcpvsixServerSharedNetworkName{}
+	_ resource.ResourceWithImportState = &serviceDhcpvsixServerSharedNetworkName{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceDhcpvsixServerSharedNetworkName{}
 // var _ resource.ResourceWithModifyPlan = &serviceDhcpvsixServerSharedNetworkName{}
 // var _ resource.ResourceWithUpgradeState = &serviceDhcpvsixServerSharedNetworkName{}
 // var _ resource.ResourceWithValidateConfig = &serviceDhcpvsixServerSharedNetworkName{}
-// var _ resource.ResourceWithImportState = &serviceDhcpvsixServerSharedNetworkName{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceDhcpvsixServerSharedNetworkName{}

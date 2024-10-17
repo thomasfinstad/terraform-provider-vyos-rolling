@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceHTTPSAPIKeysID{}
-	_ resource.ResourceWithConfigure = &serviceHTTPSAPIKeysID{}
+	_ resource.Resource                = &serviceHTTPSAPIKeysID{}
+	_ resource.ResourceWithConfigure   = &serviceHTTPSAPIKeysID{}
+	_ resource.ResourceWithImportState = &serviceHTTPSAPIKeysID{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceHTTPSAPIKeysID{}
 // var _ resource.ResourceWithModifyPlan = &serviceHTTPSAPIKeysID{}
 // var _ resource.ResourceWithUpgradeState = &serviceHTTPSAPIKeysID{}
 // var _ resource.ResourceWithValidateConfig = &serviceHTTPSAPIKeysID{}
-// var _ resource.ResourceWithImportState = &serviceHTTPSAPIKeysID{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceHTTPSAPIKeysID{}

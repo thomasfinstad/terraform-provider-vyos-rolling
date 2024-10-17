@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &loadBalancingWanRule{}
-	_ resource.ResourceWithConfigure = &loadBalancingWanRule{}
+	_ resource.Resource                = &loadBalancingWanRule{}
+	_ resource.ResourceWithConfigure   = &loadBalancingWanRule{}
+	_ resource.ResourceWithImportState = &loadBalancingWanRule{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &loadBalancingWanRule{}
 // var _ resource.ResourceWithModifyPlan = &loadBalancingWanRule{}
 // var _ resource.ResourceWithUpgradeState = &loadBalancingWanRule{}
 // var _ resource.ResourceWithValidateConfig = &loadBalancingWanRule{}
-// var _ resource.ResourceWithImportState = &loadBalancingWanRule{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &loadBalancingWanRule{}

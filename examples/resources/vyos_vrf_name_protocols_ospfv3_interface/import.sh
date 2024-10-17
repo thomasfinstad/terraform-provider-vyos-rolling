@@ -1,0 +1,2 @@
+
+terraform import vyos_vrf_name_protocols_ospfv3_interface.example "vrf__name__<name>__protocols__ospfv3__interface__<interface>"

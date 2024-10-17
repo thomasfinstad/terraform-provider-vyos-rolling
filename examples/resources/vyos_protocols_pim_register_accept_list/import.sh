@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_pim_register_accept_list.example "protocols__pim__register_accept_list"

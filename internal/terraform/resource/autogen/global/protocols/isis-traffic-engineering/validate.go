@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsIsisTrafficEngineering{}
-	_ resource.ResourceWithConfigure = &protocolsIsisTrafficEngineering{}
+	_ resource.Resource                = &protocolsIsisTrafficEngineering{}
+	_ resource.ResourceWithConfigure   = &protocolsIsisTrafficEngineering{}
+	_ resource.ResourceWithImportState = &protocolsIsisTrafficEngineering{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsIsisTrafficEngineering{}
 // var _ resource.ResourceWithModifyPlan = &protocolsIsisTrafficEngineering{}
 // var _ resource.ResourceWithUpgradeState = &protocolsIsisTrafficEngineering{}
 // var _ resource.ResourceWithValidateConfig = &protocolsIsisTrafficEngineering{}
-// var _ resource.ResourceWithImportState = &protocolsIsisTrafficEngineering{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsIsisTrafficEngineering{}

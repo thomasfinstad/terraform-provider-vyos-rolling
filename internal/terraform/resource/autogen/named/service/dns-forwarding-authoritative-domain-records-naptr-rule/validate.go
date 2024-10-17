@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
-	_ resource.ResourceWithConfigure = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
+	_ resource.Resource                = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
+	_ resource.ResourceWithConfigure   = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
+	_ resource.ResourceWithImportState = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
 // var _ resource.ResourceWithModifyPlan = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
 // var _ resource.ResourceWithUpgradeState = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
 // var _ resource.ResourceWithValidateConfig = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
-// var _ resource.ResourceWithImportState = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}

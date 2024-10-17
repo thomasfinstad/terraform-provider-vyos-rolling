@@ -33,6 +33,15 @@ func (o *TagNode) InformLinage() {
 	}
 }
 
+// ImportStr returns the string used to create import documentation
+func (o *TagNode) ImportStr() string {
+	s := fmt.Sprintf("%s__<%s>", o.BaseNameR(), o.BaseName())
+	if o.Parent == nil {
+		return s
+	}
+	return fmt.Sprintf("%s__%s", o.Parent.ImportStr(), s)
+}
+
 // AbsName returns each name in the node hierarchy starting with the root as the first element and this node as the last element
 func (o *TagNode) AbsName() []string {
 	if o.Parent == nil {
@@ -40,6 +49,17 @@ func (o *TagNode) AbsName() []string {
 	}
 
 	return append(o.Parent.AbsName(), o.BaseName())
+}
+
+// BaseNameR returns name of this node,
+// This is intended to be used as a way to generate resource names
+func (o *TagNode) BaseNameR() string {
+	return regexp.MustCompile(
+		"[ -]",
+	).ReplaceAllString(
+		o.BaseName(),
+		"_",
+	)
 }
 
 // AbsNameR returns full name in the node hierarchy,

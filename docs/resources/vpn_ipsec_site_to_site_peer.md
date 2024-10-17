@@ -53,6 +53,7 @@ Site-to-site VPN
     - [Nested Schema for `authentication.x509`](#nested-schema-for-authenticationx509)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `vti`](#nested-schema-for-vti)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -231,3 +232,11 @@ Optional:
 
 - `bind` (String) VTI tunnel interface associated with this configuration
 - `esp_group` (String) Encapsulating Security Payloads (ESP) group name
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_vpn_ipsec_site_to_site_peer.example "vpn__ipsec__site_to_site__peer__<peer>"
+```

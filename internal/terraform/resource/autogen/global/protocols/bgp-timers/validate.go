@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBgpTimers{}
-	_ resource.ResourceWithConfigure = &protocolsBgpTimers{}
+	_ resource.Resource                = &protocolsBgpTimers{}
+	_ resource.ResourceWithConfigure   = &protocolsBgpTimers{}
+	_ resource.ResourceWithImportState = &protocolsBgpTimers{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBgpTimers{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBgpTimers{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBgpTimers{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBgpTimers{}
-// var _ resource.ResourceWithImportState = &protocolsBgpTimers{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBgpTimers{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBgpParametersTCPKeepalive{}
-	_ resource.ResourceWithConfigure = &protocolsBgpParametersTCPKeepalive{}
+	_ resource.Resource                = &protocolsBgpParametersTCPKeepalive{}
+	_ resource.ResourceWithConfigure   = &protocolsBgpParametersTCPKeepalive{}
+	_ resource.ResourceWithImportState = &protocolsBgpParametersTCPKeepalive{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBgpParametersTCPKeepalive{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBgpParametersTCPKeepalive{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBgpParametersTCPKeepalive{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBgpParametersTCPKeepalive{}
-// var _ resource.ResourceWithImportState = &protocolsBgpParametersTCPKeepalive{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBgpParametersTCPKeepalive{}

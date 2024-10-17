@@ -1,0 +1,2 @@
+
+terraform import vyos_system_syslog_console_facility.example "system__syslog__console__facility__<facility>"

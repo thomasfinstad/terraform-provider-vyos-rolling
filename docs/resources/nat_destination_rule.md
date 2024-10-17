@@ -53,6 +53,7 @@ Destination NAT settings
     - [Nested Schema for `translation`](#nested-schema-for-translation)
     - [Nested Schema for `translation.options`](#nested-schema-for-translationoptions)
     - [Nested Schema for `translation.redirect`](#nested-schema-for-translationredirect)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -362,3 +363,11 @@ Optional:
     |-----------|-----------------------------------------|
     |  1-65535  &emsp;|  Numeric IP port                        |
     |  range    &emsp;|  Numbered port range (e.g., 1001-1005)  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_nat_destination_rule.example "nat__destination__rule__<rule>"
+```

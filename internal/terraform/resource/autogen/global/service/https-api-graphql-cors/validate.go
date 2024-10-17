@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceHTTPSAPIGraphqlCors{}
-	_ resource.ResourceWithConfigure = &serviceHTTPSAPIGraphqlCors{}
+	_ resource.Resource                = &serviceHTTPSAPIGraphqlCors{}
+	_ resource.ResourceWithConfigure   = &serviceHTTPSAPIGraphqlCors{}
+	_ resource.ResourceWithImportState = &serviceHTTPSAPIGraphqlCors{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceHTTPSAPIGraphqlCors{}
 // var _ resource.ResourceWithModifyPlan = &serviceHTTPSAPIGraphqlCors{}
 // var _ resource.ResourceWithUpgradeState = &serviceHTTPSAPIGraphqlCors{}
 // var _ resource.ResourceWithValidateConfig = &serviceHTTPSAPIGraphqlCors{}
-// var _ resource.ResourceWithImportState = &serviceHTTPSAPIGraphqlCors{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceHTTPSAPIGraphqlCors{}

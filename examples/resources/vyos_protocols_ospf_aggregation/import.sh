@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_aggregation.example "protocols__ospf__aggregation"

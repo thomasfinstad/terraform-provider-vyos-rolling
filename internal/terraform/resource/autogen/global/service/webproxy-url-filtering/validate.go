@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceWebproxyURLFiltering{}
-	_ resource.ResourceWithConfigure = &serviceWebproxyURLFiltering{}
+	_ resource.Resource                = &serviceWebproxyURLFiltering{}
+	_ resource.ResourceWithConfigure   = &serviceWebproxyURLFiltering{}
+	_ resource.ResourceWithImportState = &serviceWebproxyURLFiltering{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceWebproxyURLFiltering{}
 // var _ resource.ResourceWithModifyPlan = &serviceWebproxyURLFiltering{}
 // var _ resource.ResourceWithUpgradeState = &serviceWebproxyURLFiltering{}
 // var _ resource.ResourceWithValidateConfig = &serviceWebproxyURLFiltering{}
-// var _ resource.ResourceWithImportState = &serviceWebproxyURLFiltering{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceWebproxyURLFiltering{}

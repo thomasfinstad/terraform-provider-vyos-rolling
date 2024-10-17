@@ -1,0 +1,2 @@
+
+terraform import vyos_high_availability_vrrp.example "high_availability__vrrp"

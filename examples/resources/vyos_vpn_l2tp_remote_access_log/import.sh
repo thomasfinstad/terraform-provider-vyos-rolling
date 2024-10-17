@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_l2tp_remote_access_log.example "vpn__l2tp__remote_access__log"

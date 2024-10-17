@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceNtpPtpTimestampInterface{}
-	_ resource.ResourceWithConfigure = &serviceNtpPtpTimestampInterface{}
+	_ resource.Resource                = &serviceNtpPtpTimestampInterface{}
+	_ resource.ResourceWithConfigure   = &serviceNtpPtpTimestampInterface{}
+	_ resource.ResourceWithImportState = &serviceNtpPtpTimestampInterface{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceNtpPtpTimestampInterface{}
 // var _ resource.ResourceWithModifyPlan = &serviceNtpPtpTimestampInterface{}
 // var _ resource.ResourceWithUpgradeState = &serviceNtpPtpTimestampInterface{}
 // var _ resource.ResourceWithValidateConfig = &serviceNtpPtpTimestampInterface{}
-// var _ resource.ResourceWithImportState = &serviceNtpPtpTimestampInterface{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceNtpPtpTimestampInterface{}

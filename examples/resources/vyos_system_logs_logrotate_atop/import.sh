@@ -1,0 +1,2 @@
+
+terraform import vyos_system_logs_logrotate_atop.example "system__logs__logrotate__atop"

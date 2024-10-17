@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
-	_ resource.ResourceWithConfigure = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
+	_ resource.Resource                = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
+	_ resource.ResourceWithConfigure   = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
+	_ resource.ResourceWithImportState = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
 // var _ resource.ResourceWithModifyPlan = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
 // var _ resource.ResourceWithUpgradeState = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
 // var _ resource.ResourceWithValidateConfig = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
-// var _ resource.ResourceWithImportState = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}

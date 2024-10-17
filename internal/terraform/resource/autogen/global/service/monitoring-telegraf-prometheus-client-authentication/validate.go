@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
-	_ resource.ResourceWithConfigure = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
+	_ resource.Resource                = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
+	_ resource.ResourceWithConfigure   = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
+	_ resource.ResourceWithImportState = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
 // var _ resource.ResourceWithModifyPlan = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
 // var _ resource.ResourceWithUpgradeState = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
 // var _ resource.ResourceWithValidateConfig = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
-// var _ resource.ResourceWithImportState = &serviceMonitoringTelegrafPrometheusClientAuthentication{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceMonitoringTelegrafPrometheusClientAuthentication{}

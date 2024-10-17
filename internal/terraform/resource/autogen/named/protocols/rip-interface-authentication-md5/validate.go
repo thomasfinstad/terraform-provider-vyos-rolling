@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsRIPInterfaceAuthenticationMdfive{}
-	_ resource.ResourceWithConfigure = &protocolsRIPInterfaceAuthenticationMdfive{}
+	_ resource.Resource                = &protocolsRIPInterfaceAuthenticationMdfive{}
+	_ resource.ResourceWithConfigure   = &protocolsRIPInterfaceAuthenticationMdfive{}
+	_ resource.ResourceWithImportState = &protocolsRIPInterfaceAuthenticationMdfive{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsRIPInterfaceAuthenticationMdfive{}
 // var _ resource.ResourceWithModifyPlan = &protocolsRIPInterfaceAuthenticationMdfive{}
 // var _ resource.ResourceWithUpgradeState = &protocolsRIPInterfaceAuthenticationMdfive{}
 // var _ resource.ResourceWithValidateConfig = &protocolsRIPInterfaceAuthenticationMdfive{}
-// var _ resource.ResourceWithImportState = &protocolsRIPInterfaceAuthenticationMdfive{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsRIPInterfaceAuthenticationMdfive{}

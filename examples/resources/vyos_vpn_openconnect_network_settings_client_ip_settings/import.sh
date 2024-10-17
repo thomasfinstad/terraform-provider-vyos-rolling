@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_openconnect_network_settings_client_ip_settings.example "vpn__openconnect__network_settings__client_ip_settings"

@@ -1,0 +1,2 @@
+
+terraform import vyos_load_balancing_haproxy_backend_http_response_headers.example "load_balancing__haproxy__backend__<backend>__http_response_headers__<http-response-headers>"

@@ -1,0 +1,2 @@
+
+terraform import vyos_vrf_name_protocols_static_route6_next_hop_bfd_multi_hop_source.example "vrf__name__<name>__protocols__static__route6__<route6>__next_hop__<next-hop>__bfd__multi_hop__source__<source>"

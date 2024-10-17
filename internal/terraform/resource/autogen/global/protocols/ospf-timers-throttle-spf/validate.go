@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsOspfTimersThroTTLeSpf{}
-	_ resource.ResourceWithConfigure = &protocolsOspfTimersThroTTLeSpf{}
+	_ resource.Resource                = &protocolsOspfTimersThroTTLeSpf{}
+	_ resource.ResourceWithConfigure   = &protocolsOspfTimersThroTTLeSpf{}
+	_ resource.ResourceWithImportState = &protocolsOspfTimersThroTTLeSpf{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsOspfTimersThroTTLeSpf{}
 // var _ resource.ResourceWithModifyPlan = &protocolsOspfTimersThroTTLeSpf{}
 // var _ resource.ResourceWithUpgradeState = &protocolsOspfTimersThroTTLeSpf{}
 // var _ resource.ResourceWithValidateConfig = &protocolsOspfTimersThroTTLeSpf{}
-// var _ resource.ResourceWithImportState = &protocolsOspfTimersThroTTLeSpf{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsOspfTimersThroTTLeSpf{}

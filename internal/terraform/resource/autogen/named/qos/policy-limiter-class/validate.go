@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &qosPolicyLimiterClass{}
-	_ resource.ResourceWithConfigure = &qosPolicyLimiterClass{}
+	_ resource.Resource                = &qosPolicyLimiterClass{}
+	_ resource.ResourceWithConfigure   = &qosPolicyLimiterClass{}
+	_ resource.ResourceWithImportState = &qosPolicyLimiterClass{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &qosPolicyLimiterClass{}
 // var _ resource.ResourceWithModifyPlan = &qosPolicyLimiterClass{}
 // var _ resource.ResourceWithUpgradeState = &qosPolicyLimiterClass{}
 // var _ resource.ResourceWithValidateConfig = &qosPolicyLimiterClass{}
-// var _ resource.ResourceWithImportState = &qosPolicyLimiterClass{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &qosPolicyLimiterClass{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceConsoleServerDevice{}
-	_ resource.ResourceWithConfigure = &serviceConsoleServerDevice{}
+	_ resource.Resource                = &serviceConsoleServerDevice{}
+	_ resource.ResourceWithConfigure   = &serviceConsoleServerDevice{}
+	_ resource.ResourceWithImportState = &serviceConsoleServerDevice{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceConsoleServerDevice{}
 // var _ resource.ResourceWithModifyPlan = &serviceConsoleServerDevice{}
 // var _ resource.ResourceWithUpgradeState = &serviceConsoleServerDevice{}
 // var _ resource.ResourceWithValidateConfig = &serviceConsoleServerDevice{}
-// var _ resource.ResourceWithImportState = &serviceConsoleServerDevice{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceConsoleServerDevice{}

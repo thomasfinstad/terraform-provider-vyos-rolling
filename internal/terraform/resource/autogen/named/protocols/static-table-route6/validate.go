@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsStaticTableRoutesix{}
-	_ resource.ResourceWithConfigure = &protocolsStaticTableRoutesix{}
+	_ resource.Resource                = &protocolsStaticTableRoutesix{}
+	_ resource.ResourceWithConfigure   = &protocolsStaticTableRoutesix{}
+	_ resource.ResourceWithImportState = &protocolsStaticTableRoutesix{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsStaticTableRoutesix{}
 // var _ resource.ResourceWithModifyPlan = &protocolsStaticTableRoutesix{}
 // var _ resource.ResourceWithUpgradeState = &protocolsStaticTableRoutesix{}
 // var _ resource.ResourceWithValidateConfig = &protocolsStaticTableRoutesix{}
-// var _ resource.ResourceWithImportState = &protocolsStaticTableRoutesix{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsStaticTableRoutesix{}

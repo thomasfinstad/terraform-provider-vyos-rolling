@@ -1,0 +1,2 @@
+
+terraform import vyos_interfaces_bonding_vif_s_dhcpv6_options_pd.example "interfaces__bonding__<bonding>__vif_s__<vif-s>__dhcpv6_options__pd__<pd>"

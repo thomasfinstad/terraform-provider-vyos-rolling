@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_ipsec_authentication_psk.example "vpn__ipsec__authentication__psk__<psk>"

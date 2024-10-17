@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemConntrackTimeoutCustomIPvfourRule{}
-	_ resource.ResourceWithConfigure = &systemConntrackTimeoutCustomIPvfourRule{}
+	_ resource.Resource                = &systemConntrackTimeoutCustomIPvfourRule{}
+	_ resource.ResourceWithConfigure   = &systemConntrackTimeoutCustomIPvfourRule{}
+	_ resource.ResourceWithImportState = &systemConntrackTimeoutCustomIPvfourRule{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemConntrackTimeoutCustomIPvfourRule{}
 // var _ resource.ResourceWithModifyPlan = &systemConntrackTimeoutCustomIPvfourRule{}
 // var _ resource.ResourceWithUpgradeState = &systemConntrackTimeoutCustomIPvfourRule{}
 // var _ resource.ResourceWithValidateConfig = &systemConntrackTimeoutCustomIPvfourRule{}
-// var _ resource.ResourceWithImportState = &systemConntrackTimeoutCustomIPvfourRule{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemConntrackTimeoutCustomIPvfourRule{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceIPoeServerAuthenticationRadiusRateLimit{}
-	_ resource.ResourceWithConfigure = &serviceIPoeServerAuthenticationRadiusRateLimit{}
+	_ resource.Resource                = &serviceIPoeServerAuthenticationRadiusRateLimit{}
+	_ resource.ResourceWithConfigure   = &serviceIPoeServerAuthenticationRadiusRateLimit{}
+	_ resource.ResourceWithImportState = &serviceIPoeServerAuthenticationRadiusRateLimit{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceIPoeServerAuthenticationRadiusRateLimit{}
 // var _ resource.ResourceWithModifyPlan = &serviceIPoeServerAuthenticationRadiusRateLimit{}
 // var _ resource.ResourceWithUpgradeState = &serviceIPoeServerAuthenticationRadiusRateLimit{}
 // var _ resource.ResourceWithValidateConfig = &serviceIPoeServerAuthenticationRadiusRateLimit{}
-// var _ resource.ResourceWithImportState = &serviceIPoeServerAuthenticationRadiusRateLimit{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceIPoeServerAuthenticationRadiusRateLimit{}

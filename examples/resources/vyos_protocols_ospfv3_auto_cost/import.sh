@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospfv3_auto_cost.example "protocols__ospfv3__auto_cost"

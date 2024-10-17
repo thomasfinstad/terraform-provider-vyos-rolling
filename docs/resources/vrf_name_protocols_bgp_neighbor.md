@@ -206,6 +206,7 @@ Border Gateway Protocol (BGP)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `timers`](#nested-schema-for-timers)
     - [Nested Schema for `ttl_security`](#nested-schema-for-ttl_security)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -2357,3 +2358,11 @@ Optional:
     |  Format  &emsp;|  Description     |
     |----------|------------------|
     |  1-254   &emsp;|  Number of hops  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_vrf_name_protocols_bgp_neighbor.example "vrf__name__<name>__protocols__bgp__neighbor__<neighbor>"
+```

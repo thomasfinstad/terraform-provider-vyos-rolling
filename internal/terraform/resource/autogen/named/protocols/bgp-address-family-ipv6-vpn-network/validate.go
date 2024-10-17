@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
-	_ resource.ResourceWithConfigure = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
+	_ resource.Resource                = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
+	_ resource.ResourceWithConfigure   = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
+	_ resource.ResourceWithImportState = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
-// var _ resource.ResourceWithImportState = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBgpAddressFamilyIPvsixVpnNetwork{}

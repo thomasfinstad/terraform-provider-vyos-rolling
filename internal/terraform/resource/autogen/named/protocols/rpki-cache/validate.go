@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsRpkiCache{}
-	_ resource.ResourceWithConfigure = &protocolsRpkiCache{}
+	_ resource.Resource                = &protocolsRpkiCache{}
+	_ resource.ResourceWithConfigure   = &protocolsRpkiCache{}
+	_ resource.ResourceWithImportState = &protocolsRpkiCache{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsRpkiCache{}
 // var _ resource.ResourceWithModifyPlan = &protocolsRpkiCache{}
 // var _ resource.ResourceWithUpgradeState = &protocolsRpkiCache{}
 // var _ resource.ResourceWithValidateConfig = &protocolsRpkiCache{}
-// var _ resource.ResourceWithImportState = &protocolsRpkiCache{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsRpkiCache{}

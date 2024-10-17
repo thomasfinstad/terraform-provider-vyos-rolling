@@ -63,6 +63,7 @@ IP route-map
     - [Nested Schema for `set.l3vpn_nexthop.encapsulation`](#nested-schema-for-setl3vpn_nexthopencapsulation)
     - [Nested Schema for `set.large_community`](#nested-schema-for-setlarge_community)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -675,3 +676,11 @@ Optional:
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_policy_route_map_rule.example "policy__route_map__<route-map>__rule__<rule>"
+```

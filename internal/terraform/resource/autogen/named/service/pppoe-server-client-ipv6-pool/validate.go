@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &servicePppoeServerClientIPvsixPool{}
-	_ resource.ResourceWithConfigure = &servicePppoeServerClientIPvsixPool{}
+	_ resource.Resource                = &servicePppoeServerClientIPvsixPool{}
+	_ resource.ResourceWithConfigure   = &servicePppoeServerClientIPvsixPool{}
+	_ resource.ResourceWithImportState = &servicePppoeServerClientIPvsixPool{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &servicePppoeServerClientIPvsixPool{}
 // var _ resource.ResourceWithModifyPlan = &servicePppoeServerClientIPvsixPool{}
 // var _ resource.ResourceWithUpgradeState = &servicePppoeServerClientIPvsixPool{}
 // var _ resource.ResourceWithValidateConfig = &servicePppoeServerClientIPvsixPool{}
-// var _ resource.ResourceWithImportState = &servicePppoeServerClientIPvsixPool{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &servicePppoeServerClientIPvsixPool{}

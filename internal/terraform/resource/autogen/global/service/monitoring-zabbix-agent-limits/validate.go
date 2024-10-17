@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceMonitoringZabbixAgentLimits{}
-	_ resource.ResourceWithConfigure = &serviceMonitoringZabbixAgentLimits{}
+	_ resource.Resource                = &serviceMonitoringZabbixAgentLimits{}
+	_ resource.ResourceWithConfigure   = &serviceMonitoringZabbixAgentLimits{}
+	_ resource.ResourceWithImportState = &serviceMonitoringZabbixAgentLimits{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceMonitoringZabbixAgentLimits{}
 // var _ resource.ResourceWithModifyPlan = &serviceMonitoringZabbixAgentLimits{}
 // var _ resource.ResourceWithUpgradeState = &serviceMonitoringZabbixAgentLimits{}
 // var _ resource.ResourceWithValidateConfig = &serviceMonitoringZabbixAgentLimits{}
-// var _ resource.ResourceWithImportState = &serviceMonitoringZabbixAgentLimits{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceMonitoringZabbixAgentLimits{}

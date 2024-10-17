@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ripng_redistribute_ospfv3.example "protocols__ripng__redistribute__ospfv3"

@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ripng_distribute_list_interface.example "protocols__ripng__distribute_list__interface__<interface>"

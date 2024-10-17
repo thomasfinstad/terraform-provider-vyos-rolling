@@ -1,0 +1,2 @@
+
+terraform import vyos_service_suricata_log_eve.example "service__suricata__log__eve"

@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ripng_redistribute_babel.example "protocols__ripng__redistribute__babel"

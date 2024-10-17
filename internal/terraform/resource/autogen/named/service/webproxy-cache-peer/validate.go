@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceWebproxyCachePeer{}
-	_ resource.ResourceWithConfigure = &serviceWebproxyCachePeer{}
+	_ resource.Resource                = &serviceWebproxyCachePeer{}
+	_ resource.ResourceWithConfigure   = &serviceWebproxyCachePeer{}
+	_ resource.ResourceWithImportState = &serviceWebproxyCachePeer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceWebproxyCachePeer{}
 // var _ resource.ResourceWithModifyPlan = &serviceWebproxyCachePeer{}
 // var _ resource.ResourceWithUpgradeState = &serviceWebproxyCachePeer{}
 // var _ resource.ResourceWithValidateConfig = &serviceWebproxyCachePeer{}
-// var _ resource.ResourceWithImportState = &serviceWebproxyCachePeer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceWebproxyCachePeer{}

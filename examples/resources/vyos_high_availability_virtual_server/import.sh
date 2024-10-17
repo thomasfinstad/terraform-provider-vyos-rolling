@@ -1,0 +1,2 @@
+
+terraform import vyos_high_availability_virtual_server.example "high_availability__virtual_server__<virtual-server>"

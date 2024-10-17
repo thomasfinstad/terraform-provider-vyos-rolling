@@ -1,0 +1,2 @@
+
+terraform import vyos_service_https_api_graphql.example "service__https__api__graphql"

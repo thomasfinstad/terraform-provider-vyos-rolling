@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemFlowAccountingNetflowServer{}
-	_ resource.ResourceWithConfigure = &systemFlowAccountingNetflowServer{}
+	_ resource.Resource                = &systemFlowAccountingNetflowServer{}
+	_ resource.ResourceWithConfigure   = &systemFlowAccountingNetflowServer{}
+	_ resource.ResourceWithImportState = &systemFlowAccountingNetflowServer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemFlowAccountingNetflowServer{}
 // var _ resource.ResourceWithModifyPlan = &systemFlowAccountingNetflowServer{}
 // var _ resource.ResourceWithUpgradeState = &systemFlowAccountingNetflowServer{}
 // var _ resource.ResourceWithValidateConfig = &systemFlowAccountingNetflowServer{}
-// var _ resource.ResourceWithImportState = &systemFlowAccountingNetflowServer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemFlowAccountingNetflowServer{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceHTTPS{}
-	_ resource.ResourceWithConfigure = &serviceHTTPS{}
+	_ resource.Resource                = &serviceHTTPS{}
+	_ resource.ResourceWithConfigure   = &serviceHTTPS{}
+	_ resource.ResourceWithImportState = &serviceHTTPS{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceHTTPS{}
 // var _ resource.ResourceWithModifyPlan = &serviceHTTPS{}
 // var _ resource.ResourceWithUpgradeState = &serviceHTTPS{}
 // var _ resource.ResourceWithValidateConfig = &serviceHTTPS{}
-// var _ resource.ResourceWithImportState = &serviceHTTPS{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceHTTPS{}

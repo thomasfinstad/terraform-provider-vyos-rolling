@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_babel_parameters.example "protocols__babel__parameters"

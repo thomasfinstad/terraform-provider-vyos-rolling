@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceMonitoringTelegrafInfluxdb{}
-	_ resource.ResourceWithConfigure = &serviceMonitoringTelegrafInfluxdb{}
+	_ resource.Resource                = &serviceMonitoringTelegrafInfluxdb{}
+	_ resource.ResourceWithConfigure   = &serviceMonitoringTelegrafInfluxdb{}
+	_ resource.ResourceWithImportState = &serviceMonitoringTelegrafInfluxdb{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceMonitoringTelegrafInfluxdb{}
 // var _ resource.ResourceWithModifyPlan = &serviceMonitoringTelegrafInfluxdb{}
 // var _ resource.ResourceWithUpgradeState = &serviceMonitoringTelegrafInfluxdb{}
 // var _ resource.ResourceWithValidateConfig = &serviceMonitoringTelegrafInfluxdb{}
-// var _ resource.ResourceWithImportState = &serviceMonitoringTelegrafInfluxdb{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceMonitoringTelegrafInfluxdb{}

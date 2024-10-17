@@ -1,0 +1,2 @@
+
+terraform import vyos_nat_source_rule_load_balance_backend.example "nat__source__rule__<rule>__load_balance__backend__<backend>"

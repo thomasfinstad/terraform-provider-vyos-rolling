@@ -1,0 +1,2 @@
+
+terraform import vyos_system_conntrack_timeout_custom_ipv6_rule.example "system__conntrack__timeout__custom__ipv6__rule__<rule>"

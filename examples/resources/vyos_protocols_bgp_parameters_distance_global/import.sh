@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_parameters_distance_global.example "protocols__bgp__parameters__distance__global"

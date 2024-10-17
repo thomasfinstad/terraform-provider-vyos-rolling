@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceRouterAdvertInterfaceNatsixfourprefix{}
-	_ resource.ResourceWithConfigure = &serviceRouterAdvertInterfaceNatsixfourprefix{}
+	_ resource.Resource                = &serviceRouterAdvertInterfaceNatsixfourprefix{}
+	_ resource.ResourceWithConfigure   = &serviceRouterAdvertInterfaceNatsixfourprefix{}
+	_ resource.ResourceWithImportState = &serviceRouterAdvertInterfaceNatsixfourprefix{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceRouterAdvertInterfaceNatsixfourprefix{}
 // var _ resource.ResourceWithModifyPlan = &serviceRouterAdvertInterfaceNatsixfourprefix{}
 // var _ resource.ResourceWithUpgradeState = &serviceRouterAdvertInterfaceNatsixfourprefix{}
 // var _ resource.ResourceWithValidateConfig = &serviceRouterAdvertInterfaceNatsixfourprefix{}
-// var _ resource.ResourceWithImportState = &serviceRouterAdvertInterfaceNatsixfourprefix{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceRouterAdvertInterfaceNatsixfourprefix{}

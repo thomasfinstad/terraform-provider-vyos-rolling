@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_capability.example "protocols__ospf__capability"

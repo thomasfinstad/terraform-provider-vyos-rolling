@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceMonitoringTelegrafSplunkAuthentication{}
-	_ resource.ResourceWithConfigure = &serviceMonitoringTelegrafSplunkAuthentication{}
+	_ resource.Resource                = &serviceMonitoringTelegrafSplunkAuthentication{}
+	_ resource.ResourceWithConfigure   = &serviceMonitoringTelegrafSplunkAuthentication{}
+	_ resource.ResourceWithImportState = &serviceMonitoringTelegrafSplunkAuthentication{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceMonitoringTelegrafSplunkAuthentication{}
 // var _ resource.ResourceWithModifyPlan = &serviceMonitoringTelegrafSplunkAuthentication{}
 // var _ resource.ResourceWithUpgradeState = &serviceMonitoringTelegrafSplunkAuthentication{}
 // var _ resource.ResourceWithValidateConfig = &serviceMonitoringTelegrafSplunkAuthentication{}
-// var _ resource.ResourceWithImportState = &serviceMonitoringTelegrafSplunkAuthentication{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceMonitoringTelegrafSplunkAuthentication{}

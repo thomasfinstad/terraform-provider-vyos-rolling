@@ -1,0 +1,2 @@
+
+terraform import vyos_service_tftp_server_listen_address.example "service__tftp_server__listen_address__<listen-address>"

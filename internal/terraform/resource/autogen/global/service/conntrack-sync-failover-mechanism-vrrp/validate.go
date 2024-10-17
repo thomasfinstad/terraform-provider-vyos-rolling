@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceConntrackSyncFailoverMechanismVrrp{}
-	_ resource.ResourceWithConfigure = &serviceConntrackSyncFailoverMechanismVrrp{}
+	_ resource.Resource                = &serviceConntrackSyncFailoverMechanismVrrp{}
+	_ resource.ResourceWithConfigure   = &serviceConntrackSyncFailoverMechanismVrrp{}
+	_ resource.ResourceWithImportState = &serviceConntrackSyncFailoverMechanismVrrp{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceConntrackSyncFailoverMechanismVrrp{}
 // var _ resource.ResourceWithModifyPlan = &serviceConntrackSyncFailoverMechanismVrrp{}
 // var _ resource.ResourceWithUpgradeState = &serviceConntrackSyncFailoverMechanismVrrp{}
 // var _ resource.ResourceWithValidateConfig = &serviceConntrackSyncFailoverMechanismVrrp{}
-// var _ resource.ResourceWithImportState = &serviceConntrackSyncFailoverMechanismVrrp{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceConntrackSyncFailoverMechanismVrrp{}

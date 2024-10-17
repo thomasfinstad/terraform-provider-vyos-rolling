@@ -1,0 +1,2 @@
+
+terraform import vyos_interfaces_bridge_member_interface.example "interfaces__bridge__<bridge>__member__interface__<interface>"

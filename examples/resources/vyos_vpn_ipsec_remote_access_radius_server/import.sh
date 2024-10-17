@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_ipsec_remote_access_radius_server.example "vpn__ipsec__remote_access__radius__server__<server>"

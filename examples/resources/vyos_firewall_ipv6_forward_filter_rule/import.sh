@@ -1,0 +1,2 @@
+
+terraform import vyos_firewall_ipv6_forward_filter_rule.example "firewall__ipv6__forward__filter__rule__<rule>"

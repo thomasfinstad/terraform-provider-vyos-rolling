@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceWebproxyListenAddress{}
-	_ resource.ResourceWithConfigure = &serviceWebproxyListenAddress{}
+	_ resource.Resource                = &serviceWebproxyListenAddress{}
+	_ resource.ResourceWithConfigure   = &serviceWebproxyListenAddress{}
+	_ resource.ResourceWithImportState = &serviceWebproxyListenAddress{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceWebproxyListenAddress{}
 // var _ resource.ResourceWithModifyPlan = &serviceWebproxyListenAddress{}
 // var _ resource.ResourceWithUpgradeState = &serviceWebproxyListenAddress{}
 // var _ resource.ResourceWithValidateConfig = &serviceWebproxyListenAddress{}
-// var _ resource.ResourceWithImportState = &serviceWebproxyListenAddress{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceWebproxyListenAddress{}

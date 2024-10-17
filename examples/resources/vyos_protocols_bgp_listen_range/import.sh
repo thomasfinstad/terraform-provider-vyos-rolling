@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_listen_range.example "protocols__bgp__listen__range__<range>"

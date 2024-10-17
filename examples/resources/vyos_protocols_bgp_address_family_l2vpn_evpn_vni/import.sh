@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_address_family_l2vpn_evpn_vni.example "protocols__bgp__address_family__l2vpn_evpn__vni__<vni>"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &firewallGlobalOptionsStatePolicyInvalID{}
-	_ resource.ResourceWithConfigure = &firewallGlobalOptionsStatePolicyInvalID{}
+	_ resource.Resource                = &firewallGlobalOptionsStatePolicyInvalID{}
+	_ resource.ResourceWithConfigure   = &firewallGlobalOptionsStatePolicyInvalID{}
+	_ resource.ResourceWithImportState = &firewallGlobalOptionsStatePolicyInvalID{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &firewallGlobalOptionsStatePolicyInvalID{}
 // var _ resource.ResourceWithModifyPlan = &firewallGlobalOptionsStatePolicyInvalID{}
 // var _ resource.ResourceWithUpgradeState = &firewallGlobalOptionsStatePolicyInvalID{}
 // var _ resource.ResourceWithValidateConfig = &firewallGlobalOptionsStatePolicyInvalID{}
-// var _ resource.ResourceWithImportState = &firewallGlobalOptionsStatePolicyInvalID{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &firewallGlobalOptionsStatePolicyInvalID{}

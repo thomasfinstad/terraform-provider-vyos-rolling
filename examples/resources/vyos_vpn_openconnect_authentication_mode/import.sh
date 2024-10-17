@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_openconnect_authentication_mode.example "vpn__openconnect__authentication__mode"

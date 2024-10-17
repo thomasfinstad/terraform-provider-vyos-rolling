@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceLldpLegacyProtocols{}
-	_ resource.ResourceWithConfigure = &serviceLldpLegacyProtocols{}
+	_ resource.Resource                = &serviceLldpLegacyProtocols{}
+	_ resource.ResourceWithConfigure   = &serviceLldpLegacyProtocols{}
+	_ resource.ResourceWithImportState = &serviceLldpLegacyProtocols{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceLldpLegacyProtocols{}
 // var _ resource.ResourceWithModifyPlan = &serviceLldpLegacyProtocols{}
 // var _ resource.ResourceWithUpgradeState = &serviceLldpLegacyProtocols{}
 // var _ resource.ResourceWithValidateConfig = &serviceLldpLegacyProtocols{}
-// var _ resource.ResourceWithImportState = &serviceLldpLegacyProtocols{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceLldpLegacyProtocols{}

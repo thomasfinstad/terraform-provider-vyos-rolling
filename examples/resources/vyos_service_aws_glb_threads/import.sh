@@ -1,0 +1,2 @@
+
+terraform import vyos_service_aws_glb_threads.example "service__aws__glb__threads"

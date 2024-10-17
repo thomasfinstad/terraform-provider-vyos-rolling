@@ -1,0 +1,2 @@
+
+terraform import vyos_load_balancing_wan_sticky_connections.example "load_balancing__wan__sticky_connections"

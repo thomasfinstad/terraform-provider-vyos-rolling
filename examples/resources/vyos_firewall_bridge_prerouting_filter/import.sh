@@ -1,0 +1,2 @@
+
+terraform import vyos_firewall_bridge_prerouting_filter.example "firewall__bridge__prerouting__filter"

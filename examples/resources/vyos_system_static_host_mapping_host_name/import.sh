@@ -1,0 +1,2 @@
+
+terraform import vyos_system_static_host_mapping_host_name.example "system__static_host_mapping__host_name__<host-name>"

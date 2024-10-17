@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnLtwotpRemoteAccessShaper{}
-	_ resource.ResourceWithConfigure = &vpnLtwotpRemoteAccessShaper{}
+	_ resource.Resource                = &vpnLtwotpRemoteAccessShaper{}
+	_ resource.ResourceWithConfigure   = &vpnLtwotpRemoteAccessShaper{}
+	_ resource.ResourceWithImportState = &vpnLtwotpRemoteAccessShaper{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnLtwotpRemoteAccessShaper{}
 // var _ resource.ResourceWithModifyPlan = &vpnLtwotpRemoteAccessShaper{}
 // var _ resource.ResourceWithUpgradeState = &vpnLtwotpRemoteAccessShaper{}
 // var _ resource.ResourceWithValidateConfig = &vpnLtwotpRemoteAccessShaper{}
-// var _ resource.ResourceWithImportState = &vpnLtwotpRemoteAccessShaper{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnLtwotpRemoteAccessShaper{}

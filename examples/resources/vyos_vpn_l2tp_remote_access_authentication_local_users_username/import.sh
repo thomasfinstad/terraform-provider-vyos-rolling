@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_l2tp_remote_access_authentication_local_users_username.example "vpn__l2tp__remote_access__authentication__local_users__username__<username>"

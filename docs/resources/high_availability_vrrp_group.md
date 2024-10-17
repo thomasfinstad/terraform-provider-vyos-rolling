@@ -54,6 +54,7 @@ Virtual Router Redundancy Protocol settings
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `track`](#nested-schema-for-track)
     - [Nested Schema for `transition_script`](#nested-schema-for-transition_script)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -246,3 +247,11 @@ Optional:
 - `fault` (String) Script to run on VRRP state transition to fault
 - `master` (String) Script to run on VRRP state transition to master
 - `stop` (String) Script to run on VRRP state transition to stop
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_high_availability_vrrp_group.example "high_availability__vrrp__group__<group>"
+```

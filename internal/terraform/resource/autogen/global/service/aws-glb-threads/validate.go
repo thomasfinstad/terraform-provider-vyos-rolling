@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceAwsGlbThreads{}
-	_ resource.ResourceWithConfigure = &serviceAwsGlbThreads{}
+	_ resource.Resource                = &serviceAwsGlbThreads{}
+	_ resource.ResourceWithConfigure   = &serviceAwsGlbThreads{}
+	_ resource.ResourceWithImportState = &serviceAwsGlbThreads{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceAwsGlbThreads{}
 // var _ resource.ResourceWithModifyPlan = &serviceAwsGlbThreads{}
 // var _ resource.ResourceWithUpgradeState = &serviceAwsGlbThreads{}
 // var _ resource.ResourceWithValidateConfig = &serviceAwsGlbThreads{}
-// var _ resource.ResourceWithImportState = &serviceAwsGlbThreads{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceAwsGlbThreads{}

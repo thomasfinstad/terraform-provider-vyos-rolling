@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesBrIDgeVif{}
-	_ resource.ResourceWithConfigure = &interfacesBrIDgeVif{}
+	_ resource.Resource                = &interfacesBrIDgeVif{}
+	_ resource.ResourceWithConfigure   = &interfacesBrIDgeVif{}
+	_ resource.ResourceWithImportState = &interfacesBrIDgeVif{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesBrIDgeVif{}
 // var _ resource.ResourceWithModifyPlan = &interfacesBrIDgeVif{}
 // var _ resource.ResourceWithUpgradeState = &interfacesBrIDgeVif{}
 // var _ resource.ResourceWithValidateConfig = &interfacesBrIDgeVif{}
-// var _ resource.ResourceWithImportState = &interfacesBrIDgeVif{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesBrIDgeVif{}

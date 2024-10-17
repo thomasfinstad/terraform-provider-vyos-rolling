@@ -1,0 +1,2 @@
+
+terraform import vyos_service_monitoring_zabbix_agent_limits.example "service__monitoring__zabbix_agent__limits"

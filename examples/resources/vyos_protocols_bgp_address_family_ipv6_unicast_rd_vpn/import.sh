@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_address_family_ipv6_unicast_rd_vpn.example "protocols__bgp__address_family__ipv6_unicast__rd__vpn"

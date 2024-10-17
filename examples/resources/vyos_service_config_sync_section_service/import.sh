@@ -1,0 +1,2 @@
+
+terraform import vyos_service_config_sync_section_service.example "service__config_sync__section__service"

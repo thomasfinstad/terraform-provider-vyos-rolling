@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesMacsecDhcpvsixOptionsPdInterface{}
-	_ resource.ResourceWithConfigure = &interfacesMacsecDhcpvsixOptionsPdInterface{}
+	_ resource.Resource                = &interfacesMacsecDhcpvsixOptionsPdInterface{}
+	_ resource.ResourceWithConfigure   = &interfacesMacsecDhcpvsixOptionsPdInterface{}
+	_ resource.ResourceWithImportState = &interfacesMacsecDhcpvsixOptionsPdInterface{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesMacsecDhcpvsixOptionsPdInterface{}
 // var _ resource.ResourceWithModifyPlan = &interfacesMacsecDhcpvsixOptionsPdInterface{}
 // var _ resource.ResourceWithUpgradeState = &interfacesMacsecDhcpvsixOptionsPdInterface{}
 // var _ resource.ResourceWithValidateConfig = &interfacesMacsecDhcpvsixOptionsPdInterface{}
-// var _ resource.ResourceWithImportState = &interfacesMacsecDhcpvsixOptionsPdInterface{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesMacsecDhcpvsixOptionsPdInterface{}

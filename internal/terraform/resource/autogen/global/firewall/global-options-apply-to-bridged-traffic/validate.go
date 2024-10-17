@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
-	_ resource.ResourceWithConfigure = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
+	_ resource.Resource                = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
+	_ resource.ResourceWithConfigure   = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
+	_ resource.ResourceWithImportState = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
 // var _ resource.ResourceWithModifyPlan = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
 // var _ resource.ResourceWithUpgradeState = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
 // var _ resource.ResourceWithValidateConfig = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
-// var _ resource.ResourceWithImportState = &firewallGlobalOptionsApplyToBrIDgedTraffic{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &firewallGlobalOptionsApplyToBrIDgedTraffic{}

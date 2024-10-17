@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
-	_ resource.ResourceWithConfigure = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
+	_ resource.Resource                = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
+	_ resource.ResourceWithConfigure   = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
+	_ resource.ResourceWithImportState = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
 // var _ resource.ResourceWithModifyPlan = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
 // var _ resource.ResourceWithUpgradeState = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
 // var _ resource.ResourceWithValidateConfig = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
-// var _ resource.ResourceWithImportState = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}

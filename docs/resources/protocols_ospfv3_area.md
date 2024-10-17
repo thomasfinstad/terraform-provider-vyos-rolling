@@ -39,6 +39,7 @@ Open Shortest Path First (OSPF) for IPv6
     - [Nested Schema for `area_type.nssa`](#nested-schema-for-area_typenssa)
     - [Nested Schema for `area_type.stub`](#nested-schema-for-area_typestub)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -111,3 +112,11 @@ Optional:
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_protocols_ospfv3_area.example "protocols__ospfv3__area__<area>"
+```

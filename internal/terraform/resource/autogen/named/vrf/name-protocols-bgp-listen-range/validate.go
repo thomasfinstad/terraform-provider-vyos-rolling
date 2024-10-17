@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vrfNameProtocolsBgpListenRange{}
-	_ resource.ResourceWithConfigure = &vrfNameProtocolsBgpListenRange{}
+	_ resource.Resource                = &vrfNameProtocolsBgpListenRange{}
+	_ resource.ResourceWithConfigure   = &vrfNameProtocolsBgpListenRange{}
+	_ resource.ResourceWithImportState = &vrfNameProtocolsBgpListenRange{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsBgpListenRange{}
 // var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsBgpListenRange{}
 // var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsBgpListenRange{}
 // var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsBgpListenRange{}
-// var _ resource.ResourceWithImportState = &vrfNameProtocolsBgpListenRange{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vrfNameProtocolsBgpListenRange{}

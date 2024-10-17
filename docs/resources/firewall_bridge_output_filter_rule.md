@@ -90,6 +90,7 @@ Bridge firewall output filter
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `ttl`](#nested-schema-for-ttl)
     - [Nested Schema for `vlan`](#nested-schema-for-vlan)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -756,3 +757,11 @@ Optional:
     |---------------|--------------------------------|
     |  0-7          &emsp;|  Vlan priority                 |
     |  &lt;start-end&gt;  &emsp;|  Vlan priority range to match  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_firewall_bridge_output_filter_rule.example "firewall__bridge__output__filter__rule__<rule>"
+```

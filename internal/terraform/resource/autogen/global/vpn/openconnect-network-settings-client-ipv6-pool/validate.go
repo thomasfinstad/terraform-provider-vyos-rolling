@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
-	_ resource.ResourceWithConfigure = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
+	_ resource.Resource                = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
+	_ resource.ResourceWithConfigure   = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
+	_ resource.ResourceWithImportState = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
 // var _ resource.ResourceWithModifyPlan = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
 // var _ resource.ResourceWithUpgradeState = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
 // var _ resource.ResourceWithValidateConfig = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
-// var _ resource.ResourceWithImportState = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnOpenconnectNetworkSettingsClientIPvsixPool{}

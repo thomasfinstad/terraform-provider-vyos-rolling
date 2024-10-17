@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsIsisSegmentRouting{}
-	_ resource.ResourceWithConfigure = &protocolsIsisSegmentRouting{}
+	_ resource.Resource                = &protocolsIsisSegmentRouting{}
+	_ resource.ResourceWithConfigure   = &protocolsIsisSegmentRouting{}
+	_ resource.ResourceWithImportState = &protocolsIsisSegmentRouting{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsIsisSegmentRouting{}
 // var _ resource.ResourceWithModifyPlan = &protocolsIsisSegmentRouting{}
 // var _ resource.ResourceWithUpgradeState = &protocolsIsisSegmentRouting{}
 // var _ resource.ResourceWithValidateConfig = &protocolsIsisSegmentRouting{}
-// var _ resource.ResourceWithImportState = &protocolsIsisSegmentRouting{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsIsisSegmentRouting{}

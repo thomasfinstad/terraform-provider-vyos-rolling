@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_parameters_conditional_advertisement.example "protocols__bgp__parameters__conditional_advertisement"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnSstp{}
-	_ resource.ResourceWithConfigure = &vpnSstp{}
+	_ resource.Resource                = &vpnSstp{}
+	_ resource.ResourceWithConfigure   = &vpnSstp{}
+	_ resource.ResourceWithImportState = &vpnSstp{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnSstp{}
 // var _ resource.ResourceWithModifyPlan = &vpnSstp{}
 // var _ resource.ResourceWithUpgradeState = &vpnSstp{}
 // var _ resource.ResourceWithValidateConfig = &vpnSstp{}
-// var _ resource.ResourceWithImportState = &vpnSstp{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnSstp{}

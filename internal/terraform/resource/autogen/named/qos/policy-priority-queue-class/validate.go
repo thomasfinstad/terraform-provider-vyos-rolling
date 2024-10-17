@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &qosPolicyPriorityQueueClass{}
-	_ resource.ResourceWithConfigure = &qosPolicyPriorityQueueClass{}
+	_ resource.Resource                = &qosPolicyPriorityQueueClass{}
+	_ resource.ResourceWithConfigure   = &qosPolicyPriorityQueueClass{}
+	_ resource.ResourceWithImportState = &qosPolicyPriorityQueueClass{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &qosPolicyPriorityQueueClass{}
 // var _ resource.ResourceWithModifyPlan = &qosPolicyPriorityQueueClass{}
 // var _ resource.ResourceWithUpgradeState = &qosPolicyPriorityQueueClass{}
 // var _ resource.ResourceWithValidateConfig = &qosPolicyPriorityQueueClass{}
-// var _ resource.ResourceWithImportState = &qosPolicyPriorityQueueClass{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &qosPolicyPriorityQueueClass{}

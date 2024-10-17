@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemSysctlParameter{}
-	_ resource.ResourceWithConfigure = &systemSysctlParameter{}
+	_ resource.Resource                = &systemSysctlParameter{}
+	_ resource.ResourceWithConfigure   = &systemSysctlParameter{}
+	_ resource.ResourceWithImportState = &systemSysctlParameter{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemSysctlParameter{}
 // var _ resource.ResourceWithModifyPlan = &systemSysctlParameter{}
 // var _ resource.ResourceWithUpgradeState = &systemSysctlParameter{}
 // var _ resource.ResourceWithValidateConfig = &systemSysctlParameter{}
-// var _ resource.ResourceWithImportState = &systemSysctlParameter{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemSysctlParameter{}

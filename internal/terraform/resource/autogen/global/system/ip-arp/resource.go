@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
@@ -61,4 +62,8 @@ func (r *systemIPArp) Configure(ctx context.Context, req resource.ConfigureReque
 	}
 
 	r.providerData = data
+}
+
+func (r *systemIPArp) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }

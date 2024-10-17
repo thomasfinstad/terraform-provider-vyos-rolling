@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsStaticArpInterfaceAddress{}
-	_ resource.ResourceWithConfigure = &protocolsStaticArpInterfaceAddress{}
+	_ resource.Resource                = &protocolsStaticArpInterfaceAddress{}
+	_ resource.ResourceWithConfigure   = &protocolsStaticArpInterfaceAddress{}
+	_ resource.ResourceWithImportState = &protocolsStaticArpInterfaceAddress{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsStaticArpInterfaceAddress{}
 // var _ resource.ResourceWithModifyPlan = &protocolsStaticArpInterfaceAddress{}
 // var _ resource.ResourceWithUpgradeState = &protocolsStaticArpInterfaceAddress{}
 // var _ resource.ResourceWithValidateConfig = &protocolsStaticArpInterfaceAddress{}
-// var _ resource.ResourceWithImportState = &protocolsStaticArpInterfaceAddress{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsStaticArpInterfaceAddress{}

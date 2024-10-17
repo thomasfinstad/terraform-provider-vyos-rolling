@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_pptp_remote_access_authentication_radius_rate_limit.example "vpn__pptp__remote_access__authentication__radius__rate_limit"

@@ -37,6 +37,7 @@ Carrier-grade NAT (CGNAT) parameters
     - [Nested Schema for `source`](#nested-schema-for-source)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `translation`](#nested-schema-for-translation)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -104,3 +105,11 @@ Optional:
     |  Format  &emsp;|  Description                     |
     |----------|----------------------------------|
     |  txt     &emsp;|  Translation external pool name  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_nat_cgnat_rule.example "nat__cgnat__rule__<rule>"
+```

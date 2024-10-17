@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceRouterAdvertInterfaceRoute{}
-	_ resource.ResourceWithConfigure = &serviceRouterAdvertInterfaceRoute{}
+	_ resource.Resource                = &serviceRouterAdvertInterfaceRoute{}
+	_ resource.ResourceWithConfigure   = &serviceRouterAdvertInterfaceRoute{}
+	_ resource.ResourceWithImportState = &serviceRouterAdvertInterfaceRoute{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceRouterAdvertInterfaceRoute{}
 // var _ resource.ResourceWithModifyPlan = &serviceRouterAdvertInterfaceRoute{}
 // var _ resource.ResourceWithUpgradeState = &serviceRouterAdvertInterfaceRoute{}
 // var _ resource.ResourceWithValidateConfig = &serviceRouterAdvertInterfaceRoute{}
-// var _ resource.ResourceWithImportState = &serviceRouterAdvertInterfaceRoute{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceRouterAdvertInterfaceRoute{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceDNSForwardingDomain{}
-	_ resource.ResourceWithConfigure = &serviceDNSForwardingDomain{}
+	_ resource.Resource                = &serviceDNSForwardingDomain{}
+	_ resource.ResourceWithConfigure   = &serviceDNSForwardingDomain{}
+	_ resource.ResourceWithImportState = &serviceDNSForwardingDomain{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceDNSForwardingDomain{}
 // var _ resource.ResourceWithModifyPlan = &serviceDNSForwardingDomain{}
 // var _ resource.ResourceWithUpgradeState = &serviceDNSForwardingDomain{}
 // var _ resource.ResourceWithValidateConfig = &serviceDNSForwardingDomain{}
-// var _ resource.ResourceWithImportState = &serviceDNSForwardingDomain{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceDNSForwardingDomain{}

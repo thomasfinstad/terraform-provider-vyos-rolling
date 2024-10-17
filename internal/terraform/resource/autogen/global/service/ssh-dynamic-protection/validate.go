@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceTCPDynamicProtection{}
-	_ resource.ResourceWithConfigure = &serviceTCPDynamicProtection{}
+	_ resource.Resource                = &serviceTCPDynamicProtection{}
+	_ resource.ResourceWithConfigure   = &serviceTCPDynamicProtection{}
+	_ resource.ResourceWithImportState = &serviceTCPDynamicProtection{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceTCPDynamicProtection{}
 // var _ resource.ResourceWithModifyPlan = &serviceTCPDynamicProtection{}
 // var _ resource.ResourceWithUpgradeState = &serviceTCPDynamicProtection{}
 // var _ resource.ResourceWithValidateConfig = &serviceTCPDynamicProtection{}
-// var _ resource.ResourceWithImportState = &serviceTCPDynamicProtection{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceTCPDynamicProtection{}

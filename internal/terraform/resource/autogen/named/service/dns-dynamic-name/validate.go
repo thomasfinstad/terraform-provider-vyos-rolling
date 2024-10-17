@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceDNSDynamicName{}
-	_ resource.ResourceWithConfigure = &serviceDNSDynamicName{}
+	_ resource.Resource                = &serviceDNSDynamicName{}
+	_ resource.ResourceWithConfigure   = &serviceDNSDynamicName{}
+	_ resource.ResourceWithImportState = &serviceDNSDynamicName{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceDNSDynamicName{}
 // var _ resource.ResourceWithModifyPlan = &serviceDNSDynamicName{}
 // var _ resource.ResourceWithUpgradeState = &serviceDNSDynamicName{}
 // var _ resource.ResourceWithValidateConfig = &serviceDNSDynamicName{}
-// var _ resource.ResourceWithImportState = &serviceDNSDynamicName{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceDNSDynamicName{}

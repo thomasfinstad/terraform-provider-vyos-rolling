@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &firewallGroupDynamicGroupIPvsixAddressGroup{}
-	_ resource.ResourceWithConfigure = &firewallGroupDynamicGroupIPvsixAddressGroup{}
+	_ resource.Resource                = &firewallGroupDynamicGroupIPvsixAddressGroup{}
+	_ resource.ResourceWithConfigure   = &firewallGroupDynamicGroupIPvsixAddressGroup{}
+	_ resource.ResourceWithImportState = &firewallGroupDynamicGroupIPvsixAddressGroup{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &firewallGroupDynamicGroupIPvsixAddressGroup{}
 // var _ resource.ResourceWithModifyPlan = &firewallGroupDynamicGroupIPvsixAddressGroup{}
 // var _ resource.ResourceWithUpgradeState = &firewallGroupDynamicGroupIPvsixAddressGroup{}
 // var _ resource.ResourceWithValidateConfig = &firewallGroupDynamicGroupIPvsixAddressGroup{}
-// var _ resource.ResourceWithImportState = &firewallGroupDynamicGroupIPvsixAddressGroup{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &firewallGroupDynamicGroupIPvsixAddressGroup{}

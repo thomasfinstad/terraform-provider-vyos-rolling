@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
-	_ resource.ResourceWithConfigure = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
+	_ resource.Resource                = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
+	_ resource.ResourceWithConfigure   = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
+	_ resource.ResourceWithImportState = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
 // var _ resource.ResourceWithModifyPlan = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
 // var _ resource.ResourceWithUpgradeState = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
 // var _ resource.ResourceWithValidateConfig = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
-// var _ resource.ResourceWithImportState = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesWirelessVifSDhcpvsixOptionsPdInterface{}

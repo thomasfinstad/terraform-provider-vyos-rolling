@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceMonitoringTelegrafAzureDataExplorer{}
-	_ resource.ResourceWithConfigure = &serviceMonitoringTelegrafAzureDataExplorer{}
+	_ resource.Resource                = &serviceMonitoringTelegrafAzureDataExplorer{}
+	_ resource.ResourceWithConfigure   = &serviceMonitoringTelegrafAzureDataExplorer{}
+	_ resource.ResourceWithImportState = &serviceMonitoringTelegrafAzureDataExplorer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceMonitoringTelegrafAzureDataExplorer{}
 // var _ resource.ResourceWithModifyPlan = &serviceMonitoringTelegrafAzureDataExplorer{}
 // var _ resource.ResourceWithUpgradeState = &serviceMonitoringTelegrafAzureDataExplorer{}
 // var _ resource.ResourceWithValidateConfig = &serviceMonitoringTelegrafAzureDataExplorer{}
-// var _ resource.ResourceWithImportState = &serviceMonitoringTelegrafAzureDataExplorer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceMonitoringTelegrafAzureDataExplorer{}

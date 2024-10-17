@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsPimSptSwitchoverInfinityAndBeyond{}
-	_ resource.ResourceWithConfigure = &protocolsPimSptSwitchoverInfinityAndBeyond{}
+	_ resource.Resource                = &protocolsPimSptSwitchoverInfinityAndBeyond{}
+	_ resource.ResourceWithConfigure   = &protocolsPimSptSwitchoverInfinityAndBeyond{}
+	_ resource.ResourceWithImportState = &protocolsPimSptSwitchoverInfinityAndBeyond{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsPimSptSwitchoverInfinityAndBeyond{}
 // var _ resource.ResourceWithModifyPlan = &protocolsPimSptSwitchoverInfinityAndBeyond{}
 // var _ resource.ResourceWithUpgradeState = &protocolsPimSptSwitchoverInfinityAndBeyond{}
 // var _ resource.ResourceWithValidateConfig = &protocolsPimSptSwitchoverInfinityAndBeyond{}
-// var _ resource.ResourceWithImportState = &protocolsPimSptSwitchoverInfinityAndBeyond{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsPimSptSwitchoverInfinityAndBeyond{}

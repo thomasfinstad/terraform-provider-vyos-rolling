@@ -75,6 +75,7 @@ description: |-
     - [Nested Schema for `server.mfa.totp`](#nested-schema-for-servermfatotp)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `tls`](#nested-schema-for-tls)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -604,3 +605,11 @@ Optional:
     |  1.1     &emsp;|  TLS v1.1     |
     |  1.2     &emsp;|  TLS v1.2     |
     |  1.3     &emsp;|  TLS v1.3     |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_interfaces_openvpn.example "interfaces__openvpn__<openvpn>"
+```

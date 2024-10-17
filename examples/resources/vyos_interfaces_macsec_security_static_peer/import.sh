@@ -1,0 +1,2 @@
+
+terraform import vyos_interfaces_macsec_security_static_peer.example "interfaces__macsec__<macsec>__security__static__peer__<peer>"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemSflow{}
-	_ resource.ResourceWithConfigure = &systemSflow{}
+	_ resource.Resource                = &systemSflow{}
+	_ resource.ResourceWithConfigure   = &systemSflow{}
+	_ resource.ResourceWithImportState = &systemSflow{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemSflow{}
 // var _ resource.ResourceWithModifyPlan = &systemSflow{}
 // var _ resource.ResourceWithUpgradeState = &systemSflow{}
 // var _ resource.ResourceWithValidateConfig = &systemSflow{}
-// var _ resource.ResourceWithImportState = &systemSflow{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemSflow{}

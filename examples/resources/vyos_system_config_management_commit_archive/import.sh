@@ -1,0 +1,2 @@
+
+terraform import vyos_system_config_management_commit_archive.example "system__config_management__commit_archive"

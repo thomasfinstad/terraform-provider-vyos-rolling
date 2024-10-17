@@ -1,0 +1,2 @@
+
+terraform import vyos_system_syslog_global_marker.example "system__syslog__global__marker"

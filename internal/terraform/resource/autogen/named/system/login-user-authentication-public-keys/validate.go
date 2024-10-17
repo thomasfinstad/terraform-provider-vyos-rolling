@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemLoginUserAuthenticationPublicKeys{}
-	_ resource.ResourceWithConfigure = &systemLoginUserAuthenticationPublicKeys{}
+	_ resource.Resource                = &systemLoginUserAuthenticationPublicKeys{}
+	_ resource.ResourceWithConfigure   = &systemLoginUserAuthenticationPublicKeys{}
+	_ resource.ResourceWithImportState = &systemLoginUserAuthenticationPublicKeys{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemLoginUserAuthenticationPublicKeys{}
 // var _ resource.ResourceWithModifyPlan = &systemLoginUserAuthenticationPublicKeys{}
 // var _ resource.ResourceWithUpgradeState = &systemLoginUserAuthenticationPublicKeys{}
 // var _ resource.ResourceWithValidateConfig = &systemLoginUserAuthenticationPublicKeys{}
-// var _ resource.ResourceWithImportState = &systemLoginUserAuthenticationPublicKeys{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemLoginUserAuthenticationPublicKeys{}

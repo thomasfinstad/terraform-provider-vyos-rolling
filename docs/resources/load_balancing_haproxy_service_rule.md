@@ -41,6 +41,7 @@ Frontend service name
     - [Nested Schema for `set`](#nested-schema-for-set)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `url_path`](#nested-schema-for-url_path)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -134,3 +135,11 @@ Optional:
     |  Format  &emsp;|  Description  |
     |----------|---------------|
     |  url     &emsp;|  Exactly URL  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_load_balancing_haproxy_service_rule.example "load_balancing__haproxy__service__<service>__rule__<rule>"
+```

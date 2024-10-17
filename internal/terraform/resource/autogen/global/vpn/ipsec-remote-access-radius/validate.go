@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnIPsecRemoteAccessRadius{}
-	_ resource.ResourceWithConfigure = &vpnIPsecRemoteAccessRadius{}
+	_ resource.Resource                = &vpnIPsecRemoteAccessRadius{}
+	_ resource.ResourceWithConfigure   = &vpnIPsecRemoteAccessRadius{}
+	_ resource.ResourceWithImportState = &vpnIPsecRemoteAccessRadius{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnIPsecRemoteAccessRadius{}
 // var _ resource.ResourceWithModifyPlan = &vpnIPsecRemoteAccessRadius{}
 // var _ resource.ResourceWithUpgradeState = &vpnIPsecRemoteAccessRadius{}
 // var _ resource.ResourceWithValidateConfig = &vpnIPsecRemoteAccessRadius{}
-// var _ resource.ResourceWithImportState = &vpnIPsecRemoteAccessRadius{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnIPsecRemoteAccessRadius{}

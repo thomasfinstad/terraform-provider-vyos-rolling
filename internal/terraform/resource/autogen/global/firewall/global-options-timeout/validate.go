@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &firewallGlobalOptionsTimeout{}
-	_ resource.ResourceWithConfigure = &firewallGlobalOptionsTimeout{}
+	_ resource.Resource                = &firewallGlobalOptionsTimeout{}
+	_ resource.ResourceWithConfigure   = &firewallGlobalOptionsTimeout{}
+	_ resource.ResourceWithImportState = &firewallGlobalOptionsTimeout{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &firewallGlobalOptionsTimeout{}
 // var _ resource.ResourceWithModifyPlan = &firewallGlobalOptionsTimeout{}
 // var _ resource.ResourceWithUpgradeState = &firewallGlobalOptionsTimeout{}
 // var _ resource.ResourceWithValidateConfig = &firewallGlobalOptionsTimeout{}
-// var _ resource.ResourceWithImportState = &firewallGlobalOptionsTimeout{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &firewallGlobalOptionsTimeout{}

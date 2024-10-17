@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &policyRoute{}
-	_ resource.ResourceWithConfigure = &policyRoute{}
+	_ resource.Resource                = &policyRoute{}
+	_ resource.ResourceWithConfigure   = &policyRoute{}
+	_ resource.ResourceWithImportState = &policyRoute{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &policyRoute{}
 // var _ resource.ResourceWithModifyPlan = &policyRoute{}
 // var _ resource.ResourceWithUpgradeState = &policyRoute{}
 // var _ resource.ResourceWithValidateConfig = &policyRoute{}
-// var _ resource.ResourceWithImportState = &policyRoute{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &policyRoute{}

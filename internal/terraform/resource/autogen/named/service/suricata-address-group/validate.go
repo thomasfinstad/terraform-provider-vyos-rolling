@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceSURIcataAddressGroup{}
-	_ resource.ResourceWithConfigure = &serviceSURIcataAddressGroup{}
+	_ resource.Resource                = &serviceSURIcataAddressGroup{}
+	_ resource.ResourceWithConfigure   = &serviceSURIcataAddressGroup{}
+	_ resource.ResourceWithImportState = &serviceSURIcataAddressGroup{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceSURIcataAddressGroup{}
 // var _ resource.ResourceWithModifyPlan = &serviceSURIcataAddressGroup{}
 // var _ resource.ResourceWithUpgradeState = &serviceSURIcataAddressGroup{}
 // var _ resource.ResourceWithValidateConfig = &serviceSURIcataAddressGroup{}
-// var _ resource.ResourceWithImportState = &serviceSURIcataAddressGroup{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceSURIcataAddressGroup{}

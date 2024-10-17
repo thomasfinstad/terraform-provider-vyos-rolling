@@ -52,6 +52,7 @@ Source NAT settings
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `translation`](#nested-schema-for-translation)
     - [Nested Schema for `translation.options`](#nested-schema-for-translationoptions)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -348,3 +349,11 @@ Optional:
     |----------|-----------------------------------|
     |  random  &emsp;|  Randomize source port mapping    |
     |  none    &emsp;|  Do not apply port randomization  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_nat_source_rule.example "nat__source__rule__<rule>"
+```

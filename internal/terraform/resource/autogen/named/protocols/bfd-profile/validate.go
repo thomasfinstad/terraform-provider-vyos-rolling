@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBfdProfile{}
-	_ resource.ResourceWithConfigure = &protocolsBfdProfile{}
+	_ resource.Resource                = &protocolsBfdProfile{}
+	_ resource.ResourceWithConfigure   = &protocolsBfdProfile{}
+	_ resource.ResourceWithImportState = &protocolsBfdProfile{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBfdProfile{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBfdProfile{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBfdProfile{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBfdProfile{}
-// var _ resource.ResourceWithImportState = &protocolsBfdProfile{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBfdProfile{}

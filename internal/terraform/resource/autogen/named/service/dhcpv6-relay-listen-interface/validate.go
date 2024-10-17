@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceDhcpvsixRelayListenInterface{}
-	_ resource.ResourceWithConfigure = &serviceDhcpvsixRelayListenInterface{}
+	_ resource.Resource                = &serviceDhcpvsixRelayListenInterface{}
+	_ resource.ResourceWithConfigure   = &serviceDhcpvsixRelayListenInterface{}
+	_ resource.ResourceWithImportState = &serviceDhcpvsixRelayListenInterface{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceDhcpvsixRelayListenInterface{}
 // var _ resource.ResourceWithModifyPlan = &serviceDhcpvsixRelayListenInterface{}
 // var _ resource.ResourceWithUpgradeState = &serviceDhcpvsixRelayListenInterface{}
 // var _ resource.ResourceWithValidateConfig = &serviceDhcpvsixRelayListenInterface{}
-// var _ resource.ResourceWithImportState = &serviceDhcpvsixRelayListenInterface{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceDhcpvsixRelayListenInterface{}

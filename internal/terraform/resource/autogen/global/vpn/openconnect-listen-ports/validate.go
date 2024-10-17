@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnOpenconnectListenPorts{}
-	_ resource.ResourceWithConfigure = &vpnOpenconnectListenPorts{}
+	_ resource.Resource                = &vpnOpenconnectListenPorts{}
+	_ resource.ResourceWithConfigure   = &vpnOpenconnectListenPorts{}
+	_ resource.ResourceWithImportState = &vpnOpenconnectListenPorts{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnOpenconnectListenPorts{}
 // var _ resource.ResourceWithModifyPlan = &vpnOpenconnectListenPorts{}
 // var _ resource.ResourceWithUpgradeState = &vpnOpenconnectListenPorts{}
 // var _ resource.ResourceWithValidateConfig = &vpnOpenconnectListenPorts{}
-// var _ resource.ResourceWithImportState = &vpnOpenconnectListenPorts{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnOpenconnectListenPorts{}

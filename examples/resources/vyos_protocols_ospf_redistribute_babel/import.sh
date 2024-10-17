@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_redistribute_babel.example "protocols__ospf__redistribute__babel"

@@ -1,0 +1,2 @@
+
+terraform import vyos_service_monitoring_telegraf_splunk.example "service__monitoring__telegraf__splunk"

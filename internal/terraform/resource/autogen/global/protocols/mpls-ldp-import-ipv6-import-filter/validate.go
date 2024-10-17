@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsMplsLdpImportIPvsixImportFilter{}
-	_ resource.ResourceWithConfigure = &protocolsMplsLdpImportIPvsixImportFilter{}
+	_ resource.Resource                = &protocolsMplsLdpImportIPvsixImportFilter{}
+	_ resource.ResourceWithConfigure   = &protocolsMplsLdpImportIPvsixImportFilter{}
+	_ resource.ResourceWithImportState = &protocolsMplsLdpImportIPvsixImportFilter{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsMplsLdpImportIPvsixImportFilter{}
 // var _ resource.ResourceWithModifyPlan = &protocolsMplsLdpImportIPvsixImportFilter{}
 // var _ resource.ResourceWithUpgradeState = &protocolsMplsLdpImportIPvsixImportFilter{}
 // var _ resource.ResourceWithValidateConfig = &protocolsMplsLdpImportIPvsixImportFilter{}
-// var _ resource.ResourceWithImportState = &protocolsMplsLdpImportIPvsixImportFilter{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsMplsLdpImportIPvsixImportFilter{}

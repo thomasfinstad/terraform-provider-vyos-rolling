@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemLoginTacacs{}
-	_ resource.ResourceWithConfigure = &systemLoginTacacs{}
+	_ resource.Resource                = &systemLoginTacacs{}
+	_ resource.ResourceWithConfigure   = &systemLoginTacacs{}
+	_ resource.ResourceWithImportState = &systemLoginTacacs{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemLoginTacacs{}
 // var _ resource.ResourceWithModifyPlan = &systemLoginTacacs{}
 // var _ resource.ResourceWithUpgradeState = &systemLoginTacacs{}
 // var _ resource.ResourceWithValidateConfig = &systemLoginTacacs{}
-// var _ resource.ResourceWithImportState = &systemLoginTacacs{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemLoginTacacs{}

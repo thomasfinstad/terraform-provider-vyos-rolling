@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &servicePppoeServerShaper{}
-	_ resource.ResourceWithConfigure = &servicePppoeServerShaper{}
+	_ resource.Resource                = &servicePppoeServerShaper{}
+	_ resource.ResourceWithConfigure   = &servicePppoeServerShaper{}
+	_ resource.ResourceWithImportState = &servicePppoeServerShaper{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &servicePppoeServerShaper{}
 // var _ resource.ResourceWithModifyPlan = &servicePppoeServerShaper{}
 // var _ resource.ResourceWithUpgradeState = &servicePppoeServerShaper{}
 // var _ resource.ResourceWithValidateConfig = &servicePppoeServerShaper{}
-// var _ resource.ResourceWithImportState = &servicePppoeServerShaper{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &servicePppoeServerShaper{}

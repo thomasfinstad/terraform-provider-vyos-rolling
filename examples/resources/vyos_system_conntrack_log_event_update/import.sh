@@ -1,0 +1,2 @@
+
+terraform import vyos_system_conntrack_log_event_update.example "system__conntrack__log__event__update"

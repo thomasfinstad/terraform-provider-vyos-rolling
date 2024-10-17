@@ -1,0 +1,2 @@
+
+terraform import vyos_service_mdns_repeater.example "service__mdns__repeater"

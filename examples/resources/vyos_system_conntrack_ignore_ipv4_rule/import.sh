@@ -1,0 +1,2 @@
+
+terraform import vyos_system_conntrack_ignore_ipv4_rule.example "system__conntrack__ignore__ipv4__rule__<rule>"

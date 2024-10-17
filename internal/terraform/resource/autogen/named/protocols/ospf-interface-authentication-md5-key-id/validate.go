@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
-	_ resource.ResourceWithConfigure = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+	_ resource.Resource                = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+	_ resource.ResourceWithConfigure   = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+	_ resource.ResourceWithImportState = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
 // var _ resource.ResourceWithModifyPlan = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
 // var _ resource.ResourceWithUpgradeState = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
 // var _ resource.ResourceWithValidateConfig = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
-// var _ resource.ResourceWithImportState = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsOspfInterfaceAuthenticationMdfiveKeyID{}

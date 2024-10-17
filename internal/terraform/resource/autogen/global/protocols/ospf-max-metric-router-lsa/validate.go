@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsOspfMaxMetricRouterLsa{}
-	_ resource.ResourceWithConfigure = &protocolsOspfMaxMetricRouterLsa{}
+	_ resource.Resource                = &protocolsOspfMaxMetricRouterLsa{}
+	_ resource.ResourceWithConfigure   = &protocolsOspfMaxMetricRouterLsa{}
+	_ resource.ResourceWithImportState = &protocolsOspfMaxMetricRouterLsa{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsOspfMaxMetricRouterLsa{}
 // var _ resource.ResourceWithModifyPlan = &protocolsOspfMaxMetricRouterLsa{}
 // var _ resource.ResourceWithUpgradeState = &protocolsOspfMaxMetricRouterLsa{}
 // var _ resource.ResourceWithValidateConfig = &protocolsOspfMaxMetricRouterLsa{}
-// var _ resource.ResourceWithImportState = &protocolsOspfMaxMetricRouterLsa{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsOspfMaxMetricRouterLsa{}

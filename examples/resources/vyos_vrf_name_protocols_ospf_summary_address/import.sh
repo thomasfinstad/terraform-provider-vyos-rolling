@@ -1,0 +1,2 @@
+
+terraform import vyos_vrf_name_protocols_ospf_summary_address.example "vrf__name__<name>__protocols__ospf__summary_address__<summary-address>"

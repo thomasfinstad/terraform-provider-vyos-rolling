@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceWebproxyAuthenticationLdap{}
-	_ resource.ResourceWithConfigure = &serviceWebproxyAuthenticationLdap{}
+	_ resource.Resource                = &serviceWebproxyAuthenticationLdap{}
+	_ resource.ResourceWithConfigure   = &serviceWebproxyAuthenticationLdap{}
+	_ resource.ResourceWithImportState = &serviceWebproxyAuthenticationLdap{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceWebproxyAuthenticationLdap{}
 // var _ resource.ResourceWithModifyPlan = &serviceWebproxyAuthenticationLdap{}
 // var _ resource.ResourceWithUpgradeState = &serviceWebproxyAuthenticationLdap{}
 // var _ resource.ResourceWithValidateConfig = &serviceWebproxyAuthenticationLdap{}
-// var _ resource.ResourceWithImportState = &serviceWebproxyAuthenticationLdap{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceWebproxyAuthenticationLdap{}

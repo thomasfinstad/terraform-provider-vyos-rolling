@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemConfigManagementCommitArchive{}
-	_ resource.ResourceWithConfigure = &systemConfigManagementCommitArchive{}
+	_ resource.Resource                = &systemConfigManagementCommitArchive{}
+	_ resource.ResourceWithConfigure   = &systemConfigManagementCommitArchive{}
+	_ resource.ResourceWithImportState = &systemConfigManagementCommitArchive{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemConfigManagementCommitArchive{}
 // var _ resource.ResourceWithModifyPlan = &systemConfigManagementCommitArchive{}
 // var _ resource.ResourceWithUpgradeState = &systemConfigManagementCommitArchive{}
 // var _ resource.ResourceWithValidateConfig = &systemConfigManagementCommitArchive{}
-// var _ resource.ResourceWithImportState = &systemConfigManagementCommitArchive{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemConfigManagementCommitArchive{}

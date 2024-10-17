@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &highAvailabilityVrrpGroupExcludedAddress{}
-	_ resource.ResourceWithConfigure = &highAvailabilityVrrpGroupExcludedAddress{}
+	_ resource.Resource                = &highAvailabilityVrrpGroupExcludedAddress{}
+	_ resource.ResourceWithConfigure   = &highAvailabilityVrrpGroupExcludedAddress{}
+	_ resource.ResourceWithImportState = &highAvailabilityVrrpGroupExcludedAddress{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &highAvailabilityVrrpGroupExcludedAddress{}
 // var _ resource.ResourceWithModifyPlan = &highAvailabilityVrrpGroupExcludedAddress{}
 // var _ resource.ResourceWithUpgradeState = &highAvailabilityVrrpGroupExcludedAddress{}
 // var _ resource.ResourceWithValidateConfig = &highAvailabilityVrrpGroupExcludedAddress{}
-// var _ resource.ResourceWithImportState = &highAvailabilityVrrpGroupExcludedAddress{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &highAvailabilityVrrpGroupExcludedAddress{}

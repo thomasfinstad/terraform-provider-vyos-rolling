@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_segment_routing_srv6_locator.example "protocols__segment_routing__srv6__locator__<locator>"

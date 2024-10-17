@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesOpenvpnServerPushRoute{}
-	_ resource.ResourceWithConfigure = &interfacesOpenvpnServerPushRoute{}
+	_ resource.Resource                = &interfacesOpenvpnServerPushRoute{}
+	_ resource.ResourceWithConfigure   = &interfacesOpenvpnServerPushRoute{}
+	_ resource.ResourceWithImportState = &interfacesOpenvpnServerPushRoute{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesOpenvpnServerPushRoute{}
 // var _ resource.ResourceWithModifyPlan = &interfacesOpenvpnServerPushRoute{}
 // var _ resource.ResourceWithUpgradeState = &interfacesOpenvpnServerPushRoute{}
 // var _ resource.ResourceWithValidateConfig = &interfacesOpenvpnServerPushRoute{}
-// var _ resource.ResourceWithImportState = &interfacesOpenvpnServerPushRoute{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesOpenvpnServerPushRoute{}

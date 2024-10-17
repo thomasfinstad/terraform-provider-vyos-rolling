@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_refresh.example "protocols__ospf__refresh"

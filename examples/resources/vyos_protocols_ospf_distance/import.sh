@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_distance.example "protocols__ospf__distance"

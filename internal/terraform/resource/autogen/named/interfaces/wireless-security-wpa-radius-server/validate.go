@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesWirelessSecURItyWpaRadiusServer{}
-	_ resource.ResourceWithConfigure = &interfacesWirelessSecURItyWpaRadiusServer{}
+	_ resource.Resource                = &interfacesWirelessSecURItyWpaRadiusServer{}
+	_ resource.ResourceWithConfigure   = &interfacesWirelessSecURItyWpaRadiusServer{}
+	_ resource.ResourceWithImportState = &interfacesWirelessSecURItyWpaRadiusServer{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesWirelessSecURItyWpaRadiusServer{}
 // var _ resource.ResourceWithModifyPlan = &interfacesWirelessSecURItyWpaRadiusServer{}
 // var _ resource.ResourceWithUpgradeState = &interfacesWirelessSecURItyWpaRadiusServer{}
 // var _ resource.ResourceWithValidateConfig = &interfacesWirelessSecURItyWpaRadiusServer{}
-// var _ resource.ResourceWithImportState = &interfacesWirelessSecURItyWpaRadiusServer{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesWirelessSecURItyWpaRadiusServer{}

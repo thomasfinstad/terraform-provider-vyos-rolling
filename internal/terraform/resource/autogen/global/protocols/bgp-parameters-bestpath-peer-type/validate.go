@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsBgpParametersBestpathPeerType{}
-	_ resource.ResourceWithConfigure = &protocolsBgpParametersBestpathPeerType{}
+	_ resource.Resource                = &protocolsBgpParametersBestpathPeerType{}
+	_ resource.ResourceWithConfigure   = &protocolsBgpParametersBestpathPeerType{}
+	_ resource.ResourceWithImportState = &protocolsBgpParametersBestpathPeerType{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsBgpParametersBestpathPeerType{}
 // var _ resource.ResourceWithModifyPlan = &protocolsBgpParametersBestpathPeerType{}
 // var _ resource.ResourceWithUpgradeState = &protocolsBgpParametersBestpathPeerType{}
 // var _ resource.ResourceWithValidateConfig = &protocolsBgpParametersBestpathPeerType{}
-// var _ resource.ResourceWithImportState = &protocolsBgpParametersBestpathPeerType{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsBgpParametersBestpathPeerType{}

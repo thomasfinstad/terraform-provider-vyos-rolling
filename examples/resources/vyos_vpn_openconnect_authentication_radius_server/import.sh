@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_openconnect_authentication_radius_server.example "vpn__openconnect__authentication__radius__server__<server>"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemSyslogGlobalFacility{}
-	_ resource.ResourceWithConfigure = &systemSyslogGlobalFacility{}
+	_ resource.Resource                = &systemSyslogGlobalFacility{}
+	_ resource.ResourceWithConfigure   = &systemSyslogGlobalFacility{}
+	_ resource.ResourceWithImportState = &systemSyslogGlobalFacility{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemSyslogGlobalFacility{}
 // var _ resource.ResourceWithModifyPlan = &systemSyslogGlobalFacility{}
 // var _ resource.ResourceWithUpgradeState = &systemSyslogGlobalFacility{}
 // var _ resource.ResourceWithValidateConfig = &systemSyslogGlobalFacility{}
-// var _ resource.ResourceWithImportState = &systemSyslogGlobalFacility{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemSyslogGlobalFacility{}

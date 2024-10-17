@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceSaltMinion{}
-	_ resource.ResourceWithConfigure = &serviceSaltMinion{}
+	_ resource.Resource                = &serviceSaltMinion{}
+	_ resource.ResourceWithConfigure   = &serviceSaltMinion{}
+	_ resource.ResourceWithImportState = &serviceSaltMinion{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceSaltMinion{}
 // var _ resource.ResourceWithModifyPlan = &serviceSaltMinion{}
 // var _ resource.ResourceWithUpgradeState = &serviceSaltMinion{}
 // var _ resource.ResourceWithValidateConfig = &serviceSaltMinion{}
-// var _ resource.ResourceWithImportState = &serviceSaltMinion{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceSaltMinion{}

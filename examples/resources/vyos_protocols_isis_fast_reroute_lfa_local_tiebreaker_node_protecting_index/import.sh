@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_isis_fast_reroute_lfa_local_tiebreaker_node_protecting_index.example "protocols__isis__fast_reroute__lfa__local__tiebreaker__node_protecting__index__<index>"

@@ -1,0 +1,2 @@
+
+terraform import vyos_service_pppoe_server_authentication_radius_server.example "service__pppoe_server__authentication__radius__server__<server>"

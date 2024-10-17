@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsRIPNetworkDistance{}
-	_ resource.ResourceWithConfigure = &protocolsRIPNetworkDistance{}
+	_ resource.Resource                = &protocolsRIPNetworkDistance{}
+	_ resource.ResourceWithConfigure   = &protocolsRIPNetworkDistance{}
+	_ resource.ResourceWithImportState = &protocolsRIPNetworkDistance{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsRIPNetworkDistance{}
 // var _ resource.ResourceWithModifyPlan = &protocolsRIPNetworkDistance{}
 // var _ resource.ResourceWithUpgradeState = &protocolsRIPNetworkDistance{}
 // var _ resource.ResourceWithValidateConfig = &protocolsRIPNetworkDistance{}
-// var _ resource.ResourceWithImportState = &protocolsRIPNetworkDistance{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsRIPNetworkDistance{}

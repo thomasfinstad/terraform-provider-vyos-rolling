@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnIPsecIkeGroupProposal{}
-	_ resource.ResourceWithConfigure = &vpnIPsecIkeGroupProposal{}
+	_ resource.Resource                = &vpnIPsecIkeGroupProposal{}
+	_ resource.ResourceWithConfigure   = &vpnIPsecIkeGroupProposal{}
+	_ resource.ResourceWithImportState = &vpnIPsecIkeGroupProposal{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnIPsecIkeGroupProposal{}
 // var _ resource.ResourceWithModifyPlan = &vpnIPsecIkeGroupProposal{}
 // var _ resource.ResourceWithUpgradeState = &vpnIPsecIkeGroupProposal{}
 // var _ resource.ResourceWithValidateConfig = &vpnIPsecIkeGroupProposal{}
-// var _ resource.ResourceWithImportState = &vpnIPsecIkeGroupProposal{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnIPsecIkeGroupProposal{}

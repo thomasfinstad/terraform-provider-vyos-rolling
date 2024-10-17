@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsOspfRefresh{}
-	_ resource.ResourceWithConfigure = &protocolsOspfRefresh{}
+	_ resource.Resource                = &protocolsOspfRefresh{}
+	_ resource.ResourceWithConfigure   = &protocolsOspfRefresh{}
+	_ resource.ResourceWithImportState = &protocolsOspfRefresh{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsOspfRefresh{}
 // var _ resource.ResourceWithModifyPlan = &protocolsOspfRefresh{}
 // var _ resource.ResourceWithUpgradeState = &protocolsOspfRefresh{}
 // var _ resource.ResourceWithValidateConfig = &protocolsOspfRefresh{}
-// var _ resource.ResourceWithImportState = &protocolsOspfRefresh{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsOspfRefresh{}

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceTftpServerListenAddress{}
-	_ resource.ResourceWithConfigure = &serviceTftpServerListenAddress{}
+	_ resource.Resource                = &serviceTftpServerListenAddress{}
+	_ resource.ResourceWithConfigure   = &serviceTftpServerListenAddress{}
+	_ resource.ResourceWithImportState = &serviceTftpServerListenAddress{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceTftpServerListenAddress{}
 // var _ resource.ResourceWithModifyPlan = &serviceTftpServerListenAddress{}
 // var _ resource.ResourceWithUpgradeState = &serviceTftpServerListenAddress{}
 // var _ resource.ResourceWithValidateConfig = &serviceTftpServerListenAddress{}
-// var _ resource.ResourceWithImportState = &serviceTftpServerListenAddress{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceTftpServerListenAddress{}

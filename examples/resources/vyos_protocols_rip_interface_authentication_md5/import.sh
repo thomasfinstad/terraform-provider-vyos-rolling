@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_rip_interface_authentication_md5.example "protocols__rip__interface__<interface>__authentication__md5__<md5>"

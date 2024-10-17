@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &natCgnatPoolExternalRange{}
-	_ resource.ResourceWithConfigure = &natCgnatPoolExternalRange{}
+	_ resource.Resource                = &natCgnatPoolExternalRange{}
+	_ resource.ResourceWithConfigure   = &natCgnatPoolExternalRange{}
+	_ resource.ResourceWithImportState = &natCgnatPoolExternalRange{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &natCgnatPoolExternalRange{}
 // var _ resource.ResourceWithModifyPlan = &natCgnatPoolExternalRange{}
 // var _ resource.ResourceWithUpgradeState = &natCgnatPoolExternalRange{}
 // var _ resource.ResourceWithValidateConfig = &natCgnatPoolExternalRange{}
-// var _ resource.ResourceWithImportState = &natCgnatPoolExternalRange{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &natCgnatPoolExternalRange{}

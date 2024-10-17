@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesGeneve{}
-	_ resource.ResourceWithConfigure = &interfacesGeneve{}
+	_ resource.Resource                = &interfacesGeneve{}
+	_ resource.ResourceWithConfigure   = &interfacesGeneve{}
+	_ resource.ResourceWithImportState = &interfacesGeneve{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesGeneve{}
 // var _ resource.ResourceWithModifyPlan = &interfacesGeneve{}
 // var _ resource.ResourceWithUpgradeState = &interfacesGeneve{}
 // var _ resource.ResourceWithValidateConfig = &interfacesGeneve{}
-// var _ resource.ResourceWithImportState = &interfacesGeneve{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesGeneve{}

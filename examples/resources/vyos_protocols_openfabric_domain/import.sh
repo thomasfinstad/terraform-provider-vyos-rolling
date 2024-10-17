@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_openfabric_domain.example "protocols__openfabric__domain__<domain>"

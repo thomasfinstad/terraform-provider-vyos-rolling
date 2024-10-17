@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &interfacesPseudoEthernet{}
-	_ resource.ResourceWithConfigure = &interfacesPseudoEthernet{}
+	_ resource.Resource                = &interfacesPseudoEthernet{}
+	_ resource.ResourceWithConfigure   = &interfacesPseudoEthernet{}
+	_ resource.ResourceWithImportState = &interfacesPseudoEthernet{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &interfacesPseudoEthernet{}
 // var _ resource.ResourceWithModifyPlan = &interfacesPseudoEthernet{}
 // var _ resource.ResourceWithUpgradeState = &interfacesPseudoEthernet{}
 // var _ resource.ResourceWithValidateConfig = &interfacesPseudoEthernet{}
-// var _ resource.ResourceWithImportState = &interfacesPseudoEthernet{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &interfacesPseudoEthernet{}

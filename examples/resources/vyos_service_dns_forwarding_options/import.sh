@@ -1,0 +1,2 @@
+
+terraform import vyos_service_dns_forwarding_options.example "service__dns__forwarding__options"

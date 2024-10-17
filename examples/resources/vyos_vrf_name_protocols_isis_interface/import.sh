@@ -1,0 +1,2 @@
+
+terraform import vyos_vrf_name_protocols_isis_interface.example "vrf__name__<name>__protocols__isis__interface__<interface>"

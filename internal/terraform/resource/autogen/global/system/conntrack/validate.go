@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemConntrack{}
-	_ resource.ResourceWithConfigure = &systemConntrack{}
+	_ resource.Resource                = &systemConntrack{}
+	_ resource.ResourceWithConfigure   = &systemConntrack{}
+	_ resource.ResourceWithImportState = &systemConntrack{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemConntrack{}
 // var _ resource.ResourceWithModifyPlan = &systemConntrack{}
 // var _ resource.ResourceWithUpgradeState = &systemConntrack{}
 // var _ resource.ResourceWithValidateConfig = &systemConntrack{}
-// var _ resource.ResourceWithImportState = &systemConntrack{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemConntrack{}

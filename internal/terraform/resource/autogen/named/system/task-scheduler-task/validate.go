@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemTaskSchedulerTask{}
-	_ resource.ResourceWithConfigure = &systemTaskSchedulerTask{}
+	_ resource.Resource                = &systemTaskSchedulerTask{}
+	_ resource.ResourceWithConfigure   = &systemTaskSchedulerTask{}
+	_ resource.ResourceWithImportState = &systemTaskSchedulerTask{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemTaskSchedulerTask{}
 // var _ resource.ResourceWithModifyPlan = &systemTaskSchedulerTask{}
 // var _ resource.ResourceWithUpgradeState = &systemTaskSchedulerTask{}
 // var _ resource.ResourceWithValidateConfig = &systemTaskSchedulerTask{}
-// var _ resource.ResourceWithImportState = &systemTaskSchedulerTask{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemTaskSchedulerTask{}

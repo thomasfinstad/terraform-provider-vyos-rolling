@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_parameters_bestpath_peer_type.example "protocols__bgp__parameters__bestpath__peer_type"

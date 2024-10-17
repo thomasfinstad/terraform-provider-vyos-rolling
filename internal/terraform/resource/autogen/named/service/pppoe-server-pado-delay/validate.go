@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &servicePppoeServerPadoDelay{}
-	_ resource.ResourceWithConfigure = &servicePppoeServerPadoDelay{}
+	_ resource.Resource                = &servicePppoeServerPadoDelay{}
+	_ resource.ResourceWithConfigure   = &servicePppoeServerPadoDelay{}
+	_ resource.ResourceWithImportState = &servicePppoeServerPadoDelay{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &servicePppoeServerPadoDelay{}
 // var _ resource.ResourceWithModifyPlan = &servicePppoeServerPadoDelay{}
 // var _ resource.ResourceWithUpgradeState = &servicePppoeServerPadoDelay{}
 // var _ resource.ResourceWithValidateConfig = &servicePppoeServerPadoDelay{}
-// var _ resource.ResourceWithImportState = &servicePppoeServerPadoDelay{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &servicePppoeServerPadoDelay{}

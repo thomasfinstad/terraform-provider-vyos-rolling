@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &qosPolicyShaperHfscClass{}
-	_ resource.ResourceWithConfigure = &qosPolicyShaperHfscClass{}
+	_ resource.Resource                = &qosPolicyShaperHfscClass{}
+	_ resource.ResourceWithConfigure   = &qosPolicyShaperHfscClass{}
+	_ resource.ResourceWithImportState = &qosPolicyShaperHfscClass{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &qosPolicyShaperHfscClass{}
 // var _ resource.ResourceWithModifyPlan = &qosPolicyShaperHfscClass{}
 // var _ resource.ResourceWithUpgradeState = &qosPolicyShaperHfscClass{}
 // var _ resource.ResourceWithValidateConfig = &qosPolicyShaperHfscClass{}
-// var _ resource.ResourceWithImportState = &qosPolicyShaperHfscClass{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &qosPolicyShaperHfscClass{}

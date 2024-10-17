@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_redistribute_kernel.example "protocols__ospf__redistribute__kernel"

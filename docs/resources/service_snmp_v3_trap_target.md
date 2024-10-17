@@ -43,6 +43,7 @@ Simple Network Management Protocol (SNMP) v3
     - [Nested Schema for `auth`](#nested-schema-for-auth)
     - [Nested Schema for `privacy`](#nested-schema-for-privacy)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -139,3 +140,11 @@ Optional:
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_service_snmp_v3_trap_target.example "service__snmp__v3__trap_target__<trap-target>"
+```

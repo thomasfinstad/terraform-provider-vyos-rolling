@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_mpls_ldp_targeted_neighbor_ipv4.example "protocols__mpls__ldp__targeted_neighbor__ipv4"

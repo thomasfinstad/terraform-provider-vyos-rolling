@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceTCPRekey{}
-	_ resource.ResourceWithConfigure = &serviceTCPRekey{}
+	_ resource.Resource                = &serviceTCPRekey{}
+	_ resource.ResourceWithConfigure   = &serviceTCPRekey{}
+	_ resource.ResourceWithImportState = &serviceTCPRekey{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceTCPRekey{}
 // var _ resource.ResourceWithModifyPlan = &serviceTCPRekey{}
 // var _ resource.ResourceWithUpgradeState = &serviceTCPRekey{}
 // var _ resource.ResourceWithValidateConfig = &serviceTCPRekey{}
-// var _ resource.ResourceWithImportState = &serviceTCPRekey{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceTCPRekey{}

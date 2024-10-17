@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_ospf_log_adjacency_changes.example "protocols__ospf__log_adjacency_changes"

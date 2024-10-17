@@ -1,0 +1,2 @@
+
+terraform import vyos_vpn_sstp_authentication_radius.example "vpn__sstp__authentication__radius"

@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceTCPAccessControlDeny{}
-	_ resource.ResourceWithConfigure = &serviceTCPAccessControlDeny{}
+	_ resource.Resource                = &serviceTCPAccessControlDeny{}
+	_ resource.ResourceWithConfigure   = &serviceTCPAccessControlDeny{}
+	_ resource.ResourceWithImportState = &serviceTCPAccessControlDeny{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceTCPAccessControlDeny{}
 // var _ resource.ResourceWithModifyPlan = &serviceTCPAccessControlDeny{}
 // var _ resource.ResourceWithUpgradeState = &serviceTCPAccessControlDeny{}
 // var _ resource.ResourceWithValidateConfig = &serviceTCPAccessControlDeny{}
-// var _ resource.ResourceWithImportState = &serviceTCPAccessControlDeny{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceTCPAccessControlDeny{}

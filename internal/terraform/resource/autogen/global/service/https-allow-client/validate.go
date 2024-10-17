@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceHTTPSAllowClient{}
-	_ resource.ResourceWithConfigure = &serviceHTTPSAllowClient{}
+	_ resource.Resource                = &serviceHTTPSAllowClient{}
+	_ resource.ResourceWithConfigure   = &serviceHTTPSAllowClient{}
+	_ resource.ResourceWithImportState = &serviceHTTPSAllowClient{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceHTTPSAllowClient{}
 // var _ resource.ResourceWithModifyPlan = &serviceHTTPSAllowClient{}
 // var _ resource.ResourceWithUpgradeState = &serviceHTTPSAllowClient{}
 // var _ resource.ResourceWithValidateConfig = &serviceHTTPSAllowClient{}
-// var _ resource.ResourceWithImportState = &serviceHTTPSAllowClient{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceHTTPSAllowClient{}

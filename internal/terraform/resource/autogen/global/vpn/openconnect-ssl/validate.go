@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vpnOpenconnectSsl{}
-	_ resource.ResourceWithConfigure = &vpnOpenconnectSsl{}
+	_ resource.Resource                = &vpnOpenconnectSsl{}
+	_ resource.ResourceWithConfigure   = &vpnOpenconnectSsl{}
+	_ resource.ResourceWithImportState = &vpnOpenconnectSsl{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vpnOpenconnectSsl{}
 // var _ resource.ResourceWithModifyPlan = &vpnOpenconnectSsl{}
 // var _ resource.ResourceWithUpgradeState = &vpnOpenconnectSsl{}
 // var _ resource.ResourceWithValidateConfig = &vpnOpenconnectSsl{}
-// var _ resource.ResourceWithImportState = &vpnOpenconnectSsl{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vpnOpenconnectSsl{}

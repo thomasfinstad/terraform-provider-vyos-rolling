@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
-	_ resource.ResourceWithConfigure = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
+	_ resource.Resource                = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
+	_ resource.ResourceWithConfigure   = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
+	_ resource.ResourceWithImportState = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
 // var _ resource.ResourceWithModifyPlan = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
 // var _ resource.ResourceWithUpgradeState = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
 // var _ resource.ResourceWithValidateConfig = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
-// var _ resource.ResourceWithImportState = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}

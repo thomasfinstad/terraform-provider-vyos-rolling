@@ -104,6 +104,7 @@ IPv4 firewall forward filter
     - [Nested Schema for `time`](#nested-schema-for-time)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
     - [Nested Schema for `ttl`](#nested-schema-for-ttl)
+  - [Import](#import)
 
 <!--TOC-->
 
@@ -884,3 +885,11 @@ Optional:
     |  Format  &emsp;|  Description      |
     |----------|-------------------|
     |  0-255   &emsp;|  Less then value  |
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import vyos_firewall_ipv4_forward_filter_rule.example "firewall__ipv4__forward__filter__rule__<rule>"
+```

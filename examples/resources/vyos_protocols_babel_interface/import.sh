@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_babel_interface.example "protocols__babel__interface__<interface>"

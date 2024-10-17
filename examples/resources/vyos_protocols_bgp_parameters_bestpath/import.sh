@@ -1,0 +1,2 @@
+
+terraform import vyos_protocols_bgp_parameters_bestpath.example "protocols__bgp__parameters__bestpath"

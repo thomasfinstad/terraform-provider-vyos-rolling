@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceDhcpServerHighAvailability{}
-	_ resource.ResourceWithConfigure = &serviceDhcpServerHighAvailability{}
+	_ resource.Resource                = &serviceDhcpServerHighAvailability{}
+	_ resource.ResourceWithConfigure   = &serviceDhcpServerHighAvailability{}
+	_ resource.ResourceWithImportState = &serviceDhcpServerHighAvailability{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceDhcpServerHighAvailability{}
 // var _ resource.ResourceWithModifyPlan = &serviceDhcpServerHighAvailability{}
 // var _ resource.ResourceWithUpgradeState = &serviceDhcpServerHighAvailability{}
 // var _ resource.ResourceWithValidateConfig = &serviceDhcpServerHighAvailability{}
-// var _ resource.ResourceWithImportState = &serviceDhcpServerHighAvailability{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceDhcpServerHighAvailability{}

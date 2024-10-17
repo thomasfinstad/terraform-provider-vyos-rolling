@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
-	_ resource.ResourceWithConfigure = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
+	_ resource.Resource                = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
+	_ resource.ResourceWithConfigure   = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
+	_ resource.ResourceWithImportState = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
 // var _ resource.ResourceWithModifyPlan = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
 // var _ resource.ResourceWithUpgradeState = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
 // var _ resource.ResourceWithValidateConfig = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
-// var _ resource.ResourceWithImportState = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}

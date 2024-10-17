@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceIDsDdosProtectionThresholdIcmp{}
-	_ resource.ResourceWithConfigure = &serviceIDsDdosProtectionThresholdIcmp{}
+	_ resource.Resource                = &serviceIDsDdosProtectionThresholdIcmp{}
+	_ resource.ResourceWithConfigure   = &serviceIDsDdosProtectionThresholdIcmp{}
+	_ resource.ResourceWithImportState = &serviceIDsDdosProtectionThresholdIcmp{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceIDsDdosProtectionThresholdIcmp{}
 // var _ resource.ResourceWithModifyPlan = &serviceIDsDdosProtectionThresholdIcmp{}
 // var _ resource.ResourceWithUpgradeState = &serviceIDsDdosProtectionThresholdIcmp{}
 // var _ resource.ResourceWithValidateConfig = &serviceIDsDdosProtectionThresholdIcmp{}
-// var _ resource.ResourceWithImportState = &serviceIDsDdosProtectionThresholdIcmp{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceIDsDdosProtectionThresholdIcmp{}

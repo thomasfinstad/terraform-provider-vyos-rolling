@@ -26,4 +26,5 @@ type NodeParent interface {
 	GetChildAbsPath([]string) (NodeBase, error)
 	GetIsBaseNode() bool
 	SetIsBaseNode(bool)
+	ImportStr() string
 }

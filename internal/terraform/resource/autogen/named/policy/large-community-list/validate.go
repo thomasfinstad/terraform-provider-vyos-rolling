@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &policyLargeCommunityList{}
-	_ resource.ResourceWithConfigure = &policyLargeCommunityList{}
+	_ resource.Resource                = &policyLargeCommunityList{}
+	_ resource.ResourceWithConfigure   = &policyLargeCommunityList{}
+	_ resource.ResourceWithImportState = &policyLargeCommunityList{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &policyLargeCommunityList{}
 // var _ resource.ResourceWithModifyPlan = &policyLargeCommunityList{}
 // var _ resource.ResourceWithUpgradeState = &policyLargeCommunityList{}
 // var _ resource.ResourceWithValidateConfig = &policyLargeCommunityList{}
-// var _ resource.ResourceWithImportState = &policyLargeCommunityList{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &policyLargeCommunityList{}

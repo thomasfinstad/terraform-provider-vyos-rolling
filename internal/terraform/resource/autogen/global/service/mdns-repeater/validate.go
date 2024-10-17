@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceMDNSRepeater{}
-	_ resource.ResourceWithConfigure = &serviceMDNSRepeater{}
+	_ resource.Resource                = &serviceMDNSRepeater{}
+	_ resource.ResourceWithConfigure   = &serviceMDNSRepeater{}
+	_ resource.ResourceWithImportState = &serviceMDNSRepeater{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceMDNSRepeater{}
 // var _ resource.ResourceWithModifyPlan = &serviceMDNSRepeater{}
 // var _ resource.ResourceWithUpgradeState = &serviceMDNSRepeater{}
 // var _ resource.ResourceWithValidateConfig = &serviceMDNSRepeater{}
-// var _ resource.ResourceWithImportState = &serviceMDNSRepeater{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceMDNSRepeater{}

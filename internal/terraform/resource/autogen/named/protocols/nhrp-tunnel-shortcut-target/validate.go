@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &protocolsNhrpTunnelShortcutTarget{}
-	_ resource.ResourceWithConfigure = &protocolsNhrpTunnelShortcutTarget{}
+	_ resource.Resource                = &protocolsNhrpTunnelShortcutTarget{}
+	_ resource.ResourceWithConfigure   = &protocolsNhrpTunnelShortcutTarget{}
+	_ resource.ResourceWithImportState = &protocolsNhrpTunnelShortcutTarget{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &protocolsNhrpTunnelShortcutTarget{}
 // var _ resource.ResourceWithModifyPlan = &protocolsNhrpTunnelShortcutTarget{}
 // var _ resource.ResourceWithUpgradeState = &protocolsNhrpTunnelShortcutTarget{}
 // var _ resource.ResourceWithValidateConfig = &protocolsNhrpTunnelShortcutTarget{}
-// var _ resource.ResourceWithImportState = &protocolsNhrpTunnelShortcutTarget{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &protocolsNhrpTunnelShortcutTarget{}

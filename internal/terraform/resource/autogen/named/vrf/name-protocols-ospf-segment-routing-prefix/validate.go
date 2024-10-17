@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
-	_ resource.ResourceWithConfigure = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
+	_ resource.Resource                = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
+	_ resource.ResourceWithConfigure   = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
+	_ resource.ResourceWithImportState = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
 // var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
 // var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
 // var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
-// var _ resource.ResourceWithImportState = &vrfNameProtocolsOspfSegmentRoutingPrefix{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &vrfNameProtocolsOspfSegmentRoutingPrefix{}

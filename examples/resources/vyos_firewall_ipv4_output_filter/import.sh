@@ -1,0 +1,2 @@
+
+terraform import vyos_firewall_ipv4_output_filter.example "firewall__ipv4__output__filter"

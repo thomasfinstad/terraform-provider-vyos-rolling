@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
-	_ resource.ResourceWithConfigure = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
+	_ resource.Resource                = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
+	_ resource.ResourceWithConfigure   = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
+	_ resource.ResourceWithImportState = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
 // var _ resource.ResourceWithModifyPlan = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
 // var _ resource.ResourceWithUpgradeState = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
 // var _ resource.ResourceWithValidateConfig = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
-// var _ resource.ResourceWithImportState = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &serviceDhcpServerSharedNetworkNameOptionStaticRoute{}

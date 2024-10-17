@@ -9,15 +9,15 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ resource.Resource              = &systemConntrackIgnoreIPvsixRule{}
-	_ resource.ResourceWithConfigure = &systemConntrackIgnoreIPvsixRule{}
+	_ resource.Resource                = &systemConntrackIgnoreIPvsixRule{}
+	_ resource.ResourceWithConfigure   = &systemConntrackIgnoreIPvsixRule{}
+	_ resource.ResourceWithImportState = &systemConntrackIgnoreIPvsixRule{}
 )
 
 // var _ resource.ResourceWithConfigValidators = &systemConntrackIgnoreIPvsixRule{}
 // var _ resource.ResourceWithModifyPlan = &systemConntrackIgnoreIPvsixRule{}
 // var _ resource.ResourceWithUpgradeState = &systemConntrackIgnoreIPvsixRule{}
 // var _ resource.ResourceWithValidateConfig = &systemConntrackIgnoreIPvsixRule{}
-// var _ resource.ResourceWithImportState = &systemConntrackIgnoreIPvsixRule{}
 
 // Ensure we fully satisfy helper pkg interfaces
 var _ helpers.VyosResource = &systemConntrackIgnoreIPvsixRule{}
