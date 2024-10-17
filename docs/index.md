@@ -69,7 +69,7 @@ provider "vyos" {
     disable_verify = true
   }
 
-  default_timeouts = 2
+  default_timeouts = 1
 }
 ```
 
