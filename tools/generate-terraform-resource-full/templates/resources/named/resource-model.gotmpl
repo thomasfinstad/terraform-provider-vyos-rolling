@@ -1,4 +1,5 @@
 {{define "resource-model"}}
+/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
 	// Validate compliance
 	{{if .GetIsBaseNode }}
 	var _ helpers.VyosTopResourceDataModel = &{{.BaseNameCG}}{}

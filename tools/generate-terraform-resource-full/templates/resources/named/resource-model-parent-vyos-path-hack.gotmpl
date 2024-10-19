@@ -1,6 +1,7 @@
 
 {{/* This is so we can more easily get the api config path */}}
 {{define "resource-model-parent-vyos-path-hack"}}
+/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
 	{{- if .Parent}}
 		{{template "resource-model-parent-vyos-path-hack" .Parent}}
 	{{- end}}

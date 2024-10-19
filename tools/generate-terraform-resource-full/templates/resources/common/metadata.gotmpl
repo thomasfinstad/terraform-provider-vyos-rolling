@@ -1,5 +1,6 @@
 
 {{define "metadata"}}
+/* tools/generate-terraform-resource-full/templates/resources/common/metadata.gotmpl */
 	// Metadata method to define the resource type name.
 	func (r {{.BaseNameG}}) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 		resp.TypeName = req.ProviderTypeName + "_{{.AbsNameR}}"

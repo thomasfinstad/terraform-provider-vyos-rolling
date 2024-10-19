@@ -1,6 +1,0 @@
-{{define "unused"}}
-	// ImportState enables provider control over the ImportResourceState RPC.
-	func (r *ExampleResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
-	}
-{{end}}

@@ -1,4 +1,5 @@
 {{define "resource-model-schema-attrtype-multi"}}
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
 	{{if eq .ValueType "string" -}}
 		schema.ListAttribute{
 			ElementType: types.StringType,

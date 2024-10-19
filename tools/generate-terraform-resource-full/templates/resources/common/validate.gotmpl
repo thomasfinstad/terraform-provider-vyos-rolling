@@ -1,4 +1,5 @@
 {{define "validate"}}
+/* tools/generate-terraform-resource-full/templates/resources/common/validate.gotmpl */
 	// Ensure provider defined types fully satisfy framework interfaces.
 	var _ resource.Resource = &{{.BaseNameG}}{}
 	var _ resource.ResourceWithConfigure = &{{.BaseNameG}}{}

@@ -1,5 +1,6 @@
 {{/* This is so we can check for required parents before creating a resource */}}
 {{define "resource-model-parent-vyos-path-hack-for-non-global"}}
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
 	{{- if  ne .NodeType "TagNode" }}
 		{{- if .Parent}}
 			{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}

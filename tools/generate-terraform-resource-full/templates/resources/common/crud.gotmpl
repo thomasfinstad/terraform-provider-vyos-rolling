@@ -1,4 +1,5 @@
 {{define "crud"}}
+/* tools/generate-terraform-resource-full/templates/resources/common/crud.gotmpl */
 	// Create method to define the logic which creates the resource and sets its initial Terraform state.
 	func (r *{{.BaseNameG}}) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 		crud.Create(ctx, r, req, resp)
