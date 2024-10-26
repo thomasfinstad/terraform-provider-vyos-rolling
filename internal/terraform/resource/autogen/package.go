@@ -303,6 +303,7 @@ import (
 	globalservicelldp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp"
 	globalservicelldplegacyprotocols "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp-legacy-protocols"
 	globalservicemdnsrepeater "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/mdns-repeater"
+	globalservicemonitoringfrrexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-frr-exporter"
 	globalservicemonitoringnodeexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-node-exporter"
 	globalservicemonitoringtelegraf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf"
 	globalservicemonitoringtelegrafazuredataexplorer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer"
@@ -1287,6 +1288,7 @@ func GetResources() []func() resource.Resource {
 		globalservicelldp.NewServiceLldp,
 		globalservicelldplegacyprotocols.NewServiceLldpLegacyProtocols,
 		globalservicemdnsrepeater.NewServiceMDNSRepeater,
+		globalservicemonitoringfrrexporter.NewServiceMonitoringFrrExporter,
 		globalservicemonitoringnodeexporter.NewServiceMonitoringNodeExporter,
 		globalservicemonitoringtelegraf.NewServiceMonitoringTelegraf,
 		globalservicemonitoringtelegrafazuredataexplorer.NewServiceMonitoringTelegrafAzureDataExplorer,

@@ -59,10 +59,10 @@ Service Policy definitions
 #### hash_interval
 - `hash_interval` (Number) Interval in seconds for queue algorithm perturbation
 
-    |  Format  &emsp;|  Description                                                         |
-    |----------|----------------------------------------------------------------------|
-    |  0       &emsp;|  No perturbation                                                     |
-    |  1-127   &emsp;|  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+    |  Format        &emsp;|  Description                                                         |
+    |----------------|----------------------------------------------------------------------|
+    |  0             &emsp;|  No perturbation                                                     |
+    |  1-2147483647  &emsp;|  Interval in seconds for queue algorithm perturbation (advised: 10)  |
 #### queue_limit
 - `queue_limit` (Number) Upper limit of the SFQ
 

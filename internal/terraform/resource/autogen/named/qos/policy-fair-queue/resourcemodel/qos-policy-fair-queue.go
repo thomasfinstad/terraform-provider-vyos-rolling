@@ -182,17 +182,17 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes(ctx context.Context) map[st
 			Optional: true,
 			MarkdownDescription: `Interval in seconds for queue algorithm perturbation
 
-    |  Format  |  Description                                                         |
-    |----------|----------------------------------------------------------------------|
-    |  0       |  No perturbation                                                     |
-    |  1-127   |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+    |  Format        |  Description                                                         |
+    |----------------|----------------------------------------------------------------------|
+    |  0             |  No perturbation                                                     |
+    |  1-2147483647  |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
 `,
 			Description: `Interval in seconds for queue algorithm perturbation
 
-    |  Format  |  Description                                                         |
-    |----------|----------------------------------------------------------------------|
-    |  0       |  No perturbation                                                     |
-    |  1-127   |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+    |  Format        |  Description                                                         |
+    |----------------|----------------------------------------------------------------------|
+    |  0             |  No perturbation                                                     |
+    |  1-2147483647  |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
 `,
 
 			// Default:          stringdefault.StaticString(`0`),

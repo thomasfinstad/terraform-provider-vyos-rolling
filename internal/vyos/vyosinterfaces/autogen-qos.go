@@ -545,7 +545,7 @@ func qos() schemadefinition.InterfaceDefinition {
 													Local: "validator",
 												},
 												NameAttr:     "numeric",
-												ArgumentAttr: "--range 0-127",
+												ArgumentAttr: "--range 0-2147483647",
 											}},
 										}},
 										ValueHelp: []*schemadefinition.ValueHelp{{
@@ -558,10 +558,10 @@ func qos() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "u32:1-127",
+											Format:      "u32:1-2147483647",
 											Description: "Interval in seconds for queue algorithm perturbation (advised: 10)",
 										}},
-										ConstraintErrorMessage: []string{"Interval must be in range 0 to 127"},
+										ConstraintErrorMessage: []string{"Interval must be in range 0 to 2147483647"},
 									}},
 								}, {
 									IsBaseNode: false,
