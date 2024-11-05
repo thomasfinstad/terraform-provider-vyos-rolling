@@ -10,6 +10,7 @@ description: |-
 # vyos_firewall_group_mac_group (Resource)
 <center>
 
+
 Firewall  
 ⯯  
 Firewall group  

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceDhcpvsixServerSharedNetworkNameSubnetOption{}
 
 // ServiceDhcpvsixServerSharedNetworkNameSubnetOption describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceDhcpvsixServerSharedNetworkNameSubnetOption struct {
 	// LeafNodes
 	LeafServiceDhcpvsixServerSharedNetworkNameSubnetOptionCaptivePortal   types.String `tfsdk:"captive_portal" vyos:"captive-portal,omitempty"`
@@ -31,10 +33,10 @@ type ServiceDhcpvsixServerSharedNetworkNameSubnetOption struct {
 	LeafServiceDhcpvsixServerSharedNetworkNameSubnetOptionSntpServer      types.List   `tfsdk:"sntp_server" vyos:"sntp-server,omitempty"`
 	LeafServiceDhcpvsixServerSharedNetworkNameSubnetOptionInfoRefreshTime types.Number `tfsdk:"info_refresh_time" vyos:"info-refresh-time,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeServiceDhcpvsixServerSharedNetworkNameSubnetOptionVendorOption *ServiceDhcpvsixServerSharedNetworkNameSubnetOptionVendorOption `tfsdk:"vendor_option" vyos:"vendor-option,omitempty"`
 }
 
@@ -45,7 +47,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 
 		"captive_portal":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Captive portal API endpoint
@@ -63,7 +65,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 		},
 
 		"domain_search":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -76,7 +78,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 		},
 
 		"name_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -96,7 +98,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 
 		"nis_domain":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `NIS domain name for client to use
@@ -108,7 +110,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 		},
 
 		"nis_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -128,7 +130,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 
 		"nisplus_domain":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `NIS+ domain name for client to use
@@ -140,7 +142,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 		},
 
 		"nisplus_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -159,7 +161,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 		},
 
 		"sip_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -180,7 +182,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 		},
 
 		"sntp_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -194,7 +196,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
 
 		"info_refresh_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time (in seconds) that stateless clients should wait between refreshing the information they were given
@@ -210,6 +212,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetOption) ResourceSchemaAttrib
     |  1-4294967295  |  DHCPv6 information refresh time  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

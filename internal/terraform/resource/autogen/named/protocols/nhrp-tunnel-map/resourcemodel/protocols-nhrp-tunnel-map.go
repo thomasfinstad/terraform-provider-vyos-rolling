@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsNhrpTunnelMap{}
 
 // ProtocolsNhrpTunnelMap describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsNhrpTunnelMap struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,7 +42,7 @@ type ProtocolsNhrpTunnelMap struct {
 	LeafProtocolsNhrpTunnelMapNbmaAddress types.String `tfsdk:"nbma_address" vyos:"nbma-address,omitempty"`
 	LeafProtocolsNhrpTunnelMapRegister    types.Bool   `tfsdk:"register" vyos:"register,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -80,17 +82,16 @@ func (o *ProtocolsNhrpTunnelMap) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsNhrpTunnelMap) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"nhrp",
+		"nhrp", // Node
 
 		"tunnel",
-
 		o.SelfIdentifier.Attributes()["tunnel"].(types.String).ValueString(),
 	}
 }
@@ -101,19 +102,18 @@ func (o *ProtocolsNhrpTunnelMap) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsNhrpTunnelMap) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"nhrp",
+		"nhrp", // Node
 
 		"tunnel",
-
 		o.SelfIdentifier.Attributes()["tunnel"].(types.String).ValueString(),
 	}
 }
@@ -147,8 +147,8 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  map, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  map, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -185,8 +185,8 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  tunnel, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  tunnel, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -202,7 +202,7 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"cisco":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `If the statically mapped peer is running Cisco IOS, specify this
@@ -217,7 +217,7 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"nbma_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set HUB address (nbma-address - external hub address or fqdn)
@@ -230,7 +230,7 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"register":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies that Registration Request should be sent to this peer on startup
@@ -242,6 +242,8 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes(ctx context.Context) ma
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

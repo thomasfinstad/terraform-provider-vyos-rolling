@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &QosPolicyCakeFlowIsolation{}
 
 // QosPolicyCakeFlowIsolation describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type QosPolicyCakeFlowIsolation struct {
 	// LeafNodes
 	LeafQosPolicyCakeFlowIsolationBlind         types.Bool `tfsdk:"blind" vyos:"blind,omitempty"`
@@ -31,8 +33,7 @@ type QosPolicyCakeFlowIsolation struct {
 	LeafQosPolicyCakeFlowIsolationTrIPleIsolate types.Bool `tfsdk:"triple_isolate" vyos:"triple-isolate,omitempty"`
 	LeafQosPolicyCakeFlowIsolationNat           types.Bool `tfsdk:"nat" vyos:"nat,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -44,7 +45,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"blind":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disables flow isolation, all traffic passes through a single queue
@@ -59,7 +60,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"src_host":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined only by source address
@@ -74,7 +75,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"dst_host":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined only by destination address
@@ -89,7 +90,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"host":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by source-destination host pairs
@@ -104,7 +105,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"flow":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by the entire 5-tuple
@@ -119,7 +120,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"dual_src_host":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows
@@ -134,7 +135,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"dual_dst_host":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows
@@ -149,7 +150,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"triple_isolate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)
@@ -164,7 +165,7 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 
 		"nat":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Perform NAT lookup before applying flow-isolation rules
@@ -176,6 +177,8 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes(ctx context.Context
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

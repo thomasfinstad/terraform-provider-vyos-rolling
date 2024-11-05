@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceDNSForwardingAuthoritativeDomainRecordsMxServer{}
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsMxServer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceDNSForwardingAuthoritativeDomainRecordsMxServer struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -37,7 +39,7 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsMxServer struct {
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -77,31 +79,29 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) GetVyosPath() [
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dns",
+		"dns", // Node
 
-		"forwarding",
+		"forwarding", // Node
 
 		"authoritative-domain",
-
 		o.SelfIdentifier.Attributes()["authoritative_domain"].(types.String).ValueString(),
 
-		"records",
+		"records", // Node
 
 		"mx",
-
 		o.SelfIdentifier.Attributes()["mx"].(types.String).ValueString(),
 	}
 }
@@ -112,33 +112,31 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) GetVyosParentPa
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dns",
+		"dns", // Node
 
-		"forwarding",
+		"forwarding", // Node
 
 		"authoritative-domain",
-
 		o.SelfIdentifier.Attributes()["authoritative_domain"].(types.String).ValueString(),
 
-		"records",
+		"records", // Node
 
 		"mx",
-
 		o.SelfIdentifier.Attributes()["mx"].(types.String).ValueString(),
 	}
 }
@@ -178,8 +176,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  server, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  server, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -222,8 +220,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  authoritative_domain, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  authoritative_domain, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -256,8 +254,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  mx, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  mx, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -273,7 +271,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Server priority
@@ -292,6 +290,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 			// Default:          stringdefault.StaticString(`10`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

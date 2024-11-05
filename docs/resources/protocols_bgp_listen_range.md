@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_bgp_listen_range (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Border Gateway Protocol (BGP)  

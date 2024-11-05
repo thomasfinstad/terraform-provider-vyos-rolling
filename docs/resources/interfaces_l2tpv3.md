@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_l2tpv3 (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Layer 2 Tunnel Protocol Version 3 (L2TPv3) Interface**

@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesBondingEvpn{}
 
 // InterfacesBondingEvpn describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesBondingEvpn struct {
 	// LeafNodes
 	LeafInterfacesBondingEvpnEsDfPref types.Number `tfsdk:"es_df_pref" vyos:"es-df-pref,omitempty"`
@@ -26,8 +28,7 @@ type InterfacesBondingEvpn struct {
 	LeafInterfacesBondingEvpnEsSysMac types.String `tfsdk:"es_sys_mac" vyos:"es-sys-mac,omitempty"`
 	LeafInterfacesBondingEvpnUplink   types.Bool   `tfsdk:"uplink" vyos:"uplink,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o InterfacesBondingEvpn) ResourceSchemaAttributes(ctx context.Context) map
 
 		"es_df_pref":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Preference value used for designated forwarder (DF) election
@@ -58,7 +59,7 @@ func (o InterfacesBondingEvpn) ResourceSchemaAttributes(ctx context.Context) map
 
 		"es_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Ethernet segment identifier
@@ -79,7 +80,7 @@ func (o InterfacesBondingEvpn) ResourceSchemaAttributes(ctx context.Context) map
 
 		"es_sys_mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Ethernet segment system MAC
@@ -98,7 +99,7 @@ func (o InterfacesBondingEvpn) ResourceSchemaAttributes(ctx context.Context) map
 
 		"uplink":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Uplink to the VXLAN core
@@ -110,6 +111,8 @@ func (o InterfacesBondingEvpn) ResourceSchemaAttributes(ctx context.Context) map
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

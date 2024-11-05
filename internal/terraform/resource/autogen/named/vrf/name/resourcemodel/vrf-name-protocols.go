@@ -11,31 +11,40 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocols{}
 
 // VrfNameProtocols describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocols struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgp        *VrfNameProtocolsBgp        `tfsdk:"bgp" vyos:"bgp,omitempty"`
-	NodeVrfNameProtocolsEigrp      *VrfNameProtocolsEigrp      `tfsdk:"eigrp" vyos:"eigrp,omitempty"`
-	NodeVrfNameProtocolsIsis       *VrfNameProtocolsIsis       `tfsdk:"isis" vyos:"isis,omitempty"`
-	NodeVrfNameProtocolsOspf       *VrfNameProtocolsOspf       `tfsdk:"ospf" vyos:"ospf,omitempty"`
+
+	NodeVrfNameProtocolsBgp *VrfNameProtocolsBgp `tfsdk:"bgp" vyos:"bgp,omitempty"`
+
+	NodeVrfNameProtocolsEigrp *VrfNameProtocolsEigrp `tfsdk:"eigrp" vyos:"eigrp,omitempty"`
+
+	NodeVrfNameProtocolsIsis *VrfNameProtocolsIsis `tfsdk:"isis" vyos:"isis,omitempty"`
+
+	NodeVrfNameProtocolsOspf *VrfNameProtocolsOspf `tfsdk:"ospf" vyos:"ospf,omitempty"`
+
 	NodeVrfNameProtocolsOspfvthree *VrfNameProtocolsOspfvthree `tfsdk:"ospfv3" vyos:"ospfv3,omitempty"`
-	NodeVrfNameProtocolsStatic     *VrfNameProtocolsStatic     `tfsdk:"static" vyos:"static,omitempty"`
+
+	NodeVrfNameProtocolsStatic *VrfNameProtocolsStatic `tfsdk:"static" vyos:"static,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocols) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

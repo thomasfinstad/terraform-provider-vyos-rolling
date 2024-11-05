@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &SystemFlowAccountingNetflowTimeout{}
 
 // SystemFlowAccountingNetflowTimeout describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type SystemFlowAccountingNetflowTimeout struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -35,9 +37,9 @@ type SystemFlowAccountingNetflowTimeout struct {
 	LeafSystemFlowAccountingNetflowTimeoutTCPRst         types.Number `tfsdk:"tcp_rst" vyos:"tcp-rst,omitempty"`
 	LeafSystemFlowAccountingNetflowTimeoutUDP            types.Number `tfsdk:"udp" vyos:"udp,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -70,16 +72,17 @@ func (o *SystemFlowAccountingNetflowTimeout) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemFlowAccountingNetflowTimeout) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
 
-		"flow-accounting",
+		"flow-accounting", // Node
 
-		"netflow",
+		"netflow", // Node
+
 	}
 }
 
@@ -87,14 +90,13 @@ func (o *SystemFlowAccountingNetflowTimeout) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *SystemFlowAccountingNetflowTimeout) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -115,7 +117,7 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 
 		"expiry_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Expiry scan interval
@@ -137,7 +139,7 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 
 		"flow_generic":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Generic flow timeout value
@@ -159,7 +161,7 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 
 		"icmp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP timeout value
@@ -181,7 +183,7 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 
 		"max_active_life":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Max active timeout value
@@ -203,7 +205,7 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 
 		"tcp_fin":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP finish timeout value
@@ -225,7 +227,7 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 
 		"tcp_generic":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP generic timeout value
@@ -247,7 +249,7 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 
 		"tcp_rst":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP reset timeout value
@@ -269,7 +271,7 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 
 		"udp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `UDP timeout value
@@ -288,5 +290,10 @@ func (o SystemFlowAccountingNetflowTimeout) ResourceSchemaAttributes(ctx context
 			// Default:          stringdefault.StaticString(`300`),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

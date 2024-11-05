@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsRIPInterfaceAuthentication{}
 
 // ProtocolsRIPInterfaceAuthentication describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsRIPInterfaceAuthentication struct {
 	// LeafNodes
 	LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password" vyos:"plaintext-password,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagProtocolsRIPInterfaceAuthenticationMdfive bool `tfsdk:"-" vyos:"md5,child"`
 
@@ -37,7 +38,7 @@ func (o ProtocolsRIPInterfaceAuthentication) ResourceSchemaAttributes(ctx contex
 
 		"plaintext_password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Plain text password
@@ -53,6 +54,8 @@ func (o ProtocolsRIPInterfaceAuthentication) ResourceSchemaAttributes(ctx contex
     |  txt     |  Plain text password (16 characters or less)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

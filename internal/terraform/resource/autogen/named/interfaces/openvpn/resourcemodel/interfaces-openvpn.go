@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesOpenvpn{}
 
 // InterfacesOpenvpn describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesOpenvpn struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -55,21 +57,31 @@ type InterfacesOpenvpn struct {
 	LeafInterfacesOpenvpnRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesOpenvpnVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
-	TagInterfacesOpenvpnLocalAddress *InterfacesOpenvpnLocalAddress `tfsdk:"local_address" vyos:"local-address,omitempty"`
+	TagInterfacesOpenvpnLocalAddress map[string]*InterfacesOpenvpnLocalAddress `tfsdk:"local_address" vyos:"local-address,omitempty"`
 
 	// Nodes
-	NodeInterfacesOpenvpnAuthentication      *InterfacesOpenvpnAuthentication      `tfsdk:"authentication" vyos:"authentication,omitempty"`
-	NodeInterfacesOpenvpnEncryption          *InterfacesOpenvpnEncryption          `tfsdk:"encryption" vyos:"encryption,omitempty"`
-	NodeInterfacesOpenvpnIP                  *InterfacesOpenvpnIP                  `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesOpenvpnIPvsix              *InterfacesOpenvpnIPvsix              `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesOpenvpnMirror              *InterfacesOpenvpnMirror              `tfsdk:"mirror" vyos:"mirror,omitempty"`
-	NodeInterfacesOpenvpnKeepAlive           *InterfacesOpenvpnKeepAlive           `tfsdk:"keep_alive" vyos:"keep-alive,omitempty"`
-	NodeInterfacesOpenvpnOffload             *InterfacesOpenvpnOffload             `tfsdk:"offload" vyos:"offload,omitempty"`
+
+	NodeInterfacesOpenvpnAuthentication *InterfacesOpenvpnAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
+
+	NodeInterfacesOpenvpnEncryption *InterfacesOpenvpnEncryption `tfsdk:"encryption" vyos:"encryption,omitempty"`
+
+	NodeInterfacesOpenvpnIP *InterfacesOpenvpnIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesOpenvpnIPvsix *InterfacesOpenvpnIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesOpenvpnMirror *InterfacesOpenvpnMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesOpenvpnKeepAlive *InterfacesOpenvpnKeepAlive `tfsdk:"keep_alive" vyos:"keep-alive,omitempty"`
+
+	NodeInterfacesOpenvpnOffload *InterfacesOpenvpnOffload `tfsdk:"offload" vyos:"offload,omitempty"`
+
 	NodeInterfacesOpenvpnReplaceDefaultRoute *InterfacesOpenvpnReplaceDefaultRoute `tfsdk:"replace_default_route" vyos:"replace-default-route,omitempty"`
-	NodeInterfacesOpenvpnServer              *InterfacesOpenvpnServer              `tfsdk:"server" vyos:"server,omitempty"`
-	NodeInterfacesOpenvpnTLS                 *InterfacesOpenvpnTLS                 `tfsdk:"tls" vyos:"tls,omitempty"`
+
+	NodeInterfacesOpenvpnServer *InterfacesOpenvpnServer `tfsdk:"server" vyos:"server,omitempty"`
+
+	NodeInterfacesOpenvpnTLS *InterfacesOpenvpnTLS `tfsdk:"tls" vyos:"tls,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -107,8 +119,9 @@ func (o *InterfacesOpenvpn) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesOpenvpn) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -118,7 +131,7 @@ func (o *InterfacesOpenvpn) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesOpenvpn) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -158,8 +171,8 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  openvpn, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  openvpn, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -178,7 +191,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -197,7 +210,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"device_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `OpenVPN interface device-type
@@ -221,7 +234,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -236,7 +249,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"hash":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Hashing Algorithm
@@ -263,7 +276,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"local_host":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Local IP address to accept connections (all if not set)
@@ -284,7 +297,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"local_port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Local port number to accept connections
@@ -303,7 +316,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `OpenVPN mode of operation
@@ -325,7 +338,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 		},
 
 		"openvpn_option":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -339,7 +352,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"persistent_tunnel":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not close and reopen interface (TUN/TAP device) on client restarts
@@ -354,7 +367,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `OpenVPN communication protocol
@@ -380,7 +393,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"ip_version":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Force OpenVPN to use a specific IP protocol version
@@ -407,7 +420,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 		},
 
 		"remote_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -428,7 +441,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 		},
 
 		"remote_host":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -452,7 +465,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"remote_port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Remote port number to connect to
@@ -471,7 +484,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"shared_secret_key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Secret key shared with remote end of tunnel
@@ -484,7 +497,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"use_lzo_compression":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use fast LZO compression on this TUN/TAP interface
@@ -499,7 +512,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -518,7 +531,7 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -532,6 +545,21 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes(ctx context.Context) map[str
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
+`,
+		},
+
+		// TagNodes
+
+		"local_address": schema.MapNestedAttribute{
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: InterfacesOpenvpnLocalAddress{}.ResourceSchemaAttributes(ctx),
+			},
+			Optional: true,
+			MarkdownDescription: `Local IP address of tunnel (IPv4 or IPv6)
+
+`,
+			Description: `Local IP address of tunnel (IPv4 or IPv6)
+
 `,
 		},
 

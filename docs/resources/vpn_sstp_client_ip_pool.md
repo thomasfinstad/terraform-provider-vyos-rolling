@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_sstp_client_ip_pool (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  

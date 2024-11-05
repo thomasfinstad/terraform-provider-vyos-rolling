@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfAreaAreaTypeStub{}
 
 // VrfNameProtocolsOspfAreaAreaTypeStub describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfAreaAreaTypeStub struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaAreaTypeStubDefaultCost types.Number `tfsdk:"default_cost" vyos:"default-cost,omitempty"`
 	LeafVrfNameProtocolsOspfAreaAreaTypeStubNoSummary   types.Bool   `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes(ctx conte
 
 		"default_cost":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Summary-default cost
@@ -56,7 +57,7 @@ func (o VrfNameProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes(ctx conte
 
 		"no_summary":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into the stub
@@ -68,6 +69,8 @@ func (o VrfNameProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes(ctx conte
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

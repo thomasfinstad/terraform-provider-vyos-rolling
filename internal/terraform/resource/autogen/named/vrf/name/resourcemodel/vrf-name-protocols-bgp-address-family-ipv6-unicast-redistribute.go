@@ -12,26 +12,33 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeTable types.String `tfsdk:"table" vyos:"table,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected  *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected  `tfsdk:"connected" vyos:"connected,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel     *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel     `tfsdk:"kernel" vyos:"kernel,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected `tfsdk:"connected" vyos:"connected,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel `tfsdk:"kernel" vyos:"kernel,omitempty"`
+
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree `tfsdk:"ospfv3" vyos:"ospfv3,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng      *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng      `tfsdk:"ripng" vyos:"ripng,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel      *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel      `tfsdk:"babel" vyos:"babel,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic     *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic     `tfsdk:"static" vyos:"static,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng `tfsdk:"ripng" vyos:"ripng,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel `tfsdk:"babel" vyos:"babel,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic `tfsdk:"static" vyos:"static,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -41,7 +48,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 
 		"table":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
@@ -51,6 +58,8 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

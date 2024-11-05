@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &SystemLoginUserAuthenticationPublicKeys{}
 
 // SystemLoginUserAuthenticationPublicKeys describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type SystemLoginUserAuthenticationPublicKeys struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -39,7 +41,7 @@ type SystemLoginUserAuthenticationPublicKeys struct {
 	LeafSystemLoginUserAuthenticationPublicKeysOptions types.String `tfsdk:"options" vyos:"options,omitempty"`
 	LeafSystemLoginUserAuthenticationPublicKeysType    types.String `tfsdk:"type" vyos:"type,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -79,22 +81,22 @@ func (o *SystemLoginUserAuthenticationPublicKeys) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemLoginUserAuthenticationPublicKeys) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
 
-		"login",
+		"login", // Node
 
 		"user",
-
 		o.SelfIdentifier.Attributes()["user"].(types.String).ValueString(),
 
-		"authentication",
+		"authentication", // Node
+
 	}
 }
 
@@ -104,21 +106,20 @@ func (o *SystemLoginUserAuthenticationPublicKeys) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *SystemLoginUserAuthenticationPublicKeys) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
 
-		"login",
+		"login", // Node
 
 		"user",
-
 		o.SelfIdentifier.Attributes()["user"].(types.String).ValueString(),
 	}
 }
@@ -158,8 +159,8 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes(ctx co
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  public_keys, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  public_keys, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -192,8 +193,8 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes(ctx co
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  user, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  user, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -209,7 +210,7 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes(ctx co
 
 		"key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Public key value (Base64 encoded)
@@ -222,7 +223,7 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes(ctx co
 
 		"options":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Optional public key options
@@ -235,7 +236,7 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes(ctx co
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `SSH public key type
@@ -265,6 +266,8 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes(ctx co
     |  sk-ssh-ed25519@openssh.com          |  Elliptic curve 25519 security key              |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

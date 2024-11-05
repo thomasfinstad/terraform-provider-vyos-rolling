@@ -30,10 +30,19 @@ description: |-
       - [expect_table_size](#expect_table_size)
       - [flow_accounting](#flow_accounting)
       - [hash_size](#hash_size)
+      - [ignore](#ignore)
       - [table_size](#table_size)
+      - [timeout](#timeout)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `ignore`](#nested-schema-for-ignore)
+    - [Nested Schema for `ignore.ipv4`](#nested-schema-for-ignoreipv4)
+    - [Nested Schema for `ignore.ipv6`](#nested-schema-for-ignoreipv6)
+    - [Nested Schema for `timeout`](#nested-schema-for-timeout)
+    - [Nested Schema for `timeout.custom`](#nested-schema-for-timeoutcustom)
+    - [Nested Schema for `timeout.custom.ipv4`](#nested-schema-for-timeoutcustomipv4)
+    - [Nested Schema for `timeout.custom.ipv6`](#nested-schema-for-timeoutcustomipv6)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -58,12 +67,16 @@ description: |-
     |  Format      &emsp;|  Description                                        |
     |--------------|-----------------------------------------------------|
     |  1-50000000  &emsp;|  Size of hash to use for connection tracking table  |
+#### ignore
+- `ignore` (Attributes) Customized rules to ignore selective connection tracking (see [below for nested schema](#nestedatt--ignore))
 #### table_size
 - `table_size` (Number) Size of connection tracking table
 
     |  Format      &emsp;|  Description                                             |
     |--------------|----------------------------------------------------------|
     |  1-50000000  &emsp;|  Number of entries allowed in connection tracking table  |
+#### timeout
+- `timeout` (Attributes) Connection timeout options (see [below for nested schema](#nestedatt--timeout))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -71,6 +84,48 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--ignore"></a>
+### Nested Schema for `ignore`
+
+Optional:
+
+- `ipv4` (Attributes) IPv4 rules (see [below for nested schema](#nestedatt--ignore--ipv4))
+- `ipv6` (Attributes) IPv6 rules (see [below for nested schema](#nestedatt--ignore--ipv6))
+
+<a id="nestedatt--ignore--ipv4"></a>
+### Nested Schema for `ignore.ipv4`
+
+
+<a id="nestedatt--ignore--ipv6"></a>
+### Nested Schema for `ignore.ipv6`
+
+
+
+<a id="nestedatt--timeout"></a>
+### Nested Schema for `timeout`
+
+Optional:
+
+- `custom` (Attributes) Define custom timeouts per connection (see [below for nested schema](#nestedatt--timeout--custom))
+
+<a id="nestedatt--timeout--custom"></a>
+### Nested Schema for `timeout.custom`
+
+Optional:
+
+- `ipv4` (Attributes) IPv4 rules (see [below for nested schema](#nestedatt--timeout--custom--ipv4))
+- `ipv6` (Attributes) IPv6 rules (see [below for nested schema](#nestedatt--timeout--custom--ipv6))
+
+<a id="nestedatt--timeout--custom--ipv4"></a>
+### Nested Schema for `timeout.custom.ipv4`
+
+
+<a id="nestedatt--timeout--custom--ipv6"></a>
+### Nested Schema for `timeout.custom.ipv6`
+
+
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

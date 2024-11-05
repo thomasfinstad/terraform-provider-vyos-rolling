@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpParameters{}
 
 // VrfNameProtocolsBgpParameters describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpParameters struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersAllowMartianNexthop               types.Bool   `tfsdk:"allow_martian_nexthop" vyos:"allow-martian-nexthop,omitempty"`
@@ -43,18 +45,25 @@ type VrfNameProtocolsBgpParameters struct {
 	LeafVrfNameProtocolsBgpParametersSuppressFibPending                types.Bool   `tfsdk:"suppress_fib_pending" vyos:"suppress-fib-pending,omitempty"`
 	LeafVrfNameProtocolsBgpParametersRouterID                          types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpParametersBestpath                 *VrfNameProtocolsBgpParametersBestpath                 `tfsdk:"bestpath" vyos:"bestpath,omitempty"`
-	NodeVrfNameProtocolsBgpParametersConfederation            *VrfNameProtocolsBgpParametersConfederation            `tfsdk:"confederation" vyos:"confederation,omitempty"`
+
+	NodeVrfNameProtocolsBgpParametersBestpath *VrfNameProtocolsBgpParametersBestpath `tfsdk:"bestpath" vyos:"bestpath,omitempty"`
+
+	NodeVrfNameProtocolsBgpParametersConfederation *VrfNameProtocolsBgpParametersConfederation `tfsdk:"confederation" vyos:"confederation,omitempty"`
+
 	NodeVrfNameProtocolsBgpParametersConditionalAdvertisement *VrfNameProtocolsBgpParametersConditionalAdvertisement `tfsdk:"conditional_advertisement" vyos:"conditional-advertisement,omitempty"`
-	NodeVrfNameProtocolsBgpParametersDampening                *VrfNameProtocolsBgpParametersDampening                `tfsdk:"dampening" vyos:"dampening,omitempty"`
-	NodeVrfNameProtocolsBgpParametersDefault                  *VrfNameProtocolsBgpParametersDefault                  `tfsdk:"default" vyos:"default,omitempty"`
-	NodeVrfNameProtocolsBgpParametersDistance                 *VrfNameProtocolsBgpParametersDistance                 `tfsdk:"distance" vyos:"distance,omitempty"`
-	NodeVrfNameProtocolsBgpParametersGracefulRestart          *VrfNameProtocolsBgpParametersGracefulRestart          `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
-	NodeVrfNameProtocolsBgpParametersTCPKeepalive             *VrfNameProtocolsBgpParametersTCPKeepalive             `tfsdk:"tcp_keepalive" vyos:"tcp-keepalive,omitempty"`
+
+	NodeVrfNameProtocolsBgpParametersDampening *VrfNameProtocolsBgpParametersDampening `tfsdk:"dampening" vyos:"dampening,omitempty"`
+
+	NodeVrfNameProtocolsBgpParametersDefault *VrfNameProtocolsBgpParametersDefault `tfsdk:"default" vyos:"default,omitempty"`
+
+	NodeVrfNameProtocolsBgpParametersDistance *VrfNameProtocolsBgpParametersDistance `tfsdk:"distance" vyos:"distance,omitempty"`
+
+	NodeVrfNameProtocolsBgpParametersGracefulRestart *VrfNameProtocolsBgpParametersGracefulRestart `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
+
+	NodeVrfNameProtocolsBgpParametersTCPKeepalive *VrfNameProtocolsBgpParametersTCPKeepalive `tfsdk:"tcp_keepalive" vyos:"tcp-keepalive,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -64,7 +73,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"allow_martian_nexthop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow Martian nexthops to be received in the NLRI from a peer
@@ -79,7 +88,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"disable_ebgp_connected_route_check":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable checking if nexthop is connected on eBGP session
@@ -94,7 +103,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"always_compare_med":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Always compare MEDs from different neighbors
@@ -109,7 +118,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"cluster_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route-reflector cluster-id
@@ -128,7 +137,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"deterministic_med":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Compare MEDs between different peers in the same AS
@@ -143,7 +152,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"ebgp_requires_policy":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Require in and out policy for eBGP peers (RFC8212)
@@ -158,7 +167,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"fast_convergence":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Teardown sessions immediately whenever peer becomes unreachable
@@ -173,7 +182,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"graceful_shutdown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Graceful shutdown
@@ -188,7 +197,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"no_hard_administrative_reset":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send hard reset CEASE Notification for 'Administrative Reset'
@@ -203,7 +212,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"labeled_unicast":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP Labeled-unicast options
@@ -226,7 +235,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"log_neighbor_changes":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log neighbor up/down changes and reset reason
@@ -241,7 +250,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"minimum_holdtime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP minimum holdtime
@@ -260,7 +269,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"network_import_check":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable IGP route check for network statements
@@ -275,7 +284,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"route_reflector_allow_outbound_policy":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Route reflector client allow policy outbound
@@ -290,7 +299,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"no_client_to_client_reflection":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable client to client route reflection
@@ -305,7 +314,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"no_fast_external_failover":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable immediate session reset on peer link down event
@@ -320,7 +329,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"no_suppress_duplicates":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable suppress duplicate updates if the route actually not changed
@@ -335,7 +344,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"reject_as_sets":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reject routes with AS_SET or AS_CONFED_SET flag
@@ -350,7 +359,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"shutdown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative shutdown of the BGP instance
@@ -365,7 +374,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"suppress_fib_pending":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise only routes that are programmed in kernel to peers
@@ -380,7 +389,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
 
 		"router_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
@@ -396,6 +405,8 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Cont
     |  ipv4    |  Router-ID in IP address format  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

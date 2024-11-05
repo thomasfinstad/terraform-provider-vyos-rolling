@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VpnIPsecRemoteAccessPoolRange{}
 
 // VpnIPsecRemoteAccessPoolRange describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VpnIPsecRemoteAccessPoolRange struct {
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessPoolRangeStart types.String `tfsdk:"start" vyos:"start,omitempty"`
 	LeafVpnIPsecRemoteAccessPoolRangeStop  types.String `tfsdk:"stop" vyos:"stop,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VpnIPsecRemoteAccessPoolRange) ResourceSchemaAttributes(ctx context.Cont
 
 		"start":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `First IP address for local pool range
@@ -57,7 +58,7 @@ func (o VpnIPsecRemoteAccessPoolRange) ResourceSchemaAttributes(ctx context.Cont
 
 		"stop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Last IP address for local pool range
@@ -75,6 +76,8 @@ func (o VpnIPsecRemoteAccessPoolRange) ResourceSchemaAttributes(ctx context.Cont
     |  ipv6    |  IPv6 end address of pool  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

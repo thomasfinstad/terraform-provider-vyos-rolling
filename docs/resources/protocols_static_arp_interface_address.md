@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_static_arp_interface_address (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Static Routing  

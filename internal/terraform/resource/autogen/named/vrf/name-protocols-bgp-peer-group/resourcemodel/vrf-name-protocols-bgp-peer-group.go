@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsBgpPeerGroup{}
 
 // VrfNameProtocolsBgpPeerGroup describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VrfNameProtocolsBgpPeerGroup struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -49,18 +51,23 @@ type VrfNameProtocolsBgpPeerGroup struct {
 	LeafVrfNameProtocolsBgpPeerGroupRemoteAs                     types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
 	LeafVrfNameProtocolsBgpPeerGroupPort                         types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsBgpPeerGroupLocalAs bool `tfsdk:"-" vyos:"local-as,child"`
 
 	ExistsTagVrfNameProtocolsBgpPeerGroupLocalRole bool `tfsdk:"-" vyos:"local-role,child"`
 
 	// Nodes
+
 	NodeVrfNameProtocolsBgpPeerGroupAddressFamily *VrfNameProtocolsBgpPeerGroupAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
-	NodeVrfNameProtocolsBgpPeerGroupBfd           *VrfNameProtocolsBgpPeerGroupBfd           `tfsdk:"bfd" vyos:"bfd,omitempty"`
-	NodeVrfNameProtocolsBgpPeerGroupCapability    *VrfNameProtocolsBgpPeerGroupCapability    `tfsdk:"capability" vyos:"capability,omitempty"`
+
+	NodeVrfNameProtocolsBgpPeerGroupBfd *VrfNameProtocolsBgpPeerGroupBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
+
+	NodeVrfNameProtocolsBgpPeerGroupCapability *VrfNameProtocolsBgpPeerGroupCapability `tfsdk:"capability" vyos:"capability,omitempty"`
+
 	NodeVrfNameProtocolsBgpPeerGroupPathAttribute *VrfNameProtocolsBgpPeerGroupPathAttribute `tfsdk:"path_attribute" vyos:"path-attribute,omitempty"`
-	NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty   *VrfNameProtocolsBgpPeerGroupTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
+
+	NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty *VrfNameProtocolsBgpPeerGroupTTLSecURIty `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -98,22 +105,22 @@ func (o *VrfNameProtocolsBgpPeerGroup) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VrfNameProtocolsBgpPeerGroup) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vrf",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vrf", // Node
 
 		"name",
-
 		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
-		"protocols",
+		"protocols", // Node
 
-		"bgp",
+		"bgp", // Node
+
 	}
 }
 
@@ -123,19 +130,18 @@ func (o *VrfNameProtocolsBgpPeerGroup) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VrfNameProtocolsBgpPeerGroup) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vrf",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vrf", // Node
 
 		"name",
-
 		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
@@ -169,8 +175,8 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  peer_group, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  peer_group, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -209,8 +215,8 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -226,7 +232,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -245,7 +251,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"disable_capability_negotiation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable capability negotiation with this neighbor
@@ -260,7 +266,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"disable_connected_check":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow peerings between eBGP peer using loopback/dummy address
@@ -275,7 +281,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"ebgp_multihop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
@@ -294,7 +300,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"graceful_restart":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP graceful restart functionality
@@ -317,7 +323,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"override_capability":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore capability negotiation with specified neighbor
@@ -332,7 +338,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"passive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not initiate a session with this neighbor
@@ -347,7 +353,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP MD5 password
@@ -360,7 +366,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"shutdown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively shutdown this neighbor
@@ -375,7 +381,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"update_source":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source IP of routing updates
@@ -398,7 +404,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"remote_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
@@ -421,7 +427,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -437,6 +443,8 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Conte
     |  1-65535  |  Numeric IP port  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_service_dhcp_server_shared_network_name_subnet_option_static_route (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Dynamic Host Configuration Protocol (DHCP) for DHCP server  

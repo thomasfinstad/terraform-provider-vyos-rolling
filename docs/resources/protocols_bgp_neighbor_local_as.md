@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_bgp_neighbor_local_as (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Border Gateway Protocol (BGP)  

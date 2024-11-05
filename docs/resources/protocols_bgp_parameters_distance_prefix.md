@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_bgp_parameters_distance_prefix (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Border Gateway Protocol (BGP)  

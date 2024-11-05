@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_wireless_vif_s_vif_c (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Wireless (WiFi/WLAN) Network Interface  

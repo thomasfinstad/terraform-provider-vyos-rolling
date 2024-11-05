@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceIDsDdosProtection{}
 
 // ServiceIDsDdosProtection describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceIDsDdosProtection struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -34,11 +36,13 @@ type ServiceIDsDdosProtection struct {
 	LeafServiceIDsDdosProtectionMode            types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafServiceIDsDdosProtectionNetwork         types.List   `tfsdk:"network" vyos:"network,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceIDsDdosProtectionSflow     bool `tfsdk:"-" vyos:"sflow,child"`
-	ExistsNodeServiceIDsDdosProtectionThreshold bool `tfsdk:"-" vyos:"threshold,child"`
+	// Nodes
+
+	ExistsNodeServiceIDsDdosProtectionSflow bool `tfsdk:"-" vyos:"sflow,child"`
+
+	NodeServiceIDsDdosProtectionThreshold *ServiceIDsDdosProtectionThreshold `tfsdk:"threshold" vyos:"threshold,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -71,12 +75,13 @@ func (o *ServiceIDsDdosProtection) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceIDsDdosProtection) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"ids",
+		"ids", // Node
+
 	}
 }
 
@@ -84,12 +89,11 @@ func (o *ServiceIDsDdosProtection) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceIDsDdosProtection) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -110,7 +114,7 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"alert_script":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Path to fastnetmon alert script
@@ -123,7 +127,7 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"ban_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `How long we should keep an IP in blocked state
@@ -144,7 +148,7 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
 		},
 
 		"direction":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -157,7 +161,7 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
 		},
 
 		"excluded_network":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -178,7 +182,7 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
 		},
 
 		"listen_interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -192,7 +196,7 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Traffic capture mode
@@ -212,7 +216,7 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
 		},
 
 		"network":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -229,6 +233,21 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
     |-----------|------------------------|
     |  ipv4net  |  Your IPv4 prefix(es)  |
     |  ipv6net  |  Your IPv6 prefix(es)  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"threshold": schema.SingleNestedAttribute{
+			Attributes: ServiceIDsDdosProtectionThreshold{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Attack limits thresholds
+
+`,
+			Description: `Attack limits thresholds
+
 `,
 		},
 	}

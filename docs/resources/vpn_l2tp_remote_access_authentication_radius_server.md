@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_l2tp_remote_access_authentication_radius_server (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 L2TP Virtual Private Network (VPN)  

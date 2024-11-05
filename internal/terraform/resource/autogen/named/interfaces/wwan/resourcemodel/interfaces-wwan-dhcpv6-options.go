@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWwanDhcpvsixOptions{}
 
 // InterfacesWwanDhcpvsixOptions describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWwanDhcpvsixOptions struct {
 	// LeafNodes
 	LeafInterfacesWwanDhcpvsixOptionsDuID           types.String `tfsdk:"duid" vyos:"duid,omitempty"`
@@ -27,8 +29,7 @@ type InterfacesWwanDhcpvsixOptions struct {
 	LeafInterfacesWwanDhcpvsixOptionsTemporary      types.Bool   `tfsdk:"temporary" vyos:"temporary,omitempty"`
 	LeafInterfacesWwanDhcpvsixOptionsNoRelease      types.Bool   `tfsdk:"no_release" vyos:"no-release,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesWwanDhcpvsixOptionsPd bool `tfsdk:"-" vyos:"pd,child"`
 
@@ -42,7 +43,7 @@ func (o InterfacesWwanDhcpvsixOptions) ResourceSchemaAttributes(ctx context.Cont
 
 		"duid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DHCP unique identifier (DUID) to be sent by client
@@ -61,7 +62,7 @@ func (o InterfacesWwanDhcpvsixOptions) ResourceSchemaAttributes(ctx context.Cont
 
 		"parameters_only":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acquire only config parameters, no address
@@ -76,7 +77,7 @@ func (o InterfacesWwanDhcpvsixOptions) ResourceSchemaAttributes(ctx context.Cont
 
 		"rapid_commit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Wait for immediate reply instead of advertisements
@@ -91,7 +92,7 @@ func (o InterfacesWwanDhcpvsixOptions) ResourceSchemaAttributes(ctx context.Cont
 
 		"temporary":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv6 temporary address
@@ -106,7 +107,7 @@ func (o InterfacesWwanDhcpvsixOptions) ResourceSchemaAttributes(ctx context.Cont
 
 		"no_release":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send a release message on client exit
@@ -118,6 +119,8 @@ func (o InterfacesWwanDhcpvsixOptions) ResourceSchemaAttributes(ctx context.Cont
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

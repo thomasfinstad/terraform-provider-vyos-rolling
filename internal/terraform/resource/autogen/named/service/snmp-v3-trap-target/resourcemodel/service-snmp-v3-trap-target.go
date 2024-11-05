@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceSnmpVthreeTrapTarget{}
 
 // ServiceSnmpVthreeTrapTarget describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceSnmpVthreeTrapTarget struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,10 +42,12 @@ type ServiceSnmpVthreeTrapTarget struct {
 	LeafServiceSnmpVthreeTrapTargetType     types.String `tfsdk:"type" vyos:"type,omitempty"`
 	LeafServiceSnmpVthreeTrapTargetUser     types.String `tfsdk:"user" vyos:"user,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeServiceSnmpVthreeTrapTargetAuth    *ServiceSnmpVthreeTrapTargetAuth    `tfsdk:"auth" vyos:"auth,omitempty"`
+
+	NodeServiceSnmpVthreeTrapTargetAuth *ServiceSnmpVthreeTrapTargetAuth `tfsdk:"auth" vyos:"auth,omitempty"`
+
 	NodeServiceSnmpVthreeTrapTargetPrivacy *ServiceSnmpVthreeTrapTargetPrivacy `tfsdk:"privacy" vyos:"privacy,omitempty"`
 }
 
@@ -82,16 +86,17 @@ func (o *ServiceSnmpVthreeTrapTarget) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceSnmpVthreeTrapTarget) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"snmp",
+		"snmp", // Node
 
-		"v3",
+		"v3", // Node
+
 	}
 }
 
@@ -101,11 +106,11 @@ func (o *ServiceSnmpVthreeTrapTarget) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceSnmpVthreeTrapTarget) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -147,8 +152,8 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes(ctx context.Contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  trap_target, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  trap_target, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -171,7 +176,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes(ctx context.Contex
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -193,7 +198,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes(ctx context.Contex
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to be used (TCP/UDP)
@@ -217,7 +222,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes(ctx context.Contex
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies the type of notification between inform and trap
@@ -241,7 +246,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes(ctx context.Contex
 
 		"user":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Defines username for authentication
@@ -251,6 +256,8 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes(ctx context.Contex
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

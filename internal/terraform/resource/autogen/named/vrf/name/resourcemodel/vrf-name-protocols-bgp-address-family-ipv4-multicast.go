@@ -11,23 +11,25 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvfourMulticast{}
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourMulticast describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvfourMulticast struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress bool `tfsdk:"-" vyos:"aggregate-address,child"`
 
 	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork bool `tfsdk:"-" vyos:"network,child"`
 
 	// Nodes
+
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance *VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance `tfsdk:"distance" vyos:"distance,omitempty"`
 }
 
@@ -35,6 +37,8 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourMulticast struct {
 func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

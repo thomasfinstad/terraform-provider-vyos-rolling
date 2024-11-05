@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &LoadBalancingHaproxyBackendTimeout{}
 
 // LoadBalancingHaproxyBackendTimeout describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type LoadBalancingHaproxyBackendTimeout struct {
 	// LeafNodes
 	LeafLoadBalancingHaproxyBackendTimeoutCheck   types.Number `tfsdk:"check" vyos:"check,omitempty"`
 	LeafLoadBalancingHaproxyBackendTimeoutConnect types.Number `tfsdk:"connect" vyos:"connect,omitempty"`
 	LeafLoadBalancingHaproxyBackendTimeoutServer  types.Number `tfsdk:"server" vyos:"server,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o LoadBalancingHaproxyBackendTimeout) ResourceSchemaAttributes(ctx context
 
 		"check":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout in seconds for established connections
@@ -56,7 +57,7 @@ func (o LoadBalancingHaproxyBackendTimeout) ResourceSchemaAttributes(ctx context
 
 		"connect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set the maximum time to wait for a connection attempt to a server to succeed
@@ -75,7 +76,7 @@ func (o LoadBalancingHaproxyBackendTimeout) ResourceSchemaAttributes(ctx context
 
 		"server":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set the maximum inactivity time on the server side
@@ -91,6 +92,8 @@ func (o LoadBalancingHaproxyBackendTimeout) ResourceSchemaAttributes(ctx context
     |  1-3600  |  Server timeout in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

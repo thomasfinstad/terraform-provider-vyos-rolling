@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceMonitoringZabbixAgentServerActive{}
 
 // ServiceMonitoringZabbixAgentServerActive describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceMonitoringZabbixAgentServerActive struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -37,7 +39,7 @@ type ServiceMonitoringZabbixAgentServerActive struct {
 	// LeafNodes
 	LeafServiceMonitoringZabbixAgentServerActivePort types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -77,16 +79,17 @@ func (o *ServiceMonitoringZabbixAgentServerActive) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceMonitoringZabbixAgentServerActive) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"monitoring",
+		"monitoring", // Node
 
-		"zabbix-agent",
+		"zabbix-agent", // Node
+
 	}
 }
 
@@ -96,11 +99,11 @@ func (o *ServiceMonitoringZabbixAgentServerActive) GetVyosParentPath() []string 
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceMonitoringZabbixAgentServerActive) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -144,8 +147,8 @@ func (o ServiceMonitoringZabbixAgentServerActive) ResourceSchemaAttributes(ctx c
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  server_active, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  server_active, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -168,7 +171,7 @@ func (o ServiceMonitoringZabbixAgentServerActive) ResourceSchemaAttributes(ctx c
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -184,6 +187,8 @@ func (o ServiceMonitoringZabbixAgentServerActive) ResourceSchemaAttributes(ctx c
     |  1-65535  |  Numeric IP port  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

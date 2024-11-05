@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_loopback (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Loopback Interface**

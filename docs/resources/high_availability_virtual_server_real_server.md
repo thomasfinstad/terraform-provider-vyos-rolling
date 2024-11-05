@@ -10,6 +10,7 @@ description: |-
 # vyos_high_availability_virtual_server_real_server (Resource)
 <center>
 
+
 High availability settings  
 ⯯  
 Load-balancing virtual server alias  

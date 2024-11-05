@@ -13,22 +13,24 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfGracefulRestartHelper{}
 
 // VrfNameProtocolsOspfGracefulRestartHelper describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfGracefulRestartHelper struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfGracefulRestartHelperPlannedOnly         types.Bool   `tfsdk:"planned_only" vyos:"planned-only,omitempty"`
 	LeafVrfNameProtocolsOspfGracefulRestartHelperSupportedGraceTime  types.Number `tfsdk:"supported_grace_time" vyos:"supported-grace-time,omitempty"`
 	LeafVrfNameProtocolsOspfGracefulRestartHelperNoStrictLsaChecking types.Bool   `tfsdk:"no_strict_lsa_checking" vyos:"no-strict-lsa-checking,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVrfNameProtocolsOspfGracefulRestartHelperEnable *VrfNameProtocolsOspfGracefulRestartHelperEnable `tfsdk:"enable" vyos:"enable,omitempty"`
 }
 
@@ -39,7 +41,7 @@ func (o VrfNameProtocolsOspfGracefulRestartHelper) ResourceSchemaAttributes(ctx 
 
 		"planned_only":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Supported only planned restart
@@ -54,7 +56,7 @@ func (o VrfNameProtocolsOspfGracefulRestartHelper) ResourceSchemaAttributes(ctx 
 
 		"supported_grace_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Supported grace timer
@@ -73,7 +75,7 @@ func (o VrfNameProtocolsOspfGracefulRestartHelper) ResourceSchemaAttributes(ctx 
 
 		"no_strict_lsa_checking":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable strict LSA check
@@ -85,6 +87,8 @@ func (o VrfNameProtocolsOspfGracefulRestartHelper) ResourceSchemaAttributes(ctx 
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

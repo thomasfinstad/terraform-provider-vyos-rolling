@@ -16,23 +16,27 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &HighAvailability{}
 
 // HighAvailability describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type HighAvailability struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafHighAvailabilityDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagHighAvailabilityVirtualServer bool `tfsdk:"-" vyos:"virtual-server,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeHighAvailabilityVrrp bool `tfsdk:"-" vyos:"vrrp,child"`
 }
 
@@ -72,7 +76,6 @@ func (o *HighAvailability) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *HighAvailability) GetVyosNamedParentPath() []string {
 	return []string{}
 }
@@ -93,7 +96,7 @@ func (o HighAvailability) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -105,5 +108,10 @@ func (o HighAvailability) ResourceSchemaAttributes(ctx context.Context) map[stri
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

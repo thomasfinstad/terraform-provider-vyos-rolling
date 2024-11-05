@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_nhrp_tunnel_shortcut_target (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Next Hop Resolution Protocol (NHRP) parameters  

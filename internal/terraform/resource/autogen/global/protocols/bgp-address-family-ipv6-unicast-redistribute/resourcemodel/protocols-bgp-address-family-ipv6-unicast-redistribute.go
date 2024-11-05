@@ -15,28 +15,36 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}
 
 // ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixUnicastRedistributeTable types.String `tfsdk:"table" vyos:"table,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected  bool `tfsdk:"-" vyos:"connected,child"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel     bool `tfsdk:"-" vyos:"kernel,child"`
+	// Nodes
+
+	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected bool `tfsdk:"-" vyos:"connected,child"`
+
+	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel bool `tfsdk:"-" vyos:"kernel,child"`
+
 	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree bool `tfsdk:"-" vyos:"ospfv3,child"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng      bool `tfsdk:"-" vyos:"ripng,child"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel      bool `tfsdk:"-" vyos:"babel,child"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic     bool `tfsdk:"-" vyos:"static,child"`
+
+	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng bool `tfsdk:"-" vyos:"ripng,child"`
+
+	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel bool `tfsdk:"-" vyos:"babel,child"`
+
+	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic bool `tfsdk:"-" vyos:"static,child"`
 }
 
 // SetID configures the resource ID
@@ -69,20 +77,21 @@ func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosPath() []str
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"bgp",
+		"bgp", // Node
 
-		"address-family",
+		"address-family", // Node
 
-		"ipv6-unicast",
+		"ipv6-unicast", // Node
+
 	}
 }
 
@@ -90,16 +99,15 @@ func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosParentPath()
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -120,7 +128,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchemaAttrib
 
 		"table":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
@@ -130,5 +138,10 @@ func (o ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchemaAttrib
 
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

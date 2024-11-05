@@ -11,28 +11,34 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker{}
 
 // VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream         *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream         `tfsdk:"downstream" vyos:"downstream,omitempty"`
+
+	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream `tfsdk:"downstream" vyos:"downstream,omitempty"`
+
 	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric `tfsdk:"lowest_backup_metric" vyos:"lowest-backup-metric,omitempty"`
-	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting     *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting     `tfsdk:"node_protecting" vyos:"node-protecting,omitempty"`
+
+	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting `tfsdk:"node_protecting" vyos:"node-protecting,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

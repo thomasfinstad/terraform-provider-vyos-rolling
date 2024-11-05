@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_ethernet_dhcpv6_options_pd_interface (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Ethernet Interface  

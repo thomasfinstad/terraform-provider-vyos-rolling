@@ -10,6 +10,7 @@ description: |-
 # vyos_service_pppoe_server_client_ipv6_pool_delegate (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Point to Point over Ethernet (PPPoE) Server  

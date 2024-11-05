@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesMacsecSecURItyStatic{}
 
 // InterfacesMacsecSecURItyStatic describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesMacsecSecURItyStatic struct {
 	// LeafNodes
 	LeafInterfacesMacsecSecURItyStaticKey types.String `tfsdk:"key" vyos:"key,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesMacsecSecURItyStaticPeer bool `tfsdk:"-" vyos:"peer,child"`
 
@@ -37,7 +38,7 @@ func (o InterfacesMacsecSecURItyStatic) ResourceSchemaAttributes(ctx context.Con
 
 		"key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `MACsec static key
@@ -53,6 +54,8 @@ func (o InterfacesMacsecSecURItyStatic) ResourceSchemaAttributes(ctx context.Con
     |  txt     |  16-byte (128-bit) hex-string (32 hex-digits) for gcm-aes-128 or 32-byte (256-bit) hex-string (64 hex-digits) for gcm-aes-256  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceDNSForwardingZoneCacheOptions{}
 
 // ServiceDNSForwardingZoneCacheOptions describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceDNSForwardingZoneCacheOptions struct {
 	// LeafNodes
 	LeafServiceDNSForwardingZoneCacheOptionsTimeout       types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
@@ -26,10 +28,10 @@ type ServiceDNSForwardingZoneCacheOptions struct {
 	LeafServiceDNSForwardingZoneCacheOptionsZonemd        types.String `tfsdk:"zonemd" vyos:"zonemd,omitempty"`
 	LeafServiceDNSForwardingZoneCacheOptionsDNSsec        types.String `tfsdk:"dnssec" vyos:"dnssec,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeServiceDNSForwardingZoneCacheOptionsRefresh *ServiceDNSForwardingZoneCacheOptionsRefresh `tfsdk:"refresh" vyos:"refresh,omitempty"`
 }
 
@@ -40,7 +42,7 @@ func (o ServiceDNSForwardingZoneCacheOptions) ResourceSchemaAttributes(ctx conte
 
 		"timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Zone retrieval timeout
@@ -62,7 +64,7 @@ func (o ServiceDNSForwardingZoneCacheOptions) ResourceSchemaAttributes(ctx conte
 
 		"retry_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Retry interval after zone retrieval errors
@@ -84,7 +86,7 @@ func (o ServiceDNSForwardingZoneCacheOptions) ResourceSchemaAttributes(ctx conte
 
 		"max_zone_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum zone size in megabytes
@@ -108,7 +110,7 @@ func (o ServiceDNSForwardingZoneCacheOptions) ResourceSchemaAttributes(ctx conte
 
 		"zonemd":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Message Digest for DNS Zones (RFC 8976)
@@ -134,7 +136,7 @@ func (o ServiceDNSForwardingZoneCacheOptions) ResourceSchemaAttributes(ctx conte
 
 		"dnssec":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DNSSEC mode
@@ -157,6 +159,8 @@ func (o ServiceDNSForwardingZoneCacheOptions) ResourceSchemaAttributes(ctx conte
 			// Default:          stringdefault.StaticString(`validate`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

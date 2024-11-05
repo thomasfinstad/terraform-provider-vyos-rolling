@@ -13,20 +13,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfMaxMetricRouterLsa{}
 
 // VrfNameProtocolsOspfMaxMetricRouterLsa describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfMaxMetricRouterLsa struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative types.Bool   `tfsdk:"administrative" vyos:"administrative,omitempty"`
 	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown     types.Number `tfsdk:"on_shutdown" vyos:"on-shutdown,omitempty"`
 	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup      types.Number `tfsdk:"on_startup" vyos:"on-startup,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes(ctx con
 
 		"administrative":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively apply, for an indefinite period
@@ -53,7 +54,7 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes(ctx con
 
 		"on_shutdown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise stub-router prior to full shutdown of OSPF
@@ -72,7 +73,7 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes(ctx con
 
 		"on_startup":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Automatically advertise stub Router-LSA on startup of OSPF
@@ -88,6 +89,8 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes(ctx con
     |  5-86400  |  Time (seconds) to advertise self as stub-router  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

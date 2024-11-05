@@ -10,6 +10,7 @@ description: |-
 # vyos_load_balancing_haproxy_global_parameters_logging_facility (Resource)
 <center>
 
+
 *load-balancing*  
 ⯯  
 Configure haproxy  

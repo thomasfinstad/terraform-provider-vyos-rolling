@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesSstpc{}
 
 // InterfacesSstpc describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesSstpc struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -46,11 +48,13 @@ type InterfacesSstpc struct {
 	LeafInterfacesSstpcPort                 types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafInterfacesSstpcVrf                  types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeInterfacesSstpcAuthentication *InterfacesSstpcAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
-	NodeInterfacesSstpcSsl            *InterfacesSstpcSsl            `tfsdk:"ssl" vyos:"ssl,omitempty"`
+
+	NodeInterfacesSstpcSsl *InterfacesSstpcSsl `tfsdk:"ssl" vyos:"ssl,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -88,8 +92,9 @@ func (o *InterfacesSstpc) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesSstpc) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -99,7 +104,7 @@ func (o *InterfacesSstpc) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesSstpc) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -139,8 +144,8 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  sstpc, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  sstpc, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -159,7 +164,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -178,7 +183,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -193,7 +198,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"no_default_route":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not install default route to system
@@ -208,7 +213,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"default_route_distance":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
@@ -230,7 +235,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"no_peer_dns":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not use DNS servers provided by the peer
@@ -245,7 +250,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -267,7 +272,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"server":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Remote server to connect to
@@ -288,7 +293,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -310,7 +315,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -326,6 +331,8 @@ func (o InterfacesSstpc) ResourceSchemaAttributes(ctx context.Context) map[strin
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

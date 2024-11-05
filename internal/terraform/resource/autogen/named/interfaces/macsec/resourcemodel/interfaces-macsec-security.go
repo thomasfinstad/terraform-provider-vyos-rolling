@@ -13,24 +13,27 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesMacsecSecURIty{}
 
 // InterfacesMacsecSecURIty describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesMacsecSecURIty struct {
 	// LeafNodes
 	LeafInterfacesMacsecSecURItyCIPher       types.String `tfsdk:"cipher" vyos:"cipher,omitempty"`
 	LeafInterfacesMacsecSecURItyEncrypt      types.Bool   `tfsdk:"encrypt" vyos:"encrypt,omitempty"`
 	LeafInterfacesMacsecSecURItyReplayWindow types.Number `tfsdk:"replay_window" vyos:"replay-window,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeInterfacesMacsecSecURItyStatic *InterfacesMacsecSecURItyStatic `tfsdk:"static" vyos:"static,omitempty"`
-	NodeInterfacesMacsecSecURItyMka    *InterfacesMacsecSecURItyMka    `tfsdk:"mka" vyos:"mka,omitempty"`
+
+	NodeInterfacesMacsecSecURItyMka *InterfacesMacsecSecURItyMka `tfsdk:"mka" vyos:"mka,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -40,7 +43,7 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes(ctx context.Context) 
 
 		"cipher":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Cipher suite used
@@ -61,7 +64,7 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes(ctx context.Context) 
 
 		"encrypt":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable optional MACsec encryption
@@ -76,7 +79,7 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes(ctx context.Context) 
 
 		"replay_window":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IEEE 802.1X/MACsec replay protection window
@@ -94,6 +97,8 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes(ctx context.Context) 
     |  1-4294967295  |  Number of packets that could be misordered  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

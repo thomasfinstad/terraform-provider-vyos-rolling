@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_ospfv3_area_range (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Open Shortest Path First (OSPF) for IPv6  

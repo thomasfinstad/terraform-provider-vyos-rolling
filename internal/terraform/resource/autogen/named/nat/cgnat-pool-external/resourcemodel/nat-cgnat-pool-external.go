@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &NatCgnatPoolExternal{}
 
 // NatCgnatPoolExternal describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type NatCgnatPoolExternal struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -37,11 +39,12 @@ type NatCgnatPoolExternal struct {
 	// LeafNodes
 	LeafNatCgnatPoolExternalExternalPortRange types.String `tfsdk:"external_port_range" vyos:"external-port-range,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagNatCgnatPoolExternalRange bool `tfsdk:"-" vyos:"range,child"`
 
 	// Nodes
+
 	NodeNatCgnatPoolExternalPerUserLimit *NatCgnatPoolExternalPerUserLimit `tfsdk:"per_user_limit" vyos:"per-user-limit,omitempty"`
 }
 
@@ -80,16 +83,17 @@ func (o *NatCgnatPoolExternal) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *NatCgnatPoolExternal) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"nat",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"nat", // Node
 
-		"cgnat",
+		"cgnat", // Node
 
-		"pool",
+		"pool", // Node
+
 	}
 }
 
@@ -99,11 +103,11 @@ func (o *NatCgnatPoolExternal) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *NatCgnatPoolExternal) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -143,8 +147,8 @@ func (o NatCgnatPoolExternal) ResourceSchemaAttributes(ctx context.Context) map[
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  external, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  external, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -167,7 +171,7 @@ func (o NatCgnatPoolExternal) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"external_port_range":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port range
@@ -186,6 +190,8 @@ func (o NatCgnatPoolExternal) ResourceSchemaAttributes(ctx context.Context) map[
 			// Default:          stringdefault.StaticString(`1024-65535`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

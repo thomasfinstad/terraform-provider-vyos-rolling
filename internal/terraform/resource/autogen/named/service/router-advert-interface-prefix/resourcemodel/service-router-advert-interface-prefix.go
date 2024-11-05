@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceRouterAdvertInterfacePrefix{}
 
 // ServiceRouterAdvertInterfacePrefix describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceRouterAdvertInterfacePrefix struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -43,7 +45,7 @@ type ServiceRouterAdvertInterfacePrefix struct {
 	LeafServiceRouterAdvertInterfacePrefixPreferredLifetime types.String `tfsdk:"preferred_lifetime" vyos:"preferred-lifetime,omitempty"`
 	LeafServiceRouterAdvertInterfacePrefixValIDLifetime     types.String `tfsdk:"valid_lifetime" vyos:"valid-lifetime,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -83,17 +85,16 @@ func (o *ServiceRouterAdvertInterfacePrefix) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceRouterAdvertInterfacePrefix) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"router-advert",
+		"router-advert", // Node
 
 		"interface",
-
 		o.SelfIdentifier.Attributes()["interface"].(types.String).ValueString(),
 	}
 }
@@ -104,19 +105,18 @@ func (o *ServiceRouterAdvertInterfacePrefix) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceRouterAdvertInterfacePrefix) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"router-advert",
+		"router-advert", // Node
 
 		"interface",
-
 		o.SelfIdentifier.Attributes()["interface"].(types.String).ValueString(),
 	}
 }
@@ -156,8 +156,8 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  prefix, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  prefix, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -188,8 +188,8 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -205,7 +205,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 
 		"no_autonomous_flag":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix can not be used for stateless address auto-configuration
@@ -220,7 +220,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 
 		"no_on_link_flag":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix can not be used for on-link determination
@@ -235,7 +235,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 
 		"deprecate_prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Upon shutdown, this option will deprecate the prefix by announcing it in the shutdown RA
@@ -250,7 +250,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 
 		"decrement_lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Lifetime is decremented by the number of seconds since the last RA - use in conjunction with a DHCPv6-PD prefix
@@ -265,7 +265,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 
 		"preferred_lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Time in seconds that the prefix will remain preferred
@@ -289,7 +289,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 
 		"valid_lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Time in seconds that the prefix will remain valid
@@ -310,6 +310,8 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes(ctx context
 			// Default:          stringdefault.StaticString(`2592000`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

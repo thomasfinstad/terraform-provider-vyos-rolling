@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceConfigSyncSection{}
 
 // ServiceConfigSyncSection describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceConfigSyncSection struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -35,14 +37,19 @@ type ServiceConfigSyncSection struct {
 	LeafServiceConfigSyncSectionVpn       types.Bool `tfsdk:"vpn" vyos:"vpn,omitempty"`
 	LeafServiceConfigSyncSectionVrf       types.Bool `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeServiceConfigSyncSectionInterfaces bool `tfsdk:"-" vyos:"interfaces,child"`
-	ExistsNodeServiceConfigSyncSectionProtocols  bool `tfsdk:"-" vyos:"protocols,child"`
-	ExistsNodeServiceConfigSyncSectionQos        bool `tfsdk:"-" vyos:"qos,child"`
-	ExistsNodeServiceConfigSyncSectionService    bool `tfsdk:"-" vyos:"service,child"`
-	ExistsNodeServiceConfigSyncSectionSystem     bool `tfsdk:"-" vyos:"system,child"`
+
+	ExistsNodeServiceConfigSyncSectionProtocols bool `tfsdk:"-" vyos:"protocols,child"`
+
+	ExistsNodeServiceConfigSyncSectionQos bool `tfsdk:"-" vyos:"qos,child"`
+
+	ExistsNodeServiceConfigSyncSectionService bool `tfsdk:"-" vyos:"service,child"`
+
+	ExistsNodeServiceConfigSyncSectionSystem bool `tfsdk:"-" vyos:"system,child"`
 }
 
 // SetID configures the resource ID
@@ -75,12 +82,13 @@ func (o *ServiceConfigSyncSection) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceConfigSyncSection) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"config-sync",
+		"config-sync", // Node
+
 	}
 }
 
@@ -88,12 +96,11 @@ func (o *ServiceConfigSyncSection) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceConfigSyncSection) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -114,7 +121,7 @@ func (o ServiceConfigSyncSection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"firewall":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Firewall
@@ -129,7 +136,7 @@ func (o ServiceConfigSyncSection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"nat":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `NAT
@@ -144,7 +151,7 @@ func (o ServiceConfigSyncSection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"nat66":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `NAT66
@@ -159,7 +166,7 @@ func (o ServiceConfigSyncSection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"pki":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Public key infrastructure (PKI)
@@ -174,7 +181,7 @@ func (o ServiceConfigSyncSection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"policy":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Routing policy
@@ -189,7 +196,7 @@ func (o ServiceConfigSyncSection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"vpn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Private Network (VPN)
@@ -204,7 +211,7 @@ func (o ServiceConfigSyncSection) ResourceSchemaAttributes(ctx context.Context) 
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Routing and Forwarding
@@ -216,5 +223,10 @@ func (o ServiceConfigSyncSection) ResourceSchemaAttributes(ctx context.Context) 
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

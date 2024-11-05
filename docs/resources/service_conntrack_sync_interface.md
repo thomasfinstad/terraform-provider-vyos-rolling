@@ -10,6 +10,7 @@ description: |-
 # vyos_service_conntrack_sync_interface (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Connection tracking synchronization  

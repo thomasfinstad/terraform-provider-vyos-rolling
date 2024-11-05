@@ -13,20 +13,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
 
 // VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo struct {
 	// LeafNodes
 	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwoAlways   types.Bool   `tfsdk:"always" vyos:"always,omitempty"`
 	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwoMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwoRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo) Resource
 
 		"always":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Always advertise default route
@@ -53,7 +54,7 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo) Resource
 
 		"metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
@@ -72,7 +73,7 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo) Resource
 
 		"route_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
@@ -88,6 +89,8 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo) Resource
     |  txt     |  Route map name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

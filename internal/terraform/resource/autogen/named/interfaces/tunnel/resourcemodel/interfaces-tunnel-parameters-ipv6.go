@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesTunnelParametersIPvsix{}
 
 // InterfacesTunnelParametersIPvsix describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesTunnelParametersIPvsix struct {
 	// LeafNodes
 	LeafInterfacesTunnelParametersIPvsixEncaplimit types.String `tfsdk:"encaplimit" vyos:"encaplimit,omitempty"`
@@ -25,8 +27,7 @@ type InterfacesTunnelParametersIPvsix struct {
 	LeafInterfacesTunnelParametersIPvsixHoplimit   types.Number `tfsdk:"hoplimit" vyos:"hoplimit,omitempty"`
 	LeafInterfacesTunnelParametersIPvsixTclass     types.String `tfsdk:"tclass" vyos:"tclass,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes(ctx context.C
 
 		"encaplimit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set fixed encapsulation limit
@@ -62,7 +63,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes(ctx context.C
 
 		"flowlabel":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies the flow label to use in outgoing packets
@@ -83,7 +84,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes(ctx context.C
 
 		"hoplimit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hoplimit
@@ -105,7 +106,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes(ctx context.C
 
 		"tclass":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Traffic class (Tclass)
@@ -124,6 +125,8 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes(ctx context.C
 			// Default:          stringdefault.StaticString(`inherit`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

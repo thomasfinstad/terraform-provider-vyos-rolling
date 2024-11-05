@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceSaltMinion{}
 
 // ServiceSaltMinion describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceSaltMinion struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -33,9 +35,9 @@ type ServiceSaltMinion struct {
 	LeafServiceSaltMinionMasterKey       types.String `tfsdk:"master_key" vyos:"master-key,omitempty"`
 	LeafServiceSaltMinionSourceInterface types.String `tfsdk:"source_interface" vyos:"source-interface,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -68,8 +70,9 @@ func (o *ServiceSaltMinion) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceSaltMinion) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -77,10 +80,9 @@ func (o *ServiceSaltMinion) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceSaltMinion) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -101,7 +103,7 @@ func (o ServiceSaltMinion) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"hash":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Hash used when discovering file on master server (default: sha256)
@@ -116,7 +118,7 @@ func (o ServiceSaltMinion) ResourceSchemaAttributes(ctx context.Context) map[str
 		},
 
 		"master":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -140,7 +142,7 @@ func (o ServiceSaltMinion) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"id_param":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Explicitly declare ID for this minion to use (default: hostname)
@@ -153,7 +155,7 @@ func (o ServiceSaltMinion) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval in minutes between updates (default: 60)
@@ -175,7 +177,7 @@ func (o ServiceSaltMinion) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"master_key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `URL with signature of master for auth reply verification
@@ -188,7 +190,7 @@ func (o ServiceSaltMinion) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"source_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
@@ -204,5 +206,10 @@ func (o ServiceSaltMinion) ResourceSchemaAttributes(ctx context.Context) map[str
     |  interface  |  Interface name  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

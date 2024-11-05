@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVirtualServer{}
 
 // HighAvailabilityVirtualServer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type HighAvailabilityVirtualServer struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -44,7 +46,7 @@ type HighAvailabilityVirtualServer struct {
 	LeafHighAvailabilityVirtualServerPersistenceTimeout types.Number `tfsdk:"persistence_timeout" vyos:"persistence-timeout,omitempty"`
 	LeafHighAvailabilityVirtualServerProtocol           types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagHighAvailabilityVirtualServerRealServer bool `tfsdk:"-" vyos:"real-server,child"`
 
@@ -86,8 +88,9 @@ func (o *HighAvailabilityVirtualServer) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *HighAvailabilityVirtualServer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"high-availability",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"high-availability", // Node
+
 	}
 }
 
@@ -97,7 +100,7 @@ func (o *HighAvailabilityVirtualServer) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *HighAvailabilityVirtualServer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -131,8 +134,8 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  virtual_server, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  virtual_server, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -151,7 +154,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address
@@ -172,7 +175,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 
 		"algorithm":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Schedule algorithm (default - least-connection)
@@ -206,7 +209,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 
 		"delay_loop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between health-checks (in seconds)
@@ -228,7 +231,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 
 		"forward_method":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Forwarding method
@@ -254,7 +257,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 
 		"fwmark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match fwmark value
@@ -273,7 +276,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -292,7 +295,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 
 		"persistence_timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout for persistent connections
@@ -314,7 +317,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol for port checks
@@ -335,6 +338,8 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes(ctx context.Cont
 			// Default:          stringdefault.StaticString(`tcp`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

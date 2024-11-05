@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}
 
 // ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -38,7 +40,7 @@ type ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
 	// LeafNodes
 	LeafProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key" vyos:"md5-key,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -78,32 +80,31 @@ func (o *ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosPath() []
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"ospf",
+		"ospf", // Node
 
 		"area",
-
 		o.SelfIdentifier.Attributes()["area"].(types.String).ValueString(),
 
 		"virtual-link",
-
 		o.SelfIdentifier.Attributes()["virtual_link"].(types.String).ValueString(),
 
-		"authentication",
+		"authentication", // Node
 
-		"md5",
+		"md5", // Node
+
 	}
 }
 
@@ -113,29 +114,27 @@ func (o *ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosParentPat
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"ospf",
+		"ospf", // Node
 
 		"area",
-
 		o.SelfIdentifier.Attributes()["area"].(types.String).ValueString(),
 
 		"virtual-link",
-
 		o.SelfIdentifier.Attributes()["virtual_link"].(types.String).ValueString(),
 	}
 }
@@ -208,8 +207,8 @@ func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSchemaAtt
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  area, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  area, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -240,8 +239,8 @@ func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSchemaAtt
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  virtual_link, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  virtual_link, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -257,7 +256,7 @@ func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSchemaAtt
 
 		"md5_key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `MD5 authentication type
@@ -273,6 +272,8 @@ func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSchemaAtt
     |  txt     |  MD5 Key (16 characters or less)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

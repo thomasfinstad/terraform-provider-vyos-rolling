@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceNtp{}
 
 // ServiceNtp describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceNtp struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -31,12 +33,15 @@ type ServiceNtp struct {
 	LeafServiceNtpVrf           types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 	LeafServiceNtpLeapSecond    types.String `tfsdk:"leap_second" vyos:"leap-second,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceNtpServer bool `tfsdk:"-" vyos:"server,child"`
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceNtpAllowClient bool `tfsdk:"-" vyos:"allow-client,child"`
-	ExistsNodeServiceNtpPtp         bool `tfsdk:"-" vyos:"ptp,child"`
+	TagServiceNtpServer map[string]*ServiceNtpServer `tfsdk:"server" vyos:"server,omitempty"`
+
+	// Nodes
+
+	NodeServiceNtpAllowClient *ServiceNtpAllowClient `tfsdk:"allow_client" vyos:"allow-client,omitempty"`
+
+	ExistsNodeServiceNtpPtp bool `tfsdk:"-" vyos:"ptp,child"`
 }
 
 // SetID configures the resource ID
@@ -69,8 +74,9 @@ func (o *ServiceNtp) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceNtp) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -78,10 +84,9 @@ func (o *ServiceNtp) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceNtp) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -102,7 +107,7 @@ func (o ServiceNtp) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 		"interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface to use
@@ -120,7 +125,7 @@ func (o ServiceNtp) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		},
 
 		"listen_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -142,7 +147,7 @@ func (o ServiceNtp) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -161,7 +166,7 @@ func (o ServiceNtp) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 		"leap_second":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Leap second behavior
@@ -185,6 +190,44 @@ func (o ServiceNtp) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 			// Default:          stringdefault.StaticString(`timezone`),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		"server": schema.MapNestedAttribute{
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: ServiceNtpServer{}.ResourceSchemaAttributes(ctx),
+			},
+			Optional: true,
+			MarkdownDescription: `Network Time Protocol (NTP) server
+
+    |  Format    |  Description                                |
+    |------------|---------------------------------------------|
+    |  ipv4      |  IP address of NTP server                   |
+    |  ipv6      |  IPv6 address of NTP server                 |
+    |  hostname  |  Fully qualified domain name of NTP server  |
+`,
+			Description: `Network Time Protocol (NTP) server
+
+    |  Format    |  Description                                |
+    |------------|---------------------------------------------|
+    |  ipv4      |  IP address of NTP server                   |
+    |  ipv6      |  IPv6 address of NTP server                 |
+    |  hostname  |  Fully qualified domain name of NTP server  |
+`,
+		},
+
+		// Nodes
+
+		"allow_client": schema.SingleNestedAttribute{
+			Attributes: ServiceNtpAllowClient{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Restrict to allowed IP client addresses
+
+`,
+			Description: `Restrict to allowed IP client addresses
+
+`,
 		},
 	}
 }

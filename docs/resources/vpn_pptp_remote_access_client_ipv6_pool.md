@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_pptp_remote_access_client_ipv6_pool (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  

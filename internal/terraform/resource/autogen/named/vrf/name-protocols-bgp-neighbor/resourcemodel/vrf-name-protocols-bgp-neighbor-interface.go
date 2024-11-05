@@ -12,22 +12,24 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpNeighborInterface{}
 
 // VrfNameProtocolsBgpNeighborInterface describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpNeighborInterface struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup       types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs        types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface types.String `tfsdk:"source_interface" vyos:"source-interface,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly *VrfNameProtocolsBgpNeighborInterfaceVsixonly `tfsdk:"v6only" vyos:"v6only,omitempty"`
 }
 
@@ -38,7 +40,7 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes(ctx conte
 
 		"peer_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
@@ -57,7 +59,7 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes(ctx conte
 
 		"remote_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
@@ -80,7 +82,7 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes(ctx conte
 
 		"source_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
@@ -96,6 +98,8 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes(ctx conte
     |  interface  |  Interface name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

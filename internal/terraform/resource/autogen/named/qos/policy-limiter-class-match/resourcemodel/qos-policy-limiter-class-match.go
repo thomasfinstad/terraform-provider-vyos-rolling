@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &QosPolicyLimiterClassMatch{}
 
 // QosPolicyLimiterClassMatch describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type QosPolicyLimiterClassMatch struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -41,11 +43,14 @@ type QosPolicyLimiterClassMatch struct {
 	LeafQosPolicyLimiterClassMatchMark        types.Number `tfsdk:"mark" vyos:"mark,omitempty"`
 	LeafQosPolicyLimiterClassMatchVif         types.Number `tfsdk:"vif" vyos:"vif,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeQosPolicyLimiterClassMatchEther  *QosPolicyLimiterClassMatchEther  `tfsdk:"ether" vyos:"ether,omitempty"`
-	NodeQosPolicyLimiterClassMatchIP     *QosPolicyLimiterClassMatchIP     `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeQosPolicyLimiterClassMatchEther *QosPolicyLimiterClassMatchEther `tfsdk:"ether" vyos:"ether,omitempty"`
+
+	NodeQosPolicyLimiterClassMatchIP *QosPolicyLimiterClassMatchIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
 	NodeQosPolicyLimiterClassMatchIPvsix *QosPolicyLimiterClassMatchIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
 }
 
@@ -84,23 +89,21 @@ func (o *QosPolicyLimiterClassMatch) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *QosPolicyLimiterClassMatch) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"qos",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"qos", // Node
 
-		"policy",
+		"policy", // Node
 
 		"limiter",
-
 		o.SelfIdentifier.Attributes()["limiter"].(types.String).ValueString(),
 
 		"class",
-
 		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	}
 }
@@ -111,25 +114,23 @@ func (o *QosPolicyLimiterClassMatch) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *QosPolicyLimiterClassMatch) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"qos",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"qos", // Node
 
-		"policy",
+		"policy", // Node
 
 		"limiter",
-
 		o.SelfIdentifier.Attributes()["limiter"].(types.String).ValueString(),
 
 		"class",
-
 		o.SelfIdentifier.Attributes()["class"].(types.Number).ValueBigFloat().String(),
 	}
 }
@@ -163,8 +164,8 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes(ctx context.Context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  match, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  match, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -203,8 +204,8 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes(ctx context.Context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  limiter, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  limiter, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -239,7 +240,7 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes(ctx context.Context
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -258,7 +259,7 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes(ctx context.Context
 
 		"interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface to use
@@ -277,7 +278,7 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes(ctx context.Context
 
 		"mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
@@ -296,7 +297,7 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes(ctx context.Context
 
 		"vif":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
@@ -312,6 +313,8 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes(ctx context.Context
     |  0-4095  |  Virtual Local Area Network (VLAN) tag   |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

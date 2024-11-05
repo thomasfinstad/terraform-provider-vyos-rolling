@@ -10,6 +10,7 @@ description: |-
 # vyos_policy_prefix_list6 (Resource)
 <center>
 
+
 Routing policy  
 ⯯  
 **IPv6 prefix-list filter**

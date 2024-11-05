@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessCapabilitiesHt{}
 
 // InterfacesWirelessCapabilitiesHt describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessCapabilitiesHt struct {
 	// LeafNodes
 	LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable types.Bool   `tfsdk:"_40mhz_incapable" vyos:"40mhz-incapable,omitempty"`
@@ -33,10 +35,10 @@ type InterfacesWirelessCapabilitiesHt struct {
 	LeafInterfacesWirelessCapabilitiesHtShortGi              types.List   `tfsdk:"short_gi" vyos:"short-gi,omitempty"`
 	LeafInterfacesWirelessCapabilitiesHtSmps                 types.String `tfsdk:"smps" vyos:"smps,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeInterfacesWirelessCapabilitiesHtStbc *InterfacesWirelessCapabilitiesHtStbc `tfsdk:"stbc" vyos:"stbc,omitempty"`
 }
 
@@ -47,7 +49,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"_40mhz_incapable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `40MHz intolerance, use 20MHz only!
@@ -62,7 +64,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"auto_powersave":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable WMM-PS unscheduled automatic power save delivery [U-APSD]
@@ -76,7 +78,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 		},
 
 		"channel_set_width":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -100,7 +102,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"delayed_block_ack":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable HT-delayed block ack
@@ -115,7 +117,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"dsss_cck_40":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable DSSS_CCK-40
@@ -130,7 +132,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"greenfield":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable HT-greenfield
@@ -145,7 +147,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"ldpc":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable LDPC coding capability
@@ -160,7 +162,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"lsig_protection":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable L-SIG TXOP protection capability
@@ -175,7 +177,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"max_amsdu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set maximum A-MSDU length
@@ -195,7 +197,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 		},
 
 		"short_gi":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -217,7 +219,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
 
 		"smps":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Spatial Multiplexing Power Save (SMPS) settings
@@ -235,6 +237,8 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes(ctx context.C
     |  dynamic  |  DYNAMIC Spatial Multiplexing (SM) Power Save  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

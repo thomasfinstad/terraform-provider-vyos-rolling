@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesWireguardPeer{}
 
 // InterfacesWireguardPeer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesWireguardPeer struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -45,7 +47,7 @@ type InterfacesWireguardPeer struct {
 	LeafInterfacesWireguardPeerPort                types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafInterfacesWireguardPeerPersistentKeepalive types.Number `tfsdk:"persistent_keepalive" vyos:"persistent-keepalive,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -85,13 +87,12 @@ func (o *InterfacesWireguardPeer) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesWireguardPeer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"wireguard",
-
 		o.SelfIdentifier.Attributes()["wireguard"].(types.String).ValueString(),
 	}
 }
@@ -102,15 +103,14 @@ func (o *InterfacesWireguardPeer) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesWireguardPeer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"wireguard",
-
 		o.SelfIdentifier.Attributes()["wireguard"].(types.String).ValueString(),
 	}
 }
@@ -144,8 +144,8 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  peer, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  peer, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -180,8 +180,8 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  wireguard, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  wireguard, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -197,7 +197,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -212,7 +212,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -231,7 +231,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"public_key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `base64 encoded public key
@@ -244,7 +244,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"preshared_key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `base64 encoded preshared key
@@ -256,7 +256,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 		},
 
 		"allowed_ips":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -270,7 +270,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address of tunnel endpoint
@@ -291,7 +291,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -310,7 +310,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"persistent_keepalive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval to send keepalive messages
@@ -326,6 +326,8 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
     |  1-65535  |  Interval in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

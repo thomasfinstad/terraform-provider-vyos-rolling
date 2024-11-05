@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfRefresh{}
 
 // VrfNameProtocolsOspfRefresh describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfRefresh struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfRefreshTimers types.Number `tfsdk:"timers" vyos:"timers,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -35,7 +36,7 @@ func (o VrfNameProtocolsOspfRefresh) ResourceSchemaAttributes(ctx context.Contex
 
 		"timers":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Refresh timer
@@ -51,6 +52,8 @@ func (o VrfNameProtocolsOspfRefresh) ResourceSchemaAttributes(ctx context.Contex
     |  10-1800  |  Timer value in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

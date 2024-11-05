@@ -11,21 +11,25 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvfourInputFilterRuleGreFlags{}
 
 // FirewallIPvfourInputFilterRuleGreFlags describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvfourInputFilterRuleGreFlags struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeFirewallIPvfourInputFilterRuleGreFlagsKey      *FirewallIPvfourInputFilterRuleGreFlagsKey      `tfsdk:"key" vyos:"key,omitempty"`
+
+	NodeFirewallIPvfourInputFilterRuleGreFlagsKey *FirewallIPvfourInputFilterRuleGreFlagsKey `tfsdk:"key" vyos:"key,omitempty"`
+
 	NodeFirewallIPvfourInputFilterRuleGreFlagsChecksum *FirewallIPvfourInputFilterRuleGreFlagsChecksum `tfsdk:"checksum" vyos:"checksum,omitempty"`
+
 	NodeFirewallIPvfourInputFilterRuleGreFlagsSequence *FirewallIPvfourInputFilterRuleGreFlagsSequence `tfsdk:"sequence" vyos:"sequence,omitempty"`
 }
 
@@ -33,6 +37,8 @@ type FirewallIPvfourInputFilterRuleGreFlags struct {
 func (o FirewallIPvfourInputFilterRuleGreFlags) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

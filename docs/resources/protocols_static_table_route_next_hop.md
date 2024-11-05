@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_static_table_route_next_hop (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Static Routing  

@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsStaticRouteNextHop{}
 
 // ProtocolsStaticRouteNextHop describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsStaticRouteNextHop struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -41,9 +43,10 @@ type ProtocolsStaticRouteNextHop struct {
 	LeafProtocolsStaticRouteNextHopInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
 	LeafProtocolsStaticRouteNextHopVrf       types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeProtocolsStaticRouteNextHopBfd *ProtocolsStaticRouteNextHopBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
 }
 
@@ -82,17 +85,16 @@ func (o *ProtocolsStaticRouteNextHop) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsStaticRouteNextHop) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"static",
+		"static", // Node
 
 		"route",
-
 		o.SelfIdentifier.Attributes()["route"].(types.String).ValueString(),
 	}
 }
@@ -103,19 +105,18 @@ func (o *ProtocolsStaticRouteNextHop) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsStaticRouteNextHop) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"static",
+		"static", // Node
 
 		"route",
-
 		o.SelfIdentifier.Attributes()["route"].(types.String).ValueString(),
 	}
 }
@@ -155,8 +156,8 @@ func (o ProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context.Contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  next_hop, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  next_hop, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -193,8 +194,8 @@ func (o ProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context.Contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -210,7 +211,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context.Contex
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -225,7 +226,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context.Contex
 
 		"distance":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for this route
@@ -244,7 +245,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context.Contex
 
 		"interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Gateway interface name
@@ -263,7 +264,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context.Contex
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
@@ -279,6 +280,8 @@ func (o ProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context.Contex
     |  txt     |  Name of VRF to leak to  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

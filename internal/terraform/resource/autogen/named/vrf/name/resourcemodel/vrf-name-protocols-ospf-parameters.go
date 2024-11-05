@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfParameters{}
 
 // VrfNameProtocolsOspfParameters describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfParameters struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfParametersAbrType                           types.String `tfsdk:"abr_type" vyos:"abr-type,omitempty"`
@@ -26,8 +28,7 @@ type VrfNameProtocolsOspfParameters struct {
 	LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility types.Bool   `tfsdk:"rfc1583_compatibility" vyos:"rfc1583-compatibility,omitempty"`
 	LeafVrfNameProtocolsOspfParametersRouterID                          types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes(ctx context.Con
 
 		"abr_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF ABR type
@@ -67,7 +68,7 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes(ctx context.Con
 
 		"opaque_lsa":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable the Opaque-LSA capability (rfc2370)
@@ -82,7 +83,7 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes(ctx context.Con
 
 		"rfc1583_compatibility":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable RFC1583 criteria for handling AS external routes
@@ -97,7 +98,7 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes(ctx context.Con
 
 		"router_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
@@ -113,6 +114,8 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes(ctx context.Con
     |  ipv4    |  Router-ID in IP address format  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -31,11 +31,13 @@ Remote access L2TP VPN
 - [vyos_vpn_l2tp_remote_access_authentication (Resource)](#vyos_vpn_l2tp_remote_access_authentication-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [local_users](#local_users)
       - [mode](#mode)
       - [protocols](#protocols)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `local_users`](#nested-schema-for-local_users)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -46,6 +48,8 @@ Remote access L2TP VPN
 
 ### Optional
 
+#### local_users
+- `local_users` (Attributes) Local user authentication for PPPoE server (see [below for nested schema](#nestedatt--local_users))
 #### mode
 - `mode` (String) Authentication mode used by this server
 
@@ -70,6 +74,10 @@ Remote access L2TP VPN
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--local_users"></a>
+### Nested Schema for `local_users`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

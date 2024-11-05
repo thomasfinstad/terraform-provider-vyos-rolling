@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessCapabilitiesVhtCenterChannelFreq{}
 
 // InterfacesWirelessCapabilitiesVhtCenterChannelFreq describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessCapabilitiesVhtCenterChannelFreq struct {
 	// LeafNodes
 	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne types.Number `tfsdk:"freq_1" vyos:"freq-1,omitempty"`
 	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo types.Number `tfsdk:"freq_2" vyos:"freq-2,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
 
 		"freq_1":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `VHT operating channel center frequency - center freq 1 (for use with 80, 80+80 and 160 modes)
@@ -55,7 +56,7 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
 
 		"freq_2":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `VHT operating channel center frequency - center freq 2 (for use with the 80+80 mode)
@@ -71,6 +72,8 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
     |  34-177  |  5Ghz (802.11 ac) center channel index (use 58 for secondary 80MHz channel 52)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

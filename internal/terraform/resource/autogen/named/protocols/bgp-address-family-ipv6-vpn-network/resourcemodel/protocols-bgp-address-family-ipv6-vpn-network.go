@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsBgpAddressFamilyIPvsixVpnNetwork{}
 
 // ProtocolsBgpAddressFamilyIPvsixVpnNetwork describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsBgpAddressFamilyIPvsixVpnNetwork struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -38,7 +40,7 @@ type ProtocolsBgpAddressFamilyIPvsixVpnNetwork struct {
 	LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkRd    types.String `tfsdk:"rd" vyos:"rd,omitempty"`
 	LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkLabel types.Number `tfsdk:"label" vyos:"label,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -78,20 +80,21 @@ func (o *ProtocolsBgpAddressFamilyIPvsixVpnNetwork) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsBgpAddressFamilyIPvsixVpnNetwork) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"bgp",
+		"bgp", // Node
 
-		"address-family",
+		"address-family", // Node
 
-		"ipv6-vpn",
+		"ipv6-vpn", // Node
+
 	}
 }
 
@@ -101,13 +104,13 @@ func (o *ProtocolsBgpAddressFamilyIPvsixVpnNetwork) GetVyosParentPath() []string
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsBgpAddressFamilyIPvsixVpnNetwork) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -147,8 +150,8 @@ func (o ProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttributes(ctx 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  network, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  network, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -173,7 +176,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttributes(ctx 
 
 		"rd":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
@@ -192,7 +195,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttributes(ctx 
 
 		"label":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `MPLS label value assigned to route
@@ -208,6 +211,8 @@ func (o ProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttributes(ctx 
     |  0-1048575  |  MPLS label value  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

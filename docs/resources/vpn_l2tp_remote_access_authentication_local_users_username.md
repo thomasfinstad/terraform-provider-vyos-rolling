@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_l2tp_remote_access_authentication_local_users_username (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 L2TP Virtual Private Network (VPN)  

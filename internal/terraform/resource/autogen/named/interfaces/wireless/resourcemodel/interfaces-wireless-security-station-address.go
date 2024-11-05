@@ -12,22 +12,25 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessSecURItyStationAddress{}
 
 // InterfacesWirelessSecURItyStationAddress describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessSecURItyStationAddress struct {
 	// LeafNodes
 	LeafInterfacesWirelessSecURItyStationAddressMode types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeInterfacesWirelessSecURItyStationAddressAccept *InterfacesWirelessSecURItyStationAddressAccept `tfsdk:"accept" vyos:"accept,omitempty"`
-	NodeInterfacesWirelessSecURItyStationAddressDeny   *InterfacesWirelessSecURItyStationAddressDeny   `tfsdk:"deny" vyos:"deny,omitempty"`
+
+	NodeInterfacesWirelessSecURItyStationAddressDeny *InterfacesWirelessSecURItyStationAddressDeny `tfsdk:"deny" vyos:"deny,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -37,7 +40,7 @@ func (o InterfacesWirelessSecURItyStationAddress) ResourceSchemaAttributes(ctx c
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Select security operation mode
@@ -58,6 +61,8 @@ func (o InterfacesWirelessSecURItyStationAddress) ResourceSchemaAttributes(ctx c
 			// Default:          stringdefault.StaticString(`accept`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

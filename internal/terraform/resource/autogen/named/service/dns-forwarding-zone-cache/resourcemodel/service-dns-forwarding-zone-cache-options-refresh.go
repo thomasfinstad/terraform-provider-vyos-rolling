@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceDNSForwardingZoneCacheOptionsRefresh{}
 
 // ServiceDNSForwardingZoneCacheOptionsRefresh describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceDNSForwardingZoneCacheOptionsRefresh struct {
 	// LeafNodes
 	LeafServiceDNSForwardingZoneCacheOptionsRefreshOnReload types.Bool   `tfsdk:"on_reload" vyos:"on-reload,omitempty"`
 	LeafServiceDNSForwardingZoneCacheOptionsRefreshInterval types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o ServiceDNSForwardingZoneCacheOptionsRefresh) ResourceSchemaAttributes(ct
 
 		"on_reload":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Retrieval zone only at startup and on reload
@@ -52,7 +53,7 @@ func (o ServiceDNSForwardingZoneCacheOptionsRefresh) ResourceSchemaAttributes(ct
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Periodic zone retrieval interval
@@ -71,6 +72,8 @@ func (o ServiceDNSForwardingZoneCacheOptionsRefresh) ResourceSchemaAttributes(ct
 			// Default:          stringdefault.StaticString(`86400`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

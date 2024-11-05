@@ -10,6 +10,7 @@ description: |-
 # vyos_pki_openvpn_shared_secret (Resource)
 <center>
 
+
 Public key infrastructure (PKI)  
 ⯯  
 OpenVPN keys  

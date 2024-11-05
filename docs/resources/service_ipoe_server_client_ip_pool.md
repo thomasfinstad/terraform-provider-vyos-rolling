@@ -10,6 +10,7 @@ description: |-
 # vyos_service_ipoe_server_client_ip_pool (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Internet Protocol over Ethernet (IPoE) Server  

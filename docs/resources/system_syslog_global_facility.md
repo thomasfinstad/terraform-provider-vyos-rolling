@@ -10,6 +10,7 @@ description: |-
 # vyos_system_syslog_global_facility (Resource)
 <center>
 
+
 *system*  
 ⯯  
 System logging  

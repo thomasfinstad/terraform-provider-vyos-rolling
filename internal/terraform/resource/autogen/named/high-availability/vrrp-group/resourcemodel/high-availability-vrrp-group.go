@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVrrpGroup{}
 
 // HighAvailabilityVrrpGroup describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type HighAvailabilityVrrpGroup struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -48,17 +50,22 @@ type HighAvailabilityVrrpGroup struct {
 	LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility types.Bool   `tfsdk:"rfc3768_compatibility" vyos:"rfc3768-compatibility,omitempty"`
 	LeafHighAvailabilityVrrpGroupVrID                               types.Number `tfsdk:"vrid" vyos:"vrid,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagHighAvailabilityVrrpGroupAddress bool `tfsdk:"-" vyos:"address,child"`
 
 	ExistsTagHighAvailabilityVrrpGroupExcludedAddress bool `tfsdk:"-" vyos:"excluded-address,child"`
 
 	// Nodes
-	NodeHighAvailabilityVrrpGroupGarp             *HighAvailabilityVrrpGroupGarp             `tfsdk:"garp" vyos:"garp,omitempty"`
-	NodeHighAvailabilityVrrpGroupAuthentication   *HighAvailabilityVrrpGroupAuthentication   `tfsdk:"authentication" vyos:"authentication,omitempty"`
-	NodeHighAvailabilityVrrpGroupHealthCheck      *HighAvailabilityVrrpGroupHealthCheck      `tfsdk:"health_check" vyos:"health-check,omitempty"`
-	NodeHighAvailabilityVrrpGroupTrack            *HighAvailabilityVrrpGroupTrack            `tfsdk:"track" vyos:"track,omitempty"`
+
+	NodeHighAvailabilityVrrpGroupGarp *HighAvailabilityVrrpGroupGarp `tfsdk:"garp" vyos:"garp,omitempty"`
+
+	NodeHighAvailabilityVrrpGroupAuthentication *HighAvailabilityVrrpGroupAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
+
+	NodeHighAvailabilityVrrpGroupHealthCheck *HighAvailabilityVrrpGroupHealthCheck `tfsdk:"health_check" vyos:"health-check,omitempty"`
+
+	NodeHighAvailabilityVrrpGroupTrack *HighAvailabilityVrrpGroupTrack `tfsdk:"track" vyos:"track,omitempty"`
+
 	NodeHighAvailabilityVrrpGroupTransitionScrIPt *HighAvailabilityVrrpGroupTransitionScrIPt `tfsdk:"transition_script" vyos:"transition-script,omitempty"`
 }
 
@@ -97,12 +104,13 @@ func (o *HighAvailabilityVrrpGroup) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *HighAvailabilityVrrpGroup) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"high-availability",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"high-availability", // Node
 
-		"vrrp",
+		"vrrp", // Node
+
 	}
 }
 
@@ -112,9 +120,9 @@ func (o *HighAvailabilityVrrpGroup) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *HighAvailabilityVrrpGroup) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -148,8 +156,8 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  group, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  group, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -170,7 +178,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface to use
@@ -189,7 +197,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"advertise_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise interval
@@ -211,7 +219,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -230,7 +238,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -245,7 +253,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"hello_source_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRRP hello source address
@@ -265,7 +273,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 		},
 
 		"peer_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -287,7 +295,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"no_preempt":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable master preemption
@@ -302,7 +310,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"preempt_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Preempt delay (in seconds)
@@ -324,7 +332,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Router priority
@@ -346,7 +354,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"rfc3768_compatibility":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use VRRP virtual MAC address as per RFC3768
@@ -361,7 +369,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
 
 		"vrid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual router identifier
@@ -377,6 +385,8 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context)
     |  1-255   |  Virtual router identifier  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

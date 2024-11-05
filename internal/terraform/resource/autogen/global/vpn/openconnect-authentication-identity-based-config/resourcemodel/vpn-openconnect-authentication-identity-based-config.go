@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &VpnOpenconnectAuthenticationIDentityBasedConfig{}
 
 // VpnOpenconnectAuthenticationIDentityBasedConfig describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type VpnOpenconnectAuthenticationIDentityBasedConfig struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -32,9 +34,9 @@ type VpnOpenconnectAuthenticationIDentityBasedConfig struct {
 	LeafVpnOpenconnectAuthenticationIDentityBasedConfigDirectory     types.String `tfsdk:"directory" vyos:"directory,omitempty"`
 	LeafVpnOpenconnectAuthenticationIDentityBasedConfigDefaultConfig types.String `tfsdk:"default_config" vyos:"default-config,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -67,16 +69,17 @@ func (o *VpnOpenconnectAuthenticationIDentityBasedConfig) GetVyosPath() []string
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnOpenconnectAuthenticationIDentityBasedConfig) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"openconnect",
+		"openconnect", // Node
 
-		"authentication",
+		"authentication", // Node
+
 	}
 }
 
@@ -84,14 +87,13 @@ func (o *VpnOpenconnectAuthenticationIDentityBasedConfig) GetVyosParentPath() []
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *VpnOpenconnectAuthenticationIDentityBasedConfig) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -112,7 +114,7 @@ func (o VpnOpenconnectAuthenticationIDentityBasedConfig) ResourceSchemaAttribute
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -127,7 +129,7 @@ func (o VpnOpenconnectAuthenticationIDentityBasedConfig) ResourceSchemaAttribute
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Select per user or per group configuration file - ignored if authentication group is configured
@@ -148,7 +150,7 @@ func (o VpnOpenconnectAuthenticationIDentityBasedConfig) ResourceSchemaAttribute
 
 		"directory":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Directory to containing configuration files
@@ -167,7 +169,7 @@ func (o VpnOpenconnectAuthenticationIDentityBasedConfig) ResourceSchemaAttribute
 
 		"default_config":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default configuration if discrete config could not be found
@@ -183,5 +185,10 @@ func (o VpnOpenconnectAuthenticationIDentityBasedConfig) ResourceSchemaAttribute
     |  filename  |  Default configuration filename, must be under /config/auth  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

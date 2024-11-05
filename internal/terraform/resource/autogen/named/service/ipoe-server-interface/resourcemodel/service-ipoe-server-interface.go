@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceIPoeServerInterface{}
 
 // ServiceIPoeServerInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceIPoeServerInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -42,9 +44,10 @@ type ServiceIPoeServerInterface struct {
 	LeafServiceIPoeServerInterfaceVlan         types.List   `tfsdk:"vlan" vyos:"vlan,omitempty"`
 	LeafServiceIPoeServerInterfaceVlanMon      types.Bool   `tfsdk:"vlan_mon" vyos:"vlan-mon,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeServiceIPoeServerInterfaceExternalDhcp *ServiceIPoeServerInterfaceExternalDhcp `tfsdk:"external_dhcp" vyos:"external-dhcp,omitempty"`
 }
 
@@ -83,12 +86,13 @@ func (o *ServiceIPoeServerInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceIPoeServerInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"ipoe-server",
+		"ipoe-server", // Node
+
 	}
 }
 
@@ -98,9 +102,9 @@ func (o *ServiceIPoeServerInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceIPoeServerInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -134,8 +138,8 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -156,7 +160,7 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Client connectivity mode
@@ -180,7 +184,7 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
 
 		"network":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Enables clients to share the same network or each client has its own vlan
@@ -204,7 +208,7 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
 
 		"client_subnet":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Client address pool
@@ -222,7 +226,7 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
 		},
 
 		"vlan":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -244,7 +248,7 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
 
 		"vlan_mon":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Automatically create VLAN interfaces
@@ -256,6 +260,8 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

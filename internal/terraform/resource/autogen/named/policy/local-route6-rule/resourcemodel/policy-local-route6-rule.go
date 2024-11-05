@@ -17,12 +17,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &PolicyLocalRoutesixRule{}
 
 // PolicyLocalRoutesixRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type PolicyLocalRoutesixRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -36,11 +38,14 @@ type PolicyLocalRoutesixRule struct {
 	LeafPolicyLocalRoutesixRuleProtocol         types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 	LeafPolicyLocalRoutesixRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodePolicyLocalRoutesixRuleSet         *PolicyLocalRoutesixRuleSet         `tfsdk:"set" vyos:"set,omitempty"`
-	NodePolicyLocalRoutesixRuleSource      *PolicyLocalRoutesixRuleSource      `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodePolicyLocalRoutesixRuleSet *PolicyLocalRoutesixRuleSet `tfsdk:"set" vyos:"set,omitempty"`
+
+	NodePolicyLocalRoutesixRuleSource *PolicyLocalRoutesixRuleSource `tfsdk:"source" vyos:"source,omitempty"`
+
 	NodePolicyLocalRoutesixRuleDestination *PolicyLocalRoutesixRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
 }
 
@@ -79,12 +84,13 @@ func (o *PolicyLocalRoutesixRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *PolicyLocalRoutesixRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"policy",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"policy", // Node
 
-		"local-route6",
+		"local-route6", // Node
+
 	}
 }
 
@@ -94,9 +100,9 @@ func (o *PolicyLocalRoutesixRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *PolicyLocalRoutesixRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -145,7 +151,7 @@ func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes(ctx context.Context) m
 
 		"fwmark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match fwmark value
@@ -164,7 +170,7 @@ func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes(ctx context.Context) m
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name or number)
@@ -185,7 +191,7 @@ func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes(ctx context.Context) m
 
 		"inbound_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Inbound Interface
@@ -195,6 +201,8 @@ func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes(ctx context.Context) m
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

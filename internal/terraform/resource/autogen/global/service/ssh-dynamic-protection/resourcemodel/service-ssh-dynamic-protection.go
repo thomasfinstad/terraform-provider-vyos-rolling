@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceTCPDynamicProtection{}
 
 // ServiceTCPDynamicProtection describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceTCPDynamicProtection struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -31,9 +33,9 @@ type ServiceTCPDynamicProtection struct {
 	LeafServiceTCPDynamicProtectionThreshold  types.Number `tfsdk:"threshold" vyos:"threshold,omitempty"`
 	LeafServiceTCPDynamicProtectionAllowFrom  types.List   `tfsdk:"allow_from" vyos:"allow-from,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -66,12 +68,13 @@ func (o *ServiceTCPDynamicProtection) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceTCPDynamicProtection) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"ssh",
+		"ssh", // Node
+
 	}
 }
 
@@ -79,12 +82,11 @@ func (o *ServiceTCPDynamicProtection) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceTCPDynamicProtection) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -105,7 +107,7 @@ func (o ServiceTCPDynamicProtection) ResourceSchemaAttributes(ctx context.Contex
 
 		"block_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Block source IP in seconds. Subsequent blocks increase by a factor of 1.5
@@ -127,7 +129,7 @@ func (o ServiceTCPDynamicProtection) ResourceSchemaAttributes(ctx context.Contex
 
 		"detect_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Remember source IP in seconds before reset their score
@@ -149,7 +151,7 @@ func (o ServiceTCPDynamicProtection) ResourceSchemaAttributes(ctx context.Contex
 
 		"threshold":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Block source IP when their cumulative attack score exceeds threshold
@@ -170,7 +172,7 @@ func (o ServiceTCPDynamicProtection) ResourceSchemaAttributes(ctx context.Contex
 		},
 
 		"allow_from":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -193,5 +195,10 @@ func (o ServiceTCPDynamicProtection) ResourceSchemaAttributes(ctx context.Contex
     |  ipv6net  |  IPv6 address and prefix length  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

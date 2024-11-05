@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface{}
 
 // InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -39,7 +41,7 @@ type InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface struct {
 	LeafInterfacesBondingVifSVifCDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesBondingVifSVifCDhcpvsixOptionsPdInterfaceSLAID   types.Number `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -79,35 +81,31 @@ func (o *InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) GetVyosPath() []st
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"bonding",
-
 		o.SelfIdentifier.Attributes()["bonding"].(types.String).ValueString(),
 
 		"vif-s",
-
 		o.SelfIdentifier.Attributes()["vif_s"].(types.Number).ValueBigFloat().String(),
 
 		"vif-c",
-
 		o.SelfIdentifier.Attributes()["vif_c"].(types.String).ValueString(),
 
-		"dhcpv6-options",
+		"dhcpv6-options", // Node
 
 		"pd",
-
 		o.SelfIdentifier.Attributes()["pd"].(types.String).ValueString(),
 	}
 }
@@ -118,37 +116,33 @@ func (o *InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) GetVyosParentPath(
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"bonding",
-
 		o.SelfIdentifier.Attributes()["bonding"].(types.String).ValueString(),
 
 		"vif-s",
-
 		o.SelfIdentifier.Attributes()["vif_s"].(types.Number).ValueBigFloat().String(),
 
 		"vif-c",
-
 		o.SelfIdentifier.Attributes()["vif_c"].(types.String).ValueString(),
 
-		"dhcpv6-options",
+		"dhcpv6-options", // Node
 
 		"pd",
-
 		o.SelfIdentifier.Attributes()["pd"].(types.String).ValueString(),
 	}
 }
@@ -182,8 +176,8 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -226,8 +220,8 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  bonding, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  bonding, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -271,8 +265,8 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  vif_c, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  vif_c, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -303,8 +297,8 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -320,7 +314,7 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
@@ -339,7 +333,7 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 
 		"sla_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
@@ -355,6 +349,8 @@ func (o InterfacesBondingVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttri
     |  0-65535  |  Decimal integer which fits in the length of SLA IDs  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

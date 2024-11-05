@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesOpenvpnServer{}
 
 // InterfacesOpenvpnServer describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesOpenvpnServer struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnServerDomainName                types.String `tfsdk:"domain_name" vyos:"domain-name,omitempty"`
@@ -28,18 +30,21 @@ type InterfacesOpenvpnServer struct {
 	LeafInterfacesOpenvpnServerSubnet                    types.List   `tfsdk:"subnet" vyos:"subnet,omitempty"`
 	LeafInterfacesOpenvpnServerTopology                  types.String `tfsdk:"topology" vyos:"topology,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
-	TagInterfacesOpenvpnServerClient *InterfacesOpenvpnServerClient `tfsdk:"client" vyos:"client,omitempty"`
+	TagInterfacesOpenvpnServerClient map[string]*InterfacesOpenvpnServerClient `tfsdk:"client" vyos:"client,omitempty"`
 
 	ExistsTagInterfacesOpenvpnServerPushRoute bool `tfsdk:"-" vyos:"push-route,child"`
 
 	// Nodes
-	NodeInterfacesOpenvpnServerBrIDge           *InterfacesOpenvpnServerBrIDge           `tfsdk:"bridge" vyos:"bridge,omitempty"`
-	NodeInterfacesOpenvpnServerClientIPPool     *InterfacesOpenvpnServerClientIPPool     `tfsdk:"client_ip_pool" vyos:"client-ip-pool,omitempty"`
+
+	NodeInterfacesOpenvpnServerBrIDge *InterfacesOpenvpnServerBrIDge `tfsdk:"bridge" vyos:"bridge,omitempty"`
+
+	NodeInterfacesOpenvpnServerClientIPPool *InterfacesOpenvpnServerClientIPPool `tfsdk:"client_ip_pool" vyos:"client-ip-pool,omitempty"`
+
 	NodeInterfacesOpenvpnServerClientIPvsixPool *InterfacesOpenvpnServerClientIPvsixPool `tfsdk:"client_ipv6_pool" vyos:"client-ipv6-pool,omitempty"`
-	NodeInterfacesOpenvpnServerMfa              *InterfacesOpenvpnServerMfa              `tfsdk:"mfa" vyos:"mfa,omitempty"`
+
+	NodeInterfacesOpenvpnServerMfa *InterfacesOpenvpnServerMfa `tfsdk:"mfa" vyos:"mfa,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -49,7 +54,7 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"domain_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DNS suffix to be pushed to all clients
@@ -68,7 +73,7 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"max_connections":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of maximum client connections
@@ -86,7 +91,7 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes(ctx context.Context) m
 		},
 
 		"name_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -108,7 +113,7 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"reject_unconfigured_clients":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reject connections from clients that are not explicitly configured
@@ -122,7 +127,7 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes(ctx context.Context) m
 		},
 
 		"subnet":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -144,7 +149,7 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes(ctx context.Context) m
 
 		"topology":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Topology for clients
@@ -166,6 +171,27 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes(ctx context.Context) m
 
 			// Default:          stringdefault.StaticString(`subnet`),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		"client": schema.MapNestedAttribute{
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: InterfacesOpenvpnServerClient{}.ResourceSchemaAttributes(ctx),
+			},
+			Optional: true,
+			MarkdownDescription: `Client-specific settings
+
+    |  Format  |  Description                            |
+    |----------|-----------------------------------------|
+    |  name    |  Client common-name in the certificate  |
+`,
+			Description: `Client-specific settings
+
+    |  Format  |  Description                            |
+    |----------|-----------------------------------------|
+    |  name    |  Client common-name in the certificate  |
+`,
 		},
 
 		// Nodes

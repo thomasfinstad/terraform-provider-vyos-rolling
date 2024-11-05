@@ -12,22 +12,24 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixOutputFilterRuleGre{}
 
 // FirewallIPvsixOutputFilterRuleGre describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixOutputFilterRuleGre struct {
 	// LeafNodes
 	LeafFirewallIPvsixOutputFilterRuleGreInnerProto types.String `tfsdk:"inner_proto" vyos:"inner-proto,omitempty"`
 	LeafFirewallIPvsixOutputFilterRuleGreKey        types.Number `tfsdk:"key" vyos:"key,omitempty"`
 	LeafFirewallIPvsixOutputFilterRuleGreVersion    types.String `tfsdk:"version" vyos:"version,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeFirewallIPvsixOutputFilterRuleGreFlags *FirewallIPvsixOutputFilterRuleGreFlags `tfsdk:"flags" vyos:"flags,omitempty"`
 }
 
@@ -38,7 +40,7 @@ func (o FirewallIPvsixOutputFilterRuleGre) ResourceSchemaAttributes(ctx context.
 
 		"inner_proto":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `EtherType of encapsulated packet
@@ -71,7 +73,7 @@ func (o FirewallIPvsixOutputFilterRuleGre) ResourceSchemaAttributes(ctx context.
 
 		"key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Tunnel key (only GRE tunnels)
@@ -90,7 +92,7 @@ func (o FirewallIPvsixOutputFilterRuleGre) ResourceSchemaAttributes(ctx context.
 
 		"version":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `GRE Version
@@ -108,6 +110,8 @@ func (o FirewallIPvsixOutputFilterRuleGre) ResourceSchemaAttributes(ctx context.
     |  pptp    |  Point to Point Tunnelling Protocol  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &NatDestinationRuleTranSLAtionRedirect{}
 
 // NatDestinationRuleTranSLAtionRedirect describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type NatDestinationRuleTranSLAtionRedirect struct {
 	// LeafNodes
 	LeafNatDestinationRuleTranSLAtionRedirectPort types.String `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -35,7 +36,7 @@ func (o NatDestinationRuleTranSLAtionRedirect) ResourceSchemaAttributes(ctx cont
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number
@@ -53,6 +54,8 @@ func (o NatDestinationRuleTranSLAtionRedirect) ResourceSchemaAttributes(ctx cont
     |  range    |  Numbered port range (e.g., 1001-1005)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

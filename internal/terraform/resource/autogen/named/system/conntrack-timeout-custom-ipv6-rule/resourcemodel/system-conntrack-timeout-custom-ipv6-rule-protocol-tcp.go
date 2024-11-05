@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP{}
 
 // SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP struct {
 	// LeafNodes
 	LeafSystemConntrackTimeoutCustomIPvsixRuleProtocolTCPCloseWait   types.Number `tfsdk:"close_wait" vyos:"close-wait,omitempty"`
@@ -29,8 +31,7 @@ type SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP struct {
 	LeafSystemConntrackTimeoutCustomIPvsixRuleProtocolTCPSynSent     types.Number `tfsdk:"syn_sent" vyos:"syn-sent,omitempty"`
 	LeafSystemConntrackTimeoutCustomIPvsixRuleProtocolTCPTimeWait    types.Number `tfsdk:"time_wait" vyos:"time-wait,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -42,7 +43,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
 
 		"close_wait":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP CLOSE-WAIT timeout in seconds
@@ -61,7 +62,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
 
 		"close":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP CLOSE timeout in seconds
@@ -80,7 +81,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
 
 		"established":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP ESTABLISHED timeout in seconds
@@ -99,7 +100,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
 
 		"fin_wait":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP FIN-WAIT timeout in seconds
@@ -118,7 +119,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
 
 		"last_ack":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP LAST-ACK timeout in seconds
@@ -137,7 +138,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
 
 		"syn_recv":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP SYN-RECEIVED timeout in seconds
@@ -156,7 +157,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
 
 		"syn_sent":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP SYN-SENT timeout in seconds
@@ -175,7 +176,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
 
 		"time_wait":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP TIME-WAIT timeout in seconds
@@ -191,6 +192,8 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolTCP) ResourceSchemaAttribu
     |  1-21474836  |  TCP TIME-WAIT timeout in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

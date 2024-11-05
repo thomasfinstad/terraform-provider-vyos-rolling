@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceConfigSyncSectionProtocols{}
 
 // ServiceConfigSyncSectionProtocols describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceConfigSyncSectionProtocols struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -45,9 +47,9 @@ type ServiceConfigSyncSectionProtocols struct {
 	LeafServiceConfigSyncSectionProtocolsSegmentRouting types.Bool `tfsdk:"segment_routing" vyos:"segment-routing,omitempty"`
 	LeafServiceConfigSyncSectionProtocolsStatic         types.Bool `tfsdk:"static" vyos:"static,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -80,16 +82,17 @@ func (o *ServiceConfigSyncSectionProtocols) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceConfigSyncSectionProtocols) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"config-sync",
+		"config-sync", // Node
 
-		"section",
+		"section", // Node
+
 	}
 }
 
@@ -97,14 +100,13 @@ func (o *ServiceConfigSyncSectionProtocols) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceConfigSyncSectionProtocols) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -125,7 +127,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"babel":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Babel Routing Protocol
@@ -140,7 +142,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"bfd":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Bidirectional Forwarding Detection (BFD)
@@ -155,7 +157,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"bgp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Border Gateway Protocol (BGP)
@@ -170,7 +172,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"failover":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Failover route
@@ -185,7 +187,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"igmp_proxy":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Internet Group Management Protocol (IGMP) proxy
@@ -200,7 +202,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"isis":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Intermediate System to Intermediate System (IS-IS)
@@ -215,7 +217,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"mpls":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Multiprotocol Label Switching (MPLS)
@@ -230,7 +232,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"nhrp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Next Hop Resolution Protocol (NHRP) parameters
@@ -245,7 +247,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"ospf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Open Shortest Path First (OSPF)
@@ -260,7 +262,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"ospfv3":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Open Shortest Path First (OSPF) for IPv6
@@ -275,7 +277,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"pim":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol Independent Multicast (PIM) and IGMP
@@ -290,7 +292,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"pim6":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol Independent Multicast for IPv6 (PIMv6) and MLD
@@ -305,7 +307,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"rip":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Routing Information Protocol (RIP) parameters
@@ -320,7 +322,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"ripng":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Routing Information Protocol (RIPng) parameters
@@ -335,7 +337,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"rpki":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Resource Public Key Infrastructure (RPKI)
@@ -350,7 +352,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"segment_routing":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Segment Routing
@@ -365,7 +367,7 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 
 		"static":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Static Routing
@@ -377,5 +379,10 @@ func (o ServiceConfigSyncSectionProtocols) ResourceSchemaAttributes(ctx context.
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

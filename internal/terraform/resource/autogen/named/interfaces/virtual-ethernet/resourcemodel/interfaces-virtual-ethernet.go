@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesVirtualEthernet{}
 
 // InterfacesVirtualEthernet describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesVirtualEthernet struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -43,14 +45,16 @@ type InterfacesVirtualEthernet struct {
 	LeafInterfacesVirtualEthernetVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 	LeafInterfacesVirtualEthernetPeerName    types.String `tfsdk:"peer_name" vyos:"peer-name,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesVirtualEthernetVifS bool `tfsdk:"-" vyos:"vif-s,child"`
 
 	ExistsTagInterfacesVirtualEthernetVif bool `tfsdk:"-" vyos:"vif,child"`
 
 	// Nodes
-	NodeInterfacesVirtualEthernetDhcpOptions     *InterfacesVirtualEthernetDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
+	NodeInterfacesVirtualEthernetDhcpOptions *InterfacesVirtualEthernetDhcpOptions `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
 	NodeInterfacesVirtualEthernetDhcpvsixOptions *InterfacesVirtualEthernetDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
 }
 
@@ -89,8 +93,9 @@ func (o *InterfacesVirtualEthernet) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesVirtualEthernet) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -100,7 +105,7 @@ func (o *InterfacesVirtualEthernet) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesVirtualEthernet) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -140,8 +145,8 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes(ctx context.Context)
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  virtual_ethernet, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  virtual_ethernet, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -159,7 +164,7 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes(ctx context.Context)
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -185,7 +190,7 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes(ctx context.Context)
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -204,7 +209,7 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes(ctx context.Context)
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -219,7 +224,7 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes(ctx context.Context)
 
 		"netns":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Network namespace name
@@ -238,7 +243,7 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes(ctx context.Context)
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -257,7 +262,7 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes(ctx context.Context)
 
 		"peer_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual ethernet peer interface name
@@ -273,6 +278,8 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes(ctx context.Context)
     |  txt     |  Name of peer interface  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_qos_policy_shaper_hfsc (Resource)
 <center>
 
+
 Quality of Service (QoS)  
 ⯯  
 Service Policy definitions  

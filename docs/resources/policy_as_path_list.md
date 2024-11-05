@@ -10,6 +10,7 @@ description: |-
 # vyos_policy_as_path_list (Resource)
 <center>
 
+
 Routing policy  
 ⯯  
 **Add a BGP autonomous system path filter**

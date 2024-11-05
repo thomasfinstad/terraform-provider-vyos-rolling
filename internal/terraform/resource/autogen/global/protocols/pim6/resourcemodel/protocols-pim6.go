@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsPimsix{}
 
 // ProtocolsPimsix describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsPimsix struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -31,10 +33,12 @@ type ProtocolsPimsix struct {
 	LeafProtocolsPimsixPackets              types.Number `tfsdk:"packets" vyos:"packets,omitempty"`
 	LeafProtocolsPimsixRegisterSuppressTime types.Number `tfsdk:"register_suppress_time" vyos:"register-suppress-time,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagProtocolsPimsixInterface bool `tfsdk:"-" vyos:"interface,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeProtocolsPimsixRp bool `tfsdk:"-" vyos:"rp,child"`
 }
 
@@ -68,8 +72,9 @@ func (o *ProtocolsPimsix) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsPimsix) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
+
 	}
 }
 
@@ -77,10 +82,9 @@ func (o *ProtocolsPimsix) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsPimsix) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -101,7 +105,7 @@ func (o ProtocolsPimsix) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"join_prune_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Join prune send interval
@@ -123,7 +127,7 @@ func (o ProtocolsPimsix) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"keep_alive_timer":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Keep alive Timer
@@ -142,7 +146,7 @@ func (o ProtocolsPimsix) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"packets":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Packets to process at once
@@ -164,7 +168,7 @@ func (o ProtocolsPimsix) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"register_suppress_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Register suppress timer
@@ -180,5 +184,10 @@ func (o ProtocolsPimsix) ResourceSchemaAttributes(ctx context.Context) map[strin
     |  1-65535  |  Timer in seconds  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

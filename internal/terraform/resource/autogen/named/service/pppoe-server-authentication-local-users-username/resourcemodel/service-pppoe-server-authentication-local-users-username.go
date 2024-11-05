@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServicePppoeServerAuthenticationLocalUsersUsername{}
 
 // ServicePppoeServerAuthenticationLocalUsersUsername describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServicePppoeServerAuthenticationLocalUsersUsername struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,9 +42,10 @@ type ServicePppoeServerAuthenticationLocalUsersUsername struct {
 	LeafServicePppoeServerAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password" vyos:"password,omitempty"`
 	LeafServicePppoeServerAuthenticationLocalUsersUsernameStaticIP types.String `tfsdk:"static_ip" vyos:"static-ip,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeServicePppoeServerAuthenticationLocalUsersUsernameRateLimit *ServicePppoeServerAuthenticationLocalUsersUsernameRateLimit `tfsdk:"rate_limit" vyos:"rate-limit,omitempty"`
 }
 
@@ -81,20 +84,21 @@ func (o *ServicePppoeServerAuthenticationLocalUsersUsername) GetVyosPath() []str
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServicePppoeServerAuthenticationLocalUsersUsername) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"pppoe-server",
+		"pppoe-server", // Node
 
-		"authentication",
+		"authentication", // Node
 
-		"local-users",
+		"local-users", // Node
+
 	}
 }
 
@@ -104,13 +108,13 @@ func (o *ServicePppoeServerAuthenticationLocalUsersUsername) GetVyosParentPath()
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServicePppoeServerAuthenticationLocalUsersUsername) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -144,8 +148,8 @@ func (o ServicePppoeServerAuthenticationLocalUsersUsername) ResourceSchemaAttrib
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  username, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  username, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -170,7 +174,7 @@ func (o ServicePppoeServerAuthenticationLocalUsersUsername) ResourceSchemaAttrib
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -185,7 +189,7 @@ func (o ServicePppoeServerAuthenticationLocalUsersUsername) ResourceSchemaAttrib
 
 		"password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Password for authentication
@@ -198,7 +202,7 @@ func (o ServicePppoeServerAuthenticationLocalUsersUsername) ResourceSchemaAttrib
 
 		"static_ip":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Static client IP address
@@ -211,6 +215,8 @@ func (o ServicePppoeServerAuthenticationLocalUsersUsername) ResourceSchemaAttrib
 			// Default:          stringdefault.StaticString(`&`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

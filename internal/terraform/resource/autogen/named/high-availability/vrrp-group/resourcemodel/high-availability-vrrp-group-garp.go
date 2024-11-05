@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &HighAvailabilityVrrpGroupGarp{}
 
 // HighAvailabilityVrrpGroupGarp describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type HighAvailabilityVrrpGroupGarp struct {
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupGarpInterval            types.String `tfsdk:"interval" vyos:"interval,omitempty"`
@@ -26,8 +28,7 @@ type HighAvailabilityVrrpGroupGarp struct {
 	LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat types.Number `tfsdk:"master_refresh_repeat" vyos:"master-refresh-repeat,omitempty"`
 	LeafHighAvailabilityVrrpGroupGarpMasterRepeat        types.Number `tfsdk:"master_repeat" vyos:"master-repeat,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes(ctx context.Cont
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between Gratuitous ARP
@@ -61,7 +62,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes(ctx context.Cont
 
 		"master_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay for second set of gratuitous ARPs after transition to master
@@ -83,7 +84,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes(ctx context.Cont
 
 		"master_refresh":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum time interval for refreshing gratuitous ARPs while beeing master
@@ -107,7 +108,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes(ctx context.Cont
 
 		"master_refresh_repeat":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time while beeing master
@@ -129,7 +130,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes(ctx context.Cont
 
 		"master_repeat":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time after transition to master
@@ -148,6 +149,8 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes(ctx context.Cont
 			// Default:          stringdefault.StaticString(`5`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

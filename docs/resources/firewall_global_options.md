@@ -40,11 +40,13 @@ Firewall
       - [resolver_interval](#resolver_interval)
       - [send_redirects](#send_redirects)
       - [source_validation](#source_validation)
+      - [state_policy](#state_policy)
       - [syn_cookies](#syn_cookies)
       - [timeouts](#timeouts)
       - [twa_hazards_protection](#twa_hazards_protection)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `state_policy`](#nested-schema-for-state_policy)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -142,6 +144,8 @@ Firewall
     |  strict   &emsp;|  Enable IPv4 Strict Reverse Path Forwarding as defined in RFC3704  |
     |  loose    &emsp;|  Enable IPv4 Loose Reverse Path Forwarding as defined in RFC3704   |
     |  disable  &emsp;|  No IPv4 source validation                                         |
+#### state_policy
+- `state_policy` (Attributes) Global firewall state-policy (see [below for nested schema](#nestedatt--state_policy))
 #### syn_cookies
 - `syn_cookies` (String) Policy for using TCP SYN cookies with IPv4
 
@@ -163,6 +167,10 @@ Firewall
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--state_policy"></a>
+### Nested Schema for `state_policy`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

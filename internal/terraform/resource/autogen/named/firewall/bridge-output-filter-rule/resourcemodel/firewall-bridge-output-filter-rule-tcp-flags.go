@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallBrIDgeOutputFilterRuleTCPFlags{}
 
 // FirewallBrIDgeOutputFilterRuleTCPFlags describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallBrIDgeOutputFilterRuleTCPFlags struct {
 	// LeafNodes
 	LeafFirewallBrIDgeOutputFilterRuleTCPFlagsSyn types.Bool `tfsdk:"syn" vyos:"syn,omitempty"`
@@ -30,10 +32,10 @@ type FirewallBrIDgeOutputFilterRuleTCPFlags struct {
 	LeafFirewallBrIDgeOutputFilterRuleTCPFlagsEcn types.Bool `tfsdk:"ecn" vyos:"ecn,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleTCPFlagsCwr types.Bool `tfsdk:"cwr" vyos:"cwr,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeFirewallBrIDgeOutputFilterRuleTCPFlagsNot *FirewallBrIDgeOutputFilterRuleTCPFlagsNot `tfsdk:"not" vyos:"not,omitempty"`
 }
 
@@ -44,7 +46,7 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 
 		"syn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Synchronise flag
@@ -59,7 +61,7 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 
 		"ack":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acknowledge flag
@@ -74,7 +76,7 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 
 		"fin":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Finish flag
@@ -89,7 +91,7 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 
 		"rst":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reset flag
@@ -104,7 +106,7 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 
 		"urg":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Urgent flag
@@ -119,7 +121,7 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 
 		"psh":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Push flag
@@ -134,7 +136,7 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 
 		"ecn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Explicit Congestion Notification flag
@@ -149,7 +151,7 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 
 		"cwr":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Congestion Window Reduced flag
@@ -161,6 +163,8 @@ func (o FirewallBrIDgeOutputFilterRuleTCPFlags) ResourceSchemaAttributes(ctx con
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

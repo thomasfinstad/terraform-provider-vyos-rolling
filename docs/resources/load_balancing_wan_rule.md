@@ -10,6 +10,7 @@ description: |-
 # vyos_load_balancing_wan_rule (Resource)
 <center>
 
+
 *load-balancing*  
 ⯯  
 Configure Wide Area Network (WAN) load-balancing  

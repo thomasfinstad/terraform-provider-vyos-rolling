@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_bgp_peer_group_local_role (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Border Gateway Protocol (BGP)  

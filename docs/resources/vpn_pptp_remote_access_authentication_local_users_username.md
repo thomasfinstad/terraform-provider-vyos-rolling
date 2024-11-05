@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_pptp_remote_access_authentication_local_users_username (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)  

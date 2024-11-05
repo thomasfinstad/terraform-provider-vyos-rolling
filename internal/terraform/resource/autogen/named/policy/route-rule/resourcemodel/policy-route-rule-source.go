@@ -12,22 +12,24 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteRuleSource{}
 
 // PolicyRouteRuleSource describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteRuleSource struct {
 	// LeafNodes
 	LeafPolicyRouteRuleSourceAddress    types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafPolicyRouteRuleSourcePort       types.String `tfsdk:"port" vyos:"port,omitempty"`
 	LeafPolicyRouteRuleSourceMacAddress types.String `tfsdk:"mac_address" vyos:"mac-address,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodePolicyRouteRuleSourceGroup *PolicyRouteRuleSourceGroup `tfsdk:"group" vyos:"group,omitempty"`
 }
 
@@ -38,7 +40,7 @@ func (o PolicyRouteRuleSource) ResourceSchemaAttributes(ctx context.Context) map
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
@@ -67,7 +69,7 @@ func (o PolicyRouteRuleSource) ResourceSchemaAttributes(ctx context.Context) map
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port
@@ -92,7 +94,7 @@ func (o PolicyRouteRuleSource) ResourceSchemaAttributes(ctx context.Context) map
 
 		"mac_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `MAC address
@@ -110,6 +112,8 @@ func (o PolicyRouteRuleSource) ResourceSchemaAttributes(ctx context.Context) map
     |  !macaddr  |  Match everything except the specified MAC address  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

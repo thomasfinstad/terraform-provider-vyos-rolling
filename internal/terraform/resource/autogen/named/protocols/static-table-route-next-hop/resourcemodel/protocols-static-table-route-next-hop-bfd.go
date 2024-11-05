@@ -12,20 +12,22 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsStaticTableRouteNextHopBfd{}
 
 // ProtocolsStaticTableRouteNextHopBfd describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsStaticTableRouteNextHopBfd struct {
 	// LeafNodes
 	LeafProtocolsStaticTableRouteNextHopBfdProfile types.String `tfsdk:"profile" vyos:"profile,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeProtocolsStaticTableRouteNextHopBfdMultiHop *ProtocolsStaticTableRouteNextHopBfdMultiHop `tfsdk:"multi_hop" vyos:"multi-hop,omitempty"`
 }
 
@@ -36,7 +38,7 @@ func (o ProtocolsStaticTableRouteNextHopBfd) ResourceSchemaAttributes(ctx contex
 
 		"profile":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
@@ -52,6 +54,8 @@ func (o ProtocolsStaticTableRouteNextHopBfd) ResourceSchemaAttributes(ctx contex
     |  txt     |  BFD profile name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -22,12 +22,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -47,7 +49,7 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp           types.String `tfsdk:"regexp" vyos:"regexp,omitempty"`
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement      types.String `tfsdk:"replacement" vyos:"replacement,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -87,31 +89,29 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) GetVyosPath() 
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dns",
+		"dns", // Node
 
-		"forwarding",
+		"forwarding", // Node
 
 		"authoritative-domain",
-
 		o.SelfIdentifier.Attributes()["authoritative_domain"].(types.String).ValueString(),
 
-		"records",
+		"records", // Node
 
 		"naptr",
-
 		o.SelfIdentifier.Attributes()["naptr"].(types.String).ValueString(),
 	}
 }
@@ -122,33 +122,31 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) GetVyosParentP
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dns",
+		"dns", // Node
 
-		"forwarding",
+		"forwarding", // Node
 
 		"authoritative-domain",
-
 		o.SelfIdentifier.Attributes()["authoritative_domain"].(types.String).ValueString(),
 
-		"records",
+		"records", // Node
 
 		"naptr",
-
 		o.SelfIdentifier.Attributes()["naptr"].(types.String).ValueString(),
 	}
 }
@@ -219,8 +217,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  authoritative_domain, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  authoritative_domain, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -253,8 +251,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  naptr, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  naptr, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -270,7 +268,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"order":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule order
@@ -289,7 +287,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"preference":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule preference
@@ -311,7 +309,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"lookup_srv":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `S flag
@@ -326,7 +324,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"lookup_a":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `A flag
@@ -341,7 +339,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"resolve_uri":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `U flag
@@ -356,7 +354,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"protocol_specific":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `P flag
@@ -371,7 +369,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"service":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Service type
@@ -384,7 +382,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"regexp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Regular expression
@@ -397,7 +395,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 		"replacement":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Replacement DNS name
@@ -413,6 +411,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
     |  name.example.com  |  Absolute DNS name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesOpenvpnServerClient{}
 
 // InterfacesOpenvpnServerClient describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesOpenvpnServerClient struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnServerClientDisable   types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -26,8 +28,7 @@ type InterfacesOpenvpnServerClient struct {
 	LeafInterfacesOpenvpnServerClientPushRoute types.List `tfsdk:"push_route" vyos:"push-route,omitempty"`
 	LeafInterfacesOpenvpnServerClientSubnet    types.List `tfsdk:"subnet" vyos:"subnet,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes(ctx context.Cont
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -53,7 +54,7 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes(ctx context.Cont
 		},
 
 		"ip":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -74,7 +75,7 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes(ctx context.Cont
 		},
 
 		"push_route":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -95,7 +96,7 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes(ctx context.Cont
 		},
 
 		"subnet":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -114,6 +115,8 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes(ctx context.Cont
     |  ipv6net  |  IPv6 network and prefix length belonging to the client  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

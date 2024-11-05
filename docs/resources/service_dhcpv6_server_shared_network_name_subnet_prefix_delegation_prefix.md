@@ -10,6 +10,7 @@ description: |-
 # vyos_service_dhcpv6_server_shared_network_name_subnet_prefix_delegation_prefix (Resource)
 <center>
 
+
 *service*  
 ⯯  
 DHCP for IPv6 (DHCPv6) server  

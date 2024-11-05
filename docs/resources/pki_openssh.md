@@ -10,6 +10,7 @@ description: |-
 # vyos_pki_openssh (Resource)
 <center>
 
+
 Public key infrastructure (PKI)  
 ⯯  
 **OpenSSH public and private keys**

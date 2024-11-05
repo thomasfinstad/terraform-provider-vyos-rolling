@@ -10,6 +10,7 @@ description: |-
 # vyos_vrf_name_protocols_ospf_summary_address (Resource)
 <center>
 
+
 Virtual Routing and Forwarding  
 ⯯  
 Virtual Routing and Forwarding instance  

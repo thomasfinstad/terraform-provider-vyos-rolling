@@ -10,6 +10,7 @@ description: |-
 # vyos_service_ipoe_server_authentication_interface_mac (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Internet Protocol over Ethernet (IPoE) Server  

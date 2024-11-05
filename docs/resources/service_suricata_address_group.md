@@ -10,6 +10,7 @@ description: |-
 # vyos_service_suricata_address_group (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Network IDS, IPS and Security Monitoring  

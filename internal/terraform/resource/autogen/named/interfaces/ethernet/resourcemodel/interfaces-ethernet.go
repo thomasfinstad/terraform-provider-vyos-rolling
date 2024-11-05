@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesEthernet{}
 
 // InterfacesEthernet describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesEthernet struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -49,22 +51,31 @@ type InterfacesEthernet struct {
 	LeafInterfacesEthernetRedirect           types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesEthernetVrf                types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesEthernetVifS bool `tfsdk:"-" vyos:"vif-s,child"`
 
 	ExistsTagInterfacesEthernetVif bool `tfsdk:"-" vyos:"vif,child"`
 
 	// Nodes
-	NodeInterfacesEthernetDhcpOptions     *InterfacesEthernetDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
+	NodeInterfacesEthernetDhcpOptions *InterfacesEthernetDhcpOptions `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
 	NodeInterfacesEthernetDhcpvsixOptions *InterfacesEthernetDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
-	NodeInterfacesEthernetEapol           *InterfacesEthernetEapol           `tfsdk:"eapol" vyos:"eapol,omitempty"`
-	NodeInterfacesEthernetEvpn            *InterfacesEthernetEvpn            `tfsdk:"evpn" vyos:"evpn,omitempty"`
-	NodeInterfacesEthernetIP              *InterfacesEthernetIP              `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesEthernetIPvsix          *InterfacesEthernetIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesEthernetMirror          *InterfacesEthernetMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
-	NodeInterfacesEthernetOffload         *InterfacesEthernetOffload         `tfsdk:"offload" vyos:"offload,omitempty"`
-	NodeInterfacesEthernetRingBuffer      *InterfacesEthernetRingBuffer      `tfsdk:"ring_buffer" vyos:"ring-buffer,omitempty"`
+
+	NodeInterfacesEthernetEapol *InterfacesEthernetEapol `tfsdk:"eapol" vyos:"eapol,omitempty"`
+
+	NodeInterfacesEthernetEvpn *InterfacesEthernetEvpn `tfsdk:"evpn" vyos:"evpn,omitempty"`
+
+	NodeInterfacesEthernetIP *InterfacesEthernetIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesEthernetIPvsix *InterfacesEthernetIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesEthernetMirror *InterfacesEthernetMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesEthernetOffload *InterfacesEthernetOffload `tfsdk:"offload" vyos:"offload,omitempty"`
+
+	NodeInterfacesEthernetRingBuffer *InterfacesEthernetRingBuffer `tfsdk:"ring_buffer" vyos:"ring-buffer,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -102,8 +113,9 @@ func (o *InterfacesEthernet) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesEthernet) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -113,7 +125,7 @@ func (o *InterfacesEthernet) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesEthernet) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -153,8 +165,8 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  ethernet, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  ethernet, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -172,7 +184,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -198,7 +210,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -217,7 +229,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable_flow_control":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable Ethernet flow control (pause frames)
@@ -232,7 +244,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable_link_detect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
@@ -247,7 +259,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -262,7 +274,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"duplex":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Duplex mode
@@ -288,7 +300,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"hw_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Associate Ethernet Interface with given Media Access Control (MAC) address
@@ -307,7 +319,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
@@ -326,7 +338,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -345,7 +357,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"speed":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Link speed
@@ -387,7 +399,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -406,7 +418,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -422,6 +434,8 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

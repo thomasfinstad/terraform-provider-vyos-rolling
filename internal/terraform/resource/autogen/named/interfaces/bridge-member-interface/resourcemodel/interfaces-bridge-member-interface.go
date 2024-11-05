@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesBrIDgeMemberInterface{}
 
 // InterfacesBrIDgeMemberInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesBrIDgeMemberInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -42,7 +44,7 @@ type InterfacesBrIDgeMemberInterface struct {
 	LeafInterfacesBrIDgeMemberInterfacePriority    types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 	LeafInterfacesBrIDgeMemberInterfaceIsolated    types.Bool   `tfsdk:"isolated" vyos:"isolated,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -82,18 +84,18 @@ func (o *InterfacesBrIDgeMemberInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesBrIDgeMemberInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"bridge",
-
 		o.SelfIdentifier.Attributes()["bridge"].(types.String).ValueString(),
 
-		"member",
+		"member", // Node
+
 	}
 }
 
@@ -103,17 +105,16 @@ func (o *InterfacesBrIDgeMemberInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesBrIDgeMemberInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"bridge",
-
 		o.SelfIdentifier.Attributes()["bridge"].(types.String).ValueString(),
 	}
 }
@@ -147,8 +148,8 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes(ctx context.Co
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -185,8 +186,8 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes(ctx context.Co
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  bridge, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  bridge, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -202,7 +203,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes(ctx context.Co
 
 		"native_vlan":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify VLAN id which should natively be present on the link
@@ -220,7 +221,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes(ctx context.Co
 		},
 
 		"allowed_vlan":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -242,7 +243,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes(ctx context.Co
 
 		"cost":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Bridge port cost
@@ -264,7 +265,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes(ctx context.Co
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Bridge port priority
@@ -286,7 +287,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes(ctx context.Co
 
 		"isolated":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Port is isolated (also known as Private-VLAN)
@@ -298,6 +299,8 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes(ctx context.Co
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteMapRuleSetAsPath{}
 
 // PolicyRouteMapRuleSetAsPath describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteMapRuleSetAsPath struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleSetAsPathExclude       types.String `tfsdk:"exclude" vyos:"exclude,omitempty"`
 	LeafPolicyRouteMapRuleSetAsPathPrepend       types.Number `tfsdk:"prepend" vyos:"prepend,omitempty"`
 	LeafPolicyRouteMapRuleSetAsPathPrependLastAs types.Number `tfsdk:"prepend_last_as" vyos:"prepend-last-as,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes(ctx context.Contex
 
 		"exclude":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Remove/exclude from the as-path attribute
@@ -58,7 +59,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes(ctx context.Contex
 
 		"prepend":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Prepend to the as-path
@@ -77,7 +78,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes(ctx context.Contex
 
 		"prepend_last_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Use the last AS-number in the as-path
@@ -93,6 +94,8 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes(ctx context.Contex
     |  1-10    |  Number of times to insert  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

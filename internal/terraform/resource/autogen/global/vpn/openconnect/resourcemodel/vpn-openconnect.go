@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &VpnOpenconnect{}
 
 // VpnOpenconnect describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type VpnOpenconnect struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -31,13 +33,18 @@ type VpnOpenconnect struct {
 	LeafVpnOpenconnectHTTPSecURItyHeaders types.Bool   `tfsdk:"http_security_headers" vyos:"http-security-headers,omitempty"`
 	LeafVpnOpenconnectTLSVersionMin       types.String `tfsdk:"tls_version_min" vyos:"tls-version-min,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnOpenconnectAccounting      bool `tfsdk:"-" vyos:"accounting,child"`
-	ExistsNodeVpnOpenconnectAuthentication  bool `tfsdk:"-" vyos:"authentication,child"`
-	ExistsNodeVpnOpenconnectListenPorts     bool `tfsdk:"-" vyos:"listen-ports,child"`
-	ExistsNodeVpnOpenconnectSsl             bool `tfsdk:"-" vyos:"ssl,child"`
+	// Nodes
+
+	NodeVpnOpenconnectAccounting *VpnOpenconnectAccounting `tfsdk:"accounting" vyos:"accounting,omitempty"`
+
+	ExistsNodeVpnOpenconnectAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
+
+	ExistsNodeVpnOpenconnectListenPorts bool `tfsdk:"-" vyos:"listen-ports,child"`
+
+	ExistsNodeVpnOpenconnectSsl bool `tfsdk:"-" vyos:"ssl,child"`
+
 	ExistsNodeVpnOpenconnectNetworkSettings bool `tfsdk:"-" vyos:"network-settings,child"`
 }
 
@@ -71,8 +78,9 @@ func (o *VpnOpenconnect) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnOpenconnect) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
+
 	}
 }
 
@@ -80,10 +88,9 @@ func (o *VpnOpenconnect) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *VpnOpenconnect) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -104,7 +111,7 @@ func (o VpnOpenconnect) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"listen_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Local IPv4 addresses to listen on
@@ -126,7 +133,7 @@ func (o VpnOpenconnect) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"http_security_headers":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable HTTP security headers
@@ -141,7 +148,7 @@ func (o VpnOpenconnect) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"tls_version_min":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify the minimum required TLS version
@@ -165,6 +172,21 @@ func (o VpnOpenconnect) ResourceSchemaAttributes(ctx context.Context) map[string
 
 			// Default:          stringdefault.StaticString(`1.2`),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"accounting": schema.SingleNestedAttribute{
+			Attributes: VpnOpenconnectAccounting{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Accounting for users OpenConnect VPN Sessions
+
+`,
+			Description: `Accounting for users OpenConnect VPN Sessions
+
+`,
 		},
 	}
 }

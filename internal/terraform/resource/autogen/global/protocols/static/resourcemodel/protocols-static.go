@@ -15,28 +15,36 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsStatic{}
 
 // ProtocolsStatic describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsStatic struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafProtocolsStaticRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticRoute    bool `tfsdk:"-" vyos:"route,child"`
-	ExistsTagProtocolsStaticRoutesix bool `tfsdk:"-" vyos:"route6,child"`
-	ExistsTagProtocolsStaticTable    bool `tfsdk:"-" vyos:"table,child"`
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsStaticArp           bool `tfsdk:"-" vyos:"arp,child"`
-	ExistsNodeProtocolsStaticMulticast     bool `tfsdk:"-" vyos:"multicast,child"`
-	ExistsNodeProtocolsStaticNeighborProxy bool `tfsdk:"-" vyos:"neighbor-proxy,child"`
+	ExistsTagProtocolsStaticRoute bool `tfsdk:"-" vyos:"route,child"`
+
+	ExistsTagProtocolsStaticRoutesix bool `tfsdk:"-" vyos:"route6,child"`
+
+	ExistsTagProtocolsStaticTable bool `tfsdk:"-" vyos:"table,child"`
+
+	// Nodes
+
+	NodeProtocolsStaticArp *ProtocolsStaticArp `tfsdk:"arp" vyos:"arp,omitempty"`
+
+	NodeProtocolsStaticMulticast *ProtocolsStaticMulticast `tfsdk:"multicast" vyos:"multicast,omitempty"`
+
+	NodeProtocolsStaticNeighborProxy *ProtocolsStaticNeighborProxy `tfsdk:"neighbor_proxy" vyos:"neighbor-proxy,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -69,8 +77,9 @@ func (o *ProtocolsStatic) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsStatic) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
+
 	}
 }
 
@@ -78,10 +87,9 @@ func (o *ProtocolsStatic) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsStatic) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -102,7 +110,7 @@ func (o ProtocolsStatic) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"route_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
@@ -116,6 +124,43 @@ func (o ProtocolsStatic) ResourceSchemaAttributes(ctx context.Context) map[strin
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Route map name  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"arp": schema.SingleNestedAttribute{
+			Attributes: ProtocolsStaticArp{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Static ARP translation
+
+`,
+			Description: `Static ARP translation
+
+`,
+		},
+
+		"multicast": schema.SingleNestedAttribute{
+			Attributes: ProtocolsStaticMulticast{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Multicast static route
+
+`,
+			Description: `Multicast static route
+
+`,
+		},
+
+		"neighbor_proxy": schema.SingleNestedAttribute{
+			Attributes: ProtocolsStaticNeighborProxy{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Neighbor proxy parameters
+
+`,
+			Description: `Neighbor proxy parameters
+
 `,
 		},
 	}

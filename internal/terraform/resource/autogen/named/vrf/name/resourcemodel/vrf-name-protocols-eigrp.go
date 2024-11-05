@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsEigrp{}
 
 // VrfNameProtocolsEigrp describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsEigrp struct {
 	// LeafNodes
 	LeafVrfNameProtocolsEigrpSystemAs         types.Number `tfsdk:"system_as" vyos:"system-as,omitempty"`
@@ -28,10 +30,10 @@ type VrfNameProtocolsEigrp struct {
 	LeafVrfNameProtocolsEigrpRouterID         types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 	LeafVrfNameProtocolsEigrpVariance         types.Number `tfsdk:"variance" vyos:"variance,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVrfNameProtocolsEigrpMetric *VrfNameProtocolsEigrpMetric `tfsdk:"metric" vyos:"metric,omitempty"`
 }
 
@@ -42,7 +44,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes(ctx context.Context) map
 
 		"system_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
@@ -61,7 +63,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes(ctx context.Context) map
 
 		"maximum_paths":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Forward packets over multiple paths
@@ -79,7 +81,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes(ctx context.Context) map
 		},
 
 		"network":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -98,7 +100,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes(ctx context.Context) map
 		},
 
 		"passive_interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -111,7 +113,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes(ctx context.Context) map
 		},
 
 		"redistribute":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -145,7 +147,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes(ctx context.Context) map
 
 		"router_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
@@ -164,7 +166,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes(ctx context.Context) map
 
 		"variance":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Control load balancing variance
@@ -180,6 +182,8 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes(ctx context.Context) map
     |  1-128   |  Metric variance multiplier  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

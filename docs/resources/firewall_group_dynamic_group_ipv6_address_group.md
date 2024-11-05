@@ -10,6 +10,7 @@ description: |-
 # vyos_firewall_group_dynamic_group_ipv6_address_group (Resource)
 <center>
 
+
 Firewall  
 ⯯  
 Firewall group  

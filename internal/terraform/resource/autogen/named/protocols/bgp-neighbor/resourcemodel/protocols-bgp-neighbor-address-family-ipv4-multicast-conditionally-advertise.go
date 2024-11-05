@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise{}
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise struct {
 	// LeafNodes
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertiseAdvertiseMap types.String `tfsdk:"advertise_map" vyos:"advertise-map,omitempty"`
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertiseExistMap     types.String `tfsdk:"exist_map" vyos:"exist-map,omitempty"`
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertiseNonExistMap  types.String `tfsdk:"non_exist_map" vyos:"non-exist-map,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise)
 
 		"advertise_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route-map to conditionally advertise routes
@@ -56,7 +57,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise)
 
 		"exist_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise routes only if prefixes in exist-map are installed in BGP table
@@ -75,7 +76,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise)
 
 		"non_exist_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise routes only if prefixes in non-exist-map are not installed in BGP table
@@ -91,6 +92,8 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise)
     |  txt     |  Route map name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

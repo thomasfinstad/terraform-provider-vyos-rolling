@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &SystemLoginTacacs{}
 
 // SystemLoginTacacs describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type SystemLoginTacacs struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -31,10 +33,11 @@ type SystemLoginTacacs struct {
 	LeafSystemLoginTacacsTimeout       types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
 	LeafSystemLoginTacacsVrf           types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagSystemLoginTacacsServer bool `tfsdk:"-" vyos:"server,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -67,12 +70,13 @@ func (o *SystemLoginTacacs) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemLoginTacacs) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
 
-		"login",
+		"login", // Node
+
 	}
 }
 
@@ -80,12 +84,11 @@ func (o *SystemLoginTacacs) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *SystemLoginTacacs) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -106,7 +109,7 @@ func (o SystemLoginTacacs) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"source_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 source address used to initiate connection
@@ -125,7 +128,7 @@ func (o SystemLoginTacacs) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"security_mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Security mode for TACACS+ authentication
@@ -149,7 +152,7 @@ func (o SystemLoginTacacs) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Session timeout
@@ -171,7 +174,7 @@ func (o SystemLoginTacacs) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -187,5 +190,10 @@ func (o SystemLoginTacacs) ResourceSchemaAttributes(ctx context.Context) map[str
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

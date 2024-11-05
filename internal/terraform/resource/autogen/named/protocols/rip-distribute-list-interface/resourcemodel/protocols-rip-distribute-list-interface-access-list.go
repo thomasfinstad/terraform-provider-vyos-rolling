@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsRIPDistributeListInterfaceAccessList{}
 
 // ProtocolsRIPDistributeListInterfaceAccessList describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsRIPDistributeListInterfaceAccessList struct {
 	// LeafNodes
 	LeafProtocolsRIPDistributeListInterfaceAccessListIn  types.Number `tfsdk:"in" vyos:"in,omitempty"`
 	LeafProtocolsRIPDistributeListInterfaceAccessListOut types.Number `tfsdk:"out" vyos:"out,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o ProtocolsRIPDistributeListInterfaceAccessList) ResourceSchemaAttributes(
 
 		"in":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access list to apply to input packets
@@ -55,7 +56,7 @@ func (o ProtocolsRIPDistributeListInterfaceAccessList) ResourceSchemaAttributes(
 
 		"out":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access list to apply to output packets
@@ -71,6 +72,8 @@ func (o ProtocolsRIPDistributeListInterfaceAccessList) ResourceSchemaAttributes(
     |  u32     |  Access list to apply to output packets  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

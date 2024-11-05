@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixForwardFilterRuleSet{}
 
 // FirewallIPvsixForwardFilterRuleSet describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixForwardFilterRuleSet struct {
 	// LeafNodes
 	LeafFirewallIPvsixForwardFilterRuleSetDscp           types.Number `tfsdk:"dscp" vyos:"dscp,omitempty"`
@@ -26,8 +28,7 @@ type FirewallIPvsixForwardFilterRuleSet struct {
 	LeafFirewallIPvsixForwardFilterRuleSetTCPMss         types.Number `tfsdk:"tcp_mss" vyos:"tcp-mss,omitempty"`
 	LeafFirewallIPvsixForwardFilterRuleSetHopLimit       types.Number `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o FirewallIPvsixForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"dscp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set DSCP (Packet Differentiated Services Codepoint) bits
@@ -58,7 +59,7 @@ func (o FirewallIPvsixForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"connection_mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set connection mark
@@ -77,7 +78,7 @@ func (o FirewallIPvsixForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set packet mark
@@ -96,7 +97,7 @@ func (o FirewallIPvsixForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"tcp_mss":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set TCP Maximum Segment Size
@@ -115,7 +116,7 @@ func (o FirewallIPvsixForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"hop_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set hop limit
@@ -131,6 +132,8 @@ func (o FirewallIPvsixForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
     |  0-255   |  Hop limit number  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

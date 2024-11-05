@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_pim_interface_igmp_join (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Protocol Independent Multicast (PIM) and IGMP  

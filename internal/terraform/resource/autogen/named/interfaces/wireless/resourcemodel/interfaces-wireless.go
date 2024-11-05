@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesWireless{}
 
 // InterfacesWireless describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesWireless struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -60,20 +62,27 @@ type InterfacesWireless struct {
 	LeafInterfacesWirelessPerClientThread        types.Bool   `tfsdk:"per_client_thread" vyos:"per-client-thread,omitempty"`
 	LeafInterfacesWirelessRedirect               types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesWirelessVif bool `tfsdk:"-" vyos:"vif,child"`
 
 	ExistsTagInterfacesWirelessVifS bool `tfsdk:"-" vyos:"vif-s,child"`
 
 	// Nodes
-	NodeInterfacesWirelessCapabilities    *InterfacesWirelessCapabilities    `tfsdk:"capabilities" vyos:"capabilities,omitempty"`
-	NodeInterfacesWirelessDhcpOptions     *InterfacesWirelessDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
+	NodeInterfacesWirelessCapabilities *InterfacesWirelessCapabilities `tfsdk:"capabilities" vyos:"capabilities,omitempty"`
+
+	NodeInterfacesWirelessDhcpOptions *InterfacesWirelessDhcpOptions `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
 	NodeInterfacesWirelessDhcpvsixOptions *InterfacesWirelessDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
-	NodeInterfacesWirelessIP              *InterfacesWirelessIP              `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesWirelessIPvsix          *InterfacesWirelessIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesWirelessMirror          *InterfacesWirelessMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
-	NodeInterfacesWirelessSecURIty        *InterfacesWirelessSecURIty        `tfsdk:"security" vyos:"security,omitempty"`
+
+	NodeInterfacesWirelessIP *InterfacesWirelessIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesWirelessIPvsix *InterfacesWirelessIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesWirelessMirror *InterfacesWirelessMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesWirelessSecURIty *InterfacesWirelessSecURIty `tfsdk:"security" vyos:"security,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -111,8 +120,9 @@ func (o *InterfacesWireless) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesWireless) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -122,7 +132,7 @@ func (o *InterfacesWireless) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesWireless) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -162,8 +172,8 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  wireless, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  wireless, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -181,7 +191,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -207,7 +217,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"channel":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Wireless radio channel
@@ -235,7 +245,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -254,7 +264,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable_broadcast_ssid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable broadcast of SSID from access-point
@@ -269,7 +279,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable_link_detect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
@@ -284,7 +294,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -299,7 +309,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -318,7 +328,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"expunge_failing_stations":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disassociate stations based on excessive transmission failures
@@ -333,7 +343,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"hw_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Associate Ethernet Interface with given Media Access Control (MAC) address
@@ -352,7 +362,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"isolate_stations":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Isolate stations on the AP so they cannot see each other
@@ -367,7 +377,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
@@ -386,7 +396,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"max_stations":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of wireless radio stations. Excess stations will be rejected upon authentication request.
@@ -405,7 +415,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"stationary_ap":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Stationary AP config indicates that the AP doesn't move.
@@ -420,7 +430,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"mgmt_frame_protection":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Management Frame Protection (MFP) according to IEEE 802.11w
@@ -446,7 +456,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"enable_bf_protection":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Beacon Protection: management frame protection for Beacon frames, requires Management Frame Protection (MFP)
@@ -461,7 +471,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Wireless radio mode
@@ -493,7 +503,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"physical_device":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Wireless physical device
@@ -509,7 +519,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"reduce_transmit_power":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Transmission power reduction in dBm
@@ -528,7 +538,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"ssid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Wireless access-point service set identifier (SSID)
@@ -541,7 +551,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"bssid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Basic Service Set Identifier (BSSID) - currently station mode only
@@ -560,7 +570,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Wireless device type for this interface
@@ -586,7 +596,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"per_client_thread":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Process traffic from each client in a dedicated thread
@@ -601,7 +611,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -617,6 +627,8 @@ func (o InterfacesWireless) ResourceSchemaAttributes(ctx context.Context) map[st
     |  txt     |  Destination interface name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

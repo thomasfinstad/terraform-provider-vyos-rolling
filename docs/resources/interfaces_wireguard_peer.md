@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_wireguard_peer (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 WireGuard Interface  

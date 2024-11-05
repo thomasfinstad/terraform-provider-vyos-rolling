@@ -13,20 +13,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyAccessListsixRuleSource{}
 
 // PolicyAccessListsixRuleSource describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyAccessListsixRuleSource struct {
 	// LeafNodes
 	LeafPolicyAccessListsixRuleSourceAny        types.Bool   `tfsdk:"any" vyos:"any,omitempty"`
 	LeafPolicyAccessListsixRuleSourceExactMatch types.Bool   `tfsdk:"exact_match" vyos:"exact-match,omitempty"`
 	LeafPolicyAccessListsixRuleSourceNetwork    types.String `tfsdk:"network" vyos:"network,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes(ctx context.Cont
 
 		"any":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Any IP address to match
@@ -53,7 +54,7 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes(ctx context.Cont
 
 		"exact_match":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Exact match of the network prefixes
@@ -68,7 +69,7 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes(ctx context.Cont
 
 		"network":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Network/netmask to match
@@ -84,6 +85,8 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes(ctx context.Cont
     |  ipv6net  |  IPv6 address and prefix length  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

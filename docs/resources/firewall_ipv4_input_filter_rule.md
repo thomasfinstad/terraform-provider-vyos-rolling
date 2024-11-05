@@ -10,6 +10,7 @@ description: |-
 # vyos_firewall_ipv4_input_filter_rule (Resource)
 <center>
 
+
 Firewall  
 ⯯  
 IPv4 firewall  

@@ -11,20 +11,23 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixForwardFilterRuleAddAddressToGroup{}
 
 // FirewallIPvsixForwardFilterRuleAddAddressToGroup describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixForwardFilterRuleAddAddressToGroup struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeFirewallIPvsixForwardFilterRuleAddAddressToGroupSourceAddress      *FirewallIPvsixForwardFilterRuleAddAddressToGroupSourceAddress      `tfsdk:"source_address" vyos:"source-address,omitempty"`
+
+	NodeFirewallIPvsixForwardFilterRuleAddAddressToGroupSourceAddress *FirewallIPvsixForwardFilterRuleAddAddressToGroupSourceAddress `tfsdk:"source_address" vyos:"source-address,omitempty"`
+
 	NodeFirewallIPvsixForwardFilterRuleAddAddressToGroupDestinationAddress *FirewallIPvsixForwardFilterRuleAddAddressToGroupDestinationAddress `tfsdk:"destination_address" vyos:"destination-address,omitempty"`
 }
 
@@ -32,6 +35,8 @@ type FirewallIPvsixForwardFilterRuleAddAddressToGroup struct {
 func (o FirewallIPvsixForwardFilterRuleAddAddressToGroup) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

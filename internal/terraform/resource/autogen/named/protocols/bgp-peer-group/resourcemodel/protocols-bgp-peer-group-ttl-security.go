@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpPeerGroupTTLSecURIty{}
 
 // ProtocolsBgpPeerGroupTTLSecURIty describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpPeerGroupTTLSecURIty struct {
 	// LeafNodes
 	LeafProtocolsBgpPeerGroupTTLSecURItyHops types.Number `tfsdk:"hops" vyos:"hops,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -35,7 +36,7 @@ func (o ProtocolsBgpPeerGroupTTLSecURIty) ResourceSchemaAttributes(ctx context.C
 
 		"hops":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of the maximum number of hops to the BGP peer
@@ -51,6 +52,8 @@ func (o ProtocolsBgpPeerGroupTTLSecURIty) ResourceSchemaAttributes(ctx context.C
     |  1-254   |  Number of hops  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

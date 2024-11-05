@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixInputFilterRuleSourceGroup{}
 
 // FirewallIPvsixInputFilterRuleSourceGroup describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixInputFilterRuleSourceGroup struct {
 	// LeafNodes
 	LeafFirewallIPvsixInputFilterRuleSourceGroupAddressGroup        types.String `tfsdk:"address_group" vyos:"address-group,omitempty"`
@@ -27,8 +29,7 @@ type FirewallIPvsixInputFilterRuleSourceGroup struct {
 	LeafFirewallIPvsixInputFilterRuleSourceGroupPortGroup           types.String `tfsdk:"port_group" vyos:"port-group,omitempty"`
 	LeafFirewallIPvsixInputFilterRuleSourceGroupDynamicAddressGroup types.String `tfsdk:"dynamic_address_group" vyos:"dynamic-address-group,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -40,7 +41,7 @@ func (o FirewallIPvsixInputFilterRuleSourceGroup) ResourceSchemaAttributes(ctx c
 
 		"address_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of addresses
@@ -53,7 +54,7 @@ func (o FirewallIPvsixInputFilterRuleSourceGroup) ResourceSchemaAttributes(ctx c
 
 		"domain_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of domains
@@ -66,7 +67,7 @@ func (o FirewallIPvsixInputFilterRuleSourceGroup) ResourceSchemaAttributes(ctx c
 
 		"mac_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of MAC addresses
@@ -79,7 +80,7 @@ func (o FirewallIPvsixInputFilterRuleSourceGroup) ResourceSchemaAttributes(ctx c
 
 		"network_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of networks
@@ -92,7 +93,7 @@ func (o FirewallIPvsixInputFilterRuleSourceGroup) ResourceSchemaAttributes(ctx c
 
 		"port_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of ports
@@ -105,7 +106,7 @@ func (o FirewallIPvsixInputFilterRuleSourceGroup) ResourceSchemaAttributes(ctx c
 
 		"dynamic_address_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of dynamic ipv6 addresses
@@ -115,6 +116,8 @@ func (o FirewallIPvsixInputFilterRuleSourceGroup) ResourceSchemaAttributes(ctx c
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

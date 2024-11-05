@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsOspfvthreeInterface{}
 
 // VrfNameProtocolsOspfvthreeInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VrfNameProtocolsOspfvthreeInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -49,9 +51,10 @@ type VrfNameProtocolsOspfvthreeInterface struct {
 	LeafVrfNameProtocolsOspfvthreeInterfaceNetwork            types.String `tfsdk:"network" vyos:"network,omitempty"`
 	LeafVrfNameProtocolsOspfvthreeInterfacePassive            types.Bool   `tfsdk:"passive" vyos:"passive,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVrfNameProtocolsOspfvthreeInterfaceBfd *VrfNameProtocolsOspfvthreeInterfaceBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
 }
 
@@ -90,22 +93,22 @@ func (o *VrfNameProtocolsOspfvthreeInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VrfNameProtocolsOspfvthreeInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vrf",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vrf", // Node
 
 		"name",
-
 		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 
-		"protocols",
+		"protocols", // Node
 
-		"ospfv3",
+		"ospfv3", // Node
+
 	}
 }
 
@@ -115,19 +118,18 @@ func (o *VrfNameProtocolsOspfvthreeInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VrfNameProtocolsOspfvthreeInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vrf",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vrf", // Node
 
 		"name",
-
 		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
@@ -167,8 +169,8 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -207,8 +209,8 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -224,7 +226,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"area":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable OSPF on this interface
@@ -245,7 +247,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"dead_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
@@ -267,7 +269,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"hello_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between hello packets
@@ -289,7 +291,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"retransmit_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
@@ -311,7 +313,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"transmit_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Link state transmit delay
@@ -333,7 +335,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"cost":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface cost
@@ -352,7 +354,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"mtu_ignore":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable Maximum Transmission Unit (MTU) mismatch detection
@@ -367,7 +369,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Router priority
@@ -389,7 +391,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"ifmtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface MTU
@@ -408,7 +410,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"instance_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Instance ID
@@ -430,7 +432,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"network":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Network type
@@ -451,7 +453,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 
 		"passive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure passive mode for interface
@@ -463,6 +465,8 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes(ctx contex
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

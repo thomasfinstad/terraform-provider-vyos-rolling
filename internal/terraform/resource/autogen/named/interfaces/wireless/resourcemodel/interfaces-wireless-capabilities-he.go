@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessCapabilitiesHe{}
 
 // InterfacesWirelessCapabilitiesHe describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessCapabilitiesHe struct {
 	// LeafNodes
 	LeafInterfacesWirelessCapabilitiesHeChannelSetWIDth     types.String `tfsdk:"channel_set_width" vyos:"channel-set-width,omitempty"`
@@ -26,12 +28,13 @@ type InterfacesWirelessCapabilitiesHe struct {
 	LeafInterfacesWirelessCapabilitiesHeBssColor            types.String `tfsdk:"bss_color" vyos:"bss-color,omitempty"`
 	LeafInterfacesWirelessCapabilitiesHeCodingScheme        types.Number `tfsdk:"coding_scheme" vyos:"coding-scheme,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeInterfacesWirelessCapabilitiesHeCenterChannelFreq *InterfacesWirelessCapabilitiesHeCenterChannelFreq `tfsdk:"center_channel_freq" vyos:"center-channel-freq,omitempty"`
-	NodeInterfacesWirelessCapabilitiesHeBeamform          *InterfacesWirelessCapabilitiesHeBeamform          `tfsdk:"beamform" vyos:"beamform,omitempty"`
+
+	NodeInterfacesWirelessCapabilitiesHeBeamform *InterfacesWirelessCapabilitiesHeBeamform `tfsdk:"beamform" vyos:"beamform,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -41,7 +44,7 @@ func (o InterfacesWirelessCapabilitiesHe) ResourceSchemaAttributes(ctx context.C
 
 		"channel_set_width":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `HE operating channel width
@@ -74,7 +77,7 @@ func (o InterfacesWirelessCapabilitiesHe) ResourceSchemaAttributes(ctx context.C
 
 		"antenna_pattern_fixed":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Tell the AP that antenna positions are fixed and will not change during the lifetime of an association
@@ -89,7 +92,7 @@ func (o InterfacesWirelessCapabilitiesHe) ResourceSchemaAttributes(ctx context.C
 
 		"bss_color":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BSS coloring helps to prevent channel jamming when multiple APs use the same channels
@@ -102,7 +105,7 @@ func (o InterfacesWirelessCapabilitiesHe) ResourceSchemaAttributes(ctx context.C
 
 		"coding_scheme":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Spacial Stream and Modulation Coding Scheme settings
@@ -124,6 +127,8 @@ func (o InterfacesWirelessCapabilitiesHe) ResourceSchemaAttributes(ctx context.C
     |  3       |  HE-MCS is not supported  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

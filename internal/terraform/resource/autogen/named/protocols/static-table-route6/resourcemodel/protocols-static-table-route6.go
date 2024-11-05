@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsStaticTableRoutesix{}
 
 // ProtocolsStaticTableRoutesix describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsStaticTableRoutesix struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -38,15 +40,17 @@ type ProtocolsStaticTableRoutesix struct {
 	// LeafNodes
 	LeafProtocolsStaticTableRoutesixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagProtocolsStaticTableRoutesixInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	ExistsTagProtocolsStaticTableRoutesixNextHop bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
+
 	NodeProtocolsStaticTableRoutesixBlackhole *ProtocolsStaticTableRoutesixBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`
-	NodeProtocolsStaticTableRoutesixReject    *ProtocolsStaticTableRoutesixReject    `tfsdk:"reject" vyos:"reject,omitempty"`
+
+	NodeProtocolsStaticTableRoutesixReject *ProtocolsStaticTableRoutesixReject `tfsdk:"reject" vyos:"reject,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -84,17 +88,16 @@ func (o *ProtocolsStaticTableRoutesix) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsStaticTableRoutesix) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"static",
+		"static", // Node
 
 		"table",
-
 		o.SelfIdentifier.Attributes()["table"].(types.Number).ValueBigFloat().String(),
 	}
 }
@@ -105,19 +108,18 @@ func (o *ProtocolsStaticTableRoutesix) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsStaticTableRoutesix) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"static",
+		"static", // Node
 
 		"table",
-
 		o.SelfIdentifier.Attributes()["table"].(types.Number).ValueBigFloat().String(),
 	}
 }
@@ -157,8 +159,8 @@ func (o ProtocolsStaticTableRoutesix) ResourceSchemaAttributes(ctx context.Conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  route6, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  route6, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -199,7 +201,7 @@ func (o ProtocolsStaticTableRoutesix) ResourceSchemaAttributes(ctx context.Conte
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -215,6 +217,8 @@ func (o ProtocolsStaticTableRoutesix) ResourceSchemaAttributes(ctx context.Conte
     |  txt     |  Description  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

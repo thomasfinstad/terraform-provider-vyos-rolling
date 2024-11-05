@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceDhcpServerHighAvailability{}
 
 // ServiceDhcpServerHighAvailability describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceDhcpServerHighAvailability struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -34,9 +36,9 @@ type ServiceDhcpServerHighAvailability struct {
 	LeafServiceDhcpServerHighAvailabilityCaCertificate types.String `tfsdk:"ca_certificate" vyos:"ca-certificate,omitempty"`
 	LeafServiceDhcpServerHighAvailabilityCertificate   types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -69,12 +71,13 @@ func (o *ServiceDhcpServerHighAvailability) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDhcpServerHighAvailability) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dhcp-server",
+		"dhcp-server", // Node
+
 	}
 }
 
@@ -82,12 +85,11 @@ func (o *ServiceDhcpServerHighAvailability) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceDhcpServerHighAvailability) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -108,7 +110,7 @@ func (o ServiceDhcpServerHighAvailability) ResourceSchemaAttributes(ctx context.
 
 		"source_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 source address used to initiate connection
@@ -127,7 +129,7 @@ func (o ServiceDhcpServerHighAvailability) ResourceSchemaAttributes(ctx context.
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure high availability mode
@@ -151,7 +153,7 @@ func (o ServiceDhcpServerHighAvailability) ResourceSchemaAttributes(ctx context.
 
 		"remote":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 remote address used for connection
@@ -170,7 +172,7 @@ func (o ServiceDhcpServerHighAvailability) ResourceSchemaAttributes(ctx context.
 
 		"name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer name used to identify connection
@@ -183,7 +185,7 @@ func (o ServiceDhcpServerHighAvailability) ResourceSchemaAttributes(ctx context.
 
 		"status":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `High availability hierarchy
@@ -204,7 +206,7 @@ func (o ServiceDhcpServerHighAvailability) ResourceSchemaAttributes(ctx context.
 
 		"ca_certificate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Certificate Authority in PKI configuration
@@ -223,7 +225,7 @@ func (o ServiceDhcpServerHighAvailability) ResourceSchemaAttributes(ctx context.
 
 		"certificate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
@@ -239,5 +241,10 @@ func (o ServiceDhcpServerHighAvailability) ResourceSchemaAttributes(ctx context.
     |  txt     |  Name of certificate in PKI configuration  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

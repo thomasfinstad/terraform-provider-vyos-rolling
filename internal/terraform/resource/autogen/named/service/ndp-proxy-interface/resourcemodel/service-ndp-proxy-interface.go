@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceNdpProxyInterface{}
 
 // ServiceNdpProxyInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceNdpProxyInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -41,7 +43,7 @@ type ServiceNdpProxyInterface struct {
 	LeafServiceNdpProxyInterfaceTimeout         types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
 	LeafServiceNdpProxyInterfaceTTL             types.Number `tfsdk:"ttl" vyos:"ttl,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagServiceNdpProxyInterfacePrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
@@ -83,12 +85,13 @@ func (o *ServiceNdpProxyInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceNdpProxyInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"ndp-proxy",
+		"ndp-proxy", // Node
+
 	}
 }
 
@@ -98,9 +101,9 @@ func (o *ServiceNdpProxyInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceNdpProxyInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -134,8 +137,8 @@ func (o ServiceNdpProxyInterface) ResourceSchemaAttributes(ctx context.Context) 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -156,7 +159,7 @@ func (o ServiceNdpProxyInterface) ResourceSchemaAttributes(ctx context.Context) 
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -171,7 +174,7 @@ func (o ServiceNdpProxyInterface) ResourceSchemaAttributes(ctx context.Context) 
 
 		"enable_router_bit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable router bit in Neighbor Advertisement messages
@@ -186,7 +189,7 @@ func (o ServiceNdpProxyInterface) ResourceSchemaAttributes(ctx context.Context) 
 
 		"timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout for Neighbor Advertisement after Neighbor Solicitation message
@@ -208,7 +211,7 @@ func (o ServiceNdpProxyInterface) ResourceSchemaAttributes(ctx context.Context) 
 
 		"ttl":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Proxy entry cache Time-To-Live
@@ -227,6 +230,8 @@ func (o ServiceNdpProxyInterface) ResourceSchemaAttributes(ctx context.Context) 
 			// Default:          stringdefault.StaticString(`30000`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

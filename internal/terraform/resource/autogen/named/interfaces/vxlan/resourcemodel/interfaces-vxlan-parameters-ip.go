@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesVxlanParametersIP{}
 
 // InterfacesVxlanParametersIP describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesVxlanParametersIP struct {
 	// LeafNodes
 	LeafInterfacesVxlanParametersIPDf  types.String `tfsdk:"df" vyos:"df,omitempty"`
 	LeafInterfacesVxlanParametersIPTos types.Number `tfsdk:"tos" vyos:"tos,omitempty"`
 	LeafInterfacesVxlanParametersIPTTL types.Number `tfsdk:"ttl" vyos:"ttl,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes(ctx context.Contex
 
 		"df":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Usage of the DF (don't Fragment) bit in outgoing packets
@@ -63,7 +64,7 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes(ctx context.Contex
 
 		"tos":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies TOS value to use in outgoing packets
@@ -85,7 +86,7 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes(ctx context.Contex
 
 		"ttl":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies TTL value to use in outgoing packets
@@ -106,6 +107,8 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes(ctx context.Contex
 			// Default:          stringdefault.StaticString(`16`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

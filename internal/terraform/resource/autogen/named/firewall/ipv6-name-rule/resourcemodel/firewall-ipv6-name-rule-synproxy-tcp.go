@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixNameRuleSynproxyTCP{}
 
 // FirewallIPvsixNameRuleSynproxyTCP describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixNameRuleSynproxyTCP struct {
 	// LeafNodes
 	LeafFirewallIPvsixNameRuleSynproxyTCPMss         types.Number `tfsdk:"mss" vyos:"mss,omitempty"`
 	LeafFirewallIPvsixNameRuleSynproxyTCPWindowScale types.Number `tfsdk:"window_scale" vyos:"window-scale,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o FirewallIPvsixNameRuleSynproxyTCP) ResourceSchemaAttributes(ctx context.
 
 		"mss":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP Maximum segment size
@@ -55,7 +56,7 @@ func (o FirewallIPvsixNameRuleSynproxyTCP) ResourceSchemaAttributes(ctx context.
 
 		"window_scale":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP window scale for synproxy connections
@@ -71,6 +72,8 @@ func (o FirewallIPvsixNameRuleSynproxyTCP) ResourceSchemaAttributes(ctx context.
     |  1-14    |  TCP window scale  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

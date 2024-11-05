@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &QosPolicyRandomDetectPrecedence{}
 
 // QosPolicyRandomDetectPrecedence describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type QosPolicyRandomDetectPrecedence struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -42,7 +44,7 @@ type QosPolicyRandomDetectPrecedence struct {
 	LeafQosPolicyRandomDetectPrecedenceMinimumThreshold types.Number `tfsdk:"minimum_threshold" vyos:"minimum-threshold,omitempty"`
 	LeafQosPolicyRandomDetectPrecedenceMarkProbability  types.Number `tfsdk:"mark_probability" vyos:"mark-probability,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -82,17 +84,16 @@ func (o *QosPolicyRandomDetectPrecedence) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *QosPolicyRandomDetectPrecedence) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"qos",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"qos", // Node
 
-		"policy",
+		"policy", // Node
 
 		"random-detect",
-
 		o.SelfIdentifier.Attributes()["random_detect"].(types.String).ValueString(),
 	}
 }
@@ -103,19 +104,18 @@ func (o *QosPolicyRandomDetectPrecedence) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *QosPolicyRandomDetectPrecedence) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"qos",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"qos", // Node
 
-		"policy",
+		"policy", // Node
 
 		"random-detect",
-
 		o.SelfIdentifier.Attributes()["random_detect"].(types.String).ValueString(),
 	}
 }
@@ -180,8 +180,8 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes(ctx context.Co
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  random_detect, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  random_detect, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -197,7 +197,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes(ctx context.Co
 
 		"queue_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
@@ -216,7 +216,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes(ctx context.Co
 
 		"average_packet":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Average packet size (bytes)
@@ -238,7 +238,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes(ctx context.Co
 
 		"maximum_threshold":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum threshold for random detection
@@ -260,7 +260,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes(ctx context.Co
 
 		"minimum_threshold":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum threshold for random detection
@@ -279,7 +279,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes(ctx context.Co
 
 		"mark_probability":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Mark probability for random detection
@@ -298,6 +298,8 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes(ctx context.Co
 			// Default:          stringdefault.StaticString(`10`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

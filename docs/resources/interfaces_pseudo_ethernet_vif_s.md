@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_pseudo_ethernet_vif_s (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Pseudo Ethernet Interface (Macvlan)  

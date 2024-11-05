@@ -12,21 +12,23 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &SystemConntrackIgnoreIPvfourRuleDestination{}
 
 // SystemConntrackIgnoreIPvfourRuleDestination describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type SystemConntrackIgnoreIPvfourRuleDestination struct {
 	// LeafNodes
 	LeafSystemConntrackIgnoreIPvfourRuleDestinationAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafSystemConntrackIgnoreIPvfourRuleDestinationPort    types.String `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeSystemConntrackIgnoreIPvfourRuleDestinationGroup *SystemConntrackIgnoreIPvfourRuleDestinationGroup `tfsdk:"group" vyos:"group,omitempty"`
 }
 
@@ -37,7 +39,7 @@ func (o SystemConntrackIgnoreIPvfourRuleDestination) ResourceSchemaAttributes(ct
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
@@ -66,7 +68,7 @@ func (o SystemConntrackIgnoreIPvfourRuleDestination) ResourceSchemaAttributes(ct
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number
@@ -88,6 +90,8 @@ func (o SystemConntrackIgnoreIPvfourRuleDestination) ResourceSchemaAttributes(ct
     |             |  </br></br>Multiple destination ports can be specified as a comma-separated list.</br>The whole list can also be negated using '!'.</br>For example: '!22,telnet,http,123,1001-1005'  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

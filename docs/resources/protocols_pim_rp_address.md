@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_pim_rp_address (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Protocol Independent Multicast (PIM) and IGMP  

@@ -18,12 +18,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &FirewallIPvsixPreroutingRawRule{}
 
 // FirewallIPvsixPreroutingRawRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type FirewallIPvsixPreroutingRawRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -44,23 +46,37 @@ type FirewallIPvsixPreroutingRawRule struct {
 	LeafFirewallIPvsixPreroutingRawRuleQueueOptions types.List   `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
 	LeafFirewallIPvsixPreroutingRawRuleJumpTarget   types.String `tfsdk:"jump_target" vyos:"jump-target,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeFirewallIPvsixPreroutingRawRuleAddAddressToGroup *FirewallIPvsixPreroutingRawRuleAddAddressToGroup `tfsdk:"add_address_to_group" vyos:"add-address-to-group,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleFragment          *FirewallIPvsixPreroutingRawRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleIcmpvsix          *FirewallIPvsixPreroutingRawRuleIcmpvsix          `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleLimit             *FirewallIPvsixPreroutingRawRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleLogOptions        *FirewallIPvsixPreroutingRawRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleRecent            *FirewallIPvsixPreroutingRawRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleTCP               *FirewallIPvsixPreroutingRawRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleTime              *FirewallIPvsixPreroutingRawRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleHopLimit          *FirewallIPvsixPreroutingRawRuleHopLimit          `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleDestination       *FirewallIPvsixPreroutingRawRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleSource            *FirewallIPvsixPreroutingRawRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleIPsec             *FirewallIPvsixPreroutingRawRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleInboundInterface  *FirewallIPvsixPreroutingRawRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
-	NodeFirewallIPvsixPreroutingRawRuleSet               *FirewallIPvsixPreroutingRawRuleSet               `tfsdk:"set" vyos:"set,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleFragment *FirewallIPvsixPreroutingRawRuleFragment `tfsdk:"fragment" vyos:"fragment,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleIcmpvsix *FirewallIPvsixPreroutingRawRuleIcmpvsix `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleLimit *FirewallIPvsixPreroutingRawRuleLimit `tfsdk:"limit" vyos:"limit,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleLogOptions *FirewallIPvsixPreroutingRawRuleLogOptions `tfsdk:"log_options" vyos:"log-options,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleRecent *FirewallIPvsixPreroutingRawRuleRecent `tfsdk:"recent" vyos:"recent,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleTCP *FirewallIPvsixPreroutingRawRuleTCP `tfsdk:"tcp" vyos:"tcp,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleTime *FirewallIPvsixPreroutingRawRuleTime `tfsdk:"time" vyos:"time,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleHopLimit *FirewallIPvsixPreroutingRawRuleHopLimit `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleDestination *FirewallIPvsixPreroutingRawRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleSource *FirewallIPvsixPreroutingRawRuleSource `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleIPsec *FirewallIPvsixPreroutingRawRuleIPsec `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleInboundInterface *FirewallIPvsixPreroutingRawRuleInboundInterface `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+
+	NodeFirewallIPvsixPreroutingRawRuleSet *FirewallIPvsixPreroutingRawRuleSet `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -98,20 +114,21 @@ func (o *FirewallIPvsixPreroutingRawRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *FirewallIPvsixPreroutingRawRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"firewall",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"firewall", // Node
 
-		"ipv6",
+		"ipv6", // Node
 
-		"prerouting",
+		"prerouting", // Node
 
-		"raw",
+		"raw", // Node
+
 	}
 }
 
@@ -121,13 +138,13 @@ func (o *FirewallIPvsixPreroutingRawRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *FirewallIPvsixPreroutingRawRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -180,7 +197,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 		"action":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule action
@@ -213,7 +230,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -231,7 +248,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 		},
 
 		"dscp":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -252,7 +269,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 		},
 
 		"dscp_exclude":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -274,7 +291,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -289,7 +306,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 		"log":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting this rule
@@ -304,7 +321,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
@@ -331,7 +348,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 		"queue":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue target to use. Action queue must be defined to use this setting
@@ -349,7 +366,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 		},
 
 		"queue_options":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -371,7 +388,7 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 		"jump_target":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set jump target. Action jump must be defined to use this setting
@@ -381,6 +398,8 @@ func (o FirewallIPvsixPreroutingRawRule) ResourceSchemaAttributes(ctx context.Co
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

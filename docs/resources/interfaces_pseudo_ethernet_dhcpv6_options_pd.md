@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_pseudo_ethernet_dhcpv6_options_pd (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Pseudo Ethernet Interface (Macvlan)  

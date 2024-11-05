@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_bridge (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Bridge Interface**

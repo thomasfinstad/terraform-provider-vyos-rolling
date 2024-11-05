@@ -10,6 +10,7 @@ description: |-
 # vyos_service_ntp_ptp_timestamp_interface (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Network Time Protocol (NTP) configuration  

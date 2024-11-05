@@ -17,12 +17,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &SystemConntrackTimeoutCustomIPvsixRule{}
 
 // SystemConntrackTimeoutCustomIPvsixRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type SystemConntrackTimeoutCustomIPvsixRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -35,12 +37,15 @@ type SystemConntrackTimeoutCustomIPvsixRule struct {
 	LeafSystemConntrackTimeoutCustomIPvsixRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafSystemConntrackTimeoutCustomIPvsixRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeSystemConntrackTimeoutCustomIPvsixRuleDestination *SystemConntrackTimeoutCustomIPvsixRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeSystemConntrackTimeoutCustomIPvsixRuleProtocol    *SystemConntrackTimeoutCustomIPvsixRuleProtocol    `tfsdk:"protocol" vyos:"protocol,omitempty"`
-	NodeSystemConntrackTimeoutCustomIPvsixRuleSource      *SystemConntrackTimeoutCustomIPvsixRuleSource      `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeSystemConntrackTimeoutCustomIPvsixRuleProtocol *SystemConntrackTimeoutCustomIPvsixRuleProtocol `tfsdk:"protocol" vyos:"protocol,omitempty"`
+
+	NodeSystemConntrackTimeoutCustomIPvsixRuleSource *SystemConntrackTimeoutCustomIPvsixRuleSource `tfsdk:"source" vyos:"source,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -78,24 +83,25 @@ func (o *SystemConntrackTimeoutCustomIPvsixRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemConntrackTimeoutCustomIPvsixRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
 
-		"conntrack",
+		"conntrack", // Node
 
-		"timeout",
+		"timeout", // Node
 
-		"custom",
+		"custom", // Node
 
-		"ipv6",
+		"ipv6", // Node
+
 	}
 }
 
@@ -105,15 +111,15 @@ func (o *SystemConntrackTimeoutCustomIPvsixRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *SystemConntrackTimeoutCustomIPvsixRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -168,7 +174,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRule) ResourceSchemaAttributes(ctx con
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -187,7 +193,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRule) ResourceSchemaAttributes(ctx con
 
 		"inbound_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface to apply custom connection timers on
@@ -197,6 +203,8 @@ func (o SystemConntrackTimeoutCustomIPvsixRule) ResourceSchemaAttributes(ctx con
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

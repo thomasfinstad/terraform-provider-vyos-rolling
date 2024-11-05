@@ -10,6 +10,7 @@ description: |-
 # vyos_container_name (Resource)
 <center>
 
+
 Container applications  
 ⯯  
 **Container name**
@@ -39,6 +40,7 @@ Container applications
       - [host_name](#host_name)
       - [image](#image)
       - [memory](#memory)
+      - [network](#network)
       - [restart](#restart)
       - [shared_memory](#shared_memory)
       - [sysctl](#sysctl)
@@ -47,6 +49,7 @@ Container applications
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
+    - [Nested Schema for `network`](#nested-schema-for-network)
     - [Nested Schema for `sysctl`](#nested-schema-for-sysctl)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
@@ -122,6 +125,8 @@ Container applications
     |-----------|--------------------------------------|
     |  0        &emsp;|  Unlimited                           |
     |  1-16384  &emsp;|  Container memory in megabytes (MB)  |
+#### network
+- `network` (Attributes Map) Attach user defined network to container (see [below for nested schema](#nestedatt--network))
 #### restart
 - `restart` (String) Restart options for container
 
@@ -159,6 +164,19 @@ Container applications
 Required:
 
 - `name` (String) Container name
+
+
+<a id="nestedatt--network"></a>
+### Nested Schema for `network`
+
+Optional:
+
+- `address` (List of String) Assign static IP address to container
+
+    |  Format  &emsp;|  Description   |
+    |----------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
+    |  ipv6    &emsp;|  IPv6 address  |
 
 
 <a id="nestedatt--sysctl"></a>

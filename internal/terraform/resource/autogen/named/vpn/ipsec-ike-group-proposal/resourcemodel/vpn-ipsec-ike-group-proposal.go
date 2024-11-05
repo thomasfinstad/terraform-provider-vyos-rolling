@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VpnIPsecIkeGroupProposal{}
 
 // VpnIPsecIkeGroupProposal describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VpnIPsecIkeGroupProposal struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -41,7 +43,7 @@ type VpnIPsecIkeGroupProposal struct {
 	LeafVpnIPsecIkeGroupProposalEncryption types.String `tfsdk:"encryption" vyos:"encryption,omitempty"`
 	LeafVpnIPsecIkeGroupProposalHash       types.String `tfsdk:"hash" vyos:"hash,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -81,17 +83,16 @@ func (o *VpnIPsecIkeGroupProposal) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnIPsecIkeGroupProposal) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"ipsec",
+		"ipsec", // Node
 
 		"ike-group",
-
 		o.SelfIdentifier.Attributes()["ike_group"].(types.String).ValueString(),
 	}
 }
@@ -102,19 +103,18 @@ func (o *VpnIPsecIkeGroupProposal) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VpnIPsecIkeGroupProposal) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"ipsec",
+		"ipsec", // Node
 
 		"ike-group",
-
 		o.SelfIdentifier.Attributes()["ike_group"].(types.String).ValueString(),
 	}
 }
@@ -173,8 +173,8 @@ func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes(ctx context.Context) 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  ike_group, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  ike_group, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -190,7 +190,7 @@ func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes(ctx context.Context) 
 
 		"dh_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `dh-grouphelp
@@ -254,7 +254,7 @@ func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes(ctx context.Context) 
 
 		"prf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Pseudo-Random Functions
@@ -285,7 +285,7 @@ func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes(ctx context.Context) 
 
 		"encryption":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Encryption algorithm
@@ -415,7 +415,7 @@ func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes(ctx context.Context) 
 
 		"hash":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Hash algorithm
@@ -458,6 +458,8 @@ func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes(ctx context.Context) 
 			// Default:          stringdefault.StaticString(`sha1`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

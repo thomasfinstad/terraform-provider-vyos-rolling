@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceConfigSyncSectionInterfaces{}
 
 // ServiceConfigSyncSectionInterfaces describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceConfigSyncSectionInterfaces struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -48,9 +50,9 @@ type ServiceConfigSyncSectionInterfaces struct {
 	LeafServiceConfigSyncSectionInterfacesWireless        types.Bool `tfsdk:"wireless" vyos:"wireless,omitempty"`
 	LeafServiceConfigSyncSectionInterfacesWwan            types.Bool `tfsdk:"wwan" vyos:"wwan,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -83,16 +85,17 @@ func (o *ServiceConfigSyncSectionInterfaces) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceConfigSyncSectionInterfaces) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"config-sync",
+		"config-sync", // Node
 
-		"section",
+		"section", // Node
+
 	}
 }
 
@@ -100,14 +103,13 @@ func (o *ServiceConfigSyncSectionInterfaces) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceConfigSyncSectionInterfaces) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -128,7 +130,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"bonding":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Bonding interface
@@ -143,7 +145,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"bridge":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Bridge interface
@@ -158,7 +160,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"dummy":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Dummy interface
@@ -173,7 +175,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"ethernet":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ethernet interface
@@ -188,7 +190,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"geneve":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `GENEVE interface
@@ -203,7 +205,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"input":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Input interface
@@ -218,7 +220,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"l2tpv3":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `L2TPv3 interface
@@ -233,7 +235,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"loopback":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Loopback interface
@@ -248,7 +250,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"macsec":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `MACsec interface
@@ -263,7 +265,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"openvpn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `OpenVPN interface
@@ -278,7 +280,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"pppoe":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `PPPoE interface
@@ -293,7 +295,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"pseudo_ethernet":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Pseudo-Ethernet interface
@@ -308,7 +310,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"sstpc":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `SSTP client interface
@@ -323,7 +325,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"tunnel":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Tunnel interface
@@ -338,7 +340,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"virtual_ethernet":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Ethernet interface
@@ -353,7 +355,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"vti":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual tunnel interface
@@ -368,7 +370,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"vxlan":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `VXLAN interface
@@ -383,7 +385,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"wireguard":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Wireguard interface
@@ -398,7 +400,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"wireless":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Wireless interface
@@ -413,7 +415,7 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 
 		"wwan":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `WWAN interface
@@ -425,5 +427,10 @@ func (o ServiceConfigSyncSectionInterfaces) ResourceSchemaAttributes(ctx context
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_isis_fast_reroute_lfa_remote_prefix_list (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Intermediate System to Intermediate System (IS-IS)  

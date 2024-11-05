@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsOspfInterface{}
 
 // ProtocolsOspfInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsOspfInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -48,13 +50,17 @@ type ProtocolsOspfInterface struct {
 	LeafProtocolsOspfInterfaceHelloMultIPlier    types.Number `tfsdk:"hello_multiplier" vyos:"hello-multiplier,omitempty"`
 	LeafProtocolsOspfInterfaceNetwork            types.String `tfsdk:"network" vyos:"network,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeProtocolsOspfInterfaceAuthentication *ProtocolsOspfInterfaceAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
-	NodeProtocolsOspfInterfaceBfd            *ProtocolsOspfInterfaceBfd            `tfsdk:"bfd" vyos:"bfd,omitempty"`
-	NodeProtocolsOspfInterfaceLdpSync        *ProtocolsOspfInterfaceLdpSync        `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
-	NodeProtocolsOspfInterfacePassive        *ProtocolsOspfInterfacePassive        `tfsdk:"passive" vyos:"passive,omitempty"`
+
+	NodeProtocolsOspfInterfaceBfd *ProtocolsOspfInterfaceBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
+
+	NodeProtocolsOspfInterfaceLdpSync *ProtocolsOspfInterfaceLdpSync `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
+
+	NodeProtocolsOspfInterfacePassive *ProtocolsOspfInterfacePassive `tfsdk:"passive" vyos:"passive,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -92,12 +98,13 @@ func (o *ProtocolsOspfInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsOspfInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"ospf",
+		"ospf", // Node
+
 	}
 }
 
@@ -107,9 +114,9 @@ func (o *ProtocolsOspfInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsOspfInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -149,8 +156,8 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -171,7 +178,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"area":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable OSPF on this interface
@@ -192,7 +199,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"dead_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
@@ -214,7 +221,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"hello_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between hello packets
@@ -236,7 +243,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"retransmit_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
@@ -258,7 +265,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"transmit_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Link state transmit delay
@@ -280,7 +287,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"cost":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface cost
@@ -299,7 +306,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"mtu_ignore":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable Maximum Transmission Unit (MTU) mismatch detection
@@ -314,7 +321,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Router priority
@@ -336,7 +343,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"bandwidth":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface bandwidth (Mbit/s)
@@ -355,7 +362,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"hello_multiplier":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hello multiplier factor
@@ -374,7 +381,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"network":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Network type
@@ -396,6 +403,8 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Context) ma
     |  point-to-point       |  Point-to-point network type       |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

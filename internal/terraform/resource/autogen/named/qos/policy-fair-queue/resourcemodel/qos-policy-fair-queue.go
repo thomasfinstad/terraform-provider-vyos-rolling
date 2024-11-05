@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &QosPolicyFairQueue{}
 
 // QosPolicyFairQueue describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type QosPolicyFairQueue struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -39,7 +41,7 @@ type QosPolicyFairQueue struct {
 	LeafQosPolicyFairQueueHashInterval types.Number `tfsdk:"hash_interval" vyos:"hash-interval,omitempty"`
 	LeafQosPolicyFairQueueQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -79,12 +81,13 @@ func (o *QosPolicyFairQueue) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *QosPolicyFairQueue) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"qos",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"qos", // Node
 
-		"policy",
+		"policy", // Node
+
 	}
 }
 
@@ -94,9 +97,9 @@ func (o *QosPolicyFairQueue) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *QosPolicyFairQueue) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -136,8 +139,8 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes(ctx context.Context) map[st
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  fair_queue, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  fair_queue, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -158,7 +161,7 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -177,7 +180,7 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"hash_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval in seconds for queue algorithm perturbation
@@ -201,7 +204,7 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"queue_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Upper limit of the SFQ
@@ -220,6 +223,8 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes(ctx context.Context) map[st
 			// Default:          stringdefault.StaticString(`127`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

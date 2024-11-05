@@ -22,12 +22,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesVirtualEthernetVifSVifC{}
 
 // InterfacesVirtualEthernetVifSVifC describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesVirtualEthernetVifSVifC struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -46,14 +48,19 @@ type InterfacesVirtualEthernetVifSVifC struct {
 	LeafInterfacesVirtualEthernetVifSVifCRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesVirtualEthernetVifSVifCVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeInterfacesVirtualEthernetVifSVifCDhcpOptions     *InterfacesVirtualEthernetVifSVifCDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
+	NodeInterfacesVirtualEthernetVifSVifCDhcpOptions *InterfacesVirtualEthernetVifSVifCDhcpOptions `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
 	NodeInterfacesVirtualEthernetVifSVifCDhcpvsixOptions *InterfacesVirtualEthernetVifSVifCDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
-	NodeInterfacesVirtualEthernetVifSVifCIP              *InterfacesVirtualEthernetVifSVifCIP              `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesVirtualEthernetVifSVifCIPvsix          *InterfacesVirtualEthernetVifSVifCIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesVirtualEthernetVifSVifCMirror          *InterfacesVirtualEthernetVifSVifCMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesVirtualEthernetVifSVifCIP *InterfacesVirtualEthernetVifSVifCIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesVirtualEthernetVifSVifCIPvsix *InterfacesVirtualEthernetVifSVifCIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesVirtualEthernetVifSVifCMirror *InterfacesVirtualEthernetVifSVifCMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -91,19 +98,17 @@ func (o *InterfacesVirtualEthernetVifSVifC) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesVirtualEthernetVifSVifC) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"virtual-ethernet",
-
 		o.SelfIdentifier.Attributes()["virtual_ethernet"].(types.String).ValueString(),
 
 		"vif-s",
-
 		o.SelfIdentifier.Attributes()["vif_s"].(types.Number).ValueBigFloat().String(),
 	}
 }
@@ -114,21 +119,19 @@ func (o *InterfacesVirtualEthernetVifSVifC) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesVirtualEthernetVifSVifC) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"virtual-ethernet",
-
 		o.SelfIdentifier.Attributes()["virtual_ethernet"].(types.String).ValueString(),
 
 		"vif-s",
-
 		o.SelfIdentifier.Attributes()["vif_s"].(types.Number).ValueBigFloat().String(),
 	}
 }
@@ -162,8 +165,8 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  vif_c, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  vif_c, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -200,8 +203,8 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  virtual_ethernet, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  virtual_ethernet, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -236,7 +239,7 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -254,7 +257,7 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 		},
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -280,7 +283,7 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 
 		"disable_link_detect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
@@ -295,7 +298,7 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -310,7 +313,7 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 
 		"mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
@@ -329,7 +332,7 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -348,7 +351,7 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -367,7 +370,7 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -383,6 +386,8 @@ func (o InterfacesVirtualEthernetVifSVifC) ResourceSchemaAttributes(ctx context.
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

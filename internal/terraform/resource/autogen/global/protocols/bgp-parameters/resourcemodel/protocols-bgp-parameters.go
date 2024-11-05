@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsBgpParameters{}
 
 // ProtocolsBgpParameters describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsBgpParameters struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -49,17 +51,25 @@ type ProtocolsBgpParameters struct {
 	LeafProtocolsBgpParametersSuppressFibPending                types.Bool   `tfsdk:"suppress_fib_pending" vyos:"suppress-fib-pending,omitempty"`
 	LeafProtocolsBgpParametersRouterID                          types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpParametersBestpath                 bool `tfsdk:"-" vyos:"bestpath,child"`
-	ExistsNodeProtocolsBgpParametersConfederation            bool `tfsdk:"-" vyos:"confederation,child"`
+	// Nodes
+
+	ExistsNodeProtocolsBgpParametersBestpath bool `tfsdk:"-" vyos:"bestpath,child"`
+
+	ExistsNodeProtocolsBgpParametersConfederation bool `tfsdk:"-" vyos:"confederation,child"`
+
 	ExistsNodeProtocolsBgpParametersConditionalAdvertisement bool `tfsdk:"-" vyos:"conditional-advertisement,child"`
-	ExistsNodeProtocolsBgpParametersDampening                bool `tfsdk:"-" vyos:"dampening,child"`
-	ExistsNodeProtocolsBgpParametersDefault                  bool `tfsdk:"-" vyos:"default,child"`
-	ExistsNodeProtocolsBgpParametersDistance                 bool `tfsdk:"-" vyos:"distance,child"`
-	ExistsNodeProtocolsBgpParametersGracefulRestart          bool `tfsdk:"-" vyos:"graceful-restart,child"`
-	ExistsNodeProtocolsBgpParametersTCPKeepalive             bool `tfsdk:"-" vyos:"tcp-keepalive,child"`
+
+	ExistsNodeProtocolsBgpParametersDampening bool `tfsdk:"-" vyos:"dampening,child"`
+
+	ExistsNodeProtocolsBgpParametersDefault bool `tfsdk:"-" vyos:"default,child"`
+
+	NodeProtocolsBgpParametersDistance *ProtocolsBgpParametersDistance `tfsdk:"distance" vyos:"distance,omitempty"`
+
+	ExistsNodeProtocolsBgpParametersGracefulRestart bool `tfsdk:"-" vyos:"graceful-restart,child"`
+
+	ExistsNodeProtocolsBgpParametersTCPKeepalive bool `tfsdk:"-" vyos:"tcp-keepalive,child"`
 }
 
 // SetID configures the resource ID
@@ -92,12 +102,13 @@ func (o *ProtocolsBgpParameters) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsBgpParameters) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"bgp",
+		"bgp", // Node
+
 	}
 }
 
@@ -105,12 +116,11 @@ func (o *ProtocolsBgpParameters) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsBgpParameters) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -131,7 +141,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"allow_martian_nexthop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow Martian nexthops to be received in the NLRI from a peer
@@ -146,7 +156,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"disable_ebgp_connected_route_check":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable checking if nexthop is connected on eBGP session
@@ -161,7 +171,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"always_compare_med":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Always compare MEDs from different neighbors
@@ -176,7 +186,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"cluster_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route-reflector cluster-id
@@ -195,7 +205,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"deterministic_med":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Compare MEDs between different peers in the same AS
@@ -210,7 +220,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"ebgp_requires_policy":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Require in and out policy for eBGP peers (RFC8212)
@@ -225,7 +235,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"fast_convergence":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Teardown sessions immediately whenever peer becomes unreachable
@@ -240,7 +250,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"graceful_shutdown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Graceful shutdown
@@ -255,7 +265,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"no_hard_administrative_reset":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send hard reset CEASE Notification for 'Administrative Reset'
@@ -270,7 +280,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"labeled_unicast":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP Labeled-unicast options
@@ -293,7 +303,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"log_neighbor_changes":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log neighbor up/down changes and reset reason
@@ -308,7 +318,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"minimum_holdtime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP minimum holdtime
@@ -327,7 +337,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"network_import_check":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable IGP route check for network statements
@@ -342,7 +352,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"route_reflector_allow_outbound_policy":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Route reflector client allow policy outbound
@@ -357,7 +367,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"no_client_to_client_reflection":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable client to client route reflection
@@ -372,7 +382,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"no_fast_external_failover":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable immediate session reset on peer link down event
@@ -387,7 +397,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"no_suppress_duplicates":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable suppress duplicate updates if the route actually not changed
@@ -402,7 +412,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"reject_as_sets":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reject routes with AS_SET or AS_CONFED_SET flag
@@ -417,7 +427,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"shutdown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative shutdown of the BGP instance
@@ -432,7 +442,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"suppress_fib_pending":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise only routes that are programmed in kernel to peers
@@ -447,7 +457,7 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"router_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
@@ -461,6 +471,21 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
     |  Format  |  Description                     |
     |----------|----------------------------------|
     |  ipv4    |  Router-ID in IP address format  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"distance": schema.SingleNestedAttribute{
+			Attributes: ProtocolsBgpParametersDistance{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Administratives distances for BGP routes
+
+`,
+			Description: `Administratives distances for BGP routes
+
 `,
 		},
 	}

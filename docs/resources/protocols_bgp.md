@@ -27,10 +27,37 @@ description: |-
 - [vyos_protocols_bgp (Resource)](#vyos_protocols_bgp-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [address_family](#address_family)
+      - [sid](#sid)
       - [system_as](#system_as)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `address_family`](#nested-schema-for-address_family)
+    - [Nested Schema for `address_family.ipv4_flowspec`](#nested-schema-for-address_familyipv4_flowspec)
+    - [Nested Schema for `address_family.ipv4_labeled_unicast`](#nested-schema-for-address_familyipv4_labeled_unicast)
+    - [Nested Schema for `address_family.ipv4_multicast`](#nested-schema-for-address_familyipv4_multicast)
+    - [Nested Schema for `address_family.ipv4_unicast`](#nested-schema-for-address_familyipv4_unicast)
+    - [Nested Schema for `address_family.ipv4_unicast.label`](#nested-schema-for-address_familyipv4_unicastlabel)
+    - [Nested Schema for `address_family.ipv4_unicast.nexthop`](#nested-schema-for-address_familyipv4_unicastnexthop)
+    - [Nested Schema for `address_family.ipv4_unicast.rd`](#nested-schema-for-address_familyipv4_unicastrd)
+    - [Nested Schema for `address_family.ipv4_unicast.route_map`](#nested-schema-for-address_familyipv4_unicastroute_map)
+    - [Nested Schema for `address_family.ipv4_unicast.route_target`](#nested-schema-for-address_familyipv4_unicastroute_target)
+    - [Nested Schema for `address_family.ipv4_unicast.sid`](#nested-schema-for-address_familyipv4_unicastsid)
+    - [Nested Schema for `address_family.ipv4_vpn`](#nested-schema-for-address_familyipv4_vpn)
+    - [Nested Schema for `address_family.ipv6_flowspec`](#nested-schema-for-address_familyipv6_flowspec)
+    - [Nested Schema for `address_family.ipv6_labeled_unicast`](#nested-schema-for-address_familyipv6_labeled_unicast)
+    - [Nested Schema for `address_family.ipv6_multicast`](#nested-schema-for-address_familyipv6_multicast)
+    - [Nested Schema for `address_family.ipv6_unicast`](#nested-schema-for-address_familyipv6_unicast)
+    - [Nested Schema for `address_family.ipv6_unicast.label`](#nested-schema-for-address_familyipv6_unicastlabel)
+    - [Nested Schema for `address_family.ipv6_unicast.nexthop`](#nested-schema-for-address_familyipv6_unicastnexthop)
+    - [Nested Schema for `address_family.ipv6_unicast.rd`](#nested-schema-for-address_familyipv6_unicastrd)
+    - [Nested Schema for `address_family.ipv6_unicast.route_map`](#nested-schema-for-address_familyipv6_unicastroute_map)
+    - [Nested Schema for `address_family.ipv6_unicast.route_target`](#nested-schema-for-address_familyipv6_unicastroute_target)
+    - [Nested Schema for `address_family.ipv6_unicast.sid`](#nested-schema-for-address_familyipv6_unicastsid)
+    - [Nested Schema for `address_family.ipv6_vpn`](#nested-schema-for-address_familyipv6_vpn)
+    - [Nested Schema for `sid`](#nested-schema-for-sid)
+    - [Nested Schema for `sid.vpn`](#nested-schema-for-sidvpn)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -41,6 +68,10 @@ description: |-
 
 ### Optional
 
+#### address_family
+- `address_family` (Attributes) BGP address-family parameters (see [below for nested schema](#nestedatt--address_family))
+#### sid
+- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--sid))
 #### system_as
 - `system_as` (Number) Autonomous System Number (ASN)
 
@@ -54,6 +85,141 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--address_family"></a>
+### Nested Schema for `address_family`
+
+Optional:
+
+- `ipv4_flowspec` (Attributes) Flowspec IPv4 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv4_flowspec))
+- `ipv4_labeled_unicast` (Attributes) Labeled Unicast IPv4 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast))
+- `ipv4_multicast` (Attributes) Multicast IPv4 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv4_multicast))
+- `ipv4_unicast` (Attributes) IPv4 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv4_unicast))
+- `ipv4_vpn` (Attributes) Unicast VPN IPv4 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv4_vpn))
+- `ipv6_flowspec` (Attributes) Flowspec IPv6 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv6_flowspec))
+- `ipv6_labeled_unicast` (Attributes) Labeled Unicast IPv6 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast))
+- `ipv6_multicast` (Attributes) Multicast IPv6 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv6_multicast))
+- `ipv6_unicast` (Attributes) IPv6 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv6_unicast))
+- `ipv6_vpn` (Attributes) Unicast VPN IPv6 BGP settings (see [below for nested schema](#nestedatt--address_family--ipv6_vpn))
+
+<a id="nestedatt--address_family--ipv4_flowspec"></a>
+### Nested Schema for `address_family.ipv4_flowspec`
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast`
+
+
+<a id="nestedatt--address_family--ipv4_multicast"></a>
+### Nested Schema for `address_family.ipv4_multicast`
+
+
+<a id="nestedatt--address_family--ipv4_unicast"></a>
+### Nested Schema for `address_family.ipv4_unicast`
+
+Optional:
+
+- `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--label))
+- `nexthop` (Attributes) Specify next hop to use for VRF advertised prefixes (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--nexthop))
+- `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--rd))
+- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--route_map))
+- `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--route_target))
+- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--sid))
+
+<a id="nestedatt--address_family--ipv4_unicast--label"></a>
+### Nested Schema for `address_family.ipv4_unicast.label`
+
+
+<a id="nestedatt--address_family--ipv4_unicast--nexthop"></a>
+### Nested Schema for `address_family.ipv4_unicast.nexthop`
+
+
+<a id="nestedatt--address_family--ipv4_unicast--rd"></a>
+### Nested Schema for `address_family.ipv4_unicast.rd`
+
+
+<a id="nestedatt--address_family--ipv4_unicast--route_map"></a>
+### Nested Schema for `address_family.ipv4_unicast.route_map`
+
+
+<a id="nestedatt--address_family--ipv4_unicast--route_target"></a>
+### Nested Schema for `address_family.ipv4_unicast.route_target`
+
+
+<a id="nestedatt--address_family--ipv4_unicast--sid"></a>
+### Nested Schema for `address_family.ipv4_unicast.sid`
+
+
+
+<a id="nestedatt--address_family--ipv4_vpn"></a>
+### Nested Schema for `address_family.ipv4_vpn`
+
+
+<a id="nestedatt--address_family--ipv6_flowspec"></a>
+### Nested Schema for `address_family.ipv6_flowspec`
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast`
+
+
+<a id="nestedatt--address_family--ipv6_multicast"></a>
+### Nested Schema for `address_family.ipv6_multicast`
+
+
+<a id="nestedatt--address_family--ipv6_unicast"></a>
+### Nested Schema for `address_family.ipv6_unicast`
+
+Optional:
+
+- `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--label))
+- `nexthop` (Attributes) Specify next hop to use for VRF advertised prefixes (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop))
+- `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--rd))
+- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--route_map))
+- `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--route_target))
+- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--sid))
+
+<a id="nestedatt--address_family--ipv6_unicast--label"></a>
+### Nested Schema for `address_family.ipv6_unicast.label`
+
+
+<a id="nestedatt--address_family--ipv6_unicast--nexthop"></a>
+### Nested Schema for `address_family.ipv6_unicast.nexthop`
+
+
+<a id="nestedatt--address_family--ipv6_unicast--rd"></a>
+### Nested Schema for `address_family.ipv6_unicast.rd`
+
+
+<a id="nestedatt--address_family--ipv6_unicast--route_map"></a>
+### Nested Schema for `address_family.ipv6_unicast.route_map`
+
+
+<a id="nestedatt--address_family--ipv6_unicast--route_target"></a>
+### Nested Schema for `address_family.ipv6_unicast.route_target`
+
+
+<a id="nestedatt--address_family--ipv6_unicast--sid"></a>
+### Nested Schema for `address_family.ipv6_unicast.sid`
+
+
+
+<a id="nestedatt--address_family--ipv6_vpn"></a>
+### Nested Schema for `address_family.ipv6_vpn`
+
+
+
+<a id="nestedatt--sid"></a>
+### Nested Schema for `sid`
+
+Optional:
+
+- `vpn` (Attributes) Between current VRF and VPN (see [below for nested schema](#nestedatt--sid--vpn))
+
+<a id="nestedatt--sid--vpn"></a>
+### Nested Schema for `sid.vpn`
+
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

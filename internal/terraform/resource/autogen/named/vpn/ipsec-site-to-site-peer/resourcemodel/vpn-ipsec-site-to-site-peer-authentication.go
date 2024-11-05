@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VpnIPsecSiteToSitePeerAuthentication{}
 
 // VpnIPsecSiteToSitePeerAuthentication describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VpnIPsecSiteToSitePeerAuthentication struct {
 	// LeafNodes
 	LeafVpnIPsecSiteToSitePeerAuthenticationLocalID            types.String `tfsdk:"local_id" vyos:"local-id,omitempty"`
@@ -26,11 +28,12 @@ type VpnIPsecSiteToSitePeerAuthentication struct {
 	LeafVpnIPsecSiteToSitePeerAuthenticationRemoteID           types.String `tfsdk:"remote_id" vyos:"remote-id,omitempty"`
 	LeafVpnIPsecSiteToSitePeerAuthenticationUseXfivezeronineID types.Bool   `tfsdk:"use_x509_id" vyos:"use-x509-id,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVpnIPsecSiteToSitePeerAuthenticationRsa           *VpnIPsecSiteToSitePeerAuthenticationRsa           `tfsdk:"rsa" vyos:"rsa,omitempty"`
+
+	NodeVpnIPsecSiteToSitePeerAuthenticationRsa *VpnIPsecSiteToSitePeerAuthenticationRsa `tfsdk:"rsa" vyos:"rsa,omitempty"`
+
 	NodeVpnIPsecSiteToSitePeerAuthenticationXfivezeronine *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine `tfsdk:"x509" vyos:"x509,omitempty"`
 }
 
@@ -41,7 +44,7 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes(ctx conte
 
 		"local_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Local ID for peer authentication
@@ -60,7 +63,7 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes(ctx conte
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Authentication mode
@@ -83,7 +86,7 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes(ctx conte
 
 		"remote_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `ID for remote authentication
@@ -105,7 +108,7 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes(ctx conte
 
 		"use_x509_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use certificate common name as ID
@@ -117,6 +120,8 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes(ctx conte
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

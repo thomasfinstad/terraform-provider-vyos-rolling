@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VpnLtwotpRemoteAccessAuthenticationRadiusServer{}
 
 // VpnLtwotpRemoteAccessAuthenticationRadiusServer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VpnLtwotpRemoteAccessAuthenticationRadiusServer struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -45,7 +47,7 @@ type VpnLtwotpRemoteAccessAuthenticationRadiusServer struct {
 	LeafVpnLtwotpRemoteAccessAuthenticationRadiusServerPriority          types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 	LeafVpnLtwotpRemoteAccessAuthenticationRadiusServerBackup            types.Bool   `tfsdk:"backup" vyos:"backup,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -85,24 +87,25 @@ func (o *VpnLtwotpRemoteAccessAuthenticationRadiusServer) GetVyosPath() []string
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnLtwotpRemoteAccessAuthenticationRadiusServer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"l2tp",
+		"l2tp", // Node
 
-		"remote-access",
+		"remote-access", // Node
 
-		"authentication",
+		"authentication", // Node
 
-		"radius",
+		"radius", // Node
+
 	}
 }
 
@@ -112,15 +115,15 @@ func (o *VpnLtwotpRemoteAccessAuthenticationRadiusServer) GetVyosParentPath() []
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VpnLtwotpRemoteAccessAuthenticationRadiusServer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -160,8 +163,8 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  server, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  server, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -188,7 +191,7 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -203,7 +206,7 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 
 		"key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Shared secret key
@@ -222,7 +225,7 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -244,7 +247,7 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 
 		"acct_port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Accounting port
@@ -266,7 +269,7 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 
 		"disable_accounting":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable accounting
@@ -281,7 +284,7 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 
 		"fail_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Mark server unavailable for <n> seconds on failure
@@ -303,7 +306,7 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Server priority
@@ -322,7 +325,7 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 
 		"backup":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use backup server if other servers are not available
@@ -334,6 +337,8 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttribute
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

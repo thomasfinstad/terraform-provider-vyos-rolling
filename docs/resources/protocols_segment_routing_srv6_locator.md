@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_segment_routing_srv6_locator (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Segment Routing  

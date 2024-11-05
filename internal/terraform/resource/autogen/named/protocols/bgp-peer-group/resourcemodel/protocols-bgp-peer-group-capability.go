@@ -13,20 +13,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpPeerGroupCapability{}
 
 // ProtocolsBgpPeerGroupCapability describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpPeerGroupCapability struct {
 	// LeafNodes
 	LeafProtocolsBgpPeerGroupCapabilityDynamic         types.Bool `tfsdk:"dynamic" vyos:"dynamic,omitempty"`
 	LeafProtocolsBgpPeerGroupCapabilityExtendedNexthop types.Bool `tfsdk:"extended_nexthop" vyos:"extended-nexthop,omitempty"`
 	LeafProtocolsBgpPeerGroupCapabilitySoftwareVersion types.Bool `tfsdk:"software_version" vyos:"software-version,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o ProtocolsBgpPeerGroupCapability) ResourceSchemaAttributes(ctx context.Co
 
 		"dynamic":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise dynamic capability to this neighbor
@@ -53,7 +54,7 @@ func (o ProtocolsBgpPeerGroupCapability) ResourceSchemaAttributes(ctx context.Co
 
 		"extended_nexthop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise extended-nexthop capability to this neighbor
@@ -68,7 +69,7 @@ func (o ProtocolsBgpPeerGroupCapability) ResourceSchemaAttributes(ctx context.Co
 
 		"software_version":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise Software Version capability to the peer
@@ -80,6 +81,8 @@ func (o ProtocolsBgpPeerGroupCapability) ResourceSchemaAttributes(ctx context.Co
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

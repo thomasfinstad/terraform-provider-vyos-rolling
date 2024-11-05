@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance{}
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceExternal types.Number `tfsdk:"external" vyos:"external,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceInternal types.Number `tfsdk:"internal" vyos:"internal,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceLocal    types.Number `tfsdk:"local" vyos:"local,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
@@ -39,7 +40,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceSchema
 
 		"external":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `eBGP routes administrative distance
@@ -58,7 +59,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceSchema
 
 		"internal":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `iBGP routes administrative distance
@@ -77,7 +78,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceSchema
 
 		"local":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Locally originated BGP routes administrative distance
@@ -93,6 +94,8 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceSchema
     |  1-255   |  Locally originated BGP routes administrative distance  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

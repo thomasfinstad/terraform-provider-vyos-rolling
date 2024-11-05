@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_l2tp_remote_access_client_ipv6_pool_prefix (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 L2TP Virtual Private Network (VPN)  

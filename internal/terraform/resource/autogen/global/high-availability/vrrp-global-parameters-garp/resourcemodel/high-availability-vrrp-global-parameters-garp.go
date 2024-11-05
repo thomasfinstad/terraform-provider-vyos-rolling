@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVrrpGlobalParametersGarp{}
 
 // HighAvailabilityVrrpGlobalParametersGarp describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type HighAvailabilityVrrpGlobalParametersGarp struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -32,9 +34,9 @@ type HighAvailabilityVrrpGlobalParametersGarp struct {
 	LeafHighAvailabilityVrrpGlobalParametersGarpMasterRefreshRepeat types.Number `tfsdk:"master_refresh_repeat" vyos:"master-refresh-repeat,omitempty"`
 	LeafHighAvailabilityVrrpGlobalParametersGarpMasterRepeat        types.Number `tfsdk:"master_repeat" vyos:"master-repeat,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -67,16 +69,17 @@ func (o *HighAvailabilityVrrpGlobalParametersGarp) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *HighAvailabilityVrrpGlobalParametersGarp) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"high-availability",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"high-availability", // Node
 
-		"vrrp",
+		"vrrp", // Node
 
-		"global-parameters",
+		"global-parameters", // Node
+
 	}
 }
 
@@ -84,14 +87,13 @@ func (o *HighAvailabilityVrrpGlobalParametersGarp) GetVyosParentPath() []string 
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *HighAvailabilityVrrpGlobalParametersGarp) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -112,7 +114,7 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes(ctx c
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between Gratuitous ARP
@@ -134,7 +136,7 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes(ctx c
 
 		"master_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay for second set of gratuitous ARPs after transition to master
@@ -156,7 +158,7 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes(ctx c
 
 		"master_refresh":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum time interval for refreshing gratuitous ARPs while beeing master
@@ -180,7 +182,7 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes(ctx c
 
 		"master_refresh_repeat":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time while beeing master
@@ -202,7 +204,7 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes(ctx c
 
 		"master_repeat":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time after transition to master
@@ -221,5 +223,10 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes(ctx c
 			// Default:          stringdefault.StaticString(`5`),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessSecURItyWpa{}
 
 // InterfacesWirelessSecURItyWpa describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessSecURItyWpa struct {
 	// LeafNodes
 	LeafInterfacesWirelessSecURItyWpaCIPher          types.List   `tfsdk:"cipher" vyos:"cipher,omitempty"`
@@ -27,10 +29,10 @@ type InterfacesWirelessSecURItyWpa struct {
 	LeafInterfacesWirelessSecURItyWpaUsername        types.String `tfsdk:"username" vyos:"username,omitempty"`
 	LeafInterfacesWirelessSecURItyWpaPassphrase      types.String `tfsdk:"passphrase" vyos:"passphrase,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeInterfacesWirelessSecURItyWpaRadius *InterfacesWirelessSecURItyWpaRadius `tfsdk:"radius" vyos:"radius,omitempty"`
 }
 
@@ -40,7 +42,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes(ctx context.Cont
 		// LeafNodes
 
 		"cipher":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -68,7 +70,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes(ctx context.Cont
 
 		"group_cipher":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Cipher suite for WPA multicast and broadcast packets
@@ -95,7 +97,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes(ctx context.Cont
 
 		"group_mgmt_cipher":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group management cipher suite. All the stations connecting to the BSS will also need to support the selected cipher
@@ -111,7 +113,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes(ctx context.Cont
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `WPA mode
@@ -139,7 +141,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes(ctx context.Cont
 
 		"username":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Username used for authentication
@@ -158,7 +160,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes(ctx context.Cont
 
 		"passphrase":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `WPA passphrase. If you are using special characters in the WPA passphrase then single quotes are required.
@@ -174,6 +176,8 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes(ctx context.Cont
     |  txt     |  Passphrase of at least 8 but not more than 63 printable characters for WPA-Personal and any passphrase for WPA-Enterprise  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

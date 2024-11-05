@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &FirewallGlobalOptionsTimeoutTCP{}
 
 // FirewallGlobalOptionsTimeoutTCP describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type FirewallGlobalOptionsTimeoutTCP struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -35,9 +37,9 @@ type FirewallGlobalOptionsTimeoutTCP struct {
 	LeafFirewallGlobalOptionsTimeoutTCPSynSent     types.Number `tfsdk:"syn_sent" vyos:"syn-sent,omitempty"`
 	LeafFirewallGlobalOptionsTimeoutTCPTimeWait    types.Number `tfsdk:"time_wait" vyos:"time-wait,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -70,16 +72,17 @@ func (o *FirewallGlobalOptionsTimeoutTCP) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *FirewallGlobalOptionsTimeoutTCP) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"firewall",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"firewall", // Node
 
-		"global-options",
+		"global-options", // Node
 
-		"timeout",
+		"timeout", // Node
+
 	}
 }
 
@@ -87,14 +90,13 @@ func (o *FirewallGlobalOptionsTimeoutTCP) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *FirewallGlobalOptionsTimeoutTCP) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -115,7 +117,7 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 
 		"close_wait":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP CLOSE-WAIT timeout in seconds
@@ -137,7 +139,7 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 
 		"close":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP CLOSE timeout in seconds
@@ -159,7 +161,7 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 
 		"established":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP ESTABLISHED timeout in seconds
@@ -181,7 +183,7 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 
 		"fin_wait":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP FIN-WAIT timeout in seconds
@@ -203,7 +205,7 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 
 		"last_ack":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP LAST-ACK timeout in seconds
@@ -225,7 +227,7 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 
 		"syn_recv":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP SYN-RECEIVED timeout in seconds
@@ -247,7 +249,7 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 
 		"syn_sent":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP SYN-SENT timeout in seconds
@@ -269,7 +271,7 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 
 		"time_wait":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP TIME-WAIT timeout in seconds
@@ -288,5 +290,10 @@ func (o FirewallGlobalOptionsTimeoutTCP) ResourceSchemaAttributes(ctx context.Co
 			// Default:          stringdefault.StaticString(`120`),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

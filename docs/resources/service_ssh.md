@@ -27,6 +27,7 @@ description: |-
 - [vyos_service_ssh (Resource)](#vyos_service_ssh-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [access_control](#access_control)
       - [ciphers](#ciphers)
       - [client_keepalive_interval](#client_keepalive_interval)
       - [disable_host_validation](#disable_host_validation)
@@ -42,6 +43,7 @@ description: |-
       - [vrf](#vrf)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `access_control`](#nested-schema-for-access_control)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -52,6 +54,8 @@ description: |-
 
 ### Optional
 
+#### access_control
+- `access_control` (Attributes) SSH user/group access controls (see [below for nested schema](#nestedatt--access_control))
 #### ciphers
 - `ciphers` (List of String) Allowed ciphers
 #### client_keepalive_interval
@@ -109,6 +113,10 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--access_control"></a>
+### Nested Schema for `access_control`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

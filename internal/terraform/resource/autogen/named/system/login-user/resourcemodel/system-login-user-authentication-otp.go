@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &SystemLoginUserAuthenticationOtp{}
 
 // SystemLoginUserAuthenticationOtp describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type SystemLoginUserAuthenticationOtp struct {
 	// LeafNodes
 	LeafSystemLoginUserAuthenticationOtpRateLimit  types.Number `tfsdk:"rate_limit" vyos:"rate-limit,omitempty"`
@@ -25,8 +27,7 @@ type SystemLoginUserAuthenticationOtp struct {
 	LeafSystemLoginUserAuthenticationOtpWindowSize types.Number `tfsdk:"window_size" vyos:"window-size,omitempty"`
 	LeafSystemLoginUserAuthenticationOtpKey        types.String `tfsdk:"key" vyos:"key,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes(ctx context.C
 
 		"rate_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Limit number of logins (rate-limit) per rate-time
@@ -60,7 +61,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes(ctx context.C
 
 		"rate_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Limit number of logins (rate-limit) per rate-time
@@ -82,7 +83,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes(ctx context.C
 
 		"window_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set window of concurrently valid codes
@@ -104,7 +105,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes(ctx context.C
 
 		"key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Key/secret the token algorithm (see RFC4226)
@@ -120,6 +121,8 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes(ctx context.C
     |  txt     |  Base32 encoded key/token  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

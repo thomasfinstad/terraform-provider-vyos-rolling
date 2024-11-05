@@ -13,20 +13,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessCapabilitiesHeBeamform{}
 
 // InterfacesWirelessCapabilitiesHeBeamform describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessCapabilitiesHeBeamform struct {
 	// LeafNodes
 	LeafInterfacesWirelessCapabilitiesHeBeamformSingleUserBeamformer types.Bool `tfsdk:"single_user_beamformer" vyos:"single-user-beamformer,omitempty"`
 	LeafInterfacesWirelessCapabilitiesHeBeamformSingleUserBeamformee types.Bool `tfsdk:"single_user_beamformee" vyos:"single-user-beamformee,omitempty"`
 	LeafInterfacesWirelessCapabilitiesHeBeamformMultiUserBeamformer  types.Bool `tfsdk:"multi_user_beamformer" vyos:"multi-user-beamformer,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o InterfacesWirelessCapabilitiesHeBeamform) ResourceSchemaAttributes(ctx c
 
 		"single_user_beamformer":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Support for operation as single user beamformer
@@ -53,7 +54,7 @@ func (o InterfacesWirelessCapabilitiesHeBeamform) ResourceSchemaAttributes(ctx c
 
 		"single_user_beamformee":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Support for operation as single user beamformee
@@ -68,7 +69,7 @@ func (o InterfacesWirelessCapabilitiesHeBeamform) ResourceSchemaAttributes(ctx c
 
 		"multi_user_beamformer":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Support for operation as multi user beamformer
@@ -80,6 +81,8 @@ func (o InterfacesWirelessCapabilitiesHeBeamform) ResourceSchemaAttributes(ctx c
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

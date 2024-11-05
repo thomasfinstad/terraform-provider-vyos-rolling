@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceWebproxy{}
 
 // ServiceWebproxy describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceWebproxy struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -42,13 +44,17 @@ type ServiceWebproxy struct {
 	LeafServiceWebproxyReplyBlockMime    types.List   `tfsdk:"reply_block_mime" vyos:"reply-block-mime,omitempty"`
 	LeafServiceWebproxyReplyBodyMaxSize  types.Number `tfsdk:"reply_body_max_size" vyos:"reply-body-max-size,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceWebproxyCachePeer     bool `tfsdk:"-" vyos:"cache-peer,child"`
+	// TagNodes
+
+	ExistsTagServiceWebproxyCachePeer bool `tfsdk:"-" vyos:"cache-peer,child"`
+
 	ExistsTagServiceWebproxyListenAddress bool `tfsdk:"-" vyos:"listen-address,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeServiceWebproxyAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
-	ExistsNodeServiceWebproxyURLFiltering   bool `tfsdk:"-" vyos:"url-filtering,child"`
+
+	ExistsNodeServiceWebproxyURLFiltering bool `tfsdk:"-" vyos:"url-filtering,child"`
 }
 
 // SetID configures the resource ID
@@ -81,8 +87,9 @@ func (o *ServiceWebproxy) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceWebproxy) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -90,10 +97,9 @@ func (o *ServiceWebproxy) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceWebproxy) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -113,7 +119,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 		// LeafNodes
 
 		"safe_ports":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.NumberType,
 			Optional:    true,
@@ -132,7 +138,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"ssl_safe_ports":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.NumberType,
 			Optional:    true,
@@ -152,7 +158,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"append_domain":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default domain name
@@ -171,7 +177,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"cache_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Disk cache size in MB
@@ -195,7 +201,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"default_port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Default Proxy Port
@@ -217,7 +223,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"disable_access_log":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable logging of HTTP accesses
@@ -231,7 +237,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"domain_block":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -244,7 +250,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"domain_noncache":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -258,7 +264,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"maximum_object_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum size of object to be stored in cache in kilobytes
@@ -277,7 +283,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"mem_cache_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Memory cache size in MB
@@ -299,7 +305,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"minimum_object_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum size of object to be stored in cache in kilobytes
@@ -318,7 +324,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"outgoing_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Outgoing IP address for webproxy
@@ -330,7 +336,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"reply_block_mime":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -344,7 +350,7 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"reply_body_max_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum reply body size in KB
@@ -360,5 +366,10 @@ func (o ServiceWebproxy) ResourceSchemaAttributes(ctx context.Context) map[strin
     |  u32     |  Reply size in KB  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

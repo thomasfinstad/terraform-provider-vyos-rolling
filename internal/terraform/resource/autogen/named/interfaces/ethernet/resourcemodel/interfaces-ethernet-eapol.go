@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesEthernetEapol{}
 
 // InterfacesEthernetEapol describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesEthernetEapol struct {
 	// LeafNodes
 	LeafInterfacesEthernetEapolCaCertificate types.List   `tfsdk:"ca_certificate" vyos:"ca-certificate,omitempty"`
 	LeafInterfacesEthernetEapolCertificate   types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
 	LeafInterfacesEthernetEapolPassphrase    types.String `tfsdk:"passphrase" vyos:"passphrase,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o InterfacesEthernetEapol) ResourceSchemaAttributes(ctx context.Context) m
 		// LeafNodes
 
 		"ca_certificate":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -56,7 +57,7 @@ func (o InterfacesEthernetEapol) ResourceSchemaAttributes(ctx context.Context) m
 
 		"certificate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
@@ -75,7 +76,7 @@ func (o InterfacesEthernetEapol) ResourceSchemaAttributes(ctx context.Context) m
 
 		"passphrase":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Private key passphrase
@@ -91,6 +92,8 @@ func (o InterfacesEthernetEapol) ResourceSchemaAttributes(ctx context.Context) m
     |  txt     |  Passphrase to decrypt the private key  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

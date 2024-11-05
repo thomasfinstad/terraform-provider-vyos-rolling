@@ -10,6 +10,7 @@ description: |-
 # vyos_service_router_advert_interface_nat64prefix (Resource)
 <center>
 
+
 *service*  
 ⯯  
 IPv6 Router Advertisements (RAs) service  

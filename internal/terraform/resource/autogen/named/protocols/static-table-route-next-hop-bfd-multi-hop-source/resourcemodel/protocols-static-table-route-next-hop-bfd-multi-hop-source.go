@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsStaticTableRouteNextHopBfdMultiHopSource{}
 
 // ProtocolsStaticTableRouteNextHopBfdMultiHopSource describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsStaticTableRouteNextHopBfdMultiHopSource struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -38,7 +40,7 @@ type ProtocolsStaticTableRouteNextHopBfdMultiHopSource struct {
 	// LeafNodes
 	LeafProtocolsStaticTableRouteNextHopBfdMultiHopSourceProfile types.String `tfsdk:"profile" vyos:"profile,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -78,38 +80,36 @@ func (o *ProtocolsStaticTableRouteNextHopBfdMultiHopSource) GetVyosPath() []stri
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsStaticTableRouteNextHopBfdMultiHopSource) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"static",
+		"static", // Node
 
 		"table",
-
 		o.SelfIdentifier.Attributes()["table"].(types.Number).ValueBigFloat().String(),
 
 		"route",
-
 		o.SelfIdentifier.Attributes()["route"].(types.String).ValueString(),
 
 		"next-hop",
-
 		o.SelfIdentifier.Attributes()["next_hop"].(types.String).ValueString(),
 
-		"bfd",
+		"bfd", // Node
 
-		"multi-hop",
+		"multi-hop", // Node
+
 	}
 }
 
@@ -119,35 +119,32 @@ func (o *ProtocolsStaticTableRouteNextHopBfdMultiHopSource) GetVyosParentPath() 
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsStaticTableRouteNextHopBfdMultiHopSource) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"static",
+		"static", // Node
 
 		"table",
-
 		o.SelfIdentifier.Attributes()["table"].(types.Number).ValueBigFloat().String(),
 
 		"route",
-
 		o.SelfIdentifier.Attributes()["route"].(types.String).ValueString(),
 
 		"next-hop",
-
 		o.SelfIdentifier.Attributes()["next_hop"].(types.String).ValueString(),
 	}
 }
@@ -189,8 +186,8 @@ func (o ProtocolsStaticTableRouteNextHopBfdMultiHopSource) ResourceSchemaAttribu
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  source, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  source, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -254,8 +251,8 @@ func (o ProtocolsStaticTableRouteNextHopBfdMultiHopSource) ResourceSchemaAttribu
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -286,8 +283,8 @@ func (o ProtocolsStaticTableRouteNextHopBfdMultiHopSource) ResourceSchemaAttribu
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  next_hop, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  next_hop, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -303,7 +300,7 @@ func (o ProtocolsStaticTableRouteNextHopBfdMultiHopSource) ResourceSchemaAttribu
 
 		"profile":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
@@ -319,6 +316,8 @@ func (o ProtocolsStaticTableRouteNextHopBfdMultiHopSource) ResourceSchemaAttribu
     |  txt     |  BFD profile name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

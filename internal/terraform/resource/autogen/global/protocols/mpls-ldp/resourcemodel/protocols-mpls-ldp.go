@@ -15,30 +15,39 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsMplsLdp{}
 
 // ProtocolsMplsLdp describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsMplsLdp struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpRouterID  types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 	LeafProtocolsMplsLdpInterface types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagProtocolsMplsLdpNeighbor bool `tfsdk:"-" vyos:"neighbor,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsMplsLdpAllocation       bool `tfsdk:"-" vyos:"allocation,child"`
-	ExistsNodeProtocolsMplsLdpDiscovery        bool `tfsdk:"-" vyos:"discovery,child"`
-	ExistsNodeProtocolsMplsLdpTargetedNeighbor bool `tfsdk:"-" vyos:"targeted-neighbor,child"`
-	ExistsNodeProtocolsMplsLdpParameters       bool `tfsdk:"-" vyos:"parameters,child"`
-	ExistsNodeProtocolsMplsLdpExport           bool `tfsdk:"-" vyos:"export,child"`
-	ExistsNodeProtocolsMplsLdpImport           bool `tfsdk:"-" vyos:"import,child"`
+	// Nodes
+
+	NodeProtocolsMplsLdpAllocation *ProtocolsMplsLdpAllocation `tfsdk:"allocation" vyos:"allocation,omitempty"`
+
+	ExistsNodeProtocolsMplsLdpDiscovery bool `tfsdk:"-" vyos:"discovery,child"`
+
+	NodeProtocolsMplsLdpTargetedNeighbor *ProtocolsMplsLdpTargetedNeighbor `tfsdk:"targeted_neighbor" vyos:"targeted-neighbor,omitempty"`
+
+	ExistsNodeProtocolsMplsLdpParameters bool `tfsdk:"-" vyos:"parameters,child"`
+
+	NodeProtocolsMplsLdpExport *ProtocolsMplsLdpExport `tfsdk:"export" vyos:"export,omitempty"`
+
+	NodeProtocolsMplsLdpImport *ProtocolsMplsLdpImport `tfsdk:"import" vyos:"import,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -71,12 +80,13 @@ func (o *ProtocolsMplsLdp) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsMplsLdp) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"mpls",
+		"mpls", // Node
+
 	}
 }
 
@@ -84,12 +94,11 @@ func (o *ProtocolsMplsLdp) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsMplsLdp) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -110,7 +119,7 @@ func (o ProtocolsMplsLdp) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"router_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
@@ -128,7 +137,7 @@ func (o ProtocolsMplsLdp) ResourceSchemaAttributes(ctx context.Context) map[stri
 		},
 
 		"interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -143,6 +152,54 @@ func (o ProtocolsMplsLdp) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Interface name  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"allocation": schema.SingleNestedAttribute{
+			Attributes: ProtocolsMplsLdpAllocation{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Forwarding equivalence class allocation from local routes
+
+`,
+			Description: `Forwarding equivalence class allocation from local routes
+
+`,
+		},
+
+		"targeted_neighbor": schema.SingleNestedAttribute{
+			Attributes: ProtocolsMplsLdpTargetedNeighbor{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Targeted LDP neighbor/session parameters
+
+`,
+			Description: `Targeted LDP neighbor/session parameters
+
+`,
+		},
+
+		"export": schema.SingleNestedAttribute{
+			Attributes: ProtocolsMplsLdpExport{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Export parameters
+
+`,
+			Description: `Export parameters
+
+`,
+		},
+
+		"import": schema.SingleNestedAttribute{
+			Attributes: ProtocolsMplsLdpImport{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Import parameters
+
+`,
+			Description: `Import parameters
+
 `,
 		},
 	}

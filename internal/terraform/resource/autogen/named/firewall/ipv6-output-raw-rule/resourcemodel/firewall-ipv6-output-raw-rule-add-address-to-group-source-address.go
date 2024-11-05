@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixOutputRawRuleAddAddressToGroupSourceAddress{}
 
 // FirewallIPvsixOutputRawRuleAddAddressToGroupSourceAddress describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixOutputRawRuleAddAddressToGroupSourceAddress struct {
 	// LeafNodes
 	LeafFirewallIPvsixOutputRawRuleAddAddressToGroupSourceAddressAddressGroup types.String `tfsdk:"address_group" vyos:"address-group,omitempty"`
 	LeafFirewallIPvsixOutputRawRuleAddAddressToGroupSourceAddressTimeout      types.String `tfsdk:"timeout" vyos:"timeout,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o FirewallIPvsixOutputRawRuleAddAddressToGroupSourceAddress) ResourceSchem
 
 		"address_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Dynamic ipv6-address-group
@@ -49,7 +50,7 @@ func (o FirewallIPvsixOutputRawRuleAddAddressToGroupSourceAddress) ResourceSchem
 
 		"timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set timeout
@@ -71,6 +72,8 @@ func (o FirewallIPvsixOutputRawRuleAddAddressToGroupSourceAddress) ResourceSchem
     |  <number>d  |  Timeout value in days     |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

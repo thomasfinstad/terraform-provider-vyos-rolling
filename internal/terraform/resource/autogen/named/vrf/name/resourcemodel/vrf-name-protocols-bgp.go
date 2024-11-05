@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgp{}
 
 // VrfNameProtocolsBgp describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgp struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpSystemAs types.Number `tfsdk:"system_as" vyos:"system-as,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsBgpInterface bool `tfsdk:"-" vyos:"interface,child"`
 
@@ -32,13 +33,20 @@ type VrfNameProtocolsBgp struct {
 	ExistsTagVrfNameProtocolsBgpPeerGroup bool `tfsdk:"-" vyos:"peer-group,child"`
 
 	// Nodes
+
 	NodeVrfNameProtocolsBgpAddressFamily *VrfNameProtocolsBgpAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
-	NodeVrfNameProtocolsBgpBmp           *VrfNameProtocolsBgpBmp           `tfsdk:"bmp" vyos:"bmp,omitempty"`
-	NodeVrfNameProtocolsBgpListen        *VrfNameProtocolsBgpListen        `tfsdk:"listen" vyos:"listen,omitempty"`
-	NodeVrfNameProtocolsBgpParameters    *VrfNameProtocolsBgpParameters    `tfsdk:"parameters" vyos:"parameters,omitempty"`
-	NodeVrfNameProtocolsBgpSrvsix        *VrfNameProtocolsBgpSrvsix        `tfsdk:"srv6" vyos:"srv6,omitempty"`
-	NodeVrfNameProtocolsBgpSID           *VrfNameProtocolsBgpSID           `tfsdk:"sid" vyos:"sid,omitempty"`
-	NodeVrfNameProtocolsBgpTimers        *VrfNameProtocolsBgpTimers        `tfsdk:"timers" vyos:"timers,omitempty"`
+
+	NodeVrfNameProtocolsBgpBmp *VrfNameProtocolsBgpBmp `tfsdk:"bmp" vyos:"bmp,omitempty"`
+
+	NodeVrfNameProtocolsBgpListen *VrfNameProtocolsBgpListen `tfsdk:"listen" vyos:"listen,omitempty"`
+
+	NodeVrfNameProtocolsBgpParameters *VrfNameProtocolsBgpParameters `tfsdk:"parameters" vyos:"parameters,omitempty"`
+
+	NodeVrfNameProtocolsBgpSrvsix *VrfNameProtocolsBgpSrvsix `tfsdk:"srv6" vyos:"srv6,omitempty"`
+
+	NodeVrfNameProtocolsBgpSID *VrfNameProtocolsBgpSID `tfsdk:"sid" vyos:"sid,omitempty"`
+
+	NodeVrfNameProtocolsBgpTimers *VrfNameProtocolsBgpTimers `tfsdk:"timers" vyos:"timers,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -48,7 +56,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"system_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
@@ -64,6 +72,8 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes(ctx context.Context) map[s
     |  1-4294967294  |  Autonomous System Number  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

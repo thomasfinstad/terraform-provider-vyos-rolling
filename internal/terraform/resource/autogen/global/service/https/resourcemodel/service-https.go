@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceHTTPS{}
 
 // ServiceHTTPS describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceHTTPS struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -34,11 +36,14 @@ type ServiceHTTPS struct {
 	LeafServiceHTTPSTLSVersion           types.List   `tfsdk:"tls_version" vyos:"tls-version,omitempty"`
 	LeafServiceHTTPSVrf                  types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceHTTPSAPI          bool `tfsdk:"-" vyos:"api,child"`
-	ExistsNodeServiceHTTPSAllowClient  bool `tfsdk:"-" vyos:"allow-client,child"`
+	// Nodes
+
+	NodeServiceHTTPSAPI *ServiceHTTPSAPI `tfsdk:"api" vyos:"api,omitempty"`
+
+	ExistsNodeServiceHTTPSAllowClient bool `tfsdk:"-" vyos:"allow-client,child"`
+
 	ExistsNodeServiceHTTPSCertificates bool `tfsdk:"-" vyos:"certificates,child"`
 }
 
@@ -72,8 +77,9 @@ func (o *ServiceHTTPS) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceHTTPS) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -81,10 +87,9 @@ func (o *ServiceHTTPS) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceHTTPS) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -105,7 +110,7 @@ func (o ServiceHTTPS) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"enable_http_redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable HTTP to HTTPS redirect
@@ -119,7 +124,7 @@ func (o ServiceHTTPS) ResourceSchemaAttributes(ctx context.Context) map[string]s
 		},
 
 		"listen_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -141,7 +146,7 @@ func (o ServiceHTTPS) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -163,7 +168,7 @@ func (o ServiceHTTPS) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"request_body_size_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum request body size in megabytes
@@ -184,7 +189,7 @@ func (o ServiceHTTPS) ResourceSchemaAttributes(ctx context.Context) map[string]s
 		},
 
 		"tls_version":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -209,7 +214,7 @@ func (o ServiceHTTPS) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -223,6 +228,21 @@ func (o ServiceHTTPS) ResourceSchemaAttributes(ctx context.Context) map[string]s
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"api": schema.SingleNestedAttribute{
+			Attributes: ServiceHTTPSAPI{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `VyOS HTTP API configuration
+
+`,
+			Description: `VyOS HTTP API configuration
+
 `,
 		},
 	}

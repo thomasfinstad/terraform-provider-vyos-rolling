@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteMapRuleSetIPvsixNextHop{}
 
 // PolicyRouteMapRuleSetIPvsixNextHop describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteMapRuleSetIPvsixNextHop struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal       types.String `tfsdk:"global" vyos:"global,omitempty"`
@@ -26,8 +28,7 @@ type PolicyRouteMapRuleSetIPvsixNextHop struct {
 	LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress  types.Bool   `tfsdk:"peer_address" vyos:"peer-address,omitempty"`
 	LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal types.Bool   `tfsdk:"prefer_global" vyos:"prefer-global,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes(ctx context
 
 		"global":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Nexthop IPv6 global address
@@ -58,7 +59,7 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes(ctx context
 
 		"local":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Nexthop IPv6 local address
@@ -77,7 +78,7 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes(ctx context
 
 		"peer_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use peer address (for BGP only)
@@ -92,7 +93,7 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes(ctx context
 
 		"prefer_global":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefer global address as the nexthop
@@ -104,6 +105,8 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes(ctx context
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

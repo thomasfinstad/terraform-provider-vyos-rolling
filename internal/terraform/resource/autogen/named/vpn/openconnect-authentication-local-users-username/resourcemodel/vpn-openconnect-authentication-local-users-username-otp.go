@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}
 
 // VpnOpenconnectAuthenticationLocalUsersUsernameOtp describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VpnOpenconnectAuthenticationLocalUsersUsernameOtp struct {
 	// LeafNodes
 	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey       types.String `tfsdk:"key" vyos:"key,omitempty"`
@@ -25,8 +27,7 @@ type VpnOpenconnectAuthenticationLocalUsersUsernameOtp struct {
 	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval  types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
 	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType types.String `tfsdk:"token_type" vyos:"token-type,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 
 		"key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Token Key Secret key for the token algorithm (see RFC 4226)
@@ -57,7 +58,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 
 		"otp_length":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of digits in OTP code
@@ -79,7 +80,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time tokens interval in seconds
@@ -101,7 +102,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 
 		"token_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Token type
@@ -122,6 +123,8 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 			// Default:          stringdefault.StaticString(`hotp-time`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

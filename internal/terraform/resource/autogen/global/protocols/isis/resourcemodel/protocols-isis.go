@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsIsis{}
 
 // ProtocolsIsis describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsIsis struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -44,19 +46,29 @@ type ProtocolsIsis struct {
 	LeafProtocolsIsisSetOverloadBit       types.Bool   `tfsdk:"set_overload_bit" vyos:"set-overload-bit,omitempty"`
 	LeafProtocolsIsisSpfInterval          types.Number `tfsdk:"spf_interval" vyos:"spf-interval,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagProtocolsIsisInterface bool `tfsdk:"-" vyos:"interface,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsIsisAreaPassword       bool `tfsdk:"-" vyos:"area-password,child"`
-	ExistsNodeProtocolsIsisDefaultInformation bool `tfsdk:"-" vyos:"default-information,child"`
-	ExistsNodeProtocolsIsisDomainPassword     bool `tfsdk:"-" vyos:"domain-password,child"`
-	ExistsNodeProtocolsIsisLdpSync            bool `tfsdk:"-" vyos:"ldp-sync,child"`
-	ExistsNodeProtocolsIsisFastReroute        bool `tfsdk:"-" vyos:"fast-reroute,child"`
+	// Nodes
+
+	ExistsNodeProtocolsIsisAreaPassword bool `tfsdk:"-" vyos:"area-password,child"`
+
+	NodeProtocolsIsisDefaultInformation *ProtocolsIsisDefaultInformation `tfsdk:"default_information" vyos:"default-information,omitempty"`
+
+	ExistsNodeProtocolsIsisDomainPassword bool `tfsdk:"-" vyos:"domain-password,child"`
+
+	ExistsNodeProtocolsIsisLdpSync bool `tfsdk:"-" vyos:"ldp-sync,child"`
+
+	NodeProtocolsIsisFastReroute *ProtocolsIsisFastReroute `tfsdk:"fast_reroute" vyos:"fast-reroute,omitempty"`
+
 	ExistsNodeProtocolsIsisTrafficEngineering bool `tfsdk:"-" vyos:"traffic-engineering,child"`
-	ExistsNodeProtocolsIsisSegmentRouting     bool `tfsdk:"-" vyos:"segment-routing,child"`
-	ExistsNodeProtocolsIsisRedistribute       bool `tfsdk:"-" vyos:"redistribute,child"`
-	ExistsNodeProtocolsIsisSpfDelayIetf       bool `tfsdk:"-" vyos:"spf-delay-ietf,child"`
+
+	ExistsNodeProtocolsIsisSegmentRouting bool `tfsdk:"-" vyos:"segment-routing,child"`
+
+	NodeProtocolsIsisRedistribute *ProtocolsIsisRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+
+	ExistsNodeProtocolsIsisSpfDelayIetf bool `tfsdk:"-" vyos:"spf-delay-ietf,child"`
 }
 
 // SetID configures the resource ID
@@ -89,8 +101,9 @@ func (o *ProtocolsIsis) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsIsis) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
+
 	}
 }
 
@@ -98,10 +111,9 @@ func (o *ProtocolsIsis) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsIsis) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -122,7 +134,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"advertise_high_metrics":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise high metric value on all interfaces
@@ -137,7 +149,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"advertise_passive_only":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise prefixes of passive interfaces only
@@ -152,7 +164,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"dynamic_hostname":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Dynamic hostname for IS-IS
@@ -167,7 +179,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"level":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IS-IS level number
@@ -190,7 +202,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"log_adjacency_changes":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log changes in adjacency state
@@ -205,7 +217,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"lsp_gen_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval between regenerating same LSP
@@ -224,7 +236,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"lsp_mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure the maximum size of generated LSPs
@@ -246,7 +258,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"lsp_refresh_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `LSP refresh interval
@@ -265,7 +277,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"max_lsp_lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum LSP lifetime
@@ -284,7 +296,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"metric_style":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Use old-style (ISO 10589) or new-style packet formats
@@ -307,7 +319,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"topology":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure IS-IS topologies
@@ -336,7 +348,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"net":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `A Network Entity Title for the process (ISO only)
@@ -355,7 +367,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"purge_originator":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use the RFC 6232 purge-originator
@@ -370,7 +382,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"set_attached_bit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set attached bit to identify as L1/L2 router for inter-area traffic
@@ -385,7 +397,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"set_overload_bit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set overload bit to avoid any transit traffic
@@ -400,7 +412,7 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"spf_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval between SPF calculations
@@ -414,6 +426,43 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
     |  Format  |  Description          |
     |----------|-----------------------|
     |  1-120   |  Interval in seconds  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"default_information": schema.SingleNestedAttribute{
+			Attributes: ProtocolsIsisDefaultInformation{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Control distribution of default information
+
+`,
+			Description: `Control distribution of default information
+
+`,
+		},
+
+		"fast_reroute": schema.SingleNestedAttribute{
+			Attributes: ProtocolsIsisFastReroute{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `IS-IS fast reroute configuration
+
+`,
+			Description: `IS-IS fast reroute configuration
+
+`,
+		},
+
+		"redistribute": schema.SingleNestedAttribute{
+			Attributes: ProtocolsIsisRedistribute{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Redistribute information from another routing protocol
+
+`,
+			Description: `Redistribute information from another routing protocol
+
 `,
 		},
 	}

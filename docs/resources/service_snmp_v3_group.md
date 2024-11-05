@@ -10,6 +10,7 @@ description: |-
 # vyos_service_snmp_v3_group (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Simple Network Management Protocol (SNMP)  

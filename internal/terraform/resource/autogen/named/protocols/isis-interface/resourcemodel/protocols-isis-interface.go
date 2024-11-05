@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsIsisInterface{}
 
 // ProtocolsIsisInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsIsisInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -46,12 +48,16 @@ type ProtocolsIsisInterface struct {
 	LeafProtocolsIsisInterfacePsnpInterval        types.Number `tfsdk:"psnp_interval" vyos:"psnp-interval,omitempty"`
 	LeafProtocolsIsisInterfaceNoThreeWayHandshake types.Bool   `tfsdk:"no_three_way_handshake" vyos:"no-three-way-handshake,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeProtocolsIsisInterfaceBfd      *ProtocolsIsisInterfaceBfd      `tfsdk:"bfd" vyos:"bfd,omitempty"`
-	NodeProtocolsIsisInterfaceLdpSync  *ProtocolsIsisInterfaceLdpSync  `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
-	NodeProtocolsIsisInterfaceNetwork  *ProtocolsIsisInterfaceNetwork  `tfsdk:"network" vyos:"network,omitempty"`
+
+	NodeProtocolsIsisInterfaceBfd *ProtocolsIsisInterfaceBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
+
+	NodeProtocolsIsisInterfaceLdpSync *ProtocolsIsisInterfaceLdpSync `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
+
+	NodeProtocolsIsisInterfaceNetwork *ProtocolsIsisInterfaceNetwork `tfsdk:"network" vyos:"network,omitempty"`
+
 	NodeProtocolsIsisInterfacePassword *ProtocolsIsisInterfacePassword `tfsdk:"password" vyos:"password,omitempty"`
 }
 
@@ -90,12 +96,13 @@ func (o *ProtocolsIsisInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsIsisInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"isis",
+		"isis", // Node
+
 	}
 }
 
@@ -105,9 +112,9 @@ func (o *ProtocolsIsisInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsIsisInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -141,8 +148,8 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -163,7 +170,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"circuit_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure circuit type for interface
@@ -186,7 +193,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"hello_padding":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Add padding to IS-IS hello packets
@@ -201,7 +208,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"hello_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
@@ -220,7 +227,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"hello_multiplier":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
@@ -239,7 +246,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
@@ -258,7 +265,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"passive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure passive mode for interface
@@ -273,7 +280,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set priority for Designated Router election
@@ -292,7 +299,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"psnp_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set PSNP interval
@@ -311,7 +318,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"no_three_way_handshake":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable three-way handshake
@@ -323,6 +330,8 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) ma
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

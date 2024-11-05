@@ -10,6 +10,7 @@ description: |-
 # vyos_policy_access_list6_rule (Resource)
 <center>
 
+
 Routing policy  
 ⯯  
 IPv6 access-list filter  

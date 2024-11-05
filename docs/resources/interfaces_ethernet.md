@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_ethernet (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Ethernet Interface**

@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteMapRuleMatchEvpn{}
 
 // PolicyRouteMapRuleMatchEvpn describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteMapRuleMatchEvpn struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleMatchEvpnDefaultRoute types.Bool   `tfsdk:"default_route" vyos:"default-route,omitempty"`
@@ -26,8 +28,7 @@ type PolicyRouteMapRuleMatchEvpn struct {
 	LeafPolicyRouteMapRuleMatchEvpnRouteType    types.String `tfsdk:"route_type" vyos:"route-type,omitempty"`
 	LeafPolicyRouteMapRuleMatchEvpnVni          types.Number `tfsdk:"vni" vyos:"vni,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes(ctx context.Contex
 
 		"default_route":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Default EVPN type-5 route
@@ -54,7 +55,7 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes(ctx context.Contex
 
 		"rd":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
@@ -73,7 +74,7 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes(ctx context.Contex
 
 		"route_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match route-type
@@ -96,7 +97,7 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes(ctx context.Contex
 
 		"vni":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
@@ -112,6 +113,8 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes(ctx context.Contex
     |  0-16777214  |  VXLAN virtual network identifier  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

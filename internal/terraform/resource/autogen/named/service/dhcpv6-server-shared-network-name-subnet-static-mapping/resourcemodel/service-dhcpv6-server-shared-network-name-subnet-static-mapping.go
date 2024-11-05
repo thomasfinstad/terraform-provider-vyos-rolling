@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping{}
 
 // ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -42,9 +44,10 @@ type ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping struct {
 	LeafServiceDhcpvsixServerSharedNetworkNameSubnetStaticMappingIPvsixAddress types.String `tfsdk:"ipv6_address" vyos:"ipv6-address,omitempty"`
 	LeafServiceDhcpvsixServerSharedNetworkNameSubnetStaticMappingIPvsixPrefix  types.String `tfsdk:"ipv6_prefix" vyos:"ipv6-prefix,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeServiceDhcpvsixServerSharedNetworkNameSubnetStaticMappingOption *ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMappingOption `tfsdk:"option" vyos:"option,omitempty"`
 }
 
@@ -83,23 +86,21 @@ func (o *ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) GetVyosPath(
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dhcpv6-server",
+		"dhcpv6-server", // Node
 
 		"shared-network-name",
-
 		o.SelfIdentifier.Attributes()["shared_network_name"].(types.String).ValueString(),
 
 		"subnet",
-
 		o.SelfIdentifier.Attributes()["subnet"].(types.String).ValueString(),
 	}
 }
@@ -110,25 +111,23 @@ func (o *ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) GetVyosParen
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dhcpv6-server",
+		"dhcpv6-server", // Node
 
 		"shared-network-name",
-
 		o.SelfIdentifier.Attributes()["shared_network_name"].(types.String).ValueString(),
 
 		"subnet",
-
 		o.SelfIdentifier.Attributes()["subnet"].(types.String).ValueString(),
 	}
 }
@@ -162,8 +161,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  static_mapping, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  static_mapping, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -196,8 +195,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -228,8 +227,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  subnet, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  subnet, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -245,7 +244,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -260,7 +259,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
 
 		"mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
@@ -279,7 +278,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
 
 		"duid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DHCP unique identifier (DUID) to be sent by client
@@ -298,7 +297,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
 
 		"ipv6_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Client IPv6 address for this static mapping
@@ -317,7 +316,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
 
 		"ipv6_prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Client IPv6 prefix for this static mapping
@@ -333,6 +332,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetStaticMapping) ResourceSchem
     |  ipv6net  |  IPv6 prefix for this static mapping  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

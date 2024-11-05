@@ -10,6 +10,7 @@ description: |-
 # vyos_pki_dh (Resource)
 <center>
 
+
 Public key infrastructure (PKI)  
 ⯯  
 **Diffie-Hellman parameters**

@@ -18,12 +18,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &NatDestinationRule{}
 
 // NatDestinationRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type NatDestinationRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,14 +42,19 @@ type NatDestinationRule struct {
 	LeafNatDestinationRulePacketType  types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
 	LeafNatDestinationRuleProtocol    types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeNatDestinationRuleDestination      *NatDestinationRuleDestination      `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeNatDestinationRuleLoadBalance      *NatDestinationRuleLoadBalance      `tfsdk:"load_balance" vyos:"load-balance,omitempty"`
-	NodeNatDestinationRuleSource           *NatDestinationRuleSource           `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeNatDestinationRuleDestination *NatDestinationRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
+
+	NodeNatDestinationRuleLoadBalance *NatDestinationRuleLoadBalance `tfsdk:"load_balance" vyos:"load-balance,omitempty"`
+
+	NodeNatDestinationRuleSource *NatDestinationRuleSource `tfsdk:"source" vyos:"source,omitempty"`
+
 	NodeNatDestinationRuleInboundInterface *NatDestinationRuleInboundInterface `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
-	NodeNatDestinationRuleTranSLAtion      *NatDestinationRuleTranSLAtion      `tfsdk:"translation" vyos:"translation,omitempty"`
+
+	NodeNatDestinationRuleTranSLAtion *NatDestinationRuleTranSLAtion `tfsdk:"translation" vyos:"translation,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -85,12 +92,13 @@ func (o *NatDestinationRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *NatDestinationRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"nat",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"nat", // Node
 
-		"destination",
+		"destination", // Node
+
 	}
 }
 
@@ -100,9 +108,9 @@ func (o *NatDestinationRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *NatDestinationRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -151,7 +159,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -170,7 +178,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -185,7 +193,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"exclude":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Exclude packets matching this rule from NAT
@@ -200,7 +208,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"log":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting this rule
@@ -215,7 +223,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"packet_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Packet type
@@ -240,7 +248,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to NAT
@@ -375,6 +383,8 @@ func (o NatDestinationRule) ResourceSchemaAttributes(ctx context.Context) map[st
 			// Default:          stringdefault.StaticString(`all`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

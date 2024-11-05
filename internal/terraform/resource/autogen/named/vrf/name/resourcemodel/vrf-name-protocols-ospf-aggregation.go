@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfAggregation{}
 
 // VrfNameProtocolsOspfAggregation describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfAggregation struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAggregationTimer types.Number `tfsdk:"timer" vyos:"timer,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -35,7 +36,7 @@ func (o VrfNameProtocolsOspfAggregation) ResourceSchemaAttributes(ctx context.Co
 
 		"timer":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay timer
@@ -54,6 +55,8 @@ func (o VrfNameProtocolsOspfAggregation) ResourceSchemaAttributes(ctx context.Co
 			// Default:          stringdefault.StaticString(`5`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

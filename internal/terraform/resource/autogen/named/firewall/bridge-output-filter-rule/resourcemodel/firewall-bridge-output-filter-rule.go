@@ -18,12 +18,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &FirewallBrIDgeOutputFilterRule{}
 
 // FirewallBrIDgeOutputFilterRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type FirewallBrIDgeOutputFilterRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -51,25 +53,41 @@ type FirewallBrIDgeOutputFilterRule struct {
 	LeafFirewallBrIDgeOutputFilterRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleState               types.List   `tfsdk:"state" vyos:"state,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeFirewallBrIDgeOutputFilterRuleFragment          *FirewallBrIDgeOutputFilterRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleHopLimit          *FirewallBrIDgeOutputFilterRuleHopLimit          `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleIcmp              *FirewallBrIDgeOutputFilterRuleIcmp              `tfsdk:"icmp" vyos:"icmp,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleIcmpvsix          *FirewallBrIDgeOutputFilterRuleIcmpvsix          `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleLimit             *FirewallBrIDgeOutputFilterRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleLogOptions        *FirewallBrIDgeOutputFilterRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleIPsec             *FirewallBrIDgeOutputFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleVlan              *FirewallBrIDgeOutputFilterRuleVlan              `tfsdk:"vlan" vyos:"vlan,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleTCP               *FirewallBrIDgeOutputFilterRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleTime              *FirewallBrIDgeOutputFilterRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleTTL               *FirewallBrIDgeOutputFilterRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleDestination       *FirewallBrIDgeOutputFilterRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleSource            *FirewallBrIDgeOutputFilterRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleConnectionStatus  *FirewallBrIDgeOutputFilterRuleConnectionStatus  `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleFragment *FirewallBrIDgeOutputFilterRuleFragment `tfsdk:"fragment" vyos:"fragment,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleHopLimit *FirewallBrIDgeOutputFilterRuleHopLimit `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleIcmp *FirewallBrIDgeOutputFilterRuleIcmp `tfsdk:"icmp" vyos:"icmp,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleIcmpvsix *FirewallBrIDgeOutputFilterRuleIcmpvsix `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleLimit *FirewallBrIDgeOutputFilterRuleLimit `tfsdk:"limit" vyos:"limit,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleLogOptions *FirewallBrIDgeOutputFilterRuleLogOptions `tfsdk:"log_options" vyos:"log-options,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleIPsec *FirewallBrIDgeOutputFilterRuleIPsec `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleVlan *FirewallBrIDgeOutputFilterRuleVlan `tfsdk:"vlan" vyos:"vlan,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleTCP *FirewallBrIDgeOutputFilterRuleTCP `tfsdk:"tcp" vyos:"tcp,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleTime *FirewallBrIDgeOutputFilterRuleTime `tfsdk:"time" vyos:"time,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleTTL *FirewallBrIDgeOutputFilterRuleTTL `tfsdk:"ttl" vyos:"ttl,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleDestination *FirewallBrIDgeOutputFilterRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleSource *FirewallBrIDgeOutputFilterRuleSource `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleConnectionStatus *FirewallBrIDgeOutputFilterRuleConnectionStatus `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
+
 	NodeFirewallBrIDgeOutputFilterRuleOutboundInterface *FirewallBrIDgeOutputFilterRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
-	NodeFirewallBrIDgeOutputFilterRuleSet               *FirewallBrIDgeOutputFilterRuleSet               `tfsdk:"set" vyos:"set,omitempty"`
+
+	NodeFirewallBrIDgeOutputFilterRuleSet *FirewallBrIDgeOutputFilterRuleSet `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -107,20 +125,21 @@ func (o *FirewallBrIDgeOutputFilterRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *FirewallBrIDgeOutputFilterRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"firewall",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"firewall", // Node
 
-		"bridge",
+		"bridge", // Node
 
-		"output",
+		"output", // Node
 
-		"filter",
+		"filter", // Node
+
 	}
 }
 
@@ -130,13 +149,13 @@ func (o *FirewallBrIDgeOutputFilterRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *FirewallBrIDgeOutputFilterRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -189,7 +208,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -208,7 +227,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -222,7 +241,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"dscp":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -243,7 +262,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"dscp_exclude":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -265,7 +284,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Firewall mark
@@ -290,7 +309,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"log":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting this rule
@@ -305,7 +324,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"ethernet_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Ethernet type
@@ -332,7 +351,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"queue":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue target to use. Action queue must be defined to use this setting
@@ -350,7 +369,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"queue_options":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -371,7 +390,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"packet_length":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -392,7 +411,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"packet_length_exclude":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -414,7 +433,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"packet_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Packet type
@@ -439,7 +458,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
@@ -466,7 +485,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"jump_target":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set jump target. Action jump must be defined to use this setting
@@ -479,7 +498,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		"action":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule action
@@ -507,7 +526,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"connection_mark":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.NumberType,
 			Optional:    true,
@@ -526,7 +545,7 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"state":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -549,6 +568,8 @@ func (o FirewallBrIDgeOutputFilterRule) ResourceSchemaAttributes(ctx context.Con
     |  related      |  Related state      |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

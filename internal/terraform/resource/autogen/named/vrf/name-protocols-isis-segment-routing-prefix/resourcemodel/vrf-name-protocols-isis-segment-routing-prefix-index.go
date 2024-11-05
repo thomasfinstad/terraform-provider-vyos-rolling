@@ -13,20 +13,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}
 
 // VrfNameProtocolsIsisSegmentRoutingPrefixIndex describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsIsisSegmentRoutingPrefixIndex struct {
 	// LeafNodes
 	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue        types.Number `tfsdk:"value" vyos:"value,omitempty"`
 	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull types.Bool   `tfsdk:"explicit_null" vyos:"explicit-null,omitempty"`
 	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag    types.Bool   `tfsdk:"no_php_flag" vyos:"no-php-flag,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixIndex) ResourceSchemaAttributes(
 
 		"value":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify the index value of prefix segment/label ID
@@ -57,7 +58,7 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixIndex) ResourceSchemaAttributes(
 
 		"explicit_null":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Request upstream neighbor to replace segment/label with explicit null label
@@ -72,7 +73,7 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixIndex) ResourceSchemaAttributes(
 
 		"no_php_flag":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not request penultimate hop popping for segment/label
@@ -84,6 +85,8 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixIndex) ResourceSchemaAttributes(
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

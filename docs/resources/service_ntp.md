@@ -27,13 +27,17 @@ description: |-
 - [vyos_service_ntp (Resource)](#vyos_service_ntp-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [allow_client](#allow_client)
       - [interface](#interface)
       - [leap_second](#leap_second)
       - [listen_address](#listen_address)
+      - [server](#server)
       - [timeouts](#timeouts)
       - [vrf](#vrf)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `allow_client`](#nested-schema-for-allow_client)
+    - [Nested Schema for `server`](#nested-schema-for-server)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -44,6 +48,8 @@ description: |-
 
 ### Optional
 
+#### allow_client
+- `allow_client` (Attributes) Restrict to allowed IP client addresses (see [below for nested schema](#nestedatt--allow_client))
 #### interface
 - `interface` (String) Interface to use
 
@@ -66,6 +72,14 @@ description: |-
     |----------|---------------------------------------------------|
     |  ipv4    &emsp;|  IPv4 address to listen for incoming connections  |
     |  ipv6    &emsp;|  IPv6 address to listen for incoming connections  |
+#### server
+- `server` (Attributes Map) Network Time Protocol (NTP) server
+
+    |  Format    &emsp;|  Description                                |
+    |------------|---------------------------------------------|
+    |  ipv4      &emsp;|  IP address of NTP server                   |
+    |  ipv6      &emsp;|  IPv6 address of NTP server                 |
+    |  hostname  |  Fully qualified domain name of NTP server  | (see [below for nested schema](#nestedatt--server))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### vrf
@@ -79,6 +93,34 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--allow_client"></a>
+### Nested Schema for `allow_client`
+
+Optional:
+
+- `address` (List of String) Allowed IP client addresses
+
+    |  Format   &emsp;|  Description                     |
+    |-----------|----------------------------------|
+    |  ipv4     &emsp;|  IPv4 address                    |
+    |  ipv6     &emsp;|  IPv6 address                    |
+    |  ipv4net  &emsp;|  IPv4 address and prefix length  |
+    |  ipv6net  &emsp;|  IPv6 address and prefix length  |
+
+
+<a id="nestedatt--server"></a>
+### Nested Schema for `server`
+
+Optional:
+
+- `interleave` (Boolean) Use the interleaved mode for the server
+- `noselect` (Boolean) Marks the server as unused
+- `nts` (Boolean) Enable Network Time Security (NTS) for the server
+- `pool` (Boolean) Associate with a number of remote servers
+- `prefer` (Boolean) Marks the server as preferred
+- `ptp` (Boolean) Use Precision Time Protocol (PTP) transport for the server
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

@@ -15,23 +15,26 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVrrpGlobalParameters{}
 
 // HighAvailabilityVrrpGlobalParameters describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type HighAvailabilityVrrpGlobalParameters struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGlobalParametersStartupDelay types.Number `tfsdk:"startup_delay" vyos:"startup-delay,omitempty"`
 	LeafHighAvailabilityVrrpGlobalParametersVersion      types.String `tfsdk:"version" vyos:"version,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeHighAvailabilityVrrpGlobalParametersGarp bool `tfsdk:"-" vyos:"garp,child"`
 }
 
@@ -65,12 +68,13 @@ func (o *HighAvailabilityVrrpGlobalParameters) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *HighAvailabilityVrrpGlobalParameters) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"high-availability",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"high-availability", // Node
 
-		"vrrp",
+		"vrrp", // Node
+
 	}
 }
 
@@ -78,12 +82,11 @@ func (o *HighAvailabilityVrrpGlobalParameters) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *HighAvailabilityVrrpGlobalParameters) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -104,7 +107,7 @@ func (o HighAvailabilityVrrpGlobalParameters) ResourceSchemaAttributes(ctx conte
 
 		"startup_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time VRRP startup process (in seconds)
@@ -123,7 +126,7 @@ func (o HighAvailabilityVrrpGlobalParameters) ResourceSchemaAttributes(ctx conte
 
 		"version":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default VRRP version to use, IPv6 always uses VRRP version 3
@@ -141,5 +144,10 @@ func (o HighAvailabilityVrrpGlobalParameters) ResourceSchemaAttributes(ctx conte
     |  3       |  VRRP version 3  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

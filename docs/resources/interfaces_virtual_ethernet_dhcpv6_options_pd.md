@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_virtual_ethernet_dhcpv6_options_pd (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Virtual Ethernet (veth) Interface  

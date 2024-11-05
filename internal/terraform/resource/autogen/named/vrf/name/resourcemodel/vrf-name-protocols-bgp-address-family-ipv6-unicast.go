@@ -11,40 +11,54 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicast{}
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicast describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicast struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress bool `tfsdk:"-" vyos:"aggregate-address,child"`
 
 	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork bool `tfsdk:"-" vyos:"network,child"`
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance     *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance     `tfsdk:"distance" vyos:"distance,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport       *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport       `tfsdk:"export" vyos:"export,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport       *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport       `tfsdk:"import" vyos:"import,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel        *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel        `tfsdk:"label" vyos:"label,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance `tfsdk:"distance" vyos:"distance,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport `tfsdk:"export" vyos:"export,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport `tfsdk:"import" vyos:"import,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel `tfsdk:"label" vyos:"label,omitempty"`
+
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd           *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd           `tfsdk:"rd" vyos:"rd,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap     *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap     `tfsdk:"route_map" vyos:"route-map,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget  *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget  `tfsdk:"route_target" vyos:"route-target,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNexthop      *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNexthop      `tfsdk:"nexthop" vyos:"nexthop,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd `tfsdk:"rd" vyos:"rd,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap `tfsdk:"route_map" vyos:"route-map,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget `tfsdk:"route_target" vyos:"route-target,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNexthop *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNexthop `tfsdk:"nexthop" vyos:"nexthop,omitempty"`
+
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastSID          *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastSID          `tfsdk:"sid" vyos:"sid,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastSID *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastSID `tfsdk:"sid" vyos:"sid,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

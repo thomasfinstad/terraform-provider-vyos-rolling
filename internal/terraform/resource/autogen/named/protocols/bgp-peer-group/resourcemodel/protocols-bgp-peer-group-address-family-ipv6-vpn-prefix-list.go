@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpPeerGroupAddressFamilyIPvsixVpnPrefixList{}
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvsixVpnPrefixList describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpPeerGroupAddressFamilyIPvsixVpnPrefixList struct {
 	// LeafNodes
 	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixVpnPrefixListExport types.String `tfsdk:"export" vyos:"export,omitempty"`
 	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixVpnPrefixListImport types.String `tfsdk:"import" vyos:"import,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixVpnPrefixList) ResourceSchemaAtt
 
 		"export":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix-list to filter outgoing route updates to this peer
@@ -55,7 +56,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixVpnPrefixList) ResourceSchemaAtt
 
 		"import":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix-list to filter incoming route updates from this peer
@@ -71,6 +72,8 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixVpnPrefixList) ResourceSchemaAtt
     |  txt     |  Name of IPv6 prefix-list  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

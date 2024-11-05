@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesMacsec{}
 
 // InterfacesMacsec describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesMacsec struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -44,15 +46,21 @@ type InterfacesMacsec struct {
 	LeafInterfacesMacsecRedirect        types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesMacsecVrf             types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeInterfacesMacsecDhcpOptions     *InterfacesMacsecDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
+	NodeInterfacesMacsecDhcpOptions *InterfacesMacsecDhcpOptions `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
 	NodeInterfacesMacsecDhcpvsixOptions *InterfacesMacsecDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
-	NodeInterfacesMacsecIP              *InterfacesMacsecIP              `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesMacsecIPvsix          *InterfacesMacsecIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesMacsecMirror          *InterfacesMacsecMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
-	NodeInterfacesMacsecSecURIty        *InterfacesMacsecSecURIty        `tfsdk:"security" vyos:"security,omitempty"`
+
+	NodeInterfacesMacsecIP *InterfacesMacsecIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesMacsecIPvsix *InterfacesMacsecIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesMacsecMirror *InterfacesMacsecMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesMacsecSecURIty *InterfacesMacsecSecURIty `tfsdk:"security" vyos:"security,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -90,8 +98,9 @@ func (o *InterfacesMacsec) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesMacsec) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -101,7 +110,7 @@ func (o *InterfacesMacsec) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesMacsec) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -141,8 +150,8 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  macsec, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  macsec, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -160,7 +169,7 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -186,7 +195,7 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -205,7 +214,7 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -220,7 +229,7 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -242,7 +251,7 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"source_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Physical interface the traffic will go through
@@ -261,7 +270,7 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -280,7 +289,7 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -296,6 +305,8 @@ func (o InterfacesMacsec) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

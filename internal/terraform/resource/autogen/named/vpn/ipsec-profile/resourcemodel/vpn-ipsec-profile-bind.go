@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VpnIPsecProfileBind{}
 
 // VpnIPsecProfileBind describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VpnIPsecProfileBind struct {
 	// LeafNodes
 	LeafVpnIPsecProfileBindTunnel types.List `tfsdk:"tunnel" vyos:"tunnel,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -34,7 +35,7 @@ func (o VpnIPsecProfileBind) ResourceSchemaAttributes(ctx context.Context) map[s
 		// LeafNodes
 
 		"tunnel":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -51,6 +52,8 @@ func (o VpnIPsecProfileBind) ResourceSchemaAttributes(ctx context.Context) map[s
     |  txt     |  Associated interface to this profile  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

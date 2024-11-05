@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsBgpAddressFamilyLtwovpnEvpn{}
 
 // ProtocolsBgpAddressFamilyLtwovpnEvpn describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsBgpAddressFamilyLtwovpnEvpn struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -36,17 +38,25 @@ type ProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	LeafProtocolsBgpAddressFamilyLtwovpnEvpnDisableEadEviRx    types.Bool   `tfsdk:"disable_ead_evi_rx" vyos:"disable-ead-evi-rx,omitempty"`
 	LeafProtocolsBgpAddressFamilyLtwovpnEvpnDisableEadEviTx    types.Bool   `tfsdk:"disable_ead_evi_tx" vyos:"disable-ead-evi-tx,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"-" vyos:"vni,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise        bool `tfsdk:"-" vyos:"advertise,child"`
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget      bool `tfsdk:"-" vyos:"route-target,child"`
+	// Nodes
+
+	NodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise *ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise `tfsdk:"advertise" vyos:"advertise,omitempty"`
+
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget bool `tfsdk:"-" vyos:"route-target,child"`
+
 	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate bool `tfsdk:"-" vyos:"default-originate,child"`
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag        bool `tfsdk:"-" vyos:"ead-es-frag,child"`
+
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag bool `tfsdk:"-" vyos:"ead-es-frag,child"`
+
 	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget bool `tfsdk:"-" vyos:"ead-es-route-target,child"`
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnFlooding         bool `tfsdk:"-" vyos:"flooding,child"`
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf           bool `tfsdk:"-" vyos:"mac-vrf,child"`
+
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnFlooding bool `tfsdk:"-" vyos:"flooding,child"`
+
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf bool `tfsdk:"-" vyos:"mac-vrf,child"`
 }
 
 // SetID configures the resource ID
@@ -79,16 +89,17 @@ func (o *ProtocolsBgpAddressFamilyLtwovpnEvpn) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsBgpAddressFamilyLtwovpnEvpn) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"bgp",
+		"bgp", // Node
 
-		"address-family",
+		"address-family", // Node
+
 	}
 }
 
@@ -96,14 +107,13 @@ func (o *ProtocolsBgpAddressFamilyLtwovpnEvpn) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsBgpAddressFamilyLtwovpnEvpn) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -124,7 +134,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		"advertise_all_vni":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise All local VNIs
@@ -139,7 +149,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		"advertise_default_gw":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise All default g/w mac-ip routes in EVPN
@@ -154,7 +164,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		"advertise_svi_ip":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise svi mac-ip routes in EVPN
@@ -169,7 +179,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		"rd":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
@@ -188,7 +198,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		"advertise_pip":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `EVPN system primary IP
@@ -207,7 +217,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		"rt_auto_derive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Auto derivation of Route Target (RFC8365)
@@ -222,7 +232,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		"disable_ead_evi_rx":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Activate PE on EAD-ES even if EAD-EVI is not received
@@ -237,7 +247,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		"disable_ead_evi_tx":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not advertise EAD-EVI for local ESs
@@ -248,6 +258,21 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"advertise": schema.SingleNestedAttribute{
+			Attributes: ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Advertise prefix routes
+
+`,
+			Description: `Advertise prefix routes
+
+`,
 		},
 	}
 }

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesOpenvpnServerMfaTotp{}
 
 // InterfacesOpenvpnServerMfaTotp describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesOpenvpnServerMfaTotp struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnServerMfaTotpSlop      types.String `tfsdk:"slop" vyos:"slop,omitempty"`
@@ -26,8 +28,7 @@ type InterfacesOpenvpnServerMfaTotp struct {
 	LeafInterfacesOpenvpnServerMfaTotpDigits    types.String `tfsdk:"digits" vyos:"digits,omitempty"`
 	LeafInterfacesOpenvpnServerMfaTotpChallenge types.String `tfsdk:"challenge" vyos:"challenge,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes(ctx context.Con
 
 		"slop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum allowed clock slop in seconds
@@ -61,7 +62,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes(ctx context.Con
 
 		"drift":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Time drift in seconds
@@ -83,7 +84,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes(ctx context.Con
 
 		"step":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Step value for totp in seconds
@@ -105,7 +106,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes(ctx context.Con
 
 		"digits":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of digits to use for totp hash
@@ -127,7 +128,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes(ctx context.Con
 
 		"challenge":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Expect password as result of a challenge response protocol
@@ -148,6 +149,8 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes(ctx context.Con
 			// Default:          stringdefault.StaticString(`enable`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

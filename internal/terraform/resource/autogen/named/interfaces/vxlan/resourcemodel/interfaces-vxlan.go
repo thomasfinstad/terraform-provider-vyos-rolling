@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesVxlan{}
 
 // InterfacesVxlan describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesVxlan struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -51,14 +53,18 @@ type InterfacesVxlan struct {
 	LeafInterfacesVxlanVrf             types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 	LeafInterfacesVxlanVni             types.Number `tfsdk:"vni" vyos:"vni,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesVxlanVlanToVni bool `tfsdk:"-" vyos:"vlan-to-vni,child"`
 
 	// Nodes
-	NodeInterfacesVxlanIP         *InterfacesVxlanIP         `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesVxlanIPvsix     *InterfacesVxlanIPvsix     `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesVxlanMirror     *InterfacesVxlanMirror     `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesVxlanIP *InterfacesVxlanIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesVxlanIPvsix *InterfacesVxlanIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesVxlanMirror *InterfacesVxlanMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
 	NodeInterfacesVxlanParameters *InterfacesVxlanParameters `tfsdk:"parameters" vyos:"parameters,omitempty"`
 }
 
@@ -97,8 +103,9 @@ func (o *InterfacesVxlan) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesVxlan) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -108,7 +115,7 @@ func (o *InterfacesVxlan) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesVxlan) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -148,8 +155,8 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  vxlan, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  vxlan, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -167,7 +174,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -189,7 +196,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -208,7 +215,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -223,7 +230,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"gpe":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Generic Protocol extension (VXLAN-GPE)
@@ -238,7 +245,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Multicast group address for VXLAN interface
@@ -259,7 +266,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
@@ -278,7 +285,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -300,7 +307,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -322,7 +329,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"source_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source IP address used to initiate connection
@@ -343,7 +350,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"source_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
@@ -361,7 +368,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"remote":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -383,7 +390,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -402,7 +409,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -421,7 +428,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"vni":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
@@ -437,6 +444,8 @@ func (o InterfacesVxlan) ResourceSchemaAttributes(ctx context.Context) map[strin
     |  0-16777214  |  VXLAN virtual network identifier  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

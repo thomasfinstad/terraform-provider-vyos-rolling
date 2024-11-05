@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServicePppoeServerPppOptions{}
 
 // ServicePppoeServerPppOptions describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServicePppoeServerPppOptions struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -41,9 +43,9 @@ type ServicePppoeServerPppOptions struct {
 	LeafServicePppoeServerPppOptionsIPvsixPeerInterfaceID       types.String `tfsdk:"ipv6_peer_interface_id" vyos:"ipv6-peer-interface-id,omitempty"`
 	LeafServicePppoeServerPppOptionsIPvsixAcceptPeerInterfaceID types.Bool   `tfsdk:"ipv6_accept_peer_interface_id" vyos:"ipv6-accept-peer-interface-id,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -76,12 +78,13 @@ func (o *ServicePppoeServerPppOptions) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServicePppoeServerPppOptions) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"pppoe-server",
+		"pppoe-server", // Node
+
 	}
 }
 
@@ -89,12 +92,11 @@ func (o *ServicePppoeServerPppOptions) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServicePppoeServerPppOptions) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -115,7 +117,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"min_mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum acceptable MTU (68-65535)
@@ -131,7 +133,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"mru":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Preferred MRU (68-65535)
@@ -144,7 +146,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"disable_ccp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable Compression Control Protocol (CCP)
@@ -159,7 +161,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"mppe":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies mppe negotiation preferences
@@ -185,7 +187,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"lcp_echo_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `LCP echo-requests/sec
@@ -201,7 +203,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"lcp_echo_failure":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of Echo-Requests may be sent without valid reply
@@ -217,7 +219,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"lcp_echo_timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout in seconds to wait for any peer activity. If this option specified it turns on adaptive lcp echo functionality and "lcp-echo-failure" is not used.
@@ -233,7 +235,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"interface_cache":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `PPP interface cache
@@ -252,7 +254,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"ipv4":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 (IPCP) negotiation algorithm
@@ -277,7 +279,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"ipv6":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv6 (IPCP6) negotiation algorithm
@@ -305,7 +307,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"ipv6_interface_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Fixed or random interface identifier for IPv6
@@ -326,7 +328,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"ipv6_peer_interface_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer interface identifier for IPv6
@@ -351,7 +353,7 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"ipv6_accept_peer_interface_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Accept peer interface identifier
@@ -363,5 +365,10 @@ func (o ServicePppoeServerPppOptions) ResourceSchemaAttributes(ctx context.Conte
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

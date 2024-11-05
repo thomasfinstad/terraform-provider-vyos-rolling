@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &SystemFlowAccounting{}
 
 // SystemFlowAccounting describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type SystemFlowAccounting struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -35,11 +37,13 @@ type SystemFlowAccounting struct {
 	LeafSystemFlowAccountingInterface      types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
 	LeafSystemFlowAccountingVrf            types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeSystemFlowAccountingNetflow bool `tfsdk:"-" vyos:"netflow,child"`
-	ExistsNodeSystemFlowAccountingSflow   bool `tfsdk:"-" vyos:"sflow,child"`
+
+	ExistsNodeSystemFlowAccountingSflow bool `tfsdk:"-" vyos:"sflow,child"`
 }
 
 // SetID configures the resource ID
@@ -72,8 +76,9 @@ func (o *SystemFlowAccounting) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemFlowAccounting) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
+
 	}
 }
 
@@ -81,10 +86,9 @@ func (o *SystemFlowAccounting) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *SystemFlowAccounting) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -105,7 +109,7 @@ func (o SystemFlowAccounting) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"buffer_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Buffer size
@@ -127,7 +131,7 @@ func (o SystemFlowAccounting) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"packet_length":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies the maximum number of bytes to capture for each packet
@@ -149,7 +153,7 @@ func (o SystemFlowAccounting) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"enable_egress":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable egress flow accounting
@@ -164,7 +168,7 @@ func (o SystemFlowAccounting) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"disable_imt":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable in memory table plugin
@@ -179,7 +183,7 @@ func (o SystemFlowAccounting) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"syslog_facility":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Syslog facility for flow-accounting
@@ -241,7 +245,7 @@ func (o SystemFlowAccounting) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -261,7 +265,7 @@ func (o SystemFlowAccounting) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -277,5 +281,10 @@ func (o SystemFlowAccounting) ResourceSchemaAttributes(ctx context.Context) map[
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

@@ -22,12 +22,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &FirewallIPvsixNameRule{}
 
 // FirewallIPvsixNameRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type FirewallIPvsixNameRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -56,27 +58,45 @@ type FirewallIPvsixNameRule struct {
 	LeafFirewallIPvsixNameRuleJumpTarget          types.String `tfsdk:"jump_target" vyos:"jump-target,omitempty"`
 	LeafFirewallIPvsixNameRuleOffloadTarget       types.String `tfsdk:"offload_target" vyos:"offload-target,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeFirewallIPvsixNameRuleAddAddressToGroup *FirewallIPvsixNameRuleAddAddressToGroup `tfsdk:"add_address_to_group" vyos:"add-address-to-group,omitempty"`
-	NodeFirewallIPvsixNameRuleConnectionStatus  *FirewallIPvsixNameRuleConnectionStatus  `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
-	NodeFirewallIPvsixNameRuleFragment          *FirewallIPvsixNameRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
-	NodeFirewallIPvsixNameRuleLimit             *FirewallIPvsixNameRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
-	NodeFirewallIPvsixNameRuleLogOptions        *FirewallIPvsixNameRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
-	NodeFirewallIPvsixNameRuleRecent            *FirewallIPvsixNameRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
-	NodeFirewallIPvsixNameRuleSynproxy          *FirewallIPvsixNameRuleSynproxy          `tfsdk:"synproxy" vyos:"synproxy,omitempty"`
-	NodeFirewallIPvsixNameRuleTCP               *FirewallIPvsixNameRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
-	NodeFirewallIPvsixNameRuleGre               *FirewallIPvsixNameRuleGre               `tfsdk:"gre" vyos:"gre,omitempty"`
-	NodeFirewallIPvsixNameRuleTime              *FirewallIPvsixNameRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
-	NodeFirewallIPvsixNameRuleHopLimit          *FirewallIPvsixNameRuleHopLimit          `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
-	NodeFirewallIPvsixNameRuleIcmpvsix          *FirewallIPvsixNameRuleIcmpvsix          `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
-	NodeFirewallIPvsixNameRuleDestination       *FirewallIPvsixNameRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeFirewallIPvsixNameRuleSource            *FirewallIPvsixNameRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
-	NodeFirewallIPvsixNameRuleInboundInterface  *FirewallIPvsixNameRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
-	NodeFirewallIPvsixNameRuleIPsec             *FirewallIPvsixNameRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
+
+	NodeFirewallIPvsixNameRuleConnectionStatus *FirewallIPvsixNameRuleConnectionStatus `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
+
+	NodeFirewallIPvsixNameRuleFragment *FirewallIPvsixNameRuleFragment `tfsdk:"fragment" vyos:"fragment,omitempty"`
+
+	NodeFirewallIPvsixNameRuleLimit *FirewallIPvsixNameRuleLimit `tfsdk:"limit" vyos:"limit,omitempty"`
+
+	NodeFirewallIPvsixNameRuleLogOptions *FirewallIPvsixNameRuleLogOptions `tfsdk:"log_options" vyos:"log-options,omitempty"`
+
+	NodeFirewallIPvsixNameRuleRecent *FirewallIPvsixNameRuleRecent `tfsdk:"recent" vyos:"recent,omitempty"`
+
+	NodeFirewallIPvsixNameRuleSynproxy *FirewallIPvsixNameRuleSynproxy `tfsdk:"synproxy" vyos:"synproxy,omitempty"`
+
+	NodeFirewallIPvsixNameRuleTCP *FirewallIPvsixNameRuleTCP `tfsdk:"tcp" vyos:"tcp,omitempty"`
+
+	NodeFirewallIPvsixNameRuleGre *FirewallIPvsixNameRuleGre `tfsdk:"gre" vyos:"gre,omitempty"`
+
+	NodeFirewallIPvsixNameRuleTime *FirewallIPvsixNameRuleTime `tfsdk:"time" vyos:"time,omitempty"`
+
+	NodeFirewallIPvsixNameRuleHopLimit *FirewallIPvsixNameRuleHopLimit `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
+
+	NodeFirewallIPvsixNameRuleIcmpvsix *FirewallIPvsixNameRuleIcmpvsix `tfsdk:"icmpv6" vyos:"icmpv6,omitempty"`
+
+	NodeFirewallIPvsixNameRuleDestination *FirewallIPvsixNameRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
+
+	NodeFirewallIPvsixNameRuleSource *FirewallIPvsixNameRuleSource `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeFirewallIPvsixNameRuleInboundInterface *FirewallIPvsixNameRuleInboundInterface `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+
+	NodeFirewallIPvsixNameRuleIPsec *FirewallIPvsixNameRuleIPsec `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
+
 	NodeFirewallIPvsixNameRuleOutboundInterface *FirewallIPvsixNameRuleOutboundInterface `tfsdk:"outbound_interface" vyos:"outbound-interface,omitempty"`
-	NodeFirewallIPvsixNameRuleSet               *FirewallIPvsixNameRuleSet               `tfsdk:"set" vyos:"set,omitempty"`
+
+	NodeFirewallIPvsixNameRuleSet *FirewallIPvsixNameRuleSet `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -114,17 +134,16 @@ func (o *FirewallIPvsixNameRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *FirewallIPvsixNameRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"firewall",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"firewall", // Node
 
-		"ipv6",
+		"ipv6", // Node
 
 		"name",
-
 		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
@@ -135,19 +154,18 @@ func (o *FirewallIPvsixNameRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *FirewallIPvsixNameRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"firewall",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"firewall", // Node
 
-		"ipv6",
+		"ipv6", // Node
 
 		"name",
-
 		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	}
 }
@@ -206,8 +224,8 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -223,7 +241,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"action":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule action
@@ -257,7 +275,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"conntrack_helper":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -290,7 +308,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"connection_mark":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.NumberType,
 			Optional:    true,
@@ -310,7 +328,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -329,7 +347,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -343,7 +361,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"dscp":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -364,7 +382,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"dscp_exclude":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -386,7 +404,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"log":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting this rule
@@ -401,7 +419,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Firewall mark
@@ -425,7 +443,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"packet_length":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -446,7 +464,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"packet_length_exclude":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -468,7 +486,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"packet_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Packet type
@@ -493,7 +511,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
@@ -520,7 +538,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"queue":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue target to use. Action queue must be defined to use this setting
@@ -538,7 +556,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"queue_options":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -559,7 +577,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"state":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -585,7 +603,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"jump_target":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set jump target. Action jump must be defined to use this setting
@@ -598,7 +616,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"offload_target":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set flowtable offload target. Action offload must be defined to use this setting
@@ -608,6 +626,8 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes(ctx context.Context) ma
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

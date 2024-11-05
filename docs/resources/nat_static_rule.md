@@ -10,6 +10,7 @@ description: |-
 # vyos_nat_static_rule (Resource)
 <center>
 
+
 Network Address Translation (NAT) parameters  
 ⯯  
 Static NAT (one-to-one)  

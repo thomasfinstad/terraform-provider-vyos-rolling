@@ -13,22 +13,24 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameIPvsix{}
 
 // VrfNameIPvsix describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameIPvsix struct {
 	// LeafNodes
 	LeafVrfNameIPvsixDisableForwarding types.Bool `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameIPvsixProtocol bool `tfsdk:"-" vyos:"protocol,child"`
 
 	// Nodes
+
 	NodeVrfNameIPvsixNht *VrfNameIPvsixNht `tfsdk:"nht" vyos:"nht,omitempty"`
 }
 
@@ -39,7 +41,7 @@ func (o VrfNameIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"disable_forwarding":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
@@ -51,6 +53,8 @@ func (o VrfNameIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

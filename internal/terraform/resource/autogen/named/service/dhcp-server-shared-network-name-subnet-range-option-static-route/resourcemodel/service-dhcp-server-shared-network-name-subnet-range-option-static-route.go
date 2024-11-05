@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute{}
 
 // ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -37,7 +39,7 @@ type ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute struct {
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRouteNextHop types.String `tfsdk:"next_hop" vyos:"next-hop,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -77,34 +79,32 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) GetVyos
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dhcp-server",
+		"dhcp-server", // Node
 
 		"shared-network-name",
-
 		o.SelfIdentifier.Attributes()["shared_network_name"].(types.String).ValueString(),
 
 		"subnet",
-
 		o.SelfIdentifier.Attributes()["subnet"].(types.String).ValueString(),
 
 		"range",
-
 		o.SelfIdentifier.Attributes()["range"].(types.String).ValueString(),
 
-		"option",
+		"option", // Node
+
 	}
 }
 
@@ -114,33 +114,30 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) GetVyos
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dhcp-server",
+		"dhcp-server", // Node
 
 		"shared-network-name",
-
 		o.SelfIdentifier.Attributes()["shared_network_name"].(types.String).ValueString(),
 
 		"subnet",
-
 		o.SelfIdentifier.Attributes()["subnet"].(types.String).ValueString(),
 
 		"range",
-
 		o.SelfIdentifier.Attributes()["range"].(types.String).ValueString(),
 	}
 }
@@ -180,8 +177,8 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) Resource
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  static_route, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  static_route, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -218,8 +215,8 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) Resource
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -250,8 +247,8 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) Resource
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  subnet, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  subnet, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -276,8 +273,8 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) Resource
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  range, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  range, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -293,7 +290,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) Resource
 
 		"next_hop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address of router to be used to reach the destination subnet
@@ -309,6 +306,8 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute) Resource
     |  ipv4    |  IPv4 address of router  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

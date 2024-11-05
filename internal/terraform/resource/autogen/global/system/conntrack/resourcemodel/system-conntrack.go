@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &SystemConntrack{}
 
 // SystemConntrack describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type SystemConntrack struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -32,14 +34,19 @@ type SystemConntrack struct {
 	LeafSystemConntrackHashSize        types.Number `tfsdk:"hash_size" vyos:"hash-size,omitempty"`
 	LeafSystemConntrackTableSize       types.Number `tfsdk:"table_size" vyos:"table-size,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemConntrackIgnore  bool `tfsdk:"-" vyos:"ignore,child"`
-	ExistsNodeSystemConntrackLog     bool `tfsdk:"-" vyos:"log,child"`
+	// Nodes
+
+	NodeSystemConntrackIgnore *SystemConntrackIgnore `tfsdk:"ignore" vyos:"ignore,omitempty"`
+
+	ExistsNodeSystemConntrackLog bool `tfsdk:"-" vyos:"log,child"`
+
 	ExistsNodeSystemConntrackModules bool `tfsdk:"-" vyos:"modules,child"`
-	ExistsNodeSystemConntrackTCP     bool `tfsdk:"-" vyos:"tcp,child"`
-	ExistsNodeSystemConntrackTimeout bool `tfsdk:"-" vyos:"timeout,child"`
+
+	ExistsNodeSystemConntrackTCP bool `tfsdk:"-" vyos:"tcp,child"`
+
+	NodeSystemConntrackTimeout *SystemConntrackTimeout `tfsdk:"timeout" vyos:"timeout,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -72,8 +79,9 @@ func (o *SystemConntrack) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemConntrack) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
+
 	}
 }
 
@@ -81,10 +89,9 @@ func (o *SystemConntrack) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *SystemConntrack) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -105,7 +112,7 @@ func (o SystemConntrack) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"flow_accounting":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable connection tracking flow accounting
@@ -120,7 +127,7 @@ func (o SystemConntrack) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"expect_table_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Size of connection tracking expect table
@@ -142,7 +149,7 @@ func (o SystemConntrack) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"hash_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hash size for connection tracking table
@@ -164,7 +171,7 @@ func (o SystemConntrack) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"table_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Size of connection tracking table
@@ -182,6 +189,32 @@ func (o SystemConntrack) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 			// Default:          stringdefault.StaticString(`262144`),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"ignore": schema.SingleNestedAttribute{
+			Attributes: SystemConntrackIgnore{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Customized rules to ignore selective connection tracking
+
+`,
+			Description: `Customized rules to ignore selective connection tracking
+
+`,
+		},
+
+		"timeout": schema.SingleNestedAttribute{
+			Attributes: SystemConntrackTimeout{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Connection timeout options
+
+`,
+			Description: `Connection timeout options
+
+`,
 		},
 	}
 }

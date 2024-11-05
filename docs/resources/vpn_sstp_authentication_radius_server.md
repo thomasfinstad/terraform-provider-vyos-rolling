@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_sstp_authentication_radius_server (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 Secure Socket Tunneling Protocol (SSTP) server  

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsIsisSpfDelayIetf{}
 
 // VrfNameProtocolsIsisSpfDelayIetf describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsIsisSpfDelayIetf struct {
 	// LeafNodes
 	LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay   types.Number `tfsdk:"init_delay" vyos:"init-delay,omitempty"`
@@ -26,8 +28,7 @@ type VrfNameProtocolsIsisSpfDelayIetf struct {
 	LeafVrfNameProtocolsIsisSpfDelayIetfHolddown    types.Number `tfsdk:"holddown" vyos:"holddown,omitempty"`
 	LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn types.Number `tfsdk:"time_to_learn" vyos:"time-to-learn,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.C
 
 		"init_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in QUIET state
@@ -58,7 +59,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.C
 
 		"short_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in SHORT_WAIT state
@@ -77,7 +78,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.C
 
 		"long_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in LONG_WAIT
@@ -96,7 +97,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.C
 
 		"holddown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time with no received IGP events before considering IGP stable
@@ -115,7 +116,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.C
 
 		"time_to_learn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum duration needed to learn all the events related to a single failure
@@ -131,6 +132,8 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.C
     |  0-60000  |  Maximum duration needed to learn all the events related to a single failure in ms  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

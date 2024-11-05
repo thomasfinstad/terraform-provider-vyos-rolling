@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpPeerGroupBfd{}
 
 // VrfNameProtocolsBgpPeerGroupBfd describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpPeerGroupBfd struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpPeerGroupBfdProfile                  types.String `tfsdk:"profile" vyos:"profile,omitempty"`
 	LeafVrfNameProtocolsBgpPeerGroupBfdCheckControlPlaneFailure types.Bool   `tfsdk:"check_control_plane_failure" vyos:"check-control-plane-failure,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsBgpPeerGroupBfd) ResourceSchemaAttributes(ctx context.Co
 
 		"profile":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
@@ -56,7 +57,7 @@ func (o VrfNameProtocolsBgpPeerGroupBfd) ResourceSchemaAttributes(ctx context.Co
 
 		"check_control_plane_failure":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
@@ -68,6 +69,8 @@ func (o VrfNameProtocolsBgpPeerGroupBfd) ResourceSchemaAttributes(ctx context.Co
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

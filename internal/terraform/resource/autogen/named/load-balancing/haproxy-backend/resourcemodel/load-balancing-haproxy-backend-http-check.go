@@ -12,21 +12,23 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &LoadBalancingHaproxyBackendHTTPCheck{}
 
 // LoadBalancingHaproxyBackendHTTPCheck describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type LoadBalancingHaproxyBackendHTTPCheck struct {
 	// LeafNodes
 	LeafLoadBalancingHaproxyBackendHTTPCheckMethod types.String `tfsdk:"method" vyos:"method,omitempty"`
 	LeafLoadBalancingHaproxyBackendHTTPCheckURI    types.String `tfsdk:"uri" vyos:"uri,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeLoadBalancingHaproxyBackendHTTPCheckExpect *LoadBalancingHaproxyBackendHTTPCheckExpect `tfsdk:"expect" vyos:"expect,omitempty"`
 }
 
@@ -37,7 +39,7 @@ func (o LoadBalancingHaproxyBackendHTTPCheck) ResourceSchemaAttributes(ctx conte
 
 		"method":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `HTTP method used for health check
@@ -56,7 +58,7 @@ func (o LoadBalancingHaproxyBackendHTTPCheck) ResourceSchemaAttributes(ctx conte
 
 		"uri":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `URI used for HTTP health check (Example: '/' or '/health')
@@ -66,6 +68,8 @@ func (o LoadBalancingHaproxyBackendHTTPCheck) ResourceSchemaAttributes(ctx conte
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

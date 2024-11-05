@@ -10,6 +10,7 @@ description: |-
 # vyos_firewall_bridge_forward_filter_rule (Resource)
 <center>
 
+
 Firewall  
 ⯯  
 Bridge firewall  

@@ -10,6 +10,7 @@ description: |-
 # vyos_system_conntrack_ignore_ipv6_rule (Resource)
 <center>
 
+
 *system*  
 ⯯  
 Connection Tracking Engine Options  

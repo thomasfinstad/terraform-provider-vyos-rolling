@@ -13,18 +13,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameIPNht{}
 
 // VrfNameIPNht describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameIPNht struct {
 	// LeafNodes
 	LeafVrfNameIPNhtNoResolveViaDefault types.Bool `tfsdk:"no_resolve_via_default" vyos:"no-resolve-via-default,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VrfNameIPNht) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"no_resolve_via_default":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not resolve via default route
@@ -48,6 +49,8 @@ func (o VrfNameIPNht) ResourceSchemaAttributes(ctx context.Context) map[string]s
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

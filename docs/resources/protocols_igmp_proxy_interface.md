@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_igmp_proxy_interface (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Internet Group Management Protocol (IGMP) proxy parameters  

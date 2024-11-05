@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpParametersTCPKeepalive{}
 
 // VrfNameProtocolsBgpParametersTCPKeepalive describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpParametersTCPKeepalive struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersTCPKeepaliveIDle     types.Number `tfsdk:"idle" vyos:"idle,omitempty"`
 	LeafVrfNameProtocolsBgpParametersTCPKeepaliveInterval types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
 	LeafVrfNameProtocolsBgpParametersTCPKeepaliveProbes   types.Number `tfsdk:"probes" vyos:"probes,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsBgpParametersTCPKeepalive) ResourceSchemaAttributes(ctx 
 
 		"idle":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP keepalive idle time
@@ -56,7 +57,7 @@ func (o VrfNameProtocolsBgpParametersTCPKeepalive) ResourceSchemaAttributes(ctx 
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP keepalive interval
@@ -75,7 +76,7 @@ func (o VrfNameProtocolsBgpParametersTCPKeepalive) ResourceSchemaAttributes(ctx 
 
 		"probes":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP keepalive maximum probes
@@ -91,6 +92,8 @@ func (o VrfNameProtocolsBgpParametersTCPKeepalive) ResourceSchemaAttributes(ctx 
     |  1-30    |  Maximum probes  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

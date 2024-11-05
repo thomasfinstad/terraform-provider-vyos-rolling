@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VpnIPsecRemoteAccessConnectionAuthentication{}
 
 // VpnIPsecRemoteAccessConnectionAuthentication describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VpnIPsecRemoteAccessConnectionAuthentication struct {
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID         types.String `tfsdk:"local_id" vyos:"local-id,omitempty"`
@@ -26,12 +28,13 @@ type VpnIPsecRemoteAccessConnectionAuthentication struct {
 	LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode      types.String `tfsdk:"server_mode" vyos:"server-mode,omitempty"`
 	LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret types.String `tfsdk:"pre_shared_secret" vyos:"pre-shared-secret,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine *VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine `tfsdk:"x509" vyos:"x509,omitempty"`
-	NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers    *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers    `tfsdk:"local_users" vyos:"local-users,omitempty"`
+
+	NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers `tfsdk:"local_users" vyos:"local-users,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -41,7 +44,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes(c
 
 		"local_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Local ID for peer authentication
@@ -60,7 +63,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes(c
 
 		"eap_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Remote EAP ID for client authentication
@@ -84,7 +87,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes(c
 
 		"client_mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Client authentication mode
@@ -112,7 +115,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes(c
 
 		"server_mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Server authentication mode
@@ -136,7 +139,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes(c
 
 		"pre_shared_secret":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Pre-shared secret key
@@ -152,6 +155,8 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes(c
     |  txt     |  Pre-shared secret key  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

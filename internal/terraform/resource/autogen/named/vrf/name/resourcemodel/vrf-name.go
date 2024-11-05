@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VrfName{}
 
 // VrfName describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VrfName struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -41,11 +43,14 @@ type VrfName struct {
 	LeafVrfNameTable       types.Number `tfsdk:"table" vyos:"table,omitempty"`
 	LeafVrfNameVni         types.Number `tfsdk:"vni" vyos:"vni,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVrfNameIP        *VrfNameIP        `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeVrfNameIPvsix    *VrfNameIPvsix    `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeVrfNameIP *VrfNameIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeVrfNameIPvsix *VrfNameIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
 	NodeVrfNameProtocols *VrfNameProtocols `tfsdk:"protocols" vyos:"protocols,omitempty"`
 }
 
@@ -84,8 +89,9 @@ func (o *VrfName) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VrfName) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vrf",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vrf", // Node
+
 	}
 }
 
@@ -95,7 +101,7 @@ func (o *VrfName) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VrfName) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -135,8 +141,8 @@ func (o VrfName) ResourceSchemaAttributes(ctx context.Context) map[string]schema
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -155,7 +161,7 @@ func (o VrfName) ResourceSchemaAttributes(ctx context.Context) map[string]schema
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -174,7 +180,7 @@ func (o VrfName) ResourceSchemaAttributes(ctx context.Context) map[string]schema
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -189,7 +195,7 @@ func (o VrfName) ResourceSchemaAttributes(ctx context.Context) map[string]schema
 
 		"table":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Routing table associated with this instance
@@ -208,7 +214,7 @@ func (o VrfName) ResourceSchemaAttributes(ctx context.Context) map[string]schema
 
 		"vni":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
@@ -224,6 +230,8 @@ func (o VrfName) ResourceSchemaAttributes(ctx context.Context) map[string]schema
     |  0-16777214  |  VXLAN virtual network identifier  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

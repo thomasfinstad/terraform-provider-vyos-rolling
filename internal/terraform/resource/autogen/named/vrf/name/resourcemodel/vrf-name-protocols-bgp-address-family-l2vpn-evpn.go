@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn{}
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni    types.Bool   `tfsdk:"advertise_all_vni" vyos:"advertise-all-vni,omitempty"`
@@ -30,19 +32,25 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDisableEadEviRx    types.Bool   `tfsdk:"disable_ead_evi_rx" vyos:"disable-ead-evi-rx,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDisableEadEviTx    types.Bool   `tfsdk:"disable_ead_evi_tx" vyos:"disable-ead-evi-tx,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"-" vyos:"vni,child"`
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise        *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise        `tfsdk:"advertise" vyos:"advertise,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget      *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget      `tfsdk:"route_target" vyos:"route-target,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise `tfsdk:"advertise" vyos:"advertise,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget `tfsdk:"route_target" vyos:"route-target,omitempty"`
+
 	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate `tfsdk:"default_originate" vyos:"default-originate,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag        *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag        `tfsdk:"ead_es_frag" vyos:"ead-es-frag,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag `tfsdk:"ead_es_frag" vyos:"ead-es-frag,omitempty"`
+
 	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget `tfsdk:"ead_es_route_target" vyos:"ead-es-route-target,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding         *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding         `tfsdk:"flooding" vyos:"flooding,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf           *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf           `tfsdk:"mac_vrf" vyos:"mac-vrf,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding `tfsdk:"flooding" vyos:"flooding,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf `tfsdk:"mac_vrf" vyos:"mac-vrf,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -52,7 +60,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 
 		"advertise_all_vni":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise All local VNIs
@@ -67,7 +75,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 
 		"advertise_default_gw":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise All default g/w mac-ip routes in EVPN
@@ -82,7 +90,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 
 		"advertise_svi_ip":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise svi mac-ip routes in EVPN
@@ -97,7 +105,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 
 		"rd":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
@@ -116,7 +124,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 
 		"advertise_pip":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `EVPN system primary IP
@@ -135,7 +143,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 
 		"rt_auto_derive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Auto derivation of Route Target (RFC8365)
@@ -150,7 +158,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 
 		"disable_ead_evi_rx":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Activate PE on EAD-ES even if EAD-EVI is not received
@@ -165,7 +173,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 
 		"disable_ead_evi_tx":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not advertise EAD-EVI for local ESs
@@ -177,6 +185,8 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ct
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

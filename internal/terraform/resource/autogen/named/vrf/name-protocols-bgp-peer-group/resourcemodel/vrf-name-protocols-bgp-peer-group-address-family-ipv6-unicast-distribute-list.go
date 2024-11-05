@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDistributeList{}
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDistributeList describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDistributeList struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDistributeListExport types.Number `tfsdk:"export" vyos:"export,omitempty"`
 	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDistributeListImport types.Number `tfsdk:"import" vyos:"import,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDistributeList) Re
 
 		"export":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access-list to filter outgoing route updates to this peer-group
@@ -55,7 +56,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDistributeList) Re
 
 		"import":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access-list to filter incoming route updates from this peer-group
@@ -71,6 +72,8 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDistributeList) Re
     |  1-65535  |  Access-list to filter incoming route updates from this peer-group  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_service_webproxy_url_filtering_squidguard_source_group (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Webproxy service settings  

@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesOpenvpnAuthentication{}
 
 // InterfacesOpenvpnAuthentication describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesOpenvpnAuthentication struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnAuthenticationUsername types.String `tfsdk:"username" vyos:"username,omitempty"`
 	LeafInterfacesOpenvpnAuthenticationPassword types.String `tfsdk:"password" vyos:"password,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o InterfacesOpenvpnAuthentication) ResourceSchemaAttributes(ctx context.Co
 
 		"username":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Username used for authentication
@@ -55,7 +56,7 @@ func (o InterfacesOpenvpnAuthentication) ResourceSchemaAttributes(ctx context.Co
 
 		"password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Password used for authentication
@@ -71,6 +72,8 @@ func (o InterfacesOpenvpnAuthentication) ResourceSchemaAttributes(ctx context.Co
     |  txt     |  Password     |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

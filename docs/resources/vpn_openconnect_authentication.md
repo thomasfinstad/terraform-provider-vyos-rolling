@@ -30,9 +30,11 @@ SSL VPN OpenConnect, AnyConnect compatible server
   - [Schema](#schema)
     - [Optional](#optional)
       - [group](#group)
+      - [local_users](#local_users)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `local_users`](#nested-schema-for-local_users)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -49,6 +51,8 @@ SSL VPN OpenConnect, AnyConnect compatible server
     |  Format  &emsp;|  Description                                                                                       |
     |----------|----------------------------------------------------------------------------------------------------|
     |  txt     &emsp;|  Group string. The group may be followed by a user-friendly name in brackets: group1[First Group]  |
+#### local_users
+- `local_users` (Attributes) Local user authentication (see [below for nested schema](#nestedatt--local_users))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -56,6 +60,10 @@ SSL VPN OpenConnect, AnyConnect compatible server
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--local_users"></a>
+### Nested Schema for `local_users`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_openfabric_domain_interface (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 OpenFabric protocol  

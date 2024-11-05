@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_rip_network_distance (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Routing Information Protocol (RIP) parameters  

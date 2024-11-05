@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VpnIPsecRemoteAccessConnectionLocal{}
 
 // VpnIPsecRemoteAccessConnectionLocal describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VpnIPsecRemoteAccessConnectionLocal struct {
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessConnectionLocalPort   types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafVpnIPsecRemoteAccessConnectionLocalPrefix types.List   `tfsdk:"prefix" vyos:"prefix,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes(ctx contex
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -54,7 +55,7 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes(ctx contex
 		},
 
 		"prefix":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -73,6 +74,8 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes(ctx contex
     |  ipv6net  |  Local IPv6 prefix  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

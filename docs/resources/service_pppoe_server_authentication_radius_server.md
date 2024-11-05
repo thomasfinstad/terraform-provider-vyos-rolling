@@ -10,6 +10,7 @@ description: |-
 # vyos_service_pppoe_server_authentication_radius_server (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Point to Point over Ethernet (PPPoE) Server  

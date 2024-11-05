@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpListen{}
 
 // VrfNameProtocolsBgpListen describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpListen struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpListenLimit types.Number `tfsdk:"limit" vyos:"limit,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsBgpListenRange bool `tfsdk:"-" vyos:"range,child"`
 
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsBgpListen) ResourceSchemaAttributes(ctx context.Context)
 
 		"limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of dynamic neighbors that can be created
@@ -53,6 +54,8 @@ func (o VrfNameProtocolsBgpListen) ResourceSchemaAttributes(ctx context.Context)
     |  1-5000  |  BGP neighbor limit  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

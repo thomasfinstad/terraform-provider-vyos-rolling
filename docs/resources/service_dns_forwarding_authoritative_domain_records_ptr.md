@@ -10,6 +10,7 @@ description: |-
 # vyos_service_dns_forwarding_authoritative_domain_records_ptr (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Domain Name System (DNS) related services  

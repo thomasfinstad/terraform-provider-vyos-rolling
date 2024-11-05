@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &PolicyRouteMapRule{}
 
 // PolicyRouteMapRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type PolicyRouteMapRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -41,12 +43,15 @@ type PolicyRouteMapRule struct {
 	LeafPolicyRouteMapRuleContinue    types.Number `tfsdk:"continue" vyos:"continue,omitempty"`
 	LeafPolicyRouteMapRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodePolicyRouteMapRuleMatch   *PolicyRouteMapRuleMatch   `tfsdk:"match" vyos:"match,omitempty"`
+
+	NodePolicyRouteMapRuleMatch *PolicyRouteMapRuleMatch `tfsdk:"match" vyos:"match,omitempty"`
+
 	NodePolicyRouteMapRuleOnMatch *PolicyRouteMapRuleOnMatch `tfsdk:"on_match" vyos:"on-match,omitempty"`
-	NodePolicyRouteMapRuleSet     *PolicyRouteMapRuleSet     `tfsdk:"set" vyos:"set,omitempty"`
+
+	NodePolicyRouteMapRuleSet *PolicyRouteMapRuleSet `tfsdk:"set" vyos:"set,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -84,13 +89,12 @@ func (o *PolicyRouteMapRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *PolicyRouteMapRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"policy",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"policy", // Node
 
 		"route-map",
-
 		o.SelfIdentifier.Attributes()["route_map"].(types.String).ValueString(),
 	}
 }
@@ -101,15 +105,14 @@ func (o *PolicyRouteMapRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *PolicyRouteMapRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"policy",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"policy", // Node
 
 		"route-map",
-
 		o.SelfIdentifier.Attributes()["route_map"].(types.String).ValueString(),
 	}
 }
@@ -172,8 +175,8 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  route_map, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  route_map, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -189,7 +192,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"action":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
@@ -210,7 +213,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"call":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Call another route-map on match
@@ -229,7 +232,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"continue":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Jump to a different rule in this route-map on a match
@@ -248,7 +251,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -264,6 +267,8 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
     |  txt     |  Description  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

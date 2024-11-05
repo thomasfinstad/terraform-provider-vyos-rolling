@@ -10,6 +10,7 @@ description: |-
 # vyos_system_syslog_user (Resource)
 <center>
 
+
 *system*  
 ⯯  
 System logging  

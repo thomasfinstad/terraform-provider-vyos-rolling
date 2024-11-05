@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_pim6_interface (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Protocol Independent Multicast for IPv6 (PIMv6) and MLD  

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &HighAvailabilityVrrpGroupHealthCheck{}
 
 // HighAvailabilityVrrpGroupHealthCheck describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type HighAvailabilityVrrpGroupHealthCheck struct {
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupHealthCheckFailureCount types.String `tfsdk:"failure_count" vyos:"failure-count,omitempty"`
@@ -25,8 +27,7 @@ type HighAvailabilityVrrpGroupHealthCheck struct {
 	LeafHighAvailabilityVrrpGroupHealthCheckPing         types.String `tfsdk:"ping" vyos:"ping,omitempty"`
 	LeafHighAvailabilityVrrpGroupHealthCheckScrIPt       types.String `tfsdk:"script" vyos:"script,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes(ctx conte
 
 		"failure_count":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Health check failure count required for transition to fault
@@ -54,7 +55,7 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes(ctx conte
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Health check execution interval in seconds
@@ -70,7 +71,7 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes(ctx conte
 
 		"ping":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP ping health check
@@ -91,7 +92,7 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes(ctx conte
 
 		"script":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Health check script file
@@ -101,6 +102,8 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes(ctx conte
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

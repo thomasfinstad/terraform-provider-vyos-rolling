@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &VpnPptpRemoteAccessAuthenticationRadius{}
 
 // VpnPptpRemoteAccessAuthenticationRadius describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type VpnPptpRemoteAccessAuthenticationRadius struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -37,12 +39,15 @@ type VpnPptpRemoteAccessAuthenticationRadius struct {
 	LeafVpnPptpRemoteAccessAuthenticationRadiusNasIPAddress              types.String `tfsdk:"nas_ip_address" vyos:"nas-ip-address,omitempty"`
 	LeafVpnPptpRemoteAccessAuthenticationRadiusPreallocateVif            types.Bool   `tfsdk:"preallocate_vif" vyos:"preallocate-vif,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagVpnPptpRemoteAccessAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeVpnPptpRemoteAccessAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,child"`
-	ExistsNodeVpnPptpRemoteAccessAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,child"`
+
+	ExistsNodeVpnPptpRemoteAccessAuthenticationRadiusRateLimit bool `tfsdk:"-" vyos:"rate-limit,child"`
 }
 
 // SetID configures the resource ID
@@ -75,20 +80,21 @@ func (o *VpnPptpRemoteAccessAuthenticationRadius) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnPptpRemoteAccessAuthenticationRadius) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"pptp",
+		"pptp", // Node
 
-		"remote-access",
+		"remote-access", // Node
 
-		"authentication",
+		"authentication", // Node
+
 	}
 }
 
@@ -96,16 +102,15 @@ func (o *VpnPptpRemoteAccessAuthenticationRadius) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *VpnPptpRemoteAccessAuthenticationRadius) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -126,7 +131,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"source_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 source address used to initiate connection
@@ -145,7 +150,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"accounting_interim_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval in seconds to send accounting information
@@ -164,7 +169,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"acct_interim_jitter":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum jitter value in seconds to be applied to accounting information interval
@@ -183,7 +188,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout in seconds to wait response from RADIUS server
@@ -205,7 +210,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"acct_timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout for Interim-Update packets, terminate session afterwards
@@ -227,7 +232,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"max_try":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of tries to send Access-Request/Accounting-Request queries
@@ -249,7 +254,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"nas_identifier":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `NAS-Identifier attribute sent to RADIUS
@@ -262,7 +267,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"nas_ip_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `NAS-IP-Address attribute sent to RADIUS
@@ -281,7 +286,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 
 		"preallocate_vif":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable attribute NAS-Port-Id in Access-Request
@@ -293,5 +298,10 @@ func (o VpnPptpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx co
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

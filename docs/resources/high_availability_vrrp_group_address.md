@@ -10,6 +10,7 @@ description: |-
 # vyos_high_availability_vrrp_group_address (Resource)
 <center>
 
+
 High availability settings  
 ⯯  
 Virtual Router Redundancy Protocol settings  

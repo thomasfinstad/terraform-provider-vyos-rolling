@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &PkiCertificate{}
 
 // PkiCertificate describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type PkiCertificate struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,10 +42,12 @@ type PkiCertificate struct {
 	LeafPkiCertificateDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafPkiCertificateRevoke      types.Bool   `tfsdk:"revoke" vyos:"revoke,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodePkiCertificateAcme    *PkiCertificateAcme    `tfsdk:"acme" vyos:"acme,omitempty"`
+
+	NodePkiCertificateAcme *PkiCertificateAcme `tfsdk:"acme" vyos:"acme,omitempty"`
+
 	NodePkiCertificatePrivate *PkiCertificatePrivate `tfsdk:"private" vyos:"private,omitempty"`
 }
 
@@ -82,8 +86,9 @@ func (o *PkiCertificate) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *PkiCertificate) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"pki",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"pki", // Node
+
 	}
 }
 
@@ -93,7 +98,7 @@ func (o *PkiCertificate) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *PkiCertificate) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -127,8 +132,8 @@ func (o PkiCertificate) ResourceSchemaAttributes(ctx context.Context) map[string
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  certificate, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  certificate, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -147,7 +152,7 @@ func (o PkiCertificate) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"certificate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Certificate in PEM format
@@ -160,7 +165,7 @@ func (o PkiCertificate) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -179,7 +184,7 @@ func (o PkiCertificate) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"revoke":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Include certificate in parent CRL
@@ -191,6 +196,8 @@ func (o PkiCertificate) ResourceSchemaAttributes(ctx context.Context) map[string
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

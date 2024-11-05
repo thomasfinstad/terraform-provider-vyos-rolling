@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetBoth   types.List `tfsdk:"both" vyos:"both,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetImport types.List `tfsdk:"import" vyos:"import,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetExport types.List `tfsdk:"export" vyos:"export,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 		// LeafNodes
 
 		"both":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -55,7 +56,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 		},
 
 		"import":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -74,7 +75,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 		},
 
 		"export":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -91,6 +92,8 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
     |  txt     |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

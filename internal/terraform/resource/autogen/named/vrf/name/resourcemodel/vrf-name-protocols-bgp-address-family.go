@@ -11,36 +11,50 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamily{}
 
 // VrfNameProtocolsBgpAddressFamily describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamily struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicast        *VrfNameProtocolsBgpAddressFamilyIPvfourUnicast        `tfsdk:"ipv4_unicast" vyos:"ipv4-unicast,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticast      *VrfNameProtocolsBgpAddressFamilyIPvfourMulticast      `tfsdk:"ipv4_multicast" vyos:"ipv4-multicast,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicast *VrfNameProtocolsBgpAddressFamilyIPvfourUnicast `tfsdk:"ipv4_unicast" vyos:"ipv4-unicast,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticast *VrfNameProtocolsBgpAddressFamilyIPvfourMulticast `tfsdk:"ipv4_multicast" vyos:"ipv4-multicast,omitempty"`
+
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast `tfsdk:"ipv4_labeled_unicast" vyos:"ipv4-labeled-unicast,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourFlowspec       *VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec       `tfsdk:"ipv4_flowspec" vyos:"ipv4-flowspec,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourVpn            *VrfNameProtocolsBgpAddressFamilyIPvfourVpn            `tfsdk:"ipv4_vpn" vyos:"ipv4-vpn,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicast         *VrfNameProtocolsBgpAddressFamilyIPvsixUnicast         `tfsdk:"ipv6_unicast" vyos:"ipv6-unicast,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticast       *VrfNameProtocolsBgpAddressFamilyIPvsixMulticast       `tfsdk:"ipv6_multicast" vyos:"ipv6-multicast,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast  *VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast  `tfsdk:"ipv6_labeled_unicast" vyos:"ipv6-labeled-unicast,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixFlowspec        *VrfNameProtocolsBgpAddressFamilyIPvsixFlowspec        `tfsdk:"ipv6_flowspec" vyos:"ipv6-flowspec,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixVpn             *VrfNameProtocolsBgpAddressFamilyIPvsixVpn             `tfsdk:"ipv6_vpn" vyos:"ipv6-vpn,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpn           *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn           `tfsdk:"l2vpn_evpn" vyos:"l2vpn-evpn,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourFlowspec *VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec `tfsdk:"ipv4_flowspec" vyos:"ipv4-flowspec,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourVpn *VrfNameProtocolsBgpAddressFamilyIPvfourVpn `tfsdk:"ipv4_vpn" vyos:"ipv4-vpn,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicast *VrfNameProtocolsBgpAddressFamilyIPvsixUnicast `tfsdk:"ipv6_unicast" vyos:"ipv6-unicast,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticast *VrfNameProtocolsBgpAddressFamilyIPvsixMulticast `tfsdk:"ipv6_multicast" vyos:"ipv6-multicast,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast *VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast `tfsdk:"ipv6_labeled_unicast" vyos:"ipv6-labeled-unicast,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixFlowspec *VrfNameProtocolsBgpAddressFamilyIPvsixFlowspec `tfsdk:"ipv6_flowspec" vyos:"ipv6-flowspec,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixVpn *VrfNameProtocolsBgpAddressFamilyIPvsixVpn `tfsdk:"ipv6_vpn" vyos:"ipv6-vpn,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpn *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn `tfsdk:"l2vpn_evpn" vyos:"l2vpn-evpn,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

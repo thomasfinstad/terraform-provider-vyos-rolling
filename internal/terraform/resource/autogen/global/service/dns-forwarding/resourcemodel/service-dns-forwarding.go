@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceDNSForwarding{}
 
 // ServiceDNSForwarding describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceDNSForwarding struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -43,13 +45,18 @@ type ServiceDNSForwarding struct {
 	LeafServiceDNSForwardingSystem                    types.Bool   `tfsdk:"system" vyos:"system,omitempty"`
 	LeafServiceDNSForwardingExcludeThroTTLeAddress    types.List   `tfsdk:"exclude_throttle_address" vyos:"exclude-throttle-address,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDNSForwardingDomain              bool `tfsdk:"-" vyos:"domain,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomain bool `tfsdk:"-" vyos:"authoritative-domain,child"`
-	ExistsTagServiceDNSForwardingNameServer          bool `tfsdk:"-" vyos:"name-server,child"`
-	ExistsTagServiceDNSForwardingZoneCache           bool `tfsdk:"-" vyos:"zone-cache,child"`
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	ExistsTagServiceDNSForwardingDomain bool `tfsdk:"-" vyos:"domain,child"`
+
+	ExistsTagServiceDNSForwardingAuthoritativeDomain bool `tfsdk:"-" vyos:"authoritative-domain,child"`
+
+	ExistsTagServiceDNSForwardingNameServer bool `tfsdk:"-" vyos:"name-server,child"`
+
+	ExistsTagServiceDNSForwardingZoneCache bool `tfsdk:"-" vyos:"zone-cache,child"`
+
+	// Nodes
+
 	ExistsNodeServiceDNSForwardingOptions bool `tfsdk:"-" vyos:"options,child"`
 }
 
@@ -83,12 +90,13 @@ func (o *ServiceDNSForwarding) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDNSForwarding) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dns",
+		"dns", // Node
+
 	}
 }
 
@@ -96,12 +104,11 @@ func (o *ServiceDNSForwarding) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceDNSForwarding) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -122,7 +129,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"cache_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `DNS forwarding cache size
@@ -143,7 +150,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"dhcp":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -157,7 +164,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"dns64_prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Help to communicate between IPv6-only client and IPv4-only server
@@ -176,7 +183,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"dnssec":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DNSSEC mode
@@ -206,7 +213,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"ignore_hosts_file":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not use local /etc/hosts file in name resolution
@@ -221,7 +228,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"no_serve_rfc1918":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Makes the server authoritatively not aware of RFC1918 addresses
@@ -235,7 +242,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"allow_from":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -256,7 +263,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"listen_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -278,7 +285,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -300,7 +307,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"negative_ttl":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum amount of time negative entries are cached
@@ -322,7 +329,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"serve_stale_extension":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of times the expired TTL of a record is extended by 30 seconds when serving stale
@@ -344,7 +351,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of milliseconds to wait for a remote authoritative server to respond
@@ -365,7 +372,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"source_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -390,7 +397,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"system":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use system name servers
@@ -404,7 +411,7 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"exclude_throttle_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -427,5 +434,10 @@ func (o ServiceDNSForwarding) ResourceSchemaAttributes(ctx context.Context) map[
     |  ipv6net  |  IPv6 address           |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

@@ -13,18 +13,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRemovePrivateAs{}
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRemovePrivateAs describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRemovePrivateAs struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRemovePrivateAsAll types.Bool `tfsdk:"all" vyos:"all,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRemovePrivateAs) R
 
 		"all":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Remove private AS numbers to all AS numbers in outbound route updates
@@ -48,6 +49,8 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRemovePrivateAs) R
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

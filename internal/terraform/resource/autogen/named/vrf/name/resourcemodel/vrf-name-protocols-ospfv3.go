@@ -11,36 +11,46 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfvthree{}
 
 // VrfNameProtocolsOspfvthree describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfvthree struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsOspfvthreeArea bool `tfsdk:"-" vyos:"area,child"`
 
 	ExistsTagVrfNameProtocolsOspfvthreeInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
-	NodeVrfNameProtocolsOspfvthreeAutoCost            *VrfNameProtocolsOspfvthreeAutoCost            `tfsdk:"auto_cost" vyos:"auto-cost,omitempty"`
-	NodeVrfNameProtocolsOspfvthreeDefaultInformation  *VrfNameProtocolsOspfvthreeDefaultInformation  `tfsdk:"default_information" vyos:"default-information,omitempty"`
-	NodeVrfNameProtocolsOspfvthreeDistance            *VrfNameProtocolsOspfvthreeDistance            `tfsdk:"distance" vyos:"distance,omitempty"`
-	NodeVrfNameProtocolsOspfvthreeGracefulRestart     *VrfNameProtocolsOspfvthreeGracefulRestart     `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
+
+	NodeVrfNameProtocolsOspfvthreeAutoCost *VrfNameProtocolsOspfvthreeAutoCost `tfsdk:"auto_cost" vyos:"auto-cost,omitempty"`
+
+	NodeVrfNameProtocolsOspfvthreeDefaultInformation *VrfNameProtocolsOspfvthreeDefaultInformation `tfsdk:"default_information" vyos:"default-information,omitempty"`
+
+	NodeVrfNameProtocolsOspfvthreeDistance *VrfNameProtocolsOspfvthreeDistance `tfsdk:"distance" vyos:"distance,omitempty"`
+
+	NodeVrfNameProtocolsOspfvthreeGracefulRestart *VrfNameProtocolsOspfvthreeGracefulRestart `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
+
 	NodeVrfNameProtocolsOspfvthreeLogAdjacencyChanges *VrfNameProtocolsOspfvthreeLogAdjacencyChanges `tfsdk:"log_adjacency_changes" vyos:"log-adjacency-changes,omitempty"`
-	NodeVrfNameProtocolsOspfvthreeParameters          *VrfNameProtocolsOspfvthreeParameters          `tfsdk:"parameters" vyos:"parameters,omitempty"`
-	NodeVrfNameProtocolsOspfvthreeRedistribute        *VrfNameProtocolsOspfvthreeRedistribute        `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+
+	NodeVrfNameProtocolsOspfvthreeParameters *VrfNameProtocolsOspfvthreeParameters `tfsdk:"parameters" vyos:"parameters,omitempty"`
+
+	NodeVrfNameProtocolsOspfvthreeRedistribute *VrfNameProtocolsOspfvthreeRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

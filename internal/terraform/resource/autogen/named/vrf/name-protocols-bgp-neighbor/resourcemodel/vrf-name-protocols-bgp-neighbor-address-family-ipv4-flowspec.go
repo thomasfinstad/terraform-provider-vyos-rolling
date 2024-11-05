@@ -13,24 +13,29 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec{}
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteReflectorClient types.Bool `tfsdk:"route_reflector_client" vyos:"route-reflector-client,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteServerClient    types.Bool `tfsdk:"route_server_client" vyos:"route-server-client,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList          *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList          `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
-	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList          *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList          `tfsdk:"filter_list" vyos:"filter-list,omitempty"`
-	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap            *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap            `tfsdk:"route_map" vyos:"route-map,omitempty"`
+
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
+
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList `tfsdk:"filter_list" vyos:"filter-list,omitempty"`
+
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap `tfsdk:"route_map" vyos:"route-map,omitempty"`
+
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration `tfsdk:"soft_reconfiguration" vyos:"soft-reconfiguration,omitempty"`
 }
 
@@ -41,7 +46,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceSchemaA
 
 		"route_reflector_client":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route reflector client
@@ -56,7 +61,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceSchemaA
 
 		"route_server_client":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route server client
@@ -68,6 +73,8 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceSchemaA
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

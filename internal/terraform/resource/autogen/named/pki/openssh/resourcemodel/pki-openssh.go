@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &PkiOpenTCP{}
 
 // PkiOpenTCP describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type PkiOpenTCP struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -36,10 +38,12 @@ type PkiOpenTCP struct {
 
 	// LeafNodes
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodePkiOpenTCPPublic  *PkiOpenTCPPublic  `tfsdk:"public" vyos:"public,omitempty"`
+
+	NodePkiOpenTCPPublic *PkiOpenTCPPublic `tfsdk:"public" vyos:"public,omitempty"`
+
 	NodePkiOpenTCPPrivate *PkiOpenTCPPrivate `tfsdk:"private" vyos:"private,omitempty"`
 }
 
@@ -78,8 +82,9 @@ func (o *PkiOpenTCP) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *PkiOpenTCP) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"pki",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"pki", // Node
+
 	}
 }
 
@@ -89,7 +94,7 @@ func (o *PkiOpenTCP) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *PkiOpenTCP) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -123,8 +128,8 @@ func (o PkiOpenTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  openssh, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  openssh, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -140,6 +145,8 @@ func (o PkiOpenTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		}),
 
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

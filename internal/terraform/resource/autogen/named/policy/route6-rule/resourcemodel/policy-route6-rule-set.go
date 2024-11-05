@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRoutesixRuleSet{}
 
 // PolicyRoutesixRuleSet describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRoutesixRuleSet struct {
 	// LeafNodes
 	LeafPolicyRoutesixRuleSetConnectionMark types.Number `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
@@ -27,8 +29,7 @@ type PolicyRoutesixRuleSet struct {
 	LeafPolicyRoutesixRuleSetVrf            types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 	LeafPolicyRoutesixRuleSetTCPMss         types.Number `tfsdk:"tcp_mss" vyos:"tcp-mss,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -40,7 +41,7 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"connection_mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set connection mark
@@ -59,7 +60,7 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"dscp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set DSCP (Packet Differentiated Services Codepoint) bits
@@ -78,7 +79,7 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set packet mark
@@ -97,7 +98,7 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"table":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set the routing table for matched packets
@@ -118,7 +119,7 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF to forward packet with
@@ -139,7 +140,7 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"tcp_mss":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set TCP Maximum Segment Size
@@ -155,6 +156,8 @@ func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes(ctx context.Context) map
     |  500-1460  |  Explicitly set TCP MSS value  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceSnmpTrapTarget{}
 
 // ServiceSnmpTrapTarget describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceSnmpTrapTarget struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -38,7 +40,7 @@ type ServiceSnmpTrapTarget struct {
 	LeafServiceSnmpTrapTargetCommunity types.String `tfsdk:"community" vyos:"community,omitempty"`
 	LeafServiceSnmpTrapTargetPort      types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -78,12 +80,13 @@ func (o *ServiceSnmpTrapTarget) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceSnmpTrapTarget) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"snmp",
+		"snmp", // Node
+
 	}
 }
 
@@ -93,9 +96,9 @@ func (o *ServiceSnmpTrapTarget) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceSnmpTrapTarget) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -137,8 +140,8 @@ func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes(ctx context.Context) map
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  trap_target, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  trap_target, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -159,7 +162,7 @@ func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes(ctx context.Context) map
 
 		"community":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Community used when sending trap information
@@ -172,7 +175,7 @@ func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes(ctx context.Context) map
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -191,6 +194,8 @@ func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes(ctx context.Context) map
 			// Default:          stringdefault.StaticString(`162`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_firewall_bridge_name (Resource)
 <center>
 
+
 Firewall  
 ⯯  
 Bridge firewall  

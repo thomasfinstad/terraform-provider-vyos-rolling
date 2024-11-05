@@ -22,12 +22,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VpnIPsecSiteToSitePeerTunnel{}
 
 // VpnIPsecSiteToSitePeerTunnel describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VpnIPsecSiteToSitePeerTunnel struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -42,10 +44,12 @@ type VpnIPsecSiteToSitePeerTunnel struct {
 	LeafVpnIPsecSiteToSitePeerTunnelProtocol types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 	LeafVpnIPsecSiteToSitePeerTunnelPriority types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeVpnIPsecSiteToSitePeerTunnelLocal  *VpnIPsecSiteToSitePeerTunnelLocal  `tfsdk:"local" vyos:"local,omitempty"`
+
+	NodeVpnIPsecSiteToSitePeerTunnelLocal *VpnIPsecSiteToSitePeerTunnelLocal `tfsdk:"local" vyos:"local,omitempty"`
+
 	NodeVpnIPsecSiteToSitePeerTunnelRemote *VpnIPsecSiteToSitePeerTunnelRemote `tfsdk:"remote" vyos:"remote,omitempty"`
 }
 
@@ -84,21 +88,20 @@ func (o *VpnIPsecSiteToSitePeerTunnel) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnIPsecSiteToSitePeerTunnel) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"ipsec",
+		"ipsec", // Node
 
-		"site-to-site",
+		"site-to-site", // Node
 
 		"peer",
-
 		o.SelfIdentifier.Attributes()["peer"].(types.String).ValueString(),
 	}
 }
@@ -109,23 +112,22 @@ func (o *VpnIPsecSiteToSitePeerTunnel) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VpnIPsecSiteToSitePeerTunnel) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"ipsec",
+		"ipsec", // Node
 
-		"site-to-site",
+		"site-to-site", // Node
 
 		"peer",
-
 		o.SelfIdentifier.Attributes()["peer"].(types.String).ValueString(),
 	}
 }
@@ -192,8 +194,8 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes(ctx context.Conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  peer, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  peer, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -209,7 +211,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes(ctx context.Conte
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -224,7 +226,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes(ctx context.Conte
 
 		"esp_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Encapsulating Security Payloads (ESP) group name
@@ -237,7 +239,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes(ctx context.Conte
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol
@@ -256,7 +258,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes(ctx context.Conte
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Priority for IPsec policy (lowest value more preferable)
@@ -272,6 +274,8 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes(ctx context.Conte
     |  1-100   |  Priority for IPsec policy (lowest value more preferable)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

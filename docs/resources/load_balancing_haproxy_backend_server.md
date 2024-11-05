@@ -10,6 +10,7 @@ description: |-
 # vyos_load_balancing_haproxy_backend_server (Resource)
 <center>
 
+
 *load-balancing*  
 ⯯  
 Configure haproxy  

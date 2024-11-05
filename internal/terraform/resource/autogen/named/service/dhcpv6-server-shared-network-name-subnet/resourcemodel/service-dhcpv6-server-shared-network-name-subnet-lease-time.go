@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime{}
 
 // ServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime struct {
 	// LeafNodes
 	LeafServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTimeDefault types.Number `tfsdk:"default" vyos:"default,omitempty"`
 	LeafServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTimeMaximum types.Number `tfsdk:"maximum" vyos:"maximum,omitempty"`
 	LeafServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTimeMinimum types.Number `tfsdk:"minimum" vyos:"minimum,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime) ResourceSchemaAtt
 
 		"default":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Default time (in seconds) that will be assigned to a lease
@@ -56,7 +57,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime) ResourceSchemaAtt
 
 		"maximum":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum time (in seconds) that will be assigned to a lease
@@ -75,7 +76,7 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime) ResourceSchemaAtt
 
 		"minimum":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum time (in seconds) that will be assigned to a lease
@@ -91,6 +92,8 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime) ResourceSchemaAtt
     |  1-4294967295  |  Minimum lease time in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesPseudoEthernetDhcpvsixOptionsPd{}
 
 // InterfacesPseudoEthernetDhcpvsixOptionsPd describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesPseudoEthernetDhcpvsixOptionsPd struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -37,7 +39,7 @@ type InterfacesPseudoEthernetDhcpvsixOptionsPd struct {
 	// LeafNodes
 	LeafInterfacesPseudoEthernetDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesPseudoEthernetDhcpvsixOptionsPdInterface bool `tfsdk:"-" vyos:"interface,child"`
 
@@ -79,18 +81,18 @@ func (o *InterfacesPseudoEthernetDhcpvsixOptionsPd) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesPseudoEthernetDhcpvsixOptionsPd) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"pseudo-ethernet",
-
 		o.SelfIdentifier.Attributes()["pseudo_ethernet"].(types.String).ValueString(),
 
-		"dhcpv6-options",
+		"dhcpv6-options", // Node
+
 	}
 }
 
@@ -100,17 +102,16 @@ func (o *InterfacesPseudoEthernetDhcpvsixOptionsPd) GetVyosParentPath() []string
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesPseudoEthernetDhcpvsixOptionsPd) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"pseudo-ethernet",
-
 		o.SelfIdentifier.Attributes()["pseudo_ethernet"].(types.String).ValueString(),
 	}
 }
@@ -150,8 +151,8 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -188,8 +189,8 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  pseudo_ethernet, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  pseudo_ethernet, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -205,7 +206,7 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx 
 
 		"length":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
@@ -224,6 +225,8 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPd) ResourceSchemaAttributes(ctx 
 			// Default:          stringdefault.StaticString(`64`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

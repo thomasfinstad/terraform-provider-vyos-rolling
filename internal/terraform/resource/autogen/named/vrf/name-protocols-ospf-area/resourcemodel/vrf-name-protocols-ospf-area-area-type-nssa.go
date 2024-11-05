@@ -13,20 +13,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfAreaAreaTypeNssa{}
 
 // VrfNameProtocolsOspfAreaAreaTypeNssa describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfAreaAreaTypeNssa struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost types.Number `tfsdk:"default_cost" vyos:"default-cost,omitempty"`
 	LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary   types.Bool   `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
 	LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte   types.String `tfsdk:"translate" vyos:"translate,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes(ctx conte
 
 		"default_cost":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Summary-default cost of an NSSA area
@@ -57,7 +58,7 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes(ctx conte
 
 		"no_summary":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into stub
@@ -72,7 +73,7 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes(ctx conte
 
 		"translate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure NSSA-ABR
@@ -95,6 +96,8 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes(ctx conte
 			// Default:          stringdefault.StaticString(`candidate`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

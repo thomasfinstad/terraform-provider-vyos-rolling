@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesVti{}
 
 // InterfacesVti describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesVti struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -43,11 +45,14 @@ type InterfacesVti struct {
 	LeafInterfacesVtiRedirect    types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesVtiVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeInterfacesVtiIP     *InterfacesVtiIP     `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesVtiIP *InterfacesVtiIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
 	NodeInterfacesVtiIPvsix *InterfacesVtiIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
 	NodeInterfacesVtiMirror *InterfacesVtiMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
@@ -86,8 +91,9 @@ func (o *InterfacesVti) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesVti) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -97,7 +103,7 @@ func (o *InterfacesVti) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesVti) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -137,8 +143,8 @@ func (o InterfacesVti) ResourceSchemaAttributes(ctx context.Context) map[string]
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  vti, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  vti, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -156,7 +162,7 @@ func (o InterfacesVti) ResourceSchemaAttributes(ctx context.Context) map[string]
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -178,7 +184,7 @@ func (o InterfacesVti) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -197,7 +203,7 @@ func (o InterfacesVti) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -212,7 +218,7 @@ func (o InterfacesVti) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -234,7 +240,7 @@ func (o InterfacesVti) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -253,7 +259,7 @@ func (o InterfacesVti) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -269,6 +275,8 @@ func (o InterfacesVti) ResourceSchemaAttributes(ctx context.Context) map[string]
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

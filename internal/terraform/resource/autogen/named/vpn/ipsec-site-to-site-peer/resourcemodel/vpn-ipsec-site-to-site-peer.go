@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VpnIPsecSiteToSitePeer{}
 
 // VpnIPsecSiteToSitePeer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VpnIPsecSiteToSitePeer struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -49,13 +51,15 @@ type VpnIPsecSiteToSitePeer struct {
 	LeafVpnIPsecSiteToSitePeerReplayWindow          types.Number `tfsdk:"replay_window" vyos:"replay-window,omitempty"`
 	LeafVpnIPsecSiteToSitePeerVirtualAddress        types.List   `tfsdk:"virtual_address" vyos:"virtual-address,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVpnIPsecSiteToSitePeerTunnel bool `tfsdk:"-" vyos:"tunnel,child"`
 
 	// Nodes
+
 	NodeVpnIPsecSiteToSitePeerAuthentication *VpnIPsecSiteToSitePeerAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
-	NodeVpnIPsecSiteToSitePeerVti            *VpnIPsecSiteToSitePeerVti            `tfsdk:"vti" vyos:"vti,omitempty"`
+
+	NodeVpnIPsecSiteToSitePeerVti *VpnIPsecSiteToSitePeerVti `tfsdk:"vti" vyos:"vti,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -93,16 +97,17 @@ func (o *VpnIPsecSiteToSitePeer) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnIPsecSiteToSitePeer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"ipsec",
+		"ipsec", // Node
 
-		"site-to-site",
+		"site-to-site", // Node
+
 	}
 }
 
@@ -112,11 +117,11 @@ func (o *VpnIPsecSiteToSitePeer) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VpnIPsecSiteToSitePeer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -156,8 +161,8 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  peer, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  peer, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -180,7 +185,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -195,7 +200,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"connection_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Connection type
@@ -218,7 +223,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"default_esp_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Defult ESP group name
@@ -231,7 +236,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -250,7 +255,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"dhcp_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
@@ -269,7 +274,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"force_udp_encapsulation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Force UDP encapsulation
@@ -284,7 +289,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"ike_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Internet Key Exchange (IKE) group name
@@ -297,7 +302,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"ikev2_reauth":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
@@ -320,7 +325,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"local_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 or IPv6 address of a local interface to use for VPN
@@ -342,7 +347,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"remote_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -368,7 +373,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"replay_window":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IPsec replay window to configure for this CHILD_SA
@@ -391,7 +396,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
 		},
 
 		"virtual_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -410,6 +415,8 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes(ctx context.Context) ma
     |  ipv6    |  Request IPv6 address from peer  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

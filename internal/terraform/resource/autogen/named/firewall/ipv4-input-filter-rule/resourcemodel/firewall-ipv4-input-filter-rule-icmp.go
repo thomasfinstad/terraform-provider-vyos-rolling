@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvfourInputFilterRuleIcmp{}
 
 // FirewallIPvfourInputFilterRuleIcmp describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvfourInputFilterRuleIcmp struct {
 	// LeafNodes
 	LeafFirewallIPvfourInputFilterRuleIcmpCode     types.Number `tfsdk:"code" vyos:"code,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleIcmpType     types.Number `tfsdk:"type" vyos:"type,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleIcmpTypeName types.String `tfsdk:"type_name" vyos:"type-name,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o FirewallIPvfourInputFilterRuleIcmp) ResourceSchemaAttributes(ctx context
 
 		"code":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP code
@@ -56,7 +57,7 @@ func (o FirewallIPvfourInputFilterRuleIcmp) ResourceSchemaAttributes(ctx context
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP type
@@ -75,7 +76,7 @@ func (o FirewallIPvfourInputFilterRuleIcmp) ResourceSchemaAttributes(ctx context
 
 		"type_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP type-name
@@ -119,6 +120,8 @@ func (o FirewallIPvfourInputFilterRuleIcmp) ResourceSchemaAttributes(ctx context
     |  address-mask-reply       |  ICMP type 18: address-mask-reply      |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_virtual_ethernet_vif_s_vif_c (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Virtual Ethernet (veth) Interface  

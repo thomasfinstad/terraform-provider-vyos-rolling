@@ -27,12 +27,15 @@ Virtual Private Network (VPN)
 - [vyos_vpn_openconnect (Resource)](#vyos_vpn_openconnect-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [accounting](#accounting)
       - [http_security_headers](#http_security_headers)
       - [listen_address](#listen_address)
       - [timeouts](#timeouts)
       - [tls_version_min](#tls_version_min)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `accounting`](#nested-schema-for-accounting)
+    - [Nested Schema for `accounting.radius`](#nested-schema-for-accountingradius)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -43,6 +46,8 @@ Virtual Private Network (VPN)
 
 ### Optional
 
+#### accounting
+- `accounting` (Attributes) Accounting for users OpenConnect VPN Sessions (see [below for nested schema](#nestedatt--accounting))
 #### http_security_headers
 - `http_security_headers` (Boolean) Enable HTTP security headers
 #### listen_address
@@ -67,6 +72,18 @@ Virtual Private Network (VPN)
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--accounting"></a>
+### Nested Schema for `accounting`
+
+Optional:
+
+- `radius` (Attributes) RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication mode radius (see [below for nested schema](#nestedatt--accounting--radius))
+
+<a id="nestedatt--accounting--radius"></a>
+### Nested Schema for `accounting.radius`
+
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

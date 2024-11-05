@@ -36,9 +36,11 @@ Intrusion Detection System
       - [listen_interface](#listen_interface)
       - [mode](#mode)
       - [network](#network)
+      - [threshold](#threshold)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `threshold`](#nested-schema-for-threshold)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -82,6 +84,8 @@ Intrusion Detection System
     |-----------|------------------------|
     |  ipv4net  &emsp;|  Your IPv4 prefix(es)  |
     |  ipv6net  &emsp;|  Your IPv6 prefix(es)  |
+#### threshold
+- `threshold` (Attributes) Attack limits thresholds (see [below for nested schema](#nestedatt--threshold))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -89,6 +93,10 @@ Intrusion Detection System
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--threshold"></a>
+### Nested Schema for `threshold`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

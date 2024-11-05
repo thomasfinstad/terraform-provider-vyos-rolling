@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpNeighborInterfaceVsixonly{}
 
 // VrfNameProtocolsBgpNeighborInterfaceVsixonly describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpNeighborInterfaceVsixonly struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborInterfaceVsixonlyPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborInterfaceVsixonlyRemoteAs  types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VrfNameProtocolsBgpNeighborInterfaceVsixonly) ResourceSchemaAttributes(c
 
 		"peer_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
@@ -55,7 +56,7 @@ func (o VrfNameProtocolsBgpNeighborInterfaceVsixonly) ResourceSchemaAttributes(c
 
 		"remote_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
@@ -75,6 +76,8 @@ func (o VrfNameProtocolsBgpNeighborInterfaceVsixonly) ResourceSchemaAttributes(c
     |  internal      |  Neighbor AS number                  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

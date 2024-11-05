@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyAccessListRuleDestination{}
 
 // PolicyAccessListRuleDestination describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyAccessListRuleDestination struct {
 	// LeafNodes
 	LeafPolicyAccessListRuleDestinationAny         types.Bool   `tfsdk:"any" vyos:"any,omitempty"`
@@ -26,8 +28,7 @@ type PolicyAccessListRuleDestination struct {
 	LeafPolicyAccessListRuleDestinationInverseMask types.String `tfsdk:"inverse_mask" vyos:"inverse-mask,omitempty"`
 	LeafPolicyAccessListRuleDestinationNetwork     types.String `tfsdk:"network" vyos:"network,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes(ctx context.Co
 
 		"any":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Any IP address to match
@@ -54,7 +55,7 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes(ctx context.Co
 
 		"host":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Single host IP address to match
@@ -73,7 +74,7 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes(ctx context.Co
 
 		"inverse_mask":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Network/netmask to match (requires network be defined)
@@ -92,7 +93,7 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes(ctx context.Co
 
 		"network":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Network/netmask to match (requires inverse-mask be defined)
@@ -108,6 +109,8 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes(ctx context.Co
     |  ipv4net  |  Inverse-mask to match  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

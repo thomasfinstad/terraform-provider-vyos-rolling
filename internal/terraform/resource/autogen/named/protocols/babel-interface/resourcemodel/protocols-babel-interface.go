@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsBabelInterface{}
 
 // ProtocolsBabelInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsBabelInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -48,7 +50,7 @@ type ProtocolsBabelInterface struct {
 	LeafProtocolsBabelInterfaceEnableTimestamps types.Bool   `tfsdk:"enable_timestamps" vyos:"enable-timestamps,omitempty"`
 	LeafProtocolsBabelInterfaceChannel          types.String `tfsdk:"channel" vyos:"channel,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -88,12 +90,13 @@ func (o *ProtocolsBabelInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsBabelInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"babel",
+		"babel", // Node
+
 	}
 }
 
@@ -103,9 +106,9 @@ func (o *ProtocolsBabelInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsBabelInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -145,8 +148,8 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -167,7 +170,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface type
@@ -193,7 +196,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"split_horizon":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Split horizon parameters
@@ -219,7 +222,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"hello_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time between scheduled hellos
@@ -241,7 +244,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"update_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time between scheduled updates
@@ -263,7 +266,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"rxcost":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Base receive cost for this interface
@@ -282,7 +285,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"rtt_decay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Decay factor for exponential moving average of RTT samples
@@ -304,7 +307,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"rtt_min":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum RTT
@@ -326,7 +329,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"rtt_max":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum RTT
@@ -348,7 +351,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"max_rtt_penalty":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum additional cost due to RTT
@@ -370,7 +373,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"enable_timestamps":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable timestamps with each Hello and IHU message in order to compute RTT values
@@ -385,7 +388,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
 
 		"channel":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Channel number for diversity routing
@@ -405,6 +408,8 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes(ctx context.Context) m
     |  non-interfering  |  Non-interfering interfaces only interfere with themselves                                                           |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

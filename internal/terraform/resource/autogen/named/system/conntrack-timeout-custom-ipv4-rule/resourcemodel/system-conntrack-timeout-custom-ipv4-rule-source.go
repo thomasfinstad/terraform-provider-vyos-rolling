@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &SystemConntrackTimeoutCustomIPvfourRuleSource{}
 
 // SystemConntrackTimeoutCustomIPvfourRuleSource describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type SystemConntrackTimeoutCustomIPvfourRuleSource struct {
 	// LeafNodes
 	LeafSystemConntrackTimeoutCustomIPvfourRuleSourceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafSystemConntrackTimeoutCustomIPvfourRuleSourcePort    types.String `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o SystemConntrackTimeoutCustomIPvfourRuleSource) ResourceSchemaAttributes(
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
@@ -65,7 +66,7 @@ func (o SystemConntrackTimeoutCustomIPvfourRuleSource) ResourceSchemaAttributes(
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number
@@ -87,6 +88,8 @@ func (o SystemConntrackTimeoutCustomIPvfourRuleSource) ResourceSchemaAttributes(
     |             |  </br></br>Multiple destination ports can be specified as a comma-separated list.</br>The whole list can also be negated using '!'.</br>For example: '!22,telnet,http,123,1001-1005'  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

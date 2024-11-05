@@ -10,6 +10,7 @@ description: |-
 # vyos_system_console_device (Resource)
 <center>
 
+
 *system*  
 ⯯  
 Serial console configuration  

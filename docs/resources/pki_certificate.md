@@ -10,6 +10,7 @@ description: |-
 # vyos_pki_certificate (Resource)
 <center>
 
+
 Public key infrastructure (PKI)  
 ⯯  
 **Certificate**

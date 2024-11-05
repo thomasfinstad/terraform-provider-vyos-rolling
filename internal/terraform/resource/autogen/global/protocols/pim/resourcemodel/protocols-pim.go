@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsPim{}
 
 // ProtocolsPim describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsPim struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -33,16 +35,23 @@ type ProtocolsPim struct {
 	LeafProtocolsPimRegisterSuppressTime types.Number `tfsdk:"register_suppress_time" vyos:"register-suppress-time,omitempty"`
 	LeafProtocolsPimNoVsixSecondary      types.Bool   `tfsdk:"no_v6_secondary" vyos:"no-v6-secondary,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagProtocolsPimInterface bool `tfsdk:"-" vyos:"interface,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsPimEcmp               bool `tfsdk:"-" vyos:"ecmp,child"`
-	ExistsNodeProtocolsPimIgmp               bool `tfsdk:"-" vyos:"igmp,child"`
+	// Nodes
+
+	ExistsNodeProtocolsPimEcmp bool `tfsdk:"-" vyos:"ecmp,child"`
+
+	ExistsNodeProtocolsPimIgmp bool `tfsdk:"-" vyos:"igmp,child"`
+
 	ExistsNodeProtocolsPimRegisterAcceptList bool `tfsdk:"-" vyos:"register-accept-list,child"`
-	ExistsNodeProtocolsPimRp                 bool `tfsdk:"-" vyos:"rp,child"`
-	ExistsNodeProtocolsPimSptSwitchover      bool `tfsdk:"-" vyos:"spt-switchover,child"`
-	ExistsNodeProtocolsPimSsm                bool `tfsdk:"-" vyos:"ssm,child"`
+
+	ExistsNodeProtocolsPimRp bool `tfsdk:"-" vyos:"rp,child"`
+
+	NodeProtocolsPimSptSwitchover *ProtocolsPimSptSwitchover `tfsdk:"spt_switchover" vyos:"spt-switchover,omitempty"`
+
+	ExistsNodeProtocolsPimSsm bool `tfsdk:"-" vyos:"ssm,child"`
 }
 
 // SetID configures the resource ID
@@ -75,8 +84,9 @@ func (o *ProtocolsPim) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsPim) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
+
 	}
 }
 
@@ -84,10 +94,9 @@ func (o *ProtocolsPim) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsPim) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -108,7 +117,7 @@ func (o ProtocolsPim) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"join_prune_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Join prune send interval
@@ -130,7 +139,7 @@ func (o ProtocolsPim) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"keep_alive_timer":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Keep alive Timer
@@ -149,7 +158,7 @@ func (o ProtocolsPim) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"packets":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Packets to process at once
@@ -171,7 +180,7 @@ func (o ProtocolsPim) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"register_suppress_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Register suppress timer
@@ -190,7 +199,7 @@ func (o ProtocolsPim) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"no_v6_secondary":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IPv6 secondary address in hello packets
@@ -201,6 +210,21 @@ func (o ProtocolsPim) ResourceSchemaAttributes(ctx context.Context) map[string]s
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"spt_switchover": schema.SingleNestedAttribute{
+			Attributes: ProtocolsPimSptSwitchover{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Shortest-path tree (SPT) switchover
+
+`,
+			Description: `Shortest-path tree (SPT) switchover
+
+`,
 		},
 	}
 }

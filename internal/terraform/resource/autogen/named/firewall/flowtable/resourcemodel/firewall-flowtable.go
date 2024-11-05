@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &FirewallFlowtable{}
 
 // FirewallFlowtable describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type FirewallFlowtable struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -39,7 +41,7 @@ type FirewallFlowtable struct {
 	LeafFirewallFlowtableInterface   types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
 	LeafFirewallFlowtableOffload     types.String `tfsdk:"offload" vyos:"offload,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -79,8 +81,9 @@ func (o *FirewallFlowtable) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *FirewallFlowtable) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"firewall",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"firewall", // Node
+
 	}
 }
 
@@ -90,7 +93,7 @@ func (o *FirewallFlowtable) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *FirewallFlowtable) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -124,8 +127,8 @@ func (o FirewallFlowtable) ResourceSchemaAttributes(ctx context.Context) map[str
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  flowtable, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  flowtable, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -144,7 +147,7 @@ func (o FirewallFlowtable) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -162,7 +165,7 @@ func (o FirewallFlowtable) ResourceSchemaAttributes(ctx context.Context) map[str
 		},
 
 		"interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -176,7 +179,7 @@ func (o FirewallFlowtable) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"offload":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Offloading method
@@ -197,6 +200,8 @@ func (o FirewallFlowtable) ResourceSchemaAttributes(ctx context.Context) map[str
 			// Default:          stringdefault.StaticString(`software`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixNameRuleRecent{}
 
 // FirewallIPvsixNameRuleRecent describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixNameRuleRecent struct {
 	// LeafNodes
 	LeafFirewallIPvsixNameRuleRecentCount types.Number `tfsdk:"count" vyos:"count,omitempty"`
 	LeafFirewallIPvsixNameRuleRecentTime  types.String `tfsdk:"time" vyos:"time,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o FirewallIPvsixNameRuleRecent) ResourceSchemaAttributes(ctx context.Conte
 
 		"count":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Source addresses seen more than N times
@@ -55,7 +56,7 @@ func (o FirewallIPvsixNameRuleRecent) ResourceSchemaAttributes(ctx context.Conte
 
 		"time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source addresses seen in the last second/minute/hour
@@ -75,6 +76,8 @@ func (o FirewallIPvsixNameRuleRecent) ResourceSchemaAttributes(ctx context.Conte
     |  hour    |  Source addresses seen COUNT times in the last hour    |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

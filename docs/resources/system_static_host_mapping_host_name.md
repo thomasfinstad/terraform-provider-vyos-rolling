@@ -10,6 +10,7 @@ description: |-
 # vyos_system_static_host_mapping_host_name (Resource)
 <center>
 
+
 *system*  
 ⯯  
 Map host names to addresses  

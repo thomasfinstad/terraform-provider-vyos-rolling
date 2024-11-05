@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspf{}
 
 // VrfNameProtocolsOspf describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspf struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfDefaultMetric    types.Number `tfsdk:"default_metric" vyos:"default-metric,omitempty"`
 	LeafVrfNameProtocolsOspfMaximumPaths     types.Number `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
 	LeafVrfNameProtocolsOspfPassiveInterface types.String `tfsdk:"passive_interface" vyos:"passive-interface,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsOspfAccessList bool `tfsdk:"-" vyos:"access-list,child"`
 
@@ -38,21 +39,36 @@ type VrfNameProtocolsOspf struct {
 	ExistsTagVrfNameProtocolsOspfSummaryAddress bool `tfsdk:"-" vyos:"summary-address,child"`
 
 	// Nodes
-	NodeVrfNameProtocolsOspfAggregation         *VrfNameProtocolsOspfAggregation         `tfsdk:"aggregation" vyos:"aggregation,omitempty"`
-	NodeVrfNameProtocolsOspfAutoCost            *VrfNameProtocolsOspfAutoCost            `tfsdk:"auto_cost" vyos:"auto-cost,omitempty"`
-	NodeVrfNameProtocolsOspfCapability          *VrfNameProtocolsOspfCapability          `tfsdk:"capability" vyos:"capability,omitempty"`
-	NodeVrfNameProtocolsOspfDefaultInformation  *VrfNameProtocolsOspfDefaultInformation  `tfsdk:"default_information" vyos:"default-information,omitempty"`
-	NodeVrfNameProtocolsOspfGracefulRestart     *VrfNameProtocolsOspfGracefulRestart     `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
-	NodeVrfNameProtocolsOspfLdpSync             *VrfNameProtocolsOspfLdpSync             `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
-	NodeVrfNameProtocolsOspfDistance            *VrfNameProtocolsOspfDistance            `tfsdk:"distance" vyos:"distance,omitempty"`
+
+	NodeVrfNameProtocolsOspfAggregation *VrfNameProtocolsOspfAggregation `tfsdk:"aggregation" vyos:"aggregation,omitempty"`
+
+	NodeVrfNameProtocolsOspfAutoCost *VrfNameProtocolsOspfAutoCost `tfsdk:"auto_cost" vyos:"auto-cost,omitempty"`
+
+	NodeVrfNameProtocolsOspfCapability *VrfNameProtocolsOspfCapability `tfsdk:"capability" vyos:"capability,omitempty"`
+
+	NodeVrfNameProtocolsOspfDefaultInformation *VrfNameProtocolsOspfDefaultInformation `tfsdk:"default_information" vyos:"default-information,omitempty"`
+
+	NodeVrfNameProtocolsOspfGracefulRestart *VrfNameProtocolsOspfGracefulRestart `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
+
+	NodeVrfNameProtocolsOspfLdpSync *VrfNameProtocolsOspfLdpSync `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
+
+	NodeVrfNameProtocolsOspfDistance *VrfNameProtocolsOspfDistance `tfsdk:"distance" vyos:"distance,omitempty"`
+
 	NodeVrfNameProtocolsOspfLogAdjacencyChanges *VrfNameProtocolsOspfLogAdjacencyChanges `tfsdk:"log_adjacency_changes" vyos:"log-adjacency-changes,omitempty"`
-	NodeVrfNameProtocolsOspfMaxMetric           *VrfNameProtocolsOspfMaxMetric           `tfsdk:"max_metric" vyos:"max-metric,omitempty"`
-	NodeVrfNameProtocolsOspfMplsTe              *VrfNameProtocolsOspfMplsTe              `tfsdk:"mpls_te" vyos:"mpls-te,omitempty"`
-	NodeVrfNameProtocolsOspfParameters          *VrfNameProtocolsOspfParameters          `tfsdk:"parameters" vyos:"parameters,omitempty"`
-	NodeVrfNameProtocolsOspfSegmentRouting      *VrfNameProtocolsOspfSegmentRouting      `tfsdk:"segment_routing" vyos:"segment-routing,omitempty"`
-	NodeVrfNameProtocolsOspfRedistribute        *VrfNameProtocolsOspfRedistribute        `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
-	NodeVrfNameProtocolsOspfRefresh             *VrfNameProtocolsOspfRefresh             `tfsdk:"refresh" vyos:"refresh,omitempty"`
-	NodeVrfNameProtocolsOspfTimers              *VrfNameProtocolsOspfTimers              `tfsdk:"timers" vyos:"timers,omitempty"`
+
+	NodeVrfNameProtocolsOspfMaxMetric *VrfNameProtocolsOspfMaxMetric `tfsdk:"max_metric" vyos:"max-metric,omitempty"`
+
+	NodeVrfNameProtocolsOspfMplsTe *VrfNameProtocolsOspfMplsTe `tfsdk:"mpls_te" vyos:"mpls-te,omitempty"`
+
+	NodeVrfNameProtocolsOspfParameters *VrfNameProtocolsOspfParameters `tfsdk:"parameters" vyos:"parameters,omitempty"`
+
+	NodeVrfNameProtocolsOspfSegmentRouting *VrfNameProtocolsOspfSegmentRouting `tfsdk:"segment_routing" vyos:"segment-routing,omitempty"`
+
+	NodeVrfNameProtocolsOspfRedistribute *VrfNameProtocolsOspfRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+
+	NodeVrfNameProtocolsOspfRefresh *VrfNameProtocolsOspfRefresh `tfsdk:"refresh" vyos:"refresh,omitempty"`
+
+	NodeVrfNameProtocolsOspfTimers *VrfNameProtocolsOspfTimers `tfsdk:"timers" vyos:"timers,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -62,7 +78,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"default_metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Metric of redistributed routes
@@ -81,7 +97,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"maximum_paths":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum multiple paths (ECMP)
@@ -100,7 +116,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"passive_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Suppress routing updates on an interface
@@ -116,6 +132,8 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[
     |  default  |  Default to suppress routing updates on all interfaces  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

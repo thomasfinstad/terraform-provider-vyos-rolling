@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteMapRuleSet{}
 
 // PolicyRouteMapRuleSet describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteMapRuleSet struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleSetAtomicAggregate types.Bool   `tfsdk:"atomic_aggregate" vyos:"atomic-aggregate,omitempty"`
@@ -34,17 +36,24 @@ type PolicyRouteMapRuleSet struct {
 	LeafPolicyRouteMapRuleSetTag             types.Number `tfsdk:"tag" vyos:"tag,omitempty"`
 	LeafPolicyRouteMapRuleSetWeight          types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodePolicyRouteMapRuleSetAggregator       *PolicyRouteMapRuleSetAggregator       `tfsdk:"aggregator" vyos:"aggregator,omitempty"`
-	NodePolicyRouteMapRuleSetAsPath           *PolicyRouteMapRuleSetAsPath           `tfsdk:"as_path" vyos:"as-path,omitempty"`
-	NodePolicyRouteMapRuleSetCommunity        *PolicyRouteMapRuleSetCommunity        `tfsdk:"community" vyos:"community,omitempty"`
-	NodePolicyRouteMapRuleSetLargeCommunity   *PolicyRouteMapRuleSetLargeCommunity   `tfsdk:"large_community" vyos:"large-community,omitempty"`
-	NodePolicyRouteMapRuleSetExtcommunity     *PolicyRouteMapRuleSetExtcommunity     `tfsdk:"extcommunity" vyos:"extcommunity,omitempty"`
-	NodePolicyRouteMapRuleSetEvpn             *PolicyRouteMapRuleSetEvpn             `tfsdk:"evpn" vyos:"evpn,omitempty"`
-	NodePolicyRouteMapRuleSetIPvsixNextHop    *PolicyRouteMapRuleSetIPvsixNextHop    `tfsdk:"ipv6_next_hop" vyos:"ipv6-next-hop,omitempty"`
+
+	NodePolicyRouteMapRuleSetAggregator *PolicyRouteMapRuleSetAggregator `tfsdk:"aggregator" vyos:"aggregator,omitempty"`
+
+	NodePolicyRouteMapRuleSetAsPath *PolicyRouteMapRuleSetAsPath `tfsdk:"as_path" vyos:"as-path,omitempty"`
+
+	NodePolicyRouteMapRuleSetCommunity *PolicyRouteMapRuleSetCommunity `tfsdk:"community" vyos:"community,omitempty"`
+
+	NodePolicyRouteMapRuleSetLargeCommunity *PolicyRouteMapRuleSetLargeCommunity `tfsdk:"large_community" vyos:"large-community,omitempty"`
+
+	NodePolicyRouteMapRuleSetExtcommunity *PolicyRouteMapRuleSetExtcommunity `tfsdk:"extcommunity" vyos:"extcommunity,omitempty"`
+
+	NodePolicyRouteMapRuleSetEvpn *PolicyRouteMapRuleSetEvpn `tfsdk:"evpn" vyos:"evpn,omitempty"`
+
+	NodePolicyRouteMapRuleSetIPvsixNextHop *PolicyRouteMapRuleSetIPvsixNextHop `tfsdk:"ipv6_next_hop" vyos:"ipv6-next-hop,omitempty"`
+
 	NodePolicyRouteMapRuleSetLthreevpnNexthop *PolicyRouteMapRuleSetLthreevpnNexthop `tfsdk:"l3vpn_nexthop" vyos:"l3vpn-nexthop,omitempty"`
 }
 
@@ -55,7 +64,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"atomic_aggregate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP atomic aggregate attribute
@@ -70,7 +79,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"distance":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Locally significant administrative distance
@@ -89,7 +98,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"ip_next_hop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Nexthop IP address
@@ -112,7 +121,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"local_preference":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP local preference attribute
@@ -131,7 +140,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Destination routing protocol metric
@@ -156,7 +165,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"metric_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Open Shortest Path First (OSPF) external metric-type
@@ -177,7 +186,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"origin":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Border Gateway Protocl (BGP) origin code
@@ -200,7 +209,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"originator_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP originator ID attribute
@@ -219,7 +228,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"src":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source address for route
@@ -240,7 +249,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"table":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set prefixes to table
@@ -259,7 +268,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"tag":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Route tag value
@@ -278,7 +287,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 
 		"weight":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP weight attribute
@@ -294,6 +303,8 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
     |  0-4294967295  |  BGP weight   |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

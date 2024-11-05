@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsIsisSpfDelayIetf{}
 
 // ProtocolsIsisSpfDelayIetf describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsIsisSpfDelayIetf struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -32,9 +34,9 @@ type ProtocolsIsisSpfDelayIetf struct {
 	LeafProtocolsIsisSpfDelayIetfHolddown    types.Number `tfsdk:"holddown" vyos:"holddown,omitempty"`
 	LeafProtocolsIsisSpfDelayIetfTimeToLearn types.Number `tfsdk:"time_to_learn" vyos:"time-to-learn,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -67,12 +69,13 @@ func (o *ProtocolsIsisSpfDelayIetf) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsIsisSpfDelayIetf) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"isis",
+		"isis", // Node
+
 	}
 }
 
@@ -80,12 +83,11 @@ func (o *ProtocolsIsisSpfDelayIetf) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsIsisSpfDelayIetf) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -106,7 +108,7 @@ func (o ProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.Context)
 
 		"init_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in QUIET state
@@ -125,7 +127,7 @@ func (o ProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.Context)
 
 		"short_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in SHORT_WAIT state
@@ -144,7 +146,7 @@ func (o ProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.Context)
 
 		"long_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in LONG_WAIT
@@ -163,7 +165,7 @@ func (o ProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.Context)
 
 		"holddown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time with no received IGP events before considering IGP stable
@@ -182,7 +184,7 @@ func (o ProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.Context)
 
 		"time_to_learn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum duration needed to learn all the events related to a single failure
@@ -198,5 +200,10 @@ func (o ProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes(ctx context.Context)
     |  0-60000  |  Maximum duration needed to learn all the events related to a single failure in ms  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

@@ -12,22 +12,24 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &NatDestinationRuleDestination{}
 
 // NatDestinationRuleDestination describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type NatDestinationRuleDestination struct {
 	// LeafNodes
 	LeafNatDestinationRuleDestinationFqdn    types.String `tfsdk:"fqdn" vyos:"fqdn,omitempty"`
 	LeafNatDestinationRuleDestinationAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafNatDestinationRuleDestinationPort    types.String `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeNatDestinationRuleDestinationGroup *NatDestinationRuleDestinationGroup `tfsdk:"group" vyos:"group,omitempty"`
 }
 
@@ -38,7 +40,7 @@ func (o NatDestinationRuleDestination) ResourceSchemaAttributes(ctx context.Cont
 
 		"fqdn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Fully qualified domain name
@@ -57,7 +59,7 @@ func (o NatDestinationRuleDestination) ResourceSchemaAttributes(ctx context.Cont
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
@@ -86,7 +88,7 @@ func (o NatDestinationRuleDestination) ResourceSchemaAttributes(ctx context.Cont
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number
@@ -108,6 +110,8 @@ func (o NatDestinationRuleDestination) ResourceSchemaAttributes(ctx context.Cont
     |             |  </br></br>Multiple destination ports can be specified as a comma-separated list.</br>The whole list can also be negated using '!'.</br>For example: '!22,telnet,http,123,1001-1005'  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

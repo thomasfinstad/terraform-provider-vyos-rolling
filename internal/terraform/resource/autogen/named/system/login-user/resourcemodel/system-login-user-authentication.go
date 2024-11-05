@@ -12,23 +12,25 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &SystemLoginUserAuthentication{}
 
 // SystemLoginUserAuthentication describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type SystemLoginUserAuthentication struct {
 	// LeafNodes
 	LeafSystemLoginUserAuthenticationEncryptedPassword types.String `tfsdk:"encrypted_password" vyos:"encrypted-password,omitempty"`
 	LeafSystemLoginUserAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password" vyos:"plaintext-password,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagSystemLoginUserAuthenticationPublicKeys bool `tfsdk:"-" vyos:"public-keys,child"`
 
 	// Nodes
+
 	NodeSystemLoginUserAuthenticationOtp *SystemLoginUserAuthenticationOtp `tfsdk:"otp" vyos:"otp,omitempty"`
 }
 
@@ -39,7 +41,7 @@ func (o SystemLoginUserAuthentication) ResourceSchemaAttributes(ctx context.Cont
 
 		"encrypted_password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Encrypted password
@@ -55,7 +57,7 @@ func (o SystemLoginUserAuthentication) ResourceSchemaAttributes(ctx context.Cont
 
 		"plaintext_password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Plaintext password used for encryption
@@ -65,6 +67,8 @@ func (o SystemLoginUserAuthentication) ResourceSchemaAttributes(ctx context.Cont
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

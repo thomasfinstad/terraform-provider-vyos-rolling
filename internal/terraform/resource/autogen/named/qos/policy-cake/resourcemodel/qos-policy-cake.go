@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &QosPolicyCake{}
 
 // QosPolicyCake describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type QosPolicyCake struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -39,9 +41,10 @@ type QosPolicyCake struct {
 	LeafQosPolicyCakeBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 	LeafQosPolicyCakeRtt         types.Number `tfsdk:"rtt" vyos:"rtt,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeQosPolicyCakeFlowIsolation *QosPolicyCakeFlowIsolation `tfsdk:"flow_isolation" vyos:"flow-isolation,omitempty"`
 }
 
@@ -80,12 +83,13 @@ func (o *QosPolicyCake) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *QosPolicyCake) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"qos",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"qos", // Node
 
-		"policy",
+		"policy", // Node
+
 	}
 }
 
@@ -95,9 +99,9 @@ func (o *QosPolicyCake) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *QosPolicyCake) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -137,8 +141,8 @@ func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  cake, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  cake, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -159,7 +163,7 @@ func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -178,7 +182,7 @@ func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"bandwidth":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
@@ -209,7 +213,7 @@ func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"rtt":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Round-Trip-Time for Active Queue Management (AQM)
@@ -228,6 +232,8 @@ func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]
 			// Default:          stringdefault.StaticString(`100`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpParametersGracefulRestart{}
 
 // VrfNameProtocolsBgpParametersGracefulRestart describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpParametersGracefulRestart struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersGracefulRestartStalepathTime types.Number `tfsdk:"stalepath_time" vyos:"stalepath-time,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -35,7 +36,7 @@ func (o VrfNameProtocolsBgpParametersGracefulRestart) ResourceSchemaAttributes(c
 
 		"stalepath_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum time to hold onto restarting neighbors stale paths
@@ -51,6 +52,8 @@ func (o VrfNameProtocolsBgpParametersGracefulRestart) ResourceSchemaAttributes(c
     |  1-3600  |  Hold time in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

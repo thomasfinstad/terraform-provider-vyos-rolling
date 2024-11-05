@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceSnmpVthreeTrapTargetPrivacy{}
 
 // ServiceSnmpVthreeTrapTargetPrivacy describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceSnmpVthreeTrapTargetPrivacy struct {
 	// LeafNodes
 	LeafServiceSnmpVthreeTrapTargetPrivacyEncryptedPassword types.String `tfsdk:"encrypted_password" vyos:"encrypted-password,omitempty"`
 	LeafServiceSnmpVthreeTrapTargetPrivacyPlaintextPassword types.String `tfsdk:"plaintext_password" vyos:"plaintext-password,omitempty"`
 	LeafServiceSnmpVthreeTrapTargetPrivacyType              types.String `tfsdk:"type" vyos:"type,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o ServiceSnmpVthreeTrapTargetPrivacy) ResourceSchemaAttributes(ctx context
 
 		"encrypted_password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Defines the encrypted key for privacy protocol
@@ -50,7 +51,7 @@ func (o ServiceSnmpVthreeTrapTargetPrivacy) ResourceSchemaAttributes(ctx context
 
 		"plaintext_password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Defines the clear text key for privacy protocol
@@ -63,7 +64,7 @@ func (o ServiceSnmpVthreeTrapTargetPrivacy) ResourceSchemaAttributes(ctx context
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Defines the protocol for privacy
@@ -84,6 +85,8 @@ func (o ServiceSnmpVthreeTrapTargetPrivacy) ResourceSchemaAttributes(ctx context
 			// Default:          stringdefault.StaticString(`des`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsPimInterfaceIgmp{}
 
 // ProtocolsPimInterfaceIgmp describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsPimInterfaceIgmp struct {
 	// LeafNodes
 	LeafProtocolsPimInterfaceIgmpDisable              types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -26,8 +28,7 @@ type ProtocolsPimInterfaceIgmp struct {
 	LeafProtocolsPimInterfaceIgmpQueryMaxResponseTime types.Number `tfsdk:"query_max_response_time" vyos:"query-max-response-time,omitempty"`
 	LeafProtocolsPimInterfaceIgmpVersion              types.String `tfsdk:"version" vyos:"version,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagProtocolsPimInterfaceIgmpJoin bool `tfsdk:"-" vyos:"join,child"`
 
@@ -41,7 +42,7 @@ func (o ProtocolsPimInterfaceIgmp) ResourceSchemaAttributes(ctx context.Context)
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -56,7 +57,7 @@ func (o ProtocolsPimInterfaceIgmp) ResourceSchemaAttributes(ctx context.Context)
 
 		"query_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IGMP host query interval
@@ -75,7 +76,7 @@ func (o ProtocolsPimInterfaceIgmp) ResourceSchemaAttributes(ctx context.Context)
 
 		"query_max_response_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IGMP max query response time
@@ -94,7 +95,7 @@ func (o ProtocolsPimInterfaceIgmp) ResourceSchemaAttributes(ctx context.Context)
 
 		"version":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface IGMP version
@@ -115,6 +116,8 @@ func (o ProtocolsPimInterfaceIgmp) ResourceSchemaAttributes(ctx context.Context)
 			// Default:          stringdefault.StaticString(`3`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,20 +12,22 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn{}
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpnExport types.String `tfsdk:"export" vyos:"export,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpnAllocationMode *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpnAllocationMode `tfsdk:"allocation_mode" vyos:"allocation-mode,omitempty"`
 }
 
@@ -36,7 +38,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn) ResourceSchemaAt
 
 		"export":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `For routes leaked from current address-family to VPN
@@ -54,6 +56,8 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn) ResourceSchemaAt
     |  0-1048575  |  Label Value                   |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

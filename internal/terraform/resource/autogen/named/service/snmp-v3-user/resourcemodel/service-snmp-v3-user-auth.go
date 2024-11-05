@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceSnmpVthreeUserAuth{}
 
 // ServiceSnmpVthreeUserAuth describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceSnmpVthreeUserAuth struct {
 	// LeafNodes
 	LeafServiceSnmpVthreeUserAuthEncryptedPassword types.String `tfsdk:"encrypted_password" vyos:"encrypted-password,omitempty"`
 	LeafServiceSnmpVthreeUserAuthPlaintextPassword types.String `tfsdk:"plaintext_password" vyos:"plaintext-password,omitempty"`
 	LeafServiceSnmpVthreeUserAuthType              types.String `tfsdk:"type" vyos:"type,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o ServiceSnmpVthreeUserAuth) ResourceSchemaAttributes(ctx context.Context)
 
 		"encrypted_password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Defines the encrypted key for authentication
@@ -50,7 +51,7 @@ func (o ServiceSnmpVthreeUserAuth) ResourceSchemaAttributes(ctx context.Context)
 
 		"plaintext_password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Defines the clear text key for authentication
@@ -63,7 +64,7 @@ func (o ServiceSnmpVthreeUserAuth) ResourceSchemaAttributes(ctx context.Context)
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Define used protocol
@@ -84,6 +85,8 @@ func (o ServiceSnmpVthreeUserAuth) ResourceSchemaAttributes(ctx context.Context)
 			// Default:          stringdefault.StaticString(`md5`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

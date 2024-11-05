@@ -32,12 +32,14 @@ description: |-
       - [location](#location)
       - [oid_enable](#oid_enable)
       - [protocol](#protocol)
+      - [script_extensions](#script_extensions)
       - [smux_peer](#smux_peer)
       - [timeouts](#timeouts)
       - [trap_source](#trap_source)
       - [vrf](#vrf)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `script_extensions`](#nested-schema-for-script_extensions)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -74,6 +76,8 @@ description: |-
     |----------|-----------------------|
     |  udp     &emsp;|  Listen protocol UDP  |
     |  tcp     &emsp;|  Listen protocol TCP  |
+#### script_extensions
+- `script_extensions` (Attributes) SNMP script extensions (see [below for nested schema](#nestedatt--script_extensions))
 #### smux_peer
 - `smux_peer` (List of String) Register a subtree for SMUX-based processing
 
@@ -100,6 +104,10 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--script_extensions"></a>
+### Nested Schema for `script_extensions`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

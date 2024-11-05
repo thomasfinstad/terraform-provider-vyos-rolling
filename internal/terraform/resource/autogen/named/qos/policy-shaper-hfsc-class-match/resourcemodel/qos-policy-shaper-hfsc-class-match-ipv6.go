@@ -12,25 +12,29 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &QosPolicyShaperHfscClassMatchIPvsix{}
 
 // QosPolicyShaperHfscClassMatchIPvsix describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type QosPolicyShaperHfscClassMatchIPvsix struct {
 	// LeafNodes
 	LeafQosPolicyShaperHfscClassMatchIPvsixDscp      types.String `tfsdk:"dscp" vyos:"dscp,omitempty"`
 	LeafQosPolicyShaperHfscClassMatchIPvsixMaxLength types.Number `tfsdk:"max_length" vyos:"max-length,omitempty"`
 	LeafQosPolicyShaperHfscClassMatchIPvsixProtocol  types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeQosPolicyShaperHfscClassMatchIPvsixDestination *QosPolicyShaperHfscClassMatchIPvsixDestination `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeQosPolicyShaperHfscClassMatchIPvsixSource      *QosPolicyShaperHfscClassMatchIPvsixSource      `tfsdk:"source" vyos:"source,omitempty"`
-	NodeQosPolicyShaperHfscClassMatchIPvsixTCP         *QosPolicyShaperHfscClassMatchIPvsixTCP         `tfsdk:"tcp" vyos:"tcp,omitempty"`
+
+	NodeQosPolicyShaperHfscClassMatchIPvsixSource *QosPolicyShaperHfscClassMatchIPvsixSource `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeQosPolicyShaperHfscClassMatchIPvsixTCP *QosPolicyShaperHfscClassMatchIPvsixTCP `tfsdk:"tcp" vyos:"tcp,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -40,7 +44,7 @@ func (o QosPolicyShaperHfscClassMatchIPvsix) ResourceSchemaAttributes(ctx contex
 
 		"dscp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on Differentiated Services Codepoint (DSCP)
@@ -121,7 +125,7 @@ func (o QosPolicyShaperHfscClassMatchIPvsix) ResourceSchemaAttributes(ctx contex
 
 		"max_length":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum packet length
@@ -140,7 +144,7 @@ func (o QosPolicyShaperHfscClassMatchIPvsix) ResourceSchemaAttributes(ctx contex
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol
@@ -156,6 +160,8 @@ func (o QosPolicyShaperHfscClassMatchIPvsix) ResourceSchemaAttributes(ctx contex
     |  txt     |  Protocol name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

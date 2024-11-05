@@ -10,6 +10,7 @@ description: |-
 # vyos_system_ip_protocol (Resource)
 <center>
 
+
 *system*  
 ⯯  
 IPv4 Settings  

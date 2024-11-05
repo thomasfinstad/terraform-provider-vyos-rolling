@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ContainerName{}
 
 // ContainerName describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ContainerName struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -53,7 +55,7 @@ type ContainerName struct {
 	LeafContainerNameUID               types.Number `tfsdk:"uid" vyos:"uid,omitempty"`
 	LeafContainerNameGID               types.Number `tfsdk:"gid" vyos:"gid,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagContainerNameDevice bool `tfsdk:"-" vyos:"device,child"`
 
@@ -61,13 +63,14 @@ type ContainerName struct {
 
 	ExistsTagContainerNameLabel bool `tfsdk:"-" vyos:"label,child"`
 
-	TagContainerNameNetwork *ContainerNameNetwork `tfsdk:"network" vyos:"network,omitempty"`
+	TagContainerNameNetwork map[string]*ContainerNameNetwork `tfsdk:"network" vyos:"network,omitempty"`
 
 	ExistsTagContainerNamePort bool `tfsdk:"-" vyos:"port,child"`
 
 	ExistsTagContainerNameVolume bool `tfsdk:"-" vyos:"volume,child"`
 
 	// Nodes
+
 	NodeContainerNameSysctl *ContainerNameSysctl `tfsdk:"sysctl" vyos:"sysctl,omitempty"`
 }
 
@@ -106,8 +109,9 @@ func (o *ContainerName) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ContainerName) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"container",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"container", // Node
+
 	}
 }
 
@@ -117,7 +121,7 @@ func (o *ContainerName) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ContainerName) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -151,8 +155,8 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -171,7 +175,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"allow_host_pid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow sharing host process namespace with container
@@ -186,7 +190,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"allow_host_networks":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow sharing host networking with container
@@ -200,7 +204,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 		},
 
 		"capability":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -234,7 +238,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -253,7 +257,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -268,7 +272,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"entrypoint":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override the default ENTRYPOINT from the image
@@ -281,7 +285,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"host_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Container host name
@@ -294,7 +298,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"image":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Container image to use
@@ -313,7 +317,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"command":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override the default CMD from the image
@@ -326,7 +330,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"arguments":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `The command's arguments for this container
@@ -339,7 +343,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"cpu_quota":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `This limits the number of CPU resources the container can use
@@ -363,7 +367,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"memory":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Memory (RAM) available to this container
@@ -387,7 +391,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"shared_memory":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Shared memory available to this container
@@ -411,7 +415,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"restart":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Restart options for container
@@ -437,7 +441,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"uid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `User ID this container will run as
@@ -456,7 +460,7 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"gid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Group ID this container will run as
@@ -470,6 +474,21 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
     |  Format   |  Description                          |
     |-----------|---------------------------------------|
     |  0-65535  |  Group ID this container will run as  |
+`,
+		},
+
+		// TagNodes
+
+		"network": schema.MapNestedAttribute{
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: ContainerNameNetwork{}.ResourceSchemaAttributes(ctx),
+			},
+			Optional: true,
+			MarkdownDescription: `Attach user defined network to container
+
+`,
+			Description: `Attach user defined network to container
+
 `,
 		},
 

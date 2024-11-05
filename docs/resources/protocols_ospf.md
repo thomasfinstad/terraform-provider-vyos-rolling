@@ -27,13 +27,22 @@ description: |-
 - [vyos_protocols_ospf (Resource)](#vyos_protocols_ospf-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [default_information](#default_information)
       - [default_metric](#default_metric)
+      - [max_metric](#max_metric)
       - [maximum_paths](#maximum_paths)
       - [passive_interface](#passive_interface)
+      - [redistribute](#redistribute)
       - [timeouts](#timeouts)
+      - [timers](#timers)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `default_information`](#nested-schema-for-default_information)
+    - [Nested Schema for `max_metric`](#nested-schema-for-max_metric)
+    - [Nested Schema for `redistribute`](#nested-schema-for-redistribute)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
+    - [Nested Schema for `timers`](#nested-schema-for-timers)
+    - [Nested Schema for `timers.throttle`](#nested-schema-for-timersthrottle)
   - [Import](#import)
 
 <!--TOC-->
@@ -43,12 +52,16 @@ description: |-
 
 ### Optional
 
+#### default_information
+- `default_information` (Attributes) Default route advertisment settings (see [below for nested schema](#nestedatt--default_information))
 #### default_metric
 - `default_metric` (Number) Metric of redistributed routes
 
     |  Format      &emsp;|  Description                     |
     |--------------|----------------------------------|
     |  0-16777214  &emsp;|  Metric of redistributed routes  |
+#### max_metric
+- `max_metric` (Attributes) OSPF maximum and infinite-distance metric (see [below for nested schema](#nestedatt--max_metric))
 #### maximum_paths
 - `maximum_paths` (Number) Maximum multiple paths (ECMP)
 
@@ -61,13 +74,29 @@ description: |-
     |  Format   &emsp;|  Description                                            |
     |-----------|---------------------------------------------------------|
     |  default  &emsp;|  Default to suppress routing updates on all interfaces  |
+#### redistribute
+- `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--redistribute))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
+#### timers
+- `timers` (Attributes) Adjust routing timers (see [below for nested schema](#nestedatt--timers))
 
 ### Read-Only
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--default_information"></a>
+### Nested Schema for `default_information`
+
+
+<a id="nestedatt--max_metric"></a>
+### Nested Schema for `max_metric`
+
+
+<a id="nestedatt--redistribute"></a>
+### Nested Schema for `redistribute`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`
@@ -75,6 +104,17 @@ description: |-
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
+
+
+<a id="nestedatt--timers"></a>
+### Nested Schema for `timers`
+
+Optional:
+
+- `throttle` (Attributes) Throttling adaptive timers (see [below for nested schema](#nestedatt--timers--throttle))
+
+<a id="nestedatt--timers--throttle"></a>
+### Nested Schema for `timers.throttle`
 
 ## Import
 

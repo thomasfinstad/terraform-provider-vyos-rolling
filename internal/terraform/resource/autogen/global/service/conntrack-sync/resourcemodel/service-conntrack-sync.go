@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceConntrackSync{}
 
 // ServiceConntrackSync describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceConntrackSync struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -38,11 +40,13 @@ type ServiceConntrackSync struct {
 	LeafServiceConntrackSyncMcastGroup           types.String `tfsdk:"mcast_group" vyos:"mcast-group,omitempty"`
 	LeafServiceConntrackSyncSyncQueueSize        types.Number `tfsdk:"sync_queue_size" vyos:"sync-queue-size,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagServiceConntrackSyncInterface bool `tfsdk:"-" vyos:"interface,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceConntrackSyncFailoverMechanism bool `tfsdk:"-" vyos:"failover-mechanism,child"`
+	// Nodes
+
+	NodeServiceConntrackSyncFailoverMechanism *ServiceConntrackSyncFailoverMechanism `tfsdk:"failover_mechanism" vyos:"failover-mechanism,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -75,8 +79,9 @@ func (o *ServiceConntrackSync) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceConntrackSync) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -84,10 +89,9 @@ func (o *ServiceConntrackSync) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceConntrackSync) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -107,7 +111,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 		// LeafNodes
 
 		"accept_protocol":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -137,7 +141,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"disable_external_cache":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Directly injects the flow-states into the in-kernel Connection Tracking System of the backup firewall.
@@ -152,7 +156,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"disable_syslog":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable connection logging via Syslog
@@ -167,7 +171,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"event_listen_queue_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue size for local conntrack events
@@ -188,7 +192,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"expect_sync":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -202,7 +206,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"startup_resync":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Order conntrackd to request a complete conntrack table resync against the other node at startup
@@ -216,7 +220,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"ignore_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -241,7 +245,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"listen_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -261,7 +265,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"mcast_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Multicast group to use for syncing conntrack entries
@@ -277,7 +281,7 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"sync_queue_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue size for syncing conntrack entries
@@ -295,6 +299,21 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 			// Default:          stringdefault.StaticString(`1`),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"failover_mechanism": schema.SingleNestedAttribute{
+			Attributes: ServiceConntrackSyncFailoverMechanism{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Failover mechanism to use for conntrack-sync
+
+`,
+			Description: `Failover mechanism to use for conntrack-sync
+
+`,
 		},
 	}
 }

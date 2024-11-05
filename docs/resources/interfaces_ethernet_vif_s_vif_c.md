@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_ethernet_vif_s_vif_c (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Ethernet Interface  

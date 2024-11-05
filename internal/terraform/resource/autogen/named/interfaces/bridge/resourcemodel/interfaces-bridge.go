@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesBrIDge{}
 
 // InterfacesBrIDge describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesBrIDge struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -53,18 +55,25 @@ type InterfacesBrIDge struct {
 	LeafInterfacesBrIDgeStp               types.Bool   `tfsdk:"stp" vyos:"stp,omitempty"`
 	LeafInterfacesBrIDgeRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesBrIDgeVif bool `tfsdk:"-" vyos:"vif,child"`
 
 	// Nodes
-	NodeInterfacesBrIDgeDhcpOptions     *InterfacesBrIDgeDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
+	NodeInterfacesBrIDgeDhcpOptions *InterfacesBrIDgeDhcpOptions `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
 	NodeInterfacesBrIDgeDhcpvsixOptions *InterfacesBrIDgeDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
-	NodeInterfacesBrIDgeIgmp            *InterfacesBrIDgeIgmp            `tfsdk:"igmp" vyos:"igmp,omitempty"`
-	NodeInterfacesBrIDgeIP              *InterfacesBrIDgeIP              `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesBrIDgeIPvsix          *InterfacesBrIDgeIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesBrIDgeMirror          *InterfacesBrIDgeMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
-	NodeInterfacesBrIDgeMember          *InterfacesBrIDgeMember          `tfsdk:"member" vyos:"member,omitempty"`
+
+	NodeInterfacesBrIDgeIgmp *InterfacesBrIDgeIgmp `tfsdk:"igmp" vyos:"igmp,omitempty"`
+
+	NodeInterfacesBrIDgeIP *InterfacesBrIDgeIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesBrIDgeIPvsix *InterfacesBrIDgeIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesBrIDgeMirror *InterfacesBrIDgeMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesBrIDgeMember *InterfacesBrIDgeMember `tfsdk:"member" vyos:"member,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -102,8 +111,9 @@ func (o *InterfacesBrIDge) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesBrIDge) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -113,7 +123,7 @@ func (o *InterfacesBrIDge) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesBrIDge) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -153,8 +163,8 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  bridge, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  bridge, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -172,7 +182,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -198,7 +208,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"aging":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `MAC address aging interval
@@ -222,7 +232,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -241,7 +251,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"disable_link_detect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
@@ -256,7 +266,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -271,7 +281,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -290,7 +300,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -312,7 +322,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"forwarding_delay":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Forwarding delay
@@ -334,7 +344,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"hello_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hello packet advertisement interval
@@ -356,7 +366,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
@@ -375,7 +385,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"enable_vlan":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable VLAN aware bridge
@@ -390,7 +400,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol used for service VLAN (default: 802.1ad)
@@ -414,7 +424,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"max_age":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval at which neighbor bridges are removed
@@ -436,7 +446,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Priority for this bridge
@@ -458,7 +468,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"stp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable spanning tree protocol
@@ -473,7 +483,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -489,6 +499,8 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  txt     |  Destination interface name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

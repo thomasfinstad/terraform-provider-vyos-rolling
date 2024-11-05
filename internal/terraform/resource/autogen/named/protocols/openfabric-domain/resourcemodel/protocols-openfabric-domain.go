@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsOpenfabricDomain{}
 
 // ProtocolsOpenfabricDomain describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsOpenfabricDomain struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -45,11 +47,12 @@ type ProtocolsOpenfabricDomain struct {
 	LeafProtocolsOpenfabricDomainMaxLspLifetime      types.Number `tfsdk:"max_lsp_lifetime" vyos:"max-lsp-lifetime,omitempty"`
 	LeafProtocolsOpenfabricDomainSpfInterval         types.Number `tfsdk:"spf_interval" vyos:"spf-interval,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagProtocolsOpenfabricDomainInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
+
 	NodeProtocolsOpenfabricDomainDomainPassword *ProtocolsOpenfabricDomainDomainPassword `tfsdk:"domain_password" vyos:"domain-password,omitempty"`
 }
 
@@ -88,12 +91,13 @@ func (o *ProtocolsOpenfabricDomain) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsOpenfabricDomain) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"openfabric",
+		"openfabric", // Node
+
 	}
 }
 
@@ -103,9 +107,9 @@ func (o *ProtocolsOpenfabricDomain) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsOpenfabricDomain) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -145,8 +149,8 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  domain, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  domain, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -167,7 +171,7 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 
 		"log_adjacency_changes":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log changes in adjacency state
@@ -182,7 +186,7 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 
 		"set_overload_bit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Overload bit to avoid any transit traffic
@@ -197,7 +201,7 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 
 		"purge_originator":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `RFC 6232 purge originator identification
@@ -212,7 +216,7 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 
 		"fabric_tier":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Static tier number to advertise as location in the fabric
@@ -231,7 +235,7 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 
 		"lsp_gen_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval between regenerating same link-state packet (LSP)
@@ -250,7 +254,7 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 
 		"lsp_refresh_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Link-state packet (LSP) refresh interval
@@ -269,7 +273,7 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 
 		"max_lsp_lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum link-state packet lifetime
@@ -288,7 +292,7 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
 
 		"spf_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval between SPF calculations
@@ -304,6 +308,8 @@ func (o ProtocolsOpenfabricDomain) ResourceSchemaAttributes(ctx context.Context)
     |  1-120   |  Interval in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

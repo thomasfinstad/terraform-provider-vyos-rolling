@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_ipsec_profile (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 VPN IP security (IPsec) parameters  

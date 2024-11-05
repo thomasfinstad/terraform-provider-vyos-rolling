@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesOpenvpnServerClientIPPool{}
 
 // InterfacesOpenvpnServerClientIPPool describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesOpenvpnServerClientIPPool struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnServerClientIPPoolDisable    types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -26,8 +28,7 @@ type InterfacesOpenvpnServerClientIPPool struct {
 	LeafInterfacesOpenvpnServerClientIPPoolStop       types.String `tfsdk:"stop" vyos:"stop,omitempty"`
 	LeafInterfacesOpenvpnServerClientIPPoolSubnetMask types.String `tfsdk:"subnet_mask" vyos:"subnet-mask,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes(ctx contex
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -54,7 +55,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes(ctx contex
 
 		"start":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `First IP address in the pool
@@ -73,7 +74,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes(ctx contex
 
 		"stop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Last IP address in the pool
@@ -92,7 +93,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes(ctx contex
 
 		"subnet_mask":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Subnet mask pushed to dynamic clients. If not set the server subnet mask will be used. Only used with topology subnet or device type tap. Not used with bridged interfaces.
@@ -108,6 +109,8 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes(ctx contex
     |  ipv4    |  IPv4 subnet mask  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

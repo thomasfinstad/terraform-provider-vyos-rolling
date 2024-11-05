@@ -10,6 +10,7 @@ description: |-
 # vyos_policy_community_list_rule (Resource)
 <center>
 
+
 Routing policy  
 ⯯  
 Add a BGP community list entry  

@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallBrIDgeOutputFilterRuleIcmpvsix{}
 
 // FirewallBrIDgeOutputFilterRuleIcmpvsix describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallBrIDgeOutputFilterRuleIcmpvsix struct {
 	// LeafNodes
 	LeafFirewallBrIDgeOutputFilterRuleIcmpvsixCode     types.Number `tfsdk:"code" vyos:"code,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleIcmpvsixType     types.Number `tfsdk:"type" vyos:"type,omitempty"`
 	LeafFirewallBrIDgeOutputFilterRuleIcmpvsixTypeName types.String `tfsdk:"type_name" vyos:"type-name,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o FirewallBrIDgeOutputFilterRuleIcmpvsix) ResourceSchemaAttributes(ctx con
 
 		"code":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMPv6 code
@@ -56,7 +57,7 @@ func (o FirewallBrIDgeOutputFilterRuleIcmpvsix) ResourceSchemaAttributes(ctx con
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMPv6 type
@@ -75,7 +76,7 @@ func (o FirewallBrIDgeOutputFilterRuleIcmpvsix) ResourceSchemaAttributes(ctx con
 
 		"type_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMPv6 type-name
@@ -125,6 +126,8 @@ func (o FirewallBrIDgeOutputFilterRuleIcmpvsix) ResourceSchemaAttributes(ctx con
     |  mld2-listener-report     |  ICMPv6 type 143: mld2-listener-report    |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

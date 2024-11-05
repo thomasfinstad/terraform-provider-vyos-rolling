@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_ipsec_site_to_site_peer (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 VPN IP security (IPsec) parameters  

@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceTCP{}
 
 // ServiceTCP describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceTCP struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -40,12 +42,15 @@ type ServiceTCP struct {
 	LeafServiceTCPClientKeepaliveInterval       types.Number `tfsdk:"client_keepalive_interval" vyos:"client-keepalive-interval,omitempty"`
 	LeafServiceTCPVrf                           types.List   `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceTCPAccessControl     bool `tfsdk:"-" vyos:"access-control,child"`
+	// Nodes
+
+	NodeServiceTCPAccessControl *ServiceTCPAccessControl `tfsdk:"access_control" vyos:"access-control,omitempty"`
+
 	ExistsNodeServiceTCPDynamicProtection bool `tfsdk:"-" vyos:"dynamic-protection,child"`
-	ExistsNodeServiceTCPRekey             bool `tfsdk:"-" vyos:"rekey,child"`
+
+	ExistsNodeServiceTCPRekey bool `tfsdk:"-" vyos:"rekey,child"`
 }
 
 // SetID configures the resource ID
@@ -78,8 +83,9 @@ func (o *ServiceTCP) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceTCP) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -87,10 +93,9 @@ func (o *ServiceTCP) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceTCP) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -110,7 +115,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		// LeafNodes
 
 		"ciphers":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -124,7 +129,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 		"disable_host_validation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IP Address to Hostname lookup
@@ -139,7 +144,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 		"disable_password_authentication":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable password-based authentication
@@ -153,7 +158,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		},
 
 		"hostkey_algorithm":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -166,7 +171,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		},
 
 		"pubkey_accepted_algorithm":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -179,7 +184,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		},
 
 		"key_exchange":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -192,7 +197,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		},
 
 		"listen_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -214,7 +219,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 		"loglevel":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Log level
@@ -243,7 +248,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		},
 
 		"mac":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -256,7 +261,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		},
 
 		"port":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.NumberType,
 			Optional:    true,
@@ -279,7 +284,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 		"client_keepalive_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable transmission of keepalives from server to client
@@ -297,7 +302,7 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 		},
 
 		"vrf":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -318,6 +323,21 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 			// Default:          stringdefault.StaticString(`default`),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"access_control": schema.SingleNestedAttribute{
+			Attributes: ServiceTCPAccessControl{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `SSH user/group access controls
+
+`,
+			Description: `SSH user/group access controls
+
+`,
 		},
 	}
 }

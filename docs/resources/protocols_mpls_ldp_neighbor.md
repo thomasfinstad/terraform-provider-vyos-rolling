@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_mpls_ldp_neighbor (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Multiprotocol Label Switching (MPLS)  

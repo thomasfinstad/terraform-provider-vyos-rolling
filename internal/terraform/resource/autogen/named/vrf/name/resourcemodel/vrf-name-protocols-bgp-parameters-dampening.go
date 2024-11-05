@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpParametersDampening{}
 
 // VrfNameProtocolsBgpParametersDampening describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpParametersDampening struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersDampeningHalfLife          types.Number `tfsdk:"half_life" vyos:"half-life,omitempty"`
@@ -25,8 +27,7 @@ type VrfNameProtocolsBgpParametersDampening struct {
 	LeafVrfNameProtocolsBgpParametersDampeningReUse             types.Number `tfsdk:"re_use" vyos:"re-use,omitempty"`
 	LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime types.Number `tfsdk:"start_suppress_time" vyos:"start-suppress-time,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes(ctx con
 
 		"half_life":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Half-life time for dampening
@@ -57,7 +58,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes(ctx con
 
 		"max_suppress_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum duration to suppress a stable route
@@ -76,7 +77,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes(ctx con
 
 		"re_use":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Threshold to start reusing a route
@@ -95,7 +96,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes(ctx con
 
 		"start_suppress_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `When to start suppressing a route
@@ -111,6 +112,8 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes(ctx con
     |  1-20000  |  Start-suppress penalty points  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

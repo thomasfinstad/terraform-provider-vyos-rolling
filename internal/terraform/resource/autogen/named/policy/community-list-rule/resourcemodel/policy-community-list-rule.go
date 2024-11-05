@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &PolicyCommunityListRule{}
 
 // PolicyCommunityListRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type PolicyCommunityListRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,7 +42,7 @@ type PolicyCommunityListRule struct {
 	LeafPolicyCommunityListRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafPolicyCommunityListRuleRegex       types.String `tfsdk:"regex" vyos:"regex,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -80,13 +82,12 @@ func (o *PolicyCommunityListRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *PolicyCommunityListRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"policy",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"policy", // Node
 
 		"community-list",
-
 		o.SelfIdentifier.Attributes()["community_list"].(types.String).ValueString(),
 	}
 }
@@ -97,15 +98,14 @@ func (o *PolicyCommunityListRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *PolicyCommunityListRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"policy",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"policy", // Node
 
 		"community-list",
-
 		o.SelfIdentifier.Attributes()["community_list"].(types.String).ValueString(),
 	}
 }
@@ -168,8 +168,8 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes(ctx context.Context) m
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  community_list, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  community_list, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -185,7 +185,7 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes(ctx context.Context) m
 
 		"action":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
@@ -206,7 +206,7 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes(ctx context.Context) m
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -225,7 +225,7 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes(ctx context.Context) m
 
 		"regex":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against a community-list
@@ -273,6 +273,8 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes(ctx context.Context) m
     |  additive                    |  New value is appended to the existing value                                 |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

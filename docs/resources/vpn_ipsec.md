@@ -27,11 +27,17 @@ Virtual Private Network (VPN)
 - [vyos_vpn_ipsec (Resource)](#vyos_vpn_ipsec-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [authentication](#authentication)
       - [disable_uniqreqids](#disable_uniqreqids)
       - [interface](#interface)
+      - [remote_access](#remote_access)
+      - [site_to_site](#site_to_site)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `authentication`](#nested-schema-for-authentication)
+    - [Nested Schema for `remote_access`](#nested-schema-for-remote_access)
+    - [Nested Schema for `site_to_site`](#nested-schema-for-site_to_site)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -42,6 +48,8 @@ Virtual Private Network (VPN)
 
 ### Optional
 
+#### authentication
+- `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
 #### disable_uniqreqids
 - `disable_uniqreqids` (Boolean) Disable requirement for unique IDs in the Security Database
 #### interface
@@ -50,6 +58,10 @@ Virtual Private Network (VPN)
     |  Format  &emsp;|  Description     |
     |----------|------------------|
     |  txt     &emsp;|  Interface name  |
+#### remote_access
+- `remote_access` (Attributes) IKEv2 remote access VPN (see [below for nested schema](#nestedatt--remote_access))
+#### site_to_site
+- `site_to_site` (Attributes) Site-to-site VPN (see [below for nested schema](#nestedatt--site_to_site))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -57,6 +69,18 @@ Virtual Private Network (VPN)
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--authentication"></a>
+### Nested Schema for `authentication`
+
+
+<a id="nestedatt--remote_access"></a>
+### Nested Schema for `remote_access`
+
+
+<a id="nestedatt--site_to_site"></a>
+### Nested Schema for `site_to_site`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

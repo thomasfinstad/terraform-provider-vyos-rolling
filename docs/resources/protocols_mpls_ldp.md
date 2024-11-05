@@ -29,13 +29,23 @@ Multiprotocol Label Switching (MPLS)
 - [vyos_protocols_mpls_ldp (Resource)](#vyos_protocols_mpls_ldp-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [allocation](#allocation)
+      - [export](#export)
+      - [import](#import)
       - [interface](#interface)
       - [router_id](#router_id)
+      - [targeted_neighbor](#targeted_neighbor)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `allocation`](#nested-schema-for-allocation)
+    - [Nested Schema for `export`](#nested-schema-for-export)
+    - [Nested Schema for `import`](#nested-schema-for-import)
+    - [Nested Schema for `import.ipv4`](#nested-schema-for-importipv4)
+    - [Nested Schema for `import.ipv6`](#nested-schema-for-importipv6)
+    - [Nested Schema for `targeted_neighbor`](#nested-schema-for-targeted_neighbor)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
-  - [Import](#import)
+  - [Import](#import-1)
 
 <!--TOC-->
 
@@ -44,6 +54,12 @@ Multiprotocol Label Switching (MPLS)
 
 ### Optional
 
+#### allocation
+- `allocation` (Attributes) Forwarding equivalence class allocation from local routes (see [below for nested schema](#nestedatt--allocation))
+#### export
+- `export` (Attributes) Export parameters (see [below for nested schema](#nestedatt--export))
+#### import
+- `import` (Attributes) Import parameters (see [below for nested schema](#nestedatt--import))
 #### interface
 - `interface` (List of String) Interface to use
 
@@ -56,6 +72,8 @@ Multiprotocol Label Switching (MPLS)
     |  Format  &emsp;|  Description                     |
     |----------|----------------------------------|
     |  ipv4    &emsp;|  Router-ID in IP address format  |
+#### targeted_neighbor
+- `targeted_neighbor` (Attributes) Targeted LDP neighbor/session parameters (see [below for nested schema](#nestedatt--targeted_neighbor))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -63,6 +81,35 @@ Multiprotocol Label Switching (MPLS)
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--allocation"></a>
+### Nested Schema for `allocation`
+
+
+<a id="nestedatt--export"></a>
+### Nested Schema for `export`
+
+
+<a id="nestedatt--import"></a>
+### Nested Schema for `import`
+
+Optional:
+
+- `ipv4` (Attributes) IPv4 parameters (see [below for nested schema](#nestedatt--import--ipv4))
+- `ipv6` (Attributes) IPv6 parameters (see [below for nested schema](#nestedatt--import--ipv6))
+
+<a id="nestedatt--import--ipv4"></a>
+### Nested Schema for `import.ipv4`
+
+
+<a id="nestedatt--import--ipv6"></a>
+### Nested Schema for `import.ipv6`
+
+
+
+<a id="nestedatt--targeted_neighbor"></a>
+### Nested Schema for `targeted_neighbor`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

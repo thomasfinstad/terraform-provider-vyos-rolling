@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceDNSDynamicNameAddressWeb{}
 
 // ServiceDNSDynamicNameAddressWeb describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceDNSDynamicNameAddressWeb struct {
 	// LeafNodes
 	LeafServiceDNSDynamicNameAddressWebURL  types.String `tfsdk:"url" vyos:"url,omitempty"`
 	LeafServiceDNSDynamicNameAddressWebSkIP types.String `tfsdk:"skip" vyos:"skip,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o ServiceDNSDynamicNameAddressWeb) ResourceSchemaAttributes(ctx context.Co
 
 		"url":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Remote URL
@@ -55,7 +56,7 @@ func (o ServiceDNSDynamicNameAddressWeb) ResourceSchemaAttributes(ctx context.Co
 
 		"skip":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Pattern to skip from the HTTP(S) respose
@@ -71,6 +72,8 @@ func (o ServiceDNSDynamicNameAddressWeb) ResourceSchemaAttributes(ctx context.Co
     |  txt     |  Pattern to skip from the HTTP(S) respose to extract the external IP address  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

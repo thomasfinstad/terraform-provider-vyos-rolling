@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfvthreeDefaultInformationOriginate{}
 
 // VrfNameProtocolsOspfvthreeDefaultInformationOriginate describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfvthreeDefaultInformationOriginate struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfvthreeDefaultInformationOriginateAlways     types.Bool   `tfsdk:"always" vyos:"always,omitempty"`
@@ -26,8 +28,7 @@ type VrfNameProtocolsOspfvthreeDefaultInformationOriginate struct {
 	LeafVrfNameProtocolsOspfvthreeDefaultInformationOriginateMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
 	LeafVrfNameProtocolsOspfvthreeDefaultInformationOriginateRouteMap   types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o VrfNameProtocolsOspfvthreeDefaultInformationOriginate) ResourceSchemaAtt
 
 		"always":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Always advertise a default route
@@ -54,7 +55,7 @@ func (o VrfNameProtocolsOspfvthreeDefaultInformationOriginate) ResourceSchemaAtt
 
 		"metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF default metric
@@ -73,7 +74,7 @@ func (o VrfNameProtocolsOspfvthreeDefaultInformationOriginate) ResourceSchemaAtt
 
 		"metric_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
@@ -95,7 +96,7 @@ func (o VrfNameProtocolsOspfvthreeDefaultInformationOriginate) ResourceSchemaAtt
 
 		"route_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
@@ -111,6 +112,8 @@ func (o VrfNameProtocolsOspfvthreeDefaultInformationOriginate) ResourceSchemaAtt
     |  txt     |  Route map name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

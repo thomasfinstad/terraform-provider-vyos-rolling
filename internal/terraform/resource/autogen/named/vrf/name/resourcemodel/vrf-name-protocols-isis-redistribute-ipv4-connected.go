@@ -11,20 +11,23 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsIsisRedistributeIPvfourConnected{}
 
 // VrfNameProtocolsIsisRedistributeIPvfourConnected describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsIsisRedistributeIPvfourConnected struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne *VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne `tfsdk:"level_1" vyos:"level-1,omitempty"`
+
 	NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo *VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo `tfsdk:"level_2" vyos:"level-2,omitempty"`
 }
 
@@ -32,6 +35,8 @@ type VrfNameProtocolsIsisRedistributeIPvfourConnected struct {
 func (o VrfNameProtocolsIsisRedistributeIPvfourConnected) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

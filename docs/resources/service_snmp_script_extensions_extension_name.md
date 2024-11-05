@@ -10,6 +10,7 @@ description: |-
 # vyos_service_snmp_script_extensions_extension_name (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Simple Network Management Protocol (SNMP)  

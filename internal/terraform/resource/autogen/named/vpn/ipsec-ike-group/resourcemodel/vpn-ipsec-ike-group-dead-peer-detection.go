@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VpnIPsecIkeGroupDeadPeerDetection{}
 
 // VpnIPsecIkeGroupDeadPeerDetection describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VpnIPsecIkeGroupDeadPeerDetection struct {
 	// LeafNodes
 	LeafVpnIPsecIkeGroupDeadPeerDetectionAction   types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafVpnIPsecIkeGroupDeadPeerDetectionInterval types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
 	LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout  types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes(ctx context.
 
 		"action":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Keep-alive failure action
@@ -63,7 +64,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes(ctx context.
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Keep-alive interval
@@ -85,7 +86,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes(ctx context.
 
 		"timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Dead Peer Detection keep-alive timeout (IKEv1 only)
@@ -104,6 +105,8 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes(ctx context.
 			// Default:          stringdefault.StaticString(`120`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

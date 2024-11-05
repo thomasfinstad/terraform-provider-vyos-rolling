@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpNeighborTimers{}
 
 // ProtocolsBgpNeighborTimers describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpNeighborTimers struct {
 	// LeafNodes
 	LeafProtocolsBgpNeighborTimersConnect   types.String `tfsdk:"connect" vyos:"connect,omitempty"`
 	LeafProtocolsBgpNeighborTimersHoldtime  types.String `tfsdk:"holdtime" vyos:"holdtime,omitempty"`
 	LeafProtocolsBgpNeighborTimersKeepalive types.Number `tfsdk:"keepalive" vyos:"keepalive,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes(ctx context.Context
 
 		"connect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP connect timer for this neighbor
@@ -58,7 +59,7 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes(ctx context.Context
 
 		"holdtime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Hold timer
@@ -79,7 +80,7 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes(ctx context.Context
 
 		"keepalive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP keepalive interval for this neighbor
@@ -95,6 +96,8 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes(ctx context.Context
     |  1-65535  |  Keepalive interval in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

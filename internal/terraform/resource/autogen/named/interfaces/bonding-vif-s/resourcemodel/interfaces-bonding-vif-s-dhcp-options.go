@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesBondingVifSDhcpOptions{}
 
 // InterfacesBondingVifSDhcpOptions describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesBondingVifSDhcpOptions struct {
 	// LeafNodes
 	LeafInterfacesBondingVifSDhcpOptionsClientID             types.String `tfsdk:"client_id" vyos:"client-id,omitempty"`
@@ -30,8 +32,7 @@ type InterfacesBondingVifSDhcpOptions struct {
 	LeafInterfacesBondingVifSDhcpOptionsDefaultRouteDistance types.Number `tfsdk:"default_route_distance" vyos:"default-route-distance,omitempty"`
 	LeafInterfacesBondingVifSDhcpOptionsReject               types.List   `tfsdk:"reject" vyos:"reject,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -43,7 +44,7 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
 
 		"client_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Identifier used by client to identify itself to the DHCP server
@@ -62,7 +63,7 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
 
 		"host_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override system host-name sent to DHCP server
@@ -75,7 +76,7 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use MTU value from DHCP server - ignore interface setting
@@ -90,7 +91,7 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
 
 		"vendor_class_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Identify the vendor client type to the DHCP server
@@ -109,7 +110,7 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
 
 		"user_class":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Identify to the DHCP server, user configurable option
@@ -128,7 +129,7 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
 
 		"no_default_route":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not install default route to system
@@ -143,7 +144,7 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
 
 		"default_route_distance":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
@@ -164,7 +165,7 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
 		},
 
 		"reject":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -183,6 +184,8 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes(ctx context.C
     |  ipv4net  |  IPv4 prefix to match   |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &NatDestinationRuleInboundInterface{}
 
 // NatDestinationRuleInboundInterface describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type NatDestinationRuleInboundInterface struct {
 	// LeafNodes
 	LeafNatDestinationRuleInboundInterfaceName  types.String `tfsdk:"name" vyos:"name,omitempty"`
 	LeafNatDestinationRuleInboundInterfaceGroup types.String `tfsdk:"group" vyos:"group,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o NatDestinationRuleInboundInterface) ResourceSchemaAttributes(ctx context
 
 		"name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match interface
@@ -59,7 +60,7 @@ func (o NatDestinationRuleInboundInterface) ResourceSchemaAttributes(ctx context
 
 		"group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match interface-group
@@ -77,6 +78,8 @@ func (o NatDestinationRuleInboundInterface) ResourceSchemaAttributes(ctx context
     |  !txt    |  Inverted interface-group name to match  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &SystemOption{}
 
 // SystemOption describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type SystemOption struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -36,12 +38,15 @@ type SystemOption struct {
 	LeafSystemOptionTimeFormat              types.String `tfsdk:"time_format" vyos:"time-format,omitempty"`
 	LeafSystemOptionDisableUsbAutosuspend   types.Bool   `tfsdk:"disable_usb_autosuspend" vyos:"disable-usb-autosuspend,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemOptionKernel     bool `tfsdk:"-" vyos:"kernel,child"`
+	// Nodes
+
+	ExistsNodeSystemOptionKernel bool `tfsdk:"-" vyos:"kernel,child"`
+
 	ExistsNodeSystemOptionHTTPClient bool `tfsdk:"-" vyos:"http-client,child"`
-	ExistsNodeSystemOptionTCPClient  bool `tfsdk:"-" vyos:"ssh-client,child"`
+
+	ExistsNodeSystemOptionTCPClient bool `tfsdk:"-" vyos:"ssh-client,child"`
 }
 
 // SetID configures the resource ID
@@ -74,8 +79,9 @@ func (o *SystemOption) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemOption) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
+
 	}
 }
 
@@ -83,10 +89,9 @@ func (o *SystemOption) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *SystemOption) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -107,7 +112,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"ctrl_alt_delete":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `System action on Ctrl-Alt-Delete keystroke
@@ -130,7 +135,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"keyboard_layout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `System keyboard layout, type ISO2
@@ -174,7 +179,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"performance":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Tune system performance
@@ -195,7 +200,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"reboot_on_panic":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reboot system on kernel panic
@@ -210,7 +215,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"startup_beep":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `plays sound via system speaker when you can login
@@ -225,7 +230,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"root_partition_auto_resize":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable root partition auto-extention on system boot
@@ -240,7 +245,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"time_format":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `System time-format
@@ -264,7 +269,7 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"disable_usb_autosuspend":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable autosuspend for all USB devices
@@ -276,5 +281,10 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

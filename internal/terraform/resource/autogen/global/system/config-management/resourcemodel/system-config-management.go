@@ -15,23 +15,27 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &SystemConfigManagement{}
 
 // SystemConfigManagement describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type SystemConfigManagement struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafSystemConfigManagementCommitRevisions types.Number `tfsdk:"commit_revisions" vyos:"commit-revisions,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeSystemConfigManagementCommitArchive bool `tfsdk:"-" vyos:"commit-archive,child"`
+
 	ExistsNodeSystemConfigManagementCommitConfirm bool `tfsdk:"-" vyos:"commit-confirm,child"`
 }
 
@@ -65,8 +69,9 @@ func (o *SystemConfigManagement) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemConfigManagement) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
+
 	}
 }
 
@@ -74,10 +79,9 @@ func (o *SystemConfigManagement) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *SystemConfigManagement) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -98,7 +102,7 @@ func (o SystemConfigManagement) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"commit_revisions":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Commit revisions
@@ -114,5 +118,10 @@ func (o SystemConfigManagement) ResourceSchemaAttributes(ctx context.Context) ma
     |  1-65535  |  Number of config backups to keep  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

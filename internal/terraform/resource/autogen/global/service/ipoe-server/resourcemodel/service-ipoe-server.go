@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceIPoeServer{}
 
 // ServiceIPoeServer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceIPoeServer struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -33,18 +35,27 @@ type ServiceIPoeServer struct {
 	LeafServiceIPoeServerDescrIPtion           types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafServiceIPoeServerNameServer            types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceIPoeServerInterface        bool `tfsdk:"-" vyos:"interface,child"`
-	ExistsTagServiceIPoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,child"`
+	// TagNodes
+
+	ExistsTagServiceIPoeServerInterface bool `tfsdk:"-" vyos:"interface,child"`
+
+	ExistsTagServiceIPoeServerClientIPPool bool `tfsdk:"-" vyos:"client-ip-pool,child"`
+
 	ExistsTagServiceIPoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceIPoeServerAuthentication  bool `tfsdk:"-" vyos:"authentication,child"`
+	// Nodes
+
+	ExistsNodeServiceIPoeServerAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
+
 	ExistsNodeServiceIPoeServerExtendedScrIPts bool `tfsdk:"-" vyos:"extended-scripts,child"`
-	ExistsNodeServiceIPoeServerLimits          bool `tfsdk:"-" vyos:"limits,child"`
-	ExistsNodeServiceIPoeServerShaper          bool `tfsdk:"-" vyos:"shaper,child"`
-	ExistsNodeServiceIPoeServerSnmp            bool `tfsdk:"-" vyos:"snmp,child"`
-	ExistsNodeServiceIPoeServerLog             bool `tfsdk:"-" vyos:"log,child"`
+
+	ExistsNodeServiceIPoeServerLimits bool `tfsdk:"-" vyos:"limits,child"`
+
+	ExistsNodeServiceIPoeServerShaper bool `tfsdk:"-" vyos:"shaper,child"`
+
+	ExistsNodeServiceIPoeServerSnmp bool `tfsdk:"-" vyos:"snmp,child"`
+
+	ExistsNodeServiceIPoeServerLog bool `tfsdk:"-" vyos:"log,child"`
 }
 
 // SetID configures the resource ID
@@ -77,8 +88,9 @@ func (o *ServiceIPoeServer) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceIPoeServer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -86,10 +98,9 @@ func (o *ServiceIPoeServer) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceIPoeServer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -110,7 +121,7 @@ func (o ServiceIPoeServer) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"default_pool":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default client IP pool name
@@ -129,7 +140,7 @@ func (o ServiceIPoeServer) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"default_ipv6_pool":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default client IPv6 pool name
@@ -147,7 +158,7 @@ func (o ServiceIPoeServer) ResourceSchemaAttributes(ctx context.Context) map[str
 		},
 
 		"gateway_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -167,7 +178,7 @@ func (o ServiceIPoeServer) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"max_concurrent_sessions":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of concurrent session start attempts
@@ -186,7 +197,7 @@ func (o ServiceIPoeServer) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -204,7 +215,7 @@ func (o ServiceIPoeServer) ResourceSchemaAttributes(ctx context.Context) map[str
 		},
 
 		"name_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -223,5 +234,10 @@ func (o ServiceIPoeServer) ResourceSchemaAttributes(ctx context.Context) map[str
     |  ipv6    |  Domain Name Server (DNS) IPv6 address  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

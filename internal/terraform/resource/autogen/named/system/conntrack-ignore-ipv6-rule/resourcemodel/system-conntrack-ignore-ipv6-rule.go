@@ -17,12 +17,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &SystemConntrackIgnoreIPvsixRule{}
 
 // SystemConntrackIgnoreIPvsixRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type SystemConntrackIgnoreIPvsixRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -36,12 +38,15 @@ type SystemConntrackIgnoreIPvsixRule struct {
 	LeafSystemConntrackIgnoreIPvsixRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 	LeafSystemConntrackIgnoreIPvsixRuleProtocol         types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeSystemConntrackIgnoreIPvsixRuleDestination *SystemConntrackIgnoreIPvsixRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeSystemConntrackIgnoreIPvsixRuleSource      *SystemConntrackIgnoreIPvsixRuleSource      `tfsdk:"source" vyos:"source,omitempty"`
-	NodeSystemConntrackIgnoreIPvsixRuleTCP         *SystemConntrackIgnoreIPvsixRuleTCP         `tfsdk:"tcp" vyos:"tcp,omitempty"`
+
+	NodeSystemConntrackIgnoreIPvsixRuleSource *SystemConntrackIgnoreIPvsixRuleSource `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeSystemConntrackIgnoreIPvsixRuleTCP *SystemConntrackIgnoreIPvsixRuleTCP `tfsdk:"tcp" vyos:"tcp,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -79,20 +84,21 @@ func (o *SystemConntrackIgnoreIPvsixRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemConntrackIgnoreIPvsixRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
 
-		"conntrack",
+		"conntrack", // Node
 
-		"ignore",
+		"ignore", // Node
 
-		"ipv6",
+		"ipv6", // Node
+
 	}
 }
 
@@ -102,13 +108,13 @@ func (o *SystemConntrackIgnoreIPvsixRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *SystemConntrackIgnoreIPvsixRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -161,7 +167,7 @@ func (o SystemConntrackIgnoreIPvsixRule) ResourceSchemaAttributes(ctx context.Co
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -180,7 +186,7 @@ func (o SystemConntrackIgnoreIPvsixRule) ResourceSchemaAttributes(ctx context.Co
 
 		"inbound_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface to ignore connections tracking on
@@ -193,7 +199,7 @@ func (o SystemConntrackIgnoreIPvsixRule) ResourceSchemaAttributes(ctx context.Co
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol
@@ -209,6 +215,8 @@ func (o SystemConntrackIgnoreIPvsixRule) ResourceSchemaAttributes(ctx context.Co
     |  txt     |  Protocol name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

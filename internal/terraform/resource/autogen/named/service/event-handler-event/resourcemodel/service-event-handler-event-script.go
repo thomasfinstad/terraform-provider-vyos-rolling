@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceEventHandlerEventScrIPt{}
 
 // ServiceEventHandlerEventScrIPt describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceEventHandlerEventScrIPt struct {
 	// LeafNodes
 	LeafServiceEventHandlerEventScrIPtArguments types.String `tfsdk:"arguments" vyos:"arguments,omitempty"`
 	LeafServiceEventHandlerEventScrIPtPath      types.String `tfsdk:"path" vyos:"path,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagServiceEventHandlerEventScrIPtEnvironment bool `tfsdk:"-" vyos:"environment,child"`
 
@@ -38,7 +39,7 @@ func (o ServiceEventHandlerEventScrIPt) ResourceSchemaAttributes(ctx context.Con
 
 		"arguments":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script arguments
@@ -51,7 +52,7 @@ func (o ServiceEventHandlerEventScrIPt) ResourceSchemaAttributes(ctx context.Con
 
 		"path":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Path to the script
@@ -61,6 +62,8 @@ func (o ServiceEventHandlerEventScrIPt) ResourceSchemaAttributes(ctx context.Con
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

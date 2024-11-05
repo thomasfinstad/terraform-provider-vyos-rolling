@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_bonding (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Bonding Interface/Link Aggregation**

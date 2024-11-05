@@ -22,12 +22,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &PolicyRouteRule{}
 
 // PolicyRouteRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type PolicyRouteRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -51,20 +53,31 @@ type PolicyRouteRule struct {
 	LeafPolicyRouteRulePacketType          types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
 	LeafPolicyRouteRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodePolicyRouteRuleDestination *PolicyRouteRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodePolicyRouteRuleSource      *PolicyRouteRuleSource      `tfsdk:"source" vyos:"source,omitempty"`
-	NodePolicyRouteRuleFragment    *PolicyRouteRuleFragment    `tfsdk:"fragment" vyos:"fragment,omitempty"`
-	NodePolicyRouteRuleIPsec       *PolicyRouteRuleIPsec       `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
-	NodePolicyRouteRuleLimit       *PolicyRouteRuleLimit       `tfsdk:"limit" vyos:"limit,omitempty"`
-	NodePolicyRouteRuleRecent      *PolicyRouteRuleRecent      `tfsdk:"recent" vyos:"recent,omitempty"`
-	NodePolicyRouteRuleSet         *PolicyRouteRuleSet         `tfsdk:"set" vyos:"set,omitempty"`
-	NodePolicyRouteRuleTCP         *PolicyRouteRuleTCP         `tfsdk:"tcp" vyos:"tcp,omitempty"`
-	NodePolicyRouteRuleTime        *PolicyRouteRuleTime        `tfsdk:"time" vyos:"time,omitempty"`
-	NodePolicyRouteRuleIcmp        *PolicyRouteRuleIcmp        `tfsdk:"icmp" vyos:"icmp,omitempty"`
-	NodePolicyRouteRuleTTL         *PolicyRouteRuleTTL         `tfsdk:"ttl" vyos:"ttl,omitempty"`
+
+	NodePolicyRouteRuleSource *PolicyRouteRuleSource `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodePolicyRouteRuleFragment *PolicyRouteRuleFragment `tfsdk:"fragment" vyos:"fragment,omitempty"`
+
+	NodePolicyRouteRuleIPsec *PolicyRouteRuleIPsec `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
+
+	NodePolicyRouteRuleLimit *PolicyRouteRuleLimit `tfsdk:"limit" vyos:"limit,omitempty"`
+
+	NodePolicyRouteRuleRecent *PolicyRouteRuleRecent `tfsdk:"recent" vyos:"recent,omitempty"`
+
+	NodePolicyRouteRuleSet *PolicyRouteRuleSet `tfsdk:"set" vyos:"set,omitempty"`
+
+	NodePolicyRouteRuleTCP *PolicyRouteRuleTCP `tfsdk:"tcp" vyos:"tcp,omitempty"`
+
+	NodePolicyRouteRuleTime *PolicyRouteRuleTime `tfsdk:"time" vyos:"time,omitempty"`
+
+	NodePolicyRouteRuleIcmp *PolicyRouteRuleIcmp `tfsdk:"icmp" vyos:"icmp,omitempty"`
+
+	NodePolicyRouteRuleTTL *PolicyRouteRuleTTL `tfsdk:"ttl" vyos:"ttl,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -102,13 +115,12 @@ func (o *PolicyRouteRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *PolicyRouteRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"policy",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"policy", // Node
 
 		"route",
-
 		o.SelfIdentifier.Attributes()["route"].(types.String).ValueString(),
 	}
 }
@@ -119,15 +131,14 @@ func (o *PolicyRouteRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *PolicyRouteRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"policy",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"policy", // Node
 
 		"route",
-
 		o.SelfIdentifier.Attributes()["route"].(types.String).ValueString(),
 	}
 }
@@ -184,8 +195,8 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -201,7 +212,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"action":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule action
@@ -226,7 +237,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -245,7 +256,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Firewall mark
@@ -270,7 +281,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -285,7 +296,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"log":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting this rule
@@ -300,7 +311,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
@@ -327,7 +338,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"state":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -352,7 +363,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"dscp":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -373,7 +384,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"dscp_exclude":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -394,7 +405,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"packet_length":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -415,7 +426,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"packet_length_exclude":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -437,7 +448,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"packet_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Packet type
@@ -461,7 +472,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
 		},
 
 		"connection_mark":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.NumberType,
 			Optional:    true,
@@ -478,6 +489,8 @@ func (o PolicyRouteRule) ResourceSchemaAttributes(ctx context.Context) map[strin
     |  0-2147483647  |  Connection-mark to match  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpNeighborPathAttribute{}
 
 // ProtocolsBgpNeighborPathAttribute describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpNeighborPathAttribute struct {
 	// LeafNodes
 	LeafProtocolsBgpNeighborPathAttributeDiscard         types.List   `tfsdk:"discard" vyos:"discard,omitempty"`
 	LeafProtocolsBgpNeighborPathAttributeTreatAsWithdraw types.Number `tfsdk:"treat_as_withdraw" vyos:"treat-as-withdraw,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -35,7 +36,7 @@ func (o ProtocolsBgpNeighborPathAttribute) ResourceSchemaAttributes(ctx context.
 		// LeafNodes
 
 		"discard":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.NumberType,
 			Optional:    true,
@@ -55,7 +56,7 @@ func (o ProtocolsBgpNeighborPathAttribute) ResourceSchemaAttributes(ctx context.
 
 		"treat_as_withdraw":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Treat-as-withdraw any incoming BGP UPDATE messages that contain the specified attribute
@@ -71,6 +72,8 @@ func (o ProtocolsBgpNeighborPathAttribute) ResourceSchemaAttributes(ctx context.
     |  1-255   |  Attribute number  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &QosPolicyShaperDefault{}
 
 // QosPolicyShaperDefault describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type QosPolicyShaperDefault struct {
 	// LeafNodes
 	LeafQosPolicyShaperDefaultBandwIDth        types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
@@ -36,8 +38,7 @@ type QosPolicyShaperDefault struct {
 	LeafQosPolicyShaperDefaultSetDscp          types.String `tfsdk:"set_dscp" vyos:"set-dscp,omitempty"`
 	LeafQosPolicyShaperDefaultTarget           types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -49,7 +50,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"bandwidth":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
@@ -80,7 +81,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"burst":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Burst size for this class
@@ -104,7 +105,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"ceiling":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Bandwidth limit for this class
@@ -133,7 +134,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"codel_quantum":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
@@ -155,7 +156,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"flows":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
@@ -177,7 +178,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
@@ -199,7 +200,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"priority":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Priority for usage of excess bandwidth
@@ -221,7 +222,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"average_packet":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Average packet size (bytes)
@@ -243,7 +244,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"maximum_threshold":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum threshold for random detection
@@ -265,7 +266,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"minimum_threshold":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum threshold for random detection
@@ -284,7 +285,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"mark_probability":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Mark probability for random detection
@@ -306,7 +307,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"queue_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
@@ -325,7 +326,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"queue_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
@@ -355,7 +356,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"set_dscp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Change the Differentiated Services (DiffServ) field in the IP header
@@ -436,7 +437,7 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"target":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
@@ -455,6 +456,8 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes(ctx context.Context) ma
 			// Default:          stringdefault.StaticString(`5`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_rip_interface_authentication_md5 (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Routing Information Protocol (RIP) parameters  

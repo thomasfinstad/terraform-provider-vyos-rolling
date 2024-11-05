@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &HighAvailabilityVrrpSyncGroupTransitionScrIPt{}
 
 // HighAvailabilityVrrpSyncGroupTransitionScrIPt describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type HighAvailabilityVrrpSyncGroupTransitionScrIPt struct {
 	// LeafNodes
 	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster types.String `tfsdk:"master" vyos:"master,omitempty"`
@@ -25,8 +27,7 @@ type HighAvailabilityVrrpSyncGroupTransitionScrIPt struct {
 	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault  types.String `tfsdk:"fault" vyos:"fault,omitempty"`
 	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop   types.String `tfsdk:"stop" vyos:"stop,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) ResourceSchemaAttributes(
 
 		"master":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to master
@@ -51,7 +52,7 @@ func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) ResourceSchemaAttributes(
 
 		"backup":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to backup
@@ -64,7 +65,7 @@ func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) ResourceSchemaAttributes(
 
 		"fault":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to fault
@@ -77,7 +78,7 @@ func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) ResourceSchemaAttributes(
 
 		"stop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to stop
@@ -87,6 +88,8 @@ func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) ResourceSchemaAttributes(
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

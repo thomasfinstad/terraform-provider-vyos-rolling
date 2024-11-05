@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallBrIDgePreroutingFilterRuleLimit{}
 
 // FirewallBrIDgePreroutingFilterRuleLimit describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallBrIDgePreroutingFilterRuleLimit struct {
 	// LeafNodes
 	LeafFirewallBrIDgePreroutingFilterRuleLimitBurst types.Number `tfsdk:"burst" vyos:"burst,omitempty"`
 	LeafFirewallBrIDgePreroutingFilterRuleLimitRate  types.String `tfsdk:"rate" vyos:"rate,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o FirewallBrIDgePreroutingFilterRuleLimit) ResourceSchemaAttributes(ctx co
 
 		"burst":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
@@ -55,7 +56,7 @@ func (o FirewallBrIDgePreroutingFilterRuleLimit) ResourceSchemaAttributes(ctx co
 
 		"rate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum average matching rate
@@ -71,6 +72,8 @@ func (o FirewallBrIDgePreroutingFilterRuleLimit) ResourceSchemaAttributes(ctx co
     |  txt     |  integer/unit (Example: 5/minute)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -785,7 +785,6 @@ import (
 	namedserviceconsoleserverdevice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/console-server-device"
 	namedservicedhcpserversharednetworkname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name"
 	namedservicedhcpserversharednetworknameoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-option-static-route"
-	namedservicedhcpserversharednetworknamesubnet "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet"
 	namedservicedhcpserversharednetworknamesubnetoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-option-static-route"
 	namedservicedhcpserversharednetworknamesubnetrange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-range"
 	namedservicedhcpserversharednetworknamesubnetrangeoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-range-option-static-route"
@@ -1770,7 +1769,6 @@ func GetResources() []func() resource.Resource {
 		namedserviceconsoleserverdevice.NewServiceConsoleServerDevice,
 		namedservicedhcpserversharednetworkname.NewServiceDhcpServerSharedNetworkName,
 		namedservicedhcpserversharednetworknameoptionstaticroute.NewServiceDhcpServerSharedNetworkNameOptionStaticRoute,
-		namedservicedhcpserversharednetworknamesubnet.NewServiceDhcpServerSharedNetworkNameSubnet,
 		namedservicedhcpserversharednetworknamesubnetoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetOptionStaticRoute,
 		namedservicedhcpserversharednetworknamesubnetrange.NewServiceDhcpServerSharedNetworkNameSubnetRange,
 		namedservicedhcpserversharednetworknamesubnetrangeoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute,

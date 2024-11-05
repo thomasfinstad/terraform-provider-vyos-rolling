@@ -10,6 +10,7 @@ description: |-
 # vyos_system_flow_accounting_netflow_server (Resource)
 <center>
 
+
 *system*  
 ⯯  
 Flow accounting settings  

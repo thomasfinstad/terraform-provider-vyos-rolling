@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsBgpNeighbor{}
 
 // ProtocolsBgpNeighbor describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsBgpNeighbor struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -54,20 +56,27 @@ type ProtocolsBgpNeighbor struct {
 	LeafProtocolsBgpNeighborUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 	LeafProtocolsBgpNeighborPort                         types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagProtocolsBgpNeighborLocalAs bool `tfsdk:"-" vyos:"local-as,child"`
 
 	ExistsTagProtocolsBgpNeighborLocalRole bool `tfsdk:"-" vyos:"local-role,child"`
 
 	// Nodes
+
 	NodeProtocolsBgpNeighborAddressFamily *ProtocolsBgpNeighborAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
-	NodeProtocolsBgpNeighborBfd           *ProtocolsBgpNeighborBfd           `tfsdk:"bfd" vyos:"bfd,omitempty"`
-	NodeProtocolsBgpNeighborCapability    *ProtocolsBgpNeighborCapability    `tfsdk:"capability" vyos:"capability,omitempty"`
-	NodeProtocolsBgpNeighborInterface     *ProtocolsBgpNeighborInterface     `tfsdk:"interface" vyos:"interface,omitempty"`
+
+	NodeProtocolsBgpNeighborBfd *ProtocolsBgpNeighborBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
+
+	NodeProtocolsBgpNeighborCapability *ProtocolsBgpNeighborCapability `tfsdk:"capability" vyos:"capability,omitempty"`
+
+	NodeProtocolsBgpNeighborInterface *ProtocolsBgpNeighborInterface `tfsdk:"interface" vyos:"interface,omitempty"`
+
 	NodeProtocolsBgpNeighborPathAttribute *ProtocolsBgpNeighborPathAttribute `tfsdk:"path_attribute" vyos:"path-attribute,omitempty"`
-	NodeProtocolsBgpNeighborTimers        *ProtocolsBgpNeighborTimers        `tfsdk:"timers" vyos:"timers,omitempty"`
-	NodeProtocolsBgpNeighborTTLSecURIty   *ProtocolsBgpNeighborTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
+
+	NodeProtocolsBgpNeighborTimers *ProtocolsBgpNeighborTimers `tfsdk:"timers" vyos:"timers,omitempty"`
+
+	NodeProtocolsBgpNeighborTTLSecURIty *ProtocolsBgpNeighborTTLSecURIty `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -105,12 +114,13 @@ func (o *ProtocolsBgpNeighbor) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsBgpNeighbor) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"bgp",
+		"bgp", // Node
+
 	}
 }
 
@@ -120,9 +130,9 @@ func (o *ProtocolsBgpNeighbor) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsBgpNeighbor) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -166,8 +176,8 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  neighbor, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  neighbor, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -188,7 +198,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"advertisement_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval for sending routing updates
@@ -207,7 +217,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -226,7 +236,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"disable_capability_negotiation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable capability negotiation with this neighbor
@@ -241,7 +251,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"disable_connected_check":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow peerings between eBGP peer using loopback/dummy address
@@ -256,7 +266,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"ebgp_multihop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
@@ -275,7 +285,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"graceful_restart":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP graceful restart functionality
@@ -298,7 +308,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"override_capability":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore capability negotiation with specified neighbor
@@ -313,7 +323,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"passive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not initiate a session with this neighbor
@@ -328,7 +338,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"password":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP MD5 password
@@ -341,7 +351,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"peer_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
@@ -360,7 +370,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"remote_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
@@ -383,7 +393,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"shutdown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively shutdown this neighbor
@@ -398,7 +408,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"solo":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send back prefixes learned from the neighbor
@@ -413,7 +423,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"enforce_first_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ensure the first AS in the AS path matches the peer AS
@@ -428,7 +438,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"strict_capability_match":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable strict capability negotiation
@@ -443,7 +453,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"update_source":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source IP of routing updates
@@ -466,7 +476,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -482,6 +492,8 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[
     |  1-65535  |  Numeric IP port  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsEigrpMetric{}
 
 // VrfNameProtocolsEigrpMetric describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsEigrpMetric struct {
 	// LeafNodes
 	LeafVrfNameProtocolsEigrpMetricWeights types.Number `tfsdk:"weights" vyos:"weights,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -35,7 +36,7 @@ func (o VrfNameProtocolsEigrpMetric) ResourceSchemaAttributes(ctx context.Contex
 
 		"weights":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Modify metric coefficients
@@ -51,6 +52,8 @@ func (o VrfNameProtocolsEigrpMetric) ResourceSchemaAttributes(ctx context.Contex
     |  0-255   |  K1           |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

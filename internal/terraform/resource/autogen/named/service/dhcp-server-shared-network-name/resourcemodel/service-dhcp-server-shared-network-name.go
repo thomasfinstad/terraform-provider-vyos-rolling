@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceDhcpServerSharedNetworkName{}
 
 // ServiceDhcpServerSharedNetworkName describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceDhcpServerSharedNetworkName struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,11 +42,12 @@ type ServiceDhcpServerSharedNetworkName struct {
 	LeafServiceDhcpServerSharedNetworkNameDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameDisable       types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnet bool `tfsdk:"-" vyos:"subnet,child"`
+	TagServiceDhcpServerSharedNetworkNameSubnet map[string]*ServiceDhcpServerSharedNetworkNameSubnet `tfsdk:"subnet" vyos:"subnet,omitempty"`
 
 	// Nodes
+
 	NodeServiceDhcpServerSharedNetworkNameOption *ServiceDhcpServerSharedNetworkNameOption `tfsdk:"option" vyos:"option,omitempty"`
 }
 
@@ -83,12 +86,13 @@ func (o *ServiceDhcpServerSharedNetworkName) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDhcpServerSharedNetworkName) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dhcp-server",
+		"dhcp-server", // Node
+
 	}
 }
 
@@ -98,9 +102,9 @@ func (o *ServiceDhcpServerSharedNetworkName) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceDhcpServerSharedNetworkName) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -134,8 +138,8 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes(ctx context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -156,7 +160,7 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes(ctx context
 
 		"authoritative":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Option to make DHCP server authoritative for this physical network
@@ -171,7 +175,7 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes(ctx context
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -190,7 +194,7 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes(ctx context
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -201,6 +205,27 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes(ctx context
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		"subnet": schema.MapNestedAttribute{
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: ServiceDhcpServerSharedNetworkNameSubnet{}.ResourceSchemaAttributes(ctx),
+			},
+			Optional: true,
+			MarkdownDescription: `DHCP subnet for shared network
+
+    |  Format   |  Description                     |
+    |-----------|----------------------------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+`,
+			Description: `DHCP subnet for shared network
+
+    |  Format   |  Description                     |
+    |-----------|----------------------------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+`,
 		},
 
 		// Nodes

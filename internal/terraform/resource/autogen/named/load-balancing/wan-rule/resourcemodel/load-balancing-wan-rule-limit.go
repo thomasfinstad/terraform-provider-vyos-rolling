@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &LoadBalancingWanRuleLimit{}
 
 // LoadBalancingWanRuleLimit describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type LoadBalancingWanRuleLimit struct {
 	// LeafNodes
 	LeafLoadBalancingWanRuleLimitBurst     types.Number `tfsdk:"burst" vyos:"burst,omitempty"`
@@ -25,8 +27,7 @@ type LoadBalancingWanRuleLimit struct {
 	LeafLoadBalancingWanRuleLimitRate      types.Number `tfsdk:"rate" vyos:"rate,omitempty"`
 	LeafLoadBalancingWanRuleLimitThreshold types.String `tfsdk:"threshold" vyos:"threshold,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes(ctx context.Context)
 
 		"burst":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Burst limit for matching packets
@@ -60,7 +61,7 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes(ctx context.Context)
 
 		"period":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Time window for rate calculation
@@ -86,7 +87,7 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes(ctx context.Context)
 
 		"rate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of packets used for rate limit
@@ -108,7 +109,7 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes(ctx context.Context)
 
 		"threshold":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Threshold behavior for limit
@@ -129,6 +130,8 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes(ctx context.Context)
 			// Default:          stringdefault.StaticString(`below`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -16,27 +16,34 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &SystemIP{}
 
 // SystemIP describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type SystemIP struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafSystemIPDisableForwarding types.Bool `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagSystemIPProtocol bool `tfsdk:"-" vyos:"protocol,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemIPArp       bool `tfsdk:"-" vyos:"arp,child"`
+	// Nodes
+
+	ExistsNodeSystemIPArp bool `tfsdk:"-" vyos:"arp,child"`
+
 	ExistsNodeSystemIPMultIPath bool `tfsdk:"-" vyos:"multipath,child"`
-	ExistsNodeSystemIPNht       bool `tfsdk:"-" vyos:"nht,child"`
-	ExistsNodeSystemIPTCP       bool `tfsdk:"-" vyos:"tcp,child"`
+
+	ExistsNodeSystemIPNht bool `tfsdk:"-" vyos:"nht,child"`
+
+	NodeSystemIPTCP *SystemIPTCP `tfsdk:"tcp" vyos:"tcp,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -69,8 +76,9 @@ func (o *SystemIP) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemIP) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
+
 	}
 }
 
@@ -78,10 +86,9 @@ func (o *SystemIP) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *SystemIP) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -102,7 +109,7 @@ func (o SystemIP) ResourceSchemaAttributes(ctx context.Context) map[string]schem
 
 		"disable_forwarding":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IPv4 forwarding on all interfaces
@@ -113,6 +120,21 @@ func (o SystemIP) ResourceSchemaAttributes(ctx context.Context) map[string]schem
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"tcp": schema.SingleNestedAttribute{
+			Attributes: SystemIPTCP{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `IPv4 TCP parameters
+
+`,
+			Description: `IPv4 TCP parameters
+
+`,
 		},
 	}
 }

@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &QosPolicyShaperHfscClassLinkshare{}
 
 // QosPolicyShaperHfscClassLinkshare describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type QosPolicyShaperHfscClassLinkshare struct {
 	// LeafNodes
 	LeafQosPolicyShaperHfscClassLinkshareD    types.String `tfsdk:"d" vyos:"d,omitempty"`
 	LeafQosPolicyShaperHfscClassLinkshareMone types.String `tfsdk:"m1" vyos:"m1,omitempty"`
 	LeafQosPolicyShaperHfscClassLinkshareMtwo types.String `tfsdk:"m2" vyos:"m2,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o QosPolicyShaperHfscClassLinkshare) ResourceSchemaAttributes(ctx context.
 
 		"d":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Service curve delay
@@ -56,7 +57,7 @@ func (o QosPolicyShaperHfscClassLinkshare) ResourceSchemaAttributes(ctx context.
 
 		"m1":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Linkshare m1 parameter for class traffic
@@ -88,7 +89,7 @@ func (o QosPolicyShaperHfscClassLinkshare) ResourceSchemaAttributes(ctx context.
 
 		"m2":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Linkshare m2 parameter for class traffic
@@ -117,6 +118,8 @@ func (o QosPolicyShaperHfscClassLinkshare) ResourceSchemaAttributes(ctx context.
 			// Default:          stringdefault.StaticString(`100%`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne{}
 
 // VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne struct {
 	// LeafNodes
 	LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) ResourceSchema
 
 		"metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
@@ -55,7 +56,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) ResourceSchema
 
 		"route_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
@@ -71,6 +72,8 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) ResourceSchema
     |  txt     |  Route map name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -18,12 +18,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &LoadBalancingWanRule{}
 
 // LoadBalancingWanRule describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type LoadBalancingWanRule struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,14 +42,17 @@ type LoadBalancingWanRule struct {
 	LeafLoadBalancingWanRulePerPacketBalancing types.Bool   `tfsdk:"per_packet_balancing" vyos:"per-packet-balancing,omitempty"`
 	LeafLoadBalancingWanRuleProtocol           types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagLoadBalancingWanRuleInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
+
 	NodeLoadBalancingWanRuleDestination *LoadBalancingWanRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeLoadBalancingWanRuleLimit       *LoadBalancingWanRuleLimit       `tfsdk:"limit" vyos:"limit,omitempty"`
-	NodeLoadBalancingWanRuleSource      *LoadBalancingWanRuleSource      `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeLoadBalancingWanRuleLimit *LoadBalancingWanRuleLimit `tfsdk:"limit" vyos:"limit,omitempty"`
+
+	NodeLoadBalancingWanRuleSource *LoadBalancingWanRuleSource `tfsdk:"source" vyos:"source,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -85,12 +90,13 @@ func (o *LoadBalancingWanRule) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *LoadBalancingWanRule) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"load-balancing",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"load-balancing", // Node
 
-		"wan",
+		"wan", // Node
+
 	}
 }
 
@@ -100,9 +106,9 @@ func (o *LoadBalancingWanRule) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *LoadBalancingWanRule) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -151,7 +157,7 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -170,7 +176,7 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"exclude":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Exclude packets matching this rule from WAN load balance
@@ -185,7 +191,7 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"failover":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable failover for packets matching this rule from WAN load balance
@@ -200,7 +206,7 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"inbound_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Inbound interface name (e.g., "eth0") [REQUIRED]
@@ -213,7 +219,7 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"per_packet_balancing":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Option to match traffic per-packet instead of the default, per-flow
@@ -228,7 +234,7 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
@@ -255,6 +261,8 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes(ctx context.Context) map[
 			// Default:          stringdefault.StaticString(`all`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

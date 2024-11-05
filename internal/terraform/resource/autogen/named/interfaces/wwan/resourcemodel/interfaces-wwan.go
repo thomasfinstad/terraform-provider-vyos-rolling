@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesWwan{}
 
 // InterfacesWwan describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesWwan struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -46,15 +48,21 @@ type InterfacesWwan struct {
 	LeafInterfacesWwanRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesWwanVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeInterfacesWwanDhcpOptions     *InterfacesWwanDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
+	NodeInterfacesWwanDhcpOptions *InterfacesWwanDhcpOptions `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
 	NodeInterfacesWwanDhcpvsixOptions *InterfacesWwanDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
-	NodeInterfacesWwanAuthentication  *InterfacesWwanAuthentication  `tfsdk:"authentication" vyos:"authentication,omitempty"`
-	NodeInterfacesWwanMirror          *InterfacesWwanMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
-	NodeInterfacesWwanIP              *InterfacesWwanIP              `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesWwanIPvsix          *InterfacesWwanIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesWwanAuthentication *InterfacesWwanAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
+
+	NodeInterfacesWwanMirror *InterfacesWwanMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesWwanIP *InterfacesWwanIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesWwanIPvsix *InterfacesWwanIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -92,8 +100,9 @@ func (o *InterfacesWwan) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesWwan) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -103,7 +112,7 @@ func (o *InterfacesWwan) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesWwan) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -143,8 +152,8 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  wwan, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  wwan, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -162,7 +171,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -188,7 +197,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"apn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Access Point Name (APN)
@@ -201,7 +210,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -220,7 +229,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -235,7 +244,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"disable_link_detect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
@@ -250,7 +259,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -272,7 +281,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"connect_on_demand":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Establishment connection automatically when traffic is sent
@@ -287,7 +296,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -306,7 +315,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -322,6 +331,8 @@ func (o InterfacesWwan) ResourceSchemaAttributes(ctx context.Context) map[string
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

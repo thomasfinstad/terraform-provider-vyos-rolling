@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PkiOpenTCPPrivate{}
 
 // PkiOpenTCPPrivate describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PkiOpenTCPPrivate struct {
 	// LeafNodes
 	LeafPkiOpenTCPPrivateKey               types.String `tfsdk:"key" vyos:"key,omitempty"`
 	LeafPkiOpenTCPPrivatePasswordProtected types.Bool   `tfsdk:"password_protected" vyos:"password-protected,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o PkiOpenTCPPrivate) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Private key in PEM format
@@ -50,7 +51,7 @@ func (o PkiOpenTCPPrivate) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"password_protected":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Private key portion is password protected
@@ -62,6 +63,8 @@ func (o PkiOpenTCPPrivate) ResourceSchemaAttributes(ctx context.Context) map[str
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_container_registry (Resource)
 <center>
 
+
 Container applications  
 ⯯  
 **Registry Name**

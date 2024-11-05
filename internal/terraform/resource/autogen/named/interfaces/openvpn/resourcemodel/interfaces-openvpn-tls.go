@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesOpenvpnTLS{}
 
 // InterfacesOpenvpnTLS describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesOpenvpnTLS struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnTLSAuthKey         types.String `tfsdk:"auth_key" vyos:"auth-key,omitempty"`
@@ -29,8 +31,7 @@ type InterfacesOpenvpnTLS struct {
 	LeafInterfacesOpenvpnTLSTLSVersionMin   types.String `tfsdk:"tls_version_min" vyos:"tls-version-min,omitempty"`
 	LeafInterfacesOpenvpnTLSRole            types.String `tfsdk:"role" vyos:"role,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -42,7 +43,7 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"auth_key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `TLS shared secret key for tls-auth
@@ -55,7 +56,7 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"certificate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
@@ -73,7 +74,7 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"ca_certificate":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -93,7 +94,7 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"dh_params":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Diffie Hellman parameters (server only)
@@ -106,7 +107,7 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"crypt_key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Static key to use to authenticate control channel
@@ -118,7 +119,7 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"peer_fingerprint":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -132,7 +133,7 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"tls_version_min":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify the minimum required TLS version
@@ -157,7 +158,7 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"role":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `TLS negotiation role
@@ -175,6 +176,8 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes(ctx context.Context) map[
     |  passive  |  Wait for incoming TLS connection   |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

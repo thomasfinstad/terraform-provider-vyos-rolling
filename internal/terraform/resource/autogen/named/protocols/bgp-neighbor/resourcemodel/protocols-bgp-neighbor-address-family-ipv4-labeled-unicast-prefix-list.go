@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList{}
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList struct {
 	// LeafNodes
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListExport types.String `tfsdk:"export" vyos:"export,omitempty"`
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListImport types.String `tfsdk:"import" vyos:"import,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) Resour
 
 		"export":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4-Prefix-list to filter outgoing route updates to this peer
@@ -55,7 +56,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) Resour
 
 		"import":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4-Prefix-list to filter incoming route updates from this peer
@@ -71,6 +72,8 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) Resour
     |  txt     |  Name of IPv4 prefix-list  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

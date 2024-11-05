@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_openvpn (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **OpenVPN Tunnel Interface**
@@ -36,6 +37,7 @@ description: |-
       - [ip_version](#ip_version)
       - [ipv6](#ipv6)
       - [keep_alive](#keep_alive)
+      - [local_address](#local_address)
       - [local_host](#local_host)
       - [local_port](#local_port)
       - [mirror](#mirror)
@@ -64,11 +66,13 @@ description: |-
     - [Nested Schema for `ipv6`](#nested-schema-for-ipv6)
     - [Nested Schema for `ipv6.address`](#nested-schema-for-ipv6address)
     - [Nested Schema for `keep_alive`](#nested-schema-for-keep_alive)
+    - [Nested Schema for `local_address`](#nested-schema-for-local_address)
     - [Nested Schema for `mirror`](#nested-schema-for-mirror)
     - [Nested Schema for `offload`](#nested-schema-for-offload)
     - [Nested Schema for `replace_default_route`](#nested-schema-for-replace_default_route)
     - [Nested Schema for `server`](#nested-schema-for-server)
     - [Nested Schema for `server.bridge`](#nested-schema-for-serverbridge)
+    - [Nested Schema for `server.client`](#nested-schema-for-serverclient)
     - [Nested Schema for `server.client_ip_pool`](#nested-schema-for-serverclient_ip_pool)
     - [Nested Schema for `server.client_ipv6_pool`](#nested-schema-for-serverclient_ipv6_pool)
     - [Nested Schema for `server.mfa`](#nested-schema-for-servermfa)
@@ -133,6 +137,8 @@ description: |-
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 #### keep_alive
 - `keep_alive` (Attributes) Keepalive helper options (see [below for nested schema](#nestedatt--keep_alive))
+#### local_address
+- `local_address` (Attributes Map) Local IP address of tunnel (IPv4 or IPv6) (see [below for nested schema](#nestedatt--local_address))
 #### local_host
 - `local_host` (String) Local IP address to accept connections (all if not set)
 
@@ -385,6 +391,14 @@ Optional:
     |  0-600   &emsp;|  Keepalive packet interval (seconds)  |
 
 
+<a id="nestedatt--local_address"></a>
+### Nested Schema for `local_address`
+
+Optional:
+
+- `subnet_mask` (String) Subnet-mask for local IP address of tunnel (IPv4 only)
+
+
 <a id="nestedatt--mirror"></a>
 ### Nested Schema for `mirror`
 
@@ -424,6 +438,11 @@ Optional:
 Optional:
 
 - `bridge` (Attributes) Used with TAP device (layer 2) (see [below for nested schema](#nestedatt--server--bridge))
+- `client` (Attributes Map) Client-specific settings
+
+    |  Format  &emsp;|  Description                            |
+    |----------|-----------------------------------------|
+    |  name    |  Client common-name in the certificate  | (see [below for nested schema](#nestedatt--server--client))
 - `client_ip_pool` (Attributes) Pool of client IPv4 addresses (see [below for nested schema](#nestedatt--server--client_ip_pool))
 - `client_ipv6_pool` (Attributes) Pool of client IPv6 addresses (see [below for nested schema](#nestedatt--server--client_ipv6_pool))
 - `domain_name` (String) DNS suffix to be pushed to all clients
@@ -484,6 +503,32 @@ Optional:
     |  Format  &emsp;|  Description       |
     |----------|--------------------|
     |  ipv4    &emsp;|  IPv4 subnet mask  |
+
+
+<a id="nestedatt--server--client"></a>
+### Nested Schema for `server.client`
+
+Optional:
+
+- `disable` (Boolean) Disable instance
+- `ip` (List of String) IP address of the client
+
+    |  Format  &emsp;|  Description          |
+    |----------|-----------------------|
+    |  ipv4    &emsp;|  Client IPv4 address  |
+    |  ipv6    &emsp;|  Client IPv6 address  |
+- `push_route` (List of String) Route to be pushed to the client
+
+    |  Format   &emsp;|  Description                     |
+    |-----------|----------------------------------|
+    |  ipv4net  &emsp;|  IPv4 network and prefix length  |
+    |  ipv6net  &emsp;|  IPv6 network and prefix length  |
+- `subnet` (List of String) Subnet belonging to the client (iroute)
+
+    |  Format   &emsp;|  Description                                             |
+    |-----------|----------------------------------------------------------|
+    |  ipv4net  &emsp;|  IPv4 network and prefix length belonging to the client  |
+    |  ipv6net  &emsp;|  IPv6 network and prefix length belonging to the client  |
 
 
 <a id="nestedatt--server--client_ip_pool"></a>

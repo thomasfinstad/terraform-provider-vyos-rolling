@@ -15,32 +15,44 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsBgp{}
 
 // ProtocolsBgp describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsBgp struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafProtocolsBgpSystemAs types.Number `tfsdk:"system_as" vyos:"system-as,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagProtocolsBgpInterface bool `tfsdk:"-" vyos:"interface,child"`
-	ExistsTagProtocolsBgpNeighbor  bool `tfsdk:"-" vyos:"neighbor,child"`
+
+	ExistsTagProtocolsBgpNeighbor bool `tfsdk:"-" vyos:"neighbor,child"`
+
 	ExistsTagProtocolsBgpPeerGroup bool `tfsdk:"-" vyos:"peer-group,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpAddressFamily bool `tfsdk:"-" vyos:"address-family,child"`
-	ExistsNodeProtocolsBgpBmp           bool `tfsdk:"-" vyos:"bmp,child"`
-	ExistsNodeProtocolsBgpListen        bool `tfsdk:"-" vyos:"listen,child"`
-	ExistsNodeProtocolsBgpParameters    bool `tfsdk:"-" vyos:"parameters,child"`
-	ExistsNodeProtocolsBgpSrvsix        bool `tfsdk:"-" vyos:"srv6,child"`
-	ExistsNodeProtocolsBgpSID           bool `tfsdk:"-" vyos:"sid,child"`
-	ExistsNodeProtocolsBgpTimers        bool `tfsdk:"-" vyos:"timers,child"`
+	// Nodes
+
+	NodeProtocolsBgpAddressFamily *ProtocolsBgpAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
+
+	ExistsNodeProtocolsBgpBmp bool `tfsdk:"-" vyos:"bmp,child"`
+
+	ExistsNodeProtocolsBgpListen bool `tfsdk:"-" vyos:"listen,child"`
+
+	ExistsNodeProtocolsBgpParameters bool `tfsdk:"-" vyos:"parameters,child"`
+
+	ExistsNodeProtocolsBgpSrvsix bool `tfsdk:"-" vyos:"srv6,child"`
+
+	NodeProtocolsBgpSID *ProtocolsBgpSID `tfsdk:"sid" vyos:"sid,omitempty"`
+
+	ExistsNodeProtocolsBgpTimers bool `tfsdk:"-" vyos:"timers,child"`
 }
 
 // SetID configures the resource ID
@@ -73,8 +85,9 @@ func (o *ProtocolsBgp) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsBgp) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
+
 	}
 }
 
@@ -82,10 +95,9 @@ func (o *ProtocolsBgp) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsBgp) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -106,7 +118,7 @@ func (o ProtocolsBgp) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		"system_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
@@ -120,6 +132,32 @@ func (o ProtocolsBgp) ResourceSchemaAttributes(ctx context.Context) map[string]s
     |  Format        |  Description               |
     |----------------|----------------------------|
     |  1-4294967294  |  Autonomous System Number  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"address_family": schema.SingleNestedAttribute{
+			Attributes: ProtocolsBgpAddressFamily{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `BGP address-family parameters
+
+`,
+			Description: `BGP address-family parameters
+
+`,
+		},
+
+		"sid": schema.SingleNestedAttribute{
+			Attributes: ProtocolsBgpSID{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `SID value for VRF
+
+`,
+			Description: `SID value for VRF
+
 `,
 		},
 	}

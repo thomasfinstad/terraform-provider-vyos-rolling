@@ -28,9 +28,11 @@ Network Address Translation (NAT) parameters
   - [Schema](#schema)
     - [Optional](#optional)
       - [log_allocation](#log_allocation)
+      - [pool](#pool)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `pool`](#nested-schema-for-pool)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -43,6 +45,8 @@ Network Address Translation (NAT) parameters
 
 #### log_allocation
 - `log_allocation` (Boolean) Log IP address and port allocation
+#### pool
+- `pool` (Attributes) External and internal pool parameters (see [below for nested schema](#nestedatt--pool))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -50,6 +54,10 @@ Network Address Translation (NAT) parameters
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--pool"></a>
+### Nested Schema for `pool`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

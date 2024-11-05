@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceDNSForwardingAuthoritativeDomainRecordsPtr{}
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsPtr describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceDNSForwardingAuthoritativeDomainRecordsPtr struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,7 +42,7 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsPtr struct {
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsPtrTTL     types.Number `tfsdk:"ttl" vyos:"ttl,omitempty"`
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsPtrDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -80,26 +82,26 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsPtr) GetVyosPath() []stri
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsPtr) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dns",
+		"dns", // Node
 
-		"forwarding",
+		"forwarding", // Node
 
 		"authoritative-domain",
-
 		o.SelfIdentifier.Attributes()["authoritative_domain"].(types.String).ValueString(),
 
-		"records",
+		"records", // Node
+
 	}
 }
 
@@ -109,25 +111,24 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsPtr) GetVyosParentPath() 
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsPtr) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dns",
+		"dns", // Node
 
-		"forwarding",
+		"forwarding", // Node
 
 		"authoritative-domain",
-
 		o.SelfIdentifier.Attributes()["authoritative_domain"].(types.String).ValueString(),
 	}
 }
@@ -169,8 +170,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttribu
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  ptr, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  ptr, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -211,8 +212,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttribu
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  authoritative_domain, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  authoritative_domain, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -228,7 +229,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttribu
 
 		"target":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Target DNS name
@@ -247,7 +248,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttribu
 
 		"ttl":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
@@ -269,7 +270,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttribu
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -281,6 +282,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttribu
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

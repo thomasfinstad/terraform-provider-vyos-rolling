@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_wwan_dhcpv6_options_pd_interface (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Wireless Modem (WWAN) Interface  

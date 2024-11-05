@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteMapRuleSetCommunity{}
 
 // PolicyRouteMapRuleSetCommunity describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteMapRuleSetCommunity struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleSetCommunityAdd     types.List   `tfsdk:"add" vyos:"add,omitempty"`
@@ -26,8 +28,7 @@ type PolicyRouteMapRuleSetCommunity struct {
 	LeafPolicyRouteMapRuleSetCommunityNone    types.Bool   `tfsdk:"none" vyos:"none,omitempty"`
 	LeafPolicyRouteMapRuleSetCommunityDelete  types.String `tfsdk:"delete" vyos:"delete,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes(ctx context.Con
 		// LeafNodes
 
 		"add":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -87,7 +88,7 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"replace":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -137,7 +138,7 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes(ctx context.Con
 
 		"none":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Completely remove communities attribute from a prefix
@@ -152,7 +153,7 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes(ctx context.Con
 
 		"delete":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Remove communities defined in a list from a prefix
@@ -168,6 +169,8 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes(ctx context.Con
     |  txt     |  Community-list  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

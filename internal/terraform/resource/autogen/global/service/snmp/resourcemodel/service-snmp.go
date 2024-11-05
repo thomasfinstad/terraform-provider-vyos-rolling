@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceSnmp{}
 
 // ServiceSnmp describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceSnmp struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -35,15 +37,21 @@ type ServiceSnmp struct {
 	LeafServiceSnmpTrapSource  types.String `tfsdk:"trap_source" vyos:"trap-source,omitempty"`
 	LeafServiceSnmpVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceSnmpCommunity     bool `tfsdk:"-" vyos:"community,child"`
-	ExistsTagServiceSnmpListenAddress bool `tfsdk:"-" vyos:"listen-address,child"`
-	ExistsTagServiceSnmpTrapTarget    bool `tfsdk:"-" vyos:"trap-target,child"`
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceSnmpMib              bool `tfsdk:"-" vyos:"mib,child"`
-	ExistsNodeServiceSnmpVthree           bool `tfsdk:"-" vyos:"v3,child"`
-	ExistsNodeServiceSnmpScrIPtExtensions bool `tfsdk:"-" vyos:"script-extensions,child"`
+	ExistsTagServiceSnmpCommunity bool `tfsdk:"-" vyos:"community,child"`
+
+	ExistsTagServiceSnmpListenAddress bool `tfsdk:"-" vyos:"listen-address,child"`
+
+	ExistsTagServiceSnmpTrapTarget bool `tfsdk:"-" vyos:"trap-target,child"`
+
+	// Nodes
+
+	ExistsNodeServiceSnmpMib bool `tfsdk:"-" vyos:"mib,child"`
+
+	ExistsNodeServiceSnmpVthree bool `tfsdk:"-" vyos:"v3,child"`
+
+	NodeServiceSnmpScrIPtExtensions *ServiceSnmpScrIPtExtensions `tfsdk:"script_extensions" vyos:"script-extensions,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -76,8 +84,9 @@ func (o *ServiceSnmp) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceSnmp) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -85,10 +94,9 @@ func (o *ServiceSnmp) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceSnmp) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -109,7 +117,7 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 
 		"contact":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Contact information
@@ -122,7 +130,7 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -141,7 +149,7 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 
 		"location":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Location information
@@ -153,7 +161,7 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 		},
 
 		"oid_enable":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -179,7 +187,7 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol to be used (TCP/UDP)
@@ -202,7 +210,7 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 		},
 
 		"smux_peer":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -222,7 +230,7 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 
 		"trap_source":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `SNMP trap source address
@@ -243,7 +251,7 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -257,6 +265,21 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
     |  Format  |  Description        |
     |----------|---------------------|
     |  txt     |  VRF instance name  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"script_extensions": schema.SingleNestedAttribute{
+			Attributes: ServiceSnmpScrIPtExtensions{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `SNMP script extensions
+
+`,
+			Description: `SNMP script extensions
+
 `,
 		},
 	}

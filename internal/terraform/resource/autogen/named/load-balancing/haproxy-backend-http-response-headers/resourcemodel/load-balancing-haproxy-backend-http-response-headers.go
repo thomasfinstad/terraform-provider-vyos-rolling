@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &LoadBalancingHaproxyBackendHTTPResponseHeaders{}
 
 // LoadBalancingHaproxyBackendHTTPResponseHeaders describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type LoadBalancingHaproxyBackendHTTPResponseHeaders struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -37,7 +39,7 @@ type LoadBalancingHaproxyBackendHTTPResponseHeaders struct {
 	// LeafNodes
 	LeafLoadBalancingHaproxyBackendHTTPResponseHeadersValue types.String `tfsdk:"value" vyos:"value,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -77,17 +79,16 @@ func (o *LoadBalancingHaproxyBackendHTTPResponseHeaders) GetVyosPath() []string 
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *LoadBalancingHaproxyBackendHTTPResponseHeaders) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"load-balancing",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"load-balancing", // Node
 
-		"haproxy",
+		"haproxy", // Node
 
 		"backend",
-
 		o.SelfIdentifier.Attributes()["backend"].(types.String).ValueString(),
 	}
 }
@@ -98,19 +99,18 @@ func (o *LoadBalancingHaproxyBackendHTTPResponseHeaders) GetVyosParentPath() []s
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *LoadBalancingHaproxyBackendHTTPResponseHeaders) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"load-balancing",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"load-balancing", // Node
 
-		"haproxy",
+		"haproxy", // Node
 
 		"backend",
-
 		o.SelfIdentifier.Attributes()["backend"].(types.String).ValueString(),
 	}
 }
@@ -150,8 +150,8 @@ func (o LoadBalancingHaproxyBackendHTTPResponseHeaders) ResourceSchemaAttributes
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  http_response_headers, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  http_response_headers, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -182,8 +182,8 @@ func (o LoadBalancingHaproxyBackendHTTPResponseHeaders) ResourceSchemaAttributes
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  backend, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  backend, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -199,7 +199,7 @@ func (o LoadBalancingHaproxyBackendHTTPResponseHeaders) ResourceSchemaAttributes
 
 		"value":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `HTTP header value
@@ -215,6 +215,8 @@ func (o LoadBalancingHaproxyBackendHTTPResponseHeaders) ResourceSchemaAttributes
     |  txt     |  HTTP header value  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

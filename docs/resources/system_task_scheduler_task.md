@@ -10,6 +10,7 @@ description: |-
 # vyos_system_task_scheduler_task (Resource)
 <center>
 
+
 *system*  
 ⯯  
 Task scheduler settings  

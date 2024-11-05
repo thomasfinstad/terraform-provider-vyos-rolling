@@ -10,6 +10,7 @@ description: |-
 # vyos_service_dhcp_server_shared_network_name (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Dynamic Host Configuration Protocol (DHCP) for DHCP server  
@@ -32,6 +33,7 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
       - [description](#description)
       - [disable](#disable)
       - [option](#option)
+      - [subnet](#subnet)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -39,6 +41,10 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
     - [Nested Schema for `option`](#nested-schema-for-option)
     - [Nested Schema for `option.vendor_option`](#nested-schema-for-optionvendor_option)
     - [Nested Schema for `option.vendor_option.ubiquiti`](#nested-schema-for-optionvendor_optionubiquiti)
+    - [Nested Schema for `subnet`](#nested-schema-for-subnet)
+    - [Nested Schema for `subnet.option`](#nested-schema-for-subnetoption)
+    - [Nested Schema for `subnet.option.vendor_option`](#nested-schema-for-subnetoptionvendor_option)
+    - [Nested Schema for `subnet.option.vendor_option.ubiquiti`](#nested-schema-for-subnetoptionvendor_optionubiquiti)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -66,6 +72,12 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
 - `disable` (Boolean) Disable instance
 #### option
 - `option` (Attributes) DHCP option (see [below for nested schema](#nestedatt--option))
+#### subnet
+- `subnet` (Attributes Map) DHCP subnet for shared network
+
+    |  Format   &emsp;|  Description                     |
+    |-----------|----------------------------------|
+    |  ipv4net  |  IPv4 address and prefix length  | (see [below for nested schema](#nestedatt--subnet))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -189,6 +201,147 @@ Optional:
     |  Format  &emsp;|  Description                     |
     |----------|----------------------------------|
     |  ipv4    &emsp;|  IP address of UniFi controller  |
+
+
+
+
+<a id="nestedatt--subnet"></a>
+### Nested Schema for `subnet`
+
+Optional:
+
+- `description` (String) Description
+
+    |  Format  &emsp;|  Description  |
+    |----------|---------------|
+    |  txt     &emsp;|  Description  |
+- `disable` (Boolean) Disable instance
+- `exclude` (List of String) IP address to exclude from DHCP lease range
+
+    |  Format  &emsp;|  Description                               |
+    |----------|--------------------------------------------|
+    |  ipv4    &emsp;|  IPv4 address to exclude from lease range  |
+- `ignore_client_id` (Boolean) Ignore client identifier for lease lookups
+- `lease` (Number) Lease timeout in seconds
+
+    |  Format  &emsp;|  Description                 |
+    |----------|------------------------------|
+    |  u32     &emsp;|  DHCP lease time in seconds  |
+- `option` (Attributes) DHCP option (see [below for nested schema](#nestedatt--subnet--option))
+- `subnet_id` (Number) Unique ID mapped to leases in the lease file
+
+    |  Format  &emsp;|  Description       |
+    |----------|--------------------|
+    |  u32     &emsp;|  Unique subnet ID  |
+
+<a id="nestedatt--subnet--option"></a>
+### Nested Schema for `subnet.option`
+
+Optional:
+
+- `bootfile_name` (String) Bootstrap file name
+- `bootfile_server` (String) Server from which the initial boot file is to be loaded
+
+    |  Format    &emsp;|  Description                   |
+    |------------|--------------------------------|
+    |  ipv4      &emsp;|  Bootfile server IPv4 address  |
+    |  hostname  &emsp;|  Bootfile server FQDN          |
+- `bootfile_size` (Number) Bootstrap file size
+
+    |  Format  &emsp;|  Description                             |
+    |----------|------------------------------------------|
+    |  1-16    &emsp;|  Bootstrap file size in 512 byte blocks  |
+- `captive_portal` (String) Captive portal API endpoint
+
+    |  Format  &emsp;|  Description                  |
+    |----------|-------------------------------|
+    |  txt     &emsp;|  Captive portal API endpoint  |
+- `client_prefix_length` (Number) Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
+
+    |  Format  &emsp;|  Description                                |
+    |----------|---------------------------------------------|
+    |  0-32    &emsp;|  DHCP client prefix length must be 0 to 32  |
+- `default_router` (String) IP address of default router
+
+    |  Format  &emsp;|  Description                  |
+    |----------|-------------------------------|
+    |  ipv4    &emsp;|  Default router IPv4 address  |
+- `domain_name` (String) Client Domain Name
+- `domain_search` (List of String) Client Domain Name search list
+- `ip_forwarding` (Boolean) Enable IP forwarding on client
+- `ipv6_only_preferred` (Number) Disable IPv4 on IPv6 only hosts (RFC 8925)
+
+    |  Format  &emsp;|  Description  |
+    |----------|---------------|
+    |  u32     &emsp;|  Seconds      |
+- `name_server` (List of String) Domain Name Servers (DNS) addresses
+
+    |  Format  &emsp;|  Description                            |
+    |----------|-----------------------------------------|
+    |  ipv4    &emsp;|  Domain Name Server (DNS) IPv4 address  |
+- `ntp_server` (List of String) IP address of NTP server
+
+    |  Format  &emsp;|  Description              |
+    |----------|---------------------------|
+    |  ipv4    &emsp;|  NTP server IPv4 address  |
+- `pop_server` (List of String) IP address of POP3 server
+
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  ipv4    &emsp;|  POP3 server IPv4 address  |
+- `server_identifier` (String) Address for DHCP server identifier
+
+    |  Format  &emsp;|  Description                          |
+    |----------|---------------------------------------|
+    |  ipv4    &emsp;|  DHCP server identifier IPv4 address  |
+- `smtp_server` (List of String) IP address of SMTP server
+
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  ipv4    &emsp;|  SMTP server IPv4 address  |
+- `tftp_server_name` (String) TFTP server name
+
+    |  Format    &emsp;|  Description               |
+    |------------|----------------------------|
+    |  ipv4      &emsp;|  TFTP server IPv4 address  |
+    |  hostname  &emsp;|  TFTP server FQDN          |
+- `time_offset` (String) Client subnet offset in seconds from Coordinated Universal Time (UTC)
+
+    |  Format  &emsp;|  Description                            |
+    |----------|-----------------------------------------|
+    |  [-]N    &emsp;|  Time offset (number, may be negative)  |
+- `time_server` (List of String) IP address of time server
+
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  ipv4    &emsp;|  Time server IPv4 address  |
+- `time_zone` (String) Time zone to send to clients. Uses RFC4833 options 100 and 101
+- `vendor_option` (Attributes) Vendor Specific Options (see [below for nested schema](#nestedatt--subnet--option--vendor_option))
+- `wins_server` (List of String) IP address for Windows Internet Name Service (WINS) server
+
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  ipv4    &emsp;|  WINS server IPv4 address  |
+- `wpad_url` (String) Web Proxy Autodiscovery (WPAD) URL
+
+<a id="nestedatt--subnet--option--vendor_option"></a>
+### Nested Schema for `subnet.option.vendor_option`
+
+Optional:
+
+- `ubiquiti` (Attributes) Ubiquiti specific parameters (see [below for nested schema](#nestedatt--subnet--option--vendor_option--ubiquiti))
+
+<a id="nestedatt--subnet--option--vendor_option--ubiquiti"></a>
+### Nested Schema for `subnet.option.vendor_option.ubiquiti`
+
+Optional:
+
+- `unifi_controller` (String) Address of UniFi controller
+
+    |  Format  &emsp;|  Description                     |
+    |----------|----------------------------------|
+    |  ipv4    &emsp;|  IP address of UniFi controller  |
+
 
 
 

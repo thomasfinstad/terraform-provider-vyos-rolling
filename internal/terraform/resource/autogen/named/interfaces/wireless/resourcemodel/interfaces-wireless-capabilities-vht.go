@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessCapabilitiesVht{}
 
 // InterfacesWirelessCapabilitiesVht describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessCapabilitiesVht struct {
 	// LeafNodes
 	LeafInterfacesWirelessCapabilitiesVhtAntennaCount        types.Number `tfsdk:"antenna_count" vyos:"antenna-count,omitempty"`
@@ -33,12 +35,13 @@ type InterfacesWirelessCapabilitiesVht struct {
 	LeafInterfacesWirelessCapabilitiesVhtTxPowersave         types.Bool   `tfsdk:"tx_powersave" vyos:"tx-powersave,omitempty"`
 	LeafInterfacesWirelessCapabilitiesVhtVhtCf               types.Bool   `tfsdk:"vht_cf" vyos:"vht-cf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeInterfacesWirelessCapabilitiesVhtCenterChannelFreq *InterfacesWirelessCapabilitiesVhtCenterChannelFreq `tfsdk:"center_channel_freq" vyos:"center-channel-freq,omitempty"`
-	NodeInterfacesWirelessCapabilitiesVhtStbc              *InterfacesWirelessCapabilitiesVhtStbc              `tfsdk:"stbc" vyos:"stbc,omitempty"`
+
+	NodeInterfacesWirelessCapabilitiesVhtStbc *InterfacesWirelessCapabilitiesVhtStbc `tfsdk:"stbc" vyos:"stbc,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -48,7 +51,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"antenna_count":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of antennas on this card
@@ -67,7 +70,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"antenna_pattern_fixed":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set if antenna pattern does not change during the lifetime of an association
@@ -81,7 +84,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 		},
 
 		"beamform":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -107,7 +110,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"channel_set_width":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VHT operating Channel width
@@ -132,7 +135,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"ldpc":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable LDPC (Low Density Parity Check) coding capability
@@ -147,7 +150,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"link_adaptation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VHT link adaptation capabilities
@@ -168,7 +171,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"max_mpdu_exp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set the maximum length of A-MPDU pre-EOF padding that the station can receive
@@ -187,7 +190,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"max_mpdu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Increase Maximum MPDU length to 7991 or 11454 octets (otherwise: 3895 octets)
@@ -207,7 +210,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 		},
 
 		"short_gi":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -229,7 +232,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"tx_powersave":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable VHT TXOP Power Save Mode
@@ -244,7 +247,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 
 		"vht_cf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Station supports receiving VHT variant HT Control field
@@ -256,6 +259,8 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes(ctx context.
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

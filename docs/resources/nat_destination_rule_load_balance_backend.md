@@ -10,6 +10,7 @@ description: |-
 # vyos_nat_destination_rule_load_balance_backend (Resource)
 <center>
 
+
 Network Address Translation (NAT) parameters  
 ⯯  
 Destination NAT settings  

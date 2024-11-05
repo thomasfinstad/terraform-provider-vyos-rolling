@@ -10,6 +10,7 @@ description: |-
 # vyos_policy_route6 (Resource)
 <center>
 
+
 Routing policy  
 ⯯  
 **Policy route rule set name for IPv6**

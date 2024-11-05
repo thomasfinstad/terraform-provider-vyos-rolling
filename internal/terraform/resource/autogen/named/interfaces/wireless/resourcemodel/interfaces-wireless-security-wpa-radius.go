@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessSecURItyWpaRadius{}
 
 // InterfacesWirelessSecURItyWpaRadius describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessSecURItyWpaRadius struct {
 	// LeafNodes
 	LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesWirelessSecURItyWpaRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
@@ -37,7 +38,7 @@ func (o InterfacesWirelessSecURItyWpaRadius) ResourceSchemaAttributes(ctx contex
 
 		"source_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 source address used to initiate connection
@@ -53,6 +54,8 @@ func (o InterfacesWirelessSecURItyWpaRadius) ResourceSchemaAttributes(ctx contex
     |  ipv4    |  IPv4 source address  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

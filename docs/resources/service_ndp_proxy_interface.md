@@ -10,6 +10,7 @@ description: |-
 # vyos_service_ndp_proxy_interface (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Neighbor Discovery Protocol (NDP) Proxy  

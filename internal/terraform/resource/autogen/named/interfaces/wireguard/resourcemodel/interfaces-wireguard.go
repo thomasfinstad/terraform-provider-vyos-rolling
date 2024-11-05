@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesWireguard{}
 
 // InterfacesWireguard describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesWireguard struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -47,13 +49,16 @@ type InterfacesWireguard struct {
 	LeafInterfacesWireguardPerClientThread types.Bool   `tfsdk:"per_client_thread" vyos:"per-client-thread,omitempty"`
 	LeafInterfacesWireguardVrf             types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesWireguardPeer bool `tfsdk:"-" vyos:"peer,child"`
 
 	// Nodes
+
 	NodeInterfacesWireguardMirror *InterfacesWireguardMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
-	NodeInterfacesWireguardIP     *InterfacesWireguardIP     `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesWireguardIP *InterfacesWireguardIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
 	NodeInterfacesWireguardIPvsix *InterfacesWireguardIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
 }
 
@@ -92,8 +97,9 @@ func (o *InterfacesWireguard) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesWireguard) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -103,7 +109,7 @@ func (o *InterfacesWireguard) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesWireguard) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -143,8 +149,8 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  wireguard, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  wireguard, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -162,7 +168,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -184,7 +190,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -203,7 +209,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -218,7 +224,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -237,7 +243,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -259,7 +265,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"fwmark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `A 32-bit fwmark value set on all outgoing packets
@@ -281,7 +287,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"private_key":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Base64 encoded private key
@@ -294,7 +300,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -313,7 +319,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"per_client_thread":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Process traffic from each client in a dedicated thread
@@ -328,7 +334,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -344,6 +350,8 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

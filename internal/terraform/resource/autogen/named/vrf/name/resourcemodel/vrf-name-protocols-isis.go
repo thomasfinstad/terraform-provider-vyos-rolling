@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsIsis{}
 
 // VrfNameProtocolsIsis describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsIsis struct {
 	// LeafNodes
 	LeafVrfNameProtocolsIsisAdvertiseHighMetrics types.Bool   `tfsdk:"advertise_high_metrics" vyos:"advertise-high-metrics,omitempty"`
@@ -38,21 +40,29 @@ type VrfNameProtocolsIsis struct {
 	LeafVrfNameProtocolsIsisSetOverloadBit       types.Bool   `tfsdk:"set_overload_bit" vyos:"set-overload-bit,omitempty"`
 	LeafVrfNameProtocolsIsisSpfInterval          types.Number `tfsdk:"spf_interval" vyos:"spf-interval,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsIsisInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
-	NodeVrfNameProtocolsIsisAreaPassword       *VrfNameProtocolsIsisAreaPassword       `tfsdk:"area_password" vyos:"area-password,omitempty"`
+
+	NodeVrfNameProtocolsIsisAreaPassword *VrfNameProtocolsIsisAreaPassword `tfsdk:"area_password" vyos:"area-password,omitempty"`
+
 	NodeVrfNameProtocolsIsisDefaultInformation *VrfNameProtocolsIsisDefaultInformation `tfsdk:"default_information" vyos:"default-information,omitempty"`
-	NodeVrfNameProtocolsIsisDomainPassword     *VrfNameProtocolsIsisDomainPassword     `tfsdk:"domain_password" vyos:"domain-password,omitempty"`
-	NodeVrfNameProtocolsIsisLdpSync            *VrfNameProtocolsIsisLdpSync            `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
-	NodeVrfNameProtocolsIsisFastReroute        *VrfNameProtocolsIsisFastReroute        `tfsdk:"fast_reroute" vyos:"fast-reroute,omitempty"`
+
+	NodeVrfNameProtocolsIsisDomainPassword *VrfNameProtocolsIsisDomainPassword `tfsdk:"domain_password" vyos:"domain-password,omitempty"`
+
+	NodeVrfNameProtocolsIsisLdpSync *VrfNameProtocolsIsisLdpSync `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
+
+	NodeVrfNameProtocolsIsisFastReroute *VrfNameProtocolsIsisFastReroute `tfsdk:"fast_reroute" vyos:"fast-reroute,omitempty"`
+
 	NodeVrfNameProtocolsIsisTrafficEngineering *VrfNameProtocolsIsisTrafficEngineering `tfsdk:"traffic_engineering" vyos:"traffic-engineering,omitempty"`
-	NodeVrfNameProtocolsIsisSegmentRouting     *VrfNameProtocolsIsisSegmentRouting     `tfsdk:"segment_routing" vyos:"segment-routing,omitempty"`
-	NodeVrfNameProtocolsIsisRedistribute       *VrfNameProtocolsIsisRedistribute       `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
-	NodeVrfNameProtocolsIsisSpfDelayIetf       *VrfNameProtocolsIsisSpfDelayIetf       `tfsdk:"spf_delay_ietf" vyos:"spf-delay-ietf,omitempty"`
+
+	NodeVrfNameProtocolsIsisSegmentRouting *VrfNameProtocolsIsisSegmentRouting `tfsdk:"segment_routing" vyos:"segment-routing,omitempty"`
+
+	NodeVrfNameProtocolsIsisRedistribute *VrfNameProtocolsIsisRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+
+	NodeVrfNameProtocolsIsisSpfDelayIetf *VrfNameProtocolsIsisSpfDelayIetf `tfsdk:"spf_delay_ietf" vyos:"spf-delay-ietf,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -62,7 +72,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"advertise_high_metrics":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise high metric value on all interfaces
@@ -77,7 +87,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"advertise_passive_only":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise prefixes of passive interfaces only
@@ -92,7 +102,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"dynamic_hostname":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Dynamic hostname for IS-IS
@@ -107,7 +117,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"level":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IS-IS level number
@@ -130,7 +140,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"log_adjacency_changes":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log changes in adjacency state
@@ -145,7 +155,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"lsp_gen_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval between regenerating same LSP
@@ -164,7 +174,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"lsp_mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure the maximum size of generated LSPs
@@ -186,7 +196,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"lsp_refresh_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `LSP refresh interval
@@ -205,7 +215,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"max_lsp_lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum LSP lifetime
@@ -224,7 +234,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"metric_style":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Use old-style (ISO 10589) or new-style packet formats
@@ -247,7 +257,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"topology":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure IS-IS topologies
@@ -276,7 +286,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"net":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `A Network Entity Title for the process (ISO only)
@@ -295,7 +305,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"purge_originator":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use the RFC 6232 purge-originator
@@ -310,7 +320,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"set_attached_bit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set attached bit to identify as L1/L2 router for inter-area traffic
@@ -325,7 +335,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"set_overload_bit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set overload bit to avoid any transit traffic
@@ -340,7 +350,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"spf_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval between SPF calculations
@@ -356,6 +366,8 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
     |  1-120   |  Interval in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

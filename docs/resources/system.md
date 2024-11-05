@@ -26,11 +26,20 @@ description: |-
       - [domain_name](#domain_name)
       - [domain_search](#domain_search)
       - [host_name](#host_name)
+      - [logs](#logs)
       - [name_server](#name_server)
+      - [static_host_mapping](#static_host_mapping)
+      - [sysctl](#sysctl)
+      - [task_scheduler](#task_scheduler)
       - [time_zone](#time_zone)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `logs`](#nested-schema-for-logs)
+    - [Nested Schema for `logs.logrotate`](#nested-schema-for-logslogrotate)
+    - [Nested Schema for `static_host_mapping`](#nested-schema-for-static_host_mapping)
+    - [Nested Schema for `sysctl`](#nested-schema-for-sysctl)
+    - [Nested Schema for `task_scheduler`](#nested-schema-for-task_scheduler)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -47,6 +56,8 @@ description: |-
 - `domain_search` (List of String) Domain Name Server (DNS) domain completion order
 #### host_name
 - `host_name` (String) System host name (default: vyos)
+#### logs
+- `logs` (Attributes) Logging options (see [below for nested schema](#nestedatt--logs))
 #### name_server
 - `name_server` (List of String) System Domain Name Servers (DNS)
 
@@ -55,6 +66,12 @@ description: |-
     |  ipv4    &emsp;|  Domain Name Server IPv4 address             |
     |  ipv6    &emsp;|  Domain Name Server IPv6 address             |
     |  txt     &emsp;|  Use Domain Name Server from DHCP interface  |
+#### static_host_mapping
+- `static_host_mapping` (Attributes) Map host names to addresses (see [below for nested schema](#nestedatt--static_host_mapping))
+#### sysctl
+- `sysctl` (Attributes) Configure kernel parameters at runtime (see [below for nested schema](#nestedatt--sysctl))
+#### task_scheduler
+- `task_scheduler` (Attributes) Task scheduler settings (see [below for nested schema](#nestedatt--task_scheduler))
 #### time_zone
 - `time_zone` (String) Local time zone (default UTC)
 #### timeouts
@@ -64,6 +81,30 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--logs"></a>
+### Nested Schema for `logs`
+
+Optional:
+
+- `logrotate` (Attributes) Logrotate options (see [below for nested schema](#nestedatt--logs--logrotate))
+
+<a id="nestedatt--logs--logrotate"></a>
+### Nested Schema for `logs.logrotate`
+
+
+
+<a id="nestedatt--static_host_mapping"></a>
+### Nested Schema for `static_host_mapping`
+
+
+<a id="nestedatt--sysctl"></a>
+### Nested Schema for `sysctl`
+
+
+<a id="nestedatt--task_scheduler"></a>
+### Nested Schema for `task_scheduler`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

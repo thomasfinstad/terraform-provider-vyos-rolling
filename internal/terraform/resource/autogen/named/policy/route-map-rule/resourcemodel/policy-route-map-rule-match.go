@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteMapRuleMatch{}
 
 // PolicyRouteMapRuleMatch describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteMapRuleMatch struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleMatchAsPath          types.String `tfsdk:"as_path" vyos:"as-path,omitempty"`
@@ -31,14 +33,18 @@ type PolicyRouteMapRuleMatch struct {
 	LeafPolicyRouteMapRuleMatchRpki            types.String `tfsdk:"rpki" vyos:"rpki,omitempty"`
 	LeafPolicyRouteMapRuleMatchTag             types.Number `tfsdk:"tag" vyos:"tag,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodePolicyRouteMapRuleMatchCommunity      *PolicyRouteMapRuleMatchCommunity      `tfsdk:"community" vyos:"community,omitempty"`
-	NodePolicyRouteMapRuleMatchEvpn           *PolicyRouteMapRuleMatchEvpn           `tfsdk:"evpn" vyos:"evpn,omitempty"`
-	NodePolicyRouteMapRuleMatchIP             *PolicyRouteMapRuleMatchIP             `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodePolicyRouteMapRuleMatchIPvsix         *PolicyRouteMapRuleMatchIPvsix         `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodePolicyRouteMapRuleMatchCommunity *PolicyRouteMapRuleMatchCommunity `tfsdk:"community" vyos:"community,omitempty"`
+
+	NodePolicyRouteMapRuleMatchEvpn *PolicyRouteMapRuleMatchEvpn `tfsdk:"evpn" vyos:"evpn,omitempty"`
+
+	NodePolicyRouteMapRuleMatchIP *PolicyRouteMapRuleMatchIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodePolicyRouteMapRuleMatchIPvsix *PolicyRouteMapRuleMatchIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
 	NodePolicyRouteMapRuleMatchLargeCommunity *PolicyRouteMapRuleMatchLargeCommunity `tfsdk:"large_community" vyos:"large-community,omitempty"`
 }
 
@@ -49,7 +55,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"as_path":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP as-path-list to match
@@ -62,7 +68,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"extcommunity":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP extended community to match
@@ -75,7 +81,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface to use
@@ -94,7 +100,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"local_preference":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Local Preference
@@ -113,7 +119,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Metric of route to match
@@ -132,7 +138,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"origin":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP origin code to match
@@ -155,7 +161,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"peer":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer address to match
@@ -176,7 +182,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"protocol":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match protocol via which the route was learnt
@@ -217,7 +223,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"rpki":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match RPKI validation result
@@ -240,7 +246,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 
 		"tag":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Route tag value
@@ -256,6 +262,8 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
     |  1-65535  |  Route tag    |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsBfdPeer{}
 
 // ProtocolsBfdPeer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsBfdPeer struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -44,10 +46,12 @@ type ProtocolsBfdPeer struct {
 	LeafProtocolsBfdPeerMultihop   types.Bool   `tfsdk:"multihop" vyos:"multihop,omitempty"`
 	LeafProtocolsBfdPeerVrf        types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeProtocolsBfdPeerSource   *ProtocolsBfdPeerSource   `tfsdk:"source" vyos:"source,omitempty"`
+
+	NodeProtocolsBfdPeerSource *ProtocolsBfdPeerSource `tfsdk:"source" vyos:"source,omitempty"`
+
 	NodeProtocolsBfdPeerInterval *ProtocolsBfdPeerInterval `tfsdk:"interval" vyos:"interval,omitempty"`
 }
 
@@ -86,12 +90,13 @@ func (o *ProtocolsBfdPeer) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsBfdPeer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"bfd",
+		"bfd", // Node
+
 	}
 }
 
@@ -101,9 +106,9 @@ func (o *ProtocolsBfdPeer) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsBfdPeer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -145,8 +150,8 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  peer, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  peer, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -167,7 +172,7 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"profile":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
@@ -186,7 +191,7 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"echo_mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enables the echo transmission mode
@@ -201,7 +206,7 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"minimum_ttl":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Expect packets with at least this TTL
@@ -220,7 +225,7 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"passive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not attempt to start sessions
@@ -235,7 +240,7 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"shutdown":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable this peer
@@ -250,7 +255,7 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"multihop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow this BFD peer to not be directly connected
@@ -265,7 +270,7 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -281,6 +286,8 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

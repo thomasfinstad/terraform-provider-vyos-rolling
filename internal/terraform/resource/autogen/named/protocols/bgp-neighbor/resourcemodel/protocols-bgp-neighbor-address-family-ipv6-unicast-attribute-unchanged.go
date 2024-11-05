@@ -13,20 +13,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchanged{}
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchanged describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchanged struct {
 	// LeafNodes
 	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchangedAsPath  types.Bool `tfsdk:"as_path" vyos:"as-path,omitempty"`
 	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchangedMed     types.Bool `tfsdk:"med" vyos:"med,omitempty"`
 	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchangedNextHop types.Bool `tfsdk:"next_hop" vyos:"next-hop,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchanged) Resour
 
 		"as_path":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send AS path unchanged
@@ -53,7 +54,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchanged) Resour
 
 		"med":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send multi-exit discriminator unchanged
@@ -68,7 +69,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchanged) Resour
 
 		"next_hop":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send nexthop unchanged
@@ -80,6 +81,8 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastAttributeUnchanged) Resour
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

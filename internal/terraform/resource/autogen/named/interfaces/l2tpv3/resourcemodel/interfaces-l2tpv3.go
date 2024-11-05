@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesLtwotpvthree{}
 
 // InterfacesLtwotpvthree describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesLtwotpvthree struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -51,11 +53,14 @@ type InterfacesLtwotpvthree struct {
 	LeafInterfacesLtwotpvthreeTunnelID        types.Number `tfsdk:"tunnel_id" vyos:"tunnel-id,omitempty"`
 	LeafInterfacesLtwotpvthreeVrf             types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeInterfacesLtwotpvthreeIP     *InterfacesLtwotpvthreeIP     `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesLtwotpvthreeIP *InterfacesLtwotpvthreeIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
 	NodeInterfacesLtwotpvthreeIPvsix *InterfacesLtwotpvthreeIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
 	NodeInterfacesLtwotpvthreeMirror *InterfacesLtwotpvthreeMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
@@ -94,8 +99,9 @@ func (o *InterfacesLtwotpvthree) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesLtwotpvthree) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -105,7 +111,7 @@ func (o *InterfacesLtwotpvthree) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesLtwotpvthree) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -145,8 +151,8 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  l2tpv3, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  l2tpv3, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -164,7 +170,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -186,7 +192,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -205,7 +211,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"destination_port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `UDP destination port for L2TPv3 tunnel
@@ -227,7 +233,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -242,7 +248,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"encapsulation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Encapsulation type
@@ -266,7 +272,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"source_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source IP address used to initiate connection
@@ -287,7 +293,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -309,7 +315,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"peer_session_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer session identifier
@@ -328,7 +334,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"peer_tunnel_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer tunnel identifier
@@ -347,7 +353,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"remote":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Tunnel remote address
@@ -368,7 +374,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"session_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Session identifier
@@ -387,7 +393,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"source_port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `UDP source port for L2TPv3 tunnel
@@ -409,7 +415,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"tunnel_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Local tunnel identifier
@@ -428,7 +434,7 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -444,6 +450,8 @@ func (o InterfacesLtwotpvthree) ResourceSchemaAttributes(ctx context.Context) ma
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

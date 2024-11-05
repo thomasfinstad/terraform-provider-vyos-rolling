@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_pppoe (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Point-to-Point Protocol over Ethernet (PPPoE) Interface**

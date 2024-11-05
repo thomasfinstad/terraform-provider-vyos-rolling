@@ -13,18 +13,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpParametersBestpathPeerType{}
 
 // VrfNameProtocolsBgpParametersBestpathPeerType describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpParametersBestpathPeerType struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax types.Bool `tfsdk:"multipath_relax" vyos:"multipath-relax,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o VrfNameProtocolsBgpParametersBestpathPeerType) ResourceSchemaAttributes(
 
 		"multipath_relax":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow load sharing across routes learned from different peer types
@@ -48,6 +49,8 @@ func (o VrfNameProtocolsBgpParametersBestpathPeerType) ResourceSchemaAttributes(
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

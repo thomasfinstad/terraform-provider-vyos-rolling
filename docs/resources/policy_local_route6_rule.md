@@ -10,6 +10,7 @@ description: |-
 # vyos_policy_local_route6_rule (Resource)
 <center>
 
+
 Routing policy  
 ⯯  
 IPv6 policy route of local traffic  

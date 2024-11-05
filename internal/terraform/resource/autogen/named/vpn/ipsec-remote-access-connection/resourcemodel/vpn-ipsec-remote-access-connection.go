@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VpnIPsecRemoteAccessConnection{}
 
 // VpnIPsecRemoteAccessConnection describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VpnIPsecRemoteAccessConnection struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -48,11 +50,13 @@ type VpnIPsecRemoteAccessConnection struct {
 	LeafVpnIPsecRemoteAccessConnectionPool          types.List   `tfsdk:"pool" vyos:"pool,omitempty"`
 	LeafVpnIPsecRemoteAccessConnectionUnique        types.String `tfsdk:"unique" vyos:"unique,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVpnIPsecRemoteAccessConnectionAuthentication *VpnIPsecRemoteAccessConnectionAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
-	NodeVpnIPsecRemoteAccessConnectionLocal          *VpnIPsecRemoteAccessConnectionLocal          `tfsdk:"local" vyos:"local,omitempty"`
+
+	NodeVpnIPsecRemoteAccessConnectionLocal *VpnIPsecRemoteAccessConnectionLocal `tfsdk:"local" vyos:"local,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -90,16 +94,17 @@ func (o *VpnIPsecRemoteAccessConnection) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnIPsecRemoteAccessConnection) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"ipsec",
+		"ipsec", // Node
 
-		"remote-access",
+		"remote-access", // Node
+
 	}
 }
 
@@ -109,11 +114,11 @@ func (o *VpnIPsecRemoteAccessConnection) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VpnIPsecRemoteAccessConnection) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -153,8 +158,8 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  connection, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  connection, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -177,7 +182,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -196,7 +201,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -211,7 +216,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"esp_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Encapsulating Security Payloads (ESP) group name
@@ -224,7 +229,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"ike_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Internet Key Exchange (IKE) group name
@@ -237,7 +242,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"local_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 or IPv6 address of a local interface to use for VPN
@@ -260,7 +265,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"dhcp_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
@@ -279,7 +284,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"replay_window":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IPsec replay window to configure for this CHILD_SA
@@ -303,7 +308,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"bind":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VTI tunnel interface associated with this configuration
@@ -316,7 +321,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout to close connection if no data is transmitted
@@ -339,7 +344,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"pool":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -363,7 +368,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
 
 		"unique":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Connection uniqueness enforcement policy
@@ -383,6 +388,8 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes(ctx context.Con
     |  replace  |  Delete any existing connection if a new one for the same user gets established    |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

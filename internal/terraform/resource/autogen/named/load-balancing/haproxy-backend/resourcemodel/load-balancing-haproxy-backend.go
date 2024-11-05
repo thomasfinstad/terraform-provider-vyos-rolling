@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &LoadBalancingHaproxyBackend{}
 
 // LoadBalancingHaproxyBackend describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type LoadBalancingHaproxyBackend struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,7 +42,7 @@ type LoadBalancingHaproxyBackend struct {
 	LeafLoadBalancingHaproxyBackendMode        types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafLoadBalancingHaproxyBackendHealthCheck types.String `tfsdk:"health_check" vyos:"health-check,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagLoadBalancingHaproxyBackendHTTPResponseHeaders bool `tfsdk:"-" vyos:"http-response-headers,child"`
 
@@ -49,10 +51,14 @@ type LoadBalancingHaproxyBackend struct {
 	ExistsTagLoadBalancingHaproxyBackendServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes
-	NodeLoadBalancingHaproxyBackendLogging   *LoadBalancingHaproxyBackendLogging   `tfsdk:"logging" vyos:"logging,omitempty"`
+
+	NodeLoadBalancingHaproxyBackendLogging *LoadBalancingHaproxyBackendLogging `tfsdk:"logging" vyos:"logging,omitempty"`
+
 	NodeLoadBalancingHaproxyBackendHTTPCheck *LoadBalancingHaproxyBackendHTTPCheck `tfsdk:"http_check" vyos:"http-check,omitempty"`
-	NodeLoadBalancingHaproxyBackendSsl       *LoadBalancingHaproxyBackendSsl       `tfsdk:"ssl" vyos:"ssl,omitempty"`
-	NodeLoadBalancingHaproxyBackendTimeout   *LoadBalancingHaproxyBackendTimeout   `tfsdk:"timeout" vyos:"timeout,omitempty"`
+
+	NodeLoadBalancingHaproxyBackendSsl *LoadBalancingHaproxyBackendSsl `tfsdk:"ssl" vyos:"ssl,omitempty"`
+
+	NodeLoadBalancingHaproxyBackendTimeout *LoadBalancingHaproxyBackendTimeout `tfsdk:"timeout" vyos:"timeout,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -90,12 +96,13 @@ func (o *LoadBalancingHaproxyBackend) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *LoadBalancingHaproxyBackend) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"load-balancing",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"load-balancing", // Node
 
-		"haproxy",
+		"haproxy", // Node
+
 	}
 }
 
@@ -105,9 +112,9 @@ func (o *LoadBalancingHaproxyBackend) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *LoadBalancingHaproxyBackend) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -141,8 +148,8 @@ func (o LoadBalancingHaproxyBackend) ResourceSchemaAttributes(ctx context.Contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  backend, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  backend, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -163,7 +170,7 @@ func (o LoadBalancingHaproxyBackend) ResourceSchemaAttributes(ctx context.Contex
 
 		"balance":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Load-balancing algorithm
@@ -189,7 +196,7 @@ func (o LoadBalancingHaproxyBackend) ResourceSchemaAttributes(ctx context.Contex
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -208,7 +215,7 @@ func (o LoadBalancingHaproxyBackend) ResourceSchemaAttributes(ctx context.Contex
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Proxy mode
@@ -232,7 +239,7 @@ func (o LoadBalancingHaproxyBackend) ResourceSchemaAttributes(ctx context.Contex
 
 		"health_check":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Non HTTP health check options
@@ -256,6 +263,8 @@ func (o LoadBalancingHaproxyBackend) ResourceSchemaAttributes(ctx context.Contex
     |  smtp    |  SMTP protocol check        |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &System{}
 
 // System describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type System struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -32,29 +34,49 @@ type System struct {
 	LeafSystemNameServer   types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
 	LeafSystemTimeZone     types.String `tfsdk:"time_zone" vyos:"time-zone,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemAcceleration      bool `tfsdk:"-" vyos:"acceleration,child"`
-	ExistsNodeSystemConfigManagement  bool `tfsdk:"-" vyos:"config-management,child"`
-	ExistsNodeSystemConntrack         bool `tfsdk:"-" vyos:"conntrack,child"`
-	ExistsNodeSystemConsole           bool `tfsdk:"-" vyos:"console,child"`
-	ExistsNodeSystemFlowAccounting    bool `tfsdk:"-" vyos:"flow-accounting,child"`
-	ExistsNodeSystemFrr               bool `tfsdk:"-" vyos:"frr,child"`
-	ExistsNodeSystemIP                bool `tfsdk:"-" vyos:"ip,child"`
-	ExistsNodeSystemIPvsix            bool `tfsdk:"-" vyos:"ipv6,child"`
-	ExistsNodeSystemLcd               bool `tfsdk:"-" vyos:"lcd,child"`
-	ExistsNodeSystemLogin             bool `tfsdk:"-" vyos:"login,child"`
-	ExistsNodeSystemLogs              bool `tfsdk:"-" vyos:"logs,child"`
-	ExistsNodeSystemOption            bool `tfsdk:"-" vyos:"option,child"`
-	ExistsNodeSystemProxy             bool `tfsdk:"-" vyos:"proxy,child"`
-	ExistsNodeSystemSflow             bool `tfsdk:"-" vyos:"sflow,child"`
-	ExistsNodeSystemStaticHostMapping bool `tfsdk:"-" vyos:"static-host-mapping,child"`
-	ExistsNodeSystemSysctl            bool `tfsdk:"-" vyos:"sysctl,child"`
-	ExistsNodeSystemSyslog            bool `tfsdk:"-" vyos:"syslog,child"`
-	ExistsNodeSystemTaskScheduler     bool `tfsdk:"-" vyos:"task-scheduler,child"`
-	ExistsNodeSystemUpdateCheck       bool `tfsdk:"-" vyos:"update-check,child"`
-	ExistsNodeSystemWireless          bool `tfsdk:"-" vyos:"wireless,child"`
+	// Nodes
+
+	ExistsNodeSystemAcceleration bool `tfsdk:"-" vyos:"acceleration,child"`
+
+	ExistsNodeSystemConfigManagement bool `tfsdk:"-" vyos:"config-management,child"`
+
+	ExistsNodeSystemConntrack bool `tfsdk:"-" vyos:"conntrack,child"`
+
+	ExistsNodeSystemConsole bool `tfsdk:"-" vyos:"console,child"`
+
+	ExistsNodeSystemFlowAccounting bool `tfsdk:"-" vyos:"flow-accounting,child"`
+
+	ExistsNodeSystemFrr bool `tfsdk:"-" vyos:"frr,child"`
+
+	ExistsNodeSystemIP bool `tfsdk:"-" vyos:"ip,child"`
+
+	ExistsNodeSystemIPvsix bool `tfsdk:"-" vyos:"ipv6,child"`
+
+	ExistsNodeSystemLcd bool `tfsdk:"-" vyos:"lcd,child"`
+
+	ExistsNodeSystemLogin bool `tfsdk:"-" vyos:"login,child"`
+
+	NodeSystemLogs *SystemLogs `tfsdk:"logs" vyos:"logs,omitempty"`
+
+	ExistsNodeSystemOption bool `tfsdk:"-" vyos:"option,child"`
+
+	ExistsNodeSystemProxy bool `tfsdk:"-" vyos:"proxy,child"`
+
+	ExistsNodeSystemSflow bool `tfsdk:"-" vyos:"sflow,child"`
+
+	NodeSystemStaticHostMapping *SystemStaticHostMapping `tfsdk:"static_host_mapping" vyos:"static-host-mapping,omitempty"`
+
+	NodeSystemSysctl *SystemSysctl `tfsdk:"sysctl" vyos:"sysctl,omitempty"`
+
+	ExistsNodeSystemSyslog bool `tfsdk:"-" vyos:"syslog,child"`
+
+	NodeSystemTaskScheduler *SystemTaskScheduler `tfsdk:"task_scheduler" vyos:"task-scheduler,omitempty"`
+
+	ExistsNodeSystemUpdateCheck bool `tfsdk:"-" vyos:"update-check,child"`
+
+	ExistsNodeSystemWireless bool `tfsdk:"-" vyos:"wireless,child"`
 }
 
 // SetID configures the resource ID
@@ -93,7 +115,6 @@ func (o *System) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *System) GetVyosNamedParentPath() []string {
 	return []string{}
 }
@@ -114,7 +135,7 @@ func (o System) ResourceSchemaAttributes(ctx context.Context) map[string]schema.
 
 		"domain_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `System domain name
@@ -126,7 +147,7 @@ func (o System) ResourceSchemaAttributes(ctx context.Context) map[string]schema.
 		},
 
 		"domain_search":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -140,7 +161,7 @@ func (o System) ResourceSchemaAttributes(ctx context.Context) map[string]schema.
 
 		"host_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `System host name (default: vyos)
@@ -152,7 +173,7 @@ func (o System) ResourceSchemaAttributes(ctx context.Context) map[string]schema.
 		},
 
 		"name_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -176,13 +197,61 @@ func (o System) ResourceSchemaAttributes(ctx context.Context) map[string]schema.
 
 		"time_zone":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Local time zone (default UTC)
 
 `,
 			Description: `Local time zone (default UTC)
+
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"logs": schema.SingleNestedAttribute{
+			Attributes: SystemLogs{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Logging options
+
+`,
+			Description: `Logging options
+
+`,
+		},
+
+		"static_host_mapping": schema.SingleNestedAttribute{
+			Attributes: SystemStaticHostMapping{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Map host names to addresses
+
+`,
+			Description: `Map host names to addresses
+
+`,
+		},
+
+		"sysctl": schema.SingleNestedAttribute{
+			Attributes: SystemSysctl{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Configure kernel parameters at runtime
+
+`,
+			Description: `Configure kernel parameters at runtime
+
+`,
+		},
+
+		"task_scheduler": schema.SingleNestedAttribute{
+			Attributes: SystemTaskScheduler{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Task scheduler settings
+
+`,
+			Description: `Task scheduler settings
 
 `,
 		},

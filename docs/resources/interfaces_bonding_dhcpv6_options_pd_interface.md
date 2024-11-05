@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_bonding_dhcpv6_options_pd_interface (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Bonding Interface/Link Aggregation  

@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesPppoe{}
 
 // InterfacesPppoe describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesPppoe struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -55,14 +57,19 @@ type InterfacesPppoe struct {
 	LeafInterfacesPppoeRedirect             types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesPppoeVrf                  types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeInterfacesPppoeAuthentication  *InterfacesPppoeAuthentication  `tfsdk:"authentication" vyos:"authentication,omitempty"`
+
+	NodeInterfacesPppoeAuthentication *InterfacesPppoeAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
+
 	NodeInterfacesPppoeDhcpvsixOptions *InterfacesPppoeDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
-	NodeInterfacesPppoeIP              *InterfacesPppoeIP              `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesPppoeIPvsix          *InterfacesPppoeIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesPppoeMirror          *InterfacesPppoeMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesPppoeIP *InterfacesPppoeIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesPppoeIPvsix *InterfacesPppoeIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesPppoeMirror *InterfacesPppoeMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -100,8 +107,9 @@ func (o *InterfacesPppoe) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesPppoe) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -111,7 +119,7 @@ func (o *InterfacesPppoe) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesPppoe) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -151,8 +159,8 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  pppoe, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  pppoe, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -171,7 +179,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"access_concentrator":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Access concentrator name
@@ -184,7 +192,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"connect_on_demand":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Establishment connection automatically when traffic is sent
@@ -199,7 +207,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"no_default_route":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not install default route to system
@@ -214,7 +222,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"default_route_distance":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
@@ -236,7 +244,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -255,7 +263,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -270,7 +278,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"idle_timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay before disconnecting idle session (in seconds)
@@ -289,7 +297,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"host_uniq":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `PPPoE RFC2516 host-uniq tag
@@ -308,7 +316,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"holdoff":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay before re-dial to the access concentrator when PPP session terminated by peer (in seconds)
@@ -330,7 +338,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"source_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
@@ -349,7 +357,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"local_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 address of local end of the PPPoE link
@@ -368,7 +376,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -390,7 +398,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"mru":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Receive Unit (MRU) (default: MTU value)
@@ -409,7 +417,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"no_peer_dns":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not use DNS servers provided by the peer
@@ -424,7 +432,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"remote_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 address of remote end of the PPPoE link
@@ -443,7 +451,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"service_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Service name, only connect to access concentrators advertising this
@@ -456,7 +464,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -475,7 +483,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -491,6 +499,8 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallBrIDgeNameRuleSource{}
 
 // FirewallBrIDgeNameRuleSource describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallBrIDgeNameRuleSource struct {
 	// LeafNodes
 	LeafFirewallBrIDgeNameRuleSourceMacAddress  types.String `tfsdk:"mac_address" vyos:"mac-address,omitempty"`
@@ -25,10 +27,10 @@ type FirewallBrIDgeNameRuleSource struct {
 	LeafFirewallBrIDgeNameRuleSourceAddressMask types.String `tfsdk:"address_mask" vyos:"address-mask,omitempty"`
 	LeafFirewallBrIDgeNameRuleSourcePort        types.String `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeFirewallBrIDgeNameRuleSourceGroup *FirewallBrIDgeNameRuleSourceGroup `tfsdk:"group" vyos:"group,omitempty"`
 }
 
@@ -39,7 +41,7 @@ func (o FirewallBrIDgeNameRuleSource) ResourceSchemaAttributes(ctx context.Conte
 
 		"mac_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `MAC address
@@ -60,7 +62,7 @@ func (o FirewallBrIDgeNameRuleSource) ResourceSchemaAttributes(ctx context.Conte
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
@@ -99,7 +101,7 @@ func (o FirewallBrIDgeNameRuleSource) ResourceSchemaAttributes(ctx context.Conte
 
 		"address_mask":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP mask
@@ -120,7 +122,7 @@ func (o FirewallBrIDgeNameRuleSource) ResourceSchemaAttributes(ctx context.Conte
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port
@@ -142,6 +144,8 @@ func (o FirewallBrIDgeNameRuleSource) ResourceSchemaAttributes(ctx context.Conte
     |               |  </br></br>  Multiple destination ports can be specified as a comma-separated list.</br>  For example: 'telnet,http,123,1001-1005'  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

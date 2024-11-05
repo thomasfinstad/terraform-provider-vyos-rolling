@@ -10,6 +10,7 @@ description: |-
 # vyos_service_event_handler_event (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Service event handler  

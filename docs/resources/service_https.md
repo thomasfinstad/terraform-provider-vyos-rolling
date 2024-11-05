@@ -27,6 +27,7 @@ description: |-
 - [vyos_service_https (Resource)](#vyos_service_https-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [api](#api)
       - [enable_http_redirect](#enable_http_redirect)
       - [listen_address](#listen_address)
       - [port](#port)
@@ -36,6 +37,8 @@ description: |-
       - [vrf](#vrf)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `api`](#nested-schema-for-api)
+    - [Nested Schema for `api.keys`](#nested-schema-for-apikeys)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -46,6 +49,8 @@ description: |-
 
 ### Optional
 
+#### api
+- `api` (Attributes) VyOS HTTP API configuration (see [below for nested schema](#nestedatt--api))
 #### enable_http_redirect
 - `enable_http_redirect` (Boolean) Enable HTTP to HTTPS redirect
 #### listen_address
@@ -87,6 +92,18 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--api"></a>
+### Nested Schema for `api`
+
+Optional:
+
+- `keys` (Attributes) HTTP API keys (see [below for nested schema](#nestedatt--api--keys))
+
+<a id="nestedatt--api--keys"></a>
+### Nested Schema for `api.keys`
+
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

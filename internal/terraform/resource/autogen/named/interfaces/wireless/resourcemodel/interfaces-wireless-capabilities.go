@@ -13,25 +13,29 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesWirelessCapabilities{}
 
 // InterfacesWirelessCapabilities describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesWirelessCapabilities struct {
 	// LeafNodes
 	LeafInterfacesWirelessCapabilitiesRequireHt  types.Bool `tfsdk:"require_ht" vyos:"require-ht,omitempty"`
 	LeafInterfacesWirelessCapabilitiesRequireVht types.Bool `tfsdk:"require_vht" vyos:"require-vht,omitempty"`
 	LeafInterfacesWirelessCapabilitiesRequireHe  types.Bool `tfsdk:"require_he" vyos:"require-he,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeInterfacesWirelessCapabilitiesHt  *InterfacesWirelessCapabilitiesHt  `tfsdk:"ht" vyos:"ht,omitempty"`
+
+	NodeInterfacesWirelessCapabilitiesHt *InterfacesWirelessCapabilitiesHt `tfsdk:"ht" vyos:"ht,omitempty"`
+
 	NodeInterfacesWirelessCapabilitiesVht *InterfacesWirelessCapabilitiesVht `tfsdk:"vht" vyos:"vht,omitempty"`
-	NodeInterfacesWirelessCapabilitiesHe  *InterfacesWirelessCapabilitiesHe  `tfsdk:"he" vyos:"he,omitempty"`
+
+	NodeInterfacesWirelessCapabilitiesHe *InterfacesWirelessCapabilitiesHe `tfsdk:"he" vyos:"he,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -41,7 +45,7 @@ func (o InterfacesWirelessCapabilities) ResourceSchemaAttributes(ctx context.Con
 
 		"require_ht":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Require stations to support HT PHY
@@ -56,7 +60,7 @@ func (o InterfacesWirelessCapabilities) ResourceSchemaAttributes(ctx context.Con
 
 		"require_vht":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Require stations to support VHT PHY
@@ -71,7 +75,7 @@ func (o InterfacesWirelessCapabilities) ResourceSchemaAttributes(ctx context.Con
 
 		"require_he":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Require stations to support HE PHY
@@ -83,6 +87,8 @@ func (o InterfacesWirelessCapabilities) ResourceSchemaAttributes(ctx context.Con
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

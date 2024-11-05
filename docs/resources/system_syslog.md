@@ -27,10 +27,12 @@ description: |-
 - [vyos_system_syslog (Resource)](#vyos_system_syslog-resource)
   - [Schema](#schema)
     - [Optional](#optional)
+      - [console](#console)
       - [timeouts](#timeouts)
       - [vrf](#vrf)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `console`](#nested-schema-for-console)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -41,6 +43,8 @@ description: |-
 
 ### Optional
 
+#### console
+- `console` (Attributes) logging to serial console (see [below for nested schema](#nestedatt--console))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### vrf
@@ -54,6 +58,10 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--console"></a>
+### Nested Schema for `console`
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

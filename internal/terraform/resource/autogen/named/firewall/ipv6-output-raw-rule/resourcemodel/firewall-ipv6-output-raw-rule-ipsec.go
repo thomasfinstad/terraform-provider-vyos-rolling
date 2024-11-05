@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixOutputRawRuleIPsec{}
 
 // FirewallIPvsixOutputRawRuleIPsec describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixOutputRawRuleIPsec struct {
 	// LeafNodes
 	LeafFirewallIPvsixOutputRawRuleIPsecMatchIPsecOut types.Bool `tfsdk:"match_ipsec_out" vyos:"match-ipsec-out,omitempty"`
 	LeafFirewallIPvsixOutputRawRuleIPsecMatchNoneOut  types.Bool `tfsdk:"match_none_out" vyos:"match-none-out,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o FirewallIPvsixOutputRawRuleIPsec) ResourceSchemaAttributes(ctx context.C
 
 		"match_ipsec_out":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Outbound traffic to be IPsec encapsulated
@@ -52,7 +53,7 @@ func (o FirewallIPvsixOutputRawRuleIPsec) ResourceSchemaAttributes(ctx context.C
 
 		"match_none_out":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Outbound traffic that will not be IPsec encapsulated
@@ -64,6 +65,8 @@ func (o FirewallIPvsixOutputRawRuleIPsec) ResourceSchemaAttributes(ctx context.C
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

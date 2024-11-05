@@ -10,6 +10,7 @@ description: |-
 # vyos_firewall_ipv6_prerouting_raw_rule (Resource)
 <center>
 
+
 Firewall  
 ⯯  
 IPv6 firewall  

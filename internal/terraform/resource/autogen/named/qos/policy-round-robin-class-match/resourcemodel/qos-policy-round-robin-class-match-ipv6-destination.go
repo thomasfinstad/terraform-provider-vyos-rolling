@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &QosPolicyRoundRobinClassMatchIPvsixDestination{}
 
 // QosPolicyRoundRobinClassMatchIPvsixDestination describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type QosPolicyRoundRobinClassMatchIPvsixDestination struct {
 	// LeafNodes
 	LeafQosPolicyRoundRobinClassMatchIPvsixDestinationAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafQosPolicyRoundRobinClassMatchIPvsixDestinationPort    types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o QosPolicyRoundRobinClassMatchIPvsixDestination) ResourceSchemaAttributes
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv6 destination address for this match
@@ -55,7 +56,7 @@ func (o QosPolicyRoundRobinClassMatchIPvsixDestination) ResourceSchemaAttributes
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -71,6 +72,8 @@ func (o QosPolicyRoundRobinClassMatchIPvsixDestination) ResourceSchemaAttributes
     |  1-65535  |  Numeric IP port  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

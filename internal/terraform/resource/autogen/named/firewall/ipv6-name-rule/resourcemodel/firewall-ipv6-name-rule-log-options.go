@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvsixNameRuleLogOptions{}
 
 // FirewallIPvsixNameRuleLogOptions describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvsixNameRuleLogOptions struct {
 	// LeafNodes
 	LeafFirewallIPvsixNameRuleLogOptionsGroup          types.Number `tfsdk:"group" vyos:"group,omitempty"`
@@ -25,8 +27,7 @@ type FirewallIPvsixNameRuleLogOptions struct {
 	LeafFirewallIPvsixNameRuleLogOptionsQueueThreshold types.Number `tfsdk:"queue_threshold" vyos:"queue-threshold,omitempty"`
 	LeafFirewallIPvsixNameRuleLogOptionsLevel          types.String `tfsdk:"level" vyos:"level,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o FirewallIPvsixNameRuleLogOptions) ResourceSchemaAttributes(ctx context.C
 
 		"group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set log group
@@ -57,7 +58,7 @@ func (o FirewallIPvsixNameRuleLogOptions) ResourceSchemaAttributes(ctx context.C
 
 		"snapshot_length":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Length of packet payload to include in netlink message
@@ -76,7 +77,7 @@ func (o FirewallIPvsixNameRuleLogOptions) ResourceSchemaAttributes(ctx context.C
 
 		"queue_threshold":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of packets to queue inside the kernel before sending them to userspace
@@ -95,7 +96,7 @@ func (o FirewallIPvsixNameRuleLogOptions) ResourceSchemaAttributes(ctx context.C
 
 		"level":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set log-level
@@ -125,6 +126,8 @@ func (o FirewallIPvsixNameRuleLogOptions) ResourceSchemaAttributes(ctx context.C
     |  debug   |  Debug log level     |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

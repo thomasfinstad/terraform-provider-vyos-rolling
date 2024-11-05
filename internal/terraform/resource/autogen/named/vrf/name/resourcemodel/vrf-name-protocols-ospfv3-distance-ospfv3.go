@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfvthreeDistanceOspfvthree{}
 
 // VrfNameProtocolsOspfvthreeDistanceOspfvthree describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfvthreeDistanceOspfvthree struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfvthreeDistanceOspfvthreeExternal  types.Number `tfsdk:"external" vyos:"external,omitempty"`
 	LeafVrfNameProtocolsOspfvthreeDistanceOspfvthreeInterArea types.Number `tfsdk:"inter_area" vyos:"inter-area,omitempty"`
 	LeafVrfNameProtocolsOspfvthreeDistanceOspfvthreeIntraArea types.Number `tfsdk:"intra_area" vyos:"intra-area,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceSchemaAttributes(c
 
 		"external":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for external routes
@@ -56,7 +57,7 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceSchemaAttributes(c
 
 		"inter_area":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for inter-area routes
@@ -75,7 +76,7 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceSchemaAttributes(c
 
 		"intra_area":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for intra-area routes
@@ -91,6 +92,8 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceSchemaAttributes(c
     |  1-255   |  Distance for intra-area routes  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_nat_cgnat_rule (Resource)
 <center>
 
+
 Network Address Translation (NAT) parameters  
 ⯯  
 Carrier-grade NAT (CGNAT) parameters  

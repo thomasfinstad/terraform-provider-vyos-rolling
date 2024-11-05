@@ -10,6 +10,7 @@ description: |-
 # vyos_netns_name (Resource)
 <center>
 
+
 Network namespace  
 ⯯  
 **Network namespace name**

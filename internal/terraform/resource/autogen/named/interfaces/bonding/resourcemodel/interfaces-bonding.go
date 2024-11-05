@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesBonding{}
 
 // InterfacesBonding describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesBonding struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -52,22 +54,31 @@ type InterfacesBonding struct {
 	LeafInterfacesBondingPrimary           types.String `tfsdk:"primary" vyos:"primary,omitempty"`
 	LeafInterfacesBondingRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagInterfacesBondingVifS bool `tfsdk:"-" vyos:"vif-s,child"`
 
 	ExistsTagInterfacesBondingVif bool `tfsdk:"-" vyos:"vif,child"`
 
 	// Nodes
-	NodeInterfacesBondingArpMonitor      *InterfacesBondingArpMonitor      `tfsdk:"arp_monitor" vyos:"arp-monitor,omitempty"`
-	NodeInterfacesBondingDhcpOptions     *InterfacesBondingDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
+	NodeInterfacesBondingArpMonitor *InterfacesBondingArpMonitor `tfsdk:"arp_monitor" vyos:"arp-monitor,omitempty"`
+
+	NodeInterfacesBondingDhcpOptions *InterfacesBondingDhcpOptions `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
+
 	NodeInterfacesBondingDhcpvsixOptions *InterfacesBondingDhcpvsixOptions `tfsdk:"dhcpv6_options" vyos:"dhcpv6-options,omitempty"`
-	NodeInterfacesBondingMirror          *InterfacesBondingMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
-	NodeInterfacesBondingEapol           *InterfacesBondingEapol           `tfsdk:"eapol" vyos:"eapol,omitempty"`
-	NodeInterfacesBondingEvpn            *InterfacesBondingEvpn            `tfsdk:"evpn" vyos:"evpn,omitempty"`
-	NodeInterfacesBondingIP              *InterfacesBondingIP              `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesBondingIPvsix          *InterfacesBondingIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesBondingMember          *InterfacesBondingMember          `tfsdk:"member" vyos:"member,omitempty"`
+
+	NodeInterfacesBondingMirror *InterfacesBondingMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesBondingEapol *InterfacesBondingEapol `tfsdk:"eapol" vyos:"eapol,omitempty"`
+
+	NodeInterfacesBondingEvpn *InterfacesBondingEvpn `tfsdk:"evpn" vyos:"evpn,omitempty"`
+
+	NodeInterfacesBondingIP *InterfacesBondingIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesBondingIPvsix *InterfacesBondingIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesBondingMember *InterfacesBondingMember `tfsdk:"member" vyos:"member,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -105,8 +116,9 @@ func (o *InterfacesBonding) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesBonding) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -116,7 +128,7 @@ func (o *InterfacesBonding) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesBonding) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -156,8 +168,8 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  bonding, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  bonding, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -175,7 +187,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -201,7 +213,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -220,7 +232,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"disable_link_detect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
@@ -235,7 +247,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -250,7 +262,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -269,7 +281,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"hash_policy":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Bonding transmit hash policy
@@ -299,7 +311,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
@@ -318,7 +330,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"mii_mon_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies the MII link monitoring frequency in milliseconds
@@ -342,7 +354,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"min_links":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum number of member interfaces required up before enabling bond
@@ -364,7 +376,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"system_mac":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `System MAC address for 802.3ad
@@ -383,7 +395,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"lacp_rate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Rate in which we will ask our link partner to transmit LACPDU packets
@@ -407,7 +419,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Bonding mode
@@ -441,7 +453,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -463,7 +475,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"primary":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Primary device interface
@@ -482,7 +494,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -498,6 +510,8 @@ func (o InterfacesBonding) ResourceSchemaAttributes(ctx context.Context) map[str
     |  txt     |  Destination interface name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

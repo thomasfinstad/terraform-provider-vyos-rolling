@@ -10,6 +10,7 @@ description: |-
 # vyos_service_console_server_device (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Serial Console Server  

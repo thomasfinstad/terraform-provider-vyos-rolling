@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &SystemConntrackIgnoreIPvsixRuleSourceGroup{}
 
 // SystemConntrackIgnoreIPvsixRuleSourceGroup describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type SystemConntrackIgnoreIPvsixRuleSourceGroup struct {
 	// LeafNodes
 	LeafSystemConntrackIgnoreIPvsixRuleSourceGroupAddressGroup types.String `tfsdk:"address_group" vyos:"address-group,omitempty"`
@@ -26,8 +28,7 @@ type SystemConntrackIgnoreIPvsixRuleSourceGroup struct {
 	LeafSystemConntrackIgnoreIPvsixRuleSourceGroupNetworkGroup types.String `tfsdk:"network_group" vyos:"network-group,omitempty"`
 	LeafSystemConntrackIgnoreIPvsixRuleSourceGroupPortGroup    types.String `tfsdk:"port_group" vyos:"port-group,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o SystemConntrackIgnoreIPvsixRuleSourceGroup) ResourceSchemaAttributes(ctx
 
 		"address_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of addresses
@@ -52,7 +53,7 @@ func (o SystemConntrackIgnoreIPvsixRuleSourceGroup) ResourceSchemaAttributes(ctx
 
 		"domain_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of domains
@@ -65,7 +66,7 @@ func (o SystemConntrackIgnoreIPvsixRuleSourceGroup) ResourceSchemaAttributes(ctx
 
 		"mac_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of MAC addresses
@@ -78,7 +79,7 @@ func (o SystemConntrackIgnoreIPvsixRuleSourceGroup) ResourceSchemaAttributes(ctx
 
 		"network_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of networks
@@ -91,7 +92,7 @@ func (o SystemConntrackIgnoreIPvsixRuleSourceGroup) ResourceSchemaAttributes(ctx
 
 		"port_group":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of ports
@@ -101,6 +102,8 @@ func (o SystemConntrackIgnoreIPvsixRuleSourceGroup) ResourceSchemaAttributes(ctx
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

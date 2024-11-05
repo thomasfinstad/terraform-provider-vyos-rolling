@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsNhrpTunnel{}
 
 // ProtocolsNhrpTunnel describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsNhrpTunnel struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -44,7 +46,7 @@ type ProtocolsNhrpTunnel struct {
 	LeafProtocolsNhrpTunnelShortcutDestination types.Bool   `tfsdk:"shortcut_destination" vyos:"shortcut-destination,omitempty"`
 	LeafProtocolsNhrpTunnelShortcut            types.Bool   `tfsdk:"shortcut" vyos:"shortcut,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagProtocolsNhrpTunnelDynamicMap bool `tfsdk:"-" vyos:"dynamic-map,child"`
 
@@ -90,12 +92,13 @@ func (o *ProtocolsNhrpTunnel) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsNhrpTunnel) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"nhrp",
+		"nhrp", // Node
+
 	}
 }
 
@@ -105,9 +108,9 @@ func (o *ProtocolsNhrpTunnel) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsNhrpTunnel) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -147,8 +150,8 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  tunnel, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  tunnel, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -169,7 +172,7 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"cisco_authentication":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Pass phrase for cisco authentication
@@ -188,7 +191,7 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"holding_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Holding time in seconds
@@ -201,7 +204,7 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"multicast":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set multicast for NHRP
@@ -214,7 +217,7 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"non_caching":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `This can be used to reduce memory consumption on big NBMA subnets
@@ -229,7 +232,7 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable sending of Cisco style NHRP Traffic Indication packets
@@ -244,7 +247,7 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"shortcut_destination":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `This instructs opennhrp to reply with authorative answers on NHRP Resolution Requests destined to addresses in this interface
@@ -259,7 +262,7 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"shortcut":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable creation of shortcut routes. A received NHRP Traffic Indication will trigger the resolution and establishment of a shortcut route
@@ -271,6 +274,8 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

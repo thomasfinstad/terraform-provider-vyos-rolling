@@ -10,6 +10,7 @@ description: |-
 # vyos_policy_route_map_rule (Resource)
 <center>
 
+
 Routing policy  
 ⯯  
 IP route-map  

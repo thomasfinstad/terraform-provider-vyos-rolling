@@ -10,6 +10,7 @@ description: |-
 # vyos_system_ipv6_protocol (Resource)
 <center>
 
+
 *system*  
 ⯯  
 IPv6 Settings  

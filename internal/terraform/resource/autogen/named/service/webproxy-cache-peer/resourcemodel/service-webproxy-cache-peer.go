@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceWebproxyCachePeer{}
 
 // ServiceWebproxyCachePeer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceWebproxyCachePeer struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -41,7 +43,7 @@ type ServiceWebproxyCachePeer struct {
 	LeafServiceWebproxyCachePeerOptions  types.String `tfsdk:"options" vyos:"options,omitempty"`
 	LeafServiceWebproxyCachePeerType     types.String `tfsdk:"type" vyos:"type,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -81,12 +83,13 @@ func (o *ServiceWebproxyCachePeer) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceWebproxyCachePeer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"webproxy",
+		"webproxy", // Node
+
 	}
 }
 
@@ -96,9 +99,9 @@ func (o *ServiceWebproxyCachePeer) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceWebproxyCachePeer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -138,8 +141,8 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes(ctx context.Context) 
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  cache_peer, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  cache_peer, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -160,7 +163,7 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes(ctx context.Context) 
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Hostname or IP address of peer
@@ -181,7 +184,7 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes(ctx context.Context) 
 
 		"http_port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Default Proxy Port
@@ -203,7 +206,7 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes(ctx context.Context) 
 
 		"icp_port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Cache peer ICP port
@@ -227,7 +230,7 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes(ctx context.Context) 
 
 		"options":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Cache peer options
@@ -249,7 +252,7 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes(ctx context.Context) 
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Squid peer type (default parent)
@@ -272,6 +275,8 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes(ctx context.Context) 
 			// Default:          stringdefault.StaticString(`parent`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

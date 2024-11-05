@@ -10,6 +10,7 @@ description: |-
 # vyos_system_login_user (Resource)
 <center>
 
+
 *system*  
 ⯯  
 System User Login Configuration  

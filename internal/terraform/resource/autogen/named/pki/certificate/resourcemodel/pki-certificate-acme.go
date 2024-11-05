@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PkiCertificateAcme{}
 
 // PkiCertificateAcme describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PkiCertificateAcme struct {
 	// LeafNodes
 	LeafPkiCertificateAcmeURL           types.String `tfsdk:"url" vyos:"url,omitempty"`
@@ -26,8 +28,7 @@ type PkiCertificateAcme struct {
 	LeafPkiCertificateAcmeListenAddress types.String `tfsdk:"listen_address" vyos:"listen-address,omitempty"`
 	LeafPkiCertificateAcmeRsaKeySize    types.String `tfsdk:"rsa_key_size" vyos:"rsa-key-size,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -39,7 +40,7 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"url":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Remote URL
@@ -60,7 +61,7 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes(ctx context.Context) map[st
 		},
 
 		"domain_name":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -74,7 +75,7 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"email":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Email address to associate with certificate
@@ -87,7 +88,7 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"listen_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Local IPv4 addresses to listen on
@@ -106,7 +107,7 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"rsa_key_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Size of the RSA key
@@ -129,6 +130,8 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes(ctx context.Context) map[st
 			// Default:          stringdefault.StaticString(`2048`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

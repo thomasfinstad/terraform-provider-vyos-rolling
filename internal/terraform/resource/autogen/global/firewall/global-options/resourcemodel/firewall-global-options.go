@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &FirewallGlobalOptions{}
 
 // FirewallGlobalOptions describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type FirewallGlobalOptions struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -43,12 +45,15 @@ type FirewallGlobalOptions struct {
 	LeafFirewallGlobalOptionsIPvsixSourceValIDation types.String `tfsdk:"ipv6_source_validation" vyos:"ipv6-source-validation,omitempty"`
 	LeafFirewallGlobalOptionsIPvsixSrcRoute         types.String `tfsdk:"ipv6_src_route" vyos:"ipv6-src-route,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeFirewallGlobalOptionsApplyToBrIDgedTraffic bool `tfsdk:"-" vyos:"apply-to-bridged-traffic,child"`
-	ExistsNodeFirewallGlobalOptionsStatePolicy           bool `tfsdk:"-" vyos:"state-policy,child"`
-	ExistsNodeFirewallGlobalOptionsTimeout               bool `tfsdk:"-" vyos:"timeout,child"`
+
+	NodeFirewallGlobalOptionsStatePolicy *FirewallGlobalOptionsStatePolicy `tfsdk:"state_policy" vyos:"state-policy,omitempty"`
+
+	ExistsNodeFirewallGlobalOptionsTimeout bool `tfsdk:"-" vyos:"timeout,child"`
 }
 
 // SetID configures the resource ID
@@ -81,8 +86,9 @@ func (o *FirewallGlobalOptions) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *FirewallGlobalOptions) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"firewall",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"firewall", // Node
+
 	}
 }
 
@@ -90,10 +96,9 @@ func (o *FirewallGlobalOptions) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *FirewallGlobalOptions) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -114,7 +119,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"all_ping":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for handling of all IPv4 ICMP echo requests
@@ -138,7 +143,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"broadcast_ping":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for handling broadcast IPv4 ICMP echo and timestamp requests
@@ -162,7 +167,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"directed_broadcast":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for handling IPv4 directed broadcast forwarding on all interfaces
@@ -186,7 +191,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"ip_src_route":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for handling IPv4 packets with source route option
@@ -210,7 +215,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"log_martians":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for logging IPv4 packets with invalid addresses
@@ -234,7 +239,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"receive_redirects":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for handling received IPv4 ICMP redirect messages
@@ -258,7 +263,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"resolver_cache":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Retains last successful value if domain resolution fails
@@ -273,7 +278,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"resolver_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Domain resolver update interval
@@ -295,7 +300,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"send_redirects":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for sending IPv4 ICMP redirect messages
@@ -319,7 +324,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"source_validation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for IPv4 source validation by reversed path, as specified in RFC3704
@@ -345,7 +350,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"syn_cookies":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for using TCP SYN cookies with IPv4
@@ -369,7 +374,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"twa_hazards_protection":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `RFC1337 TCP TIME-WAIT assasination hazards protection
@@ -393,7 +398,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"ipv6_receive_redirects":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for handling received ICMPv6 redirect messages
@@ -417,7 +422,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"ipv6_source_validation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for IPv6 source validation by reversed path, as specified in RFC3704
@@ -443,7 +448,7 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		"ipv6_src_route":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy for handling IPv6 packets with routing extension header
@@ -463,6 +468,21 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 			// Default:          stringdefault.StaticString(`disable`),
 			Computed: true,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"state_policy": schema.SingleNestedAttribute{
+			Attributes: FirewallGlobalOptionsStatePolicy{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Global firewall state-policy
+
+`,
+			Description: `Global firewall state-policy
+
+`,
 		},
 	}
 }

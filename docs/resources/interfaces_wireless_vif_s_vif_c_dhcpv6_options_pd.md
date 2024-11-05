@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_wireless_vif_s_vif_c_dhcpv6_options_pd (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 Wireless (WiFi/WLAN) Network Interface  

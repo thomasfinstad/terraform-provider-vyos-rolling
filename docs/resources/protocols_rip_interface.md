@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_rip_interface (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Routing Information Protocol (RIP) parameters  

@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfMplsTe{}
 
 // VrfNameProtocolsOspfMplsTe describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfMplsTe struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfMplsTeEnable        types.Bool   `tfsdk:"enable" vyos:"enable,omitempty"`
 	LeafVrfNameProtocolsOspfMplsTeRouterAddress types.String `tfsdk:"router_address" vyos:"router-address,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsOspfMplsTe) ResourceSchemaAttributes(ctx context.Context
 
 		"enable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable MPLS-TE functionality
@@ -52,7 +53,7 @@ func (o VrfNameProtocolsOspfMplsTe) ResourceSchemaAttributes(ctx context.Context
 
 		"router_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Stable IP address of the advertising router
@@ -71,6 +72,8 @@ func (o VrfNameProtocolsOspfMplsTe) ResourceSchemaAttributes(ctx context.Context
 			// Default:          stringdefault.StaticString(`0.0.0.0`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

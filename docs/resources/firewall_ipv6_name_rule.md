@@ -10,6 +10,7 @@ description: |-
 # vyos_firewall_ipv6_name_rule (Resource)
 <center>
 
+
 Firewall  
 ⯯  
 IPv6 firewall  

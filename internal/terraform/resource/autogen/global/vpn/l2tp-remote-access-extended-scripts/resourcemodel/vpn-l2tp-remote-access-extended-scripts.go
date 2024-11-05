@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &VpnLtwotpRemoteAccessExtendedScrIPts{}
 
 // VpnLtwotpRemoteAccessExtendedScrIPts describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type VpnLtwotpRemoteAccessExtendedScrIPts struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -31,9 +33,9 @@ type VpnLtwotpRemoteAccessExtendedScrIPts struct {
 	LeafVpnLtwotpRemoteAccessExtendedScrIPtsOnDown   types.String `tfsdk:"on_down" vyos:"on-down,omitempty"`
 	LeafVpnLtwotpRemoteAccessExtendedScrIPtsOnChange types.String `tfsdk:"on_change" vyos:"on-change,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -66,16 +68,17 @@ func (o *VpnLtwotpRemoteAccessExtendedScrIPts) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnLtwotpRemoteAccessExtendedScrIPts) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"l2tp",
+		"l2tp", // Node
 
-		"remote-access",
+		"remote-access", // Node
+
 	}
 }
 
@@ -83,14 +86,13 @@ func (o *VpnLtwotpRemoteAccessExtendedScrIPts) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *VpnLtwotpRemoteAccessExtendedScrIPts) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -111,7 +113,7 @@ func (o VpnLtwotpRemoteAccessExtendedScrIPts) ResourceSchemaAttributes(ctx conte
 
 		"on_pre_up":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run before session interface comes up
@@ -124,7 +126,7 @@ func (o VpnLtwotpRemoteAccessExtendedScrIPts) ResourceSchemaAttributes(ctx conte
 
 		"on_up":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run when session interface is completely configured and started
@@ -137,7 +139,7 @@ func (o VpnLtwotpRemoteAccessExtendedScrIPts) ResourceSchemaAttributes(ctx conte
 
 		"on_down":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run when session interface going to terminate
@@ -150,7 +152,7 @@ func (o VpnLtwotpRemoteAccessExtendedScrIPts) ResourceSchemaAttributes(ctx conte
 
 		"on_change":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run when session interface changed by RADIUS CoA handling
@@ -160,5 +162,10 @@ func (o VpnLtwotpRemoteAccessExtendedScrIPts) ResourceSchemaAttributes(ctx conte
 
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_static_multicast_interface_route (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Static Routing  

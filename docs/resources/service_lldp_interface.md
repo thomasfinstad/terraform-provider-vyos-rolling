@@ -10,6 +10,7 @@ description: |-
 # vyos_service_lldp_interface (Resource)
 <center>
 
+
 *service*  
 ⯯  
 LLDP settings  

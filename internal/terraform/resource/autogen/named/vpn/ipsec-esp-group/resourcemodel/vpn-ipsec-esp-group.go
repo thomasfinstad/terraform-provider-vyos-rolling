@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VpnIPsecEspGroup{}
 
 // VpnIPsecEspGroup describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VpnIPsecEspGroup struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -44,7 +46,7 @@ type VpnIPsecEspGroup struct {
 	LeafVpnIPsecEspGroupMode         types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafVpnIPsecEspGroupPfs          types.String `tfsdk:"pfs" vyos:"pfs,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVpnIPsecEspGroupProposal bool `tfsdk:"-" vyos:"proposal,child"`
 
@@ -86,12 +88,13 @@ func (o *VpnIPsecEspGroup) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnIPsecEspGroup) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"ipsec",
+		"ipsec", // Node
+
 	}
 }
 
@@ -101,9 +104,9 @@ func (o *VpnIPsecEspGroup) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VpnIPsecEspGroup) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -137,8 +140,8 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  esp_group, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  esp_group, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -159,7 +162,7 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"compression":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable ESP compression
@@ -174,7 +177,7 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Security Association time to expire
@@ -196,7 +199,7 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"life_bytes":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Security Association byte count to expire
@@ -215,7 +218,7 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"life_packets":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Security Association packet count to expire
@@ -234,7 +237,7 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"disable_rekey":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not locally initiate a re-key of the SA, remote peer must re-key before expiration
@@ -249,7 +252,7 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"mode":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `ESP mode
@@ -273,7 +276,7 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"pfs":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `ESP Perfect Forward Secrecy
@@ -338,6 +341,8 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes(ctx context.Context) map[stri
 			// Default:          stringdefault.StaticString(`enable`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

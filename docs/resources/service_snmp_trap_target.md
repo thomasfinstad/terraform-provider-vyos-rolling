@@ -10,6 +10,7 @@ description: |-
 # vyos_service_snmp_trap_target (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Simple Network Management Protocol (SNMP)  

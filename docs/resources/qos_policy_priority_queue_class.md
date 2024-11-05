@@ -10,6 +10,7 @@ description: |-
 # vyos_qos_policy_priority_queue_class (Resource)
 <center>
 
+
 Quality of Service (QoS)  
 ⯯  
 Service Policy definitions  

@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsStaticRoute{}
 
 // ProtocolsStaticRoute describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsStaticRoute struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -38,15 +40,17 @@ type ProtocolsStaticRoute struct {
 	LeafProtocolsStaticRouteDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
 	LeafProtocolsStaticRouteDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagProtocolsStaticRouteInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	ExistsTagProtocolsStaticRouteNextHop bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
+
 	NodeProtocolsStaticRouteBlackhole *ProtocolsStaticRouteBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`
-	NodeProtocolsStaticRouteReject    *ProtocolsStaticRouteReject    `tfsdk:"reject" vyos:"reject,omitempty"`
+
+	NodeProtocolsStaticRouteReject *ProtocolsStaticRouteReject `tfsdk:"reject" vyos:"reject,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -84,12 +88,13 @@ func (o *ProtocolsStaticRoute) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsStaticRoute) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"static",
+		"static", // Node
+
 	}
 }
 
@@ -99,9 +104,9 @@ func (o *ProtocolsStaticRoute) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsStaticRoute) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -141,8 +146,8 @@ func (o ProtocolsStaticRoute) ResourceSchemaAttributes(ctx context.Context) map[
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  route, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -163,7 +168,7 @@ func (o ProtocolsStaticRoute) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"dhcp_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
@@ -182,7 +187,7 @@ func (o ProtocolsStaticRoute) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -198,6 +203,8 @@ func (o ProtocolsStaticRoute) ResourceSchemaAttributes(ctx context.Context) map[
     |  txt     |  Description  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

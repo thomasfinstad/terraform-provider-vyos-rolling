@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_input (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Input Functional Block (IFB) interface name**

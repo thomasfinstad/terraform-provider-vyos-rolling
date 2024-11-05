@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &LoadBalancingWanInterfaceHealthTest{}
 
 // LoadBalancingWanInterfaceHealthTest describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type LoadBalancingWanInterfaceHealthTest struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -42,7 +44,7 @@ type LoadBalancingWanInterfaceHealthTest struct {
 	LeafLoadBalancingWanInterfaceHealthTestTTLLimit   types.Number `tfsdk:"ttl_limit" vyos:"ttl-limit,omitempty"`
 	LeafLoadBalancingWanInterfaceHealthTestType       types.String `tfsdk:"type" vyos:"type,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -82,17 +84,16 @@ func (o *LoadBalancingWanInterfaceHealthTest) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *LoadBalancingWanInterfaceHealthTest) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"load-balancing",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"load-balancing", // Node
 
-		"wan",
+		"wan", // Node
 
 		"interface-health",
-
 		o.SelfIdentifier.Attributes()["interface_health"].(types.String).ValueString(),
 	}
 }
@@ -103,19 +104,18 @@ func (o *LoadBalancingWanInterfaceHealthTest) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *LoadBalancingWanInterfaceHealthTest) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"load-balancing",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"load-balancing", // Node
 
-		"wan",
+		"wan", // Node
 
 		"interface-health",
-
 		o.SelfIdentifier.Attributes()["interface_health"].(types.String).ValueString(),
 	}
 }
@@ -174,8 +174,8 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes(ctx contex
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface_health, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface_health, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -191,7 +191,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes(ctx contex
 
 		"resp_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Ping response time (seconds)
@@ -213,7 +213,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes(ctx contex
 
 		"target":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Health target address
@@ -232,7 +232,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes(ctx contex
 
 		"test_script":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Path to user-defined script
@@ -251,7 +251,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes(ctx contex
 
 		"ttl_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TTL limit (hop count)
@@ -273,7 +273,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes(ctx contex
 
 		"type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `WLB test type
@@ -296,6 +296,8 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes(ctx contex
 			// Default:          stringdefault.StaticString(`ping`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

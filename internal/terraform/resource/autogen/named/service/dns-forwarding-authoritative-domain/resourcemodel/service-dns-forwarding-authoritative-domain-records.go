@@ -11,17 +11,18 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceDNSForwardingAuthoritativeDomainRecords{}
 
 // ServiceDNSForwardingAuthoritativeDomainRecords describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceDNSForwardingAuthoritativeDomainRecords struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsA bool `tfsdk:"-" vyos:"a,child"`
 
@@ -51,6 +52,8 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceSchemaAttributes
 	return map[string]schema.Attribute{
 
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

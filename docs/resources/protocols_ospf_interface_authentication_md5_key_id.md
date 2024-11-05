@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_ospf_interface_authentication_md5_key_id (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Open Shortest Path First (OSPF)  

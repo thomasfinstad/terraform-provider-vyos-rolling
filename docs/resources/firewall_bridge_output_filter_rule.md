@@ -10,6 +10,7 @@ description: |-
 # vyos_firewall_bridge_output_filter_rule (Resource)
 <center>
 
+
 Firewall  
 ⯯  
 Bridge firewall  

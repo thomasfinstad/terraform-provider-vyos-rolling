@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesTunnel{}
 
 // InterfacesTunnel describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesTunnel struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -51,12 +53,16 @@ type InterfacesTunnel struct {
 	LeafInterfacesTunnelVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 	LeafInterfacesTunnelRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeInterfacesTunnelIP         *InterfacesTunnelIP         `tfsdk:"ip" vyos:"ip,omitempty"`
-	NodeInterfacesTunnelIPvsix     *InterfacesTunnelIPvsix     `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
-	NodeInterfacesTunnelMirror     *InterfacesTunnelMirror     `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
+	NodeInterfacesTunnelIP *InterfacesTunnelIP `tfsdk:"ip" vyos:"ip,omitempty"`
+
+	NodeInterfacesTunnelIPvsix *InterfacesTunnelIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+
+	NodeInterfacesTunnelMirror *InterfacesTunnelMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
+
 	NodeInterfacesTunnelParameters *InterfacesTunnelParameters `tfsdk:"parameters" vyos:"parameters,omitempty"`
 }
 
@@ -95,8 +101,9 @@ func (o *InterfacesTunnel) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesTunnel) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
+
 	}
 }
 
@@ -106,7 +113,7 @@ func (o *InterfacesTunnel) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesTunnel) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -146,8 +153,8 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  tunnel, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  tunnel, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -166,7 +173,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -184,7 +191,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 		},
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -206,7 +213,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
@@ -221,7 +228,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"disable_link_detect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
@@ -236,7 +243,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -258,7 +265,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"source_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source IP address used to initiate connection
@@ -279,7 +286,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"remote":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Tunnel remote address
@@ -300,7 +307,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"source_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
@@ -319,7 +326,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"_6rd_prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `6rd network prefix
@@ -338,7 +345,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"_6rd_relay_prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `6rd relay prefix
@@ -357,7 +364,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"encapsulation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Encapsulation of this tunnel interface
@@ -394,7 +401,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"enable_multicast":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable multicast operation over tunnel
@@ -409,7 +416,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF instance name
@@ -428,7 +435,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		"redirect":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
@@ -444,6 +451,8 @@ func (o InterfacesTunnel) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  txt     |  Destination interface name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

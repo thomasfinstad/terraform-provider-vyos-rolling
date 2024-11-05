@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticast{}
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticast describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpNeighborAddressFamilyIPvfourMulticast struct {
 	// LeafNodes
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll         types.Bool   `tfsdk:"addpath_tx_all" vyos:"addpath-tx-all,omitempty"`
@@ -31,23 +33,35 @@ type ProtocolsBgpNeighborAddressFamilyIPvfourMulticast struct {
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap        types.String `tfsdk:"unsuppress_map" vyos:"unsuppress-map,omitempty"`
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight               types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability             *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability             `tfsdk:"capability" vyos:"capability,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList             *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList             `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability `tfsdk:"capability" vyos:"capability,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
+
 	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise `tfsdk:"conditionally_advertise" vyos:"conditionally-advertise,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn              *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn              `tfsdk:"allowas_in" vyos:"allowas-in,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged     *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged     `tfsdk:"attribute_unchanged" vyos:"attribute-unchanged,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity   *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity   `tfsdk:"disable_send_community" vyos:"disable-send-community,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList         *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList         `tfsdk:"distribute_list" vyos:"distribute-list,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList             *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList             `tfsdk:"filter_list" vyos:"filter-list,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf            *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf            `tfsdk:"nexthop_self" vyos:"nexthop-self,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs        *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs        `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap               *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap               `tfsdk:"route_map" vyos:"route-map,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration    *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration    `tfsdk:"soft_reconfiguration" vyos:"soft-reconfiguration,omitempty"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate       *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate       `tfsdk:"default_originate" vyos:"default-originate,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn `tfsdk:"allowas_in" vyos:"allowas-in,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged `tfsdk:"attribute_unchanged" vyos:"attribute-unchanged,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity `tfsdk:"disable_send_community" vyos:"disable-send-community,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList `tfsdk:"distribute_list" vyos:"distribute-list,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList `tfsdk:"filter_list" vyos:"filter-list,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf `tfsdk:"nexthop_self" vyos:"nexthop-self,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap `tfsdk:"route_map" vyos:"route-map,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration `tfsdk:"soft_reconfiguration" vyos:"soft-reconfiguration,omitempty"`
+
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate `tfsdk:"default_originate" vyos:"default-originate,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -57,7 +71,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"addpath_tx_all":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use addpath to advertise all paths to a neighbor
@@ -72,7 +86,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"addpath_tx_per_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use addpath to advertise the bestpath per each neighboring AS
@@ -87,7 +101,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"as_override":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Override ASN in outbound updates to configured neighbor local-as
@@ -102,7 +116,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"maximum_prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to accept from this peer
@@ -121,7 +135,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"maximum_prefix_out":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to be sent to this peer
@@ -140,7 +154,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"route_reflector_client":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route reflector client
@@ -155,7 +169,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"route_server_client":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route server client
@@ -170,7 +184,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"unsuppress_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route-map to selectively unsuppress suppressed routes
@@ -189,7 +203,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 		"weight":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Default weight for routes from this peer
@@ -205,6 +219,8 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
     |  1-65535  |  Default weight  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

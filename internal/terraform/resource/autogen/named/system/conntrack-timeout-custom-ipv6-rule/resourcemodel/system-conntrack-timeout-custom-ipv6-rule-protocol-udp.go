@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &SystemConntrackTimeoutCustomIPvsixRuleProtocolUDP{}
 
 // SystemConntrackTimeoutCustomIPvsixRuleProtocolUDP describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type SystemConntrackTimeoutCustomIPvsixRuleProtocolUDP struct {
 	// LeafNodes
 	LeafSystemConntrackTimeoutCustomIPvsixRuleProtocolUDPReplied   types.Number `tfsdk:"replied" vyos:"replied,omitempty"`
 	LeafSystemConntrackTimeoutCustomIPvsixRuleProtocolUDPUnreplied types.Number `tfsdk:"unreplied" vyos:"unreplied,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolUDP) ResourceSchemaAttribu
 
 		"replied":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout for UDP connection seen in both directions
@@ -55,7 +56,7 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolUDP) ResourceSchemaAttribu
 
 		"unreplied":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout for unreplied UDP
@@ -71,6 +72,8 @@ func (o SystemConntrackTimeoutCustomIPvsixRuleProtocolUDP) ResourceSchemaAttribu
     |  1-21474836  |  Timeout for unreplied UDP  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

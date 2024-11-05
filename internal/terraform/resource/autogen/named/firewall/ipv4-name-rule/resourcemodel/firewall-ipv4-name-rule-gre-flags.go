@@ -11,21 +11,25 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvfourNameRuleGreFlags{}
 
 // FirewallIPvfourNameRuleGreFlags describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvfourNameRuleGreFlags struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeFirewallIPvfourNameRuleGreFlagsKey      *FirewallIPvfourNameRuleGreFlagsKey      `tfsdk:"key" vyos:"key,omitempty"`
+
+	NodeFirewallIPvfourNameRuleGreFlagsKey *FirewallIPvfourNameRuleGreFlagsKey `tfsdk:"key" vyos:"key,omitempty"`
+
 	NodeFirewallIPvfourNameRuleGreFlagsChecksum *FirewallIPvfourNameRuleGreFlagsChecksum `tfsdk:"checksum" vyos:"checksum,omitempty"`
+
 	NodeFirewallIPvfourNameRuleGreFlagsSequence *FirewallIPvfourNameRuleGreFlagsSequence `tfsdk:"sequence" vyos:"sequence,omitempty"`
 }
 
@@ -33,6 +37,8 @@ type FirewallIPvfourNameRuleGreFlags struct {
 func (o FirewallIPvfourNameRuleGreFlags) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_static_multicast_interface_route_next_hop_interface (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Static Routing  

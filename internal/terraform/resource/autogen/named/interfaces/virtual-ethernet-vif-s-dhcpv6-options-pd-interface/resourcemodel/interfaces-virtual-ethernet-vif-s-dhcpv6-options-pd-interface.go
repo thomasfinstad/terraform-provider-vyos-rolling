@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface{}
 
 // InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -39,7 +41,7 @@ type InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface struct {
 	LeafInterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterfaceSLAID   types.Number `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -79,29 +81,26 @@ func (o *InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) GetVyosPath() 
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"virtual-ethernet",
-
 		o.SelfIdentifier.Attributes()["virtual_ethernet"].(types.String).ValueString(),
 
 		"vif-s",
-
 		o.SelfIdentifier.Attributes()["vif_s"].(types.Number).ValueBigFloat().String(),
 
-		"dhcpv6-options",
+		"dhcpv6-options", // Node
 
 		"pd",
-
 		o.SelfIdentifier.Attributes()["pd"].(types.String).ValueString(),
 	}
 }
@@ -112,31 +111,28 @@ func (o *InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) GetVyosParentP
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"interfaces",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"interfaces", // Node
 
 		"virtual-ethernet",
-
 		o.SelfIdentifier.Attributes()["virtual_ethernet"].(types.String).ValueString(),
 
 		"vif-s",
-
 		o.SelfIdentifier.Attributes()["vif_s"].(types.Number).ValueBigFloat().String(),
 
-		"dhcpv6-options",
+		"dhcpv6-options", // Node
 
 		"pd",
-
 		o.SelfIdentifier.Attributes()["pd"].(types.String).ValueString(),
 	}
 }
@@ -170,8 +166,8 @@ func (o InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) ResourceSchemaA
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -212,8 +208,8 @@ func (o InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) ResourceSchemaA
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  virtual_ethernet, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  virtual_ethernet, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -263,8 +259,8 @@ func (o InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) ResourceSchemaA
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  pd, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -280,7 +276,7 @@ func (o InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) ResourceSchemaA
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
@@ -299,7 +295,7 @@ func (o InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) ResourceSchemaA
 
 		"sla_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
@@ -315,6 +311,8 @@ func (o InterfacesVirtualEthernetVifSDhcpvsixOptionsPdInterface) ResourceSchemaA
     |  0-65535  |  Decimal integer which fits in the length of SLA IDs  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

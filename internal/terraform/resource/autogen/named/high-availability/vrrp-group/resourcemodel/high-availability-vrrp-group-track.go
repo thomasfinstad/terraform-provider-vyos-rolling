@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &HighAvailabilityVrrpGroupTrack{}
 
 // HighAvailabilityVrrpGroupTrack describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type HighAvailabilityVrrpGroupTrack struct {
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupTrackExcludeVrrpInterface types.Bool `tfsdk:"exclude_vrrp_interface" vyos:"exclude-vrrp-interface,omitempty"`
 	LeafHighAvailabilityVrrpGroupTrackInterface            types.List `tfsdk:"interface" vyos:"interface,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o HighAvailabilityVrrpGroupTrack) ResourceSchemaAttributes(ctx context.Con
 
 		"exclude_vrrp_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable track state of main interface
@@ -51,7 +52,7 @@ func (o HighAvailabilityVrrpGroupTrack) ResourceSchemaAttributes(ctx context.Con
 		},
 
 		"interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -68,6 +69,8 @@ func (o HighAvailabilityVrrpGroupTrack) ResourceSchemaAttributes(ctx context.Con
     |  txt     |  Interface name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

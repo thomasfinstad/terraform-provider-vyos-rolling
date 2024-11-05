@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_ospf_area (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Open Shortest Path First (OSPF)  

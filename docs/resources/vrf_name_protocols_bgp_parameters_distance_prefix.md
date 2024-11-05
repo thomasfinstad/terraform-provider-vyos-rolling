@@ -10,6 +10,7 @@ description: |-
 # vyos_vrf_name_protocols_bgp_parameters_distance_prefix (Resource)
 <center>
 
+
 Virtual Routing and Forwarding  
 ⯯  
 Virtual Routing and Forwarding instance  

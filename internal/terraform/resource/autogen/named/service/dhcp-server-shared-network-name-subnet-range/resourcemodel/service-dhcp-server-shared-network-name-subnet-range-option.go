@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ServiceDhcpServerSharedNetworkNameSubnetRangeOption{}
 
 // ServiceDhcpServerSharedNetworkNameSubnetRangeOption describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ServiceDhcpServerSharedNetworkNameSubnetRangeOption struct {
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetRangeOptionCaptivePortal       types.String `tfsdk:"captive_portal" vyos:"captive-portal,omitempty"`
@@ -43,12 +45,12 @@ type ServiceDhcpServerSharedNetworkNameSubnetRangeOption struct {
 	LeafServiceDhcpServerSharedNetworkNameSubnetRangeOptionWinsServer          types.List   `tfsdk:"wins_server" vyos:"wins-server,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetRangeOptionWpadURL             types.String `tfsdk:"wpad_url" vyos:"wpad-url,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute bool `tfsdk:"-" vyos:"static-route,child"`
 
 	// Nodes
+
 	NodeServiceDhcpServerSharedNetworkNameSubnetRangeOptionVendorOption *ServiceDhcpServerSharedNetworkNameSubnetRangeOptionVendorOption `tfsdk:"vendor_option" vyos:"vendor-option,omitempty"`
 }
 
@@ -59,7 +61,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"captive_portal":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Captive portal API endpoint
@@ -78,7 +80,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"domain_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Client Domain Name
@@ -90,7 +92,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 		},
 
 		"domain_search":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -103,7 +105,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 		},
 
 		"ntp_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -122,7 +124,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 		},
 
 		"name_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -142,7 +144,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"bootfile_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Bootstrap file name
@@ -155,7 +157,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"bootfile_server":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Server from which the initial boot file is to be loaded
@@ -176,7 +178,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"bootfile_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Bootstrap file size
@@ -195,7 +197,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"client_prefix_length":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
@@ -214,7 +216,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"default_router":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address of default router
@@ -233,7 +235,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"ip_forwarding":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable IP forwarding on client
@@ -248,7 +250,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"ipv6_only_preferred":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IPv4 on IPv6 only hosts (RFC 8925)
@@ -266,7 +268,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 		},
 
 		"pop_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -286,7 +288,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"server_identifier":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Address for DHCP server identifier
@@ -304,7 +306,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 		},
 
 		"smtp_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -324,7 +326,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"tftp_server_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `TFTP server name
@@ -345,7 +347,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"time_offset":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Client subnet offset in seconds from Coordinated Universal Time (UTC)
@@ -363,7 +365,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 		},
 
 		"time_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -383,7 +385,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"time_zone":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Time zone to send to clients. Uses RFC4833 options 100 and 101
@@ -395,7 +397,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 		},
 
 		"wins_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -415,7 +417,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 		"wpad_url":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Web Proxy Autodiscovery (WPAD) URL
@@ -425,6 +427,8 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRangeOption) ResourceSchemaAttri
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -16,31 +16,41 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &VpnIPsec{}
 
 // VpnIPsec describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type VpnIPsec struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafVpnIPsecDisableUniqreqIDs types.Bool `tfsdk:"disable_uniqreqids" vyos:"disable-uniqreqids,omitempty"`
 	LeafVpnIPsecInterface         types.List `tfsdk:"interface" vyos:"interface,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecEspGroup bool `tfsdk:"-" vyos:"esp-group,child"`
-	ExistsTagVpnIPsecIkeGroup bool `tfsdk:"-" vyos:"ike-group,child"`
-	ExistsTagVpnIPsecProfile  bool `tfsdk:"-" vyos:"profile,child"`
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnIPsecAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
-	ExistsNodeVpnIPsecLog            bool `tfsdk:"-" vyos:"log,child"`
-	ExistsNodeVpnIPsecOptions        bool `tfsdk:"-" vyos:"options,child"`
-	ExistsNodeVpnIPsecRemoteAccess   bool `tfsdk:"-" vyos:"remote-access,child"`
-	ExistsNodeVpnIPsecSiteToSite     bool `tfsdk:"-" vyos:"site-to-site,child"`
+	ExistsTagVpnIPsecEspGroup bool `tfsdk:"-" vyos:"esp-group,child"`
+
+	ExistsTagVpnIPsecIkeGroup bool `tfsdk:"-" vyos:"ike-group,child"`
+
+	ExistsTagVpnIPsecProfile bool `tfsdk:"-" vyos:"profile,child"`
+
+	// Nodes
+
+	NodeVpnIPsecAuthentication *VpnIPsecAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
+
+	ExistsNodeVpnIPsecLog bool `tfsdk:"-" vyos:"log,child"`
+
+	ExistsNodeVpnIPsecOptions bool `tfsdk:"-" vyos:"options,child"`
+
+	NodeVpnIPsecRemoteAccess *VpnIPsecRemoteAccess `tfsdk:"remote_access" vyos:"remote-access,omitempty"`
+
+	NodeVpnIPsecSiteToSite *VpnIPsecSiteToSite `tfsdk:"site_to_site" vyos:"site-to-site,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -73,8 +83,9 @@ func (o *VpnIPsec) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnIPsec) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
+
 	}
 }
 
@@ -82,10 +93,9 @@ func (o *VpnIPsec) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *VpnIPsec) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -106,7 +116,7 @@ func (o VpnIPsec) ResourceSchemaAttributes(ctx context.Context) map[string]schem
 
 		"disable_uniqreqids":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable requirement for unique IDs in the Security Database
@@ -120,7 +130,7 @@ func (o VpnIPsec) ResourceSchemaAttributes(ctx context.Context) map[string]schem
 		},
 
 		"interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -135,6 +145,43 @@ func (o VpnIPsec) ResourceSchemaAttributes(ctx context.Context) map[string]schem
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Interface name  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"authentication": schema.SingleNestedAttribute{
+			Attributes: VpnIPsecAuthentication{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Authentication
+
+`,
+			Description: `Authentication
+
+`,
+		},
+
+		"remote_access": schema.SingleNestedAttribute{
+			Attributes: VpnIPsecRemoteAccess{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `IKEv2 remote access VPN
+
+`,
+			Description: `IKEv2 remote access VPN
+
+`,
+		},
+
+		"site_to_site": schema.SingleNestedAttribute{
+			Attributes: VpnIPsecSiteToSite{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Site-to-site VPN
+
+`,
+			Description: `Site-to-site VPN
+
 `,
 		},
 	}

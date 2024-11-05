@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvfourNameRuleDestinationGeoIP{}
 
 // FirewallIPvfourNameRuleDestinationGeoIP describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvfourNameRuleDestinationGeoIP struct {
 	// LeafNodes
 	LeafFirewallIPvfourNameRuleDestinationGeoIPCountryCode  types.List `tfsdk:"country_code" vyos:"country-code,omitempty"`
 	LeafFirewallIPvfourNameRuleDestinationGeoIPInverseMatch types.Bool `tfsdk:"inverse_match" vyos:"inverse-match,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o FirewallIPvfourNameRuleDestinationGeoIP) ResourceSchemaAttributes(ctx co
 		// LeafNodes
 
 		"country_code":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -56,7 +57,7 @@ func (o FirewallIPvfourNameRuleDestinationGeoIP) ResourceSchemaAttributes(ctx co
 
 		"inverse_match":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Inverse match of country-codes
@@ -68,6 +69,8 @@ func (o FirewallIPvfourNameRuleDestinationGeoIP) ResourceSchemaAttributes(ctx co
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

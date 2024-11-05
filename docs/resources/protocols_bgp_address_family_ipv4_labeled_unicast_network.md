@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_bgp_address_family_ipv4_labeled_unicast_network (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Border Gateway Protocol (BGP)  

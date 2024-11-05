@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_wwan (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Wireless Modem (WWAN) Interface**

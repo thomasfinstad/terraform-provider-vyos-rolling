@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_sstpc (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Secure Socket Tunneling Protocol (SSTP) client Interface**

@@ -10,6 +10,7 @@ description: |-
 # vyos_load_balancing_haproxy_service_http_response_headers (Resource)
 <center>
 
+
 *load-balancing*  
 ⯯  
 Configure haproxy  

@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_static_table_route6_interface (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Static Routing  

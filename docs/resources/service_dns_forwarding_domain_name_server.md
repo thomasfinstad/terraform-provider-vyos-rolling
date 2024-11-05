@@ -10,6 +10,7 @@ description: |-
 # vyos_service_dns_forwarding_domain_name_server (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Domain Name System (DNS) related services  

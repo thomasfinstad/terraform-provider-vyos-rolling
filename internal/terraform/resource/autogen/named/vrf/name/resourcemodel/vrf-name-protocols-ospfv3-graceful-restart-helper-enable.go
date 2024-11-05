@@ -12,18 +12,19 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfvthreeGracefulRestartHelperEnable{}
 
 // VrfNameProtocolsOspfvthreeGracefulRestartHelperEnable describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfvthreeGracefulRestartHelperEnable struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfvthreeGracefulRestartHelperEnableRouterID types.List `tfsdk:"router_id" vyos:"router-id,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -34,7 +35,7 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestartHelperEnable) ResourceSchemaAtt
 		// LeafNodes
 
 		"router_id":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -51,6 +52,8 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestartHelperEnable) ResourceSchemaAtt
     |  ipv4    |  Router-ID in IP address format  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

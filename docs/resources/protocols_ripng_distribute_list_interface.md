@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_ripng_distribute_list_interface (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Routing Information Protocol (RIPng) parameters  

@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceDhcpvsixServer{}
 
 // ServiceDhcpvsixServer describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceDhcpvsixServer struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -32,10 +34,12 @@ type ServiceDhcpvsixServer struct {
 	LeafServiceDhcpvsixServerDisableRouteAutoinstall types.Bool   `tfsdk:"disable_route_autoinstall" vyos:"disable-route-autoinstall,omitempty"`
 	LeafServiceDhcpvsixServerPreference              types.Number `tfsdk:"preference" vyos:"preference,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
+
 	ExistsTagServiceDhcpvsixServerSharedNetworkName bool `tfsdk:"-" vyos:"shared-network-name,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeServiceDhcpvsixServerGlobalParameters bool `tfsdk:"-" vyos:"global-parameters,child"`
 }
 
@@ -69,8 +73,9 @@ func (o *ServiceDhcpvsixServer) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDhcpvsixServer) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
 	}
 }
 
@@ -78,10 +83,9 @@ func (o *ServiceDhcpvsixServer) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceDhcpvsixServer) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -102,7 +106,7 @@ func (o ServiceDhcpvsixServer) ResourceSchemaAttributes(ctx context.Context) map
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -116,7 +120,7 @@ func (o ServiceDhcpvsixServer) ResourceSchemaAttributes(ctx context.Context) map
 		},
 
 		"listen_interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -136,7 +140,7 @@ func (o ServiceDhcpvsixServer) ResourceSchemaAttributes(ctx context.Context) map
 
 		"disable_route_autoinstall":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not install routes for delegated prefixes
@@ -151,7 +155,7 @@ func (o ServiceDhcpvsixServer) ResourceSchemaAttributes(ctx context.Context) map
 
 		"preference":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Preference of this DHCPv6 server compared with others
@@ -167,5 +171,10 @@ func (o ServiceDhcpvsixServer) ResourceSchemaAttributes(ctx context.Context) map
     |  0-255   |  DHCPv6 server preference (0-255)  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

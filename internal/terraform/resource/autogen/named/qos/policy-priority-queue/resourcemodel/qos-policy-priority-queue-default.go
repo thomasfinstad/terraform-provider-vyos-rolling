@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &QosPolicyPriorityQueueDefault{}
 
 // QosPolicyPriorityQueueDefault describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type QosPolicyPriorityQueueDefault struct {
 	// LeafNodes
 	LeafQosPolicyPriorityQueueDefaultCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
@@ -27,8 +29,7 @@ type QosPolicyPriorityQueueDefault struct {
 	LeafQosPolicyPriorityQueueDefaultQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
 	LeafQosPolicyPriorityQueueDefaultTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -40,7 +41,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes(ctx context.Cont
 
 		"codel_quantum":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
@@ -62,7 +63,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes(ctx context.Cont
 
 		"flows":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
@@ -84,7 +85,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes(ctx context.Cont
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
@@ -106,7 +107,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes(ctx context.Cont
 
 		"queue_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
@@ -125,7 +126,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes(ctx context.Cont
 
 		"queue_type":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
@@ -155,7 +156,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes(ctx context.Cont
 
 		"target":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
@@ -174,6 +175,8 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes(ctx context.Cont
 			// Default:          stringdefault.StaticString(`5`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

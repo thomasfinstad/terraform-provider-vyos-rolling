@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesPseudoEthernetVifSIP{}
 
 // InterfacesPseudoEthernetVifSIP describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesPseudoEthernetVifSIP struct {
 	// LeafNodes
 	LeafInterfacesPseudoEthernetVifSIPAdjustMss               types.String `tfsdk:"adjust_mss" vyos:"adjust-mss,omitempty"`
@@ -33,8 +35,7 @@ type InterfacesPseudoEthernetVifSIP struct {
 	LeafInterfacesPseudoEthernetVifSIPProxyArpPvlan           types.Bool   `tfsdk:"proxy_arp_pvlan" vyos:"proxy-arp-pvlan,omitempty"`
 	LeafInterfacesPseudoEthernetVifSIPSourceValIDation        types.String `tfsdk:"source_validation" vyos:"source-validation,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -46,7 +47,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"adjust_mss":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
@@ -67,7 +68,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"arp_cache_timeout":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ARP cache entry timeout in seconds
@@ -89,7 +90,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"disable_arp_filter":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable ARP filter on this interface
@@ -104,7 +105,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"disable_forwarding":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
@@ -119,7 +120,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"enable_directed_broadcast":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable directed broadcast forwarding on this interface
@@ -134,7 +135,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"enable_arp_accept":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable ARP accept on this interface
@@ -149,7 +150,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"enable_arp_announce":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable ARP announce on this interface
@@ -164,7 +165,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"enable_arp_ignore":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable ARP ignore on this interface
@@ -179,7 +180,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"enable_proxy_arp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable proxy-arp on this interface
@@ -194,7 +195,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"proxy_arp_pvlan":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable private VLAN proxy ARP on this interface
@@ -209,7 +210,7 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
 
 		"source_validation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source validation by reversed path (RFC3704)
@@ -229,6 +230,8 @@ func (o InterfacesPseudoEthernetVifSIP) ResourceSchemaAttributes(ctx context.Con
     |  disable  |  No source validation                                         |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

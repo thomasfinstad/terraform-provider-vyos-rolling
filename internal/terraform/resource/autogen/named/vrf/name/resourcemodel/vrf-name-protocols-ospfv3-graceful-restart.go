@@ -12,20 +12,22 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfvthreeGracefulRestart{}
 
 // VrfNameProtocolsOspfvthreeGracefulRestart describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfvthreeGracefulRestart struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfvthreeGracefulRestartGracePeriod types.Number `tfsdk:"grace_period" vyos:"grace-period,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeVrfNameProtocolsOspfvthreeGracefulRestartHelper *VrfNameProtocolsOspfvthreeGracefulRestartHelper `tfsdk:"helper" vyos:"helper,omitempty"`
 }
 
@@ -36,7 +38,7 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestart) ResourceSchemaAttributes(ctx 
 
 		"grace_period":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum length of the grace period
@@ -55,6 +57,8 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestart) ResourceSchemaAttributes(ctx 
 			// Default:          stringdefault.StaticString(`120`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

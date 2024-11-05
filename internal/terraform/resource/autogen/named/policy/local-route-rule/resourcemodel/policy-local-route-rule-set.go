@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyLocalRouteRuleSet{}
 
 // PolicyLocalRouteRuleSet describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyLocalRouteRuleSet struct {
 	// LeafNodes
 	LeafPolicyLocalRouteRuleSetTable types.Number `tfsdk:"table" vyos:"table,omitempty"`
 	LeafPolicyLocalRouteRuleSetVrf   types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o PolicyLocalRouteRuleSet) ResourceSchemaAttributes(ctx context.Context) m
 
 		"table":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Routing table to forward packet with
@@ -55,7 +56,7 @@ func (o PolicyLocalRouteRuleSet) ResourceSchemaAttributes(ctx context.Context) m
 
 		"vrf":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF to forward packet with
@@ -73,6 +74,8 @@ func (o PolicyLocalRouteRuleSet) ResourceSchemaAttributes(ctx context.Context) m
     |  default  |  Forward into default global VRF  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

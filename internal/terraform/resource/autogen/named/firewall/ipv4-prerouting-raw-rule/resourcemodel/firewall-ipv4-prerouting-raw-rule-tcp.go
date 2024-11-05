@@ -12,20 +12,22 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvfourPreroutingRawRuleTCP{}
 
 // FirewallIPvfourPreroutingRawRuleTCP describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvfourPreroutingRawRuleTCP struct {
 	// LeafNodes
 	LeafFirewallIPvfourPreroutingRawRuleTCPMss types.String `tfsdk:"mss" vyos:"mss,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeFirewallIPvfourPreroutingRawRuleTCPFlags *FirewallIPvfourPreroutingRawRuleTCPFlags `tfsdk:"flags" vyos:"flags,omitempty"`
 }
 
@@ -36,7 +38,7 @@ func (o FirewallIPvfourPreroutingRawRuleTCP) ResourceSchemaAttributes(ctx contex
 
 		"mss":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum segment size (MSS)
@@ -54,6 +56,8 @@ func (o FirewallIPvfourPreroutingRawRuleTCP) ResourceSchemaAttributes(ctx contex
     |  <min>-<max>  |  TCP MSS range (use '-' as delimiter)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

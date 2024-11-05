@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &VpnLtwotpRemoteAccessClientIPvsixPoolDelegate{}
 
 // VpnLtwotpRemoteAccessClientIPvsixPoolDelegate describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type VpnLtwotpRemoteAccessClientIPvsixPoolDelegate struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -37,7 +39,7 @@ type VpnLtwotpRemoteAccessClientIPvsixPoolDelegate struct {
 	// LeafNodes
 	LeafVpnLtwotpRemoteAccessClientIPvsixPoolDelegateDelegationPrefix types.Number `tfsdk:"delegation_prefix" vyos:"delegation-prefix,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -77,21 +79,20 @@ func (o *VpnLtwotpRemoteAccessClientIPvsixPoolDelegate) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnLtwotpRemoteAccessClientIPvsixPoolDelegate) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"l2tp",
+		"l2tp", // Node
 
-		"remote-access",
+		"remote-access", // Node
 
 		"client-ipv6-pool",
-
 		o.SelfIdentifier.Attributes()["client_ipv6_pool"].(types.String).ValueString(),
 	}
 }
@@ -102,23 +103,22 @@ func (o *VpnLtwotpRemoteAccessClientIPvsixPoolDelegate) GetVyosParentPath() []st
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *VpnLtwotpRemoteAccessClientIPvsixPoolDelegate) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"l2tp",
+		"l2tp", // Node
 
-		"remote-access",
+		"remote-access", // Node
 
 		"client-ipv6-pool",
-
 		o.SelfIdentifier.Attributes()["client_ipv6_pool"].(types.String).ValueString(),
 	}
 }
@@ -158,8 +158,8 @@ func (o VpnLtwotpRemoteAccessClientIPvsixPoolDelegate) ResourceSchemaAttributes(
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  delegate, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  delegate, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -198,8 +198,8 @@ func (o VpnLtwotpRemoteAccessClientIPvsixPoolDelegate) ResourceSchemaAttributes(
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  client_ipv6_pool, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  client_ipv6_pool, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -215,7 +215,7 @@ func (o VpnLtwotpRemoteAccessClientIPvsixPoolDelegate) ResourceSchemaAttributes(
 
 		"delegation_prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix length delegated to client
@@ -231,6 +231,8 @@ func (o VpnLtwotpRemoteAccessClientIPvsixPoolDelegate) ResourceSchemaAttributes(
     |  32-64   |  Delegated prefix length  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesTunnelParametersErspan{}
 
 // InterfacesTunnelParametersErspan describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesTunnelParametersErspan struct {
 	// LeafNodes
 	LeafInterfacesTunnelParametersErspanDirection types.String `tfsdk:"direction" vyos:"direction,omitempty"`
@@ -25,8 +27,7 @@ type InterfacesTunnelParametersErspan struct {
 	LeafInterfacesTunnelParametersErspanIndex     types.Number `tfsdk:"index" vyos:"index,omitempty"`
 	LeafInterfacesTunnelParametersErspanVersion   types.String `tfsdk:"version" vyos:"version,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -38,7 +39,7 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes(ctx context.C
 
 		"direction":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Mirrored traffic direction
@@ -59,7 +60,7 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes(ctx context.C
 
 		"hw_id":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Unique identifier of an ERSPAN engine within a system
@@ -78,7 +79,7 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes(ctx context.C
 
 		"index":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ERSPAN version 1 index field
@@ -97,7 +98,7 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes(ctx context.C
 
 		"version":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Protocol version
@@ -118,6 +119,8 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes(ctx context.C
 			// Default:          stringdefault.StaticString(`1`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

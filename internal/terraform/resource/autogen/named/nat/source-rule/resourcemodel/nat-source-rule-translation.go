@@ -12,21 +12,23 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &NatSourceRuleTranSLAtion{}
 
 // NatSourceRuleTranSLAtion describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type NatSourceRuleTranSLAtion struct {
 	// LeafNodes
 	LeafNatSourceRuleTranSLAtionAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafNatSourceRuleTranSLAtionPort    types.String `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeNatSourceRuleTranSLAtionOptions *NatSourceRuleTranSLAtionOptions `tfsdk:"options" vyos:"options,omitempty"`
 }
 
@@ -37,7 +39,7 @@ func (o NatSourceRuleTranSLAtion) ResourceSchemaAttributes(ctx context.Context) 
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
@@ -62,7 +64,7 @@ func (o NatSourceRuleTranSLAtion) ResourceSchemaAttributes(ctx context.Context) 
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number
@@ -80,6 +82,8 @@ func (o NatSourceRuleTranSLAtion) ResourceSchemaAttributes(ctx context.Context) 
     |  range    |  Numbered port range (e.g., 1001-1005)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsPimsixInterfaceMld{}
 
 // ProtocolsPimsixInterfaceMld describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsPimsixInterfaceMld struct {
 	// LeafNodes
 	LeafProtocolsPimsixInterfaceMldDisable                 types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -28,8 +30,7 @@ type ProtocolsPimsixInterfaceMld struct {
 	LeafProtocolsPimsixInterfaceMldMaxResponseTime         types.Number `tfsdk:"max_response_time" vyos:"max-response-time,omitempty"`
 	LeafProtocolsPimsixInterfaceMldVersion                 types.String `tfsdk:"version" vyos:"version,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagProtocolsPimsixInterfaceMldJoin bool `tfsdk:"-" vyos:"join,child"`
 
@@ -43,7 +44,7 @@ func (o ProtocolsPimsixInterfaceMld) ResourceSchemaAttributes(ctx context.Contex
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -58,7 +59,7 @@ func (o ProtocolsPimsixInterfaceMld) ResourceSchemaAttributes(ctx context.Contex
 
 		"last_member_query_count":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Last member query count
@@ -77,7 +78,7 @@ func (o ProtocolsPimsixInterfaceMld) ResourceSchemaAttributes(ctx context.Contex
 
 		"last_member_query_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Last member query interval
@@ -96,7 +97,7 @@ func (o ProtocolsPimsixInterfaceMld) ResourceSchemaAttributes(ctx context.Contex
 
 		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Query interval
@@ -115,7 +116,7 @@ func (o ProtocolsPimsixInterfaceMld) ResourceSchemaAttributes(ctx context.Contex
 
 		"max_response_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Max query response time
@@ -134,7 +135,7 @@ func (o ProtocolsPimsixInterfaceMld) ResourceSchemaAttributes(ctx context.Contex
 
 		"version":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `MLD version
@@ -155,6 +156,8 @@ func (o ProtocolsPimsixInterfaceMld) ResourceSchemaAttributes(ctx context.Contex
 			// Default:          stringdefault.StaticString(`2`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

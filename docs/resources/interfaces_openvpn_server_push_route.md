@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_openvpn_server_push_route (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 OpenVPN Tunnel Interface  

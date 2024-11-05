@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesOpenvpnServerClientIPvsixPool{}
 
 // InterfacesOpenvpnServerClientIPvsixPool describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesOpenvpnServerClientIPvsixPool struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnServerClientIPvsixPoolBase    types.String `tfsdk:"base" vyos:"base,omitempty"`
 	LeafInterfacesOpenvpnServerClientIPvsixPoolDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceSchemaAttributes(ctx co
 
 		"base":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Client IPv6 pool base address with optional prefix length
@@ -56,7 +57,7 @@ func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceSchemaAttributes(ctx co
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -68,6 +69,8 @@ func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceSchemaAttributes(ctx co
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

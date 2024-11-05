@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &QosTrafficMatchGroup{}
 
 // QosTrafficMatchGroup describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type QosTrafficMatchGroup struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -38,7 +40,7 @@ type QosTrafficMatchGroup struct {
 	LeafQosTrafficMatchGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosTrafficMatchGroupMatchGroup  types.List   `tfsdk:"match_group" vyos:"match-group,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagQosTrafficMatchGroupMatch bool `tfsdk:"-" vyos:"match,child"`
 
@@ -80,8 +82,9 @@ func (o *QosTrafficMatchGroup) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *QosTrafficMatchGroup) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"qos",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"qos", // Node
+
 	}
 }
 
@@ -91,7 +94,7 @@ func (o *QosTrafficMatchGroup) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *QosTrafficMatchGroup) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -131,8 +134,8 @@ func (o QosTrafficMatchGroup) ResourceSchemaAttributes(ctx context.Context) map[
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  traffic_match_group, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  traffic_match_group, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -151,7 +154,7 @@ func (o QosTrafficMatchGroup) ResourceSchemaAttributes(ctx context.Context) map[
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -169,7 +172,7 @@ func (o QosTrafficMatchGroup) ResourceSchemaAttributes(ctx context.Context) map[
 		},
 
 		"match_group":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -186,6 +189,8 @@ func (o QosTrafficMatchGroup) ResourceSchemaAttributes(ctx context.Context) map[
     |  txt     |  Match group name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

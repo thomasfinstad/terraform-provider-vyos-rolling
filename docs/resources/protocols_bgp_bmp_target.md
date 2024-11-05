@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_bgp_bmp_target (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Border Gateway Protocol (BGP)  

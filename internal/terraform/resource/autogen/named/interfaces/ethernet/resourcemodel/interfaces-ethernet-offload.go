@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesEthernetOffload{}
 
 // InterfacesEthernetOffload describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesEthernetOffload struct {
 	// LeafNodes
 	LeafInterfacesEthernetOffloadGro         types.Bool `tfsdk:"gro" vyos:"gro,omitempty"`
@@ -30,8 +32,7 @@ type InterfacesEthernetOffload struct {
 	LeafInterfacesEthernetOffloadSg          types.Bool `tfsdk:"sg" vyos:"sg,omitempty"`
 	LeafInterfacesEthernetOffloadTso         types.Bool `tfsdk:"tso" vyos:"tso,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -43,7 +44,7 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 
 		"gro":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Generic Receive Offload
@@ -58,7 +59,7 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 
 		"gso":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Generic Segmentation Offload
@@ -73,7 +74,7 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 
 		"hw_tc_offload":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Hardware Flow Offload
@@ -88,7 +89,7 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 
 		"lro":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Large Receive Offload
@@ -103,7 +104,7 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 
 		"rps":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Receive Packet Steering
@@ -118,7 +119,7 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 
 		"rfs":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Receive Flow Steering
@@ -133,7 +134,7 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 
 		"sg":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Scatter-Gather
@@ -148,7 +149,7 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 
 		"tso":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable TCP Segmentation Offloading
@@ -160,6 +161,8 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes(ctx context.Context)
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

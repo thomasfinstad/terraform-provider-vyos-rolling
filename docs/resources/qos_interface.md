@@ -10,6 +10,7 @@ description: |-
 # vyos_qos_interface (Resource)
 <center>
 
+
 Quality of Service (QoS)  
 ⯯  
 **Interface to apply QoS policy**

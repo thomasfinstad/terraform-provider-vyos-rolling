@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport{}
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn types.Bool `tfsdk:"vpn" vyos:"vpn,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf types.List `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) ResourceSchemaAttr
 
 		"vpn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `to/from default instance VPN RIB
@@ -51,7 +52,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) ResourceSchemaAttr
 		},
 
 		"vrf":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -68,6 +69,8 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) ResourceSchemaAttr
     |  txt     |  VRF instance name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

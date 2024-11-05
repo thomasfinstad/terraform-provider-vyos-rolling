@@ -10,6 +10,7 @@ description: |-
 # vyos_pki_key_pair (Resource)
 <center>
 
+
 Public key infrastructure (PKI)  
 ⯯  
 **Public and private keys**

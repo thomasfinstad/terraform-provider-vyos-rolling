@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallZoneFromFirewall{}
 
 // FirewallZoneFromFirewall describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallZoneFromFirewall struct {
 	// LeafNodes
 	LeafFirewallZoneFromFirewallIPvsixName types.String `tfsdk:"ipv6_name" vyos:"ipv6-name,omitempty"`
 	LeafFirewallZoneFromFirewallName       types.String `tfsdk:"name" vyos:"name,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -36,7 +37,7 @@ func (o FirewallZoneFromFirewall) ResourceSchemaAttributes(ctx context.Context) 
 
 		"ipv6_name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv6 firewall ruleset
@@ -49,7 +50,7 @@ func (o FirewallZoneFromFirewall) ResourceSchemaAttributes(ctx context.Context) 
 
 		"name":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 firewall ruleset
@@ -59,6 +60,8 @@ func (o FirewallZoneFromFirewall) ResourceSchemaAttributes(ctx context.Context) 
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

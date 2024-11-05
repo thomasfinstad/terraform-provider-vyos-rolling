@@ -16,14 +16,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &SystemOptionKernel{}
 
 // SystemOptionKernel describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type SystemOptionKernel struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -31,9 +33,10 @@ type SystemOptionKernel struct {
 	LeafSystemOptionKernelDisablePowerSaving types.Bool   `tfsdk:"disable_power_saving" vyos:"disable-power-saving,omitempty"`
 	LeafSystemOptionKernelAmdPstateDriver    types.String `tfsdk:"amd_pstate_driver" vyos:"amd-pstate-driver,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
+
 	ExistsNodeSystemOptionKernelDebug bool `tfsdk:"-" vyos:"debug,child"`
 }
 
@@ -67,12 +70,13 @@ func (o *SystemOptionKernel) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *SystemOptionKernel) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"system",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"system", // Node
 
-		"option",
+		"option", // Node
+
 	}
 }
 
@@ -80,12 +84,11 @@ func (o *SystemOptionKernel) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *SystemOptionKernel) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -106,7 +109,7 @@ func (o SystemOptionKernel) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable_mitigations":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable all optional CPU mitigations
@@ -121,7 +124,7 @@ func (o SystemOptionKernel) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"disable_power_saving":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable CPU power saving mechanisms also known as C states
@@ -136,7 +139,7 @@ func (o SystemOptionKernel) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		"amd_pstate_driver":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Enables and configures pstate driver for AMD Ryzen and Epyc CPUs
@@ -156,5 +159,10 @@ func (o SystemOptionKernel) ResourceSchemaAttributes(ctx context.Context) map[st
     |  guided   |  The firmware controls performance states guided by the system governor          |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

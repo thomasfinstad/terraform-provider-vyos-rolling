@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsOpenfabricDomainInterface{}
 
 // ProtocolsOpenfabricDomainInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsOpenfabricDomainInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -43,11 +45,13 @@ type ProtocolsOpenfabricDomainInterface struct {
 	LeafProtocolsOpenfabricDomainInterfacePassive         types.Bool   `tfsdk:"passive" vyos:"passive,omitempty"`
 	LeafProtocolsOpenfabricDomainInterfacePsnpInterval    types.Number `tfsdk:"psnp_interval" vyos:"psnp-interval,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeProtocolsOpenfabricDomainInterfaceAddressFamily *ProtocolsOpenfabricDomainInterfaceAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
-	NodeProtocolsOpenfabricDomainInterfacePassword      *ProtocolsOpenfabricDomainInterfacePassword      `tfsdk:"password" vyos:"password,omitempty"`
+
+	NodeProtocolsOpenfabricDomainInterfacePassword *ProtocolsOpenfabricDomainInterfacePassword `tfsdk:"password" vyos:"password,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -85,17 +89,16 @@ func (o *ProtocolsOpenfabricDomainInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsOpenfabricDomainInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"openfabric",
+		"openfabric", // Node
 
 		"domain",
-
 		o.SelfIdentifier.Attributes()["domain"].(types.String).ValueString(),
 	}
 }
@@ -106,19 +109,18 @@ func (o *ProtocolsOpenfabricDomainInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsOpenfabricDomainInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"openfabric",
+		"openfabric", // Node
 
 		"domain",
-
 		o.SelfIdentifier.Attributes()["domain"].(types.String).ValueString(),
 	}
 }
@@ -158,8 +160,8 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -196,8 +198,8 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  domain, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  domain, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -213,7 +215,7 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
 
 		"csnp_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Complete Sequence Number Packets (CSNP) interval
@@ -232,7 +234,7 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
 
 		"hello_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hello interval
@@ -251,7 +253,7 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
 
 		"hello_multiplier":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Multiplier for Hello holding time
@@ -270,7 +272,7 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
 
 		"metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface metric value
@@ -289,7 +291,7 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
 
 		"passive":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not initiate adjacencies to the interface
@@ -304,7 +306,7 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
 
 		"psnp_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Partial Sequence Number Packets (PSNP) interval
@@ -320,6 +322,8 @@ func (o ProtocolsOpenfabricDomainInterface) ResourceSchemaAttributes(ctx context
     |  0-120   |  PSNP interval in seconds  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

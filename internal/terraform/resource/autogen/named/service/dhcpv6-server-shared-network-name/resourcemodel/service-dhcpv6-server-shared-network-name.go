@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceDhcpvsixServerSharedNetworkName{}
 
 // ServiceDhcpvsixServerSharedNetworkName describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceDhcpvsixServerSharedNetworkName struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -40,11 +42,12 @@ type ServiceDhcpvsixServerSharedNetworkName struct {
 	LeafServiceDhcpvsixServerSharedNetworkNameDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafServiceDhcpvsixServerSharedNetworkNameInterface   types.String `tfsdk:"interface" vyos:"interface,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagServiceDhcpvsixServerSharedNetworkNameSubnet bool `tfsdk:"-" vyos:"subnet,child"`
 
 	// Nodes
+
 	NodeServiceDhcpvsixServerSharedNetworkNameOption *ServiceDhcpvsixServerSharedNetworkNameOption `tfsdk:"option" vyos:"option,omitempty"`
 }
 
@@ -83,12 +86,13 @@ func (o *ServiceDhcpvsixServerSharedNetworkName) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDhcpvsixServerSharedNetworkName) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dhcpv6-server",
+		"dhcpv6-server", // Node
+
 	}
 }
 
@@ -98,9 +102,9 @@ func (o *ServiceDhcpvsixServerSharedNetworkName) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceDhcpvsixServerSharedNetworkName) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -134,8 +138,8 @@ func (o ServiceDhcpvsixServerSharedNetworkName) ResourceSchemaAttributes(ctx con
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  shared_network_name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -156,7 +160,7 @@ func (o ServiceDhcpvsixServerSharedNetworkName) ResourceSchemaAttributes(ctx con
 
 		"disable":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
@@ -171,7 +175,7 @@ func (o ServiceDhcpvsixServerSharedNetworkName) ResourceSchemaAttributes(ctx con
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -190,7 +194,7 @@ func (o ServiceDhcpvsixServerSharedNetworkName) ResourceSchemaAttributes(ctx con
 
 		"interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Optional interface for this shared network to accept requests from
@@ -206,6 +210,8 @@ func (o ServiceDhcpvsixServerSharedNetworkName) ResourceSchemaAttributes(ctx con
     |  txt     |  Interface name  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

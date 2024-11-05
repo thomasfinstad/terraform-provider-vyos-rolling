@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ServiceDhcpRelayRelayOptions{}
 
 // ServiceDhcpRelayRelayOptions describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ServiceDhcpRelayRelayOptions struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -30,9 +32,9 @@ type ServiceDhcpRelayRelayOptions struct {
 	LeafServiceDhcpRelayRelayOptionsMaxSize            types.Number `tfsdk:"max_size" vyos:"max-size,omitempty"`
 	LeafServiceDhcpRelayRelayOptionsRelayAgentsPackets types.String `tfsdk:"relay_agents_packets" vyos:"relay-agents-packets,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
+	// TagNodes
 
-	// Nodes (Bools that show if child resources have been configured)
+	// Nodes
 }
 
 // SetID configures the resource ID
@@ -65,12 +67,13 @@ func (o *ServiceDhcpRelayRelayOptions) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceDhcpRelayRelayOptions) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"dhcp-relay",
+		"dhcp-relay", // Node
+
 	}
 }
 
@@ -78,12 +81,11 @@ func (o *ServiceDhcpRelayRelayOptions) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ServiceDhcpRelayRelayOptions) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -104,7 +106,7 @@ func (o ServiceDhcpRelayRelayOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"hop_count":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy to discard packets that have reached specified hop-count
@@ -126,7 +128,7 @@ func (o ServiceDhcpRelayRelayOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"max_size":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum packet size to send to a DHCPv4/BOOTP server
@@ -148,7 +150,7 @@ func (o ServiceDhcpRelayRelayOptions) ResourceSchemaAttributes(ctx context.Conte
 
 		"relay_agents_packets":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Policy to handle incoming DHCPv4 packets which already contain relay agent options
@@ -173,5 +175,10 @@ func (o ServiceDhcpRelayRelayOptions) ResourceSchemaAttributes(ctx context.Conte
 			// Default:          stringdefault.StaticString(`forward`),
 			Computed: true,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

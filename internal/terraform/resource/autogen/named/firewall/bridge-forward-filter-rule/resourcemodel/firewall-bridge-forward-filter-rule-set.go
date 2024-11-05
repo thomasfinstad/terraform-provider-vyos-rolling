@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallBrIDgeForwardFilterRuleSet{}
 
 // FirewallBrIDgeForwardFilterRuleSet describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallBrIDgeForwardFilterRuleSet struct {
 	// LeafNodes
 	LeafFirewallBrIDgeForwardFilterRuleSetDscp           types.Number `tfsdk:"dscp" vyos:"dscp,omitempty"`
@@ -27,8 +29,7 @@ type FirewallBrIDgeForwardFilterRuleSet struct {
 	LeafFirewallBrIDgeForwardFilterRuleSetTTL            types.Number `tfsdk:"ttl" vyos:"ttl,omitempty"`
 	LeafFirewallBrIDgeForwardFilterRuleSetHopLimit       types.Number `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -40,7 +41,7 @@ func (o FirewallBrIDgeForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"dscp":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set DSCP (Packet Differentiated Services Codepoint) bits
@@ -59,7 +60,7 @@ func (o FirewallBrIDgeForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"connection_mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set connection mark
@@ -78,7 +79,7 @@ func (o FirewallBrIDgeForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"mark":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set packet mark
@@ -97,7 +98,7 @@ func (o FirewallBrIDgeForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"tcp_mss":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set TCP Maximum Segment Size
@@ -116,7 +117,7 @@ func (o FirewallBrIDgeForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"ttl":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set TTL (time to live)
@@ -135,7 +136,7 @@ func (o FirewallBrIDgeForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
 
 		"hop_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set hop limit
@@ -151,6 +152,8 @@ func (o FirewallBrIDgeForwardFilterRuleSet) ResourceSchemaAttributes(ctx context
     |  0-255   |  Hop limit number  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

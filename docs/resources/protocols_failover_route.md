@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_failover_route (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Failover Routing  

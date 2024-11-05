@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &ProtocolsOspf{}
 
 // ProtocolsOspf describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type ProtocolsOspf struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -30,29 +32,49 @@ type ProtocolsOspf struct {
 	LeafProtocolsOspfMaximumPaths     types.Number `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
 	LeafProtocolsOspfPassiveInterface types.String `tfsdk:"passive_interface" vyos:"passive-interface,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsOspfAccessList     bool `tfsdk:"-" vyos:"access-list,child"`
-	ExistsTagProtocolsOspfArea           bool `tfsdk:"-" vyos:"area,child"`
-	ExistsTagProtocolsOspfInterface      bool `tfsdk:"-" vyos:"interface,child"`
-	ExistsTagProtocolsOspfNeighbor       bool `tfsdk:"-" vyos:"neighbor,child"`
+	// TagNodes
+
+	ExistsTagProtocolsOspfAccessList bool `tfsdk:"-" vyos:"access-list,child"`
+
+	ExistsTagProtocolsOspfArea bool `tfsdk:"-" vyos:"area,child"`
+
+	ExistsTagProtocolsOspfInterface bool `tfsdk:"-" vyos:"interface,child"`
+
+	ExistsTagProtocolsOspfNeighbor bool `tfsdk:"-" vyos:"neighbor,child"`
+
 	ExistsTagProtocolsOspfSummaryAddress bool `tfsdk:"-" vyos:"summary-address,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsOspfAggregation         bool `tfsdk:"-" vyos:"aggregation,child"`
-	ExistsNodeProtocolsOspfAutoCost            bool `tfsdk:"-" vyos:"auto-cost,child"`
-	ExistsNodeProtocolsOspfCapability          bool `tfsdk:"-" vyos:"capability,child"`
-	ExistsNodeProtocolsOspfDefaultInformation  bool `tfsdk:"-" vyos:"default-information,child"`
-	ExistsNodeProtocolsOspfGracefulRestart     bool `tfsdk:"-" vyos:"graceful-restart,child"`
-	ExistsNodeProtocolsOspfLdpSync             bool `tfsdk:"-" vyos:"ldp-sync,child"`
-	ExistsNodeProtocolsOspfDistance            bool `tfsdk:"-" vyos:"distance,child"`
+	// Nodes
+
+	ExistsNodeProtocolsOspfAggregation bool `tfsdk:"-" vyos:"aggregation,child"`
+
+	ExistsNodeProtocolsOspfAutoCost bool `tfsdk:"-" vyos:"auto-cost,child"`
+
+	ExistsNodeProtocolsOspfCapability bool `tfsdk:"-" vyos:"capability,child"`
+
+	NodeProtocolsOspfDefaultInformation *ProtocolsOspfDefaultInformation `tfsdk:"default_information" vyos:"default-information,omitempty"`
+
+	ExistsNodeProtocolsOspfGracefulRestart bool `tfsdk:"-" vyos:"graceful-restart,child"`
+
+	ExistsNodeProtocolsOspfLdpSync bool `tfsdk:"-" vyos:"ldp-sync,child"`
+
+	ExistsNodeProtocolsOspfDistance bool `tfsdk:"-" vyos:"distance,child"`
+
 	ExistsNodeProtocolsOspfLogAdjacencyChanges bool `tfsdk:"-" vyos:"log-adjacency-changes,child"`
-	ExistsNodeProtocolsOspfMaxMetric           bool `tfsdk:"-" vyos:"max-metric,child"`
-	ExistsNodeProtocolsOspfMplsTe              bool `tfsdk:"-" vyos:"mpls-te,child"`
-	ExistsNodeProtocolsOspfParameters          bool `tfsdk:"-" vyos:"parameters,child"`
-	ExistsNodeProtocolsOspfSegmentRouting      bool `tfsdk:"-" vyos:"segment-routing,child"`
-	ExistsNodeProtocolsOspfRedistribute        bool `tfsdk:"-" vyos:"redistribute,child"`
-	ExistsNodeProtocolsOspfRefresh             bool `tfsdk:"-" vyos:"refresh,child"`
-	ExistsNodeProtocolsOspfTimers              bool `tfsdk:"-" vyos:"timers,child"`
+
+	NodeProtocolsOspfMaxMetric *ProtocolsOspfMaxMetric `tfsdk:"max_metric" vyos:"max-metric,omitempty"`
+
+	ExistsNodeProtocolsOspfMplsTe bool `tfsdk:"-" vyos:"mpls-te,child"`
+
+	ExistsNodeProtocolsOspfParameters bool `tfsdk:"-" vyos:"parameters,child"`
+
+	ExistsNodeProtocolsOspfSegmentRouting bool `tfsdk:"-" vyos:"segment-routing,child"`
+
+	NodeProtocolsOspfRedistribute *ProtocolsOspfRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+
+	ExistsNodeProtocolsOspfRefresh bool `tfsdk:"-" vyos:"refresh,child"`
+
+	NodeProtocolsOspfTimers *ProtocolsOspfTimers `tfsdk:"timers" vyos:"timers,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -85,8 +107,9 @@ func (o *ProtocolsOspf) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsOspf) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
+
 	}
 }
 
@@ -94,10 +117,9 @@ func (o *ProtocolsOspf) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *ProtocolsOspf) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -118,7 +140,7 @@ func (o ProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"default_metric":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Metric of redistributed routes
@@ -137,7 +159,7 @@ func (o ProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"maximum_paths":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum multiple paths (ECMP)
@@ -156,7 +178,7 @@ func (o ProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"passive_interface":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Suppress routing updates on an interface
@@ -170,6 +192,54 @@ func (o ProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[string]
     |  Format   |  Description                                            |
     |-----------|---------------------------------------------------------|
     |  default  |  Default to suppress routing updates on all interfaces  |
+`,
+		},
+
+		// TagNodes
+
+		// Nodes
+
+		"default_information": schema.SingleNestedAttribute{
+			Attributes: ProtocolsOspfDefaultInformation{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Default route advertisment settings
+
+`,
+			Description: `Default route advertisment settings
+
+`,
+		},
+
+		"max_metric": schema.SingleNestedAttribute{
+			Attributes: ProtocolsOspfMaxMetric{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `OSPF maximum and infinite-distance metric
+
+`,
+			Description: `OSPF maximum and infinite-distance metric
+
+`,
+		},
+
+		"redistribute": schema.SingleNestedAttribute{
+			Attributes: ProtocolsOspfRedistribute{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Redistribute information from another routing protocol
+
+`,
+			Description: `Redistribute information from another routing protocol
+
+`,
+		},
+
+		"timers": schema.SingleNestedAttribute{
+			Attributes: ProtocolsOspfTimers{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Adjust routing timers
+
+`,
+			Description: `Adjust routing timers
+
 `,
 		},
 	}

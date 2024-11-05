@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceRouterAdvertInterface{}
 
 // ServiceRouterAdvertInterface describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceRouterAdvertInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -51,7 +53,7 @@ type ServiceRouterAdvertInterface struct {
 	LeafServiceRouterAdvertInterfaceNoSendAdvert       types.Bool   `tfsdk:"no_send_advert" vyos:"no-send-advert,omitempty"`
 	LeafServiceRouterAdvertInterfaceNoSendInterval     types.Bool   `tfsdk:"no_send_interval" vyos:"no-send-interval,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagServiceRouterAdvertInterfaceRoute bool `tfsdk:"-" vyos:"route,child"`
 
@@ -60,6 +62,7 @@ type ServiceRouterAdvertInterface struct {
 	ExistsTagServiceRouterAdvertInterfacePrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
 	// Nodes
+
 	NodeServiceRouterAdvertInterfaceInterval *ServiceRouterAdvertInterfaceInterval `tfsdk:"interval" vyos:"interval,omitempty"`
 }
 
@@ -98,12 +101,13 @@ func (o *ServiceRouterAdvertInterface) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceRouterAdvertInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"router-advert",
+		"router-advert", // Node
+
 	}
 }
 
@@ -113,9 +117,9 @@ func (o *ServiceRouterAdvertInterface) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceRouterAdvertInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -149,8 +153,8 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  interface, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -171,7 +175,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"hop_limit":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set Hop Count field of the IP header for outgoing packets
@@ -195,7 +199,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"default_lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Lifetime associated with the default router in units of seconds
@@ -216,7 +220,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"default_preference":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Preference associated with the default router,
@@ -241,7 +245,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 		},
 
 		"dnssl":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -255,7 +259,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"link_mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Link MTU value placed in RAs, exluded in RAs if unset
@@ -274,7 +278,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"managed_flag":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Hosts use the administered (stateful) protocol for address autoconfiguration in addition to any addresses autoconfigured using SLAAC
@@ -288,7 +292,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 		},
 
 		"name_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -308,7 +312,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"name_server_lifetime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum duration how long the RDNSS entries are used
@@ -329,7 +333,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"other_config_flag":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Hosts use the administered (stateful) protocol for autoconfiguration of other (non-address) information
@@ -343,7 +347,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 		},
 
 		"source_address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -363,7 +367,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"reachable_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time, in milliseconds, that a node assumes a neighbor is reachable after having received a reachability confirmation
@@ -387,7 +391,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"retrans_timer":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time in milliseconds between retransmitted Neighbor Solicitation messages
@@ -411,7 +415,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"no_send_advert":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send router adverts
@@ -426,7 +430,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 
 		"no_send_interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send Advertisement Interval option in RAs
@@ -438,6 +442,8 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes(ctx context.Conte
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

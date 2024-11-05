@@ -10,6 +10,7 @@ description: |-
 # vyos_vpn_ipsec_ike_group_proposal (Resource)
 <center>
 
+
 Virtual Private Network (VPN)  
 ⯯  
 VPN IP security (IPsec) parameters  

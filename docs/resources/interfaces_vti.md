@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_vti (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Virtual Tunnel Interface (XFRM)**

@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_dummy (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 **Dummy Interface**

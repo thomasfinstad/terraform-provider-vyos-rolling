@@ -13,19 +13,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &LoadBalancingHaproxyBackendSsl{}
 
 // LoadBalancingHaproxyBackendSsl describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type LoadBalancingHaproxyBackendSsl struct {
 	// LeafNodes
 	LeafLoadBalancingHaproxyBackendSslCaCertificate types.String `tfsdk:"ca_certificate" vyos:"ca-certificate,omitempty"`
 	LeafLoadBalancingHaproxyBackendSslNoVerify      types.Bool   `tfsdk:"no_verify" vyos:"no-verify,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o LoadBalancingHaproxyBackendSsl) ResourceSchemaAttributes(ctx context.Con
 
 		"ca_certificate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Certificate Authority in PKI configuration
@@ -56,7 +57,7 @@ func (o LoadBalancingHaproxyBackendSsl) ResourceSchemaAttributes(ctx context.Con
 
 		"no_verify":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not attempt to verify SSL certificates for backend servers
@@ -68,6 +69,8 @@ func (o LoadBalancingHaproxyBackendSsl) ResourceSchemaAttributes(ctx context.Con
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

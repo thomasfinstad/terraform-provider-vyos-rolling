@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn{}
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn struct {
 	// LeafNodes
 	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAddpathTxAll         types.Bool   `tfsdk:"addpath_tx_all" vyos:"addpath-tx-all,omitempty"`
@@ -31,21 +33,31 @@ type ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn struct {
 	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourVpnUnsuppressMap        types.String `tfsdk:"unsuppress_map" vyos:"unsuppress-map,omitempty"`
 	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourVpnWeight               types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnPrefixList             *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnPrefixList             `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnPrefixList *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnPrefixList `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
+
 	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnConditionallyAdvertise *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnConditionallyAdvertise `tfsdk:"conditionally_advertise" vyos:"conditionally-advertise,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAllowasIn              *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAllowasIn              `tfsdk:"allowas_in" vyos:"allowas-in,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAttributeUnchanged     *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAttributeUnchanged     `tfsdk:"attribute_unchanged" vyos:"attribute-unchanged,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDisableSendCommunity   *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDisableSendCommunity   `tfsdk:"disable_send_community" vyos:"disable-send-community,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDistributeList         *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDistributeList         `tfsdk:"distribute_list" vyos:"distribute-list,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnFilterList             *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnFilterList             `tfsdk:"filter_list" vyos:"filter-list,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnNexthopSelf            *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnNexthopSelf            `tfsdk:"nexthop_self" vyos:"nexthop-self,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRemovePrivateAs        *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRemovePrivateAs        `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRouteMap               *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRouteMap               `tfsdk:"route_map" vyos:"route-map,omitempty"`
-	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnSoftReconfiguration    *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnSoftReconfiguration    `tfsdk:"soft_reconfiguration" vyos:"soft-reconfiguration,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAllowasIn *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAllowasIn `tfsdk:"allowas_in" vyos:"allowas-in,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAttributeUnchanged *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAttributeUnchanged `tfsdk:"attribute_unchanged" vyos:"attribute-unchanged,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDisableSendCommunity *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDisableSendCommunity `tfsdk:"disable_send_community" vyos:"disable-send-community,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDistributeList *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDistributeList `tfsdk:"distribute_list" vyos:"distribute-list,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnFilterList *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnFilterList `tfsdk:"filter_list" vyos:"filter-list,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnNexthopSelf *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnNexthopSelf `tfsdk:"nexthop_self" vyos:"nexthop-self,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRemovePrivateAs *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRemovePrivateAs `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRouteMap *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRouteMap `tfsdk:"route_map" vyos:"route-map,omitempty"`
+
+	NodeProtocolsBgpPeerGroupAddressFamilyIPvfourVpnSoftReconfiguration *ProtocolsBgpPeerGroupAddressFamilyIPvfourVpnSoftReconfiguration `tfsdk:"soft_reconfiguration" vyos:"soft-reconfiguration,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -55,7 +67,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"addpath_tx_all":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use addpath to advertise all paths to a neighbor
@@ -70,7 +82,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"addpath_tx_per_as":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use addpath to advertise the bestpath per each neighboring AS
@@ -85,7 +97,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"as_override":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Override ASN in outbound updates to configured neighbor local-as
@@ -100,7 +112,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"maximum_prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to accept from this peer
@@ -119,7 +131,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"maximum_prefix_out":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to be sent to this peer
@@ -138,7 +150,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"route_reflector_client":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route reflector client
@@ -153,7 +165,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"route_server_client":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route server client
@@ -168,7 +180,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"unsuppress_map":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route-map to selectively unsuppress suppressed routes
@@ -187,7 +199,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
 
 		"weight":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Default weight for routes from this peer
@@ -203,6 +215,8 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(c
     |  1-65535  |  Default weight  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

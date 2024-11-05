@@ -10,6 +10,7 @@ description: |-
 # vyos_service_dns_dynamic_name (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Domain Name System (DNS) related services  

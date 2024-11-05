@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteMapRuleMatchIPAddress{}
 
 // PolicyRouteMapRuleMatchIPAddress describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteMapRuleMatchIPAddress struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleMatchIPAddressAccessList types.Number `tfsdk:"access_list" vyos:"access-list,omitempty"`
 	LeafPolicyRouteMapRuleMatchIPAddressPrefixList types.String `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
 	LeafPolicyRouteMapRuleMatchIPAddressPrefixLen  types.Number `tfsdk:"prefix_len" vyos:"prefix-len,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes(ctx context.C
 
 		"access_list":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IP access-list to match
@@ -62,7 +63,7 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes(ctx context.C
 
 		"prefix_list":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP prefix-list to match
@@ -75,7 +76,7 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes(ctx context.C
 
 		"prefix_len":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IP prefix-length to match (can be used for kernel routes only)
@@ -91,6 +92,8 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes(ctx context.C
     |  0-32    |  Prefix length  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

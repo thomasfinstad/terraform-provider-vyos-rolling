@@ -10,6 +10,7 @@ description: |-
 # vyos_service_snmp_listen_address (Resource)
 <center>
 
+
 *service*  
 ⯯  
 Simple Network Management Protocol (SNMP)  

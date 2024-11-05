@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &InterfacesVxlanIPvsix{}
 
 // InterfacesVxlanIPvsix describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type InterfacesVxlanIPvsix struct {
 	// LeafNodes
 	LeafInterfacesVxlanIPvsixAdjustMss              types.String `tfsdk:"adjust_mss" vyos:"adjust-mss,omitempty"`
@@ -28,10 +30,10 @@ type InterfacesVxlanIPvsix struct {
 	LeafInterfacesVxlanIPvsixDupAddrDetectTransmits types.Number `tfsdk:"dup_addr_detect_transmits" vyos:"dup-addr-detect-transmits,omitempty"`
 	LeafInterfacesVxlanIPvsixSourceValIDation       types.String `tfsdk:"source_validation" vyos:"source-validation,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeInterfacesVxlanIPvsixAddress *InterfacesVxlanIPvsixAddress `tfsdk:"address" vyos:"address,omitempty"`
 }
 
@@ -42,7 +44,7 @@ func (o InterfacesVxlanIPvsix) ResourceSchemaAttributes(ctx context.Context) map
 
 		"adjust_mss":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
@@ -63,7 +65,7 @@ func (o InterfacesVxlanIPvsix) ResourceSchemaAttributes(ctx context.Context) map
 
 		"base_reachable_time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Base reachable time in seconds
@@ -85,7 +87,7 @@ func (o InterfacesVxlanIPvsix) ResourceSchemaAttributes(ctx context.Context) map
 
 		"disable_forwarding":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
@@ -100,7 +102,7 @@ func (o InterfacesVxlanIPvsix) ResourceSchemaAttributes(ctx context.Context) map
 
 		"accept_dad":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Accept Duplicate Address Detection
@@ -126,7 +128,7 @@ func (o InterfacesVxlanIPvsix) ResourceSchemaAttributes(ctx context.Context) map
 
 		"dup_addr_detect_transmits":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of NS messages to send while performing DAD
@@ -150,7 +152,7 @@ func (o InterfacesVxlanIPvsix) ResourceSchemaAttributes(ctx context.Context) map
 
 		"source_validation":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Source validation by reversed path (RFC3704)
@@ -170,6 +172,8 @@ func (o InterfacesVxlanIPvsix) ResourceSchemaAttributes(ctx context.Context) map
     |  disable  |  No source validation                                         |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

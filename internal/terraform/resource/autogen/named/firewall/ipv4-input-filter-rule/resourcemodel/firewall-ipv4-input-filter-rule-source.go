@@ -12,12 +12,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &FirewallIPvfourInputFilterRuleSource{}
 
 // FirewallIPvfourInputFilterRuleSource describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type FirewallIPvfourInputFilterRuleSource struct {
 	// LeafNodes
 	LeafFirewallIPvfourInputFilterRuleSourceAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
@@ -26,11 +28,12 @@ type FirewallIPvfourInputFilterRuleSource struct {
 	LeafFirewallIPvfourInputFilterRuleSourceMacAddress  types.String `tfsdk:"mac_address" vyos:"mac-address,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleSourcePort        types.String `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
+
 	NodeFirewallIPvfourInputFilterRuleSourceGeoIP *FirewallIPvfourInputFilterRuleSourceGeoIP `tfsdk:"geoip" vyos:"geoip,omitempty"`
+
 	NodeFirewallIPvfourInputFilterRuleSourceGroup *FirewallIPvfourInputFilterRuleSourceGroup `tfsdk:"group" vyos:"group,omitempty"`
 }
 
@@ -41,7 +44,7 @@ func (o FirewallIPvfourInputFilterRuleSource) ResourceSchemaAttributes(ctx conte
 
 		"address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
@@ -70,7 +73,7 @@ func (o FirewallIPvfourInputFilterRuleSource) ResourceSchemaAttributes(ctx conte
 
 		"address_mask":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IP mask
@@ -89,7 +92,7 @@ func (o FirewallIPvfourInputFilterRuleSource) ResourceSchemaAttributes(ctx conte
 
 		"fqdn":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Fully qualified domain name
@@ -108,7 +111,7 @@ func (o FirewallIPvfourInputFilterRuleSource) ResourceSchemaAttributes(ctx conte
 
 		"mac_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `MAC address
@@ -129,7 +132,7 @@ func (o FirewallIPvfourInputFilterRuleSource) ResourceSchemaAttributes(ctx conte
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Port
@@ -151,6 +154,8 @@ func (o FirewallIPvfourInputFilterRuleSource) ResourceSchemaAttributes(ctx conte
     |               |  </br></br>  Multiple destination ports can be specified as a comma-separated list.</br>  For example: 'telnet,http,123,1001-1005'  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn{}
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnBoth   types.String `tfsdk:"both" vyos:"both,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnImport types.String `tfsdk:"import" vyos:"import,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnExport types.String `tfsdk:"export" vyos:"export,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) ResourceSc
 
 		"both":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route Target both import and export
@@ -56,7 +57,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) ResourceSc
 
 		"import":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route Target import
@@ -75,7 +76,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) ResourceSc
 
 		"export":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Route Target export
@@ -91,6 +92,8 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) ResourceSc
     |  txt     |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

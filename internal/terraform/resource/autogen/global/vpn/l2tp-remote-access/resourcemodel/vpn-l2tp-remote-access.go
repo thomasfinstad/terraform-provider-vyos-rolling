@@ -15,14 +15,16 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/global/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
+
 var _ helpers.VyosTopResourceDataModel = &VpnLtwotpRemoteAccess{}
 
 // VpnLtwotpRemoteAccess describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `Node`
 type VpnLtwotpRemoteAccess struct {
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-
+	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
@@ -36,20 +38,31 @@ type VpnLtwotpRemoteAccess struct {
 	LeafVpnLtwotpRemoteAccessDescrIPtion           types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafVpnLtwotpRemoteAccessNameServer            types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnLtwotpRemoteAccessClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,child"`
+	// TagNodes
+
+	ExistsTagVpnLtwotpRemoteAccessClientIPPool bool `tfsdk:"-" vyos:"client-ip-pool,child"`
+
 	ExistsTagVpnLtwotpRemoteAccessClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,child"`
 
-	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnLtwotpRemoteAccessAuthentication  bool `tfsdk:"-" vyos:"authentication,child"`
-	ExistsNodeVpnLtwotpRemoteAccessIPsecSettings   bool `tfsdk:"-" vyos:"ipsec-settings,child"`
-	ExistsNodeVpnLtwotpRemoteAccessLns             bool `tfsdk:"-" vyos:"lns,child"`
+	// Nodes
+
+	ExistsNodeVpnLtwotpRemoteAccessAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
+
+	ExistsNodeVpnLtwotpRemoteAccessIPsecSettings bool `tfsdk:"-" vyos:"ipsec-settings,child"`
+
+	ExistsNodeVpnLtwotpRemoteAccessLns bool `tfsdk:"-" vyos:"lns,child"`
+
 	ExistsNodeVpnLtwotpRemoteAccessExtendedScrIPts bool `tfsdk:"-" vyos:"extended-scripts,child"`
-	ExistsNodeVpnLtwotpRemoteAccessLimits          bool `tfsdk:"-" vyos:"limits,child"`
-	ExistsNodeVpnLtwotpRemoteAccessPppOptions      bool `tfsdk:"-" vyos:"ppp-options,child"`
-	ExistsNodeVpnLtwotpRemoteAccessShaper          bool `tfsdk:"-" vyos:"shaper,child"`
-	ExistsNodeVpnLtwotpRemoteAccessSnmp            bool `tfsdk:"-" vyos:"snmp,child"`
-	ExistsNodeVpnLtwotpRemoteAccessLog             bool `tfsdk:"-" vyos:"log,child"`
+
+	ExistsNodeVpnLtwotpRemoteAccessLimits bool `tfsdk:"-" vyos:"limits,child"`
+
+	ExistsNodeVpnLtwotpRemoteAccessPppOptions bool `tfsdk:"-" vyos:"ppp-options,child"`
+
+	ExistsNodeVpnLtwotpRemoteAccessShaper bool `tfsdk:"-" vyos:"shaper,child"`
+
+	ExistsNodeVpnLtwotpRemoteAccessSnmp bool `tfsdk:"-" vyos:"snmp,child"`
+
+	ExistsNodeVpnLtwotpRemoteAccessLog bool `tfsdk:"-" vyos:"log,child"`
 }
 
 // SetID configures the resource ID
@@ -82,12 +95,13 @@ func (o *VpnLtwotpRemoteAccess) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *VpnLtwotpRemoteAccess) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/global/resource-model-parent-vyos-path-hack.gotmpl */
-		"vpn",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"vpn", // Node
 
-		"l2tp",
+		"l2tp", // Node
+
 	}
 }
 
@@ -95,12 +109,11 @@ func (o *VpnLtwotpRemoteAccess) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-// ! Since this is a global resource it MUST NOT have a named resource as a parent and should therefore always return an empty string
 func (o *VpnLtwotpRemoteAccess) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -121,7 +134,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 
 		"outside_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `External IP address to which VPN clients will connect
@@ -134,7 +147,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 
 		"default_pool":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default client IP pool name
@@ -153,7 +166,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 
 		"default_ipv6_pool":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default client IPv6 pool name
@@ -172,7 +185,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 
 		"gateway_address":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Gateway IP address
@@ -191,7 +204,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 
 		"max_concurrent_sessions":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of concurrent session start attempts
@@ -210,7 +223,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 
 		"mtu":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
@@ -225,7 +238,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 		},
 
 		"wins_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -245,7 +258,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 
 		"description":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -263,7 +276,7 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
 		},
 
 		"name_server":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -282,5 +295,10 @@ func (o VpnLtwotpRemoteAccess) ResourceSchemaAttributes(ctx context.Context) map
     |  ipv6    |  Domain Name Server (DNS) IPv6 address  |
 `,
 		},
+
+		// TagNodes
+
+		// Nodes
+
 	}
 }

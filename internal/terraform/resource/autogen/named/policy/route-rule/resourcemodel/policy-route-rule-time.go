@@ -13,12 +13,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyRouteRuleTime{}
 
 // PolicyRouteRuleTime describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyRouteRuleTime struct {
 	// LeafNodes
 	LeafPolicyRouteRuleTimeMonthdays types.String `tfsdk:"monthdays" vyos:"monthdays,omitempty"`
@@ -29,8 +31,7 @@ type PolicyRouteRuleTime struct {
 	LeafPolicyRouteRuleTimeUtc       types.Bool   `tfsdk:"utc" vyos:"utc,omitempty"`
 	LeafPolicyRouteRuleTimeWeekdays  types.String `tfsdk:"weekdays" vyos:"weekdays,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -42,7 +43,7 @@ func (o PolicyRouteRuleTime) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"monthdays":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Monthdays to match rule on
@@ -55,7 +56,7 @@ func (o PolicyRouteRuleTime) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"startdate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Date to start matching rule
@@ -68,7 +69,7 @@ func (o PolicyRouteRuleTime) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"starttime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Time of day to start matching rule
@@ -81,7 +82,7 @@ func (o PolicyRouteRuleTime) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"stopdate":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Date to stop matching rule
@@ -94,7 +95,7 @@ func (o PolicyRouteRuleTime) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"stoptime":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Time of day to stop matching rule
@@ -107,7 +108,7 @@ func (o PolicyRouteRuleTime) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"utc":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Interpret times for startdate, stopdate, starttime and stoptime to be UTC
@@ -122,7 +123,7 @@ func (o PolicyRouteRuleTime) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		"weekdays":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Weekdays to match rule on
@@ -132,6 +133,8 @@ func (o PolicyRouteRuleTime) ResourceSchemaAttributes(ctx context.Context) map[s
 
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

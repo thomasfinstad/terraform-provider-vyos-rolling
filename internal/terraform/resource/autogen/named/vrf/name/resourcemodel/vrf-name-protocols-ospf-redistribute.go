@@ -11,34 +11,44 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfRedistribute{}
 
 // VrfNameProtocolsOspfRedistribute describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsOspfRedistribute struct {
 	// LeafNodes
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	ExistsTagVrfNameProtocolsOspfRedistributeTable bool `tfsdk:"-" vyos:"table,child"`
 
 	// Nodes
-	NodeVrfNameProtocolsOspfRedistributeBgp       *VrfNameProtocolsOspfRedistributeBgp       `tfsdk:"bgp" vyos:"bgp,omitempty"`
+
+	NodeVrfNameProtocolsOspfRedistributeBgp *VrfNameProtocolsOspfRedistributeBgp `tfsdk:"bgp" vyos:"bgp,omitempty"`
+
 	NodeVrfNameProtocolsOspfRedistributeConnected *VrfNameProtocolsOspfRedistributeConnected `tfsdk:"connected" vyos:"connected,omitempty"`
-	NodeVrfNameProtocolsOspfRedistributeIsis      *VrfNameProtocolsOspfRedistributeIsis      `tfsdk:"isis" vyos:"isis,omitempty"`
-	NodeVrfNameProtocolsOspfRedistributeKernel    *VrfNameProtocolsOspfRedistributeKernel    `tfsdk:"kernel" vyos:"kernel,omitempty"`
-	NodeVrfNameProtocolsOspfRedistributeRIP       *VrfNameProtocolsOspfRedistributeRIP       `tfsdk:"rip" vyos:"rip,omitempty"`
-	NodeVrfNameProtocolsOspfRedistributeBabel     *VrfNameProtocolsOspfRedistributeBabel     `tfsdk:"babel" vyos:"babel,omitempty"`
-	NodeVrfNameProtocolsOspfRedistributeStatic    *VrfNameProtocolsOspfRedistributeStatic    `tfsdk:"static" vyos:"static,omitempty"`
+
+	NodeVrfNameProtocolsOspfRedistributeIsis *VrfNameProtocolsOspfRedistributeIsis `tfsdk:"isis" vyos:"isis,omitempty"`
+
+	NodeVrfNameProtocolsOspfRedistributeKernel *VrfNameProtocolsOspfRedistributeKernel `tfsdk:"kernel" vyos:"kernel,omitempty"`
+
+	NodeVrfNameProtocolsOspfRedistributeRIP *VrfNameProtocolsOspfRedistributeRIP `tfsdk:"rip" vyos:"rip,omitempty"`
+
+	NodeVrfNameProtocolsOspfRedistributeBabel *VrfNameProtocolsOspfRedistributeBabel `tfsdk:"babel" vyos:"babel,omitempty"`
+
+	NodeVrfNameProtocolsOspfRedistributeStatic *VrfNameProtocolsOspfRedistributeStatic `tfsdk:"static" vyos:"static,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		// TagNodes
 
 		// Nodes
 

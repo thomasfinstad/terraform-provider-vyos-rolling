@@ -10,6 +10,7 @@ description: |-
 # vyos_interfaces_macsec_dhcpv6_options_pd (Resource)
 <center>
 
+
 *interfaces*  
 ⯯  
 MACsec Interface (802.1ae)  

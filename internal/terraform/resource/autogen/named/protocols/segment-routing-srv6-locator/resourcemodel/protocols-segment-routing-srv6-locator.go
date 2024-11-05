@@ -21,12 +21,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ProtocolsSegmentRoutingSrvsixLocator{}
 
 // ProtocolsSegmentRoutingSrvsixLocator describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ProtocolsSegmentRoutingSrvsixLocator struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -42,7 +44,7 @@ type ProtocolsSegmentRoutingSrvsixLocator struct {
 	LeafProtocolsSegmentRoutingSrvsixLocatorFuncBits     types.Number `tfsdk:"func_bits" vyos:"func-bits,omitempty"`
 	LeafProtocolsSegmentRoutingSrvsixLocatorNodeLen      types.Number `tfsdk:"node_len" vyos:"node-len,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -82,16 +84,17 @@ func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosPath() []string {
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"protocols",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"protocols", // Node
 
-		"segment-routing",
+		"segment-routing", // Node
 
-		"srv6",
+		"srv6", // Node
+
 	}
 }
 
@@ -101,11 +104,11 @@ func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosParentPath() []string {
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 	}
 }
@@ -139,8 +142,8 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  locator, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  locator, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -163,7 +166,7 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 
 		"behavior_usid":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set SRv6 behavior uSID
@@ -178,7 +181,7 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 
 		"prefix":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `SRv6 locator prefix
@@ -197,7 +200,7 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 
 		"block_len":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure SRv6 locator block length in bits
@@ -219,7 +222,7 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 
 		"func_bits":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure SRv6 locator function length in bits
@@ -241,7 +244,7 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 
 		"node_len":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure SRv6 locator node length in bits
@@ -260,6 +263,8 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 			// Default:          stringdefault.StaticString(`24`),
 			Computed: true,
 		},
+
+		// TagNodes
 
 		// Nodes
 

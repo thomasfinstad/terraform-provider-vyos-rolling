@@ -20,12 +20,14 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosTopResourceDataModel = &ServiceWebproxyURLFilteringSquIDguardTimePeriodDays{}
 
 // ServiceWebproxyURLFilteringSquIDguardTimePeriodDays describes the resource data model.
+// This is a basenode!
+// Top level basenode type: `TagNode`
 type ServiceWebproxyURLFilteringSquIDguardTimePeriodDays struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
@@ -37,7 +39,7 @@ type ServiceWebproxyURLFilteringSquIDguardTimePeriodDays struct {
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime types.String `tfsdk:"time" vyos:"time,omitempty"`
 
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -77,25 +79,24 @@ func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) GetVyosPath() []st
 // This is intended to use with the resource CRUD read function to check for empty resources.
 func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"webproxy",
+		"webproxy", // Node
 
-		"url-filtering",
+		"url-filtering", // Node
 
-		"squidguard",
+		"squidguard", // Node
 
 		"time-period",
-
 		o.SelfIdentifier.Attributes()["time_period"].(types.String).ValueString(),
 	}
 }
@@ -106,27 +107,26 @@ func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) GetVyosParentPath(
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
 func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack-for-non-global.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-vyos-path-hack.gotmpl */
-		"service",
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
 
-		"webproxy",
+		"webproxy", // Node
 
-		"url-filtering",
+		"url-filtering", // Node
 
-		"squidguard",
+		"squidguard", // Node
 
 		"time-period",
-
 		o.SelfIdentifier.Attributes()["time_period"].(types.String).ValueString(),
 	}
 }
@@ -184,8 +184,8 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  days, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  days, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -220,8 +220,8 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
 								),
 							),
 							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-								"illegal character in  time_period, value must match: ^[.:a-zA-Z0-9-_]+$",
+								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+								"illegal character in  time_period, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
@@ -237,7 +237,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
 
 		"time":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Time for time-period
@@ -253,6 +253,8 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
     |  <hh:mm - hh:mm>  |  Time range in 24hr time  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

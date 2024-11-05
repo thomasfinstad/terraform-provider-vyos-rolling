@@ -12,19 +12,20 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &PolicyLocalRouteRuleDestination{}
 
 // PolicyLocalRouteRuleDestination describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type PolicyLocalRouteRuleDestination struct {
 	// LeafNodes
 	LeafPolicyLocalRouteRuleDestinationAddress types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafPolicyLocalRouteRuleDestinationPort    types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -35,7 +36,7 @@ func (o PolicyLocalRouteRuleDestination) ResourceSchemaAttributes(ctx context.Co
 		// LeafNodes
 
 		"address":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype-multi.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -57,7 +58,7 @@ func (o PolicyLocalRouteRuleDestination) ResourceSchemaAttributes(ctx context.Co
 
 		"port":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
@@ -73,6 +74,8 @@ func (o PolicyLocalRouteRuleDestination) ResourceSchemaAttributes(ctx context.Co
     |  1-65535  |  Numeric IP port  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

@@ -12,20 +12,21 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
 var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpParametersDistanceGlobal{}
 
 // VrfNameProtocolsBgpParametersDistanceGlobal describes the resource data model.
+// This is not a basenode!
+// Top level basenode type: `N/A`
 type VrfNameProtocolsBgpParametersDistanceGlobal struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal types.Number `tfsdk:"external" vyos:"external,omitempty"`
 	LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal types.Number `tfsdk:"internal" vyos:"internal,omitempty"`
 	LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal    types.Number `tfsdk:"local" vyos:"local,omitempty"`
 
-	// TagNodes (Bools that show if child resources have been configured)
-	// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+	// TagNodes
 
 	// Nodes
 }
@@ -37,7 +38,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes(ct
 
 		"external":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for external BGP routes
@@ -56,7 +57,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes(ct
 
 		"internal":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for internal BGP routes
@@ -75,7 +76,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes(ct
 
 		"local":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for local BGP routes
@@ -91,6 +92,8 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes(ct
     |  1-255   |  Administrative distance for internal BGP routes  |
 `,
 		},
+
+		// TagNodes
 
 		// Nodes
 

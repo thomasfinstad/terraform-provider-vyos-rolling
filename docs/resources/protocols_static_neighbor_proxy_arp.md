@@ -10,6 +10,7 @@ description: |-
 # vyos_protocols_static_neighbor_proxy_arp (Resource)
 <center>
 
+
 *protocols*  
 ⯯  
 Static Routing  
