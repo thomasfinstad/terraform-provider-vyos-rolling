@@ -1,16 +1,29 @@
 {{define "resource-model"}}
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model.gotmpl */
+	/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 	// Validate compliance
+	{{$topLvlBasenodeType := "N/A"}}
+
 	{{if .GetIsBaseNode }}
+	{{$topLvlBasenodeType = .NodeType}}
+
 	var _ helpers.VyosTopResourceDataModel = &{{.BaseNameCG}}{}
 	{{ else }}
 	var _ helpers.VyosResourceDataModel = &{{.BaseNameCG}}{}
 	{{ end }}
 
 	// {{.BaseNameCG}} describes the resource data model.
+	// This is {{if not .GetIsBaseNode}}not {{end}}a basenode!
+	// Top level basenode type: `{{$topLvlBasenodeType}}`
 	type {{.BaseNameCG}} struct {
 		{{if .GetIsBaseNode }}
-			{{template "resource-model-tag-node-identifier" .}}
+			{{if eq .NodeType "TagNode" }}
+				{{template "resource-model-tag-node-identifier" .}}
+			{{else if eq .NodeType "Node" }}
+				ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
+				Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+			{{else}}
+				UNSUPPORTED
+			{{end}}
 
 			{{with .GetChildren }}
 				// LeafNodes
@@ -27,17 +40,21 @@
 												UNKNOWN TYPE: {{.ValueType}}
 											{{- end}} `tfsdk:"{{.BaseNameSB}}" vyos:"{{.BaseName}},omitempty"`
 				{{end}}
-				// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+				// TagNodes
 				{{range .TagNodes -}}
 					{{if .GetIsBaseNode }}
 						ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
 					{{else}}
-						Tag{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+						Tag{{.BaseNameCG}} map[string]*{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
 					{{end}}
 				{{end}}
 				// Nodes
 				{{range .Nodes -}}
-					Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameSB}}" vyos:"{{.BaseName}},omitempty"`
+					{{if .GetIsBaseNode }}
+						ExistsNode{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
+					{{else}}
+						Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+					{{end}}
 				{{end}}
 			{{end}}
 		{{else}}
@@ -56,18 +73,24 @@
 												UNKNOWN TYPE: {{.ValueType}}
 											{{- end}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
 				{{end}}
-				// TagNodes (Bools that show if child resources have been configured)
-				// TagNodes (bools that show if child resources have been configured if they are their own BaseNode)
+
+				// TagNodes
 				{{range .TagNodes -}}
 					{{if .GetIsBaseNode }}
 						ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
 					{{else}}
-						Tag{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+						Tag{{.BaseNameCG}} map[string]*{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
 					{{end}}
 				{{end}}
 				// Nodes
 				{{range .Nodes -}}
-					Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+					{{if .GetIsBaseNode }}
+						ExistsNode{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
+					{{else if ne $topLvlBasenodeType "Node"}}
+						Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+					{{else}}
+						// Ignoring Node `{{.BaseNameCG}}`.
+					{{end}}
 				{{end}}
 			{{end}}
 		{{end}}
@@ -108,6 +131,7 @@
 			return append(
 				o.GetVyosParentPath(),
 				"{{.BaseName}}",
+				{{- if eq .NodeType "TagNode"}}
 				{{if eq .ValueType "string" -}}
 					o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.String).ValueString(),
 				{{- else  if eq .ValueType "number" -}}
@@ -115,6 +139,7 @@
 				{{- else -}}
 					UNSUPPORTED TYPE
 				{{- end}}
+				{{end}}
 			)
 		}
 
@@ -151,61 +176,63 @@
 					Computed: true,
 					MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 				},
-				"identifier": schema.SingleNestedAttribute{
-					Required: true,
-					Attributes: map[string]schema.Attribute{
-						"{{.BaseNameS}}":
-							{{- if eq .ValueType "string" -}}
-								schema.StringAttribute
-							{{- else  if eq .ValueType "number" -}}
-								schema.NumberAttribute
-							{{- else if eq .ValueType "bool" -}}
-								schema.BoolAttribute
-							{{- else -}}
-								UNKNOWN TYPE: {{.ValueType}}
-							{{- end -}}
-						{
-							Required:            true,
-							MarkdownDescription: `{{.MarkdownDescription}}`,
-							Description: `{{.Description}}`,
-							PlanModifiers:
-							{{- if eq .ValueType "string" -}}
-								[]planmodifier.String{
-									stringplanmodifier.RequiresReplace(),
-								},
-							{{- else  if eq .ValueType "number" -}}
-								[]planmodifier.Number{
-									numberplanmodifier.RequiresReplace(),
-								},
-							{{- else if eq .ValueType "bool" -}}
-								[]planmodifier.Bool{
-									boolplanmodifier.RequiresReplace(),
-								},
-							{{- else -}}
-								UNKNOWN TYPE: {{.ValueType}}
-							{{- end -}}
-							{{if eq .ValueType "string" -}}
-								Validators: []validator.String{
-									stringvalidator.All(
-										helpers.StringNot(
+				{{- if eq .NodeType "TagNode"}}
+					"identifier": schema.SingleNestedAttribute{
+						Required: true,
+						Attributes: map[string]schema.Attribute{
+							"{{.BaseNameS}}":
+								{{- if eq .ValueType "string" -}}
+									schema.StringAttribute
+								{{- else  if eq .ValueType "number" -}}
+									schema.NumberAttribute
+								{{- else if eq .ValueType "bool" -}}
+									schema.BoolAttribute
+								{{- else -}}
+									UNKNOWN TYPE: {{.ValueType}}
+								{{- end -}}
+							{
+								Required:            true,
+								MarkdownDescription: `{{.MarkdownDescription}}`,
+								Description: `{{.Description}}`,
+								PlanModifiers:
+								{{- if eq .ValueType "string" -}}
+									[]planmodifier.String{
+										stringplanmodifier.RequiresReplace(),
+									},
+								{{- else  if eq .ValueType "number" -}}
+									[]planmodifier.Number{
+										numberplanmodifier.RequiresReplace(),
+									},
+								{{- else if eq .ValueType "bool" -}}
+									[]planmodifier.Bool{
+										boolplanmodifier.RequiresReplace(),
+									},
+								{{- else -}}
+									UNKNOWN TYPE: {{.ValueType}}
+								{{- end -}}
+								{{if eq .ValueType "string" -}}
+									Validators: []validator.String{
+										stringvalidator.All(
+											helpers.StringNot(
+												stringvalidator.RegexMatches(
+													regexp.MustCompile(`^.*__.*$`),
+													"double underscores in {{.BaseNameS}}, conflicts with the internal resource id",
+												),
+											),
 											stringvalidator.RegexMatches(
-												regexp.MustCompile(`^.*__.*$`),
-												"double underscores in {{.BaseNameS}}, conflicts with the internal resource id",
+												regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
+												"illegal character in  {{.BaseNameS}}, value must match: ^[.:a-zA-Z0-9-_/]+$",
 											),
 										),
-										stringvalidator.RegexMatches(
-											regexp.MustCompile(`^[.:a-zA-Z0-9-_]+$`),
-											"illegal character in  {{.BaseNameS}}, value must match: ^[.:a-zA-Z0-9-_]+$",
-										),
-									),
-								},
-							{{- end }}
+									},
+								{{- end }}
+							},
+							{{if .Parent}}
+								{{template "resource-model-parent-schema-hack" .Parent}}
+							{{end}}
 						},
-						{{if .Parent}}
-							{{template "resource-model-parent-schema-hack" .Parent}}
-						{{end}}
-					},
 				},
+				{{end}}
 
 				"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
 					Create: true,
@@ -221,14 +248,30 @@
 											{{- end}}
 					{{end}}
 
+					// TagNodes
+					{{range .TagNodes }}
+						{{- if not .GetIsBaseNode }}
+							"{{.BaseNameSB}}": schema.MapNestedAttribute{
+								NestedObject: schema.NestedAttributeObject{
+									Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
+								},
+								Optional:            true,
+								MarkdownDescription: `{{.MarkdownDescription}}`,
+								Description: `{{.Description}}`,
+							},
+						{{end}}
+					{{end}}
+
 					// Nodes
 					{{range .Nodes }}
-						"{{.BaseNameSB}}": schema.SingleNestedAttribute{
-							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
-							Optional:            true,
-							MarkdownDescription: `{{.MarkdownDescription}}`,
-							Description: `{{.Description}}`,
-						},
+						{{- if not .GetIsBaseNode }}
+							"{{.BaseNameSB}}": schema.SingleNestedAttribute{
+								Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
+								Optional:            true,
+								MarkdownDescription: `{{.MarkdownDescription}}`,
+								Description: `{{.Description}}`,
+							},
+						{{end}}
 					{{end}}
 				{{end}}
 			{{else}}
@@ -242,14 +285,30 @@
 											{{- end}}
 					{{end}}
 
+					// TagNodes
+					{{range .TagNodes }}
+						{{- if not .GetIsBaseNode }}
+							"{{.BaseNameS}}": schema.MapNestedAttribute{
+								NestedObject: schema.NestedAttributeObject{
+									Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
+								},
+								Optional:            true,
+								MarkdownDescription: `{{.MarkdownDescription}}`,
+								Description: `{{.Description}}`,
+							},
+						{{end}}
+					{{end}}
+
 					// Nodes
 					{{range .Nodes }}
-						"{{.BaseNameS}}": schema.SingleNestedAttribute{
-							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
-							Optional:            true,
-							MarkdownDescription: `{{.MarkdownDescription}}`,
-							Description: `{{.Description}}`,
-						},
+						{{- if not .GetIsBaseNode }}
+							"{{.BaseNameS}}": schema.SingleNestedAttribute{
+								Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
+								Optional:            true,
+								MarkdownDescription: `{{.MarkdownDescription}}`,
+								Description: `{{.Description}}`,
+							},
+						{{end}}
 					{{end}}
 				{{end}}
 			{{end}}

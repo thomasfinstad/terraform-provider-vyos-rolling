@@ -31,9 +31,14 @@ func main() {
 	}
 
 	opts := providerserver.ServeOpts{
-		Address: address,
-		Debug:   debug,
+		Address:         address,
+		Debug:           debug,
+		ProtocolVersion: 6,
 	}
+
+	// TODO investigate if this context can be used for log redaction
+	//  currently implemented in internal/terraform/helpers/tools/log.go
+	//  milestone: 6
 	err := providerserver.Serve(context.Background(), provider.New(version), opts)
 
 	if err != nil {

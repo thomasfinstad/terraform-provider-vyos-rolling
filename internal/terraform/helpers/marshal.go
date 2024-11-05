@@ -119,12 +119,10 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 				panic(fmt.Sprintf("Missing value: %s", fName))
 			}
 		default:
-			// TODO cleanup nested ifs inside switch and flatten out to only use switch statement, this might require not using a type switch
-			//  milestone: 6
-			if fType.Kind() == reflect.Ptr {
-				fType = fValue.Type().Elem()
-			}
-			if fType.Kind() == reflect.Struct {
+			if fType.Kind() == reflect.Struct || fType.Kind() == reflect.Ptr {
+				// if fType.Kind() == reflect.Ptr {
+				// 	fType = fValue.Type().Elem()
+				// }
 
 				tools.Debug(ctx, "Marshalling Struct Field", map[string]interface{}{"field-name": fName, flags["name"].(string): fValue.Interface()})
 				if !(fValue.IsNil() || fValue.IsZero()) {
@@ -136,13 +134,33 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 					}
 					res[flags["name"].(string)] = subv
 				} else {
-
 					tools.Debug(ctx, "Marshalling Struct Field is nil, skipping", map[string]interface{}{"field-name": fName})
+				}
+			} else if fType.Kind() == reflect.Map {
+				tools.Debug(ctx, "Marshalling Map Field", map[string]interface{}{"field-name": fName, flags["name"].(string): fValue.Interface()})
+				if !(fValue.IsNil() || fValue.IsZero()) {
+					type subctxkey string
+					values := make(map[string]any)
 
+					iter := fValue.MapRange()
+					for iter.Next() {
+						k := iter.Key().Interface().(string)
+						v := iter.Value()
+
+						subctx := context.WithValue(ctx, subctxkey(typeReflection.Name()), flags["name"].(string)+":"+k)
+						subv, err := MarshalVyos(subctx, v.Interface())
+						if err != nil {
+							return nil, err
+						}
+						values[k] = subv
+					}
+					res[flags["name"].(string)] = values
+				} else {
+					tools.Debug(ctx, "Marshalling Struct Field is nil, skipping", map[string]interface{}{"field-name": fName})
 				}
 			} else {
-
 				tools.Error(ctx, "Currently unhandled tf type", map[string]interface{}{"field-name": fName, "kind": fType.Kind(), "value": v})
+				panic(fmt.Sprintf("Field: '%s' is of unhandled tf type: %s", fName, fType.Kind()))
 			}
 		}
 	}

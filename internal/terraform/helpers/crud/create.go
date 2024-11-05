@@ -22,15 +22,18 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	tools.Debug(ctx, "New Resource")
 	ctx = r.GetProviderConfig().CtxMutilatorRun(ctx)
 
-	tools.Trace(ctx, "Fetching data model")
+	tools.Debug(ctx, "Fetching data model")
 	planModel := r.GetModel()
+	tools.Trace(ctx, "Fetched data model", map[string]interface{}{"model": planModel})
 
 	// Read Terraform plan data into the model
-	tools.Trace(ctx, "Fetching plan data")
+	tools.Debug(ctx, "Fetching plan data")
+	tools.Trace(ctx, "Fetching plan data", map[string]interface{}{"raw plan data": req.Plan.Raw.String()})
 	resp.Diagnostics.Append(req.Plan.Get(ctx, planModel)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
+	tools.Trace(ctx, "Fetched plan data", map[string]interface{}{"model": planModel})
 
 	ctx = context.WithValue(ctx, resourcePathCtxKey("resource"), planModel.GetVyosPath())
 

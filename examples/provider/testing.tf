@@ -44,6 +44,52 @@ resource "vyos_service_dns_forwarding" "this" {
 
 // Global resource
 resource "vyos_system_conntrack_tcp" "this" {
-  half_open_connections = tonumber(regex("[0-9]{2}", md5(plantimestamp()))) + 1
+  half_open_connections = tonumber(regex("[0-9]{2}", md5(abspath(path.root)))) + 1
   loose                 = "enable"
 }
+
+// Global resource with an merged TagNode child
+resource "vyos_service_ntp" "this" {
+  server = {
+    "no.pool.ntp.org" = {
+      pool   = true
+      prefer = true
+    }
+    "pool.ntp.org" = {
+      pool   = true
+      prefer = false
+    }
+    "time1.vyos.net" = {
+      pool   = true
+      prefer = false
+    }
+  }
+}
+
+//////
+// Regression test for: https://github.com/thomasfinstad/terraform-provider-vyos-rolling/issues/224
+# resource "vyos_interfaces_dummy" "issue224" {
+#   identifier = {
+#     dummy = "dumb224"
+#   }
+#   address = ["10.0.224.1/24"]
+# }
+
+# resource "vyos_service_dhcp_server_shared_network_name" "issue224" {
+#   identifier = {
+#     shared_network_name = "LAN"
+#   }
+#   subnet = { for i in range(length(vyos_interfaces_dummy.issue224.address)) : vyos_interfaces_dummy.issue224.address[i] => { subnet_id = 224 + i } }
+# }
+
+# resource "vyos_service_dhcp_server_shared_network_name_subnet_range" "issue224" {
+#   for_each = vyos_service_dhcp_server_shared_network_name.issue224.subnet
+
+#   identifier = {
+#     shared_network_name = vyos_service_dhcp_server_shared_network_name.issue224.identifier.shared_network_name
+#     subnet              = each.key
+#     range               = "224-${each.value.subnet_id}"
+#   }
+#   start = cidrhost(each.key, 100)
+#   stop  = cidrhost(each.key, 150)
+# }

@@ -1,23 +1,35 @@
 #!/bin/vbash
+
 if [ "$(id -g -n)" != 'vyattacfg' ] ; then
     exec sg vyattacfg -c "/bin/vbash $(readlink -f $0) $@"
 fi
 
 source /opt/vyatta/etc/functions/script-template
 
-
 configure
 
+sleep 10
+
 delete service
+sleep 1
 delete system
+sleep 1
 delete pki
+sleep 1
 delete interfaces
+sleep 1
 
 set system host-name "$(hostname)"
+
+sleep 1
+compare
+
 until commit | grep -v "temporarily locked"; do
     echo retrying commit in 5 seconds
     sleep 5
 done
+
+show
 
 set interfaces loopback lo
 
@@ -28,28 +40,15 @@ set service https certificates certificate 'MySuperCert'
 set service https api keys id testing key 'MySuperSecretKey'
 set service https api rest debug
 
-#set service ntp allow-client address '127.0.0.0/8'
-#set service ntp allow-client address '169.254.0.0/16'
-#set service ntp allow-client address '10.0.0.0/8'
-#set service ntp allow-client address '172.16.0.0/12'
-#set service ntp allow-client address '192.168.0.0/16'
-#set service ntp allow-client address '::1/128'
-#set service ntp allow-client address 'fe80::/10'
-#set service ntp allow-client address 'fc00::/7'
-
-#set service ntp server time1.vyos.net
-#set service ntp server time2.vyos.net
-#set service ntp server time3.vyos.net
-
 set system config-management commit-revisions '100'
 
 set system login user vyos authentication plaintext-password 'vyos'
 
-#set system syslog global facility all level 'info'
 set system syslog global facility local7 level 'debug'
 
 set system time-zone Europe/Oslo
 
+sleep 1
 until commit | grep -v "temporarily locked"; do
     echo retrying commit in 5 seconds
     sleep 5

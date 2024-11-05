@@ -1,5 +1,5 @@
 {{define "resource-model-schema-attrtype"}}
-/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 	{{if eq .ValueType "string" -}}
 		schema.StringAttribute{
 			Optional:            true,
@@ -22,6 +22,44 @@
 		},
 	{{- else if eq .ValueType "bool" -}}
 		schema.BoolAttribute{
+			Optional:            true,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
+			Default: booldefault.StaticBool(false),
+			Computed:            true,
+		},
+	{{- else -}}
+		UNKNOWN TYPE: {{.ValueType}}
+	{{- end}}
+{{end}}
+
+{{define "resource-model-schema-attrtype-multi"}}
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
+	{{if eq .ValueType "string" -}}
+		schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:            true,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
+			{{if .Default }}
+				// Default:          stringdefault.StaticString({{.Default}}),
+				Computed:            true,
+			{{end}}
+		},
+	{{- else  if eq .ValueType "number" -}}
+		schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:            true,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
+			{{if .Default }}
+				// Default:          stringdefault.StaticString({{.Default}}),
+				Computed:            true,
+			{{end}}
+		},
+	{{- else if eq .ValueType "bool" -}}
+		schema.ListAttribute{
+			ElementType: types.BoolType,
 			Optional:            true,
 			MarkdownDescription: `{{.MarkdownDescription}}`,
 			Description: `{{.Description}}`,

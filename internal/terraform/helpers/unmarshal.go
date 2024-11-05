@@ -16,7 +16,10 @@ import (
 
 // UnmarshalVyos takes unmarshalled json data and a Terraform resource model pointer and populates it with the data
 func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceDataModel) error {
-	valueReflection := reflect.ValueOf(value).Elem()
+	valueReflection := reflect.ValueOf(value)
+	if valueReflection.Kind() == reflect.Pointer {
+		valueReflection = valueReflection.Elem()
+	}
 	typeReflection := valueReflection.Type()
 
 	for i := 0; i < valueReflection.NumField(); i++ {
@@ -183,7 +186,6 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			tools.Trace(ctx, "setting list value", map[string]interface{}{"tfval": tfval})
 			tfValueRefection := reflect.ValueOf(tfval)
 			fValue.Set(tfValueRefection)
-
 		default:
 			if !tools.KeyInMap(flags["name"].(string), data) {
 
@@ -192,17 +194,42 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			}
 			dataValue := data[flags["name"].(string)]
 
-			tools.Debug(ctx, "Unmarshalling Struct Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
+			if fType.Kind() == reflect.Ptr {
 
-			subSctructReflection := reflect.New(fType.Elem())
-			subStructIf := subSctructReflection.Interface()
-			subStruct := subStructIf.(VyosResourceDataModel)
-			err := UnmarshalVyos(ctx, dataValue.(map[string]any), subStruct)
-			if err != nil {
-				return err
+				tools.Debug(ctx, "Unmarshalling Struct Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
+
+				subSctructReflection := reflect.New(fType.Elem())
+				subStructIf := subSctructReflection.Interface()
+				subStruct := subStructIf.(VyosResourceDataModel)
+				err := UnmarshalVyos(ctx, dataValue.(map[string]any), subStruct)
+				if err != nil {
+					return err
+				}
+
+				fValue.Set(subSctructReflection)
+
+			} else if fType.Kind() == reflect.Map {
+				tools.Debug(ctx, "Unmarshalling Map Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
+
+				values := reflect.MakeMap(fType)
+
+				for k, v := range dataValue.(map[string]any) {
+					subSctructReflection := reflect.New(fType.Elem().Elem())
+					subStructIf := subSctructReflection.Interface()
+					subStruct := subStructIf.(VyosResourceDataModel)
+					err := UnmarshalVyos(ctx, v.(map[string]any), subStruct)
+					if err != nil {
+						return err
+					}
+
+					values.SetMapIndex(reflect.ValueOf(k), reflect.ValueOf(subStruct))
+				}
+
+				fValue.Set(values)
+			} else {
+				tools.Error(ctx, "Currently unhandled tf type", map[string]interface{}{"field-name": fName, "kind": fType.Kind(), "value": dataValue})
+				panic(fmt.Sprintf("Field: '%s' is of unhandled tf type: %s", fName, fType.Kind()))
 			}
-
-			fValue.Set(subSctructReflection)
 		}
 	}
 

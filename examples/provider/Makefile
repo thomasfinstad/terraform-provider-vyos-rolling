@@ -10,17 +10,22 @@ ROOT_DIR := $(CURDIR)
 DIST_DIR:=$(shell sed -n -e '/^DIST_DIR=/s/.*=//p' ../../Makefile | tr -d '"')
 PROVIDER_DIR:=$(DIST_DIR)/$(shell sed -n -e '/^\s*source\s*=/s/.*=\s"\(.*\)"/\1/p' local_override.tf)
 
+$(info DIST_DIR: ${DIST_DIR})
+$(info PROVIDER_DIR: ${PROVIDER_DIR})
+
 default: plan
 
 $(PROVIDER_DIR):
-	@echo Make $(PROVIDER_DIR)
+	@echo -e "\n\n###########################################################################"
+	echo Make $(PROVIDER_DIR)
 
 	cd ../..
 	rm build || true
 	make build
 
-init: $(PROVIDER_DIR) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
-	@echo Make init
+init: $(PROVIDER_DIR) $(shell find ${PROVIDER_DIR} -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
+	@echo -e "\n\n###########################################################################"
+	echo Make init
 
 	rm -rf .terraform .terraform.lock.hcl || true
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu init -upgrade
@@ -29,7 +34,8 @@ init: $(PROVIDER_DIR) $(shell find . -type f -name "*.tf" -execdir grep -l provi
 	date > init
 
 validate: init $(shell find . -type f -name "*.tf")
-	@echo Make validate
+	@echo -e "\n\n###########################################################################"
+	echo Make validate
 
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu validate
 
@@ -45,7 +51,8 @@ ifeq (plan,$(firstword $(MAKECMDGOALS)))
   $(eval $(DYN_ARGS):;@:)
 endif
 plan: validate $(shell find . -type f -name "*.tf") .tmp/container
-	@echo Make plan
+	@echo -e "\n\n###########################################################################"
+	echo Make plan
 
 	rm -fv trace.log || true
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu plan -out=plan $(DYN_ARGS)
@@ -59,7 +66,8 @@ ifeq (apply,$(firstword $(MAKECMDGOALS)))
   $(eval $(DYN_ARGS):;@:)
 endif
 apply: plan
-	@echo Make apply
+	@echo -e "\n\n###########################################################################"
+	echo Make apply
 
 	rm -fv trace.log || true
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu apply -auto-approve $(DYN_ARGS) plan
@@ -78,7 +86,8 @@ ifeq (destroy,$(firstword $(MAKECMDGOALS)))
   $(eval $(DYN_ARGS):;@:)
 endif
 destroy: init
-	@echo Make destroy
+	@echo -e "\n\n###########################################################################"
+	echo Make destroy
 
 	rm -fv trace.log || true
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu apply -destroy -auto-approve $(DYN_ARGS) || true
@@ -88,7 +97,8 @@ destroy: init
 
 .PHONY: clean
 clean: destroy
-	@echo Make clean
+	@echo -e "\n\n###########################################################################"
+	echo Make clean
 
 	set +e
 
@@ -96,14 +106,18 @@ clean: destroy
 
 	rm -rf .terraform .terraform.lock.hcl
 	rm -fv trace.log
-	sudo rm -rf .tmp/
+	# keeping the iso file to reduce redundant downloads
+	sudo rm -rf .tmp/filesystem.squashfs
 	docker stop vyos
+	sudo rm -f .tmp/container
 	sleep 2
 	docker rmi -f $$(docker images -a -q vyos)
+	sudo rm -f .tmp/container-img
 
 .PHONY: test
 test:
-	@echo Make test
+	@echo -e "\n\n###########################################################################"
+	echo Make test
 
 	echo ""
 	echo "Initial apply------------------------------------------------------"
@@ -113,9 +127,10 @@ test:
 
 .PHONY: why
 why:
-	@echo Make why
+	@echo -e "\n\n###########################################################################"
+	echo Make why
 
-	make -nd .tmp/container \
+	make -nd apply \
 		| sed -rn 's/^ *([A-Za-z ]*Must remake target.*| Prerequisite.*is newer than.*)/\1/p' \
 			| tac
 
@@ -140,12 +155,14 @@ why:
 # 	workaround: don't!
 
 .tmp/provider-schema.json: init
-	@echo Make .tmp/provider-schema.json
+	@echo -e "\n\n###########################################################################"
+	echo Make .tmp/provider-schema.json
 	mkdir -p .tmp/
 	tofu providers schema -json | jq '.' > .tmp/provider-schema.json
 
 .tmp/vyos.iso: ../../data/vyos-1x-info.txt
-	@echo Make .tmp/vyos.iso
+	@echo -e "\n\n###########################################################################"
+	echo Make .tmp/vyos.iso
 
 	set -x
 
@@ -163,7 +180,8 @@ why:
 	touch .tmp/vyos.iso
 
 .tmp/filesystem.squashfs: .tmp/vyos.iso
-	@echo Make .tmp/filesystem.squashfs
+	@echo -e "\n\n###########################################################################"
+	echo Make .tmp/filesystem.squashfs
 	mkdir -p .tmp/
 	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
 
@@ -173,7 +191,8 @@ why:
 	touch filesystem.squashfs
 
 .tmp/container-img: .tmp/filesystem.squashfs
-	@echo Make .tmp/vyos-unsquashfs
+	@echo -e "\n\n###########################################################################"
+	echo Make .tmp/vyos-unsquashfs
 	mkdir -p .tmp/
 
 	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
@@ -190,14 +209,26 @@ why:
 	sudo rm -rf vyos-unsquashfs
 
 
-.tmp/container: .tmp/container-img
-	@echo Make .tmp/container
+.tmp/container: .tmp/container-img assets/container-setup-api.vbash
+	@echo -e "\n\n###########################################################################"
+	echo Make .tmp/container
 	mkdir -p .tmp/
 
 	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
 
+	set -x
+
+	until [ -z "$$(docker ps -f "name=vyos" -q)" ]; do
+		docker stop vyos
+		sleep 5
+	done
+
 	bash -c "touch .tmp/container; docker run --rm --name vyos --privileged --network=bridge -p 8443:443 "vyos:latest" /sbin/init; rm -f .tmp/container" &
 	sleep 5
+
+	s=5; for i in {1..5}; do [ -n "$$(docker ps -f "name=vyos" -q)" ] && s=0 && break || s=$$? && sleep 5; done; [ $$s -eq 0 ]
+
+	set +x
 
 	docker cp assets/container-setup-api.vbash vyos:/container-setup-api.vbash
 	docker exec -t vyos chmod +x /container-setup-api.vbash

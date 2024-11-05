@@ -486,4 +486,19 @@ func globalResourceModelGeneration(resourceModelOutputDir string, node schemadef
 	if err != nil {
 		die(err)
 	}
+
+	// Recurse
+	c := node.GetChildren()
+	for _, n := range c.Nodes() {
+		if n.GetIsBaseNode() {
+			continue
+		}
+		globalResourceModelGeneration(resourceModelOutputDir, n, t, callerFileName, resourceModelSubDir)
+	}
+	for _, n := range c.TagNodes() {
+		if n.GetIsBaseNode() {
+			continue
+		}
+		globalResourceModelGeneration(resourceModelOutputDir, n, t, callerFileName, resourceModelSubDir)
+	}
 }
