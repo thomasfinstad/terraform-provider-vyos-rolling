@@ -4,9 +4,12 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 7.0.202410300 (2024-11-05 17-36-12 UTC)](#release-70202410300-2024-11-05-17-36-12-utc)
+  - [Release 7.0.202411060 (2024-11-06 08-31-38 UTC)](#release-70202411060-2024-11-06-08-31-38-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
+  - [Release 7.0.202410300 (2024-11-05 17-36-12 UTC)](#release-70202410300-2024-11-05-17-36-12-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
       - [Features](#features)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
@@ -16,6 +19,12 @@
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 7.0.202411060 (2024-11-06 08-31-38 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-11-06T06:01:10Z
 
 
 ## Release 7.0.202410300 (2024-11-05 17-36-12 UTC)
