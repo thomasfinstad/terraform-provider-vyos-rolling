@@ -7947,7 +7947,7 @@ func system() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"\\/$|(\\/[a-zA-Z_0-9-.]+)+"},
+											Regex: []string{"(\\/[a-zA-Z_0-9-.]+)+\\/?$"},
 										}},
 										ValueHelp: []*schemadefinition.ValueHelp{{
 											XMLName: xml.Name{
