@@ -43,9 +43,9 @@ type ProtocolsRIPng struct {
 
 	ExistsNodeProtocolsRIPngDefaultInformation bool `tfsdk:"-" vyos:"default-information,child"`
 
-	NodeProtocolsRIPngDistributeList *ProtocolsRIPngDistributeList `tfsdk:"distribute_list" vyos:"distribute-list,omitempty"`
+	// Ignoring Node `ProtocolsRIPngDistributeList`.
 
-	NodeProtocolsRIPngRedistribute *ProtocolsRIPngRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+	// Ignoring Node `ProtocolsRIPngRedistribute`.
 
 	ExistsNodeProtocolsRIPngTimers bool `tfsdk:"-" vyos:"timers,child"`
 }
@@ -229,26 +229,5 @@ func (o ProtocolsRIPng) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		// Nodes
 
-		"distribute_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsRIPngDistributeList{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Filter networks in routing updates
-
-`,
-			Description: `Filter networks in routing updates
-
-`,
-		},
-
-		"redistribute": schema.SingleNestedAttribute{
-			Attributes: ProtocolsRIPngRedistribute{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute information from another routing protocol
-
-`,
-			Description: `Redistribute information from another routing protocol
-
-`,
-		},
 	}
 }

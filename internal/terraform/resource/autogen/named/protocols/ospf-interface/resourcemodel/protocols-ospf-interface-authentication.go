@@ -28,7 +28,7 @@ type ProtocolsOspfInterfaceAuthentication struct {
 
 	// Nodes
 
-	NodeProtocolsOspfInterfaceAuthenticationMdfive *ProtocolsOspfInterfaceAuthenticationMdfive `tfsdk:"md5" vyos:"md5,omitempty"`
+	// Ignoring Node `ProtocolsOspfInterfaceAuthenticationMdfive`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -59,15 +59,5 @@ func (o ProtocolsOspfInterfaceAuthentication) ResourceSchemaAttributes(ctx conte
 
 		// Nodes
 
-		"md5": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfInterfaceAuthenticationMdfive{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `MD5 key id
-
-`,
-			Description: `MD5 key id
-
-`,
-		},
 	}
 }

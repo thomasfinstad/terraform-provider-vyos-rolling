@@ -58,7 +58,7 @@ type System struct {
 
 	ExistsNodeSystemLogin bool `tfsdk:"-" vyos:"login,child"`
 
-	NodeSystemLogs *SystemLogs `tfsdk:"logs" vyos:"logs,omitempty"`
+	// Ignoring Node `SystemLogs`.
 
 	ExistsNodeSystemOption bool `tfsdk:"-" vyos:"option,child"`
 
@@ -66,13 +66,13 @@ type System struct {
 
 	ExistsNodeSystemSflow bool `tfsdk:"-" vyos:"sflow,child"`
 
-	NodeSystemStaticHostMapping *SystemStaticHostMapping `tfsdk:"static_host_mapping" vyos:"static-host-mapping,omitempty"`
+	// Ignoring Node `SystemStaticHostMapping`.
 
-	NodeSystemSysctl *SystemSysctl `tfsdk:"sysctl" vyos:"sysctl,omitempty"`
+	// Ignoring Node `SystemSysctl`.
 
 	ExistsNodeSystemSyslog bool `tfsdk:"-" vyos:"syslog,child"`
 
-	NodeSystemTaskScheduler *SystemTaskScheduler `tfsdk:"task_scheduler" vyos:"task-scheduler,omitempty"`
+	// Ignoring Node `SystemTaskScheduler`.
 
 	ExistsNodeSystemUpdateCheck bool `tfsdk:"-" vyos:"update-check,child"`
 
@@ -212,48 +212,5 @@ func (o System) ResourceSchemaAttributes(ctx context.Context) map[string]schema.
 
 		// Nodes
 
-		"logs": schema.SingleNestedAttribute{
-			Attributes: SystemLogs{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Logging options
-
-`,
-			Description: `Logging options
-
-`,
-		},
-
-		"static_host_mapping": schema.SingleNestedAttribute{
-			Attributes: SystemStaticHostMapping{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Map host names to addresses
-
-`,
-			Description: `Map host names to addresses
-
-`,
-		},
-
-		"sysctl": schema.SingleNestedAttribute{
-			Attributes: SystemSysctl{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Configure kernel parameters at runtime
-
-`,
-			Description: `Configure kernel parameters at runtime
-
-`,
-		},
-
-		"task_scheduler": schema.SingleNestedAttribute{
-			Attributes: SystemTaskScheduler{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Task scheduler settings
-
-`,
-			Description: `Task scheduler settings
-
-`,
-		},
 	}
 }

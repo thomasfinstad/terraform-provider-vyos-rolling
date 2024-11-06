@@ -34,7 +34,7 @@ type ServiceNtpPtp struct {
 
 	// Nodes
 
-	NodeServiceNtpPtpTimestamp *ServiceNtpPtpTimestamp `tfsdk:"timestamp" vyos:"timestamp,omitempty"`
+	// Ignoring Node `ServiceNtpPtpTimestamp`.
 }
 
 // SetID configures the resource ID
@@ -130,15 +130,5 @@ func (o ServiceNtpPtp) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		// Nodes
 
-		"timestamp": schema.SingleNestedAttribute{
-			Attributes: ServiceNtpPtpTimestamp{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Enable timestamping of packets in the NIC hardware
-
-`,
-			Description: `Enable timestamping of packets in the NIC hardware
-
-`,
-		},
 	}
 }

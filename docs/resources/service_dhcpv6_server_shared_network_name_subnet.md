@@ -34,7 +34,6 @@ DHCPv6 shared network name
       - [interface](#interface)
       - [lease_time](#lease_time)
       - [option](#option)
-      - [prefix_delegation](#prefix_delegation)
       - [subnet_id](#subnet_id)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
@@ -44,7 +43,6 @@ DHCPv6 shared network name
     - [Nested Schema for `option`](#nested-schema-for-option)
     - [Nested Schema for `option.vendor_option`](#nested-schema-for-optionvendor_option)
     - [Nested Schema for `option.vendor_option.cisco`](#nested-schema-for-optionvendor_optioncisco)
-    - [Nested Schema for `prefix_delegation`](#nested-schema-for-prefix_delegation)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -70,8 +68,6 @@ DHCPv6 shared network name
 - `lease_time` (Attributes) Parameters relating to the lease time (see [below for nested schema](#nestedatt--lease_time))
 #### option
 - `option` (Attributes) DHCPv6 option (see [below for nested schema](#nestedatt--option))
-#### prefix_delegation
-- `prefix_delegation` (Attributes) Parameters relating to IPv6 prefix delegation (see [below for nested schema](#nestedatt--prefix_delegation))
 #### subnet_id
 - `subnet_id` (Number) Unique ID mapped to leases in the lease file
 
@@ -182,10 +178,6 @@ Optional:
     |  ipv6    &emsp;|  TFTP server IPv6 address  |
 
 
-
-
-<a id="nestedatt--prefix_delegation"></a>
-### Nested Schema for `prefix_delegation`
 
 
 <a id="nestedatt--timeouts"></a>

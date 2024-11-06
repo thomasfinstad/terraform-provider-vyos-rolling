@@ -42,15 +42,15 @@ type VpnIPsec struct {
 
 	// Nodes
 
-	NodeVpnIPsecAuthentication *VpnIPsecAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
+	// Ignoring Node `VpnIPsecAuthentication`.
 
 	ExistsNodeVpnIPsecLog bool `tfsdk:"-" vyos:"log,child"`
 
 	ExistsNodeVpnIPsecOptions bool `tfsdk:"-" vyos:"options,child"`
 
-	NodeVpnIPsecRemoteAccess *VpnIPsecRemoteAccess `tfsdk:"remote_access" vyos:"remote-access,omitempty"`
+	// Ignoring Node `VpnIPsecRemoteAccess`.
 
-	NodeVpnIPsecSiteToSite *VpnIPsecSiteToSite `tfsdk:"site_to_site" vyos:"site-to-site,omitempty"`
+	// Ignoring Node `VpnIPsecSiteToSite`.
 }
 
 // SetID configures the resource ID
@@ -152,37 +152,5 @@ func (o VpnIPsec) ResourceSchemaAttributes(ctx context.Context) map[string]schem
 
 		// Nodes
 
-		"authentication": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecAuthentication{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Authentication
-
-`,
-			Description: `Authentication
-
-`,
-		},
-
-		"remote_access": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecRemoteAccess{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IKEv2 remote access VPN
-
-`,
-			Description: `IKEv2 remote access VPN
-
-`,
-		},
-
-		"site_to_site": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecSiteToSite{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Site-to-site VPN
-
-`,
-			Description: `Site-to-site VPN
-
-`,
-		},
 	}
 }

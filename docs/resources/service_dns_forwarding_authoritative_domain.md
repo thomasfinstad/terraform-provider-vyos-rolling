@@ -32,12 +32,10 @@ DNS forwarding
       - [identifier](#identifier)
     - [Optional](#optional)
       - [disable](#disable)
-      - [records](#records)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
-    - [Nested Schema for `records`](#nested-schema-for-records)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -55,8 +53,6 @@ DNS forwarding
 
 #### disable
 - `disable` (Boolean) Disable instance
-#### records
-- `records` (Attributes) DNS zone records (see [below for nested schema](#nestedatt--records))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -75,10 +71,6 @@ Required:
     |  Format  &emsp;|  Description                  |
     |----------|-------------------------------|
     |  txt     &emsp;|  An absolute DNS domain name  |
-
-
-<a id="nestedatt--records"></a>
-### Nested Schema for `records`
 
 
 <a id="nestedatt--timeouts"></a>

@@ -27,16 +27,10 @@ description: |-
 - [vyos_protocols_static (Resource)](#vyos_protocols_static-resource)
   - [Schema](#schema)
     - [Optional](#optional)
-      - [arp](#arp)
-      - [multicast](#multicast)
-      - [neighbor_proxy](#neighbor_proxy)
       - [route_map](#route_map)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `arp`](#nested-schema-for-arp)
-    - [Nested Schema for `multicast`](#nested-schema-for-multicast)
-    - [Nested Schema for `neighbor_proxy`](#nested-schema-for-neighbor_proxy)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -47,12 +41,6 @@ description: |-
 
 ### Optional
 
-#### arp
-- `arp` (Attributes) Static ARP translation (see [below for nested schema](#nestedatt--arp))
-#### multicast
-- `multicast` (Attributes) Multicast static route (see [below for nested schema](#nestedatt--multicast))
-#### neighbor_proxy
-- `neighbor_proxy` (Attributes) Neighbor proxy parameters (see [below for nested schema](#nestedatt--neighbor_proxy))
 #### route_map
 - `route_map` (String) Specify route-map name to use
 
@@ -66,18 +54,6 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--arp"></a>
-### Nested Schema for `arp`
-
-
-<a id="nestedatt--multicast"></a>
-### Nested Schema for `multicast`
-
-
-<a id="nestedatt--neighbor_proxy"></a>
-### Nested Schema for `neighbor_proxy`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

@@ -29,17 +29,13 @@ description: |-
     - [Optional](#optional)
       - [aggregate_address](#aggregate_address)
       - [default_metric](#default_metric)
-      - [distribute_list](#distribute_list)
       - [network](#network)
       - [passive_interface](#passive_interface)
-      - [redistribute](#redistribute)
       - [route](#route)
       - [route_map](#route_map)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `distribute_list`](#nested-schema-for-distribute_list)
-    - [Nested Schema for `redistribute`](#nested-schema-for-redistribute)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -62,8 +58,6 @@ description: |-
     |  Format  &emsp;|  Description     |
     |----------|------------------|
     |  1-16    &emsp;|  Default metric  |
-#### distribute_list
-- `distribute_list` (Attributes) Filter networks in routing updates (see [below for nested schema](#nestedatt--distribute_list))
 #### network
 - `network` (List of String) RIPng network
 
@@ -76,8 +70,6 @@ description: |-
     |  Format  &emsp;|  Description                            |
     |----------|-----------------------------------------|
     |  txt     &emsp;|  Suppress routing updates on interface  |
-#### redistribute
-- `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--redistribute))
 #### route
 - `route` (List of String) RIPng static route
 
@@ -97,14 +89,6 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--distribute_list"></a>
-### Nested Schema for `distribute_list`
-
-
-<a id="nestedatt--redistribute"></a>
-### Nested Schema for `redistribute`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

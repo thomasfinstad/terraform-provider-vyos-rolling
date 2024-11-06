@@ -37,7 +37,7 @@ type ServicePppoeServerAuthentication struct {
 
 	// Nodes
 
-	NodeServicePppoeServerAuthenticationLocalUsers *ServicePppoeServerAuthenticationLocalUsers `tfsdk:"local_users" vyos:"local-users,omitempty"`
+	// Ignoring Node `ServicePppoeServerAuthenticationLocalUsers`.
 
 	ExistsNodeServicePppoeServerAuthenticationRadius bool `tfsdk:"-" vyos:"radius,child"`
 }
@@ -182,15 +182,5 @@ func (o ServicePppoeServerAuthentication) ResourceSchemaAttributes(ctx context.C
 
 		// Nodes
 
-		"local_users": schema.SingleNestedAttribute{
-			Attributes: ServicePppoeServerAuthenticationLocalUsers{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Local user authentication for PPPoE server
-
-`,
-			Description: `Local user authentication for PPPoE server
-
-`,
-		},
 	}
 }

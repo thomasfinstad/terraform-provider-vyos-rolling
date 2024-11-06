@@ -26,27 +26,18 @@ type ProtocolsOspfTimers struct {
 
 	// Nodes
 
-	NodeProtocolsOspfTimersThroTTLe *ProtocolsOspfTimersThroTTLe `tfsdk:"throttle" vyos:"throttle,omitempty"`
+	// Ignoring Node `ProtocolsOspfTimersThroTTLe`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfTimers) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"throttle": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfTimersThroTTLe{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Throttling adaptive timers
-
-`,
-			Description: `Throttling adaptive timers
-
-`,
-		},
 	}
 }

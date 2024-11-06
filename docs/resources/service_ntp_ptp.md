@@ -31,11 +31,9 @@ Network Time Protocol (NTP) configuration
     - [Optional](#optional)
       - [port](#port)
       - [timeouts](#timeouts)
-      - [timestamp](#timestamp)
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
-    - [Nested Schema for `timestamp`](#nested-schema-for-timestamp)
   - [Import](#import)
 
 <!--TOC-->
@@ -53,8 +51,6 @@ Network Time Protocol (NTP) configuration
     |  1-65535  &emsp;|  Numeric IP port  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
-#### timestamp
-- `timestamp` (Attributes) Enable timestamping of packets in the NIC hardware (see [below for nested schema](#nestedatt--timestamp))
 
 ### Read-Only
 
@@ -67,10 +63,6 @@ Network Time Protocol (NTP) configuration
 Optional:
 
 - `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
-
-
-<a id="nestedatt--timestamp"></a>
-### Nested Schema for `timestamp`
 
 ## Import
 

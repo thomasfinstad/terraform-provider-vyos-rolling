@@ -46,7 +46,7 @@ type ServiceConntrackSync struct {
 
 	// Nodes
 
-	NodeServiceConntrackSyncFailoverMechanism *ServiceConntrackSyncFailoverMechanism `tfsdk:"failover_mechanism" vyos:"failover-mechanism,omitempty"`
+	// Ignoring Node `ServiceConntrackSyncFailoverMechanism`.
 }
 
 // SetID configures the resource ID
@@ -305,15 +305,5 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 		// Nodes
 
-		"failover_mechanism": schema.SingleNestedAttribute{
-			Attributes: ServiceConntrackSyncFailoverMechanism{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Failover mechanism to use for conntrack-sync
-
-`,
-			Description: `Failover mechanism to use for conntrack-sync
-
-`,
-		},
 	}
 }

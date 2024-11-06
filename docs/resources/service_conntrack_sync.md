@@ -32,7 +32,6 @@ description: |-
       - [disable_syslog](#disable_syslog)
       - [event_listen_queue_size](#event_listen_queue_size)
       - [expect_sync](#expect_sync)
-      - [failover_mechanism](#failover_mechanism)
       - [ignore_address](#ignore_address)
       - [listen_address](#listen_address)
       - [mcast_group](#mcast_group)
@@ -41,7 +40,6 @@ description: |-
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `failover_mechanism`](#nested-schema-for-failover_mechanism)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -75,8 +73,6 @@ description: |-
     |  u32     &emsp;|  Queue size in MB  |
 #### expect_sync
 - `expect_sync` (List of String) Protocol for which expect entries need to be synchronized
-#### failover_mechanism
-- `failover_mechanism` (Attributes) Failover mechanism to use for conntrack-sync (see [below for nested schema](#nestedatt--failover_mechanism))
 #### ignore_address
 - `ignore_address` (List of String) IP addresses for which local conntrack entries will not be synced
 
@@ -109,10 +105,6 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--failover_mechanism"></a>
-### Nested Schema for `failover_mechanism`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

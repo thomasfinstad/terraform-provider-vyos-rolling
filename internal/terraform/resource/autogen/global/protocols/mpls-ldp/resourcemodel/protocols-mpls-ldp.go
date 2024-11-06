@@ -37,17 +37,17 @@ type ProtocolsMplsLdp struct {
 
 	// Nodes
 
-	NodeProtocolsMplsLdpAllocation *ProtocolsMplsLdpAllocation `tfsdk:"allocation" vyos:"allocation,omitempty"`
+	// Ignoring Node `ProtocolsMplsLdpAllocation`.
 
 	ExistsNodeProtocolsMplsLdpDiscovery bool `tfsdk:"-" vyos:"discovery,child"`
 
-	NodeProtocolsMplsLdpTargetedNeighbor *ProtocolsMplsLdpTargetedNeighbor `tfsdk:"targeted_neighbor" vyos:"targeted-neighbor,omitempty"`
+	// Ignoring Node `ProtocolsMplsLdpTargetedNeighbor`.
 
 	ExistsNodeProtocolsMplsLdpParameters bool `tfsdk:"-" vyos:"parameters,child"`
 
-	NodeProtocolsMplsLdpExport *ProtocolsMplsLdpExport `tfsdk:"export" vyos:"export,omitempty"`
+	// Ignoring Node `ProtocolsMplsLdpExport`.
 
-	NodeProtocolsMplsLdpImport *ProtocolsMplsLdpImport `tfsdk:"import" vyos:"import,omitempty"`
+	// Ignoring Node `ProtocolsMplsLdpImport`.
 }
 
 // SetID configures the resource ID
@@ -159,48 +159,5 @@ func (o ProtocolsMplsLdp) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 		// Nodes
 
-		"allocation": schema.SingleNestedAttribute{
-			Attributes: ProtocolsMplsLdpAllocation{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Forwarding equivalence class allocation from local routes
-
-`,
-			Description: `Forwarding equivalence class allocation from local routes
-
-`,
-		},
-
-		"targeted_neighbor": schema.SingleNestedAttribute{
-			Attributes: ProtocolsMplsLdpTargetedNeighbor{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Targeted LDP neighbor/session parameters
-
-`,
-			Description: `Targeted LDP neighbor/session parameters
-
-`,
-		},
-
-		"export": schema.SingleNestedAttribute{
-			Attributes: ProtocolsMplsLdpExport{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Export parameters
-
-`,
-			Description: `Export parameters
-
-`,
-		},
-
-		"import": schema.SingleNestedAttribute{
-			Attributes: ProtocolsMplsLdpImport{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Import parameters
-
-`,
-			Description: `Import parameters
-
-`,
-		},
 	}
 }

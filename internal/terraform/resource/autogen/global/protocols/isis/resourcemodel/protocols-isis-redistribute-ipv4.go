@@ -26,105 +26,30 @@ type ProtocolsIsisRedistributeIPvfour struct {
 
 	// Nodes
 
-	NodeProtocolsIsisRedistributeIPvfourBgp *ProtocolsIsisRedistributeIPvfourBgp `tfsdk:"bgp" vyos:"bgp,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvfourBgp`.
 
-	NodeProtocolsIsisRedistributeIPvfourConnected *ProtocolsIsisRedistributeIPvfourConnected `tfsdk:"connected" vyos:"connected,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvfourConnected`.
 
-	NodeProtocolsIsisRedistributeIPvfourKernel *ProtocolsIsisRedistributeIPvfourKernel `tfsdk:"kernel" vyos:"kernel,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvfourKernel`.
 
-	NodeProtocolsIsisRedistributeIPvfourOspf *ProtocolsIsisRedistributeIPvfourOspf `tfsdk:"ospf" vyos:"ospf,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvfourOspf`.
 
-	NodeProtocolsIsisRedistributeIPvfourRIP *ProtocolsIsisRedistributeIPvfourRIP `tfsdk:"rip" vyos:"rip,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvfourRIP`.
 
-	NodeProtocolsIsisRedistributeIPvfourBabel *ProtocolsIsisRedistributeIPvfourBabel `tfsdk:"babel" vyos:"babel,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvfourBabel`.
 
-	NodeProtocolsIsisRedistributeIPvfourStatic *ProtocolsIsisRedistributeIPvfourStatic `tfsdk:"static" vyos:"static,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvfourStatic`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"bgp": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvfourBgp{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Border Gateway Protocol (BGP)
-
-`,
-			Description: `Border Gateway Protocol (BGP)
-
-`,
-		},
-
-		"connected": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvfourConnected{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute connected routes into IS-IS
-
-`,
-			Description: `Redistribute connected routes into IS-IS
-
-`,
-		},
-
-		"kernel": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvfourKernel{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute kernel routes into IS-IS
-
-`,
-			Description: `Redistribute kernel routes into IS-IS
-
-`,
-		},
-
-		"ospf": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvfourOspf{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute OSPF routes into IS-IS
-
-`,
-			Description: `Redistribute OSPF routes into IS-IS
-
-`,
-		},
-
-		"rip": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvfourRIP{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute RIP routes into IS-IS
-
-`,
-			Description: `Redistribute RIP routes into IS-IS
-
-`,
-		},
-
-		"babel": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvfourBabel{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute Babel routes into IS-IS
-
-`,
-			Description: `Redistribute Babel routes into IS-IS
-
-`,
-		},
-
-		"static": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvfourStatic{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute static routes into IS-IS
-
-`,
-			Description: `Redistribute static routes into IS-IS
-
-`,
-		},
 	}
 }

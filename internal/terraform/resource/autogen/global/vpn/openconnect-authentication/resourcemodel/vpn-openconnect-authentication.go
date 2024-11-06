@@ -38,7 +38,7 @@ type VpnOpenconnectAuthentication struct {
 
 	ExistsNodeVpnOpenconnectAuthenticationIDentityBasedConfig bool `tfsdk:"-" vyos:"identity-based-config,child"`
 
-	NodeVpnOpenconnectAuthenticationLocalUsers *VpnOpenconnectAuthenticationLocalUsers `tfsdk:"local_users" vyos:"local-users,omitempty"`
+	// Ignoring Node `VpnOpenconnectAuthenticationLocalUsers`.
 
 	ExistsNodeVpnOpenconnectAuthenticationRadius bool `tfsdk:"-" vyos:"radius,child"`
 }
@@ -133,15 +133,5 @@ func (o VpnOpenconnectAuthentication) ResourceSchemaAttributes(ctx context.Conte
 
 		// Nodes
 
-		"local_users": schema.SingleNestedAttribute{
-			Attributes: VpnOpenconnectAuthenticationLocalUsers{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Local user authentication
-
-`,
-			Description: `Local user authentication
-
-`,
-		},
 	}
 }

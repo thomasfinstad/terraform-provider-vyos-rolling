@@ -30,13 +30,11 @@ Point to Point over Ethernet (PPPoE) Server
   - [Schema](#schema)
     - [Optional](#optional)
       - [any_login](#any_login)
-      - [local_users](#local_users)
       - [mode](#mode)
       - [protocols](#protocols)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `local_users`](#nested-schema-for-local_users)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -49,8 +47,6 @@ Point to Point over Ethernet (PPPoE) Server
 
 #### any_login
 - `any_login` (Boolean) Authentication with any login
-#### local_users
-- `local_users` (Attributes) Local user authentication for PPPoE server (see [below for nested schema](#nestedatt--local_users))
 #### mode
 - `mode` (String) Authentication mode used by this server
 
@@ -75,10 +71,6 @@ Point to Point over Ethernet (PPPoE) Server
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--local_users"></a>
-### Nested Schema for `local_users`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

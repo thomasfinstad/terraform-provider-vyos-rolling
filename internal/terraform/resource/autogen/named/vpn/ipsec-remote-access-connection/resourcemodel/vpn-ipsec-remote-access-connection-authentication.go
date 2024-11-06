@@ -34,7 +34,7 @@ type VpnIPsecRemoteAccessConnectionAuthentication struct {
 
 	NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine *VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine `tfsdk:"x509" vyos:"x509,omitempty"`
 
-	NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers `tfsdk:"local_users" vyos:"local-users,omitempty"`
+	// Ignoring Node `VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -167,17 +167,6 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes(c
 
 `,
 			Description: `X.509 certificate
-
-`,
-		},
-
-		"local_users": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Local user authentication
-
-`,
-			Description: `Local user authentication
 
 `,
 		},

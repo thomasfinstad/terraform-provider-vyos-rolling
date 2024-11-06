@@ -26,53 +26,22 @@ type ProtocolsIsisFastRerouteLfaLocalTiebreaker struct {
 
 	// Nodes
 
-	NodeProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream *ProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream `tfsdk:"downstream" vyos:"downstream,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream`.
 
-	NodeProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric *ProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric `tfsdk:"lowest_backup_metric" vyos:"lowest-backup-metric,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric`.
 
-	NodeProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting *ProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting `tfsdk:"node_protecting" vyos:"node-protecting,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"downstream": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Prefer backup path via downstream node
-
-`,
-			Description: `Prefer backup path via downstream node
-
-`,
-		},
-
-		"lowest_backup_metric": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Prefer backup path with lowest total metric
-
-`,
-			Description: `Prefer backup path with lowest total metric
-
-`,
-		},
-
-		"node_protecting": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Prefer node protecting backup path
-
-`,
-			Description: `Prefer node protecting backup path
-
-`,
-		},
 	}
 }

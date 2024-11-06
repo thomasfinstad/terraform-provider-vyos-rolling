@@ -30,7 +30,7 @@ type VrfNameProtocolsIsisFastRerouteLfaLocal struct {
 
 	NodeVrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit *VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit `tfsdk:"priority_limit" vyos:"priority-limit,omitempty"`
 
-	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker `tfsdk:"tiebreaker" vyos:"tiebreaker,omitempty"`
+	// Ignoring Node `VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -60,17 +60,6 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocal) ResourceSchemaAttributes(ctx co
 
 `,
 			Description: `Limit backup computation up to the prefix priority
-
-`,
-		},
-
-		"tiebreaker": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Configure tiebreaker for multiple backups
-
-`,
-			Description: `Configure tiebreaker for multiple backups
 
 `,
 		},

@@ -26,25 +26,25 @@ type ProtocolsBgpAddressFamily struct {
 
 	// Nodes
 
-	NodeProtocolsBgpAddressFamilyIPvfourUnicast *ProtocolsBgpAddressFamilyIPvfourUnicast `tfsdk:"ipv4_unicast" vyos:"ipv4-unicast,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvfourUnicast`.
 
-	NodeProtocolsBgpAddressFamilyIPvfourMulticast *ProtocolsBgpAddressFamilyIPvfourMulticast `tfsdk:"ipv4_multicast" vyos:"ipv4-multicast,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvfourMulticast`.
 
-	NodeProtocolsBgpAddressFamilyIPvfourLabeledUnicast *ProtocolsBgpAddressFamilyIPvfourLabeledUnicast `tfsdk:"ipv4_labeled_unicast" vyos:"ipv4-labeled-unicast,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvfourLabeledUnicast`.
 
-	NodeProtocolsBgpAddressFamilyIPvfourFlowspec *ProtocolsBgpAddressFamilyIPvfourFlowspec `tfsdk:"ipv4_flowspec" vyos:"ipv4-flowspec,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvfourFlowspec`.
 
-	NodeProtocolsBgpAddressFamilyIPvfourVpn *ProtocolsBgpAddressFamilyIPvfourVpn `tfsdk:"ipv4_vpn" vyos:"ipv4-vpn,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvfourVpn`.
 
-	NodeProtocolsBgpAddressFamilyIPvsixUnicast *ProtocolsBgpAddressFamilyIPvsixUnicast `tfsdk:"ipv6_unicast" vyos:"ipv6-unicast,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicast`.
 
-	NodeProtocolsBgpAddressFamilyIPvsixMulticast *ProtocolsBgpAddressFamilyIPvsixMulticast `tfsdk:"ipv6_multicast" vyos:"ipv6-multicast,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixMulticast`.
 
-	NodeProtocolsBgpAddressFamilyIPvsixLabeledUnicast *ProtocolsBgpAddressFamilyIPvsixLabeledUnicast `tfsdk:"ipv6_labeled_unicast" vyos:"ipv6-labeled-unicast,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixLabeledUnicast`.
 
-	NodeProtocolsBgpAddressFamilyIPvsixFlowspec *ProtocolsBgpAddressFamilyIPvsixFlowspec `tfsdk:"ipv6_flowspec" vyos:"ipv6-flowspec,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixFlowspec`.
 
-	NodeProtocolsBgpAddressFamilyIPvsixVpn *ProtocolsBgpAddressFamilyIPvsixVpn `tfsdk:"ipv6_vpn" vyos:"ipv6-vpn,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixVpn`.
 
 	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpn bool `tfsdk:"-" vyos:"l2vpn-evpn,child"`
 }
@@ -52,120 +52,12 @@ type ProtocolsBgpAddressFamily struct {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamily) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"ipv4_unicast": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvfourUnicast{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv4 BGP settings
-
-`,
-			Description: `IPv4 BGP settings
-
-`,
-		},
-
-		"ipv4_multicast": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvfourMulticast{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Multicast IPv4 BGP settings
-
-`,
-			Description: `Multicast IPv4 BGP settings
-
-`,
-		},
-
-		"ipv4_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvfourLabeledUnicast{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Labeled Unicast IPv4 BGP settings
-
-`,
-			Description: `Labeled Unicast IPv4 BGP settings
-
-`,
-		},
-
-		"ipv4_flowspec": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvfourFlowspec{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Flowspec IPv4 BGP settings
-
-`,
-			Description: `Flowspec IPv4 BGP settings
-
-`,
-		},
-
-		"ipv4_vpn": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvfourVpn{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Unicast VPN IPv4 BGP settings
-
-`,
-			Description: `Unicast VPN IPv4 BGP settings
-
-`,
-		},
-
-		"ipv6_unicast": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv6 BGP settings
-
-`,
-			Description: `IPv6 BGP settings
-
-`,
-		},
-
-		"ipv6_multicast": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixMulticast{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Multicast IPv6 BGP settings
-
-`,
-			Description: `Multicast IPv6 BGP settings
-
-`,
-		},
-
-		"ipv6_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixLabeledUnicast{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Labeled Unicast IPv6 BGP settings
-
-`,
-			Description: `Labeled Unicast IPv6 BGP settings
-
-`,
-		},
-
-		"ipv6_flowspec": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixFlowspec{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Flowspec IPv6 BGP settings
-
-`,
-			Description: `Flowspec IPv6 BGP settings
-
-`,
-		},
-
-		"ipv6_vpn": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixVpn{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Unicast VPN IPv6 BGP settings
-
-`,
-			Description: `Unicast VPN IPv6 BGP settings
-
-`,
-		},
 	}
 }

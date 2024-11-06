@@ -38,7 +38,7 @@ type ServiceSURIcata struct {
 
 	// Nodes
 
-	NodeServiceSURIcataLog *ServiceSURIcataLog `tfsdk:"log" vyos:"log,omitempty"`
+	// Ignoring Node `ServiceSURIcataLog`.
 }
 
 // SetID configures the resource ID
@@ -125,15 +125,5 @@ func (o ServiceSURIcata) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		// Nodes
 
-		"log": schema.SingleNestedAttribute{
-			Attributes: ServiceSURIcataLog{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Suricata log outputs
-
-`,
-			Description: `Suricata log outputs
-
-`,
-		},
 	}
 }

@@ -71,7 +71,7 @@ type ContainerName struct {
 
 	// Nodes
 
-	NodeContainerNameSysctl *ContainerNameSysctl `tfsdk:"sysctl" vyos:"sysctl,omitempty"`
+	// Ignoring Node `ContainerNameSysctl`.
 }
 
 // SetID configures the resource ID
@@ -494,15 +494,5 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		// Nodes
 
-		"sysctl": schema.SingleNestedAttribute{
-			Attributes: ContainerNameSysctl{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Configure namespaced kernel parameters of the container
-
-`,
-			Description: `Configure namespaced kernel parameters of the container
-
-`,
-		},
 	}
 }

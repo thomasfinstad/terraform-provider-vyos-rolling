@@ -42,7 +42,7 @@ type SystemSyslog struct {
 
 	ExistsNodeSystemSyslogGlobal bool `tfsdk:"-" vyos:"global,child"`
 
-	NodeSystemSyslogConsole *SystemSyslogConsole `tfsdk:"console" vyos:"console,omitempty"`
+	// Ignoring Node `SystemSyslogConsole`.
 }
 
 // SetID configures the resource ID
@@ -129,15 +129,5 @@ func (o SystemSyslog) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		// Nodes
 
-		"console": schema.SingleNestedAttribute{
-			Attributes: SystemSyslogConsole{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `logging to serial console
-
-`,
-			Description: `logging to serial console
-
-`,
-		},
 	}
 }

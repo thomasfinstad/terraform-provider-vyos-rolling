@@ -51,7 +51,7 @@ type FirewallGlobalOptions struct {
 
 	ExistsNodeFirewallGlobalOptionsApplyToBrIDgedTraffic bool `tfsdk:"-" vyos:"apply-to-bridged-traffic,child"`
 
-	NodeFirewallGlobalOptionsStatePolicy *FirewallGlobalOptionsStatePolicy `tfsdk:"state_policy" vyos:"state-policy,omitempty"`
+	// Ignoring Node `FirewallGlobalOptionsStatePolicy`.
 
 	ExistsNodeFirewallGlobalOptionsTimeout bool `tfsdk:"-" vyos:"timeout,child"`
 }
@@ -474,15 +474,5 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes(ctx context.Context) map
 
 		// Nodes
 
-		"state_policy": schema.SingleNestedAttribute{
-			Attributes: FirewallGlobalOptionsStatePolicy{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Global firewall state-policy
-
-`,
-			Description: `Global firewall state-policy
-
-`,
-		},
 	}
 }

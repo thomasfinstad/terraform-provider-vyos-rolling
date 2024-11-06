@@ -35,7 +35,7 @@ type VpnPptpRemoteAccessAuthentication struct {
 
 	// Nodes
 
-	NodeVpnPptpRemoteAccessAuthenticationLocalUsers *VpnPptpRemoteAccessAuthenticationLocalUsers `tfsdk:"local_users" vyos:"local-users,omitempty"`
+	// Ignoring Node `VpnPptpRemoteAccessAuthenticationLocalUsers`.
 
 	ExistsNodeVpnPptpRemoteAccessAuthenticationRadius bool `tfsdk:"-" vyos:"radius,child"`
 }
@@ -171,15 +171,5 @@ func (o VpnPptpRemoteAccessAuthentication) ResourceSchemaAttributes(ctx context.
 
 		// Nodes
 
-		"local_users": schema.SingleNestedAttribute{
-			Attributes: VpnPptpRemoteAccessAuthenticationLocalUsers{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Local user authentication for PPPoE server
-
-`,
-			Description: `Local user authentication for PPPoE server
-
-`,
-		},
 	}
 }

@@ -36,96 +36,32 @@ type ProtocolsBgpAddressFamilyIPvsixUnicast struct {
 
 	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastImport bool `tfsdk:"-" vyos:"import,child"`
 
-	NodeProtocolsBgpAddressFamilyIPvsixUnicastLabel *ProtocolsBgpAddressFamilyIPvsixUnicastLabel `tfsdk:"label" vyos:"label,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastLabel`.
 
 	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths bool `tfsdk:"-" vyos:"maximum-paths,child"`
 
-	NodeProtocolsBgpAddressFamilyIPvsixUnicastRd *ProtocolsBgpAddressFamilyIPvsixUnicastRd `tfsdk:"rd" vyos:"rd,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastRd`.
 
-	NodeProtocolsBgpAddressFamilyIPvsixUnicastRouteMap *ProtocolsBgpAddressFamilyIPvsixUnicastRouteMap `tfsdk:"route_map" vyos:"route-map,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastRouteMap`.
 
-	NodeProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget *ProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget `tfsdk:"route_target" vyos:"route-target,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget`.
 
-	NodeProtocolsBgpAddressFamilyIPvsixUnicastNexthop *ProtocolsBgpAddressFamilyIPvsixUnicastNexthop `tfsdk:"nexthop" vyos:"nexthop,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastNexthop`.
 
 	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistribute bool `tfsdk:"-" vyos:"redistribute,child"`
 
-	NodeProtocolsBgpAddressFamilyIPvsixUnicastSID *ProtocolsBgpAddressFamilyIPvsixUnicastSID `tfsdk:"sid" vyos:"sid,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastSID`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"label": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixUnicastLabel{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Label value for VRF
-
-`,
-			Description: `Label value for VRF
-
-`,
-		},
-
-		"rd": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixUnicastRd{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Specify route distinguisher
-
-`,
-			Description: `Specify route distinguisher
-
-`,
-		},
-
-		"route_map": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixUnicastRouteMap{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Route-map to filter route updates to/from this peer
-
-`,
-			Description: `Route-map to filter route updates to/from this peer
-
-`,
-		},
-
-		"route_target": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Specify route target list
-
-`,
-			Description: `Specify route target list
-
-`,
-		},
-
-		"nexthop": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixUnicastNexthop{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Specify next hop to use for VRF advertised prefixes
-
-`,
-			Description: `Specify next hop to use for VRF advertised prefixes
-
-`,
-		},
-
-		"sid": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyIPvsixUnicastSID{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `SID value for VRF
-
-`,
-			Description: `SID value for VRF
-
-`,
-		},
 	}
 }

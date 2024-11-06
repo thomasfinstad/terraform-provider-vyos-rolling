@@ -26,40 +26,20 @@ type SystemConntrackIgnore struct {
 
 	// Nodes
 
-	NodeSystemConntrackIgnoreIPvfour *SystemConntrackIgnoreIPvfour `tfsdk:"ipv4" vyos:"ipv4,omitempty"`
+	// Ignoring Node `SystemConntrackIgnoreIPvfour`.
 
-	NodeSystemConntrackIgnoreIPvsix *SystemConntrackIgnoreIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+	// Ignoring Node `SystemConntrackIgnoreIPvsix`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemConntrackIgnore) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"ipv4": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackIgnoreIPvfour{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv4 rules
-
-`,
-			Description: `IPv4 rules
-
-`,
-		},
-
-		"ipv6": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackIgnoreIPvsix{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv6 rules
-
-`,
-			Description: `IPv6 rules
-
-`,
-		},
 	}
 }

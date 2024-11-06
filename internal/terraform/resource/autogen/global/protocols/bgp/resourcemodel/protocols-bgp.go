@@ -40,7 +40,7 @@ type ProtocolsBgp struct {
 
 	// Nodes
 
-	NodeProtocolsBgpAddressFamily *ProtocolsBgpAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamily`.
 
 	ExistsNodeProtocolsBgpBmp bool `tfsdk:"-" vyos:"bmp,child"`
 
@@ -50,7 +50,7 @@ type ProtocolsBgp struct {
 
 	ExistsNodeProtocolsBgpSrvsix bool `tfsdk:"-" vyos:"srv6,child"`
 
-	NodeProtocolsBgpSID *ProtocolsBgpSID `tfsdk:"sid" vyos:"sid,omitempty"`
+	// Ignoring Node `ProtocolsBgpSID`.
 
 	ExistsNodeProtocolsBgpTimers bool `tfsdk:"-" vyos:"timers,child"`
 }
@@ -139,26 +139,5 @@ func (o ProtocolsBgp) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		// Nodes
 
-		"address_family": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamily{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `BGP address-family parameters
-
-`,
-			Description: `BGP address-family parameters
-
-`,
-		},
-
-		"sid": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpSID{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `SID value for VRF
-
-`,
-			Description: `SID value for VRF
-
-`,
-		},
 	}
 }

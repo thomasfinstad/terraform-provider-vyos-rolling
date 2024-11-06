@@ -26,105 +26,30 @@ type ProtocolsIsisRedistributeIPvsix struct {
 
 	// Nodes
 
-	NodeProtocolsIsisRedistributeIPvsixBgp *ProtocolsIsisRedistributeIPvsixBgp `tfsdk:"bgp" vyos:"bgp,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvsixBgp`.
 
-	NodeProtocolsIsisRedistributeIPvsixConnected *ProtocolsIsisRedistributeIPvsixConnected `tfsdk:"connected" vyos:"connected,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvsixConnected`.
 
-	NodeProtocolsIsisRedistributeIPvsixKernel *ProtocolsIsisRedistributeIPvsixKernel `tfsdk:"kernel" vyos:"kernel,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvsixKernel`.
 
-	NodeProtocolsIsisRedistributeIPvsixOspfsix *ProtocolsIsisRedistributeIPvsixOspfsix `tfsdk:"ospf6" vyos:"ospf6,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvsixOspfsix`.
 
-	NodeProtocolsIsisRedistributeIPvsixRIPng *ProtocolsIsisRedistributeIPvsixRIPng `tfsdk:"ripng" vyos:"ripng,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvsixRIPng`.
 
-	NodeProtocolsIsisRedistributeIPvsixBabel *ProtocolsIsisRedistributeIPvsixBabel `tfsdk:"babel" vyos:"babel,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvsixBabel`.
 
-	NodeProtocolsIsisRedistributeIPvsixStatic *ProtocolsIsisRedistributeIPvsixStatic `tfsdk:"static" vyos:"static,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvsixStatic`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"bgp": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvsixBgp{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute BGP routes into IS-IS
-
-`,
-			Description: `Redistribute BGP routes into IS-IS
-
-`,
-		},
-
-		"connected": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvsixConnected{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute connected routes into IS-IS
-
-`,
-			Description: `Redistribute connected routes into IS-IS
-
-`,
-		},
-
-		"kernel": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvsixKernel{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute kernel routes into IS-IS
-
-`,
-			Description: `Redistribute kernel routes into IS-IS
-
-`,
-		},
-
-		"ospf6": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvsixOspfsix{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute OSPFv3 routes into IS-IS
-
-`,
-			Description: `Redistribute OSPFv3 routes into IS-IS
-
-`,
-		},
-
-		"ripng": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvsixRIPng{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute RIPng routes into IS-IS
-
-`,
-			Description: `Redistribute RIPng routes into IS-IS
-
-`,
-		},
-
-		"babel": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvsixBabel{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute Babel routes into IS-IS
-
-`,
-			Description: `Redistribute Babel routes into IS-IS
-
-`,
-		},
-
-		"static": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvsixStatic{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute static routes into IS-IS
-
-`,
-			Description: `Redistribute static routes into IS-IS
-
-`,
-		},
 	}
 }

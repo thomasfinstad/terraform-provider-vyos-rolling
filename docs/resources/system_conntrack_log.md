@@ -29,14 +29,12 @@ Connection Tracking Engine Options
 - [vyos_system_conntrack_log (Resource)](#vyos_system_conntrack_log-resource)
   - [Schema](#schema)
     - [Optional](#optional)
-      - [event](#event)
       - [log_level](#log_level)
       - [queue_size](#queue_size)
       - [timeouts](#timeouts)
       - [timestamp](#timestamp)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `event`](#nested-schema-for-event)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -47,8 +45,6 @@ Connection Tracking Engine Options
 
 ### Optional
 
-#### event
-- `event` (Attributes) Event type and protocol (see [below for nested schema](#nestedatt--event))
 #### log_level
 - `log_level` (String) Set log-level. Log must be enable.
 
@@ -71,10 +67,6 @@ Connection Tracking Engine Options
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--event"></a>
-### Nested Schema for `event`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

@@ -26,53 +26,22 @@ type ProtocolsIsisFastRerouteLfaLocal struct {
 
 	// Nodes
 
-	NodeProtocolsIsisFastRerouteLfaLocalLoadSharing *ProtocolsIsisFastRerouteLfaLocalLoadSharing `tfsdk:"load_sharing" vyos:"load-sharing,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfaLocalLoadSharing`.
 
-	NodeProtocolsIsisFastRerouteLfaLocalPriorityLimit *ProtocolsIsisFastRerouteLfaLocalPriorityLimit `tfsdk:"priority_limit" vyos:"priority-limit,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfaLocalPriorityLimit`.
 
-	NodeProtocolsIsisFastRerouteLfaLocalTiebreaker *ProtocolsIsisFastRerouteLfaLocalTiebreaker `tfsdk:"tiebreaker" vyos:"tiebreaker,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfaLocalTiebreaker`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisFastRerouteLfaLocal) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"load_sharing": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfaLocalLoadSharing{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Load share prefixes across multiple backups
-
-`,
-			Description: `Load share prefixes across multiple backups
-
-`,
-		},
-
-		"priority_limit": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfaLocalPriorityLimit{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Limit backup computation up to the prefix priority
-
-`,
-			Description: `Limit backup computation up to the prefix priority
-
-`,
-		},
-
-		"tiebreaker": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfaLocalTiebreaker{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Configure tiebreaker for multiple backups
-
-`,
-			Description: `Configure tiebreaker for multiple backups
-
-`,
-		},
 	}
 }

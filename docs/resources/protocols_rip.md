@@ -29,19 +29,15 @@ description: |-
     - [Optional](#optional)
       - [default_distance](#default_distance)
       - [default_metric](#default_metric)
-      - [distribute_list](#distribute_list)
       - [neighbor](#neighbor)
       - [network](#network)
       - [passive_interface](#passive_interface)
-      - [redistribute](#redistribute)
       - [route](#route)
       - [route_map](#route_map)
       - [timeouts](#timeouts)
       - [version](#version)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `distribute_list`](#nested-schema-for-distribute_list)
-    - [Nested Schema for `redistribute`](#nested-schema-for-redistribute)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -64,8 +60,6 @@ description: |-
     |  Format  &emsp;|  Description     |
     |----------|------------------|
     |  1-16    &emsp;|  Default metric  |
-#### distribute_list
-- `distribute_list` (Attributes) Filter networks in routing updates (see [below for nested schema](#nestedatt--distribute_list))
 #### neighbor
 - `neighbor` (List of String) Neighbor router
 
@@ -85,8 +79,6 @@ description: |-
     |-----------|-----------------------------------------------------------|
     |  txt      &emsp;|  Interface to be passive (i.e. suppress routing updates)  |
     |  default  &emsp;|  Default to suppress routing updates on all interfaces    |
-#### redistribute
-- `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--redistribute))
 #### route
 - `route` (List of String) RIP static route
 
@@ -113,14 +105,6 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--distribute_list"></a>
-### Nested Schema for `distribute_list`
-
-
-<a id="nestedatt--redistribute"></a>
-### Nested Schema for `redistribute`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

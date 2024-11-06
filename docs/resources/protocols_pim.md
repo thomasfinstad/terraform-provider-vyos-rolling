@@ -32,11 +32,9 @@ description: |-
       - [no_v6_secondary](#no_v6_secondary)
       - [packets](#packets)
       - [register_suppress_time](#register_suppress_time)
-      - [spt_switchover](#spt_switchover)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `spt_switchover`](#nested-schema-for-spt_switchover)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -73,8 +71,6 @@ description: |-
     |  Format   &emsp;|  Description       |
     |-----------|--------------------|
     |  1-65535  &emsp;|  Timer in seconds  |
-#### spt_switchover
-- `spt_switchover` (Attributes) Shortest-path tree (SPT) switchover (see [below for nested schema](#nestedatt--spt_switchover))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -82,10 +78,6 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--spt_switchover"></a>
-### Nested Schema for `spt_switchover`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

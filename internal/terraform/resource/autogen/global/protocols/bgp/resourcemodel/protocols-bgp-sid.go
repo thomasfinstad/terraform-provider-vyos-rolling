@@ -26,27 +26,18 @@ type ProtocolsBgpSID struct {
 
 	// Nodes
 
-	NodeProtocolsBgpSIDVpn *ProtocolsBgpSIDVpn `tfsdk:"vpn" vyos:"vpn,omitempty"`
+	// Ignoring Node `ProtocolsBgpSIDVpn`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpSID) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"vpn": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpSIDVpn{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Between current VRF and VPN
-
-`,
-			Description: `Between current VRF and VPN
-
-`,
-		},
 	}
 }

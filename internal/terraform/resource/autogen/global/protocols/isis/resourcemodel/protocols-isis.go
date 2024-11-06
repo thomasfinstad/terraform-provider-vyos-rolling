@@ -54,19 +54,19 @@ type ProtocolsIsis struct {
 
 	ExistsNodeProtocolsIsisAreaPassword bool `tfsdk:"-" vyos:"area-password,child"`
 
-	NodeProtocolsIsisDefaultInformation *ProtocolsIsisDefaultInformation `tfsdk:"default_information" vyos:"default-information,omitempty"`
+	// Ignoring Node `ProtocolsIsisDefaultInformation`.
 
 	ExistsNodeProtocolsIsisDomainPassword bool `tfsdk:"-" vyos:"domain-password,child"`
 
 	ExistsNodeProtocolsIsisLdpSync bool `tfsdk:"-" vyos:"ldp-sync,child"`
 
-	NodeProtocolsIsisFastReroute *ProtocolsIsisFastReroute `tfsdk:"fast_reroute" vyos:"fast-reroute,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastReroute`.
 
 	ExistsNodeProtocolsIsisTrafficEngineering bool `tfsdk:"-" vyos:"traffic-engineering,child"`
 
 	ExistsNodeProtocolsIsisSegmentRouting bool `tfsdk:"-" vyos:"segment-routing,child"`
 
-	NodeProtocolsIsisRedistribute *ProtocolsIsisRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistribute`.
 
 	ExistsNodeProtocolsIsisSpfDelayIetf bool `tfsdk:"-" vyos:"spf-delay-ietf,child"`
 }
@@ -433,37 +433,5 @@ func (o ProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		// Nodes
 
-		"default_information": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisDefaultInformation{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Control distribution of default information
-
-`,
-			Description: `Control distribution of default information
-
-`,
-		},
-
-		"fast_reroute": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastReroute{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IS-IS fast reroute configuration
-
-`,
-			Description: `IS-IS fast reroute configuration
-
-`,
-		},
-
-		"redistribute": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistribute{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute information from another routing protocol
-
-`,
-			Description: `Redistribute information from another routing protocol
-
-`,
-		},
 	}
 }

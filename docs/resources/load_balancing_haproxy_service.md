@@ -32,7 +32,6 @@ Configure haproxy
       - [backend](#backend)
       - [description](#description)
       - [listen_address](#listen_address)
-      - [logging](#logging)
       - [mode](#mode)
       - [port](#port)
       - [redirect_http_to_https](#redirect_http_to_https)
@@ -42,7 +41,6 @@ Configure haproxy
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
-    - [Nested Schema for `logging`](#nested-schema-for-logging)
     - [Nested Schema for `ssl`](#nested-schema-for-ssl)
     - [Nested Schema for `tcp_request`](#nested-schema-for-tcp_request)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
@@ -79,8 +77,6 @@ Configure haproxy
     |----------|---------------------------------------------------|
     |  ipv4    &emsp;|  IPv4 address to listen for incoming connections  |
     |  ipv6    &emsp;|  IPv6 address to listen for incoming connections  |
-#### logging
-- `logging` (Attributes) Logging parameters (see [below for nested schema](#nestedatt--logging))
 #### mode
 - `mode` (String) Proxy mode
 
@@ -114,10 +110,6 @@ Configure haproxy
 Required:
 
 - `service` (String) Frontend service name
-
-
-<a id="nestedatt--logging"></a>
-### Nested Schema for `logging`
 
 
 <a id="nestedatt--ssl"></a>

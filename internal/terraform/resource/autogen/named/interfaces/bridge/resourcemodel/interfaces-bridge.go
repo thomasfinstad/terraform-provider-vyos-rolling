@@ -73,7 +73,7 @@ type InterfacesBrIDge struct {
 
 	NodeInterfacesBrIDgeMirror *InterfacesBrIDgeMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
 
-	NodeInterfacesBrIDgeMember *InterfacesBrIDgeMember `tfsdk:"member" vyos:"member,omitempty"`
+	// Ignoring Node `InterfacesBrIDgeMember`.
 }
 
 // SetID configures the resource ID
@@ -566,17 +566,6 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 `,
 			Description: `Mirror ingress/egress packets
-
-`,
-		},
-
-		"member": schema.SingleNestedAttribute{
-			Attributes: InterfacesBrIDgeMember{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Bridge member interfaces
-
-`,
-			Description: `Bridge member interfaces
 
 `,
 		},

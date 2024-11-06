@@ -43,14 +43,12 @@ Container applications
       - [network](#network)
       - [restart](#restart)
       - [shared_memory](#shared_memory)
-      - [sysctl](#sysctl)
       - [timeouts](#timeouts)
       - [uid](#uid)
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
     - [Nested Schema for `network`](#nested-schema-for-network)
-    - [Nested Schema for `sysctl`](#nested-schema-for-sysctl)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -142,8 +140,6 @@ Container applications
     |----------|--------------------------------------|
     |  0       &emsp;|  Unlimited                           |
     |  1-8192  &emsp;|  Container memory in megabytes (MB)  |
-#### sysctl
-- `sysctl` (Attributes) Configure namespaced kernel parameters of the container (see [below for nested schema](#nestedatt--sysctl))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### uid
@@ -177,10 +173,6 @@ Optional:
     |----------|----------------|
     |  ipv4    &emsp;|  IPv4 address  |
     |  ipv6    &emsp;|  IPv6 address  |
-
-
-<a id="nestedatt--sysctl"></a>
-### Nested Schema for `sysctl`
 
 
 <a id="nestedatt--timeouts"></a>

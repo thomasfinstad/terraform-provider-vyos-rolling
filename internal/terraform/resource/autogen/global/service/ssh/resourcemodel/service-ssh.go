@@ -46,7 +46,7 @@ type ServiceTCP struct {
 
 	// Nodes
 
-	NodeServiceTCPAccessControl *ServiceTCPAccessControl `tfsdk:"access_control" vyos:"access-control,omitempty"`
+	// Ignoring Node `ServiceTCPAccessControl`.
 
 	ExistsNodeServiceTCPDynamicProtection bool `tfsdk:"-" vyos:"dynamic-protection,child"`
 
@@ -329,15 +329,5 @@ func (o ServiceTCP) ResourceSchemaAttributes(ctx context.Context) map[string]sch
 
 		// Nodes
 
-		"access_control": schema.SingleNestedAttribute{
-			Attributes: ServiceTCPAccessControl{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `SSH user/group access controls
-
-`,
-			Description: `SSH user/group access controls
-
-`,
-		},
 	}
 }

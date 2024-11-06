@@ -37,7 +37,7 @@ type VpnOpenconnect struct {
 
 	// Nodes
 
-	NodeVpnOpenconnectAccounting *VpnOpenconnectAccounting `tfsdk:"accounting" vyos:"accounting,omitempty"`
+	// Ignoring Node `VpnOpenconnectAccounting`.
 
 	ExistsNodeVpnOpenconnectAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
 
@@ -178,15 +178,5 @@ func (o VpnOpenconnect) ResourceSchemaAttributes(ctx context.Context) map[string
 
 		// Nodes
 
-		"accounting": schema.SingleNestedAttribute{
-			Attributes: VpnOpenconnectAccounting{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Accounting for users OpenConnect VPN Sessions
-
-`,
-			Description: `Accounting for users OpenConnect VPN Sessions
-
-`,
-		},
 	}
 }

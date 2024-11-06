@@ -26,40 +26,20 @@ type ProtocolsIsisFastRerouteLfa struct {
 
 	// Nodes
 
-	NodeProtocolsIsisFastRerouteLfaRemote *ProtocolsIsisFastRerouteLfaRemote `tfsdk:"remote" vyos:"remote,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfaRemote`.
 
-	NodeProtocolsIsisFastRerouteLfaLocal *ProtocolsIsisFastRerouteLfaLocal `tfsdk:"local" vyos:"local,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfaLocal`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisFastRerouteLfa) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"remote": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfaRemote{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Remote loop free alternate options
-
-`,
-			Description: `Remote loop free alternate options
-
-`,
-		},
-
-		"local": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfaLocal{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Local loop free alternate options
-
-`,
-			Description: `Local loop free alternate options
-
-`,
-		},
 	}
 }

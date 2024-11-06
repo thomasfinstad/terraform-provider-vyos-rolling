@@ -65,7 +65,7 @@ type ProtocolsBgpParameters struct {
 
 	ExistsNodeProtocolsBgpParametersDefault bool `tfsdk:"-" vyos:"default,child"`
 
-	NodeProtocolsBgpParametersDistance *ProtocolsBgpParametersDistance `tfsdk:"distance" vyos:"distance,omitempty"`
+	// Ignoring Node `ProtocolsBgpParametersDistance`.
 
 	ExistsNodeProtocolsBgpParametersGracefulRestart bool `tfsdk:"-" vyos:"graceful-restart,child"`
 
@@ -478,15 +478,5 @@ func (o ProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) ma
 
 		// Nodes
 
-		"distance": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpParametersDistance{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Administratives distances for BGP routes
-
-`,
-			Description: `Administratives distances for BGP routes
-
-`,
-		},
 	}
 }

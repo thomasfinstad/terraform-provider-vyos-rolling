@@ -42,7 +42,7 @@ type ServiceIDsDdosProtection struct {
 
 	ExistsNodeServiceIDsDdosProtectionSflow bool `tfsdk:"-" vyos:"sflow,child"`
 
-	NodeServiceIDsDdosProtectionThreshold *ServiceIDsDdosProtectionThreshold `tfsdk:"threshold" vyos:"threshold,omitempty"`
+	// Ignoring Node `ServiceIDsDdosProtectionThreshold`.
 }
 
 // SetID configures the resource ID
@@ -240,15 +240,5 @@ func (o ServiceIDsDdosProtection) ResourceSchemaAttributes(ctx context.Context) 
 
 		// Nodes
 
-		"threshold": schema.SingleNestedAttribute{
-			Attributes: ServiceIDsDdosProtectionThreshold{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Attack limits thresholds
-
-`,
-			Description: `Attack limits thresholds
-
-`,
-		},
 	}
 }

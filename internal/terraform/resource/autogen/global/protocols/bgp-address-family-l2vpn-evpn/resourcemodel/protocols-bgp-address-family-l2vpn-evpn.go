@@ -44,7 +44,7 @@ type ProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 
 	// Nodes
 
-	NodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise *ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise `tfsdk:"advertise" vyos:"advertise,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise`.
 
 	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget bool `tfsdk:"-" vyos:"route-target,child"`
 
@@ -264,15 +264,5 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx conte
 
 		// Nodes
 
-		"advertise": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Advertise prefix routes
-
-`,
-			Description: `Advertise prefix routes
-
-`,
-		},
 	}
 }

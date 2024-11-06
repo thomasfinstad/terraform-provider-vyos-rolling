@@ -77,10 +77,8 @@ Virtual Routing and Forwarding
     - [Nested Schema for `protocols.bgp.address_family.ipv4_unicast.route_target.vpn`](#nested-schema-for-protocolsbgpaddress_familyipv4_unicastroute_targetvpn)
     - [Nested Schema for `protocols.bgp.address_family.ipv4_unicast.sid`](#nested-schema-for-protocolsbgpaddress_familyipv4_unicastsid)
     - [Nested Schema for `protocols.bgp.address_family.ipv4_unicast.sid.vpn`](#nested-schema-for-protocolsbgpaddress_familyipv4_unicastsidvpn)
-    - [Nested Schema for `protocols.bgp.address_family.ipv4_vpn`](#nested-schema-for-protocolsbgpaddress_familyipv4_vpn)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_flowspec`](#nested-schema-for-protocolsbgpaddress_familyipv6_flowspec)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_flowspec.local_install`](#nested-schema-for-protocolsbgpaddress_familyipv6_flowspeclocal_install)
-    - [Nested Schema for `protocols.bgp.address_family.ipv6_labeled_unicast`](#nested-schema-for-protocolsbgpaddress_familyipv6_labeled_unicast)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_multicast`](#nested-schema-for-protocolsbgpaddress_familyipv6_multicast)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_multicast.distance`](#nested-schema-for-protocolsbgpaddress_familyipv6_multicastdistance)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicast)
@@ -108,7 +106,6 @@ Virtual Routing and Forwarding
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.route_target.vpn`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastroute_targetvpn)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.sid`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastsid)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.sid.vpn`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastsidvpn)
-    - [Nested Schema for `protocols.bgp.address_family.ipv6_vpn`](#nested-schema-for-protocolsbgpaddress_familyipv6_vpn)
     - [Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`](#nested-schema-for-protocolsbgpaddress_familyl2vpn_evpn)
     - [Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.advertise`](#nested-schema-for-protocolsbgpaddress_familyl2vpn_evpnadvertise)
     - [Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.advertise.ipv4`](#nested-schema-for-protocolsbgpaddress_familyl2vpn_evpnadvertiseipv4)
@@ -162,11 +159,6 @@ Virtual Routing and Forwarding
     - [Nested Schema for `protocols.isis.fast_reroute.lfa.local.priority_limit.critical`](#nested-schema-for-protocolsisisfast_reroutelfalocalpriority_limitcritical)
     - [Nested Schema for `protocols.isis.fast_reroute.lfa.local.priority_limit.high`](#nested-schema-for-protocolsisisfast_reroutelfalocalpriority_limithigh)
     - [Nested Schema for `protocols.isis.fast_reroute.lfa.local.priority_limit.medium`](#nested-schema-for-protocolsisisfast_reroutelfalocalpriority_limitmedium)
-    - [Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker`](#nested-schema-for-protocolsisisfast_reroutelfalocaltiebreaker)
-    - [Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.downstream`](#nested-schema-for-protocolsisisfast_reroutelfalocaltiebreakerdownstream)
-    - [Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.lowest_backup_metric`](#nested-schema-for-protocolsisisfast_reroutelfalocaltiebreakerlowest_backup_metric)
-    - [Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.node_protecting`](#nested-schema-for-protocolsisisfast_reroutelfalocaltiebreakernode_protecting)
-    - [Nested Schema for `protocols.isis.fast_reroute.lfa.remote`](#nested-schema-for-protocolsisisfast_reroutelfaremote)
     - [Nested Schema for `protocols.isis.ldp_sync`](#nested-schema-for-protocolsisisldp_sync)
     - [Nested Schema for `protocols.isis.redistribute`](#nested-schema-for-protocolsisisredistribute)
     - [Nested Schema for `protocols.isis.redistribute.ipv4`](#nested-schema-for-protocolsisisredistributeipv4)
@@ -269,7 +261,6 @@ Virtual Routing and Forwarding
     - [Nested Schema for `protocols.ospfv3.redistribute.kernel`](#nested-schema-for-protocolsospfv3redistributekernel)
     - [Nested Schema for `protocols.ospfv3.redistribute.ripng`](#nested-schema-for-protocolsospfv3redistributeripng)
     - [Nested Schema for `protocols.ospfv3.redistribute.static`](#nested-schema-for-protocolsospfv3redistributestatic)
-    - [Nested Schema for `protocols.static`](#nested-schema-for-protocolsstatic)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -375,7 +366,6 @@ Optional:
 - `isis` (Attributes) Intermediate System to Intermediate System (IS-IS) (see [below for nested schema](#nestedatt--protocols--isis))
 - `ospf` (Attributes) Open Shortest Path First (OSPF) (see [below for nested schema](#nestedatt--protocols--ospf))
 - `ospfv3` (Attributes) Open Shortest Path First (OSPF) for IPv6 (see [below for nested schema](#nestedatt--protocols--ospfv3))
-- `static` (Attributes) Static Routing (see [below for nested schema](#nestedatt--protocols--static))
 
 <a id="nestedatt--protocols--bgp"></a>
 ### Nested Schema for `protocols.bgp`
@@ -404,12 +394,9 @@ Optional:
 - `ipv4_labeled_unicast` (Attributes) Labeled Unicast IPv4 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_labeled_unicast))
 - `ipv4_multicast` (Attributes) Multicast IPv4 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_multicast))
 - `ipv4_unicast` (Attributes) IPv4 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast))
-- `ipv4_vpn` (Attributes) Unicast VPN IPv4 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_vpn))
 - `ipv6_flowspec` (Attributes) Flowspec IPv6 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_flowspec))
-- `ipv6_labeled_unicast` (Attributes) Labeled Unicast IPv6 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_labeled_unicast))
 - `ipv6_multicast` (Attributes) Multicast IPv6 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_multicast))
 - `ipv6_unicast` (Attributes) IPv6 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast))
-- `ipv6_vpn` (Attributes) Unicast VPN IPv6 BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_vpn))
 - `l2vpn_evpn` (Attributes) L2VPN EVPN BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn))
 
 <a id="nestedatt--protocols--bgp--address_family--ipv4_flowspec"></a>
@@ -846,10 +833,6 @@ Optional:
 
 
 
-<a id="nestedatt--protocols--bgp--address_family--ipv4_vpn"></a>
-### Nested Schema for `protocols.bgp.address_family.ipv4_vpn`
-
-
 <a id="nestedatt--protocols--bgp--address_family--ipv6_flowspec"></a>
 ### Nested Schema for `protocols.bgp.address_family.ipv6_flowspec`
 
@@ -864,10 +847,6 @@ Optional:
 
 - `interface` (List of String) Interface
 
-
-
-<a id="nestedatt--protocols--bgp--address_family--ipv6_labeled_unicast"></a>
-### Nested Schema for `protocols.bgp.address_family.ipv6_labeled_unicast`
 
 
 <a id="nestedatt--protocols--bgp--address_family--ipv6_multicast"></a>
@@ -1239,10 +1218,6 @@ Optional:
     |  auto       &emsp;|  Automatically assign a label  |
 
 
-
-
-<a id="nestedatt--protocols--bgp--address_family--ipv6_vpn"></a>
-### Nested Schema for `protocols.bgp.address_family.ipv6_vpn`
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn"></a>
@@ -2001,7 +1976,6 @@ Optional:
 Optional:
 
 - `local` (Attributes) Local loop free alternate options (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local))
-- `remote` (Attributes) Remote loop free alternate options (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--remote))
 
 <a id="nestedatt--protocols--isis--fast_reroute--lfa--local"></a>
 ### Nested Schema for `protocols.isis.fast_reroute.lfa.local`
@@ -2010,7 +1984,6 @@ Optional:
 
 - `load_sharing` (Attributes) Load share prefixes across multiple backups (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--load_sharing))
 - `priority_limit` (Attributes) Limit backup computation up to the prefix priority (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit))
-- `tiebreaker` (Attributes) Configure tiebreaker for multiple backups (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker))
 
 <a id="nestedatt--protocols--isis--fast_reroute--lfa--local--load_sharing"></a>
 ### Nested Schema for `protocols.isis.fast_reroute.lfa.local.load_sharing`
@@ -2065,32 +2038,6 @@ Optional:
 - `level_2` (Boolean) Match on IS-IS level-2 routes
 
 
-
-<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker"></a>
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker`
-
-Optional:
-
-- `downstream` (Attributes) Prefer backup path via downstream node (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--downstream))
-- `lowest_backup_metric` (Attributes) Prefer backup path with lowest total metric (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--lowest_backup_metric))
-- `node_protecting` (Attributes) Prefer node protecting backup path (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--node_protecting))
-
-<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--downstream"></a>
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.downstream`
-
-
-<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--lowest_backup_metric"></a>
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.lowest_backup_metric`
-
-
-<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--node_protecting"></a>
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.node_protecting`
-
-
-
-
-<a id="nestedatt--protocols--isis--fast_reroute--lfa--remote"></a>
-### Nested Schema for `protocols.isis.fast_reroute.lfa.remote`
 
 
 
@@ -3680,10 +3627,6 @@ Optional:
     |  txt     &emsp;|  Route map name  |
 
 
-
-
-<a id="nestedatt--protocols--static"></a>
-### Nested Schema for `protocols.static`
 
 
 

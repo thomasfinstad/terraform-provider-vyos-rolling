@@ -37,7 +37,7 @@ type SystemConntrackLog struct {
 
 	// Nodes
 
-	NodeSystemConntrackLogEvent *SystemConntrackLogEvent `tfsdk:"event" vyos:"event,omitempty"`
+	// Ignoring Node `SystemConntrackLogEvent`.
 }
 
 // SetID configures the resource ID
@@ -166,15 +166,5 @@ func (o SystemConntrackLog) ResourceSchemaAttributes(ctx context.Context) map[st
 
 		// Nodes
 
-		"event": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackLogEvent{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Event type and protocol
-
-`,
-			Description: `Event type and protocol
-
-`,
-		},
 	}
 }

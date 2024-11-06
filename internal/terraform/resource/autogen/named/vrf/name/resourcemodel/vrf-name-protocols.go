@@ -36,7 +36,7 @@ type VrfNameProtocols struct {
 
 	NodeVrfNameProtocolsOspfvthree *VrfNameProtocolsOspfvthree `tfsdk:"ospfv3" vyos:"ospfv3,omitempty"`
 
-	NodeVrfNameProtocolsStatic *VrfNameProtocolsStatic `tfsdk:"static" vyos:"static,omitempty"`
+	// Ignoring Node `VrfNameProtocolsStatic`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -99,17 +99,6 @@ func (o VrfNameProtocols) ResourceSchemaAttributes(ctx context.Context) map[stri
 
 `,
 			Description: `Open Shortest Path First (OSPF) for IPv6
-
-`,
-		},
-
-		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStatic{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Static Routing
-
-`,
-			Description: `Static Routing
 
 `,
 		},

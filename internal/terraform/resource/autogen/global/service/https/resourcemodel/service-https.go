@@ -40,7 +40,7 @@ type ServiceHTTPS struct {
 
 	// Nodes
 
-	NodeServiceHTTPSAPI *ServiceHTTPSAPI `tfsdk:"api" vyos:"api,omitempty"`
+	// Ignoring Node `ServiceHTTPSAPI`.
 
 	ExistsNodeServiceHTTPSAllowClient bool `tfsdk:"-" vyos:"allow-client,child"`
 
@@ -235,15 +235,5 @@ func (o ServiceHTTPS) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		// Nodes
 
-		"api": schema.SingleNestedAttribute{
-			Attributes: ServiceHTTPSAPI{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `VyOS HTTP API configuration
-
-`,
-			Description: `VyOS HTTP API configuration
-
-`,
-		},
 	}
 }

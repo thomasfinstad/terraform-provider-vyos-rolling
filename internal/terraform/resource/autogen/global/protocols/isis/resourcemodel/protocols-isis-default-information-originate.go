@@ -26,40 +26,20 @@ type ProtocolsIsisDefaultInformationOriginate struct {
 
 	// Nodes
 
-	NodeProtocolsIsisDefaultInformationOriginateIPvfour *ProtocolsIsisDefaultInformationOriginateIPvfour `tfsdk:"ipv4" vyos:"ipv4,omitempty"`
+	// Ignoring Node `ProtocolsIsisDefaultInformationOriginateIPvfour`.
 
-	NodeProtocolsIsisDefaultInformationOriginateIPvsix *ProtocolsIsisDefaultInformationOriginateIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+	// Ignoring Node `ProtocolsIsisDefaultInformationOriginateIPvsix`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisDefaultInformationOriginate) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"ipv4": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisDefaultInformationOriginateIPvfour{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Distribute default route for IPv4
-
-`,
-			Description: `Distribute default route for IPv4
-
-`,
-		},
-
-		"ipv6": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisDefaultInformationOriginateIPvsix{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Distribute default route for IPv6
-
-`,
-			Description: `Distribute default route for IPv6
-
-`,
-		},
 	}
 }

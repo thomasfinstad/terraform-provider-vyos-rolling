@@ -26,40 +26,20 @@ type ProtocolsIsisRedistribute struct {
 
 	// Nodes
 
-	NodeProtocolsIsisRedistributeIPvfour *ProtocolsIsisRedistributeIPvfour `tfsdk:"ipv4" vyos:"ipv4,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvfour`.
 
-	NodeProtocolsIsisRedistributeIPvsix *ProtocolsIsisRedistributeIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+	// Ignoring Node `ProtocolsIsisRedistributeIPvsix`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisRedistribute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"ipv4": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvfour{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute IPv4 routes
-
-`,
-			Description: `Redistribute IPv4 routes
-
-`,
-		},
-
-		"ipv6": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisRedistributeIPvsix{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute IPv6 routes
-
-`,
-			Description: `Redistribute IPv6 routes
-
-`,
-		},
 	}
 }

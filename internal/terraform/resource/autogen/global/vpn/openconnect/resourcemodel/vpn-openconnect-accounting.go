@@ -28,27 +28,18 @@ type VpnOpenconnectAccounting struct {
 
 	ExistsNodeVpnOpenconnectAccountingMode bool `tfsdk:"-" vyos:"mode,child"`
 
-	NodeVpnOpenconnectAccountingRadius *VpnOpenconnectAccountingRadius `tfsdk:"radius" vyos:"radius,omitempty"`
+	// Ignoring Node `VpnOpenconnectAccountingRadius`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnOpenconnectAccounting) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"radius": schema.SingleNestedAttribute{
-			Attributes: VpnOpenconnectAccountingRadius{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication mode radius
-
-`,
-			Description: `RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication mode radius
-
-`,
-		},
 	}
 }

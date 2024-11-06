@@ -53,7 +53,7 @@ type LoadBalancingHaproxyService struct {
 
 	// Nodes
 
-	NodeLoadBalancingHaproxyServiceLogging *LoadBalancingHaproxyServiceLogging `tfsdk:"logging" vyos:"logging,omitempty"`
+	// Ignoring Node `LoadBalancingHaproxyServiceLogging`.
 
 	NodeLoadBalancingHaproxyServiceTCPRequest *LoadBalancingHaproxyServiceTCPRequest `tfsdk:"tcp_request" vyos:"tcp-request,omitempty"`
 
@@ -287,17 +287,6 @@ func (o LoadBalancingHaproxyService) ResourceSchemaAttributes(ctx context.Contex
 		// TagNodes
 
 		// Nodes
-
-		"logging": schema.SingleNestedAttribute{
-			Attributes: LoadBalancingHaproxyServiceLogging{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Logging parameters
-
-`,
-			Description: `Logging parameters
-
-`,
-		},
 
 		"tcp_request": schema.SingleNestedAttribute{
 			Attributes: LoadBalancingHaproxyServiceTCPRequest{}.ResourceSchemaAttributes(ctx),

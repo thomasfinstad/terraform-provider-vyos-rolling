@@ -26,53 +26,22 @@ type VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker struct {
 
 	// Nodes
 
-	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream `tfsdk:"downstream" vyos:"downstream,omitempty"`
+	// Ignoring Node `VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream`.
 
-	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric `tfsdk:"lowest_backup_metric" vyos:"lowest-backup-metric,omitempty"`
+	// Ignoring Node `VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric`.
 
-	NodeVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting `tfsdk:"node_protecting" vyos:"node-protecting,omitempty"`
+	// Ignoring Node `VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"downstream": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Prefer backup path via downstream node
-
-`,
-			Description: `Prefer backup path via downstream node
-
-`,
-		},
-
-		"lowest_backup_metric": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Prefer backup path with lowest total metric
-
-`,
-			Description: `Prefer backup path with lowest total metric
-
-`,
-		},
-
-		"node_protecting": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Prefer node protecting backup path
-
-`,
-			Description: `Prefer node protecting backup path
-
-`,
-		},
 	}
 }

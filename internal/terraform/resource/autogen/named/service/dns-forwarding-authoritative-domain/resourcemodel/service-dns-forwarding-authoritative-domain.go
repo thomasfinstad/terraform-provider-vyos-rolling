@@ -44,7 +44,7 @@ type ServiceDNSForwardingAuthoritativeDomain struct {
 
 	// Nodes
 
-	NodeServiceDNSForwardingAuthoritativeDomainRecords *ServiceDNSForwardingAuthoritativeDomainRecords `tfsdk:"records" vyos:"records,omitempty"`
+	// Ignoring Node `ServiceDNSForwardingAuthoritativeDomainRecords`.
 }
 
 // SetID configures the resource ID
@@ -187,15 +187,5 @@ func (o ServiceDNSForwardingAuthoritativeDomain) ResourceSchemaAttributes(ctx co
 
 		// Nodes
 
-		"records": schema.SingleNestedAttribute{
-			Attributes: ServiceDNSForwardingAuthoritativeDomainRecords{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `DNS zone records
-
-`,
-			Description: `DNS zone records
-
-`,
-		},
 	}
 }

@@ -42,7 +42,6 @@ description: |-
       - [ipv6](#ipv6)
       - [mac](#mac)
       - [max_age](#max_age)
-      - [member](#member)
       - [mirror](#mirror)
       - [mtu](#mtu)
       - [priority](#priority)
@@ -60,7 +59,6 @@ description: |-
     - [Nested Schema for `ip`](#nested-schema-for-ip)
     - [Nested Schema for `ipv6`](#nested-schema-for-ipv6)
     - [Nested Schema for `ipv6.address`](#nested-schema-for-ipv6address)
-    - [Nested Schema for `member`](#nested-schema-for-member)
     - [Nested Schema for `mirror`](#nested-schema-for-mirror)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
@@ -139,8 +137,6 @@ description: |-
     |  Format  &emsp;|  Description                           |
     |----------|----------------------------------------|
     |  1-40    &emsp;|  Bridge maximum aging time in seconds  |
-#### member
-- `member` (Attributes) Bridge member interfaces (see [below for nested schema](#nestedatt--member))
 #### mirror
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 #### mtu
@@ -342,10 +338,6 @@ Optional:
     |  &lt;h:h:h:h:h:h:h:h/64&gt;  &emsp;|  IPv6 /64 network  |
 - `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
-
-
-<a id="nestedatt--member"></a>
-### Nested Schema for `member`
 
 
 <a id="nestedatt--mirror"></a>

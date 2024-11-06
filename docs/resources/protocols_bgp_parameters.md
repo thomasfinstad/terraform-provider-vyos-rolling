@@ -34,7 +34,6 @@ Border Gateway Protocol (BGP)
       - [cluster_id](#cluster_id)
       - [deterministic_med](#deterministic_med)
       - [disable_ebgp_connected_route_check](#disable_ebgp_connected_route_check)
-      - [distance](#distance)
       - [ebgp_requires_policy](#ebgp_requires_policy)
       - [fast_convergence](#fast_convergence)
       - [graceful_shutdown](#graceful_shutdown)
@@ -54,7 +53,6 @@ Border Gateway Protocol (BGP)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `distance`](#nested-schema-for-distance)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -79,8 +77,6 @@ Border Gateway Protocol (BGP)
 - `deterministic_med` (Boolean) Compare MEDs between different peers in the same AS
 #### disable_ebgp_connected_route_check
 - `disable_ebgp_connected_route_check` (Boolean) Disable checking if nexthop is connected on eBGP session
-#### distance
-- `distance` (Attributes) Administratives distances for BGP routes (see [below for nested schema](#nestedatt--distance))
 #### ebgp_requires_policy
 - `ebgp_requires_policy` (Boolean) Require in and out policy for eBGP peers (RFC8212)
 #### fast_convergence
@@ -134,10 +130,6 @@ Border Gateway Protocol (BGP)
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--distance"></a>
-### Nested Schema for `distance`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

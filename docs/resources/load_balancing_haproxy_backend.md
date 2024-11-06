@@ -33,7 +33,6 @@ Configure haproxy
       - [description](#description)
       - [health_check](#health_check)
       - [http_check](#http_check)
-      - [logging](#logging)
       - [mode](#mode)
       - [ssl](#ssl)
       - [timeout](#timeout)
@@ -43,7 +42,6 @@ Configure haproxy
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
     - [Nested Schema for `http_check`](#nested-schema-for-http_check)
     - [Nested Schema for `http_check.expect`](#nested-schema-for-http_checkexpect)
-    - [Nested Schema for `logging`](#nested-schema-for-logging)
     - [Nested Schema for `ssl`](#nested-schema-for-ssl)
     - [Nested Schema for `timeout`](#nested-schema-for-timeout)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
@@ -87,8 +85,6 @@ Configure haproxy
     |  smtp    &emsp;|  SMTP protocol check        |
 #### http_check
 - `http_check` (Attributes) HTTP check configuration (see [below for nested schema](#nestedatt--http_check))
-#### logging
-- `logging` (Attributes) Logging parameters (see [below for nested schema](#nestedatt--logging))
 #### mode
 - `mode` (String) Proxy mode
 
@@ -145,10 +141,6 @@ Optional:
     |----------|-------------------------------------------|
     |  txt     &emsp;|  A string expected to be in the response  |
 
-
-
-<a id="nestedatt--logging"></a>
-### Nested Schema for `logging`
 
 
 <a id="nestedatt--ssl"></a>

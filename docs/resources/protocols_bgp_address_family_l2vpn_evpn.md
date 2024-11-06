@@ -31,7 +31,6 @@ BGP address-family parameters
 - [vyos_protocols_bgp_address_family_l2vpn_evpn (Resource)](#vyos_protocols_bgp_address_family_l2vpn_evpn-resource)
   - [Schema](#schema)
     - [Optional](#optional)
-      - [advertise](#advertise)
       - [advertise_all_vni](#advertise_all_vni)
       - [advertise_default_gw](#advertise_default_gw)
       - [advertise_pip](#advertise_pip)
@@ -43,9 +42,6 @@ BGP address-family parameters
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `advertise`](#nested-schema-for-advertise)
-    - [Nested Schema for `advertise.ipv4`](#nested-schema-for-advertiseipv4)
-    - [Nested Schema for `advertise.ipv6`](#nested-schema-for-advertiseipv6)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -56,8 +52,6 @@ BGP address-family parameters
 
 ### Optional
 
-#### advertise
-- `advertise` (Attributes) Advertise prefix routes (see [below for nested schema](#nestedatt--advertise))
 #### advertise_all_vni
 - `advertise_all_vni` (Boolean) Advertise All local VNIs
 #### advertise_default_gw
@@ -89,23 +83,6 @@ BGP address-family parameters
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--advertise"></a>
-### Nested Schema for `advertise`
-
-Optional:
-
-- `ipv4` (Attributes) IPv4 address family (see [below for nested schema](#nestedatt--advertise--ipv4))
-- `ipv6` (Attributes) IPv6 address family (see [below for nested schema](#nestedatt--advertise--ipv6))
-
-<a id="nestedatt--advertise--ipv4"></a>
-### Nested Schema for `advertise.ipv4`
-
-
-<a id="nestedatt--advertise--ipv6"></a>
-### Nested Schema for `advertise.ipv6`
-
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

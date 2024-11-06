@@ -26,40 +26,20 @@ type ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise struct {
 
 	// Nodes
 
-	NodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour *ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour `tfsdk:"ipv4" vyos:"ipv4,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour`.
 
-	NodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix *ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"ipv4": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv4 address family
-
-`,
-			Description: `IPv4 address family
-
-`,
-		},
-
-		"ipv6": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv6 address family
-
-`,
-			Description: `IPv6 address family
-
-`,
-		},
 	}
 }

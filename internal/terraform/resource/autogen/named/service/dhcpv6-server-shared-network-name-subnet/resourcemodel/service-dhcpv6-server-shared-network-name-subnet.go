@@ -52,7 +52,7 @@ type ServiceDhcpvsixServerSharedNetworkNameSubnet struct {
 
 	NodeServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime *ServiceDhcpvsixServerSharedNetworkNameSubnetLeaseTime `tfsdk:"lease_time" vyos:"lease-time,omitempty"`
 
-	NodeServiceDhcpvsixServerSharedNetworkNameSubnetPrefixDelegation *ServiceDhcpvsixServerSharedNetworkNameSubnetPrefixDelegation `tfsdk:"prefix_delegation" vyos:"prefix-delegation,omitempty"`
+	// Ignoring Node `ServiceDhcpvsixServerSharedNetworkNameSubnetPrefixDelegation`.
 }
 
 // SetID configures the resource ID
@@ -268,17 +268,6 @@ func (o ServiceDhcpvsixServerSharedNetworkNameSubnet) ResourceSchemaAttributes(c
 
 `,
 			Description: `Parameters relating to the lease time
-
-`,
-		},
-
-		"prefix_delegation": schema.SingleNestedAttribute{
-			Attributes: ServiceDhcpvsixServerSharedNetworkNameSubnetPrefixDelegation{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Parameters relating to IPv6 prefix delegation
-
-`,
-			Description: `Parameters relating to IPv6 prefix delegation
 
 `,
 		},

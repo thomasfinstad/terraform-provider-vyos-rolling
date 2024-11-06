@@ -26,27 +26,18 @@ type SystemLogs struct {
 
 	// Nodes
 
-	NodeSystemLogsLogrotate *SystemLogsLogrotate `tfsdk:"logrotate" vyos:"logrotate,omitempty"`
+	// Ignoring Node `SystemLogsLogrotate`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemLogs) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"logrotate": schema.SingleNestedAttribute{
-			Attributes: SystemLogsLogrotate{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Logrotate options
-
-`,
-			Description: `Logrotate options
-
-`,
-		},
 	}
 }

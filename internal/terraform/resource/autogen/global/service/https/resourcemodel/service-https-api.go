@@ -26,7 +26,7 @@ type ServiceHTTPSAPI struct {
 
 	// Nodes
 
-	NodeServiceHTTPSAPIKeys *ServiceHTTPSAPIKeys `tfsdk:"keys" vyos:"keys,omitempty"`
+	// Ignoring Node `ServiceHTTPSAPIKeys`.
 
 	ExistsNodeServiceHTTPSAPIRest bool `tfsdk:"-" vyos:"rest,child"`
 
@@ -36,21 +36,12 @@ type ServiceHTTPSAPI struct {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceHTTPSAPI) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"keys": schema.SingleNestedAttribute{
-			Attributes: ServiceHTTPSAPIKeys{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `HTTP API keys
-
-`,
-			Description: `HTTP API keys
-
-`,
-		},
 	}
 }

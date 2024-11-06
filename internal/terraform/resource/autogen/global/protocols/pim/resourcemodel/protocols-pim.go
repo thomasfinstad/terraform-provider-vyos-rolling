@@ -49,7 +49,7 @@ type ProtocolsPim struct {
 
 	ExistsNodeProtocolsPimRp bool `tfsdk:"-" vyos:"rp,child"`
 
-	NodeProtocolsPimSptSwitchover *ProtocolsPimSptSwitchover `tfsdk:"spt_switchover" vyos:"spt-switchover,omitempty"`
+	// Ignoring Node `ProtocolsPimSptSwitchover`.
 
 	ExistsNodeProtocolsPimSsm bool `tfsdk:"-" vyos:"ssm,child"`
 }
@@ -216,15 +216,5 @@ func (o ProtocolsPim) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		// Nodes
 
-		"spt_switchover": schema.SingleNestedAttribute{
-			Attributes: ProtocolsPimSptSwitchover{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Shortest-path tree (SPT) switchover
-
-`,
-			Description: `Shortest-path tree (SPT) switchover
-
-`,
-		},
 	}
 }

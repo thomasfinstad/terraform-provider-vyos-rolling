@@ -51,7 +51,7 @@ type ServiceSnmp struct {
 
 	ExistsNodeServiceSnmpVthree bool `tfsdk:"-" vyos:"v3,child"`
 
-	NodeServiceSnmpScrIPtExtensions *ServiceSnmpScrIPtExtensions `tfsdk:"script_extensions" vyos:"script-extensions,omitempty"`
+	// Ignoring Node `ServiceSnmpScrIPtExtensions`.
 }
 
 // SetID configures the resource ID
@@ -272,15 +272,5 @@ func (o ServiceSnmp) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 
 		// Nodes
 
-		"script_extensions": schema.SingleNestedAttribute{
-			Attributes: ServiceSnmpScrIPtExtensions{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `SNMP script extensions
-
-`,
-			Description: `SNMP script extensions
-
-`,
-		},
 	}
 }

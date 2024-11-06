@@ -28,11 +28,9 @@ description: |-
   - [Schema](#schema)
     - [Optional](#optional)
       - [interface](#interface)
-      - [log](#log)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `log`](#nested-schema-for-log)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -49,8 +47,6 @@ description: |-
     |  Format  &emsp;|  Description     |
     |----------|------------------|
     |  txt     &emsp;|  Interface name  |
-#### log
-- `log` (Attributes) Suricata log outputs (see [below for nested schema](#nestedatt--log))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -58,10 +54,6 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--log"></a>
-### Nested Schema for `log`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

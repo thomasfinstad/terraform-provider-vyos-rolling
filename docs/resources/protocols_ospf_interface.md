@@ -49,7 +49,6 @@ Open Shortest Path First (OSPF)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
     - [Nested Schema for `authentication`](#nested-schema-for-authentication)
-    - [Nested Schema for `authentication.md5`](#nested-schema-for-authenticationmd5)
     - [Nested Schema for `bfd`](#nested-schema-for-bfd)
     - [Nested Schema for `ldp_sync`](#nested-schema-for-ldp_sync)
     - [Nested Schema for `passive`](#nested-schema-for-passive)
@@ -167,16 +166,11 @@ Required:
 
 Optional:
 
-- `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--authentication--md5))
 - `plaintext_password` (String) Plain text password
 
     |  Format  &emsp;|  Description                                 |
     |----------|----------------------------------------------|
     |  txt     &emsp;|  Plain text password (8 characters or less)  |
-
-<a id="nestedatt--authentication--md5"></a>
-### Nested Schema for `authentication.md5`
-
 
 
 <a id="nestedatt--bfd"></a>

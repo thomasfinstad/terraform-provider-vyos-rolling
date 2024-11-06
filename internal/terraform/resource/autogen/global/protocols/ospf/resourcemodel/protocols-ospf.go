@@ -52,7 +52,7 @@ type ProtocolsOspf struct {
 
 	ExistsNodeProtocolsOspfCapability bool `tfsdk:"-" vyos:"capability,child"`
 
-	NodeProtocolsOspfDefaultInformation *ProtocolsOspfDefaultInformation `tfsdk:"default_information" vyos:"default-information,omitempty"`
+	// Ignoring Node `ProtocolsOspfDefaultInformation`.
 
 	ExistsNodeProtocolsOspfGracefulRestart bool `tfsdk:"-" vyos:"graceful-restart,child"`
 
@@ -62,7 +62,7 @@ type ProtocolsOspf struct {
 
 	ExistsNodeProtocolsOspfLogAdjacencyChanges bool `tfsdk:"-" vyos:"log-adjacency-changes,child"`
 
-	NodeProtocolsOspfMaxMetric *ProtocolsOspfMaxMetric `tfsdk:"max_metric" vyos:"max-metric,omitempty"`
+	// Ignoring Node `ProtocolsOspfMaxMetric`.
 
 	ExistsNodeProtocolsOspfMplsTe bool `tfsdk:"-" vyos:"mpls-te,child"`
 
@@ -70,11 +70,11 @@ type ProtocolsOspf struct {
 
 	ExistsNodeProtocolsOspfSegmentRouting bool `tfsdk:"-" vyos:"segment-routing,child"`
 
-	NodeProtocolsOspfRedistribute *ProtocolsOspfRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+	// Ignoring Node `ProtocolsOspfRedistribute`.
 
 	ExistsNodeProtocolsOspfRefresh bool `tfsdk:"-" vyos:"refresh,child"`
 
-	NodeProtocolsOspfTimers *ProtocolsOspfTimers `tfsdk:"timers" vyos:"timers,omitempty"`
+	// Ignoring Node `ProtocolsOspfTimers`.
 }
 
 // SetID configures the resource ID
@@ -199,48 +199,5 @@ func (o ProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		// Nodes
 
-		"default_information": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfDefaultInformation{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Default route advertisment settings
-
-`,
-			Description: `Default route advertisment settings
-
-`,
-		},
-
-		"max_metric": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfMaxMetric{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `OSPF maximum and infinite-distance metric
-
-`,
-			Description: `OSPF maximum and infinite-distance metric
-
-`,
-		},
-
-		"redistribute": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfRedistribute{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute information from another routing protocol
-
-`,
-			Description: `Redistribute information from another routing protocol
-
-`,
-		},
-
-		"timers": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfTimers{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Adjust routing timers
-
-`,
-			Description: `Adjust routing timers
-
-`,
-		},
 	}
 }

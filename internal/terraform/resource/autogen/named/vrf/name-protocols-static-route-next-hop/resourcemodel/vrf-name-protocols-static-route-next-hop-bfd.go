@@ -28,7 +28,7 @@ type VrfNameProtocolsStaticRouteNextHopBfd struct {
 
 	// Nodes
 
-	NodeVrfNameProtocolsStaticRouteNextHopBfdMultiHop *VrfNameProtocolsStaticRouteNextHopBfdMultiHop `tfsdk:"multi_hop" vyos:"multi-hop,omitempty"`
+	// Ignoring Node `VrfNameProtocolsStaticRouteNextHopBfdMultiHop`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -59,15 +59,5 @@ func (o VrfNameProtocolsStaticRouteNextHopBfd) ResourceSchemaAttributes(ctx cont
 
 		// Nodes
 
-		"multi_hop": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStaticRouteNextHopBfdMultiHop{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Use BFD multi hop session
-
-`,
-			Description: `Use BFD multi hop session
-
-`,
-		},
 	}
 }

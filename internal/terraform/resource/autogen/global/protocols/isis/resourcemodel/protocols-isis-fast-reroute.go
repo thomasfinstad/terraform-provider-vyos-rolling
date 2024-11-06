@@ -26,27 +26,18 @@ type ProtocolsIsisFastReroute struct {
 
 	// Nodes
 
-	NodeProtocolsIsisFastRerouteLfa *ProtocolsIsisFastRerouteLfa `tfsdk:"lfa" vyos:"lfa,omitempty"`
+	// Ignoring Node `ProtocolsIsisFastRerouteLfa`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisFastReroute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"lfa": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisFastRerouteLfa{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Loop free alternate functionality
-
-`,
-			Description: `Loop free alternate functionality
-
-`,
-		},
 	}
 }

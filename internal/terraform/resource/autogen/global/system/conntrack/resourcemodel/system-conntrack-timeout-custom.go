@@ -26,40 +26,20 @@ type SystemConntrackTimeoutCustom struct {
 
 	// Nodes
 
-	NodeSystemConntrackTimeoutCustomIPvfour *SystemConntrackTimeoutCustomIPvfour `tfsdk:"ipv4" vyos:"ipv4,omitempty"`
+	// Ignoring Node `SystemConntrackTimeoutCustomIPvfour`.
 
-	NodeSystemConntrackTimeoutCustomIPvsix *SystemConntrackTimeoutCustomIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+	// Ignoring Node `SystemConntrackTimeoutCustomIPvsix`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemConntrackTimeoutCustom) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"ipv4": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackTimeoutCustomIPvfour{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv4 rules
-
-`,
-			Description: `IPv4 rules
-
-`,
-		},
-
-		"ipv6": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackTimeoutCustomIPvsix{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv6 rules
-
-`,
-			Description: `IPv6 rules
-
-`,
-		},
 	}
 }

@@ -28,11 +28,9 @@ description: |-
   - [Schema](#schema)
     - [Optional](#optional)
       - [disable_forwarding](#disable_forwarding)
-      - [tcp](#tcp)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `tcp`](#nested-schema-for-tcp)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -45,8 +43,6 @@ description: |-
 
 #### disable_forwarding
 - `disable_forwarding` (Boolean) Disable IPv4 forwarding on all interfaces
-#### tcp
-- `tcp` (Attributes) IPv4 TCP parameters (see [below for nested schema](#nestedatt--tcp))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -54,10 +50,6 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--tcp"></a>
-### Nested Schema for `tcp`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

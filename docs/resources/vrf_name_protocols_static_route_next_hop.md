@@ -45,7 +45,6 @@ Static IPv4 route
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
     - [Nested Schema for `bfd`](#nested-schema-for-bfd)
-    - [Nested Schema for `bfd.multi_hop`](#nested-schema-for-bfdmulti_hop)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -118,16 +117,11 @@ Required:
 
 Optional:
 
-- `multi_hop` (Attributes) Use BFD multi hop session (see [below for nested schema](#nestedatt--bfd--multi_hop))
 - `profile` (String) Use settings from BFD profile
 
     |  Format  &emsp;|  Description       |
     |----------|--------------------|
     |  txt     &emsp;|  BFD profile name  |
-
-<a id="nestedatt--bfd--multi_hop"></a>
-### Nested Schema for `bfd.multi_hop`
-
 
 
 <a id="nestedatt--timeouts"></a>

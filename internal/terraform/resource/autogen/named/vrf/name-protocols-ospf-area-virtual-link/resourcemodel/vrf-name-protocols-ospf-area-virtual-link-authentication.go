@@ -28,7 +28,7 @@ type VrfNameProtocolsOspfAreaVirtualLinkAuthentication struct {
 
 	// Nodes
 
-	NodeVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive `tfsdk:"md5" vyos:"md5,omitempty"`
+	// Ignoring Node `VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -59,15 +59,5 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthentication) ResourceSchemaAttribu
 
 		// Nodes
 
-		"md5": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `MD5 key id
-
-`,
-			Description: `MD5 key id
-
-`,
-		},
 	}
 }

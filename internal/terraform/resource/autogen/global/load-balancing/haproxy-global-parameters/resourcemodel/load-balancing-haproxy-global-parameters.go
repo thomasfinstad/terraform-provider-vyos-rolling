@@ -36,7 +36,7 @@ type LoadBalancingHaproxyGlobalParameters struct {
 
 	// Nodes
 
-	NodeLoadBalancingHaproxyGlobalParametersLogging *LoadBalancingHaproxyGlobalParametersLogging `tfsdk:"logging" vyos:"logging,omitempty"`
+	// Ignoring Node `LoadBalancingHaproxyGlobalParametersLogging`.
 }
 
 // SetID configures the resource ID
@@ -189,15 +189,5 @@ func (o LoadBalancingHaproxyGlobalParameters) ResourceSchemaAttributes(ctx conte
 
 		// Nodes
 
-		"logging": schema.SingleNestedAttribute{
-			Attributes: LoadBalancingHaproxyGlobalParametersLogging{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Logging parameters
-
-`,
-			Description: `Logging parameters
-
-`,
-		},
 	}
 }

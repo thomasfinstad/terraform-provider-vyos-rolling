@@ -49,7 +49,6 @@ IKEv2 remote access VPN
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
     - [Nested Schema for `authentication`](#nested-schema-for-authentication)
-    - [Nested Schema for `authentication.local_users`](#nested-schema-for-authenticationlocal_users)
     - [Nested Schema for `authentication.x509`](#nested-schema-for-authenticationx509)
     - [Nested Schema for `local`](#nested-schema-for-local)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
@@ -173,7 +172,6 @@ Optional:
     |  Format  &emsp;|  Description                            |
     |----------|-----------------------------------------|
     |  txt     &emsp;|  Local ID used for peer authentication  |
-- `local_users` (Attributes) Local user authentication (see [below for nested schema](#nestedatt--authentication--local_users))
 - `pre_shared_secret` (String) Pre-shared secret key
 
     |  Format  &emsp;|  Description            |
@@ -186,10 +184,6 @@ Optional:
     |  pre-shared-secret  &emsp;|  Use a pre-shared secret key  |
     |  x509               &emsp;|  Use x.509 certificate        |
 - `x509` (Attributes) X.509 certificate (see [below for nested schema](#nestedatt--authentication--x509))
-
-<a id="nestedatt--authentication--local_users"></a>
-### Nested Schema for `authentication.local_users`
-
 
 <a id="nestedatt--authentication--x509"></a>
 ### Nested Schema for `authentication.x509`

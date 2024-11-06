@@ -43,7 +43,7 @@ type SystemIP struct {
 
 	ExistsNodeSystemIPNht bool `tfsdk:"-" vyos:"nht,child"`
 
-	NodeSystemIPTCP *SystemIPTCP `tfsdk:"tcp" vyos:"tcp,omitempty"`
+	// Ignoring Node `SystemIPTCP`.
 }
 
 // SetID configures the resource ID
@@ -126,15 +126,5 @@ func (o SystemIP) ResourceSchemaAttributes(ctx context.Context) map[string]schem
 
 		// Nodes
 
-		"tcp": schema.SingleNestedAttribute{
-			Attributes: SystemIPTCP{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv4 TCP parameters
-
-`,
-			Description: `IPv4 TCP parameters
-
-`,
-		},
 	}
 }

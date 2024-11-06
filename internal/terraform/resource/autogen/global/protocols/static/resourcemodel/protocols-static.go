@@ -40,11 +40,11 @@ type ProtocolsStatic struct {
 
 	// Nodes
 
-	NodeProtocolsStaticArp *ProtocolsStaticArp `tfsdk:"arp" vyos:"arp,omitempty"`
+	// Ignoring Node `ProtocolsStaticArp`.
 
-	NodeProtocolsStaticMulticast *ProtocolsStaticMulticast `tfsdk:"multicast" vyos:"multicast,omitempty"`
+	// Ignoring Node `ProtocolsStaticMulticast`.
 
-	NodeProtocolsStaticNeighborProxy *ProtocolsStaticNeighborProxy `tfsdk:"neighbor_proxy" vyos:"neighbor-proxy,omitempty"`
+	// Ignoring Node `ProtocolsStaticNeighborProxy`.
 }
 
 // SetID configures the resource ID
@@ -131,37 +131,5 @@ func (o ProtocolsStatic) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		// Nodes
 
-		"arp": schema.SingleNestedAttribute{
-			Attributes: ProtocolsStaticArp{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Static ARP translation
-
-`,
-			Description: `Static ARP translation
-
-`,
-		},
-
-		"multicast": schema.SingleNestedAttribute{
-			Attributes: ProtocolsStaticMulticast{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Multicast static route
-
-`,
-			Description: `Multicast static route
-
-`,
-		},
-
-		"neighbor_proxy": schema.SingleNestedAttribute{
-			Attributes: ProtocolsStaticNeighborProxy{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Neighbor proxy parameters
-
-`,
-			Description: `Neighbor proxy parameters
-
-`,
-		},
 	}
 }

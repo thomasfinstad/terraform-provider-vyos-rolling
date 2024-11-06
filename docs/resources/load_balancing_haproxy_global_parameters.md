@@ -29,14 +29,12 @@ Configure haproxy
 - [vyos_load_balancing_haproxy_global_parameters (Resource)](#vyos_load_balancing_haproxy_global_parameters-resource)
   - [Schema](#schema)
     - [Optional](#optional)
-      - [logging](#logging)
       - [max_connections](#max_connections)
       - [ssl_bind_ciphers](#ssl_bind_ciphers)
       - [timeouts](#timeouts)
       - [tls_version_min](#tls_version_min)
     - [Read-Only](#read-only)
       - [id](#id)
-    - [Nested Schema for `logging`](#nested-schema-for-logging)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -47,8 +45,6 @@ Configure haproxy
 
 ### Optional
 
-#### logging
-- `logging` (Attributes) Logging parameters (see [below for nested schema](#nestedatt--logging))
 #### max_connections
 - `max_connections` (Number) Maximum allowed connections
 
@@ -82,10 +78,6 @@ Configure haproxy
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
-
-<a id="nestedatt--logging"></a>
-### Nested Schema for `logging`
-
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

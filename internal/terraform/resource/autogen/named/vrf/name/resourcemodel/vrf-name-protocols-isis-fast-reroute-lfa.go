@@ -26,7 +26,7 @@ type VrfNameProtocolsIsisFastRerouteLfa struct {
 
 	// Nodes
 
-	NodeVrfNameProtocolsIsisFastRerouteLfaRemote *VrfNameProtocolsIsisFastRerouteLfaRemote `tfsdk:"remote" vyos:"remote,omitempty"`
+	// Ignoring Node `VrfNameProtocolsIsisFastRerouteLfaRemote`.
 
 	NodeVrfNameProtocolsIsisFastRerouteLfaLocal *VrfNameProtocolsIsisFastRerouteLfaLocal `tfsdk:"local" vyos:"local,omitempty"`
 }
@@ -39,17 +39,6 @@ func (o VrfNameProtocolsIsisFastRerouteLfa) ResourceSchemaAttributes(ctx context
 		// TagNodes
 
 		// Nodes
-
-		"remote": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaRemote{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Remote loop free alternate options
-
-`,
-			Description: `Remote loop free alternate options
-
-`,
-		},
 
 		"local": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocal{}.ResourceSchemaAttributes(ctx),

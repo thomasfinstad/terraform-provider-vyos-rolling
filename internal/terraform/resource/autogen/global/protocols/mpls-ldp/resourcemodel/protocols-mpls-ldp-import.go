@@ -26,40 +26,20 @@ type ProtocolsMplsLdpImport struct {
 
 	// Nodes
 
-	NodeProtocolsMplsLdpImportIPvfour *ProtocolsMplsLdpImportIPvfour `tfsdk:"ipv4" vyos:"ipv4,omitempty"`
+	// Ignoring Node `ProtocolsMplsLdpImportIPvfour`.
 
-	NodeProtocolsMplsLdpImportIPvsix *ProtocolsMplsLdpImportIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+	// Ignoring Node `ProtocolsMplsLdpImportIPvsix`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsMplsLdpImport) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"ipv4": schema.SingleNestedAttribute{
-			Attributes: ProtocolsMplsLdpImportIPvfour{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv4 parameters
-
-`,
-			Description: `IPv4 parameters
-
-`,
-		},
-
-		"ipv6": schema.SingleNestedAttribute{
-			Attributes: ProtocolsMplsLdpImportIPvsix{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `IPv6 parameters
-
-`,
-			Description: `IPv6 parameters
-
-`,
-		},
 	}
 }

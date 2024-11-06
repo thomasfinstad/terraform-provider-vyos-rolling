@@ -37,7 +37,7 @@ type NatCgnat struct {
 
 	// Nodes
 
-	NodeNatCgnatPool *NatCgnatPool `tfsdk:"pool" vyos:"pool,omitempty"`
+	// Ignoring Node `NatCgnatPool`.
 }
 
 // SetID configures the resource ID
@@ -120,15 +120,5 @@ func (o NatCgnat) ResourceSchemaAttributes(ctx context.Context) map[string]schem
 
 		// Nodes
 
-		"pool": schema.SingleNestedAttribute{
-			Attributes: NatCgnatPool{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `External and internal pool parameters
-
-`,
-			Description: `External and internal pool parameters
-
-`,
-		},
 	}
 }

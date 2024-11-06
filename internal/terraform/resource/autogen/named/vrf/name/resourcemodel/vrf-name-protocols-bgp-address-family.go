@@ -34,17 +34,17 @@ type VrfNameProtocolsBgpAddressFamily struct {
 
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourFlowspec *VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec `tfsdk:"ipv4_flowspec" vyos:"ipv4-flowspec,omitempty"`
 
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourVpn *VrfNameProtocolsBgpAddressFamilyIPvfourVpn `tfsdk:"ipv4_vpn" vyos:"ipv4-vpn,omitempty"`
+	// Ignoring Node `VrfNameProtocolsBgpAddressFamilyIPvfourVpn`.
 
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicast *VrfNameProtocolsBgpAddressFamilyIPvsixUnicast `tfsdk:"ipv6_unicast" vyos:"ipv6-unicast,omitempty"`
 
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticast *VrfNameProtocolsBgpAddressFamilyIPvsixMulticast `tfsdk:"ipv6_multicast" vyos:"ipv6-multicast,omitempty"`
 
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast *VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast `tfsdk:"ipv6_labeled_unicast" vyos:"ipv6-labeled-unicast,omitempty"`
+	// Ignoring Node `VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast`.
 
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixFlowspec *VrfNameProtocolsBgpAddressFamilyIPvsixFlowspec `tfsdk:"ipv6_flowspec" vyos:"ipv6-flowspec,omitempty"`
 
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixVpn *VrfNameProtocolsBgpAddressFamilyIPvsixVpn `tfsdk:"ipv6_vpn" vyos:"ipv6-vpn,omitempty"`
+	// Ignoring Node `VrfNameProtocolsBgpAddressFamilyIPvsixVpn`.
 
 	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpn *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn `tfsdk:"l2vpn_evpn" vyos:"l2vpn-evpn,omitempty"`
 }
@@ -102,17 +102,6 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes(ctx context.C
 `,
 		},
 
-		"ipv4_vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourVpn{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Unicast VPN IPv4 BGP settings
-
-`,
-			Description: `Unicast VPN IPv4 BGP settings
-
-`,
-		},
-
 		"ipv6_unicast": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -135,17 +124,6 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes(ctx context.C
 `,
 		},
 
-		"ipv6_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Labeled Unicast IPv6 BGP settings
-
-`,
-			Description: `Labeled Unicast IPv6 BGP settings
-
-`,
-		},
-
 		"ipv6_flowspec": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixFlowspec{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -153,17 +131,6 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes(ctx context.C
 
 `,
 			Description: `Flowspec IPv6 BGP settings
-
-`,
-		},
-
-		"ipv6_vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixVpn{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Unicast VPN IPv6 BGP settings
-
-`,
-			Description: `Unicast VPN IPv6 BGP settings
 
 `,
 		},

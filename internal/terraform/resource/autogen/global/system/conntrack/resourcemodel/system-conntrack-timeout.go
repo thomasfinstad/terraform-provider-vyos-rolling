@@ -26,27 +26,18 @@ type SystemConntrackTimeout struct {
 
 	// Nodes
 
-	NodeSystemConntrackTimeoutCustom *SystemConntrackTimeoutCustom `tfsdk:"custom" vyos:"custom,omitempty"`
+	// Ignoring Node `SystemConntrackTimeoutCustom`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemConntrackTimeout) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"custom": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackTimeoutCustom{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Define custom timeouts per connection
-
-`,
-			Description: `Define custom timeouts per connection
-
-`,
-		},
 	}
 }

@@ -38,7 +38,7 @@ type SystemConntrack struct {
 
 	// Nodes
 
-	NodeSystemConntrackIgnore *SystemConntrackIgnore `tfsdk:"ignore" vyos:"ignore,omitempty"`
+	// Ignoring Node `SystemConntrackIgnore`.
 
 	ExistsNodeSystemConntrackLog bool `tfsdk:"-" vyos:"log,child"`
 
@@ -46,7 +46,7 @@ type SystemConntrack struct {
 
 	ExistsNodeSystemConntrackTCP bool `tfsdk:"-" vyos:"tcp,child"`
 
-	NodeSystemConntrackTimeout *SystemConntrackTimeout `tfsdk:"timeout" vyos:"timeout,omitempty"`
+	// Ignoring Node `SystemConntrackTimeout`.
 }
 
 // SetID configures the resource ID
@@ -195,26 +195,5 @@ func (o SystemConntrack) ResourceSchemaAttributes(ctx context.Context) map[strin
 
 		// Nodes
 
-		"ignore": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackIgnore{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Customized rules to ignore selective connection tracking
-
-`,
-			Description: `Customized rules to ignore selective connection tracking
-
-`,
-		},
-
-		"timeout": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackTimeout{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Connection timeout options
-
-`,
-			Description: `Connection timeout options
-
-`,
-		},
 	}
 }

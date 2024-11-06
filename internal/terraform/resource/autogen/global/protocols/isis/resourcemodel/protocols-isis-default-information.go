@@ -26,27 +26,18 @@ type ProtocolsIsisDefaultInformation struct {
 
 	// Nodes
 
-	NodeProtocolsIsisDefaultInformationOriginate *ProtocolsIsisDefaultInformationOriginate `tfsdk:"originate" vyos:"originate,omitempty"`
+	// Ignoring Node `ProtocolsIsisDefaultInformationOriginate`.
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIsisDefaultInformation) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+
 		// LeafNodes
 
 		// TagNodes
 
 		// Nodes
 
-		"originate": schema.SingleNestedAttribute{
-			Attributes: ProtocolsIsisDefaultInformationOriginate{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Distribute a default route
-
-`,
-			Description: `Distribute a default route
-
-`,
-		},
 	}
 }
