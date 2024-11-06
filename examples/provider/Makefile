@@ -173,8 +173,19 @@ why:
 		curl -L \
 			-H "Accept: application/vnd.github+json" \
 			-H "X-GitHub-Api-Version: 2022-11-28" \
-			"https://api.github.com/repos/vyos/vyos-nightly-build/releases?per_page=100" \
-			| jq -r --arg var_date "$${build_date}" '.[] | select(.published_at|startswith($$var_date)) | .assets[] | select(.name|endswith(".iso")) | .browser_download_url' | head -n1)"
+			"https://api.github.com/repos/vyos/vyos-nightly-build/releases?per_page=30" \
+				| jq -r --arg var_date "$${build_date}" '.[] | select(.published_at|startswith($$var_date)) | .assets[] | select(.name|endswith(".iso")) | .browser_download_url' \
+				| head -n1)"
+
+	if [ -z "$$download_url" ]; then
+		download_url="$$( \
+			curl -L \
+				-H "Accept: application/vnd.github+json" \
+				-H "X-GitHub-Api-Version: 2022-11-28" \
+				"https://api.github.com/repos/vyos/vyos-nightly-build/releases?per_page=30" \
+					| jq -r '.[] | .assets[] | select(.name|endswith(".iso")) | .browser_download_url' \
+					| head -n1)"
+	fi
 
 	wget -O .tmp/vyos.iso "$${download_url}"
 	touch .tmp/vyos.iso

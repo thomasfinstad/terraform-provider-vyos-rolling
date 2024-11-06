@@ -44,16 +44,20 @@
 				{{range .TagNodes -}}
 					{{if .GetIsBaseNode }}
 						ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
-					{{else}}
+					{{else if .HasSubValue}}
 						Tag{{.BaseNameCG}} map[string]*{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+					{{else}}
+						// Ignoring TagNode `{{.BaseNameCG}}`.
 					{{end}}
 				{{end}}
 				// Nodes
 				{{range .Nodes -}}
 					{{if .GetIsBaseNode }}
 						ExistsNode{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
-					{{else}}
+					{{else if .HasSubValue}}
 						Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+					{{else}}
+						// Ignoring Node `{{.BaseNameCG}}`.
 					{{end}}
 				{{end}}
 			{{end}}
@@ -78,15 +82,17 @@
 				{{range .TagNodes -}}
 					{{if .GetIsBaseNode }}
 						ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
-					{{else}}
+					{{else if .HasSubValue}}
 						Tag{{.BaseNameCG}} map[string]*{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+					{{else}}
+						// Ignoring TagNode `{{.BaseNameCG}}`.
 					{{end}}
 				{{end}}
 				// Nodes
 				{{range .Nodes -}}
 					{{if .GetIsBaseNode }}
 						ExistsNode{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
-					{{else if ne $topLvlBasenodeType "Node"}}
+					{{else if .HasSubValue}}
 						Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
 					{{else}}
 						// Ignoring Node `{{.BaseNameCG}}`.
@@ -250,7 +256,7 @@
 
 					// TagNodes
 					{{range .TagNodes }}
-						{{- if not .GetIsBaseNode }}
+						{{- if .HasSubValue }}
 							"{{.BaseNameSB}}": schema.MapNestedAttribute{
 								NestedObject: schema.NestedAttributeObject{
 									Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
@@ -264,7 +270,7 @@
 
 					// Nodes
 					{{range .Nodes }}
-						{{- if not .GetIsBaseNode }}
+						{{- if .HasSubValue }}
 							"{{.BaseNameSB}}": schema.SingleNestedAttribute{
 								Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
 								Optional:            true,
@@ -287,7 +293,7 @@
 
 					// TagNodes
 					{{range .TagNodes }}
-						{{- if not .GetIsBaseNode }}
+						{{- if .HasSubValue }}
 							"{{.BaseNameS}}": schema.MapNestedAttribute{
 								NestedObject: schema.NestedAttributeObject{
 									Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
@@ -301,7 +307,7 @@
 
 					// Nodes
 					{{range .Nodes }}
-						{{- if not .GetIsBaseNode }}
+						{{- if .HasSubValue }}
 							"{{.BaseNameS}}": schema.SingleNestedAttribute{
 								Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
 								Optional:            true,

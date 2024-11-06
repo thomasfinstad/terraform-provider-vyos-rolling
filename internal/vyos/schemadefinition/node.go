@@ -368,3 +368,25 @@ func (o *Node) GetIsBaseNode() bool {
 func (o *Node) SetIsBaseNode(isBaseNode bool) {
 	o.IsBaseNode = isBaseNode
 }
+
+// HasSubValue is used to inform if this or child NodeParents
+// has LeafNodes where no intermediate NodeParent or this NodeParent is itself a BaseNode
+func (o *Node) HasSubValue() bool {
+	if o.GetIsBaseNode() {
+		return false
+	}
+
+	if len(o.GetChildren().LeafNodes()) > 0 {
+		return true
+	}
+
+	if np, ok := o.GetChildren().GetNodeParents(); ok {
+		for _, c := range np {
+			if c.HasSubValue() {
+				return true
+			}
+		}
+	}
+
+	return false
+}

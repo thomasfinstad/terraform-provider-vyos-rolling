@@ -28,4 +28,5 @@ type NodeParent interface {
 	GetIsBaseNode() bool
 	SetIsBaseNode(bool)
 	ImportStr() string
+	HasSubValue() bool
 }
