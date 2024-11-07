@@ -4152,7 +4152,7 @@ func service() schemadefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*schemadefinition.TagNode{{
-									IsBaseNode: false,
+									IsBaseNode: true,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},

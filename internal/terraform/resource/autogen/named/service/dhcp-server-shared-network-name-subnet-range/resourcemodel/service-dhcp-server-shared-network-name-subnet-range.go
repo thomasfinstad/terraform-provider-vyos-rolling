@@ -109,7 +109,7 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) GetVyosNamedParentPath()
 	return []string{
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
@@ -122,6 +122,9 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) GetVyosNamedParentPath()
 
 		"shared-network-name",
 		o.SelfIdentifier.Attributes()["shared_network_name"].(types.String).ValueString(),
+
+		"subnet",
+		o.SelfIdentifier.Attributes()["subnet"].(types.String).ValueString(),
 	}
 }
 

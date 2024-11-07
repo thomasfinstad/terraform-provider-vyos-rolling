@@ -1,13 +1,13 @@
 ---
-page_title: "vyos_service_dhcp_server_shared_network_name Resource - vyos"
+page_title: "vyos_service_dhcp_server_shared_network_name_subnet Resource - vyos"
 
 subcategory: "Service"
 
 description: |-
-  service⯯Dynamic Host Configuration Protocol (DHCP) for DHCP server⯯Name of DHCP shared network
+  service⯯Dynamic Host Configuration Protocol (DHCP) for DHCP server⯯Name of DHCP shared network⯯DHCP subnet for shared network
 ---
 
-# vyos_service_dhcp_server_shared_network_name (Resource)
+# vyos_service_dhcp_server_shared_network_name_subnet (Resource)
 <center>
 
 
@@ -15,7 +15,9 @@ description: |-
 ⯯  
 Dynamic Host Configuration Protocol (DHCP) for DHCP server  
 ⯯  
-**Name of DHCP shared network**
+Name of DHCP shared network  
+⯯  
+**DHCP subnet for shared network**
 
 
 </center>
@@ -24,15 +26,18 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
 
 <!--TOC-->
 
-- [vyos_service_dhcp_server_shared_network_name (Resource)](#vyos_service_dhcp_server_shared_network_name-resource)
+- [vyos_service_dhcp_server_shared_network_name_subnet (Resource)](#vyos_service_dhcp_server_shared_network_name_subnet-resource)
   - [Schema](#schema)
     - [Required](#required)
       - [identifier](#identifier)
     - [Optional](#optional)
-      - [authoritative](#authoritative)
       - [description](#description)
       - [disable](#disable)
+      - [exclude](#exclude)
+      - [ignore_client_id](#ignore_client_id)
+      - [lease](#lease)
       - [option](#option)
+      - [subnet_id](#subnet_id)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -55,8 +60,6 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
 
 ### Optional
 
-#### authoritative
-- `authoritative` (Boolean) Option to make DHCP server authoritative for this physical network
 #### description
 - `description` (String) Description
 
@@ -65,8 +68,28 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
     |  txt     &emsp;|  Description  |
 #### disable
 - `disable` (Boolean) Disable instance
+#### exclude
+- `exclude` (List of String) IP address to exclude from DHCP lease range
+
+    |  Format  &emsp;|  Description                               |
+    |----------|--------------------------------------------|
+    |  ipv4    &emsp;|  IPv4 address to exclude from lease range  |
+#### ignore_client_id
+- `ignore_client_id` (Boolean) Ignore client identifier for lease lookups
+#### lease
+- `lease` (Number) Lease timeout in seconds
+
+    |  Format  &emsp;|  Description                 |
+    |----------|------------------------------|
+    |  u32     &emsp;|  DHCP lease time in seconds  |
 #### option
 - `option` (Attributes) DHCP option (see [below for nested schema](#nestedatt--option))
+#### subnet_id
+- `subnet_id` (Number) Unique ID mapped to leases in the lease file
+
+    |  Format  &emsp;|  Description       |
+    |----------|--------------------|
+    |  u32     &emsp;|  Unique subnet ID  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -81,6 +104,11 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
 Required:
 
 - `shared_network_name` (String) Name of DHCP shared network
+- `subnet` (String) DHCP subnet for shared network
+
+    |  Format   &emsp;|  Description                     |
+    |-----------|----------------------------------|
+    |  ipv4net  &emsp;|  IPv4 address and prefix length  |
 
 
 <a id="nestedatt--option"></a>
@@ -206,5 +234,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_dhcp_server_shared_network_name.example "service__dhcp_server__shared_network_name__<shared-network-name>"
+terraform import vyos_service_dhcp_server_shared_network_name_subnet.example "service__dhcp_server__shared_network_name__<shared-network-name>__subnet__<subnet>"
 ```

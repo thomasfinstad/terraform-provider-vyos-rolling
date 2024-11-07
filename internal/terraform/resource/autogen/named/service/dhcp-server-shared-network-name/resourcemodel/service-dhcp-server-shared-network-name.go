@@ -44,7 +44,7 @@ type ServiceDhcpServerSharedNetworkName struct {
 
 	// TagNodes
 
-	TagServiceDhcpServerSharedNetworkNameSubnet map[string]*ServiceDhcpServerSharedNetworkNameSubnet `tfsdk:"subnet" vyos:"subnet,omitempty"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnet bool `tfsdk:"-" vyos:"subnet,child"`
 
 	// Nodes
 
@@ -208,25 +208,6 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes(ctx context
 		},
 
 		// TagNodes
-
-		"subnet": schema.MapNestedAttribute{
-			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDhcpServerSharedNetworkNameSubnet{}.ResourceSchemaAttributes(ctx),
-			},
-			Optional: true,
-			MarkdownDescription: `DHCP subnet for shared network
-
-    |  Format   |  Description                     |
-    |-----------|----------------------------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-`,
-			Description: `DHCP subnet for shared network
-
-    |  Format   |  Description                     |
-    |-----------|----------------------------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-`,
-		},
 
 		// Nodes
 
