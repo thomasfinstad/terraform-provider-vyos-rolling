@@ -35,7 +35,7 @@ func (o *TagNode) InformLinage() {
 
 // ImportStr returns the string used to create import documentation
 func (o *TagNode) ImportStr() string {
-	s := fmt.Sprintf("%s__<%s>", o.BaseNameR(), o.BaseName())
+	s := fmt.Sprintf("%s__<%s>", o.BaseName(), o.BaseName())
 	if o.Parent == nil {
 		return s
 	}

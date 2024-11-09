@@ -36,9 +36,9 @@ func (o *Node) InformLinage() {
 // ImportStr returns the string used to create import documentation
 func (o *Node) ImportStr() string {
 	if o.Parent == nil {
-		return o.BaseNameR()
+		return o.BaseName()
 	}
-	return fmt.Sprintf("%s__%s", o.Parent.ImportStr(), o.BaseNameR())
+	return fmt.Sprintf("%s__%s", o.Parent.ImportStr(), o.BaseName())
 }
 
 // AbsName returns each name in the node hierarchy starting with the root as the first element and this node as the last element
