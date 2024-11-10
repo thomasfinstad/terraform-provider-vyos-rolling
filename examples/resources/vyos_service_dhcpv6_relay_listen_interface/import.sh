@@ -1,2 +1,2 @@
 
-terraform import vyos_service_dhcpv6_relay_listen_interface.example "service__dhcpv6_relay__listen_interface__<listen-interface>"
+terraform import vyos_service_dhcpv6_relay_listen_interface.example "service__dhcpv6-relay__listen-interface__<listen-interface>"

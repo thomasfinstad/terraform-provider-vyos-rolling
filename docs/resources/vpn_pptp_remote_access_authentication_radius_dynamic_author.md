@@ -85,5 +85,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vpn_pptp_remote_access_authentication_radius_dynamic_author.example "vpn__pptp__remote_access__authentication__radius__dynamic_author"
+terraform import vyos_vpn_pptp_remote_access_authentication_radius_dynamic_author.example "vpn__pptp__remote-access__authentication__radius__dynamic-author"
 ```

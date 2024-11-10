@@ -118,5 +118,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_high_availability_vrrp_sync_group.example "high_availability__vrrp__sync_group__<sync-group>"
+terraform import vyos_high_availability_vrrp_sync_group.example "high-availability__vrrp__sync-group__<sync-group>"
 ```

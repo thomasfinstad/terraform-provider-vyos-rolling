@@ -89,5 +89,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vpn_openconnect_authentication_identity_based_config.example "vpn__openconnect__authentication__identity_based_config"
+terraform import vyos_vpn_openconnect_authentication_identity_based_config.example "vpn__openconnect__authentication__identity-based-config"
 ```

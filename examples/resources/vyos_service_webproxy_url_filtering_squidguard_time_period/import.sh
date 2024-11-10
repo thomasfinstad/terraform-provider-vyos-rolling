@@ -1,2 +1,2 @@
 
-terraform import vyos_service_webproxy_url_filtering_squidguard_time_period.example "service__webproxy__url_filtering__squidguard__time_period__<time-period>"
+terraform import vyos_service_webproxy_url_filtering_squidguard_time_period.example "service__webproxy__url-filtering__squidguard__time-period__<time-period>"

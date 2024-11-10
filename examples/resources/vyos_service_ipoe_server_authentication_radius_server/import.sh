@@ -1,2 +1,2 @@
 
-terraform import vyos_service_ipoe_server_authentication_radius_server.example "service__ipoe_server__authentication__radius__server__<server>"
+terraform import vyos_service_ipoe_server_authentication_radius_server.example "service__ipoe-server__authentication__radius__server__<server>"

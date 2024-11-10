@@ -91,5 +91,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_snmp_trap_target.example "service__snmp__trap_target__<trap-target>"
+terraform import vyos_service_snmp_trap_target.example "service__snmp__trap-target__<trap-target>"
 ```

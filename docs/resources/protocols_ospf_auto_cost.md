@@ -69,5 +69,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_ospf_auto_cost.example "protocols__ospf__auto_cost"
+terraform import vyos_protocols_ospf_auto_cost.example "protocols__ospf__auto-cost"
 ```

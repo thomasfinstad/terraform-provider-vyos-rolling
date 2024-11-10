@@ -80,5 +80,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_babel_distribute_list_ipv6_prefix_list.example "protocols__babel__distribute_list__ipv6__prefix_list"
+terraform import vyos_protocols_babel_distribute_list_ipv6_prefix_list.example "protocols__babel__distribute-list__ipv6__prefix-list"
 ```

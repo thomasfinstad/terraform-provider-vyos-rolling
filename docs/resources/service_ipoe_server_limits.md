@@ -71,5 +71,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_ipoe_server_limits.example "service__ipoe_server__limits"
+terraform import vyos_service_ipoe_server_limits.example "service__ipoe-server__limits"
 ```

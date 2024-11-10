@@ -88,5 +88,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_config_sync_secondary.example "service__config_sync__secondary"
+terraform import vyos_service_config_sync_secondary.example "service__config-sync__secondary"
 ```

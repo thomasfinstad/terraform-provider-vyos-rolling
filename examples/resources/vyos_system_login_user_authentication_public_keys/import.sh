@@ -1,2 +1,2 @@
 
-terraform import vyos_system_login_user_authentication_public_keys.example "system__login__user__<user>__authentication__public_keys__<public-keys>"
+terraform import vyos_system_login_user_authentication_public_keys.example "system__login__user__<user>__authentication__public-keys__<public-keys>"

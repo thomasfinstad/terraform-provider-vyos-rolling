@@ -147,5 +147,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_qos_policy_priority_queue_class.example "qos__policy__priority_queue__<priority-queue>__class__<class>"
+terraform import vyos_qos_policy_priority_queue_class.example "qos__policy__priority-queue__<priority-queue>__class__<class>"
 ```

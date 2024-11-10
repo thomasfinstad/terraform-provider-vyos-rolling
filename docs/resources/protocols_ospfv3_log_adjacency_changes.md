@@ -65,5 +65,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_ospfv3_log_adjacency_changes.example "protocols__ospfv3__log_adjacency_changes"
+terraform import vyos_protocols_ospfv3_log_adjacency_changes.example "protocols__ospfv3__log-adjacency-changes"
 ```

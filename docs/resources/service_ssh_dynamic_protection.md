@@ -93,5 +93,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_ssh_dynamic_protection.example "service__ssh__dynamic_protection"
+terraform import vyos_service_ssh_dynamic_protection.example "service__ssh__dynamic-protection"
 ```

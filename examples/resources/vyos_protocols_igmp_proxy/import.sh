@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_igmp_proxy.example "protocols__igmp_proxy"
+terraform import vyos_protocols_igmp_proxy.example "protocols__igmp-proxy"

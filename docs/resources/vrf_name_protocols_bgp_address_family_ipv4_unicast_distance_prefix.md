@@ -102,5 +102,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vrf_name_protocols_bgp_address_family_ipv4_unicast_distance_prefix.example "vrf__name__<name>__protocols__bgp__address_family__ipv4_unicast__distance__prefix__<prefix>"
+terraform import vyos_vrf_name_protocols_bgp_address_family_ipv4_unicast_distance_prefix.example "vrf__name__<name>__protocols__bgp__address-family__ipv4-unicast__distance__prefix__<prefix>"
 ```

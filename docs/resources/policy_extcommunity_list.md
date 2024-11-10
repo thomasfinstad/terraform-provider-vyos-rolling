@@ -85,5 +85,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_policy_extcommunity_list.example "policy__extcommunity_list__<extcommunity-list>"
+terraform import vyos_policy_extcommunity_list.example "policy__extcommunity-list__<extcommunity-list>"
 ```

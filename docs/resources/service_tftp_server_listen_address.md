@@ -88,5 +88,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_tftp_server_listen_address.example "service__tftp_server__listen_address__<listen-address>"
+terraform import vyos_service_tftp_server_listen_address.example "service__tftp-server__listen-address__<listen-address>"
 ```

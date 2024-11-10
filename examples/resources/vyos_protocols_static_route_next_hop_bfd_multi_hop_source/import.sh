@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_static_route_next_hop_bfd_multi_hop_source.example "protocols__static__route__<route>__next_hop__<next-hop>__bfd__multi_hop__source__<source>"
+terraform import vyos_protocols_static_route_next_hop_bfd_multi_hop_source.example "protocols__static__route__<route>__next-hop__<next-hop>__bfd__multi-hop__source__<source>"

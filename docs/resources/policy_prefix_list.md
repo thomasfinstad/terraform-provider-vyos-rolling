@@ -85,5 +85,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_policy_prefix_list.example "policy__prefix_list__<prefix-list>"
+terraform import vyos_policy_prefix_list.example "policy__prefix-list__<prefix-list>"
 ```

@@ -76,5 +76,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vpn_l2tp_remote_access_extended_scripts.example "vpn__l2tp__remote_access__extended_scripts"
+terraform import vyos_vpn_l2tp_remote_access_extended_scripts.example "vpn__l2tp__remote-access__extended-scripts"
 ```

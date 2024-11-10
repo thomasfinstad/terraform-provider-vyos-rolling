@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_ospf_max_metric_router_lsa.example "protocols__ospf__max_metric__router_lsa"
+terraform import vyos_protocols_ospf_max_metric_router_lsa.example "protocols__ospf__max-metric__router-lsa"

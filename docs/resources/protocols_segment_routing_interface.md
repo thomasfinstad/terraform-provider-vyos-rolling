@@ -98,5 +98,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_segment_routing_interface.example "protocols__segment_routing__interface__<interface>"
+terraform import vyos_protocols_segment_routing_interface.example "protocols__segment-routing__interface__<interface>"
 ```

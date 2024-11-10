@@ -69,5 +69,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_pim_register_accept_list.example "protocols__pim__register_accept_list"
+terraform import vyos_protocols_pim_register_accept_list.example "protocols__pim__register-accept-list"
 ```

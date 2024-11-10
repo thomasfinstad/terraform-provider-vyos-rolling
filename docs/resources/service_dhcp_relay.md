@@ -91,5 +91,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_dhcp_relay.example "service__dhcp_relay"
+terraform import vyos_service_dhcp_relay.example "service__dhcp-relay"
 ```

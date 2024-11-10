@@ -1,2 +1,2 @@
 
-terraform import vyos_service_event_handler_event_script_environment.example "service__event_handler__event__<event>__script__environment__<environment>"
+terraform import vyos_service_event_handler_event_script_environment.example "service__event-handler__event__<event>__script__environment__<environment>"

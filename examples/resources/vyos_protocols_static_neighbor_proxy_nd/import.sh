@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_static_neighbor_proxy_nd.example "protocols__static__neighbor_proxy__nd__<nd>"
+terraform import vyos_protocols_static_neighbor_proxy_nd.example "protocols__static__neighbor-proxy__nd__<nd>"

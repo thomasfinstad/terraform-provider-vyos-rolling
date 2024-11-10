@@ -1,2 +1,2 @@
 
-terraform import vyos_load_balancing_haproxy_global_parameters_logging_facility.example "load_balancing__haproxy__global_parameters__logging__facility__<facility>"
+terraform import vyos_load_balancing_haproxy_global_parameters_logging_facility.example "load-balancing__haproxy__global-parameters__logging__facility__<facility>"

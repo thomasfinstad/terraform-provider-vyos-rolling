@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_isis_area_password.example "protocols__isis__area_password"
+terraform import vyos_protocols_isis_area_password.example "protocols__isis__area-password"

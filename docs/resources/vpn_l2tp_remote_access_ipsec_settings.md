@@ -84,5 +84,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vpn_l2tp_remote_access_ipsec_settings.example "vpn__l2tp__remote_access__ipsec_settings"
+terraform import vyos_vpn_l2tp_remote_access_ipsec_settings.example "vpn__l2tp__remote-access__ipsec-settings"
 ```

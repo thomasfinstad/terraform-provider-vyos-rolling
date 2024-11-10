@@ -1,2 +1,2 @@
 
-terraform import vyos_service_ipoe_server_extended_scripts.example "service__ipoe_server__extended_scripts"
+terraform import vyos_service_ipoe_server_extended_scripts.example "service__ipoe-server__extended-scripts"

@@ -113,5 +113,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_static_table_route6_next_hop_bfd_multi_hop_source.example "protocols__static__table__<table>__route6__<route6>__next_hop__<next-hop>__bfd__multi_hop__source__<source>"
+terraform import vyos_protocols_static_table_route6_next_hop_bfd_multi_hop_source.example "protocols__static__table__<table>__route6__<route6>__next-hop__<next-hop>__bfd__multi-hop__source__<source>"
 ```

@@ -118,5 +118,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_conntrack_sync.example "service__conntrack_sync"
+terraform import vyos_service_conntrack_sync.example "service__conntrack-sync"
 ```

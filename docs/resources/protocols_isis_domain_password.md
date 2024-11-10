@@ -76,5 +76,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_domain_password.example "protocols__isis__domain_password"
+terraform import vyos_protocols_isis_domain_password.example "protocols__isis__domain-password"
 ```

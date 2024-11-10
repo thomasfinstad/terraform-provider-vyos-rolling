@@ -78,5 +78,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_ripng_distribute_list_access_list.example "protocols__ripng__distribute_list__access_list"
+terraform import vyos_protocols_ripng_distribute_list_access_list.example "protocols__ripng__distribute-list__access-list"
 ```

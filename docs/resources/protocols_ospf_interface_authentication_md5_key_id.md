@@ -98,5 +98,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_ospf_interface_authentication_md5_key_id.example "protocols__ospf__interface__<interface>__authentication__md5__key_id__<key-id>"
+terraform import vyos_protocols_ospf_interface_authentication_md5_key_id.example "protocols__ospf__interface__<interface>__authentication__md5__key-id__<key-id>"
 ```

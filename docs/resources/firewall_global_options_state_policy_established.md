@@ -90,5 +90,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_firewall_global_options_state_policy_established.example "firewall__global_options__state_policy__established"
+terraform import vyos_firewall_global_options_state_policy_established.example "firewall__global-options__state-policy__established"
 ```

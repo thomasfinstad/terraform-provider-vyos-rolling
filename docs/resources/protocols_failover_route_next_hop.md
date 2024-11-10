@@ -143,5 +143,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_failover_route_next_hop.example "protocols__failover__route__<route>__next_hop__<next-hop>"
+terraform import vyos_protocols_failover_route_next_hop.example "protocols__failover__route__<route>__next-hop__<next-hop>"
 ```

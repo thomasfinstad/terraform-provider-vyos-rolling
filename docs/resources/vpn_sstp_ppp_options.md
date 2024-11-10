@@ -137,5 +137,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vpn_sstp_ppp_options.example "vpn__sstp__ppp_options"
+terraform import vyos_vpn_sstp_ppp_options.example "vpn__sstp__ppp-options"
 ```

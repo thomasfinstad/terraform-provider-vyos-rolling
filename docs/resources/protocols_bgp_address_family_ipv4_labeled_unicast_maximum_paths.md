@@ -80,5 +80,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv4_labeled_unicast_maximum_paths.example "protocols__bgp__address_family__ipv4_labeled_unicast__maximum_paths"
+terraform import vyos_protocols_bgp_address_family_ipv4_labeled_unicast_maximum_paths.example "protocols__bgp__address-family__ipv4-labeled-unicast__maximum-paths"
 ```

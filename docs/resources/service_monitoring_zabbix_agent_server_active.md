@@ -91,5 +91,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_monitoring_zabbix_agent_server_active.example "service__monitoring__zabbix_agent__server_active__<server-active>"
+terraform import vyos_service_monitoring_zabbix_agent_server_active.example "service__monitoring__zabbix-agent__server-active__<server-active>"
 ```

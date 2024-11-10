@@ -70,5 +70,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_update_check.example "system__update_check"
+terraform import vyos_system_update_check.example "system__update-check"
 ```

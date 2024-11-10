@@ -98,5 +98,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_load_balancing_wan_interface_health.example "load_balancing__wan__interface_health__<interface-health>"
+terraform import vyos_load_balancing_wan_interface_health.example "load-balancing__wan__interface-health__<interface-health>"
 ```

@@ -1,2 +1,2 @@
 
-terraform import vyos_high_availability_vrrp_global_parameters.example "high_availability__vrrp__global_parameters"
+terraform import vyos_high_availability_vrrp_global_parameters.example "high-availability__vrrp__global-parameters"

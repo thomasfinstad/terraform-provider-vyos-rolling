@@ -1,2 +1,2 @@
 
-terraform import vyos_service_pppoe_server_extended_scripts.example "service__pppoe_server__extended_scripts"
+terraform import vyos_service_pppoe_server_extended_scripts.example "service__pppoe-server__extended-scripts"

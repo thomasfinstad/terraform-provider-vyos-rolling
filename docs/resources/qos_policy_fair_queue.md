@@ -102,5 +102,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_qos_policy_fair_queue.example "qos__policy__fair_queue__<fair-queue>"
+terraform import vyos_qos_policy_fair_queue.example "qos__policy__fair-queue__<fair-queue>"
 ```

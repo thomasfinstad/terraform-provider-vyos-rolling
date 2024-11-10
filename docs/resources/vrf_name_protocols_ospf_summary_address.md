@@ -99,5 +99,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vrf_name_protocols_ospf_summary_address.example "vrf__name__<name>__protocols__ospf__summary_address__<summary-address>"
+terraform import vyos_vrf_name_protocols_ospf_summary_address.example "vrf__name__<name>__protocols__ospf__summary-address__<summary-address>"
 ```

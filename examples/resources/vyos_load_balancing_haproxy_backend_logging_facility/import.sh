@@ -1,2 +1,2 @@
 
-terraform import vyos_load_balancing_haproxy_backend_logging_facility.example "load_balancing__haproxy__backend__<backend>__logging__facility__<facility>"
+terraform import vyos_load_balancing_haproxy_backend_logging_facility.example "load-balancing__haproxy__backend__<backend>__logging__facility__<facility>"

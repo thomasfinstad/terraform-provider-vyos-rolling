@@ -70,5 +70,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_config_management_commit_confirm.example "system__config_management__commit_confirm"
+terraform import vyos_system_config_management_commit_confirm.example "system__config-management__commit-confirm"
 ```

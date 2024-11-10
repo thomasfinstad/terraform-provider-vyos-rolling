@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_bgp_address_family_ipv6_unicast_distance.example "protocols__bgp__address_family__ipv6_unicast__distance"
+terraform import vyos_protocols_bgp_address_family_ipv6_unicast_distance.example "protocols__bgp__address-family__ipv6-unicast__distance"

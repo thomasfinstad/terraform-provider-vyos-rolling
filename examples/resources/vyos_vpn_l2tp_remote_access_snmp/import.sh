@@ -1,2 +1,2 @@
 
-terraform import vyos_vpn_l2tp_remote_access_snmp.example "vpn__l2tp__remote_access__snmp"
+terraform import vyos_vpn_l2tp_remote_access_snmp.example "vpn__l2tp__remote-access__snmp"

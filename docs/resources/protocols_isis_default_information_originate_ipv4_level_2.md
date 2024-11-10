@@ -85,5 +85,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_default_information_originate_ipv4_level_2.example "protocols__isis__default_information__originate__ipv4__level_2"
+terraform import vyos_protocols_isis_default_information_originate_ipv4_level_2.example "protocols__isis__default-information__originate__ipv4__level-2"
 ```

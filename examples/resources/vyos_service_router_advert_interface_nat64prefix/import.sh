@@ -1,2 +1,2 @@
 
-terraform import vyos_service_router_advert_interface_nat64prefix.example "service__router_advert__interface__<interface>__nat64prefix__<nat64prefix>"
+terraform import vyos_service_router_advert_interface_nat64prefix.example "service__router-advert__interface__<interface>__nat64prefix__<nat64prefix>"

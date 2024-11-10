@@ -95,5 +95,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_ipoe_server_client_ip_pool.example "service__ipoe_server__client_ip_pool__<client-ip-pool>"
+terraform import vyos_service_ipoe_server_client_ip_pool.example "service__ipoe-server__client-ip-pool__<client-ip-pool>"
 ```

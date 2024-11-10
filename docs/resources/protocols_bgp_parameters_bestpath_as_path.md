@@ -75,5 +75,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_parameters_bestpath_as_path.example "protocols__bgp__parameters__bestpath__as_path"
+terraform import vyos_protocols_bgp_parameters_bestpath_as_path.example "protocols__bgp__parameters__bestpath__as-path"
 ```

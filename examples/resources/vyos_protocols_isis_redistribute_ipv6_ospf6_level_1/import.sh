@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_isis_redistribute_ipv6_ospf6_level_1.example "protocols__isis__redistribute__ipv6__ospf6__level_1"
+terraform import vyos_protocols_isis_redistribute_ipv6_ospf6_level_1.example "protocols__isis__redistribute__ipv6__ospf6__level-1"

@@ -1,2 +1,2 @@
 
-terraform import vyos_qos_policy_random_detect_precedence.example "qos__policy__random_detect__<random-detect>__precedence__<precedence>"
+terraform import vyos_qos_policy_random_detect_precedence.example "qos__policy__random-detect__<random-detect>__precedence__<precedence>"

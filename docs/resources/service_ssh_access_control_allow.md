@@ -70,5 +70,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_ssh_access_control_allow.example "service__ssh__access_control__allow"
+terraform import vyos_service_ssh_access_control_allow.example "service__ssh__access-control__allow"
 ```

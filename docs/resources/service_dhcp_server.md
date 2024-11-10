@@ -83,5 +83,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_dhcp_server.example "service__dhcp_server"
+terraform import vyos_service_dhcp_server.example "service__dhcp-server"
 ```

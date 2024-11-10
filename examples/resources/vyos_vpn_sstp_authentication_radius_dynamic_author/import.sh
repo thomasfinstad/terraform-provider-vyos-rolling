@@ -1,2 +1,2 @@
 
-terraform import vyos_vpn_sstp_authentication_radius_dynamic_author.example "vpn__sstp__authentication__radius__dynamic_author"
+terraform import vyos_vpn_sstp_authentication_radius_dynamic_author.example "vpn__sstp__authentication__radius__dynamic-author"

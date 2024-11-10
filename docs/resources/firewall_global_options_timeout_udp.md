@@ -78,5 +78,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_firewall_global_options_timeout_udp.example "firewall__global_options__timeout__udp"
+terraform import vyos_firewall_global_options_timeout_udp.example "firewall__global-options__timeout__udp"
 ```

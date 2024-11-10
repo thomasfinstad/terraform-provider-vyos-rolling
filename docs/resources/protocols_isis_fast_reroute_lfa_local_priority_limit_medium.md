@@ -76,5 +76,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_fast_reroute_lfa_local_priority_limit_medium.example "protocols__isis__fast_reroute__lfa__local__priority_limit__medium"
+terraform import vyos_protocols_isis_fast_reroute_lfa_local_priority_limit_medium.example "protocols__isis__fast-reroute__lfa__local__priority-limit__medium"
 ```

@@ -72,5 +72,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_https_allow_client.example "service__https__allow_client"
+terraform import vyos_service_https_allow_client.example "service__https__allow-client"
 ```

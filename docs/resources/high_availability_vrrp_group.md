@@ -254,5 +254,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_high_availability_vrrp_group.example "high_availability__vrrp__group__<group>"
+terraform import vyos_high_availability_vrrp_group.example "high-availability__vrrp__group__<group>"
 ```

@@ -1,2 +1,2 @@
 
-terraform import vyos_service_webproxy_url_filtering.example "service__webproxy__url_filtering"
+terraform import vyos_service_webproxy_url_filtering.example "service__webproxy__url-filtering"

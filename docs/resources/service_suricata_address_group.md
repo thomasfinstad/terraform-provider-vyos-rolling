@@ -98,5 +98,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_suricata_address_group.example "service__suricata__address_group__<address-group>"
+terraform import vyos_service_suricata_address_group.example "service__suricata__address-group__<address-group>"
 ```

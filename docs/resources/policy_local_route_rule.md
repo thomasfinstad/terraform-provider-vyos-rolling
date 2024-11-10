@@ -164,5 +164,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_policy_local_route_rule.example "policy__local_route__rule__<rule>"
+terraform import vyos_policy_local_route_rule.example "policy__local-route__rule__<rule>"
 ```

@@ -97,5 +97,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv4_multicast_aggregate_address.example "protocols__bgp__address_family__ipv4_multicast__aggregate_address__<aggregate-address>"
+terraform import vyos_protocols_bgp_address_family_ipv4_multicast_aggregate_address.example "protocols__bgp__address-family__ipv4-multicast__aggregate-address__<aggregate-address>"
 ```

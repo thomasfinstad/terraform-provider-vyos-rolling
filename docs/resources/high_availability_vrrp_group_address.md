@@ -93,5 +93,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_high_availability_vrrp_group_address.example "high_availability__vrrp__group__<group>__address__<address>"
+terraform import vyos_high_availability_vrrp_group_address.example "high-availability__vrrp__group__<group>__address__<address>"
 ```

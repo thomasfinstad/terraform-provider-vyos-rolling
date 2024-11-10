@@ -1,2 +1,2 @@
 
-terraform import vyos_service_dhcpv6_server_global_parameters.example "service__dhcpv6_server__global_parameters"
+terraform import vyos_service_dhcpv6_server_global_parameters.example "service__dhcpv6-server__global-parameters"

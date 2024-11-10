@@ -92,5 +92,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_salt_minion.example "service__salt_minion"
+terraform import vyos_service_salt_minion.example "service__salt-minion"
 ```

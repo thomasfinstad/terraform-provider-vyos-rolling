@@ -93,5 +93,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv6_multicast_distance_prefix.example "protocols__bgp__address_family__ipv6_multicast__distance__prefix__<prefix>"
+terraform import vyos_protocols_bgp_address_family_ipv6_multicast_distance_prefix.example "protocols__bgp__address-family__ipv6-multicast__distance__prefix__<prefix>"
 ```

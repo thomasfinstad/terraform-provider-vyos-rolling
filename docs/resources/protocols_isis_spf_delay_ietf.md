@@ -97,5 +97,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_spf_delay_ietf.example "protocols__isis__spf_delay_ietf"
+terraform import vyos_protocols_isis_spf_delay_ietf.example "protocols__isis__spf-delay-ietf"
 ```

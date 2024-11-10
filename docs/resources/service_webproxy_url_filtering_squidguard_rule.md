@@ -163,5 +163,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_webproxy_url_filtering_squidguard_rule.example "service__webproxy__url_filtering__squidguard__rule__<rule>"
+terraform import vyos_service_webproxy_url_filtering_squidguard_rule.example "service__webproxy__url-filtering__squidguard__rule__<rule>"
 ```

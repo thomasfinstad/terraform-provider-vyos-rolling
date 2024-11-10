@@ -65,5 +65,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_rip_default_information.example "protocols__rip__default_information"
+terraform import vyos_protocols_rip_default_information.example "protocols__rip__default-information"
 ```

@@ -126,5 +126,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_babel_distribute_list_ipv4_interface.example "protocols__babel__distribute_list__ipv4__interface__<interface>"
+terraform import vyos_protocols_babel_distribute_list_ipv4_interface.example "protocols__babel__distribute-list__ipv4__interface__<interface>"
 ```

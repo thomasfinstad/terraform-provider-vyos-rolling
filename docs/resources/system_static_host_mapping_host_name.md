@@ -87,5 +87,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_static_host_mapping_host_name.example "system__static_host_mapping__host_name__<host-name>"
+terraform import vyos_system_static_host_mapping_host_name.example "system__static-host-mapping__host-name__<host-name>"
 ```

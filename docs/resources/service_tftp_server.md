@@ -73,5 +73,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_tftp_server.example "service__tftp_server"
+terraform import vyos_service_tftp_server.example "service__tftp-server"
 ```

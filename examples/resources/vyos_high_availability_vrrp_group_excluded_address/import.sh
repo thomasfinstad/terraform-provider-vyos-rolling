@@ -1,2 +1,2 @@
 
-terraform import vyos_high_availability_vrrp_group_excluded_address.example "high_availability__vrrp__group__<group>__excluded_address__<excluded-address>"
+terraform import vyos_high_availability_vrrp_group_excluded_address.example "high-availability__vrrp__group__<group>__excluded-address__<excluded-address>"

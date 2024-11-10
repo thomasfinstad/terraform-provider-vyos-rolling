@@ -1,2 +1,2 @@
 
-terraform import vyos_interfaces_bridge_dhcpv6_options_pd_interface.example "interfaces__bridge__<bridge>__dhcpv6_options__pd__<pd>__interface__<interface>"
+terraform import vyos_interfaces_bridge_dhcpv6_options_pd_interface.example "interfaces__bridge__<bridge>__dhcpv6-options__pd__<pd>__interface__<interface>"

@@ -119,5 +119,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_console_server_device.example "service__console_server__device__<device>"
+terraform import vyos_service_console_server_device.example "service__console-server__device__<device>"
 ```

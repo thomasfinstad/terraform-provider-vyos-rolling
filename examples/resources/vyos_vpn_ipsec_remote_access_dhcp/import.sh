@@ -1,2 +1,2 @@
 
-terraform import vyos_vpn_ipsec_remote_access_dhcp.example "vpn__ipsec__remote_access__dhcp"
+terraform import vyos_vpn_ipsec_remote_access_dhcp.example "vpn__ipsec__remote-access__dhcp"

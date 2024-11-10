@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_bgp_address_family_ipv6_unicast_aggregate_address.example "protocols__bgp__address_family__ipv6_unicast__aggregate_address__<aggregate-address>"
+terraform import vyos_protocols_bgp_address_family_ipv6_unicast_aggregate_address.example "protocols__bgp__address-family__ipv6-unicast__aggregate-address__<aggregate-address>"

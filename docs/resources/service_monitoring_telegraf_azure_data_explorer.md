@@ -93,5 +93,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_monitoring_telegraf_azure_data_explorer.example "service__monitoring__telegraf__azure_data_explorer"
+terraform import vyos_service_monitoring_telegraf_azure_data_explorer.example "service__monitoring__telegraf__azure-data-explorer"
 ```

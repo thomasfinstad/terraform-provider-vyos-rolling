@@ -125,5 +125,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vpn_ipsec_remote_access_pool.example "vpn__ipsec__remote_access__pool__<pool>"
+terraform import vyos_vpn_ipsec_remote_access_pool.example "vpn__ipsec__remote-access__pool__<pool>"
 ```

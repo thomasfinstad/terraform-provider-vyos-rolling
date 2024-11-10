@@ -1,2 +1,2 @@
 
-terraform import vyos_service_ids_ddos_protection_threshold_tcp.example "service__ids__ddos_protection__threshold__tcp"
+terraform import vyos_service_ids_ddos_protection_threshold_tcp.example "service__ids__ddos-protection__threshold__tcp"

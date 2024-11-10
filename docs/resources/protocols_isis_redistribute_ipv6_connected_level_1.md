@@ -82,5 +82,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_redistribute_ipv6_connected_level_1.example "protocols__isis__redistribute__ipv6__connected__level_1"
+terraform import vyos_protocols_isis_redistribute_ipv6_connected_level_1.example "protocols__isis__redistribute__ipv6__connected__level-1"
 ```

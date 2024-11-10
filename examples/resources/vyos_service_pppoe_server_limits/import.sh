@@ -1,2 +1,2 @@
 
-terraform import vyos_service_pppoe_server_limits.example "service__pppoe_server__limits"
+terraform import vyos_service_pppoe_server_limits.example "service__pppoe-server__limits"

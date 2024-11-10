@@ -82,5 +82,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv6_unicast_redistribute_ripng.example "protocols__bgp__address_family__ipv6_unicast__redistribute__ripng"
+terraform import vyos_protocols_bgp_address_family_ipv6_unicast_redistribute_ripng.example "protocols__bgp__address-family__ipv6-unicast__redistribute__ripng"
 ```

@@ -1,2 +1,2 @@
 
-terraform import vyos_service_ndp_proxy_interface_prefix.example "service__ndp_proxy__interface__<interface>__prefix__<prefix>"
+terraform import vyos_service_ndp_proxy_interface_prefix.example "service__ndp-proxy__interface__<interface>__prefix__<prefix>"

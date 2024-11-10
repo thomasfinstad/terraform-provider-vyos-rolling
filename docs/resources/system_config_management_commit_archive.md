@@ -83,5 +83,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_config_management_commit_archive.example "system__config_management__commit_archive"
+terraform import vyos_system_config_management_commit_archive.example "system__config-management__commit-archive"
 ```

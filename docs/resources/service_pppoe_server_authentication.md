@@ -84,5 +84,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_pppoe_server_authentication.example "service__pppoe_server__authentication"
+terraform import vyos_service_pppoe_server_authentication.example "service__pppoe-server__authentication"
 ```

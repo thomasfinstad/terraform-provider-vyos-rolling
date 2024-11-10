@@ -121,5 +121,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vpn_pptp_remote_access_authentication_radius.example "vpn__pptp__remote_access__authentication__radius"
+terraform import vyos_vpn_pptp_remote_access_authentication_radius.example "vpn__pptp__remote-access__authentication__radius"
 ```

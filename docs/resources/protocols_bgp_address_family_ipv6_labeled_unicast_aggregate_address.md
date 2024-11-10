@@ -97,5 +97,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv6_labeled_unicast_aggregate_address.example "protocols__bgp__address_family__ipv6_labeled_unicast__aggregate_address__<aggregate-address>"
+terraform import vyos_protocols_bgp_address_family_ipv6_labeled_unicast_aggregate_address.example "protocols__bgp__address-family__ipv6-labeled-unicast__aggregate-address__<aggregate-address>"
 ```

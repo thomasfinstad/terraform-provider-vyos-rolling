@@ -82,5 +82,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv4_unicast_redistribute_isis.example "protocols__bgp__address_family__ipv4_unicast__redistribute__isis"
+terraform import vyos_protocols_bgp_address_family_ipv4_unicast_redistribute_isis.example "protocols__bgp__address-family__ipv4-unicast__redistribute__isis"
 ```

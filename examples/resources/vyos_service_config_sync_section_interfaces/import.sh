@@ -1,2 +1,2 @@
 
-terraform import vyos_service_config_sync_section_interfaces.example "service__config_sync__section__interfaces"
+terraform import vyos_service_config_sync_section_interfaces.example "service__config-sync__section__interfaces"

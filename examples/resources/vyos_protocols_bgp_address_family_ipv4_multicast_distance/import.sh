@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_bgp_address_family_ipv4_multicast_distance.example "protocols__bgp__address_family__ipv4_multicast__distance"
+terraform import vyos_protocols_bgp_address_family_ipv4_multicast_distance.example "protocols__bgp__address-family__ipv4-multicast__distance"

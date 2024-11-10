@@ -82,5 +82,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_vpn_sstp_authentication_radius_rate_limit.example "vpn__sstp__authentication__radius__rate_limit"
+terraform import vyos_vpn_sstp_authentication_radius_rate_limit.example "vpn__sstp__authentication__radius__rate-limit"
 ```

@@ -106,5 +106,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_load_balancing_haproxy_backend_server.example "load_balancing__haproxy__backend__<backend>__server__<server>"
+terraform import vyos_load_balancing_haproxy_backend_server.example "load-balancing__haproxy__backend__<backend>__server__<server>"
 ```

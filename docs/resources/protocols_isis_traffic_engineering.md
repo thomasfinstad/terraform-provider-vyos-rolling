@@ -72,5 +72,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_traffic_engineering.example "protocols__isis__traffic_engineering"
+terraform import vyos_protocols_isis_traffic_engineering.example "protocols__isis__traffic-engineering"
 ```

@@ -1,2 +1,2 @@
 
-terraform import vyos_vrf_name_protocols_isis_segment_routing_prefix.example "vrf__name__<name>__protocols__isis__segment_routing__prefix__<prefix>"
+terraform import vyos_vrf_name_protocols_isis_segment_routing_prefix.example "vrf__name__<name>__protocols__isis__segment-routing__prefix__<prefix>"

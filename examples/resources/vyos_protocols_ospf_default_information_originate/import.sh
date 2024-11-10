@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_ospf_default_information_originate.example "protocols__ospf__default_information__originate"
+terraform import vyos_protocols_ospf_default_information_originate.example "protocols__ospf__default-information__originate"

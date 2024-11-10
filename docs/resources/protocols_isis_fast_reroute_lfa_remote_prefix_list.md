@@ -92,5 +92,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_fast_reroute_lfa_remote_prefix_list.example "protocols__isis__fast_reroute__lfa__remote__prefix_list__<prefix-list>"
+terraform import vyos_protocols_isis_fast_reroute_lfa_remote_prefix_list.example "protocols__isis__fast-reroute__lfa__remote__prefix-list__<prefix-list>"
 ```

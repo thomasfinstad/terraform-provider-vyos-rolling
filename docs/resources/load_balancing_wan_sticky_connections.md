@@ -65,5 +65,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_load_balancing_wan_sticky_connections.example "load_balancing__wan__sticky_connections"
+terraform import vyos_load_balancing_wan_sticky_connections.example "load-balancing__wan__sticky-connections"
 ```

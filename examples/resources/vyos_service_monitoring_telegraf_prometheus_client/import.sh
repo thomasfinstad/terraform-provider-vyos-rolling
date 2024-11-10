@@ -1,2 +1,2 @@
 
-terraform import vyos_service_monitoring_telegraf_prometheus_client.example "service__monitoring__telegraf__prometheus_client"
+terraform import vyos_service_monitoring_telegraf_prometheus_client.example "service__monitoring__telegraf__prometheus-client"

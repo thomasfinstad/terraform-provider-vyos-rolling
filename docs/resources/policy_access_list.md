@@ -88,5 +88,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_policy_access_list.example "policy__access_list__<access-list>"
+terraform import vyos_policy_access_list.example "policy__access-list__<access-list>"
 ```

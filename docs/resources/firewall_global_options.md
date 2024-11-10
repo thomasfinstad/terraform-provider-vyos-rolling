@@ -176,5 +176,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_firewall_global_options.example "firewall__global_options"
+terraform import vyos_firewall_global_options.example "firewall__global-options"
 ```

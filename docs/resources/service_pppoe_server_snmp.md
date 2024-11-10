@@ -65,5 +65,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_pppoe_server_snmp.example "service__pppoe_server__snmp"
+terraform import vyos_service_pppoe_server_snmp.example "service__pppoe-server__snmp"
 ```

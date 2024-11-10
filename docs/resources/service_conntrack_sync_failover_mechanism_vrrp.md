@@ -67,5 +67,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_conntrack_sync_failover_mechanism_vrrp.example "service__conntrack_sync__failover_mechanism__vrrp"
+terraform import vyos_service_conntrack_sync_failover_mechanism_vrrp.example "service__conntrack-sync__failover-mechanism__vrrp"
 ```

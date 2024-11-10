@@ -123,5 +123,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_flow_accounting.example "system__flow_accounting"
+terraform import vyos_system_flow_accounting.example "system__flow-accounting"
 ```

@@ -1,2 +1,2 @@
 
-terraform import vyos_system_flow_accounting_sflow_server.example "system__flow_accounting__sflow__server__<server>"
+terraform import vyos_system_flow_accounting_sflow_server.example "system__flow-accounting__sflow__server__<server>"

@@ -1,2 +1,2 @@
 
-terraform import vyos_firewall_global_options_timeout.example "firewall__global_options__timeout"
+terraform import vyos_firewall_global_options_timeout.example "firewall__global-options__timeout"

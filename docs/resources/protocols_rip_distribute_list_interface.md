@@ -124,5 +124,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_rip_distribute_list_interface.example "protocols__rip__distribute_list__interface__<interface>"
+terraform import vyos_protocols_rip_distribute_list_interface.example "protocols__rip__distribute-list__interface__<interface>"
 ```

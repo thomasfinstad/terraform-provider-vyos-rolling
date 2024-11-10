@@ -94,5 +94,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_firewall_group_address_group.example "firewall__group__address_group__<address-group>"
+terraform import vyos_firewall_group_address_group.example "firewall__group__address-group__<address-group>"
 ```

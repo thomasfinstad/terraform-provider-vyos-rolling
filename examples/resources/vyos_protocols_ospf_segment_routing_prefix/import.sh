@@ -1,2 +1,2 @@
 
-terraform import vyos_protocols_ospf_segment_routing_prefix.example "protocols__ospf__segment_routing__prefix__<prefix>"
+terraform import vyos_protocols_ospf_segment_routing_prefix.example "protocols__ospf__segment-routing__prefix__<prefix>"

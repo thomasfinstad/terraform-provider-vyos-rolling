@@ -1,2 +1,2 @@
 
-terraform import vyos_service_dhcp_server_shared_network_name_subnet_static_mapping_option_static_route.example "service__dhcp_server__shared_network_name__<shared-network-name>__subnet__<subnet>__static_mapping__<static-mapping>__option__static_route__<static-route>"
+terraform import vyos_service_dhcp_server_shared_network_name_subnet_static_mapping_option_static_route.example "service__dhcp-server__shared-network-name__<shared-network-name>__subnet__<subnet>__static-mapping__<static-mapping>__option__static-route__<static-route>"

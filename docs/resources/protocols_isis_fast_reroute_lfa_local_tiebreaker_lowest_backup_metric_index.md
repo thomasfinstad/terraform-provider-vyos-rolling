@@ -96,5 +96,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_fast_reroute_lfa_local_tiebreaker_lowest_backup_metric_index.example "protocols__isis__fast_reroute__lfa__local__tiebreaker__lowest_backup_metric__index__<index>"
+terraform import vyos_protocols_isis_fast_reroute_lfa_local_tiebreaker_lowest_backup_metric_index.example "protocols__isis__fast-reroute__lfa__local__tiebreaker__lowest-backup-metric__index__<index>"
 ```

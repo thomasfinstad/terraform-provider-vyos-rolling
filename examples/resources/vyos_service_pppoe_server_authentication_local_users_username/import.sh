@@ -1,2 +1,2 @@
 
-terraform import vyos_service_pppoe_server_authentication_local_users_username.example "service__pppoe_server__authentication__local_users__username__<username>"
+terraform import vyos_service_pppoe_server_authentication_local_users_username.example "service__pppoe-server__authentication__local-users__username__<username>"

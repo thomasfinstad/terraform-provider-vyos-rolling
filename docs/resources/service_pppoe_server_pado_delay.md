@@ -88,5 +88,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_pppoe_server_pado_delay.example "service__pppoe_server__pado_delay__<pado-delay>"
+terraform import vyos_service_pppoe_server_pado_delay.example "service__pppoe-server__pado-delay__<pado-delay>"
 ```

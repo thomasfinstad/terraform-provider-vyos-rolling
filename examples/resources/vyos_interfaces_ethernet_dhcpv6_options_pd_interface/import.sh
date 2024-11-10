@@ -1,2 +1,2 @@
 
-terraform import vyos_interfaces_ethernet_dhcpv6_options_pd_interface.example "interfaces__ethernet__<ethernet>__dhcpv6_options__pd__<pd>__interface__<interface>"
+terraform import vyos_interfaces_ethernet_dhcpv6_options_pd_interface.example "interfaces__ethernet__<ethernet>__dhcpv6-options__pd__<pd>__interface__<interface>"

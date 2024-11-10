@@ -82,5 +82,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_isis_redistribute_ipv4_static_level_2.example "protocols__isis__redistribute__ipv4__static__level_2"
+terraform import vyos_protocols_isis_redistribute_ipv4_static_level_2.example "protocols__isis__redistribute__ipv4__static__level-2"
 ```

@@ -67,5 +67,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_config_management.example "system__config_management"
+terraform import vyos_system_config_management.example "system__config-management"
 ```

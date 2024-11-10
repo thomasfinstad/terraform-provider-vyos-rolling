@@ -137,5 +137,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_pppoe_server_ppp_options.example "service__pppoe_server__ppp_options"
+terraform import vyos_service_pppoe_server_ppp_options.example "service__pppoe-server__ppp-options"
 ```

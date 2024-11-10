@@ -100,5 +100,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_high_availability_vrrp_global_parameters_garp.example "high_availability__vrrp__global_parameters__garp"
+terraform import vyos_high_availability_vrrp_global_parameters_garp.example "high-availability__vrrp__global-parameters__garp"
 ```

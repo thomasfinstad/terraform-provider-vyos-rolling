@@ -82,5 +82,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_ipoe_server_authentication_radius_rate_limit.example "service__ipoe_server__authentication__radius__rate_limit"
+terraform import vyos_service_ipoe_server_authentication_radius_rate_limit.example "service__ipoe-server__authentication__radius__rate-limit"
 ```

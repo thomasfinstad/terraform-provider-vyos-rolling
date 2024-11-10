@@ -321,5 +321,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_interfaces_wireless_vif_s.example "interfaces__wireless__<wireless>__vif_s__<vif-s>"
+terraform import vyos_interfaces_wireless_vif_s.example "interfaces__wireless__<wireless>__vif-s__<vif-s>"
 ```

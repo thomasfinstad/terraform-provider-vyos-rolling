@@ -81,5 +81,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_snmp_script_extensions_extension_name.example "service__snmp__script_extensions__extension_name__<extension-name>"
+terraform import vyos_service_snmp_script_extensions_extension_name.example "service__snmp__script-extensions__extension-name__<extension-name>"
 ```

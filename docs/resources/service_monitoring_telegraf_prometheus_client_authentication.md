@@ -76,5 +76,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_monitoring_telegraf_prometheus_client_authentication.example "service__monitoring__telegraf__prometheus_client__authentication"
+terraform import vyos_service_monitoring_telegraf_prometheus_client_authentication.example "service__monitoring__telegraf__prometheus-client__authentication"
 ```

@@ -110,5 +110,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_dns_forwarding_authoritative_domain_records_a.example "service__dns__forwarding__authoritative_domain__<authoritative-domain>__records__a__<a>"
+terraform import vyos_service_dns_forwarding_authoritative_domain_records_a.example "service__dns__forwarding__authoritative-domain__<authoritative-domain>__records__a__<a>"
 ```

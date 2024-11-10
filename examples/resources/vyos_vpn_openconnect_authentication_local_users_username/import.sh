@@ -1,2 +1,2 @@
 
-terraform import vyos_vpn_openconnect_authentication_local_users_username.example "vpn__openconnect__authentication__local_users__username__<username>"
+terraform import vyos_vpn_openconnect_authentication_local_users_username.example "vpn__openconnect__authentication__local-users__username__<username>"

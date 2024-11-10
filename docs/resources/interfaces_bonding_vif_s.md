@@ -321,5 +321,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_interfaces_bonding_vif_s.example "interfaces__bonding__<bonding>__vif_s__<vif-s>"
+terraform import vyos_interfaces_bonding_vif_s.example "interfaces__bonding__<bonding>__vif-s__<vif-s>"
 ```

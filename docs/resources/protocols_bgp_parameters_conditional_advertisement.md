@@ -71,5 +71,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_parameters_conditional_advertisement.example "protocols__bgp__parameters__conditional_advertisement"
+terraform import vyos_protocols_bgp_parameters_conditional_advertisement.example "protocols__bgp__parameters__conditional-advertisement"
 ```

@@ -76,5 +76,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv4_unicast_import.example "protocols__bgp__address_family__ipv4_unicast__import"
+terraform import vyos_protocols_bgp_address_family_ipv4_unicast_import.example "protocols__bgp__address-family__ipv4-unicast__import"
 ```

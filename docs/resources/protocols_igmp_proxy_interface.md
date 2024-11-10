@@ -106,5 +106,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_igmp_proxy_interface.example "protocols__igmp_proxy__interface__<interface>"
+terraform import vyos_protocols_igmp_proxy_interface.example "protocols__igmp-proxy__interface__<interface>"
 ```

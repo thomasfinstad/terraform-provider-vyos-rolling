@@ -1,2 +1,2 @@
 
-terraform import vyos_service_dns_forwarding_name_server.example "service__dns__forwarding__name_server__<name-server>"
+terraform import vyos_service_dns_forwarding_name_server.example "service__dns__forwarding__name-server__<name-server>"

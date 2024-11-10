@@ -73,5 +73,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv4_unicast_label_vpn_allocation_mode.example "protocols__bgp__address_family__ipv4_unicast__label__vpn__allocation_mode"
+terraform import vyos_protocols_bgp_address_family_ipv4_unicast_label_vpn_allocation_mode.example "protocols__bgp__address-family__ipv4-unicast__label__vpn__allocation-mode"
 ```

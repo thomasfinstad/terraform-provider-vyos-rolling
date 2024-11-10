@@ -69,5 +69,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_ospfv3_graceful_restart.example "protocols__ospfv3__graceful_restart"
+terraform import vyos_protocols_ospfv3_graceful_restart.example "protocols__ospfv3__graceful-restart"
 ```

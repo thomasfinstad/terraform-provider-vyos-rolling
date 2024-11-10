@@ -63,5 +63,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_high_availability_vrrp.example "high_availability__vrrp"
+terraform import vyos_high_availability_vrrp.example "high-availability__vrrp"
 ```

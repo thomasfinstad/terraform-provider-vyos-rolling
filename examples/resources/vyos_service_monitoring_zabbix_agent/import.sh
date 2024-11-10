@@ -1,2 +1,2 @@
 
-terraform import vyos_service_monitoring_zabbix_agent.example "service__monitoring__zabbix_agent"
+terraform import vyos_service_monitoring_zabbix_agent.example "service__monitoring__zabbix-agent"

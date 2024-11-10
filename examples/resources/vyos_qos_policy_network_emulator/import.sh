@@ -1,2 +1,2 @@
 
-terraform import vyos_qos_policy_network_emulator.example "qos__policy__network_emulator__<network-emulator>"
+terraform import vyos_qos_policy_network_emulator.example "qos__policy__network-emulator__<network-emulator>"
