@@ -4,9 +4,12 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 9.0.202411070 (2024-11-07 08-11-32 UTC)](#release-90202411070-2024-11-07-08-11-32-utc)
+  - [Release 9.0.202411071 (2024-11-10 08-27-14 UTC)](#release-90202411071-2024-11-10-08-27-14-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
+  - [Release 9.0.202411070 (2024-11-07 08-11-32 UTC)](#release-90202411070-2024-11-07-08-11-32-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
       - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
@@ -16,6 +19,13 @@
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 9.0.202411071 (2024-11-10 08-27-14 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-11-07T00:05:48Z
+* fix error in import doc
 
 
 ## Release 9.0.202411070 (2024-11-07 08-11-32 UTC)
