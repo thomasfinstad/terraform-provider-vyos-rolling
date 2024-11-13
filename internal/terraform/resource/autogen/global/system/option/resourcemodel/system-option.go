@@ -31,7 +31,7 @@ type SystemOption struct {
 	// LeafNodes
 	LeafSystemOptionCtrlAltDelete           types.String `tfsdk:"ctrl_alt_delete" vyos:"ctrl-alt-delete,omitempty"`
 	LeafSystemOptionKeyboardLayout          types.String `tfsdk:"keyboard_layout" vyos:"keyboard-layout,omitempty"`
-	LeafSystemOptionPerformance             types.String `tfsdk:"performance" vyos:"performance,omitempty"`
+	LeafSystemOptionPerformance             types.List   `tfsdk:"performance" vyos:"performance,omitempty"`
 	LeafSystemOptionRebootOnPanic           types.Bool   `tfsdk:"reboot_on_panic" vyos:"reboot-on-panic,omitempty"`
 	LeafSystemOptionStartupBeep             types.Bool   `tfsdk:"startup_beep" vyos:"startup-beep,omitempty"`
 	LeafSystemOptionRootPartitionAutoResize types.Bool   `tfsdk:"root_partition_auto_resize" vyos:"root-partition-auto-resize,omitempty"`
@@ -178,23 +178,29 @@ func (o SystemOption) ResourceSchemaAttributes(ctx context.Context) map[string]s
 		},
 
 		"performance":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
+		schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Tune system performance
 
-    |  Format      |  Description                          |
-    |--------------|---------------------------------------|
-    |  throughput  |  Tune for maximum network throughput  |
-    |  latency     |  Tune for low network latency         |
+    |  Format              |  Description                                |
+    |----------------------|---------------------------------------------|
+    |  network-throughput  |  Tune for maximum network throughput        |
+    |  network-latency     |  Tune for low network latency               |
+    |  power-save          |  Tune for low power consumption             |
+    |  virtual-guest       |  Tune for running inside a virtual machine  |
+    |  virtual-host        |  Tune for running guest virtual machines    |
 `,
 			Description: `Tune system performance
 
-    |  Format      |  Description                          |
-    |--------------|---------------------------------------|
-    |  throughput  |  Tune for maximum network throughput  |
-    |  latency     |  Tune for low network latency         |
+    |  Format              |  Description                                |
+    |----------------------|---------------------------------------------|
+    |  network-throughput  |  Tune for maximum network throughput        |
+    |  network-latency     |  Tune for low network latency               |
+    |  power-save          |  Tune for low power consumption             |
+    |  virtual-guest       |  Tune for running inside a virtual machine  |
+    |  virtual-host        |  Tune for running guest virtual machines    |
 `,
 		},
 

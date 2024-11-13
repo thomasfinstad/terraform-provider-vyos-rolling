@@ -76,12 +76,15 @@ description: |-
     |  se-latin1  &emsp;|  Sweden          |
     |  dvorak     &emsp;|  Dvorak          |
 #### performance
-- `performance` (String) Tune system performance
+- `performance` (List of String) Tune system performance
 
-    |  Format      &emsp;|  Description                          |
-    |--------------|---------------------------------------|
-    |  throughput  &emsp;|  Tune for maximum network throughput  |
-    |  latency     &emsp;|  Tune for low network latency         |
+    |  Format              &emsp;|  Description                                |
+    |----------------------|---------------------------------------------|
+    |  network-throughput  &emsp;|  Tune for maximum network throughput        |
+    |  network-latency     &emsp;|  Tune for low network latency               |
+    |  power-save          &emsp;|  Tune for low power consumption             |
+    |  virtual-guest       &emsp;|  Tune for running inside a virtual machine  |
+    |  virtual-host        &emsp;|  Tune for running guest virtual machines    |
 #### reboot_on_panic
 - `reboot_on_panic` (Boolean) Reboot system on kernel panic
 #### root_partition_auto_resize

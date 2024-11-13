@@ -8728,26 +8728,49 @@ func system() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"(throughput|latency)"},
+									Regex: []string{"(network-throughput|network-latency|power-save|virtual-guest|virtual-host)"},
 								}},
 								ValueHelp: []*schemadefinition.ValueHelp{{
 									XMLName: xml.Name{
 										Local: "valueHelp",
 									},
-									Format:      "throughput",
+									Format:      "network-throughput",
 									Description: "Tune for maximum network throughput",
 								}, {
 									XMLName: xml.Name{
 										Local: "valueHelp",
 									},
-									Format:      "latency",
+									Format:      "network-latency",
 									Description: "Tune for low network latency",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "power-save",
+									Description: "Tune for low power consumption",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "virtual-guest",
+									Description: "Tune for running inside a virtual machine",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "virtual-host",
+									Description: "Tune for running guest virtual machines",
 								}},
 								CompletionHelp: []*schemadefinition.CompletionHelp{{
 									XMLName: xml.Name{
 										Local: "completionHelp",
 									},
-									List: []string{"throughput latency"},
+									List: []string{"network-throughput network-latency power-save virtual-host virtual-guest"},
+								}},
+								Multi: []*schemadefinition.Multi{{
+									XMLName: xml.Name{
+										Local: "multi",
+									},
 								}},
 							}},
 						}, {
