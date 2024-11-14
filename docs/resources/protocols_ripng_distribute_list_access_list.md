@@ -47,17 +47,17 @@ Filter networks in routing updates
 ### Optional
 
 #### in
-- `in` (Number) Access list to apply to input packets
+- `in` (String) Access list to apply to input packets
 
-    |  Format  &emsp;|  Description                            |
-    |----------|-----------------------------------------|
-    |  u32     &emsp;|  Access list to apply to input packets  |
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 access-list  |
 #### out
-- `out` (Number) Access list to apply to output packets
+- `out` (String) Access list to apply to output packets
 
-    |  Format  &emsp;|  Description                             |
-    |----------|------------------------------------------|
-    |  u32     &emsp;|  Access list to apply to output packets  |
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 access-list  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

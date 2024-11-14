@@ -28,8 +28,8 @@ type ProtocolsBabelDistributeListIPvsixAccessList struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafProtocolsBabelDistributeListIPvsixAccessListIn  types.Number `tfsdk:"in" vyos:"in,omitempty"`
-	LeafProtocolsBabelDistributeListIPvsixAccessListOut types.Number `tfsdk:"out" vyos:"out,omitempty"`
+	LeafProtocolsBabelDistributeListIPvsixAccessListIn  types.String `tfsdk:"in" vyos:"in,omitempty"`
+	LeafProtocolsBabelDistributeListIPvsixAccessListOut types.String `tfsdk:"out" vyos:"out,omitempty"`
 
 	// TagNodes
 
@@ -118,38 +118,38 @@ func (o ProtocolsBabelDistributeListIPvsixAccessList) ResourceSchemaAttributes(c
 		"in":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.NumberAttribute{
+		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Access list to apply to input packets
 
-    |  Format  |  Description                            |
-    |----------|-----------------------------------------|
-    |  u32     |  Access list to apply to input packets  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv6 access-list  |
 `,
 			Description: `Access list to apply to input packets
 
-    |  Format  |  Description                            |
-    |----------|-----------------------------------------|
-    |  u32     |  Access list to apply to input packets  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv6 access-list  |
 `,
 		},
 
 		"out":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.NumberAttribute{
+		schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Access list to apply to output packets
 
-    |  Format  |  Description                             |
-    |----------|------------------------------------------|
-    |  u32     |  Access list to apply to output packets  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv6 access-list  |
 `,
 			Description: `Access list to apply to output packets
 
-    |  Format  |  Description                             |
-    |----------|------------------------------------------|
-    |  u32     |  Access list to apply to output packets  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv6 access-list  |
 `,
 		},
 

@@ -35,7 +35,7 @@ Redistribute information from another routing protocol
       - [connected](#connected)
       - [isis](#isis)
       - [kernel](#kernel)
-      - [nhrp](#nhrp)
+      - [openfabric](#openfabric)
       - [ospfv3](#ospfv3)
       - [ripng](#ripng)
       - [static](#static)
@@ -53,21 +53,21 @@ Redistribute information from another routing protocol
 ### Optional
 
 #### bgp
-- `bgp` (Boolean) Redistribute BGP routes
+- `bgp` (Boolean) Border Gateway Protocol (BGP)
 #### connected
-- `connected` (Boolean) Redistribute connected routes
+- `connected` (Boolean) Connected routes (directly attached subnet or host)
 #### isis
-- `isis` (Boolean) Redistribute IS-IS routes
+- `isis` (Boolean) Intermediate System to Intermediate System (IS-IS)
 #### kernel
-- `kernel` (Boolean) Redistribute kernel routes
-#### nhrp
-- `nhrp` (Boolean) Redistribute NHRP routes
+- `kernel` (Boolean) Redistribute Kernel routes (not installed via the zebra RIB)
+#### openfabric
+- `openfabric` (Boolean) OpenFabric Routing Protocol
 #### ospfv3
-- `ospfv3` (Boolean) Redistribute OSPFv3 routes
+- `ospfv3` (Boolean) Open Shortest Path First (IPv6) (OSPFv3)
 #### ripng
-- `ripng` (Boolean) Redistribute RIPng routes
+- `ripng` (Boolean) Routing Information Protocol next-generation (IPv6) (RIPng)
 #### static
-- `static` (Boolean) Redistribute static routes
+- `static` (Boolean) Statically configured routes
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

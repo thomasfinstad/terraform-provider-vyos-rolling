@@ -214,7 +214,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute BGP routes"},
+												Help: []string{"Border Gateway Protocol (BGP)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -231,24 +231,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute connected routes"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "eigrp",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Redistribute EIGRP routes"},
+												Help: []string{"Connected routes (directly attached subnet or host)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -265,7 +248,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute IS-IS routes"},
+												Help: []string{"Intermediate System to Intermediate System (IS-IS)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -282,7 +265,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute kernel routes"},
+												Help: []string{"Redistribute Kernel routes (not installed via the zebra RIB)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -294,12 +277,29 @@ func protocols() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
-											NodeNameAttr: "nhrp",
+											NodeNameAttr: "openfabric",
 											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute NHRP routes"},
+												Help: []string{"OpenFabric Routing Protocol"},
+												Valueless: []*schemadefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "static",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Statically configured routes"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -340,23 +340,6 @@ func protocols() schemadefinition.InterfaceDefinition {
 													},
 												}},
 											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "static",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Redistribute static routes"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
 										}},
 									}},
 								}, {
@@ -385,7 +368,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute BGP routes"},
+												Help: []string{"Border Gateway Protocol (BGP)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -402,7 +385,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute connected routes"},
+												Help: []string{"Connected routes (directly attached subnet or host)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -419,7 +402,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute IS-IS routes"},
+												Help: []string{"Intermediate System to Intermediate System (IS-IS)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -436,7 +419,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute kernel routes"},
+												Help: []string{"Redistribute Kernel routes (not installed via the zebra RIB)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -448,46 +431,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
-											NodeNameAttr: "nhrp",
+											NodeNameAttr: "openfabric",
 											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute NHRP routes"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "ospfv3",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Redistribute OSPFv3 routes"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "ripng",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Redistribute RIPng routes"},
+												Help: []string{"OpenFabric Routing Protocol"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -504,7 +453,41 @@ func protocols() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Redistribute static routes"},
+												Help: []string{"Statically configured routes"},
+												Valueless: []*schemadefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "ospfv3",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Open Shortest Path First (IPv6) (OSPFv3)"},
+												Valueless: []*schemadefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "ripng",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Routing Information Protocol next-generation (IPv6) (RIPng)"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -956,24 +939,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 															Local: "properties",
 														},
 														Help: []string{"Access list to apply to input packets"},
-														Constraint: []*schemadefinition.Constraint{{
-															XMLName: xml.Name{
-																Local: "constraint",
-															},
-															Validator: []*schemadefinition.Validator{{
-																XMLName: xml.Name{
-																	Local: "validator",
-																},
-																NameAttr:     "numeric",
-																ArgumentAttr: "--range 0-4294967295",
-															}},
-														}},
 														ValueHelp: []*schemadefinition.ValueHelp{{
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "u32",
-															Description: "Access list to apply to input packets",
+															Format:      "txt",
+															Description: "Name of IPv6 access-list",
 														}},
 														CompletionHelp: []*schemadefinition.CompletionHelp{{
 															XMLName: xml.Name{
@@ -993,24 +964,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 															Local: "properties",
 														},
 														Help: []string{"Access list to apply to output packets"},
-														Constraint: []*schemadefinition.Constraint{{
-															XMLName: xml.Name{
-																Local: "constraint",
-															},
-															Validator: []*schemadefinition.Validator{{
-																XMLName: xml.Name{
-																	Local: "validator",
-																},
-																NameAttr:     "numeric",
-																ArgumentAttr: "--range 0-4294967295",
-															}},
-														}},
 														ValueHelp: []*schemadefinition.ValueHelp{{
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "u32",
-															Description: "Access list to apply to output packets",
+															Format:      "txt",
+															Description: "Name of IPv6 access-list",
 														}},
 														CompletionHelp: []*schemadefinition.CompletionHelp{{
 															XMLName: xml.Name{
@@ -1158,24 +1117,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 																	Local: "properties",
 																},
 																Help: []string{"Access list to apply to input packets"},
-																Constraint: []*schemadefinition.Constraint{{
-																	XMLName: xml.Name{
-																		Local: "constraint",
-																	},
-																	Validator: []*schemadefinition.Validator{{
-																		XMLName: xml.Name{
-																			Local: "validator",
-																		},
-																		NameAttr:     "numeric",
-																		ArgumentAttr: "--range 0-4294967295",
-																	}},
-																}},
 																ValueHelp: []*schemadefinition.ValueHelp{{
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "u32",
-																	Description: "Access list to apply to input packets",
+																	Format:      "txt",
+																	Description: "Name of IPv6 access-list",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
@@ -1195,24 +1142,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 																	Local: "properties",
 																},
 																Help: []string{"Access list to apply to output packets"},
-																Constraint: []*schemadefinition.Constraint{{
-																	XMLName: xml.Name{
-																		Local: "constraint",
-																	},
-																	Validator: []*schemadefinition.Validator{{
-																		XMLName: xml.Name{
-																			Local: "validator",
-																		},
-																		NameAttr:     "numeric",
-																		ArgumentAttr: "--range 0-4294967295",
-																	}},
-																}},
 																ValueHelp: []*schemadefinition.ValueHelp{{
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "u32",
-																	Description: "Access list to apply to output packets",
+																	Format:      "txt",
+																	Description: "Name of IPv6 access-list",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
@@ -47488,24 +47423,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 													Local: "properties",
 												},
 												Help: []string{"Access list to apply to input packets"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Validator: []*schemadefinition.Validator{{
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr:     "numeric",
-														ArgumentAttr: "--range 0-4294967295",
-													}},
-												}},
 												ValueHelp: []*schemadefinition.ValueHelp{{
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "u32",
-													Description: "Access list to apply to input packets",
+													Format:      "txt",
+													Description: "Name of IPv6 access-list",
 												}},
 												CompletionHelp: []*schemadefinition.CompletionHelp{{
 													XMLName: xml.Name{
@@ -47525,24 +47448,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 													Local: "properties",
 												},
 												Help: []string{"Access list to apply to output packets"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Validator: []*schemadefinition.Validator{{
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr:     "numeric",
-														ArgumentAttr: "--range 0-4294967295",
-													}},
-												}},
 												ValueHelp: []*schemadefinition.ValueHelp{{
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "u32",
-													Description: "Access list to apply to output packets",
+													Format:      "txt",
+													Description: "Name of IPv6 access-list",
 												}},
 												CompletionHelp: []*schemadefinition.CompletionHelp{{
 													XMLName: xml.Name{
@@ -47690,24 +47601,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 															Local: "properties",
 														},
 														Help: []string{"Access list to apply to input packets"},
-														Constraint: []*schemadefinition.Constraint{{
-															XMLName: xml.Name{
-																Local: "constraint",
-															},
-															Validator: []*schemadefinition.Validator{{
-																XMLName: xml.Name{
-																	Local: "validator",
-																},
-																NameAttr:     "numeric",
-																ArgumentAttr: "--range 0-4294967295",
-															}},
-														}},
 														ValueHelp: []*schemadefinition.ValueHelp{{
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "u32",
-															Description: "Access list to apply to input packets",
+															Format:      "txt",
+															Description: "Name of IPv6 access-list",
 														}},
 														CompletionHelp: []*schemadefinition.CompletionHelp{{
 															XMLName: xml.Name{
@@ -47727,24 +47626,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 															Local: "properties",
 														},
 														Help: []string{"Access list to apply to output packets"},
-														Constraint: []*schemadefinition.Constraint{{
-															XMLName: xml.Name{
-																Local: "constraint",
-															},
-															Validator: []*schemadefinition.Validator{{
-																XMLName: xml.Name{
-																	Local: "validator",
-																},
-																NameAttr:     "numeric",
-																ArgumentAttr: "--range 0-4294967295",
-															}},
-														}},
 														ValueHelp: []*schemadefinition.ValueHelp{{
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "u32",
-															Description: "Access list to apply to output packets",
+															Format:      "txt",
+															Description: "Name of IPv6 access-list",
 														}},
 														CompletionHelp: []*schemadefinition.CompletionHelp{{
 															XMLName: xml.Name{

@@ -33,10 +33,10 @@ type ProtocolsBabelRedistributeIPvsix struct {
 	LeafProtocolsBabelRedistributeIPvsixConnected  types.Bool `tfsdk:"connected" vyos:"connected,omitempty"`
 	LeafProtocolsBabelRedistributeIPvsixIsis       types.Bool `tfsdk:"isis" vyos:"isis,omitempty"`
 	LeafProtocolsBabelRedistributeIPvsixKernel     types.Bool `tfsdk:"kernel" vyos:"kernel,omitempty"`
-	LeafProtocolsBabelRedistributeIPvsixNhrp       types.Bool `tfsdk:"nhrp" vyos:"nhrp,omitempty"`
+	LeafProtocolsBabelRedistributeIPvsixOpenfabric types.Bool `tfsdk:"openfabric" vyos:"openfabric,omitempty"`
+	LeafProtocolsBabelRedistributeIPvsixStatic     types.Bool `tfsdk:"static" vyos:"static,omitempty"`
 	LeafProtocolsBabelRedistributeIPvsixOspfvthree types.Bool `tfsdk:"ospfv3" vyos:"ospfv3,omitempty"`
 	LeafProtocolsBabelRedistributeIPvsixRIPng      types.Bool `tfsdk:"ripng" vyos:"ripng,omitempty"`
-	LeafProtocolsBabelRedistributeIPvsixStatic     types.Bool `tfsdk:"static" vyos:"static,omitempty"`
 
 	// TagNodes
 
@@ -121,10 +121,10 @@ func (o ProtocolsBabelRedistributeIPvsix) ResourceSchemaAttributes(ctx context.C
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Redistribute BGP routes
+			MarkdownDescription: `Border Gateway Protocol (BGP)
 
 `,
-			Description: `Redistribute BGP routes
+			Description: `Border Gateway Protocol (BGP)
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -136,10 +136,10 @@ func (o ProtocolsBabelRedistributeIPvsix) ResourceSchemaAttributes(ctx context.C
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Redistribute connected routes
+			MarkdownDescription: `Connected routes (directly attached subnet or host)
 
 `,
-			Description: `Redistribute connected routes
+			Description: `Connected routes (directly attached subnet or host)
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -151,10 +151,10 @@ func (o ProtocolsBabelRedistributeIPvsix) ResourceSchemaAttributes(ctx context.C
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Redistribute IS-IS routes
+			MarkdownDescription: `Intermediate System to Intermediate System (IS-IS)
 
 `,
-			Description: `Redistribute IS-IS routes
+			Description: `Intermediate System to Intermediate System (IS-IS)
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -166,55 +166,25 @@ func (o ProtocolsBabelRedistributeIPvsix) ResourceSchemaAttributes(ctx context.C
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Redistribute kernel routes
+			MarkdownDescription: `Redistribute Kernel routes (not installed via the zebra RIB)
 
 `,
-			Description: `Redistribute kernel routes
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
-		},
-
-		"nhrp":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Redistribute NHRP routes
-
-`,
-			Description: `Redistribute NHRP routes
+			Description: `Redistribute Kernel routes (not installed via the zebra RIB)
 
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
 
-		"ospfv3":
+		"openfabric":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Redistribute OSPFv3 routes
+			MarkdownDescription: `OpenFabric Routing Protocol
 
 `,
-			Description: `Redistribute OSPFv3 routes
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
-		},
-
-		"ripng":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Redistribute RIPng routes
-
-`,
-			Description: `Redistribute RIPng routes
+			Description: `OpenFabric Routing Protocol
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -226,10 +196,40 @@ func (o ProtocolsBabelRedistributeIPvsix) ResourceSchemaAttributes(ctx context.C
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Redistribute static routes
+			MarkdownDescription: `Statically configured routes
 
 `,
-			Description: `Redistribute static routes
+			Description: `Statically configured routes
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"ospfv3":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Open Shortest Path First (IPv6) (OSPFv3)
+
+`,
+			Description: `Open Shortest Path First (IPv6) (OSPFv3)
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"ripng":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Routing Information Protocol next-generation (IPv6) (RIPng)
+
+`,
+			Description: `Routing Information Protocol next-generation (IPv6) (RIPng)
 
 `,
 			Default:  booldefault.StaticBool(false),

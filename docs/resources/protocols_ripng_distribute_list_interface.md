@@ -83,16 +83,16 @@ Required:
 
 Optional:
 
-- `in` (Number) Access list to apply to input packets
+- `in` (String) Access list to apply to input packets
 
-    |  Format  &emsp;|  Description                            |
-    |----------|-----------------------------------------|
-    |  u32     &emsp;|  Access list to apply to input packets  |
-- `out` (Number) Access list to apply to output packets
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 access-list  |
+- `out` (String) Access list to apply to output packets
 
-    |  Format  &emsp;|  Description                             |
-    |----------|------------------------------------------|
-    |  u32     &emsp;|  Access list to apply to output packets  |
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 access-list  |
 
 
 <a id="nestedatt--prefix_list"></a>
