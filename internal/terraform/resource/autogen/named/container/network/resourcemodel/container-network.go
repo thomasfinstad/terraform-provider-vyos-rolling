@@ -39,6 +39,7 @@ type ContainerNetwork struct {
 
 	// LeafNodes
 	LeafContainerNetworkDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
+	LeafContainerNetworkMtu          types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafContainerNetworkPrefix       types.List   `tfsdk:"prefix" vyos:"prefix,omitempty"`
 	LeafContainerNetworkNoNameServer types.Bool   `tfsdk:"no_name_server" vyos:"no-name-server,omitempty"`
 	LeafContainerNetworkVrf          types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
@@ -163,6 +164,25 @@ func (o ContainerNetwork) ResourceSchemaAttributes(ctx context.Context) map[stri
     |  Format  |  Description  |
     |----------|---------------|
     |  txt     |  Description  |
+`,
+		},
+
+		"mtu":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Maximum Transmission Unit (MTU)
+
+    |  Format    |  Description                        |
+    |------------|-------------------------------------|
+    |  68-16000  |  Maximum Transmission Unit in byte  |
+`,
+			Description: `Maximum Transmission Unit (MTU)
+
+    |  Format    |  Description                        |
+    |------------|-------------------------------------|
+    |  68-16000  |  Maximum Transmission Unit in byte  |
 `,
 		},
 
