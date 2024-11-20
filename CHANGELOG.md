@@ -4,17 +4,43 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 10.0.202411130 (2024-11-14 08-31-32 UTC)](#release-100202411130-2024-11-14-08-31-32-utc)
+  - [Release 10.1.202411200 (2024-11-20 08-32-44 UTC)](#release-101202411200-2024-11-20-08-32-44-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
     - [Schema changes](#schema-changes)
-      - [BREAKING CHANGES](#breaking-changes)
+      - [Features](#features)
         - [Resources](#resources)
+  - [Release 10.0.202411130 (2024-11-14 08-31-32 UTC)](#release-100202411130-2024-11-14-08-31-32-utc)
+    - [Project changes](#project-changes-1)
       - [Notes](#notes-1)
+    - [Schema changes](#schema-changes-1)
+      - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources-1)
+      - [Notes](#notes-2)
+        - [Resources](#resources-2)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 10.1.202411200 (2024-11-20 08-32-44 UTC)
+### Project changes
+#### Notes
+* update to rolling release 2024-11-20T00:06:06Z
+
+### Schema changes
+#### Features
+
+##### Resources
+* Modified Resource `vyos_container_network`
+	* New attribute `mtu`
+
+
+
+
+
+
+
 
 
 ## Release 10.0.202411130 (2024-11-14 08-31-32 UTC)
