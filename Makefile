@@ -59,7 +59,7 @@ data/vyos-1x-info.txt:
 	echo Make data/vyos-1x-info.txt
 
 	mkdir -p data || true
-	-mkdir -p .build || true
+	mkdir -p .build || true
 
 	curl -L \
 		-H "Accept: application/vnd.github+json" \
@@ -385,7 +385,13 @@ docs/index.md: \
 		'.provider_schemas.vyos=.provider_schemas[$$old_name] | del(.provider_schemas[$$old_name])' \
 		examples/provider/.tmp/provider-schema.json \
 		> examples/provider/.tmp/provider-schema-modified.json
-	tfplugindocs generate --provider-name "vyos" --providers-schema "examples/provider/.tmp/provider-schema-modified.json" --rendered-provider-name vyos
+
+	tfplugindocs generate \
+		--provider-name "vyos" \
+		--providers-schema "examples/provider/.tmp/provider-schema-modified.json" \
+		--rendered-provider-name vyos \
+		| grep -v '^rendering "resources/.*\.md\.tmpl"$$' \
+		| grep -v 'resource ".*" fallback template exists, creating template'
 
 	###
 	echo Reverse html escaping for known parts that should stay as html code
@@ -405,13 +411,13 @@ docs/index.md: \
 	echo Turn top level attributes into headers
 	sed -r -i '/## Schema/,/### Nested Schema for/s/- `([A-Za-z0-9_]+)`/#### \1\n- `\1`/' docs/resources/*.md
 
-	echo Add TOC etc
-	pre-commit run --files docs/* docs/resources/* || git add docs/
+	echo Enforce formatting of doc files
+	(pre-commit run --files docs/* docs/resources/* || true) | grep -v '^Fixing docs/.*\.md$$'
 
-.PHONY: version
-version:
+.PHONY: changelog
+changelog:
 	@echo -e "\n\n###########################################################################"
-	echo Make version
+	echo Make changelog
 
 	echo Verify that there are no unstaged changes
 	if [ -n "$$(git status -s | head)" ]; then
@@ -476,11 +482,16 @@ version:
 		cat .build/old-CHANGELOG.md | sed -n '/^##/,$$p' >> CHANGELOG.md
 	fi
 
+.PHONY: prepare-git-for-release
+prepare-git-for-release: changelog
+	@echo -e "\n\n###########################################################################"
+	echo Make prepare-git-for-release
+
 	echo Stage files in git
-	git add -A
+	git add -v -A | sed 's|/.*$$|/|' | uniq -c | sort -n | column -t
 
 	echo Run pre-commit and stage any changed files
-	pre-commit run || git add -A
+	pre-commit run || git add -v -A | sed 's|/.*$$|/|' | uniq -c | sort -n | column -t
 
 	echo Commit meta files for release to git
 	git commit -m "chore: Prepare for release v$$(cat VERSION)"
@@ -503,7 +514,7 @@ ci-update:
 	make --always-make data/vyos-1x-info.txt
 	if ! git diff --exit-code --stat "data/vyos-1x-info.txt"; then
 		echo "Detected new rolling release: $$(cat data/vyos-1x-info.txt)"
-		git add "data/vyos-1x-info.txt"
+		git add -v "data/vyos-1x-info.txt"
 	fi
 
 	echo Generate files
@@ -523,17 +534,20 @@ ci-update:
 
 	if [ -n "$$(git status -s)" ]; then
 		echo "Changes detected:"
-		git status --short | sed 's|/.*$$|/|' | uniq -c | sort -n
+		git status --short | sed 's|/.*$$|/|' | uniq -c | sort -n | column -t
 
-		echo Stage changed files to git
-		git add -A
+		echo Stage changed files to git:
+		git add -v -A | sed 's|/.*$$|/|' | uniq -c | sort -n | column -t
 
 		echo Commit files updated by CI
 		git commit -m "ci: update to rolling release $$(cat data/vyos-1x-info.txt)"
 	fi
 
-	echo Version the new changes
-	make version
+	echo Generate changelog
+	make changelog
+
+	echo Add changes to git
+	make prepare-git-for-release
 
 	echo Run clean target to free up space before goreleaser runs
 	make clean

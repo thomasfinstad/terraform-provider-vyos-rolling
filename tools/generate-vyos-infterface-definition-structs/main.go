@@ -34,7 +34,7 @@ func main() {
 		panic("Could not get path info")
 	}
 
-	slog.SetLogLoggerLevel(slog.LevelInfo)
+	slog.SetLogLoggerLevel(slog.LevelWarn)
 
 	topLevelInterfaces := make([]schemadefinition.InterfaceDefinition, 0)
 
