@@ -16,15 +16,15 @@ $(info PROVIDER_DIR: ${PROVIDER_DIR})
 default: plan
 
 $(PROVIDER_DIR):
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make $(PROVIDER_DIR)
 
 	cd ../..
 	rm build || true
 	make build
 
-init: $(PROVIDER_DIR) $(shell find ${PROVIDER_DIR} -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
-	@echo -e "\n\n###########################################################################"
+init: $(PROVIDER_DIR) $(shell find ${PROVIDER_DIR} -type f) $(shell find . -not \( -path ./.tmp -prune \) -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make init
 
 	rm -rf .terraform .terraform.lock.hcl || true
@@ -33,8 +33,8 @@ init: $(PROVIDER_DIR) $(shell find ${PROVIDER_DIR} -type f) $(shell find . -type
 	# Cache timestamp
 	date > init
 
-validate: init $(shell find . -type f -name "*.tf")
-	@echo -e "\n\n###########################################################################"
+validate: init $(shell find . -not \( -path ./.tmp -prune \) -type f -name "*.tf")
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make validate
 
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log tofu validate
@@ -50,8 +50,8 @@ ifeq (plan,$(firstword $(MAKECMDGOALS)))
   # ...and turn them into do-nothing targets
   $(eval $(DYN_ARGS):;@:)
 endif
-plan: validate $(shell find . -type f -name "*.tf") .tmp/container
-	@echo -e "\n\n###########################################################################"
+plan: validate $(shell find . -not \( -path ./.tmp -prune \) -type f -name "*.tf") .tmp/container
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make plan
 
 	rm -fv trace.log || true
@@ -66,7 +66,7 @@ ifeq (apply,$(firstword $(MAKECMDGOALS)))
   $(eval $(DYN_ARGS):;@:)
 endif
 apply: plan
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make apply
 
 	rm -fv trace.log || true
@@ -86,7 +86,7 @@ ifeq (destroy,$(firstword $(MAKECMDGOALS)))
   $(eval $(DYN_ARGS):;@:)
 endif
 destroy: init
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make destroy
 
 	rm -fv trace.log || true
@@ -97,7 +97,7 @@ destroy: init
 
 .PHONY: clean
 clean: destroy
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make clean
 
 	set +e
@@ -108,15 +108,15 @@ clean: destroy
 	rm -fv trace.log
 	# keeping the iso file to reduce redundant downloads
 	sudo rm -rf .tmp/filesystem.squashfs
-	docker stop vyos
+	sudo docker stop vyos-container
 	sudo rm -f .tmp/container
 	sleep 2
-	docker rmi -f $$(docker images -a -q vyos)
+	sudo docker rmi -f $$(sudo docker images -a -q vyos-local)
 	sudo rm -f .tmp/container-img
 
 .PHONY: test
 test:
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make test
 
 	echo ""
@@ -127,7 +127,7 @@ test:
 
 .PHONY: why
 why:
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make why
 
 	make -nd apply \
@@ -155,16 +155,14 @@ why:
 # 	workaround: don't!
 
 .tmp/provider-schema.json: init
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make .tmp/provider-schema.json
 	mkdir -p .tmp/
 	tofu providers schema -json | jq '.' > .tmp/provider-schema.json
 
 .tmp/vyos.iso: ../../data/vyos-1x-info.txt
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make .tmp/vyos.iso
-
-	set -x
 
 	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
 
@@ -191,7 +189,7 @@ why:
 	touch .tmp/vyos.iso
 
 .tmp/filesystem.squashfs: .tmp/vyos.iso
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make .tmp/filesystem.squashfs
 	mkdir -p .tmp/
 	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
@@ -202,7 +200,7 @@ why:
 	touch filesystem.squashfs
 
 .tmp/container-img: .tmp/filesystem.squashfs
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make .tmp/vyos-unsquashfs
 	mkdir -p .tmp/
 
@@ -214,38 +212,61 @@ why:
 
 	sudo unsquashfs -f -d "vyos-unsquashfs" -excludes filesystem.squashfs /dev
 	sudo touch vyos-unsquashfs
-	sudo tar -C vyos-unsquashfs -c . | docker import - "vyos:$${build_date}"
-	docker tag "vyos:$${build_date}" vyos:latest
-	touch container-img
+	sudo tar -C vyos-unsquashfs -c . | sudo docker import - "vyos-local:$${build_date}"
+	sudo docker tag "vyos-local:$${build_date}" vyos-local:latest
+	date > container-img
 	sudo rm -rf vyos-unsquashfs
 
 
 .tmp/container: .tmp/container-img assets/container-setup-api.vbash
-	@echo -e "\n\n###########################################################################"
+	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make .tmp/container
 	mkdir -p .tmp/
 
 	build_date="$$(sed -n 's/T.*$$//p' "../../data/vyos-1x-info.txt")"
 
-	set -x
-
-	until [ -z "$$(docker ps -f "name=vyos" -q)" ]; do
-		docker stop vyos
+	until [ -z "$$(sudo docker ps -f 'name=^vyos-container$$' -q)" ]; do
+		sudo docker stop vyos-container
 		sleep 5
 	done
 
-	bash -c "touch .tmp/container; docker run --rm --name vyos --privileged --network=bridge -p 8443:443 "vyos:latest" /sbin/init; rm -f .tmp/container" &
-	sleep 5
+	sudo docker rm vyos-container || true
 
-	s=5; for i in {1..5}; do [ -n "$$(docker ps -f "name=vyos" -q)" ] && s=0 && break || s=$$? && sleep 5; done; [ $$s -eq 0 ]
+	sudo docker run --rm --name vyos-container --privileged -p 8443:443 --hostname localhost -t -d "vyos-local:$${build_date}" /sbin/init
 
-	set +x
+	date > .tmp/container
 
-	docker cp assets/container-setup-api.vbash vyos:/container-setup-api.vbash
-	docker exec -t vyos chmod +x /container-setup-api.vbash
-	docker exec -t vyos /container-setup-api.vbash
+	for i in {1..999}; do
+		echo "Waiting for container config service to come up..."
+		if sudo docker exec vyos-container systemctl is-active vyos-configd.service; then
+			break
+		elif [ $$i -eq 25 ]; then
+			echo "container config service not started" >&2
+			exit 1
+		else
+			sleep 5
+		fi
+	done
 
-	#vyos_ip="$$(docker exec -t vyos ip -4 --color=never --brief address show dev eth0 | sed -r 's|^eth0[^0-9]+([.0-9]+)/.*$$|\1|')"
-	vyos_ip="$$(docker inspect --format json --type container vyos | jq -r '.[].NetworkSettings.IPAddress')"
+	bash -c 'while [ -n "$$(sudo docker ps -f "name=^vyos-container$$" -q)" ]; do sleep 5; done; rm .tmp/container' &
 
-	echo -ne "X\n$${vyos_ip}  vyos.local" | sudo tee -a /etc/hosts
+	sudo docker cp assets/container-setup-api.vbash vyos-container:/container-setup-api.vbash
+	sudo docker exec -t vyos-container chmod +x /container-setup-api.vbash
+	sudo docker exec -t vyos-container /container-setup-api.vbash
+
+	for i in {1..999}; do
+		echo "Waiting for container api service to come up..."
+		if sudo docker exec vyos-container systemctl is-active vyos-http-api.service; then
+			break
+		elif [ $$i -eq 25 ]; then
+			echo "container api service not started" >&2
+			exit 1
+		else
+			sleep 5
+		fi
+	done
+
+	vyos_ip="$$(sudo docker inspect --format json --type container vyos-container | jq -r '.[].NetworkSettings.IPAddress')"
+
+	echo "Adding vyos container to hosts -> $${vyos_ip}  vyos.local"
+	echo -ne "X\n$${vyos_ip}  vyos.local" | sudo tee -a /etc/hosts >/dev/null

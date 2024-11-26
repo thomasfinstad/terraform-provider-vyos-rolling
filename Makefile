@@ -276,8 +276,8 @@ generate: internal/terraform/resource/autogen/package.go
 # If the first argument is "test"...
 # Example usage: make test -- -test.run TestPolicyAccessListEmptyResponseFromApi
 test: generate \
-		$(shell find . -type f -name "*_test.go"  -not \( -path "*/.build/*" \) ) \
-		$(shell find . -type f -name "*.go" -not \( -path "*autogen*" -or -path "*/.build/*" -or -path "*/tools/*" \) )
+		$(shell find . -not \( -path "*/.build/*" \) -not \( -path ./examples/provider/.tmp -prune \) -type f -name "*_test.go" ) \
+		$(shell find . -not \( -path "*autogen*" -or -path "*/.build/*" -or -path "*/tools/*" \) -not \( -path ./examples/provider/.tmp -prune \) -type f -name "*.go" )
 
 	@echo -e "\n\n###########################################################################"
 	echo Make test
@@ -287,7 +287,7 @@ test: generate \
 	# The end result is that to be able to test retry functionality we will need a bit of head room,
 	# so 30s timeout should be enough for all tests combined.
 
-	go test -count=1 -failfast -timeout 30s $(shell find . -type f -name "*_test.go" -exec dirname {} \; | sort -u) $(INPUT_ARGS)
+	go test -count=1 -failfast -timeout 30s $(shell find . -not \( -path ./examples/provider/.tmp -prune \) -type f -name "*_test.go" -exec dirname {} \; | sort -u) $(INPUT_ARGS)
 
 	# Caching timestamp
 	date > test

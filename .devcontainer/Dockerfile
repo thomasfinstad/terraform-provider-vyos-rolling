@@ -29,7 +29,6 @@ RUN apt-get install -y \
     xorriso \
     squashfs-tools
 
-
 ENV DEBIAN_FRONTEND=""
 
 ###
