@@ -75,8 +75,6 @@ func (c SchemaChange) Description(parentAddress ...string) (descriptionLines []s
 
 	// remove empty entries
 	parentAddress = slices.DeleteFunc(parentAddress, func(e string) bool { return e == "" })
-	fmt.Printf("\n%#v\n", parentAddress)
-	fmt.Printf("%#v\n", c)
 
 	switch c.ChangeTo {
 	case SchemaChangeToProvider:

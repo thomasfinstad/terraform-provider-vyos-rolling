@@ -497,7 +497,7 @@ changelog:
 	fi
 
 .PHONY: prepare-git-for-release
-prepare-git-for-release: changelog
+prepare-git-for-release:
 	@echo -e "\n\n###########################################################################"
 	echo Make prepare-git-for-release
 
