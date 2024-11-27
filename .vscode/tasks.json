@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Makefile: provider-schema",
+			"type": "shell",
+			"command": "make",
+			"args": [
+				"provider-schema"
+			],
+			"problemMatcher": [
+				"$go"
+			],
+			"group": "test"
+		}
+	]
+}

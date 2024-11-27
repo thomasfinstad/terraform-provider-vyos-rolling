@@ -357,6 +357,34 @@ build-all: test
 	# Caching timestamp
 	date > build-all
 
+.PHONY: provider-schema
+provider-schema:
+	@echo -e "\n\n###########################################################################"
+	echo Make provider-schema
+
+	mkdir -p .build
+
+	echo use provider to generate schema
+	[ ! -e examples/provider/.tmp/provider-schema.json ] || rm examples/provider/.tmp/provider-schema.json
+	cd examples/provider
+	make .tmp/provider-schema.json
+	cd $(ROOT_DIR)
+
+	echo move new schema to build dir
+	[ ! -e ".build/new-provider-schema.json" ] || rm -rf ".build/new-provider-schema.json"
+	mv examples/provider/.tmp/provider-schema.json .build/new-provider-schema.json
+
+	echo create copy with clean provider name
+	old_name="$$(cat .build/new-provider-schema.json | jq -r '.provider_schemas | keys | .[0]')"
+	jq \
+		--arg old_name "$$old_name" \
+		'.provider_schemas.vyos=.provider_schemas[$$old_name] | del(.provider_schemas[$$old_name])' \
+		.build/new-provider-schema.json \
+		> .build/renamed-provider-schema.json
+
+	echo Copy old schema to build dir
+	git show "$$(git tag | sort -V | tail -n1)":data/provider-schema.json > .build/old-provider-schema.json
+
 docs/index.md: \
 				build \
 				internal/terraform/resource/autogen/package.go \
@@ -364,37 +392,27 @@ docs/index.md: \
 	@echo -e "\n\n###########################################################################"
 	echo Make docs/index.md
 
-	# Prep dirs
+	echo prep dirs
 	[ ! -e "docs/" ] || rm -rf "docs/"
 	[ ! -e "./examples/resources/" ] || find ./examples/resources/ -name import.sh -execdir bash -c 'rm {}; rmdir --ignore-fail-on-non-empty -p $$PWD' \;
 
-	# Generate import docs
+	echo generate import docs
 	go run ./tools/generate-import-docs/ examples/resources/
 
-	#
-	echo Generate provider json schema
-	[ ! -e examples/provider/.tmp/provider-schema.json ] || rm examples/provider/.tmp/provider-schema.json
-	cd examples/provider
-	make .tmp/provider-schema.json
-	cd $(ROOT_DIR)
+	echo generate provider schemas
+	make provider-schema
 
 	# Create docs
-	old_name="$$(cat examples/provider/.tmp/provider-schema.json | jq -r '.provider_schemas | keys | .[0]')"
-	jq \
-		--arg old_name "$$old_name" \
-		'.provider_schemas.vyos=.provider_schemas[$$old_name] | del(.provider_schemas[$$old_name])' \
-		examples/provider/.tmp/provider-schema.json \
-		> examples/provider/.tmp/provider-schema-modified.json
-
 	tfplugindocs generate \
 		--provider-name "vyos" \
-		--providers-schema "examples/provider/.tmp/provider-schema-modified.json" \
+		--providers-schema ".build/renamed-provider-schema.json" \
 		--rendered-provider-name vyos \
 		| grep -v '^rendering "resources/.*\.md\.tmpl"$$' \
 		| grep -v 'resource ".*" fallback template exists, creating template'
 
+
 	###
-	echo Reverse html escaping for known parts that should stay as html code
+	# Reverse html escaping for known parts that should stay as html code
 
 	echo Fix comments
 	sed -r -i 's/&lt;!-- (.*) --&gt;/<!-- \1 -->/' docs/resources/*.md
@@ -428,12 +446,8 @@ changelog:
 
 	mkdir -p ".build" || true
 
-	echo Generate provider json schema
-	cd examples/provider
-	[ ! -e "../../.build/new-provider-schema.json" ] || rm -rf "../../.build/new-provider-schema.json"
-	make .tmp/provider-schema.json
-	cp .tmp/provider-schema.json ../../.build/new-provider-schema.json
-	cd $(ROOT_DIR)
+	echo generate provider schemas
+	make provider-schema
 
 	echo Last 5 releases:
 	git tag -l | sort -V | tail -n5
@@ -456,7 +470,7 @@ changelog:
 	echo "Old version: $$prev_version"
 	echo "New version: $$new_version"
 
-	echo Overwrite old json schema with new
+	echo Store new provider schema
 	mv .build/new-provider-schema.json data/provider-schema.json
 
 	echo Check if previous MAJOR version is different than the new/current one

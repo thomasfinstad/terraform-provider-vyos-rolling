@@ -72,7 +72,7 @@ func main() {
 	oldProvider := oldProvidersSchema.Schemas[providerName]
 	newProvider := newProvidersSchema.Schemas[providerName]
 
-	providerDiff := ProviderSchemaChanges(oldProvider, newProvider)
+	schemaChanges := GetSchemaChanges(oldProvider, newProvider)
 
 	if DEBUG { // Dump the diff struct
 		f, err := os.Create("../../.build/changelog-diff.go")
@@ -81,7 +81,7 @@ func main() {
 		f.WriteString(`package tmp
 		import "github.com/thomasfinstad/terraform-provider-vyos-rolling/tools/generate-changelog"
 		var _ = `)
-		_, err = f.WriteString(AddLineBreaks(render.AsCode(providerDiff)))
+		_, err = f.WriteString(AddLineBreaks(render.AsCode(schemaChanges)))
 		die(err)
 	}
 
@@ -92,7 +92,7 @@ func main() {
 		f.WriteString("# CHG log\n")
 
 		var desc []string
-		for _, d := range providerDiff {
+		for _, d := range schemaChanges {
 			desc = append(desc, d.Description([]string{}...)...)
 		}
 		descs := strings.Join(desc, "\n")
@@ -100,7 +100,7 @@ func main() {
 		die(err)
 	}
 
-	changeLog.addSc(providerDiff)
+	changeLog.addSc(schemaChanges)
 
 	t, err := template.New("changelog-template").ParseFiles("CHANGELOG.md.gotmpl")
 	die(err)

@@ -5,6 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch generate-changelog",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "preLaunchTask": "Makefile: provider-schema",
+            "program": "${workspaceFolder}/tools/generate-changelog",
+            "args": [
+                "${workspaceFolder}/.build/old-provider-schema.json",
+                "${workspaceFolder}/.build/new-provider-schema.json",
+            ],
+        },
+        {
             "name": "Run Current File",
             "type": "go",
             "request": "launch",
@@ -16,11 +28,11 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "tools/generate-vyos-infterface-definition-structs",
+            "program": "${workspaceFolder}/tools/generate-vyos-infterface-definition-structs",
             "args": [
-                "../../.build/interface-definitions/",
-                "../../internal/vyos/vyosinterfaces",
-                "vyosinterface"
+                "${workspaceFolder}/.build/interface-definitions/",
+                "${workspaceFolder}/internal/vyos/vyosinterfaces",
+                "${workspaceFolder}/vyosinterface"
             ]
         },
         {
@@ -28,9 +40,9 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "tools/generate-terraform-resource-full/main.go",
+            "program": "${workspaceFolder}/tools/generate-terraform-resource-full/main.go",
             "args": [
-                "../../internal/terraform/resource/autogen",
+                "${workspaceFolder}/internal/terraform/resource/autogen",
                 "github.com/thomasfinstad/terraform-provider-vyos-rolling",
                 "system/conntrack-timeout-custom-rule"
             ]

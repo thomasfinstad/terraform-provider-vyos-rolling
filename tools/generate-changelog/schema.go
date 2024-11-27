@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	tfjson "github.com/hashicorp/terraform-json"
-	"github.com/zclconf/go-cty/cty"
 	"golang.org/x/exp/maps"
 )
 
@@ -74,12 +73,15 @@ func (c SchemaChange) EffectiveChangeSeverity() SchemaChangeSeverityInt {
 
 func (c SchemaChange) Description(parentAddress ...string) (descriptionLines []string) {
 
+	// remove empty entries
 	parentAddress = slices.DeleteFunc(parentAddress, func(e string) bool { return e == "" })
+	fmt.Printf("\n%#v\n", parentAddress)
+	fmt.Printf("%#v\n", c)
 
 	switch c.ChangeTo {
 	case SchemaChangeToProvider:
 		for _, s := range c.SubChanges {
-			descriptionLines = append(descriptionLines, fmt.Sprintf("%s", s.Description(parentAddress...)))
+			descriptionLines = append(descriptionLines, fmt.Sprintf("%s", s.Description()))
 		}
 		return descriptionLines
 	case SchemaChangeToResource:
@@ -91,33 +93,17 @@ func (c SchemaChange) Description(parentAddress ...string) (descriptionLines []s
 			descriptionLines = append(descriptionLines, fmt.Sprintf("* **Removed Resource** `%s`", c.Address))
 			return descriptionLines
 		case SchemaChangeOperationSub:
-			// desc := c.SubChanges[0].Description(parentAddress)
-			// if c.SubChanges.Count() == 1 { // Converge to 1 line if only 1 subchange
-			// 	descriptionLines = append(descriptionLines, fmt.Sprintf("* Modified Resource `%s` %s", c.Address, strings.Join(, " ")))
-			// 	return descriptionLines
-			// }
-
 			descriptionLines = append(descriptionLines, fmt.Sprintf("* Modified Resource `%s`", c.Address))
-			for _, s := range c.SubChanges {
-				for _, l := range s.Description(parentAddress...) {
-					descriptionLines = append(descriptionLines, fmt.Sprintf("\t%s", l))
+			for _, subChg := range c.SubChanges {
+				for _, line := range subChg.Description() {
+					descriptionLines = append(descriptionLines, fmt.Sprintf("\t%s", line))
 				}
 			}
 			return descriptionLines
 		default:
 			log.Fatalf("Unknown resource ChangeOperation type: %#v", c)
 		}
-	// case ChangeToDataSource:
-	// if c.SubChanges.Count() == 0 {
-	// 	descriptionLines = fmt.Sprintf("* Data Source `%s` has been %s", c.Address, c.Operation)
-	// } else if c.SubChanges.Count() == 1 {
-	// 	descriptionLines = fmt.Sprintf("* Data Source `%s` has changed %s", c.Address, c.SubChanges[0].Description())
-	// } else {
-	// 	descriptionLines = fmt.Sprintf("* Data Source `%s` has the following changes:\n", c.Address)
-	// 	for _, s := range c.SubChanges {
-	// 		descriptionLines += fmt.Sprintf("\t%s\n", s.Description())
-	// 	}
-	// }
+
 	case SchemaChangeToAttribute:
 		switch c.Operation {
 
@@ -128,16 +114,17 @@ func (c SchemaChange) Description(parentAddress ...string) (descriptionLines []s
 			descriptionLines = []string{fmt.Sprintf("* **Removed attribute** `%s`", strings.Join(append(parentAddress, c.Address), "."))}
 			return descriptionLines
 		case SchemaChangeOperationChg:
-			descriptionLines = []string{fmt.Sprintf("* Modified attribute `%s` %s", strings.Trim(strings.Join(append(parentAddress, c.Address), "."), "."), c.CustomMsg)}
+			descriptionLines = []string{fmt.Sprintf("* %s", c.CustomMsg)}
 			return descriptionLines
 		case SchemaChangeOperationSub:
 			if c.SubChanges.Count() == 1 {
 				descriptionLines = append(descriptionLines, c.SubChanges[0].Description(append(parentAddress, c.Address)...)...)
 			} else {
-				descriptionLines = []string{fmt.Sprintf("* Modified attributes under: `%s` %s", strings.Join(append(parentAddress, c.Address), "."), c.CustomMsg)}
-				for _, s := range c.SubChanges {
-					for _, l := range s.Description([]string{}...) {
-						descriptionLines = append(descriptionLines, fmt.Sprintf("\t%s", l))
+				parentAddress = append(parentAddress, c.Address)
+				descriptionLines = []string{fmt.Sprintf("* Modified attribute `%s` %s", strings.Join(parentAddress, "."), c.CustomMsg)}
+				for _, subChg := range c.SubChanges {
+					for _, line := range subChg.Description(append(parentAddress, subChg.Address)...) {
+						descriptionLines = append(descriptionLines, fmt.Sprintf("\t%s", line))
 					}
 				}
 			}
@@ -215,7 +202,7 @@ func (p ProviderSchemas) ProviderNames() []string {
 	return maps.Keys[map[string]*tfjson.ProviderSchema](p.Schemas)
 }
 
-func ProviderSchemaChanges(old, new *tfjson.ProviderSchema) (changes SchemaChanges) {
+func GetSchemaChanges(old, new *tfjson.ProviderSchema) (changes SchemaChanges) {
 	//-----
 	// Provider config
 	changes.Add(GenerateSchemaChanges(old.ConfigSchema, new.ConfigSchema)...)
@@ -260,40 +247,8 @@ func ProviderSchemaChanges(old, new *tfjson.ProviderSchema) (changes SchemaChang
 
 	//-----
 	// Data sources
-	for k, v := range old.DataSourceSchemas {
-		// Deleted data source
-		if _, ok := new.DataSourceSchemas[k]; !ok {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToDataSource,
-				Operation:      SchemaChangeOperationDel,
-				ChangeSeverity: SchemaChangeSeverityBreaking,
-				Address:        k,
-			})
-			continue
-		}
-
-		// Changed data source
-		if chg := GenerateSchemaChanges(v, new.DataSourceSchemas[k]); chg.TotalCount() > 0 {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToDataSource,
-				Operation:      SchemaChangeOperationSub,
-				ChangeSeverity: SchemaChangeSeverityNote,
-				Address:        k,
-				SubChanges:     chg,
-			})
-		}
-	}
-
-	// Added data source
-	for k := range new.DataSourceSchemas {
-		if _, ok := old.DataSourceSchemas[k]; !ok {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToDataSource,
-				Operation:      SchemaChangeOperationAdd,
-				ChangeSeverity: SchemaChangeSeverityFeature,
-				Address:        k,
-			})
-		}
+	if len(old.DataSourceSchemas) > 0 || len(new.DataSourceSchemas) > 0 {
+		log.Fatal("Changelog generation does not support data sources yet")
 	}
 
 	return changes
@@ -355,94 +310,102 @@ func SchemaBlockChanges(old, new *tfjson.SchemaBlock) (changes SchemaChanges) {
 
 func SchemaAttributeChanges(old, new *tfjson.SchemaAttribute) (changes SchemaChanges) {
 	if old.AttributeType != new.AttributeType {
-		if new.AttributeType != (cty.Type{}) {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToAttribute,
-				Operation:      SchemaChangeOperationAdd,
-				ChangeSeverity: SchemaChangeSeverityEnhancement,
-				CustomMsg:      "type changed to " + new.AttributeType.GoString(),
-			})
-		} else {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToAttribute,
-				Operation:      SchemaChangeOperationDel,
-				ChangeSeverity: SchemaChangeSeverityBreaking,
-				CustomMsg:      "type information removed",
-			})
+		oNested := (old.AttributeNestedType != nil)
+		nNested := (new.AttributeNestedType != nil)
+
+		// Terraform usually is fairly good at automatically converting between scalar types
+		// but if the attribute was or has become a nested type it is for sure a breaking change
+		s := SchemaChangeSeverityEnhancement
+		if oNested || nNested {
+			s = SchemaChangeSeverityBreaking
 		}
+
+		msg := fmt.Sprintf("type changed to `%s`", new.AttributeType.FriendlyName())
+		if nNested {
+			msg = "changed to `nested` attribute"
+		}
+
+		changes.Add(SchemaChange{
+			ChangeTo:       SchemaChangeToAttribute,
+			Operation:      SchemaChangeOperationChg,
+			ChangeSeverity: s,
+			CustomMsg:      msg,
+		})
 	}
 
-	// AttributeNestedType
-	if !reflect.DeepEqual(old.AttributeNestedType, new.AttributeNestedType) {
-		//--------
-		// Attributes
-		for k, v := range old.AttributeNestedType.Attributes {
-			// Deleted attrs
-			if _, ok := new.AttributeNestedType.Attributes[k]; !ok {
+	// AttributeNestedType: sub changes if both old and new are nested types
+	if old.AttributeNestedType != nil && new.AttributeNestedType != nil {
+		if !reflect.DeepEqual(old.AttributeNestedType, new.AttributeNestedType) {
+			//--------
+			// Attributes
+			for k, v := range old.AttributeNestedType.Attributes {
+				// Deleted attrs
+				if _, ok := new.AttributeNestedType.Attributes[k]; !ok {
+					changes.Add(SchemaChange{
+						ChangeTo:       SchemaChangeToAttribute,
+						Operation:      SchemaChangeOperationDel,
+						ChangeSeverity: SchemaChangeSeverityBreaking,
+						Address:        k,
+					})
+					continue
+				}
+
+				// Changed attrs
+				attrChanges := SchemaAttributeChanges(v, new.AttributeNestedType.Attributes[k])
+				if attrChanges.TotalCount() > 0 {
+					changes.Add(SchemaChange{
+						ChangeTo:       SchemaChangeToAttribute,
+						Operation:      SchemaChangeOperationSub,
+						ChangeSeverity: SchemaChangeSeverityNote,
+						Address:        k,
+						SubChanges:     attrChanges,
+					})
+				}
+			}
+
+			// Added attrs
+			for k := range new.AttributeNestedType.Attributes {
+				if _, ok := old.AttributeNestedType.Attributes[k]; !ok {
+					changes.Add(SchemaChange{
+						ChangeTo:       SchemaChangeToAttribute,
+						Operation:      SchemaChangeOperationAdd,
+						ChangeSeverity: SchemaChangeSeverityFeature,
+						Address:        k,
+					})
+				}
+			}
+			//--------
+			// Nesting mode
+			if old.AttributeNestedType.NestingMode != new.AttributeNestedType.NestingMode {
 				changes.Add(SchemaChange{
 					ChangeTo:       SchemaChangeToAttribute,
-					Operation:      SchemaChangeOperationDel,
+					Operation:      SchemaChangeOperationChg,
 					ChangeSeverity: SchemaChangeSeverityBreaking,
-					Address:        k,
+					CustomMsg:      fmt.Sprintf("nested mode changed to `%s`", string(new.AttributeNestedType.NestingMode)),
 				})
-				continue
 			}
 
-			// Changed attrs
-			attrChanges := SchemaAttributeChanges(v, new.AttributeNestedType.Attributes[k])
-			if attrChanges.TotalCount() > 0 {
+			//--------
+			// Min items
+			if old.AttributeNestedType.MinItems != new.AttributeNestedType.MinItems {
 				changes.Add(SchemaChange{
 					ChangeTo:       SchemaChangeToAttribute,
-					Operation:      SchemaChangeOperationSub,
-					ChangeSeverity: SchemaChangeSeverityNote,
-					Address:        k,
-					SubChanges:     attrChanges,
+					Operation:      SchemaChangeOperationChg,
+					ChangeSeverity: SchemaChangeSeverityBreaking,
+					CustomMsg:      fmt.Sprintf("minimum count changed to `%d`", new.AttributeNestedType.MinItems),
 				})
 			}
-		}
 
-		// Added attrs
-		for k := range new.AttributeNestedType.Attributes {
-			if _, ok := old.AttributeNestedType.Attributes[k]; !ok {
+			//--------
+			// Max items
+			if old.AttributeNestedType.MaxItems != new.AttributeNestedType.MaxItems {
 				changes.Add(SchemaChange{
 					ChangeTo:       SchemaChangeToAttribute,
-					Operation:      SchemaChangeOperationAdd,
-					ChangeSeverity: SchemaChangeSeverityFeature,
-					Address:        k,
+					Operation:      SchemaChangeOperationChg,
+					ChangeSeverity: SchemaChangeSeverityEnhancement,
+					CustomMsg:      fmt.Sprintf("maximum count changed to `%d`", new.AttributeNestedType.MaxItems),
 				})
 			}
-		}
-		//--------
-		// Nesting mode
-		if old.AttributeNestedType.NestingMode != new.AttributeNestedType.NestingMode {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToAttribute,
-				Operation:      SchemaChangeOperationChg,
-				ChangeSeverity: SchemaChangeSeverityBreaking,
-				CustomMsg:      "nested attribute mode changed to " + string(new.AttributeNestedType.NestingMode),
-			})
-		}
-
-		//--------
-		// Min items
-		if old.AttributeNestedType.MinItems != new.AttributeNestedType.MinItems {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToAttribute,
-				Operation:      SchemaChangeOperationAdd,
-				ChangeSeverity: SchemaChangeSeverityEnhancement,
-				CustomMsg:      "minimum count changed to",
-			})
-		}
-
-		//--------
-		// Max items
-		if old.AttributeNestedType.MaxItems != new.AttributeNestedType.MaxItems {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToAttribute,
-				Operation:      SchemaChangeOperationAdd,
-				ChangeSeverity: SchemaChangeSeverityEnhancement,
-				CustomMsg:      "maximum count changed to",
-			})
 		}
 	}
 
@@ -458,19 +421,20 @@ func SchemaAttributeChanges(old, new *tfjson.SchemaAttribute) (changes SchemaCha
 		changes.Add(SchemaChange{
 			ChangeTo:       SchemaChangeToAttribute,
 			Operation:      op,
-			ChangeSeverity: SchemaChangeSeverityEnhancement,
-			CustomMsg:      "changed description",
+			ChangeSeverity: SchemaChangeSeverityFix,
+			CustomMsg:      fmt.Sprintf("%s `description`", strings.ToLower(string(op))),
 		})
 	}
 
-	if old.DescriptionKind != new.DescriptionKind {
-		changes.Add(SchemaChange{
-			ChangeTo:       SchemaChangeToAttribute,
-			Operation:      SchemaChangeOperationChg,
-			ChangeSeverity: SchemaChangeSeverityEnhancement,
-			CustomMsg:      "description kind changed to " + string(new.DescriptionKind),
-		})
-	}
+	// Does not seem interesting for the changelog
+	// if old.DescriptionKind != new.DescriptionKind {
+	// 	changes.Add(SchemaChange{
+	// 		ChangeTo:       SchemaChangeToAttribute,
+	// 		Operation:      SchemaChangeOperationChg,
+	// 		ChangeSeverity: SchemaChangeSeverityEnhancement,
+	// 		CustomMsg:      fmt.Sprintf("description kind changed to: `%s`", string(new.DescriptionKind)),
+	// 	})
+	// }
 
 	if old.Deprecated != new.Deprecated && new.Deprecated {
 		changes.Add(SchemaChange{
@@ -487,51 +451,37 @@ func SchemaAttributeChanges(old, new *tfjson.SchemaAttribute) (changes SchemaCha
 				ChangeTo:       SchemaChangeToAttribute,
 				Operation:      SchemaChangeOperationAdd,
 				ChangeSeverity: SchemaChangeSeverityBreaking,
-				CustomMsg:      "is new required",
-			})
-
-		} else {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToAttribute,
-				Operation:      SchemaChangeOperationDel,
-				ChangeSeverity: SchemaChangeSeverityFix,
-				CustomMsg:      "is no longer required",
+				CustomMsg:      "is now required",
 			})
 		}
 	}
 
 	if old.Optional != new.Optional {
-		if old.Optional {
+		if new.Optional {
 			changes.Add(SchemaChange{
 				ChangeTo:       SchemaChangeToAttribute,
 				Operation:      SchemaChangeOperationDel,
-				ChangeSeverity: SchemaChangeSeverityBreaking,
-				CustomMsg:      "is no longer optional",
-			})
-		} else {
-			changes.Add(SchemaChange{
-				ChangeTo:       SchemaChangeToAttribute,
-				Operation:      SchemaChangeOperationDel,
-				ChangeSeverity: SchemaChangeSeverityEnhancement,
+				ChangeSeverity: SchemaChangeSeverityFix,
 				CustomMsg:      "is now optional",
 			})
 		}
 	}
 
-	if old.Computed != new.Computed {
-		changes.Add(SchemaChange{
-			ChangeTo:       SchemaChangeToAttribute,
-			Operation:      SchemaChangeOperationChg,
-			ChangeSeverity: SchemaChangeSeverityEnhancement,
-			Address:        "changed computed status of attribute",
-		})
-	}
+	// This does not seem important enough to add to the changelog
+	// if old.Computed != new.Computed {
+	// 	changes.Add(SchemaChange{
+	// 		ChangeTo:       SchemaChangeToAttribute,
+	// 		Operation:      SchemaChangeOperationChg,
+	// 		ChangeSeverity: SchemaChangeSeverityFix,
+	// 		Address:        "changed computed status of attribute",
+	// 	})
+	// }
 
 	if old.Sensitive != new.Sensitive {
 		changes.Add(SchemaChange{
 			ChangeTo:       SchemaChangeToAttribute,
 			Operation:      SchemaChangeOperationChg,
-			ChangeSeverity: SchemaChangeSeverityEnhancement,
+			ChangeSeverity: SchemaChangeSeverityFix,
 			CustomMsg:      "changed sensitive status of attribute",
 		})
 	}
