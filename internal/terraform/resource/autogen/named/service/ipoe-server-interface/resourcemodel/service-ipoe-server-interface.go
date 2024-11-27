@@ -41,6 +41,7 @@ type ServiceIPoeServerInterface struct {
 	LeafServiceIPoeServerInterfaceMode         types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafServiceIPoeServerInterfaceNetwork      types.String `tfsdk:"network" vyos:"network,omitempty"`
 	LeafServiceIPoeServerInterfaceClientSubnet types.String `tfsdk:"client_subnet" vyos:"client-subnet,omitempty"`
+	LeafServiceIPoeServerInterfaceLuaUsername  types.String `tfsdk:"lua_username" vyos:"lua-username,omitempty"`
 	LeafServiceIPoeServerInterfaceVlan         types.List   `tfsdk:"vlan" vyos:"vlan,omitempty"`
 	LeafServiceIPoeServerInterfaceVlanMon      types.Bool   `tfsdk:"vlan_mon" vyos:"vlan-mon,omitempty"`
 
@@ -222,6 +223,25 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
     |  Format   |  Description                     |
     |-----------|----------------------------------|
     |  ipv4net  |  IPv4 address and prefix length  |
+`,
+		},
+
+		"lua_username":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Username function
+
+    |  Format  |  Description                                                       |
+    |----------|--------------------------------------------------------------------|
+    |  txt     |  Name of the function in the Lua file to construct usernames with  |
+`,
+			Description: `Username function
+
+    |  Format  |  Description                                                       |
+    |----------|--------------------------------------------------------------------|
+    |  txt     |  Name of the function in the Lua file to construct usernames with  |
 `,
 		},
 

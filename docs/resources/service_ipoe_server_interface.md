@@ -31,6 +31,7 @@ Internet Protocol over Ethernet (IPoE) Server
     - [Optional](#optional)
       - [client_subnet](#client_subnet)
       - [external_dhcp](#external_dhcp)
+      - [lua_username](#lua_username)
       - [mode](#mode)
       - [network](#network)
       - [timeouts](#timeouts)
@@ -63,6 +64,12 @@ Internet Protocol over Ethernet (IPoE) Server
     |  ipv4net  &emsp;|  IPv4 address and prefix length  |
 #### external_dhcp
 - `external_dhcp` (Attributes) DHCP requests will be forwarded (see [below for nested schema](#nestedatt--external_dhcp))
+#### lua_username
+- `lua_username` (String) Username function
+
+    |  Format  &emsp;|  Description                                                       |
+    |----------|--------------------------------------------------------------------|
+    |  txt     &emsp;|  Name of the function in the Lua file to construct usernames with  |
 #### mode
 - `mode` (String) Client connectivity mode
 
