@@ -4,9 +4,12 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 11.0.202411270 (2024-11-27 23-56-46 UTC)](#release-110202411270-2024-11-27-23-56-46-utc)
+  - [Release 11.0.202411271 (2024-11-28 08-33-49 UTC)](#release-110202411271-2024-11-28-08-33-49-utc)
     - [Project changes](#project-changes)
       - [Notes](#notes)
+  - [Release 11.0.202411270 (2024-11-27 23-56-46 UTC)](#release-110202411270-2024-11-27-23-56-46-utc)
+    - [Project changes](#project-changes-1)
+      - [Notes](#notes-1)
       - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
@@ -16,6 +19,12 @@
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 11.0.202411271 (2024-11-28 08-33-49 UTC)
+### Project changes
+#### Notes
+* improved schema based changelog output
 
 
 ## Release 11.0.202411270 (2024-11-27 23-56-46 UTC)
