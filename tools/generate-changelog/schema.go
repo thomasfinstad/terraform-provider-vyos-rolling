@@ -29,6 +29,13 @@ const (
 	SchemaChangeOperationSub SchemaChangeOperation = "<sub>"
 )
 
+var schemaChangeOperationDescriptionSorter = map[SchemaChangeOperation]int{
+	SchemaChangeOperationSub: 1,
+	SchemaChangeOperationAdd: 2,
+	SchemaChangeOperationChg: 3,
+	SchemaChangeOperationDel: 4,
+}
+
 type SchemaChangeSeverityInt int
 
 const (
@@ -76,6 +83,12 @@ func (c SchemaChange) Description(parentAddress ...string) (descriptionLines []s
 	// remove empty entries
 	parentAddress = slices.DeleteFunc(parentAddress, func(e string) bool { return e == "" })
 
+	slices.SortStableFunc(c.SubChanges, func(a, b SchemaChange) int {
+		r := schemaChangeOperationDescriptionSorter[a.Operation] - schemaChangeOperationDescriptionSorter[b.Operation]
+		fmt.Println(a.Operation, schemaChangeOperationDescriptionSorter[a.Operation], b.Operation, schemaChangeOperationDescriptionSorter[b.Operation], r)
+		return r
+	})
+
 	switch c.ChangeTo {
 	case SchemaChangeToProvider:
 		for _, s := range c.SubChanges {
@@ -115,8 +128,12 @@ func (c SchemaChange) Description(parentAddress ...string) (descriptionLines []s
 			descriptionLines = []string{fmt.Sprintf("* %s", c.CustomMsg)}
 			return descriptionLines
 		case SchemaChangeOperationSub:
-			if c.SubChanges.Count() == 1 {
-				descriptionLines = append(descriptionLines, c.SubChanges[0].Description(append(parentAddress, c.Address)...)...)
+			if c.SubChanges.TotalCount() == 1 {
+				desc := c.SubChanges[0].Description(append(parentAddress, c.Address)...)[0]
+				if c.Address != "" {
+					desc = strings.Replace(desc, "* ", fmt.Sprintf("* Attribute `%s`", c.Address), 1)
+				}
+				descriptionLines = append(descriptionLines, desc)
 			} else {
 				parentAddress = append(parentAddress, c.Address)
 				descriptionLines = []string{fmt.Sprintf("* Modified attribute `%s` %s", strings.Join(parentAddress, "."), c.CustomMsg)}
