@@ -22,10 +22,6 @@ import (
 //	[][]string{[]string{"firewall", "ipv4", "forward", "filter", "default-log"}, []string{"firewall", "ipv4", "forward", "filter", "default-action", "reject"}}
 func GenerateVyosOps(ctx context.Context, vyosPath []string, vyosData map[string]interface{}) [][]string {
 	tools.Trace(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
-	tools.Debug(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
-	tools.Info(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
-	tools.Warn(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
-	tools.Error(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
 	vyosOps := iron(ctx, vyosPath, vyosData)
 	tools.Trace(ctx, "GenerateVyosOps return", map[string]interface{}{"vyosOps": vyosOps})
 	return vyosOps

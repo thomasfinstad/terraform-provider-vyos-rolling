@@ -37,6 +37,12 @@ var MergeBaseNodeOverrides = []MergeBaseNodeOverride{
 		from: []string{"service", "ntp"},
 		to:   []string{"allow-client", "address"},
 	},
+
+	// service, dhcp-server
+	{
+		from: []string{"service", "dhcp-server", "shared-network-name"},
+		to:   []string{"subnet", "range"},
+	},
 }
 
 type MergeBaseNodeOverride struct {

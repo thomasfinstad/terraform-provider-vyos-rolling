@@ -1,4 +1,4 @@
-# Ref: https://github.com/crate-ci/typos/blob/master/docs/reference.md
+# Ref: https://github.com/crate-ci/typos/blob/master    /docs/reference.md
 [default]
 extend-ignore-re = [
     # Random data does not play well with a spell checker
@@ -14,10 +14,17 @@ extend-exclude = [
     "go.mod",
     "go.sum",
     "data/*",
+    "examples/resources/*/import.sh",
 ]
 
 [type.make]
 extend-ignore-re = [
     # Command parameters can trigger spell check
     "make.*",
+]
+
+[type.tf]
+extend-ignore-re = [
+    # Dummy interface wants to be "dumb"
+    "dum",
 ]

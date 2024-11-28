@@ -578,7 +578,7 @@ clean:
 	go clean -modcache
 	go clean -testcache
 	go clean -fuzzcache
-	rm -rf "${DIST_DIR}/*"
+	rm -rf "${DIST_DIR}"
 	rm -rf .build
 	rm generate
 	rm test

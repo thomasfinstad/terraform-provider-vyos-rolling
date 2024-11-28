@@ -1,5 +1,4 @@
 SHELL := bash
-# .SHELLFLAGS := -eu -x -o pipefail -c
 .SHELLFLAGS := -eu -o pipefail -c
 .ONESHELL:
 .DELETE_ON_ERROR:
@@ -23,7 +22,11 @@ $(PROVIDER_DIR):
 	rm build || true
 	make build
 
-init: $(PROVIDER_DIR) $(shell find ${PROVIDER_DIR} -type f) $(shell find . -not \( -path ./.tmp -prune \) -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
+init: \
+	$(PROVIDER_DIR) \
+	$(shell find ${PROVIDER_DIR} -type f) \
+	$(shell find . -not \( -path ./.tmp -prune \) -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
+
 	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make init
 
@@ -104,15 +107,15 @@ clean: destroy
 
 	rm init plan apply validate
 
-	rm -rf .terraform .terraform.lock.hcl
-	rm -fv trace.log
+	rm -rf .terraform .terraform.lock.hcl || true
+	rm -fv trace.log || true
 	# keeping the iso file to reduce redundant downloads
-	sudo rm -rf .tmp/filesystem.squashfs
-	sudo docker stop vyos-container
-	sudo rm -f .tmp/container
+	sudo rm -rf .tmp/filesystem.squashfs || true
+	sudo docker stop vyos-container || true
+	sudo rm -f .tmp/container || true
 	sleep 2
-	sudo docker rmi -f $$(sudo docker images -a -q vyos-local)
-	sudo rm -f .tmp/container-img
+	sudo docker rmi -f $$(sudo docker images -a -q vyos-local) || true
+	sudo rm -f .tmp/container-img || true
 
 .PHONY: test
 test:

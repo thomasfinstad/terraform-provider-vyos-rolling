@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"slices"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
@@ -13,56 +14,64 @@ import (
 // UnknownToNull
 // Takes in a Resource Data Model pointer and
 // recursively sets all unknown fields to null
-func UnknownToNull(ctx context.Context, m VyosResourceDataModel) {
-	t := reflect.ValueOf(m).Elem()
-	for idx := range t.NumField() {
-		f := t.Field(idx)
-		if f.Type().Implements(reflect.TypeOf((*attr.Value)(nil)).Elem()) {
-			v := f.Interface().(attr.Value)
-			if v.IsUnknown() {
-				switch v.(type) {
+func UnknownToNull(ctx context.Context, data VyosResourceDataModel) {
+	dataValueElem := reflect.ValueOf(data).Elem()
+	dataTypeElem := reflect.TypeOf(data).Elem()
+	tools.Trace(ctx, "checking for fields with unknown values", map[string]any{"value": data})
+	for idx := range dataValueElem.NumField() {
+		fieldValue := dataValueElem.Field(idx)
+		fieldName := dataTypeElem.Field(idx).Name
+		tools.Trace(ctx, "checking if field implements attr.Value interface", map[string]any{"field": fieldName})
+		if dataTypeElem.Field(idx).Tag.Get("tfsdk") == "-" {
+			continue
+		} else if (slices.Contains([]reflect.Kind{reflect.Ptr, reflect.Map, reflect.Array, reflect.Chan, reflect.Slice}, fieldValue.Kind())) && fieldValue.IsNil() {
+			continue
+		} else if fieldValue.Kind() == reflect.Map {
+			iter := fieldValue.MapRange()
+			for iter.Next() {
+				// k := iter.Key()
+				v := iter.Value()
+				UnknownToNull(ctx, v.Interface().(VyosResourceDataModel))
+			}
+		} else if fieldValue.Type().Implements(reflect.TypeOf((*VyosResourceDataModel)(nil)).Elem()) {
+			UnknownToNull(ctx, fieldValue.Interface().(VyosResourceDataModel))
+		} else if fieldValue.Type().Implements(reflect.TypeOf((*attr.Value)(nil)).Elem()) {
+			valueIface := fieldValue.Interface().(attr.Value)
+			tools.Trace(ctx, "checking if field value is unknown", map[string]any{"field": fieldName, "value": valueIface})
+			if valueIface.IsUnknown() {
+				tools.Debug(ctx, "field value is unknown", map[string]any{"field": fieldName})
+				switch valueIface.(type) {
 				case basetypes.BoolValue:
-					f.Set(reflect.ValueOf(basetypes.NewBoolNull()))
+					fieldValue.Set(reflect.ValueOf(basetypes.NewBoolNull()))
 				case basetypes.Float64Value:
-					f.Set(reflect.ValueOf(basetypes.NewFloat64Null()))
+					fieldValue.Set(reflect.ValueOf(basetypes.NewFloat64Null()))
 				case basetypes.Int64Value:
-					f.Set(reflect.ValueOf(basetypes.NewInt64Null()))
+					fieldValue.Set(reflect.ValueOf(basetypes.NewInt64Null()))
 				case basetypes.ListValue:
-					// tools.Error(ctx, "invalid code path, lists should be structs", map[string]interface{}{"value": v})
-					// panic("invalid code path, lists should be structs")
-
-					// f.Set(reflect.ValueOf(basetypes.NewListNull()))
-
-					attrType := v.Type(ctx)
+					attrType := valueIface.Type(ctx)
 					attrValue := attrType.ValueType(ctx)
-					// tftypesValue, err := attrValue.ToTerraformValue(ctx)
-					// if err != nil {
-					// 	panic(err)
-					// }
-					f.Set(reflect.ValueOf(attrValue.(basetypes.ListValue)))
+					fieldValue.Set(reflect.ValueOf(attrValue.(basetypes.ListValue)))
 				case basetypes.MapValue:
-					// f.Set(reflect.ValueOf(basetypes.NewMapNull()))
-					tools.Error(ctx, "invalid code path, maps should be structs", map[string]interface{}{"value": v})
+					tools.Error(ctx, "invalid code path, maps should be structs", map[string]interface{}{"value": valueIface})
 					panic("invalid code path, maps should be structs")
 				case basetypes.NumberValue:
-					f.Set(reflect.ValueOf(basetypes.NewNumberNull()))
+					fieldValue.Set(reflect.ValueOf(basetypes.NewNumberNull()))
 				case basetypes.ObjectValue:
-					tools.Error(ctx, "invalid code path, objects should be structs", map[string]interface{}{"value": v})
+					tools.Error(ctx, "invalid code path, objects should be structs", map[string]interface{}{"value": valueIface})
 					panic("invalid code path, objects should be structs")
-					// f.Set(reflect.ValueOf(basetypes.NewObjectNull()))
 				case basetypes.SetValue:
-					// f.Set(reflect.ValueOf(basetypes.NewSetNull()))
-					tools.Error(ctx, "invalid code path, sets should be structs", map[string]interface{}{"value": v})
+					tools.Error(ctx, "invalid code path, sets should be structs", map[string]interface{}{"value": valueIface})
 					panic("invalid code path, sets should be structs")
 				case basetypes.StringValue:
-					f.Set(reflect.ValueOf(basetypes.NewStringNull()))
+					fieldValue.Set(reflect.ValueOf(basetypes.NewStringNull()))
 				default:
-					tools.Error(ctx, "invalid code path, unhandled type", map[string]interface{}{"value": v})
-					panic(fmt.Sprintf("invalid code path, unhandled type: %t", v))
+					tools.Error(ctx, "invalid code path, unhandled type", map[string]interface{}{"value": valueIface})
+					panic(fmt.Sprintf("invalid code path, unhandled type: %t", valueIface))
 				}
 			}
-		} else if f.Type().Implements(reflect.TypeOf((*VyosResourceDataModel)(nil)).Elem()) && !f.IsNil() {
-			UnknownToNull(ctx, f.Interface().(VyosResourceDataModel))
+		} else {
+			tools.Error(ctx, "invalid code path, unhandled interface", map[string]interface{}{"interfaceType": dataTypeElem.Field(idx).Name, "interfaceKind": dataTypeElem.Field(idx).Type.Kind()})
+			panic(fmt.Sprintf("invalid code path, unhandled interface: %s of kind %s", dataTypeElem.Field(idx).Name, dataTypeElem.Field(idx).Type.Kind()))
 		}
 	}
 }
