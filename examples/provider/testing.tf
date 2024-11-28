@@ -51,7 +51,6 @@ resource "vyos_service_ntp" "this" {
   }
 }
 
-//////
 // Regression test for: https://github.com/thomasfinstad/terraform-provider-vyos-rolling/issues/224
 resource "vyos_interfaces_dummy" "issue224" {
   identifier = {
@@ -80,6 +79,38 @@ resource "vyos_service_dhcp_server_shared_network_name" "issue224" {
           stop  = "10.0.224.150"
         }
       }
+    }
+  }
+}
+
+// Merge vrrp testing
+
+resource "vyos_interfaces_dummy" "vrrp" {
+  identifier = {
+    dummy = "dum1"
+  }
+  address = ["10.0.1.1/24"]
+  ipv6 = {
+    address = {
+      no_default_link_local = true
+    }
+  }
+}
+
+resource "vyos_high_availability_vrrp_sync_group" "all" {
+  identifier = {
+    sync_group = "all"
+  }
+}
+
+resource "vyos_service_conntrack_sync" "this" {
+  interface = {
+    (vyos_interfaces_dummy.vrrp.identifier.dummy) = {}
+  }
+
+  failover_mechanism = {
+    vrrp = {
+      sync_group = vyos_high_availability_vrrp_sync_group.all.identifier.sync_group
     }
   }
 }

@@ -43,6 +43,16 @@ var MergeBaseNodeOverrides = []MergeBaseNodeOverride{
 		from: []string{"service", "dhcp-server", "shared-network-name"},
 		to:   []string{"subnet", "range"},
 	},
+
+	//service, conntrack-sync
+	{
+		from: []string{"service", "conntrack-sync"},
+		to:   []string{"failover-mechanism", "vrrp", "sync-group"},
+	},
+	{
+		from: []string{"service", "conntrack-sync"},
+		to:   []string{"interface"},
+	},
 }
 
 type MergeBaseNodeOverride struct {
