@@ -44,7 +44,7 @@ var MergeBaseNodeOverrides = []MergeBaseNodeOverride{
 		to:   []string{"subnet", "range"},
 	},
 
-	//service, conntrack-sync
+	// service, conntrack-sync
 	{
 		from: []string{"service", "conntrack-sync"},
 		to:   []string{"failover-mechanism", "vrrp", "sync-group"},

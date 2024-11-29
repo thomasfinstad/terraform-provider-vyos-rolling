@@ -32,7 +32,9 @@ description: |-
       - [disable_syslog](#disable_syslog)
       - [event_listen_queue_size](#event_listen_queue_size)
       - [expect_sync](#expect_sync)
+      - [failover_mechanism](#failover_mechanism)
       - [ignore_address](#ignore_address)
+      - [interface](#interface)
       - [listen_address](#listen_address)
       - [mcast_group](#mcast_group)
       - [startup_resync](#startup_resync)
@@ -40,6 +42,9 @@ description: |-
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
+    - [Nested Schema for `failover_mechanism`](#nested-schema-for-failover_mechanism)
+    - [Nested Schema for `failover_mechanism.vrrp`](#nested-schema-for-failover_mechanismvrrp)
+    - [Nested Schema for `interface`](#nested-schema-for-interface)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -73,6 +78,8 @@ description: |-
     |  u32     &emsp;|  Queue size in MB  |
 #### expect_sync
 - `expect_sync` (List of String) Protocol for which expect entries need to be synchronized
+#### failover_mechanism
+- `failover_mechanism` (Attributes) Failover mechanism to use for conntrack-sync (see [below for nested schema](#nestedatt--failover_mechanism))
 #### ignore_address
 - `ignore_address` (List of String) IP addresses for which local conntrack entries will not be synced
 
@@ -82,6 +89,8 @@ description: |-
     |  ipv4net  &emsp;|  IPv4 prefix to ignore   |
     |  ipv6     &emsp;|  IPv6 address to ignore  |
     |  ipv6net  &emsp;|  IPv6 prefix to ignore   |
+#### interface
+- `interface` (Attributes Map) Interface to use for syncing conntrack entries (see [below for nested schema](#nestedatt--interface))
 #### listen_address
 - `listen_address` (List of String) Local IPv4 addresses to listen on
 
@@ -105,6 +114,39 @@ description: |-
 
 #### id
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+<a id="nestedatt--failover_mechanism"></a>
+### Nested Schema for `failover_mechanism`
+
+Optional:
+
+- `vrrp` (Attributes) VRRP as failover-mechanism to use for conntrack-sync (see [below for nested schema](#nestedatt--failover_mechanism--vrrp))
+
+<a id="nestedatt--failover_mechanism--vrrp"></a>
+### Nested Schema for `failover_mechanism.vrrp`
+
+Optional:
+
+- `sync_group` (String) VRRP sync group
+
+
+
+<a id="nestedatt--interface"></a>
+### Nested Schema for `interface`
+
+Optional:
+
+- `peer` (String) IP address of the peer to send the UDP conntrack info too. This disable multicast.
+
+    |  Format  &emsp;|  Description                                    |
+    |----------|-------------------------------------------------|
+    |  ipv4    &emsp;|  IP address to listen for incoming connections  |
+- `port` (Number) Port number used by connection
+
+    |  Format   &emsp;|  Description      |
+    |-----------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
+
 
 <a id="nestedatt--timeouts"></a>
 ### Nested Schema for `timeouts`

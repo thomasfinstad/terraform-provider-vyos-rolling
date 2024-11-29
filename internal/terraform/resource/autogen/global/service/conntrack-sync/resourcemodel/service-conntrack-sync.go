@@ -42,11 +42,11 @@ type ServiceConntrackSync struct {
 
 	// TagNodes
 
-	ExistsTagServiceConntrackSyncInterface bool `tfsdk:"-" vyos:"interface,child"`
+	TagServiceConntrackSyncInterface map[string]*ServiceConntrackSyncInterface `tfsdk:"interface" vyos:"interface,omitempty"`
 
 	// Nodes
 
-	// Ignoring Node `ServiceConntrackSyncFailoverMechanism`.
+	NodeServiceConntrackSyncFailoverMechanism *ServiceConntrackSyncFailoverMechanism `tfsdk:"failover_mechanism" vyos:"failover-mechanism,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -303,7 +303,30 @@ func (o ServiceConntrackSync) ResourceSchemaAttributes(ctx context.Context) map[
 
 		// TagNodes
 
+		"interface": schema.MapNestedAttribute{
+			NestedObject: schema.NestedAttributeObject{
+				Attributes: ServiceConntrackSyncInterface{}.ResourceSchemaAttributes(ctx),
+			},
+			Optional: true,
+			MarkdownDescription: `Interface to use for syncing conntrack entries
+
+`,
+			Description: `Interface to use for syncing conntrack entries
+
+`,
+		},
+
 		// Nodes
 
+		"failover_mechanism": schema.SingleNestedAttribute{
+			Attributes: ServiceConntrackSyncFailoverMechanism{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Failover mechanism to use for conntrack-sync
+
+`,
+			Description: `Failover mechanism to use for conntrack-sync
+
+`,
+		},
 	}
 }

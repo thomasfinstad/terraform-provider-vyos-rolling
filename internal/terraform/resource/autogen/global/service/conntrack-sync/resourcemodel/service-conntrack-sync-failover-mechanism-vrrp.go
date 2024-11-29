@@ -7,6 +7,7 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
@@ -14,39 +15,41 @@ import (
 /* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
-var _ helpers.VyosResourceDataModel = &ServiceConntrackSyncFailoverMechanism{}
+var _ helpers.VyosResourceDataModel = &ServiceConntrackSyncFailoverMechanismVrrp{}
 
-// ServiceConntrackSyncFailoverMechanism describes the resource data model.
+// ServiceConntrackSyncFailoverMechanismVrrp describes the resource data model.
 // This is not a basenode!
 // Top level basenode type: `N/A`
-type ServiceConntrackSyncFailoverMechanism struct {
+type ServiceConntrackSyncFailoverMechanismVrrp struct {
 	// LeafNodes
+	LeafServiceConntrackSyncFailoverMechanismVrrpSyncGroup types.String `tfsdk:"sync_group" vyos:"sync-group,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-
-	NodeServiceConntrackSyncFailoverMechanismVrrp *ServiceConntrackSyncFailoverMechanismVrrp `tfsdk:"vrrp" vyos:"vrrp,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ServiceConntrackSyncFailoverMechanism) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o ServiceConntrackSyncFailoverMechanismVrrp) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		"sync_group":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `VRRP sync group
+
+`,
+			Description: `VRRP sync group
+
+`,
+		},
 
 		// TagNodes
 
 		// Nodes
 
-		"vrrp": schema.SingleNestedAttribute{
-			Attributes: ServiceConntrackSyncFailoverMechanismVrrp{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `VRRP as failover-mechanism to use for conntrack-sync
-
-`,
-			Description: `VRRP as failover-mechanism to use for conntrack-sync
-
-`,
-		},
 	}
 }

@@ -1,2 +1,0 @@
-
-terraform import vyos_service_conntrack_sync_failover_mechanism_vrrp.example "service__conntrack-sync__failover-mechanism__vrrp"

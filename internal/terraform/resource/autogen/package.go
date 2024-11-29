@@ -266,7 +266,6 @@ import (
 	globalserviceconfigsyncsectionservice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-section-service"
 	globalserviceconfigsyncsectionsystem "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/config-sync-section-system"
 	globalserviceconntracksync "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/conntrack-sync"
-	globalserviceconntracksyncfailovermechanismvrrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/conntrack-sync-failover-mechanism-vrrp"
 	globalservicedhcprelay "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-relay"
 	globalservicedhcprelayrelayoptions "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-relay-relay-options"
 	globalservicedhcpserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/dhcp-server"
@@ -781,13 +780,10 @@ import (
 	namedqostrafficmatchgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/traffic-match-group"
 	namedqostrafficmatchgroupmatch "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/traffic-match-group-match"
 	namedservicebroadcastrelayid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/broadcast-relay-id"
-	namedserviceconntracksyncinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/conntrack-sync-interface"
 	namedserviceconsoleserverdevice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/console-server-device"
 	namedservicedhcpserversharednetworkname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name"
 	namedservicedhcpserversharednetworknameoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-option-static-route"
-	namedservicedhcpserversharednetworknamesubnet "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet"
 	namedservicedhcpserversharednetworknamesubnetoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-option-static-route"
-	namedservicedhcpserversharednetworknamesubnetrange "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-range"
 	namedservicedhcpserversharednetworknamesubnetrangeoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-range-option-static-route"
 	namedservicedhcpserversharednetworknamesubnetstaticmapping "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-static-mapping"
 	namedservicedhcpserversharednetworknamesubnetstaticmappingoptionstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/dhcp-server-shared-network-name-subnet-static-mapping-option-static-route"
@@ -1251,7 +1247,6 @@ func GetResources() []func() resource.Resource {
 		globalserviceconfigsyncsectionservice.NewServiceConfigSyncSectionService,
 		globalserviceconfigsyncsectionsystem.NewServiceConfigSyncSectionSystem,
 		globalserviceconntracksync.NewServiceConntrackSync,
-		globalserviceconntracksyncfailovermechanismvrrp.NewServiceConntrackSyncFailoverMechanismVrrp,
 		globalservicedhcprelay.NewServiceDhcpRelay,
 		globalservicedhcprelayrelayoptions.NewServiceDhcpRelayRelayOptions,
 		globalservicedhcpserver.NewServiceDhcpServer,
@@ -1766,13 +1761,10 @@ func GetResources() []func() resource.Resource {
 		namedqostrafficmatchgroup.NewQosTrafficMatchGroup,
 		namedqostrafficmatchgroupmatch.NewQosTrafficMatchGroupMatch,
 		namedservicebroadcastrelayid.NewServiceBroadcastRelayID,
-		namedserviceconntracksyncinterface.NewServiceConntrackSyncInterface,
 		namedserviceconsoleserverdevice.NewServiceConsoleServerDevice,
 		namedservicedhcpserversharednetworkname.NewServiceDhcpServerSharedNetworkName,
 		namedservicedhcpserversharednetworknameoptionstaticroute.NewServiceDhcpServerSharedNetworkNameOptionStaticRoute,
-		namedservicedhcpserversharednetworknamesubnet.NewServiceDhcpServerSharedNetworkNameSubnet,
 		namedservicedhcpserversharednetworknamesubnetoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetOptionStaticRoute,
-		namedservicedhcpserversharednetworknamesubnetrange.NewServiceDhcpServerSharedNetworkNameSubnetRange,
 		namedservicedhcpserversharednetworknamesubnetrangeoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetRangeOptionStaticRoute,
 		namedservicedhcpserversharednetworknamesubnetstaticmapping.NewServiceDhcpServerSharedNetworkNameSubnetStaticMapping,
 		namedservicedhcpserversharednetworknamesubnetstaticmappingoptionstaticroute.NewServiceDhcpServerSharedNetworkNameSubnetStaticMappingOptionStaticRoute,
