@@ -1,10 +1,14 @@
-exclude: |
-  (?x)^(
-      data/provider-schema/.*\.json|
-      .*/autogen.*|
-      .*tmp
-  )$
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
 repos:
+  - repo: local
+    hooks:
+    -   id: no-autogen-on-dev-machines # Disabled for CI in .devcontainer/dockerfile-profile.d.sh
+        name: No Autogen
+        language: fail
+        entry: Only CI Workflow should commit files with "autogen" in their file path
+        files: '.*autogen.*'
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -26,15 +30,16 @@ repos:
     rev: v1.19.0
     hooks:
       - id: typos
+        exclude: |
+          (?x)^(
+              data/provider-schema/.*\.json|
+              .*/autogen.*|
+              .*tmp
+          )$
   - repo: https://github.com/tekwizely/pre-commit-golang
     rev: v1.0.0-rc.1
     hooks:
       - id: go-mod-tidy
-      # - id: go-staticcheck-pkg
-      #   exclude: |
-      #     (?x)(
-      #       ^internal/terraform/resource/full/auto.*
-      #     )
       - id: go-fmt
   - repo: https://github.com/frnmst/md-toc
     rev: 9.0.0

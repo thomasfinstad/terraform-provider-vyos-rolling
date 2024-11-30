@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -21,7 +19,6 @@ func GenerateGitChanges() (previousVersion *version.Version, commitsSinceLastVer
 	itr, err := repo.Tags()
 	die(err)
 	err = itr.ForEach(func(ref *plumbing.Reference) error {
-		fmt.Println("Comparing versions: ", previousVersion.Original(), ref.Name().Short())
 		v, err := version.NewVersion(ref.Name().Short())
 		die(err)
 		if v.GreaterThan(previousVersion) {
@@ -31,7 +28,6 @@ func GenerateGitChanges() (previousVersion *version.Version, commitsSinceLastVer
 	})
 	die(err)
 
-	fmt.Println("Previous version: ", previousVersion.Original())
 	hash, err := repo.ResolveRevision(plumbing.Revision(previousVersion.Original()))
 	die(err)
 	releaseCommit, err := repo.CommitObject(*hash)
@@ -45,6 +41,11 @@ func GenerateGitChanges() (previousVersion *version.Version, commitsSinceLastVer
 
 	chgs := make([]conventionalcommits.Message, 0)
 	ccm := parser.NewMachine(parser.WithTypes(conventionalcommits.TypesConventional), parser.WithBestEffort())
+
+	// skip the commit for the previous release
+	_, err = commits.Next()
+	die(err)
+
 	err = commits.ForEach(func(commit *object.Commit) error {
 		cc, _ := ccm.Parse([]byte(commit.Message))
 

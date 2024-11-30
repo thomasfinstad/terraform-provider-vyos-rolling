@@ -40,8 +40,11 @@ func main() {
 	changeLog := ChangeLog{}
 
 	previousVersion, gitChgs := GenerateGitChanges()
+	fmt.Println("Previous version: ", previousVersion.Original())
+	fmt.Println("Conventional Commit changes:", len(gitChgs))
 	changeLog.previousVersion = *previousVersion
 	for _, gitChg := range gitChgs {
+		fmt.Println(gitChg)
 		changeLog.addCc(gitChg)
 	}
 
@@ -73,6 +76,7 @@ func main() {
 	newProvider := newProvidersSchema.Schemas[providerName]
 
 	schemaChanges := GetSchemaChanges(oldProvider, newProvider)
+	fmt.Println("Schemas changes:", len(schemaChanges))
 
 	if DEBUG { // Dump the diff struct
 		f, err := os.Create("../../.build/changelog-diff.go")
@@ -102,6 +106,7 @@ func main() {
 
 	changeLog.addSc(schemaChanges)
 
+	fmt.Println("New version: ", changeLog.Version())
 	t, err := template.New("changelog-template").ParseFiles("CHANGELOG.md.gotmpl")
 	die(err)
 

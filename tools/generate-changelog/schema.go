@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	tfjson "github.com/hashicorp/terraform-json"
+	"github.com/zclconf/go-cty/cty"
 	"golang.org/x/exp/maps"
 )
 
@@ -335,9 +336,13 @@ func SchemaAttributeChanges(old, new *tfjson.SchemaAttribute) (changes SchemaCha
 			s = SchemaChangeSeverityBreaking
 		}
 
-		msg := fmt.Sprintf("type changed to `%s`", new.AttributeType.FriendlyName())
-		if nNested {
+		var msg string
+		if new.AttributeType != cty.NilType {
+			msg = fmt.Sprintf("type changed to `%s`", new.AttributeType.FriendlyName())
+		} else if nNested {
 			msg = "changed to `nested` attribute"
+		} else {
+			log.Fatalf("new attribute is neither scalar or nested: %#v", *new)
 		}
 
 		changes.Add(SchemaChange{
