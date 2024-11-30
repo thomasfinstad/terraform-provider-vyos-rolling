@@ -340,7 +340,7 @@ func SchemaAttributeChanges(old, new *tfjson.SchemaAttribute) (changes SchemaCha
 		if new.AttributeType != cty.NilType {
 			msg = fmt.Sprintf("type changed to `%s`", new.AttributeType.FriendlyName())
 		} else if nNested {
-			msg = "changed to `nested` attribute"
+			msg = fmt.Sprintf("type changed to `%s` nested mode", new.AttributeNestedType.NestingMode)
 		} else {
 			log.Fatalf("new attribute is neither scalar or nested: %#v", *new)
 		}

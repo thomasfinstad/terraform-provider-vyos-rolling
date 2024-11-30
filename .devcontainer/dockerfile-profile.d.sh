@@ -1,5 +1,7 @@
 echo "(Loading) Custom Dockerfile shell profile settings" >&2
 
+set -x
+
 export PATH="$HOME/go/bin:$PATH"
 export TENV_AUTO_INSTALL=true
 
@@ -10,5 +12,7 @@ if [ -n "${GITHUB_WORKFLOW}" ]; then
 	echo "CI workflow detected."
 
 	# Disable pre-commit hook that blocks files with autogen in their path
-	SKIP="no-autogen-on-dev-machines"
+	export SKIP="no-autogen-on-dev-machines"
 fi
+
+set +x
