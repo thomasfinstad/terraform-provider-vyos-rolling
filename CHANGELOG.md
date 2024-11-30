@@ -4,53 +4,47 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 12.0.202411270 (2024-11-29 08-37-33 UTC)](#release-120202411270-2024-11-29-08-37-33-utc)
+  - [Release 13.0.202411270 (2024-11-30 19-26-29 UTC)](#release-130202411270-2024-11-30-19-26-29-utc)
     - [Project changes](#project-changes)
-      - [Notes](#notes)
       - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources)
-      - [Features](#features)
-        - [Resources](#resources-1)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
 
 
-## Release 12.0.202411270 (2024-11-29 08-37-33 UTC)
+## Release 13.0.202411270 (2024-11-30 19-26-29 UTC)
 ### Project changes
-#### Notes
-* update to rolling release 2024-11-27T00:06:17Z
 #### Bug fixes
-* merged conntrack-sync resources
-* merge dhcp-server subnet range
+* changelog generation nil dereference error
 
 ### Schema changes
 #### BREAKING CHANGES
 
 ##### Resources
-* **Removed Resource** `vyos_service_dhcp_server_shared_network_name_subnet_range`
+* Modified Resource `vyos_container_network`
+	* **Removed attribute** `mtu`
 
-* **Removed Resource** `vyos_service_conntrack_sync_interface`
+* Modified Resource `vyos_qos_policy_cake`
+	* Attribute `rtt`changed `description`
+	* Modified attribute `flow_isolation`
+		* changed to `nested` attribute
+		* changed `description`
+	* **Removed attribute** `flow_isolation_nat`
 
-* **Removed Resource** `vyos_service_conntrack_sync_failover_mechanism_vrrp`
+* Modified Resource `vyos_vpn_ipsec_authentication_psk`
+	* **Removed attribute** `secret_type`
 
-* **Removed Resource** `vyos_service_dhcp_server_shared_network_name_subnet`
+* Modified Resource `vyos_service_ipoe_server`
+	* **Removed attribute** `lua_file`
 
+* Modified Resource `vyos_service_mdns_repeater`
+	* **Removed attribute** `cache_entries`
 
-
-
-
-#### Features
-
-##### Resources
-* Modified Resource `vyos_service_dhcp_server_shared_network_name`
-	* New attribute `subnet`
-
-* Modified Resource `vyos_service_conntrack_sync`
-	* New attribute `failover_mechanism`
-	* New attribute `interface`
+* Modified Resource `vyos_service_ipoe_server_interface`
+	* **Removed attribute** `lua_username`
 
 
 
@@ -60,4 +54,4 @@
 
 
 ## Previous changelogs
-For previous version see [changelog for v11](data/changelogs/CHANGELOG-v11.md) or older archives [directory](data/changelogs/)
+For previous version see [changelog for v12](data/changelogs/CHANGELOG-v12.md) or older archives [directory](data/changelogs/)
