@@ -31,7 +31,6 @@ description: |-
       - [default_pool](#default_pool)
       - [description](#description)
       - [gateway_address](#gateway_address)
-      - [lua_file](#lua_file)
       - [max_concurrent_sessions](#max_concurrent_sessions)
       - [name_server](#name_server)
       - [timeouts](#timeouts)
@@ -71,12 +70,6 @@ description: |-
     |  Format   &emsp;|  Description                               |
     |-----------|--------------------------------------------|
     |  ipv4net  &emsp;|  Default Gateway, mask send to the client  |
-#### lua_file
-- `lua_file` (String) Lua script file for constructing user names
-
-    |  Format    &emsp;|  Description                                        |
-    |------------|-----------------------------------------------------|
-    |  filename  &emsp;|  File with Lua script in /config/scripts directory  |
 #### max_concurrent_sessions
 - `max_concurrent_sessions` (Number) Maximum number of concurrent session start attempts
 

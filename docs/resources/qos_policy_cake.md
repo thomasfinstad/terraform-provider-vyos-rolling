@@ -32,12 +32,12 @@ Service Policy definitions
       - [bandwidth](#bandwidth)
       - [description](#description)
       - [flow_isolation](#flow_isolation)
-      - [flow_isolation_nat](#flow_isolation_nat)
       - [rtt](#rtt)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
+    - [Nested Schema for `flow_isolation`](#nested-schema-for-flow_isolation)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -72,26 +72,13 @@ Service Policy definitions
     |----------|---------------|
     |  txt     &emsp;|  Description  |
 #### flow_isolation
-- `flow_isolation` (String) Flow isolation settings
-
-    |  Format          &emsp;|  Description                                                                                                                           |
-    |------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-    |  blind           &emsp;|  Disables flow isolation, all traffic passes through a single queue                                                                    |
-    |  src-host        &emsp;|  Flows are defined only by source address                                                                                              |
-    |  dst-host        &emsp;|  Flows are defined only by destination address                                                                                         |
-    |  host            &emsp;|  Flows are defined by source-destination host pairs                                                                                    |
-    |  flow            &emsp;|  Flows are defined by the entire 5-tuple                                                                                               |
-    |  dual-src-host   &emsp;|  Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows                         |
-    |  dual-dst-host   &emsp;|  Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows                    |
-    |  triple-isolate  &emsp;|  Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)  |
-#### flow_isolation_nat
-- `flow_isolation_nat` (Boolean) Perform NAT lookup before applying flow-isolation rules
+- `flow_isolation` (Attributes) Flow isolation settings (see [below for nested schema](#nestedatt--flow_isolation))
 #### rtt
 - `rtt` (Number) Round-Trip-Time for Active Queue Management (AQM)
 
-    |  Format        &emsp;|  Description  |
-    |----------------|---------------|
-    |  1-1000000000  &emsp;|  RTT in ms    |
+    |  Format     &emsp;|  Description  |
+    |-------------|---------------|
+    |  1-3600000  &emsp;|  RTT in ms    |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -110,6 +97,22 @@ Required:
     |  Format  &emsp;|  Description  |
     |----------|---------------|
     |  txt     &emsp;|  Policy name  |
+
+
+<a id="nestedatt--flow_isolation"></a>
+### Nested Schema for `flow_isolation`
+
+Optional:
+
+- `blind` (Boolean) Disables flow isolation, all traffic passes through a single queue
+- `dst_host` (Boolean) Flows are defined only by destination address
+- `dual_dst_host` (Boolean) Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows
+- `dual_src_host` (Boolean) Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows
+- `flow` (Boolean) Flows are defined by the entire 5-tuple
+- `host` (Boolean) Flows are defined by source-destination host pairs
+- `nat` (Boolean) Perform NAT lookup before applying flow-isolation rules
+- `src_host` (Boolean) Flows are defined only by source address
+- `triple_isolate` (Boolean) Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)
 
 
 <a id="nestedatt--timeouts"></a>

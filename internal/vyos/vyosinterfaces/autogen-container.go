@@ -1221,38 +1221,6 @@ func container() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
-							NodeNameAttr: "mtu",
-							Properties: []*schemadefinition.Properties{{
-								XMLName: xml.Name{
-									Local: "properties",
-								},
-								Help: []string{"Maximum Transmission Unit (MTU)"},
-								Constraint: []*schemadefinition.Constraint{{
-									XMLName: xml.Name{
-										Local: "constraint",
-									},
-									Validator: []*schemadefinition.Validator{{
-										XMLName: xml.Name{
-											Local: "validator",
-										},
-										NameAttr:     "numeric",
-										ArgumentAttr: "--range 68-16000",
-									}},
-								}},
-								ValueHelp: []*schemadefinition.ValueHelp{{
-									XMLName: xml.Name{
-										Local: "valueHelp",
-									},
-									Format:      "u32:68-16000",
-									Description: "Maximum Transmission Unit in byte",
-								}},
-								ConstraintErrorMessage: []string{"MTU must be between 68 and 16000"},
-							}},
-						}, {
-							IsBaseNode: false,
-							XMLName: xml.Name{
-								Local: "leafNode",
-							},
 							NodeNameAttr: "prefix",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{

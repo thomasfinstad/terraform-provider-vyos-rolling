@@ -28,7 +28,6 @@ type ServiceIPoeServer struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafServiceIPoeServerLuaFile               types.String `tfsdk:"lua_file" vyos:"lua-file,omitempty"`
 	LeafServiceIPoeServerDefaultPool           types.String `tfsdk:"default_pool" vyos:"default-pool,omitempty"`
 	LeafServiceIPoeServerDefaultIPvsixPool     types.String `tfsdk:"default_ipv6_pool" vyos:"default-ipv6-pool,omitempty"`
 	LeafServiceIPoeServerGatewayAddress        types.List   `tfsdk:"gateway_address" vyos:"gateway-address,omitempty"`
@@ -119,25 +118,6 @@ func (o ServiceIPoeServer) ResourceSchemaAttributes(ctx context.Context) map[str
 		}),
 
 		// LeafNodes
-
-		"lua_file":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Lua script file for constructing user names
-
-    |  Format    |  Description                                        |
-    |------------|-----------------------------------------------------|
-    |  filename  |  File with Lua script in /config/scripts directory  |
-`,
-			Description: `Lua script file for constructing user names
-
-    |  Format    |  Description                                        |
-    |------------|-----------------------------------------------------|
-    |  filename  |  File with Lua script in /config/scripts directory  |
-`,
-		},
 
 		"default_pool":
 

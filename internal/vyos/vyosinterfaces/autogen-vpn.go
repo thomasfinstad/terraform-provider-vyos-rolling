@@ -164,31 +164,6 @@ func vpn() schemadefinition.InterfaceDefinition {
 													Description: "IKE pre-shared secret key",
 												}},
 											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "secret-type",
-											DefaultValue: []string{"plaintext"},
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Secret type"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"(base64|plaintext)"},
-												}},
-												CompletionHelp: []*schemadefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													List: []string{"base64 plaintext"},
-												}},
-											}},
 										}},
 									}},
 								}},

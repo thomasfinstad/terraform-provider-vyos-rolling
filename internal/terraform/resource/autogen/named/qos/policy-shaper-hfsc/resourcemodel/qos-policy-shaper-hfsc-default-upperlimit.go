@@ -82,6 +82,9 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceSchemaAttributes(ctx conte
     |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
     |  <number>bps   |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 `,
+
+			// Default:          stringdefault.StaticString(`0bit`),
+			Computed: true,
 		},
 
 		"m2":
@@ -111,6 +114,9 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceSchemaAttributes(ctx conte
     |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
     |  <number>bps   |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 `,
+
+			// Default:          stringdefault.StaticString(`100%`),
+			Computed: true,
 		},
 
 		// TagNodes

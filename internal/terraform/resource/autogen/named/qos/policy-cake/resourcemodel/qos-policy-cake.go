@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -38,15 +37,15 @@ type QosPolicyCake struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafQosPolicyCakeDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafQosPolicyCakeBandwIDth        types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
-	LeafQosPolicyCakeFlowIsolation    types.String `tfsdk:"flow_isolation" vyos:"flow-isolation,omitempty"`
-	LeafQosPolicyCakeFlowIsolationNat types.Bool   `tfsdk:"flow_isolation_nat" vyos:"flow-isolation-nat,omitempty"`
-	LeafQosPolicyCakeRtt              types.Number `tfsdk:"rtt" vyos:"rtt,omitempty"`
+	LeafQosPolicyCakeDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
+	LeafQosPolicyCakeBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
+	LeafQosPolicyCakeRtt         types.Number `tfsdk:"rtt" vyos:"rtt,omitempty"`
 
 	// TagNodes
 
 	// Nodes
+
+	NodeQosPolicyCakeFlowIsolation *QosPolicyCakeFlowIsolation `tfsdk:"flow_isolation" vyos:"flow-isolation,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -212,57 +211,6 @@ func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]
 `,
 		},
 
-		"flow_isolation":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Flow isolation settings
-
-    |  Format          |  Description                                                                                                                           |
-    |------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-    |  blind           |  Disables flow isolation, all traffic passes through a single queue                                                                    |
-    |  src-host        |  Flows are defined only by source address                                                                                              |
-    |  dst-host        |  Flows are defined only by destination address                                                                                         |
-    |  host            |  Flows are defined by source-destination host pairs                                                                                    |
-    |  flow            |  Flows are defined by the entire 5-tuple                                                                                               |
-    |  dual-src-host   |  Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows                         |
-    |  dual-dst-host   |  Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows                    |
-    |  triple-isolate  |  Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)  |
-`,
-			Description: `Flow isolation settings
-
-    |  Format          |  Description                                                                                                                           |
-    |------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-    |  blind           |  Disables flow isolation, all traffic passes through a single queue                                                                    |
-    |  src-host        |  Flows are defined only by source address                                                                                              |
-    |  dst-host        |  Flows are defined only by destination address                                                                                         |
-    |  host            |  Flows are defined by source-destination host pairs                                                                                    |
-    |  flow            |  Flows are defined by the entire 5-tuple                                                                                               |
-    |  dual-src-host   |  Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows                         |
-    |  dual-dst-host   |  Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows                    |
-    |  triple-isolate  |  Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)  |
-`,
-
-			// Default:          stringdefault.StaticString(`triple-isolate`),
-			Computed: true,
-		},
-
-		"flow_isolation_nat":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Perform NAT lookup before applying flow-isolation rules
-
-`,
-			Description: `Perform NAT lookup before applying flow-isolation rules
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
-		},
-
 		"rtt":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
@@ -270,15 +218,15 @@ func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]
 			Optional: true,
 			MarkdownDescription: `Round-Trip-Time for Active Queue Management (AQM)
 
-    |  Format        |  Description  |
-    |----------------|---------------|
-    |  1-1000000000  |  RTT in ms    |
+    |  Format     |  Description  |
+    |-------------|---------------|
+    |  1-3600000  |  RTT in ms    |
 `,
 			Description: `Round-Trip-Time for Active Queue Management (AQM)
 
-    |  Format        |  Description  |
-    |----------------|---------------|
-    |  1-1000000000  |  RTT in ms    |
+    |  Format     |  Description  |
+    |-------------|---------------|
+    |  1-3600000  |  RTT in ms    |
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -289,5 +237,15 @@ func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		// Nodes
 
+		"flow_isolation": schema.SingleNestedAttribute{
+			Attributes: QosPolicyCakeFlowIsolation{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Flow isolation settings
+
+`,
+			Description: `Flow isolation settings
+
+`,
+		},
 	}
 }

@@ -28,7 +28,6 @@ Container applications
       - [identifier](#identifier)
     - [Optional](#optional)
       - [description](#description)
-      - [mtu](#mtu)
       - [no_name_server](#no_name_server)
       - [prefix](#prefix)
       - [timeouts](#timeouts)
@@ -57,12 +56,6 @@ Container applications
     |  Format  &emsp;|  Description  |
     |----------|---------------|
     |  txt     &emsp;|  Description  |
-#### mtu
-- `mtu` (Number) Maximum Transmission Unit (MTU)
-
-    |  Format    &emsp;|  Description                        |
-    |------------|-------------------------------------|
-    |  68-16000  &emsp;|  Maximum Transmission Unit in byte  |
 #### no_name_server
 - `no_name_server` (Boolean) Disable Domain Name System (DNS) plugin for this network
 #### prefix

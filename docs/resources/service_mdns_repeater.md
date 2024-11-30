@@ -31,7 +31,6 @@ Multicast DNS (mDNS) parameters
     - [Optional](#optional)
       - [allow_service](#allow_service)
       - [browse_domain](#browse_domain)
-      - [cache_entries](#cache_entries)
       - [disable](#disable)
       - [interface](#interface)
       - [ip_version](#ip_version)
@@ -61,13 +60,6 @@ Multicast DNS (mDNS) parameters
     |  Format  &emsp;|  Description           |
     |----------|------------------------|
     |  txt     &emsp;|  mDNS browsing domain  |
-#### cache_entries
-- `cache_entries` (Number) Number of resource records cached per interface
-
-    |  Format   &emsp;|  Description                              |
-    |-----------|-------------------------------------------|
-    |  0        &emsp;|  Disable caching                          |
-    |  1-65535  &emsp;|  Resource records to cache per interface  |
 #### disable
 - `disable` (Boolean) Disable instance
 #### interface

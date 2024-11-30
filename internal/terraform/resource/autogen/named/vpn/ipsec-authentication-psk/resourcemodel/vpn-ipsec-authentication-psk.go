@@ -40,7 +40,6 @@ type VpnIPsecAuthenticationPsk struct {
 	LeafVpnIPsecAuthenticationPskDhcpInterface types.List   `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
 	LeafVpnIPsecAuthenticationPskID            types.List   `tfsdk:"id_param" vyos:"id,omitempty"`
 	LeafVpnIPsecAuthenticationPskSecret        types.String `tfsdk:"secret" vyos:"secret,omitempty"`
-	LeafVpnIPsecAuthenticationPskSecretType    types.String `tfsdk:"secret_type" vyos:"secret-type,omitempty"`
 
 	// TagNodes
 
@@ -217,22 +216,6 @@ func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes(ctx context.Context)
     |----------|-----------------------------|
     |  txt     |  IKE pre-shared secret key  |
 `,
-		},
-
-		"secret_type":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Secret type
-
-`,
-			Description: `Secret type
-
-`,
-
-			// Default:          stringdefault.StaticString(`plaintext`),
-			Computed: true,
 		},
 
 		// TagNodes
