@@ -4,8 +4,10 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 13.0.202411270 (2024-11-30 19-26-29 UTC)](#release-130202411270-2024-11-30-19-26-29-utc)
+  - [Release 13.0.202411271 (2024-12-01 08-33-00 UTC)](#release-130202411271-2024-12-01-08-33-00-utc)
     - [Project changes](#project-changes)
+  - [Release 13.0.202411270 (2024-11-30 19-26-29 UTC)](#release-130202411270-2024-11-30-19-26-29-utc)
+    - [Project changes](#project-changes-1)
       - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
@@ -13,6 +15,10 @@
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 13.0.202411271 (2024-12-01 08-33-00 UTC)
+### Project changes
 
 
 ## Release 13.0.202411270 (2024-11-30 19-26-29 UTC)
