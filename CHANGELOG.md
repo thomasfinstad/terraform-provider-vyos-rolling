@@ -4,53 +4,61 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 13.0.202411271 (2024-12-01 08-33-00 UTC)](#release-130202411271-2024-12-01-08-33-00-utc)
+  - [Release 14.0.202412030 (2024-12-04 08-33-51 UTC)](#release-140202412030-2024-12-04-08-33-51-utc)
     - [Project changes](#project-changes)
-  - [Release 13.0.202411270 (2024-11-30 19-26-29 UTC)](#release-130202411270-2024-11-30-19-26-29-utc)
-    - [Project changes](#project-changes-1)
-      - [Bug fixes](#bug-fixes)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources)
+      - [Features](#features)
+        - [Resources](#resources-1)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
 
 
-## Release 13.0.202411271 (2024-12-01 08-33-00 UTC)
+## Release 14.0.202412030 (2024-12-04 08-33-51 UTC)
 ### Project changes
-
-
-## Release 13.0.202411270 (2024-11-30 19-26-29 UTC)
-### Project changes
-#### Bug fixes
-* changelog generation nil dereference error
 
 ### Schema changes
 #### BREAKING CHANGES
 
 ##### Resources
-* Modified Resource `vyos_container_network`
-	* **Removed attribute** `mtu`
-
 * Modified Resource `vyos_qos_policy_cake`
 	* Attribute `rtt`changed `description`
 	* Modified attribute `flow_isolation`
-		* changed to `nested` attribute
+		* type changed to `string`
 		* changed `description`
-	* **Removed attribute** `flow_isolation_nat`
+	* New attribute `flow_isolation_nat`
+
+* **Removed Resource** `vyos_service_ntp_ptp_timestamp_interface`
+
+
+
+
+
+#### Features
+
+##### Resources
+* Modified Resource `vyos_service_ipoe_server_interface`
+	* New attribute `lua_username`
+	* New attribute `start_session`
 
 * Modified Resource `vyos_vpn_ipsec_authentication_psk`
-	* **Removed attribute** `secret_type`
+	* New attribute `secret_type`
 
 * Modified Resource `vyos_service_ipoe_server`
-	* **Removed attribute** `lua_file`
+	* New attribute `lua_file`
+
+* Modified Resource `vyos_pki_ca`
+	* New attribute `system_install`
 
 * Modified Resource `vyos_service_mdns_repeater`
-	* **Removed attribute** `cache_entries`
+	* New attribute `cache_entries`
 
-* Modified Resource `vyos_service_ipoe_server_interface`
-	* **Removed attribute** `lua_username`
+* Modified Resource `vyos_container_network`
+	* New attribute `mtu`
+
+* New Resource `vyos_service_ntp_timestamp_interface`
 
 
 
@@ -60,4 +68,4 @@
 
 
 ## Previous changelogs
-For previous version see [changelog for v12](data/changelogs/CHANGELOG-v12.md) or older archives [directory](data/changelogs/)
+For previous version see [changelog for v13](data/changelogs/CHANGELOG-v13.md) or older archives [directory](data/changelogs/)
