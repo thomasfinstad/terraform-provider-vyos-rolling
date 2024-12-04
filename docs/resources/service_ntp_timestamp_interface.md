@@ -1,21 +1,19 @@
 ---
-page_title: "vyos_service_ntp_ptp_timestamp_interface Resource - vyos"
+page_title: "vyos_service_ntp_timestamp_interface Resource - vyos"
 
 subcategory: "Service"
 
 description: |-
-  service⯯Network Time Protocol (NTP) configuration⯯Enable Precision Time Protocol (PTP) transport⯯Enable timestamping of packets in the NIC hardware⯯Interface to enable timestamping on
+  service⯯Network Time Protocol (NTP) configuration⯯Enable timestamping of packets in the NIC hardware⯯Interface to enable timestamping on
 ---
 
-# vyos_service_ntp_ptp_timestamp_interface (Resource)
+# vyos_service_ntp_timestamp_interface (Resource)
 <center>
 
 
 *service*  
 ⯯  
 Network Time Protocol (NTP) configuration  
-⯯  
-Enable Precision Time Protocol (PTP) transport  
 ⯯  
 Enable timestamping of packets in the NIC hardware  
 ⯯  
@@ -28,7 +26,7 @@ Enable timestamping of packets in the NIC hardware
 
 <!--TOC-->
 
-- [vyos_service_ntp_ptp_timestamp_interface (Resource)](#vyos_service_ntp_ptp_timestamp_interface-resource)
+- [vyos_service_ntp_timestamp_interface (Resource)](#vyos_service_ntp_timestamp_interface-resource)
   - [Schema](#schema)
     - [Required](#required)
       - [identifier](#identifier)
@@ -95,5 +93,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_service_ntp_ptp_timestamp_interface.example "service__ntp__ptp__timestamp__interface__<interface>"
+terraform import vyos_service_ntp_timestamp_interface.example "service__ntp__timestamp__interface__<interface>"
 ```

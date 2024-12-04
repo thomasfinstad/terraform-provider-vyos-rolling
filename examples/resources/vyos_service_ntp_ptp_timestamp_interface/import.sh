@@ -1,2 +1,0 @@
-
-terraform import vyos_service_ntp_ptp_timestamp_interface.example "service__ntp__ptp__timestamp__interface__<interface>"

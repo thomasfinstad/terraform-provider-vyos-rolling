@@ -38,10 +38,11 @@ type PkiCa struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafPkiCaCertificate types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
-	LeafPkiCaDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafPkiCaCrl         types.List   `tfsdk:"crl" vyos:"crl,omitempty"`
-	LeafPkiCaRevoke      types.Bool   `tfsdk:"revoke" vyos:"revoke,omitempty"`
+	LeafPkiCaCertificate   types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
+	LeafPkiCaDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
+	LeafPkiCaCrl           types.List   `tfsdk:"crl" vyos:"crl,omitempty"`
+	LeafPkiCaSystemInstall types.Bool   `tfsdk:"system_install" vyos:"system-install,omitempty"`
+	LeafPkiCaRevoke        types.Bool   `tfsdk:"revoke" vyos:"revoke,omitempty"`
 
 	// TagNodes
 
@@ -192,6 +193,21 @@ func (o PkiCa) ResourceSchemaAttributes(ctx context.Context) map[string]schema.A
 			Description: `Certificate revocation list in PEM format
 
 `,
+		},
+
+		"system_install":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Install into CA certificate store on router
+
+`,
+			Description: `Install into CA certificate store on router
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"revoke":

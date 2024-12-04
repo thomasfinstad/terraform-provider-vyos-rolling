@@ -40,7 +40,9 @@ type ServiceIPoeServerInterface struct {
 	// LeafNodes
 	LeafServiceIPoeServerInterfaceMode         types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafServiceIPoeServerInterfaceNetwork      types.String `tfsdk:"network" vyos:"network,omitempty"`
+	LeafServiceIPoeServerInterfaceStartSession types.String `tfsdk:"start_session" vyos:"start-session,omitempty"`
 	LeafServiceIPoeServerInterfaceClientSubnet types.String `tfsdk:"client_subnet" vyos:"client-subnet,omitempty"`
+	LeafServiceIPoeServerInterfaceLuaUsername  types.String `tfsdk:"lua_username" vyos:"lua-username,omitempty"`
 	LeafServiceIPoeServerInterfaceVlan         types.List   `tfsdk:"vlan" vyos:"vlan,omitempty"`
 	LeafServiceIPoeServerInterfaceVlanMon      types.Bool   `tfsdk:"vlan_mon" vyos:"vlan-mon,omitempty"`
 
@@ -206,6 +208,32 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
 			Computed: true,
 		},
 
+		"start_session":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Start session options
+
+    |  Format               |  Description                                        |
+    |-----------------------|-----------------------------------------------------|
+    |  auto                 |  Start session with username as the interface name  |
+    |  dhcp                 |  Start session on DHCPv4 Discover                   |
+    |  unclassified-packet  |  Start session on unclassified-packet               |
+`,
+			Description: `Start session options
+
+    |  Format               |  Description                                        |
+    |-----------------------|-----------------------------------------------------|
+    |  auto                 |  Start session with username as the interface name  |
+    |  dhcp                 |  Start session on DHCPv4 Discover                   |
+    |  unclassified-packet  |  Start session on unclassified-packet               |
+`,
+
+			// Default:          stringdefault.StaticString(`dhcp`),
+			Computed: true,
+		},
+
 		"client_subnet":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
@@ -222,6 +250,25 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes(ctx context.Context
     |  Format   |  Description                     |
     |-----------|----------------------------------|
     |  ipv4net  |  IPv4 address and prefix length  |
+`,
+		},
+
+		"lua_username":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Username function
+
+    |  Format  |  Description                                                       |
+    |----------|--------------------------------------------------------------------|
+    |  txt     |  Name of the function in the Lua file to construct usernames with  |
+`,
+			Description: `Username function
+
+    |  Format  |  Description                                                       |
+    |----------|--------------------------------------------------------------------|
+    |  txt     |  Name of the function in the Lua file to construct usernames with  |
 `,
 		},
 

@@ -14,23 +14,23 @@ import (
 /* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
-var _ helpers.VyosResourceDataModel = &ServiceNtpPtpTimestamp{}
+var _ helpers.VyosResourceDataModel = &ServiceNtpTimestamp{}
 
-// ServiceNtpPtpTimestamp describes the resource data model.
+// ServiceNtpTimestamp describes the resource data model.
 // This is not a basenode!
 // Top level basenode type: `N/A`
-type ServiceNtpPtpTimestamp struct {
+type ServiceNtpTimestamp struct {
 	// LeafNodes
 
 	// TagNodes
 
-	ExistsTagServiceNtpPtpTimestampInterface bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagServiceNtpTimestampInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ServiceNtpPtpTimestamp) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o ServiceNtpTimestamp) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 
 		// LeafNodes

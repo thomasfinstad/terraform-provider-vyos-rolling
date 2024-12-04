@@ -828,7 +828,7 @@ import (
 	namedservicemonitoringzabbixagentserveractive "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/monitoring-zabbix-agent-server-active"
 	namedservicendpproxyinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ndp-proxy-interface"
 	namedservicendpproxyinterfaceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ndp-proxy-interface-prefix"
-	namedservicentpptptimestampinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ntp-ptp-timestamp-interface"
+	namedservicentptimestampinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ntp-timestamp-interface"
 	namedservicepppoeserverauthenticationlocalusersusername "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-authentication-local-users-username"
 	namedservicepppoeserverauthenticationradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-authentication-radius-server"
 	namedservicepppoeserverclientippool "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/pppoe-server-client-ip-pool"
@@ -1809,7 +1809,7 @@ func GetResources() []func() resource.Resource {
 		namedservicemonitoringzabbixagentserveractive.NewServiceMonitoringZabbixAgentServerActive,
 		namedservicendpproxyinterface.NewServiceNdpProxyInterface,
 		namedservicendpproxyinterfaceprefix.NewServiceNdpProxyInterfacePrefix,
-		namedservicentpptptimestampinterface.NewServiceNtpPtpTimestampInterface,
+		namedservicentptimestampinterface.NewServiceNtpTimestampInterface,
 		namedservicepppoeserverauthenticationlocalusersusername.NewServicePppoeServerAuthenticationLocalUsersUsername,
 		namedservicepppoeserverauthenticationradiusserver.NewServicePppoeServerAuthenticationRadiusServer,
 		namedservicepppoeserverclientippool.NewServicePppoeServerClientIPPool,

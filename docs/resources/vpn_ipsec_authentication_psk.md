@@ -34,6 +34,7 @@ Authentication
       - [dhcp_interface](#dhcp_interface)
       - [id_param](#id_param)
       - [secret](#secret)
+      - [secret_type](#secret_type)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -71,6 +72,8 @@ Authentication
     |  Format  &emsp;|  Description                |
     |----------|-----------------------------|
     |  txt     &emsp;|  IKE pre-shared secret key  |
+#### secret_type
+- `secret_type` (String) Secret type
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

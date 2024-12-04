@@ -23,12 +23,12 @@ import (
 /* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
-var _ helpers.VyosTopResourceDataModel = &ServiceNtpPtpTimestampInterface{}
+var _ helpers.VyosTopResourceDataModel = &ServiceNtpTimestampInterface{}
 
-// ServiceNtpPtpTimestampInterface describes the resource data model.
+// ServiceNtpTimestampInterface describes the resource data model.
 // This is a basenode!
 // Top level basenode type: `TagNode`
-type ServiceNtpPtpTimestampInterface struct {
+type ServiceNtpTimestampInterface struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
@@ -37,7 +37,7 @@ type ServiceNtpPtpTimestampInterface struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafServiceNtpPtpTimestampInterfaceReceiveFilter types.String `tfsdk:"receive_filter" vyos:"receive-filter,omitempty"`
+	LeafServiceNtpTimestampInterfaceReceiveFilter types.String `tfsdk:"receive_filter" vyos:"receive-filter,omitempty"`
 
 	// TagNodes
 
@@ -45,23 +45,23 @@ type ServiceNtpPtpTimestampInterface struct {
 }
 
 // SetID configures the resource ID
-func (o *ServiceNtpPtpTimestampInterface) SetID(id []string) {
+func (o *ServiceNtpTimestampInterface) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *ServiceNtpPtpTimestampInterface) GetTimeouts() timeouts.Value {
+func (o *ServiceNtpTimestampInterface) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *ServiceNtpPtpTimestampInterface) IsGlobalResource() bool {
+func (o *ServiceNtpTimestampInterface) IsGlobalResource() bool {
 	return (false)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *ServiceNtpPtpTimestampInterface) GetVyosPath() []string {
+func (o *ServiceNtpTimestampInterface) GetVyosPath() []string {
 	if o.ID.ValueString() != "" {
 		return strings.Split(o.ID.ValueString(), "__")
 	}
@@ -77,10 +77,8 @@ func (o *ServiceNtpPtpTimestampInterface) GetVyosPath() []string {
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *ServiceNtpPtpTimestampInterface) GetVyosParentPath() []string {
+func (o *ServiceNtpTimestampInterface) GetVyosParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
-
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
@@ -89,8 +87,6 @@ func (o *ServiceNtpPtpTimestampInterface) GetVyosParentPath() []string {
 		"service", // Node
 
 		"ntp", // Node
-
-		"ptp", // Node
 
 		"timestamp", // Node
 
@@ -101,10 +97,8 @@ func (o *ServiceNtpPtpTimestampInterface) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-func (o *ServiceNtpPtpTimestampInterface) GetVyosNamedParentPath() []string {
+func (o *ServiceNtpTimestampInterface) GetVyosNamedParentPath() []string {
 	return []string{
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
-
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
@@ -115,7 +109,7 @@ func (o *ServiceNtpPtpTimestampInterface) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ServiceNtpPtpTimestampInterface) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o ServiceNtpTimestampInterface) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -157,8 +151,6 @@ func (o ServiceNtpPtpTimestampInterface) ResourceSchemaAttributes(ctx context.Co
 						),
 					},
 				},
-
-				/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
 
 				/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
 

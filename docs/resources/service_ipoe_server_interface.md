@@ -31,8 +31,10 @@ Internet Protocol over Ethernet (IPoE) Server
     - [Optional](#optional)
       - [client_subnet](#client_subnet)
       - [external_dhcp](#external_dhcp)
+      - [lua_username](#lua_username)
       - [mode](#mode)
       - [network](#network)
+      - [start_session](#start_session)
       - [timeouts](#timeouts)
       - [vlan](#vlan)
       - [vlan_mon](#vlan_mon)
@@ -63,6 +65,12 @@ Internet Protocol over Ethernet (IPoE) Server
     |  ipv4net  &emsp;|  IPv4 address and prefix length  |
 #### external_dhcp
 - `external_dhcp` (Attributes) DHCP requests will be forwarded (see [below for nested schema](#nestedatt--external_dhcp))
+#### lua_username
+- `lua_username` (String) Username function
+
+    |  Format  &emsp;|  Description                                                       |
+    |----------|--------------------------------------------------------------------|
+    |  txt     &emsp;|  Name of the function in the Lua file to construct usernames with  |
 #### mode
 - `mode` (String) Client connectivity mode
 
@@ -77,6 +85,14 @@ Internet Protocol over Ethernet (IPoE) Server
     |----------|-------------------------------------------|
     |  shared  &emsp;|  Multiple clients share the same network  |
     |  vlan    &emsp;|  One VLAN per client                      |
+#### start_session
+- `start_session` (String) Start session options
+
+    |  Format               &emsp;|  Description                                        |
+    |-----------------------|-----------------------------------------------------|
+    |  auto                 &emsp;|  Start session with username as the interface name  |
+    |  dhcp                 &emsp;|  Start session on DHCPv4 Discover                   |
+    |  unclassified-packet  &emsp;|  Start session on unclassified-packet               |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### vlan

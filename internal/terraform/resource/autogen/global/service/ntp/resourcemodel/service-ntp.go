@@ -41,6 +41,8 @@ type ServiceNtp struct {
 
 	NodeServiceNtpAllowClient *ServiceNtpAllowClient `tfsdk:"allow_client" vyos:"allow-client,omitempty"`
 
+	// Ignoring Node `ServiceNtpTimestamp`.
+
 	ExistsNodeServiceNtpPtp bool `tfsdk:"-" vyos:"ptp,child"`
 }
 

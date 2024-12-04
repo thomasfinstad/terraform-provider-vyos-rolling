@@ -33,8 +33,6 @@ type ServiceNtpPtp struct {
 	// TagNodes
 
 	// Nodes
-
-	// Ignoring Node `ServiceNtpPtpTimestamp`.
 }
 
 // SetID configures the resource ID

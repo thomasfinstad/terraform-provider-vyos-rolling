@@ -32,6 +32,7 @@ Public key infrastructure (PKI)
       - [description](#description)
       - [private](#private)
       - [revoke](#revoke)
+      - [system_install](#system_install)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -66,6 +67,8 @@ Public key infrastructure (PKI)
 - `private` (Attributes) CA private key in PEM format (see [below for nested schema](#nestedatt--private))
 #### revoke
 - `revoke` (Boolean) Include certificate in parent CRL
+#### system_install
+- `system_install` (Boolean) Install into CA certificate store on router
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

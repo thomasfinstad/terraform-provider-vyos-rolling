@@ -16511,6 +16511,50 @@ func service() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
+									NodeNameAttr: "start-session",
+									DefaultValue: []string{"dhcp"},
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Start session options"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(auto|dhcp|unclassified-packet)"},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "auto",
+											Description: "Start session with username as the interface name",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "dhcp",
+											Description: "Start session on DHCPv4 Discover",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "unclassified-packet",
+											Description: "Start session on unclassified-packet",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"auto dhcp unclassified-packet"},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
 									NodeNameAttr: "client-subnet",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
@@ -16534,6 +16578,31 @@ func service() schemadefinition.InterfaceDefinition {
 											},
 											Format:      "ipv4net",
 											Description: "IPv4 address and prefix length",
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "lua-username",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Username function"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[-_a-zA-Z0-9]+"},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Name of the function in the Lua file to construct usernames with",
 										}},
 									}},
 								}, {
@@ -16880,6 +16949,37 @@ func service() schemadefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*schemadefinition.LeafNode{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "lua-file",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Lua script file for constructing user names"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*schemadefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr:     "file-path",
+										ArgumentAttr: "--strict --parent-dir /config/scripts",
+									}},
+								}},
+								ValueHelp: []*schemadefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "filename",
+									Description: "File with Lua script in /config/scripts directory",
+								}},
+							}},
+						}, {
 							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
@@ -17723,6 +17823,44 @@ func service() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "multi",
 											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "cache-entries",
+									DefaultValue: []string{"4096"},
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Number of resource records cached per interface"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr:     "numeric",
+												ArgumentAttr: "--range 0-65535",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "u32:0",
+											Description: "Disable caching",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "u32:1-65535",
+											Description: "Resource records to cache per interface",
 										}},
 									}},
 								}, {
@@ -20006,6 +20144,123 @@ func service() schemadefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "timestamp",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Enable timestamping of packets in the NIC hardware"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								TagNode: []*schemadefinition.TagNode{{
+									IsBaseNode: true,
+									XMLName: xml.Name{
+										Local: "tagNode",
+									},
+									NodeNameAttr: "interface",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Interface to enable timestamping on"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo", "all"},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "file-path --lookup-path /sys/class/net --directory",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "all",
+											Description: "Select all interfaces",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Interface name",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List:   []string{"all"},
+											Script: []string{"${vyos_completion_dir}/list_interfaces"},
+										}},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "receive-filter",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Selects which inbound packets are timestamped by the NIC"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"(all|ntp|ptp|none)"},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "all",
+													Description: "All packets are timestamped",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ntp",
+													Description: "Only NTP packets are timestamped",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ptp",
+													Description: "Only PTP or NTP packets using the PTP transport are timestamped",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "none",
+													Description: "No packet is timestamped",
+												}},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"all ntp ptp none"},
+												}},
+											}},
+										}},
+									}},
+								}},
+							}},
+						}, {
 							IsBaseNode: true,
 							XMLName: xml.Name{
 								Local: "node",
@@ -20021,124 +20276,6 @@ func service() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "children",
 								},
-								Node: []*schemadefinition.Node{{
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "node",
-									},
-									NodeNameAttr: "timestamp",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Enable timestamping of packets in the NIC hardware"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										TagNode: []*schemadefinition.TagNode{{
-											IsBaseNode: true,
-											XMLName: xml.Name{
-												Local: "tagNode",
-											},
-											NodeNameAttr: "interface",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Interface to enable timestamping on"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo", "all"},
-													Validator: []*schemadefinition.Validator{{
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr: "file-path --lookup-path /sys/class/net --directory",
-													}},
-												}},
-												ValueHelp: []*schemadefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "all",
-													Description: "Select all interfaces",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "txt",
-													Description: "Interface name",
-												}},
-												CompletionHelp: []*schemadefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													List:   []string{"all"},
-													Script: []string{"${vyos_completion_dir}/list_interfaces"},
-												}},
-											}},
-											Children: []*schemadefinition.Children{{
-												XMLName: xml.Name{
-													Local: "children",
-												},
-												LeafNode: []*schemadefinition.LeafNode{{
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "leafNode",
-													},
-													NodeNameAttr: "receive-filter",
-													Properties: []*schemadefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Selects which inbound packets are timestamped by the NIC"},
-														Constraint: []*schemadefinition.Constraint{{
-															XMLName: xml.Name{
-																Local: "constraint",
-															},
-															Regex: []string{"(all|ntp|ptp|none)"},
-														}},
-														ValueHelp: []*schemadefinition.ValueHelp{{
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
-															Format:      "all",
-															Description: "All packets are timestamped",
-														}, {
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
-															Format:      "ntp",
-															Description: "Only NTP packets are timestamped",
-														}, {
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
-															Format:      "ptp",
-															Description: "Only PTP or NTP packets using the PTP transport are timestamped",
-														}, {
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
-															Format:      "none",
-															Description: "No packet is timestamped",
-														}},
-														CompletionHelp: []*schemadefinition.CompletionHelp{{
-															XMLName: xml.Name{
-																Local: "completionHelp",
-															},
-															List: []string{"all ntp ptp none"},
-														}},
-													}},
-												}},
-											}},
-										}},
-									}},
-								}},
 								LeafNode: []*schemadefinition.LeafNode{{
 									IsBaseNode: false,
 									XMLName: xml.Name{

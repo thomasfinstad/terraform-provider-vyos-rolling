@@ -77,178 +77,6 @@ func qos() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "children",
 								},
-								Node: []*schemadefinition.Node{{
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "node",
-									},
-									NodeNameAttr: "flow-isolation",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Flow isolation settings"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "blind",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Disables flow isolation, all traffic passes through a single queue"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "src-host",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Flows are defined only by source address"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "dst-host",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Flows are defined only by destination address"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "host",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Flows are defined by source-destination host pairs"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "flow",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Flows are defined by the entire 5-tuple"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "dual-src-host",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "dual-dst-host",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "triple-isolate",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "nat",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Perform NAT lookup before applying flow-isolation rules"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}},
-									}},
-								}},
 								LeafNode: []*schemadefinition.LeafNode{{
 									IsBaseNode: false,
 									XMLName: xml.Name{
@@ -348,6 +176,97 @@ func qos() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
+									NodeNameAttr: "flow-isolation",
+									DefaultValue: []string{"triple-isolate"},
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Flow isolation settings"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(blind|src-host|dst-host|host|flow|dual-src-host|dual-dst-host|triple-isolate)"},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "blind",
+											Description: "Disables flow isolation, all traffic passes through a single queue",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "src-host",
+											Description: "Flows are defined only by source address",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "dst-host",
+											Description: "Flows are defined only by destination address",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "host",
+											Description: "Flows are defined by source-destination host pairs",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "flow",
+											Description: "Flows are defined by the entire 5-tuple",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "dual-src-host",
+											Description: "Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "dual-dst-host",
+											Description: "Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "triple-isolate",
+											Description: "Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"blind src-host dst-host host flow dual-src-host dual-dst-host triple-isolate"},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "flow-isolation-nat",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Perform NAT lookup before applying flow-isolation rules"},
+										Valueless: []*schemadefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
 									NodeNameAttr: "rtt",
 									DefaultValue: []string{"100"},
 									Properties: []*schemadefinition.Properties{{
@@ -364,17 +283,17 @@ func qos() schemadefinition.InterfaceDefinition {
 													Local: "validator",
 												},
 												NameAttr:     "numeric",
-												ArgumentAttr: "--range 1-3600000",
+												ArgumentAttr: "--range 1-1000000000",
 											}},
 										}},
 										ValueHelp: []*schemadefinition.ValueHelp{{
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "u32:1-3600000",
+											Format:      "u32:1-1000000000",
 											Description: "RTT in ms",
 										}},
-										ConstraintErrorMessage: []string{"RTT must be in range 1 to 3600000 milli-seconds"},
+										ConstraintErrorMessage: []string{"RTT must be in range 1 to 1000000000 milli-seconds"},
 									}},
 								}},
 							}},
@@ -10991,7 +10910,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"0bit"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11041,7 +10959,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11141,7 +11058,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"0bit"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11191,7 +11107,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11291,7 +11206,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"0bit"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11341,7 +11255,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11480,7 +11393,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"0bit"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11530,7 +11442,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11630,7 +11541,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"0bit"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11680,7 +11590,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11780,7 +11689,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"0bit"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11830,7 +11738,6 @@ func qos() schemadefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%"},
 													Properties: []*schemadefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",

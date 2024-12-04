@@ -34,6 +34,7 @@ type ServiceMDNSRepeater struct {
 	LeafServiceMDNSRepeaterIPVersion    types.String `tfsdk:"ip_version" vyos:"ip-version,omitempty"`
 	LeafServiceMDNSRepeaterBrowseDomain types.List   `tfsdk:"browse_domain" vyos:"browse-domain,omitempty"`
 	LeafServiceMDNSRepeaterAllowService types.List   `tfsdk:"allow_service" vyos:"allow-service,omitempty"`
+	LeafServiceMDNSRepeaterCacheEntries types.Number `tfsdk:"cache_entries" vyos:"cache-entries,omitempty"`
 	LeafServiceMDNSRepeaterVrrpDisable  types.Bool   `tfsdk:"vrrp_disable" vyos:"vrrp-disable,omitempty"`
 
 	// TagNodes
@@ -204,6 +205,30 @@ func (o ServiceMDNSRepeater) ResourceSchemaAttributes(ctx context.Context) map[s
     |----------|----------------|
     |  txt     |  mDNS service  |
 `,
+		},
+
+		"cache_entries":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Number of resource records cached per interface
+
+    |  Format   |  Description                              |
+    |-----------|-------------------------------------------|
+    |  0        |  Disable caching                          |
+    |  1-65535  |  Resource records to cache per interface  |
+`,
+			Description: `Number of resource records cached per interface
+
+    |  Format   |  Description                              |
+    |-----------|-------------------------------------------|
+    |  0        |  Disable caching                          |
+    |  1-65535  |  Resource records to cache per interface  |
+`,
+
+			// Default:          stringdefault.StaticString(`4096`),
+			Computed: true,
 		},
 
 		"vrrp_disable":
