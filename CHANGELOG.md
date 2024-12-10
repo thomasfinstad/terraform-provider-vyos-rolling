@@ -4,16 +4,39 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 14.0.202412030 (2024-12-04 08-33-51 UTC)](#release-140202412030-2024-12-04-08-33-51-utc)
+  - [Release 14.1.202412100 (2024-12-10 08-33-29 UTC)](#release-141202412100-2024-12-10-08-33-29-utc)
     - [Project changes](#project-changes)
     - [Schema changes](#schema-changes)
-      - [BREAKING CHANGES](#breaking-changes)
-        - [Resources](#resources)
       - [Features](#features)
+        - [Resources](#resources)
+  - [Release 14.0.202412030 (2024-12-04 08-33-51 UTC)](#release-140202412030-2024-12-04-08-33-51-utc)
+    - [Project changes](#project-changes-1)
+    - [Schema changes](#schema-changes-1)
+      - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources-1)
+      - [Features](#features-1)
+        - [Resources](#resources-2)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 14.1.202412100 (2024-12-10 08-33-29 UTC)
+### Project changes
+
+### Schema changes
+#### Features
+
+##### Resources
+* Modified Resource `vyos_container_name`
+	* New attribute `name_server`
+
+
+
+
+
+
+
 
 
 ## Release 14.0.202412030 (2024-12-04 08-33-51 UTC)
