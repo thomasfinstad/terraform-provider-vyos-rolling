@@ -51,6 +51,7 @@ type ContainerName struct {
 	LeafContainerNameCpuQuota          types.String `tfsdk:"cpu_quota" vyos:"cpu-quota,omitempty"`
 	LeafContainerNameMemory            types.Number `tfsdk:"memory" vyos:"memory,omitempty"`
 	LeafContainerNameSharedMemory      types.Number `tfsdk:"shared_memory" vyos:"shared-memory,omitempty"`
+	LeafContainerNameNameServer        types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
 	LeafContainerNameRestart           types.String `tfsdk:"restart" vyos:"restart,omitempty"`
 	LeafContainerNameUID               types.Number `tfsdk:"uid" vyos:"uid,omitempty"`
 	LeafContainerNameGID               types.Number `tfsdk:"gid" vyos:"gid,omitempty"`
@@ -411,6 +412,27 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 			// Default:          stringdefault.StaticString(`64`),
 			Computed: true,
+		},
+
+		"name_server":
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
+		schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Domain Name Servers (DNS) addresses
+
+    |  Format  |  Description                            |
+    |----------|-----------------------------------------|
+    |  ipv4    |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6    |  Domain Name Server (DNS) IPv6 address  |
+`,
+			Description: `Domain Name Servers (DNS) addresses
+
+    |  Format  |  Description                            |
+    |----------|-----------------------------------------|
+    |  ipv4    |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6    |  Domain Name Server (DNS) IPv6 address  |
+`,
 		},
 
 		"restart":

@@ -1064,6 +1064,47 @@ func container() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
+							NodeNameAttr: "name-server",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Domain Name Servers (DNS) addresses"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*schemadefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "ip-address",
+									}},
+								}},
+								ValueHelp: []*schemadefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv4",
+									Description: "Domain Name Server (DNS) IPv4 address",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv6",
+									Description: "Domain Name Server (DNS) IPv6 address",
+								}},
+								Multi: []*schemadefinition.Multi{{
+									XMLName: xml.Name{
+										Local: "multi",
+									},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
 							NodeNameAttr: "restart",
 							DefaultValue: []string{"on-failure"},
 							Properties: []*schemadefinition.Properties{{

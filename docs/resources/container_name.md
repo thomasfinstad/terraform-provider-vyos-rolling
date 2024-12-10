@@ -40,6 +40,7 @@ Container applications
       - [host_name](#host_name)
       - [image](#image)
       - [memory](#memory)
+      - [name_server](#name_server)
       - [network](#network)
       - [restart](#restart)
       - [shared_memory](#shared_memory)
@@ -123,6 +124,13 @@ Container applications
     |-----------|--------------------------------------|
     |  0        &emsp;|  Unlimited                           |
     |  1-16384  &emsp;|  Container memory in megabytes (MB)  |
+#### name_server
+- `name_server` (List of String) Domain Name Servers (DNS) addresses
+
+    |  Format  &emsp;|  Description                            |
+    |----------|-----------------------------------------|
+    |  ipv4    &emsp;|  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6    &emsp;|  Domain Name Server (DNS) IPv6 address  |
 #### network
 - `network` (Attributes Map) Attach user defined network to container (see [below for nested schema](#nestedatt--network))
 #### restart
