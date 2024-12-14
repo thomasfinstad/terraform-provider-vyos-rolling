@@ -202,9 +202,9 @@ Optional:
     |  txt     &emsp;|  DHCP option string  |
 - `default_route_distance` (Number) Distance for installed default route
 
-    |  Format  &emsp;|  Description                                      |
-    |----------|---------------------------------------------------|
-    |  1-255   &emsp;|  Distance for the default route from DHCP server  |
+    |  Format  &emsp;|  Description                                              |
+    |----------|-----------------------------------------------------------|
+    |  1-255   &emsp;|  Distance for the default route received from the server  |
 - `host_name` (String) Override system host-name sent to DHCP server
 - `mtu` (Boolean) Use MTU value from DHCP server - ignore interface setting
 - `no_default_route` (Boolean) Do not install default route to system

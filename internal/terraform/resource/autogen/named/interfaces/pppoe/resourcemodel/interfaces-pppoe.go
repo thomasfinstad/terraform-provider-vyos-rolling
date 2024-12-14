@@ -227,18 +227,18 @@ func (o InterfacesPppoe) ResourceSchemaAttributes(ctx context.Context) map[strin
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
-    |  Format  |  Description                                      |
-    |----------|---------------------------------------------------|
-    |  1-255   |  Distance for the default route from DHCP server  |
+    |  Format  |  Description                                              |
+    |----------|-----------------------------------------------------------|
+    |  1-255   |  Distance for the default route received from the server  |
 `,
 			Description: `Distance for installed default route
 
-    |  Format  |  Description                                      |
-    |----------|---------------------------------------------------|
-    |  1-255   |  Distance for the default route from DHCP server  |
+    |  Format  |  Description                                              |
+    |----------|-----------------------------------------------------------|
+    |  1-255   |  Distance for the default route received from the server  |
 `,
 
-			// Default:          stringdefault.StaticString(`210`),
+			// Default:          stringdefault.StaticString(`1`),
 			Computed: true,
 		},
 

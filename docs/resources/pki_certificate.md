@@ -90,11 +90,12 @@ Optional:
 
 - `domain_name` (List of String) Domain Name
 - `email` (String) Email address to associate with certificate
-- `listen_address` (String) Local IPv4 addresses to listen on
+- `listen_address` (String) Local IP addresses to listen on
 
     |  Format  &emsp;|  Description                                      |
     |----------|---------------------------------------------------|
     |  ipv4    &emsp;|  IPv4 address to listen for incoming connections  |
+    |  ipv6    &emsp;|  IPv6 address to listen for incoming connections  |
 - `rsa_key_size` (String) Size of the RSA key
 
     |  Format  &emsp;|  Description              |

@@ -91,17 +91,19 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes(ctx context.Context) map[st
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Local IPv4 addresses to listen on
+			MarkdownDescription: `Local IP addresses to listen on
 
     |  Format  |  Description                                      |
     |----------|---------------------------------------------------|
     |  ipv4    |  IPv4 address to listen for incoming connections  |
+    |  ipv6    |  IPv6 address to listen for incoming connections  |
 `,
-			Description: `Local IPv4 addresses to listen on
+			Description: `Local IP addresses to listen on
 
     |  Format  |  Description                                      |
     |----------|---------------------------------------------------|
     |  ipv4    |  IPv4 address to listen for incoming connections  |
+    |  ipv6    |  IPv6 address to listen for incoming connections  |
 `,
 		},
 

@@ -312,7 +312,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "u32:1-255",
-											Description: "Distance for the default route from DHCP server",
+											Description: "Distance for the default route received from the server",
 										}},
 									}},
 								}, {
@@ -1784,7 +1784,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -2963,7 +2963,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 																Local: "valueHelp",
 															},
 															Format:      "u32:1-255",
-															Description: "Distance for the default route from DHCP server",
+															Description: "Distance for the default route received from the server",
 														}},
 													}},
 												}, {
@@ -4705,7 +4705,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -6758,7 +6758,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "u32:1-255",
-											Description: "Distance for the default route from DHCP server",
+											Description: "Distance for the default route received from the server",
 										}},
 									}},
 								}, {
@@ -8208,7 +8208,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -10707,7 +10707,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "u32:1-255",
-											Description: "Distance for the default route from DHCP server",
+											Description: "Distance for the default route received from the server",
 										}},
 									}},
 								}, {
@@ -12254,7 +12254,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -13433,7 +13433,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 																Local: "valueHelp",
 															},
 															Format:      "u32:1-255",
-															Description: "Distance for the default route from DHCP server",
+															Description: "Distance for the default route received from the server",
 														}},
 													}},
 												}, {
@@ -15175,7 +15175,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -19847,7 +19847,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "u32:1-255",
-											Description: "Distance for the default route from DHCP server",
+											Description: "Distance for the default route received from the server",
 										}},
 									}},
 								}, {
@@ -25105,7 +25105,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 								Local: "leafNode",
 							},
 							NodeNameAttr: "default-route-distance",
-							DefaultValue: []string{"210"},
+							DefaultValue: []string{"1"},
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
 									Local: "properties",
@@ -25128,7 +25128,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 										Local: "valueHelp",
 									},
 									Format:      "u32:1-255",
-									Description: "Distance for the default route from DHCP server",
+									Description: "Distance for the default route received from the server",
 								}},
 							}},
 						}, {
@@ -25744,7 +25744,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "u32:1-255",
-											Description: "Distance for the default route from DHCP server",
+											Description: "Distance for the default route received from the server",
 										}},
 									}},
 								}, {
@@ -26930,7 +26930,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -28109,7 +28109,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 																Local: "valueHelp",
 															},
 															Format:      "u32:1-255",
-															Description: "Distance for the default route from DHCP server",
+															Description: "Distance for the default route received from the server",
 														}},
 													}},
 												}, {
@@ -29851,7 +29851,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -31708,7 +31708,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 										Local: "valueHelp",
 									},
 									Format:      "u32:1-255",
-									Description: "Distance for the default route from DHCP server",
+									Description: "Distance for the default route received from the server",
 								}},
 							}},
 						}, {
@@ -33737,7 +33737,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "u32:1-255",
-											Description: "Distance for the default route from DHCP server",
+											Description: "Distance for the default route received from the server",
 										}},
 									}},
 								}, {
@@ -34267,7 +34267,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -35446,7 +35446,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 																Local: "valueHelp",
 															},
 															Format:      "u32:1-255",
-															Description: "Distance for the default route from DHCP server",
+															Description: "Distance for the default route received from the server",
 														}},
 													}},
 												}, {
@@ -37188,7 +37188,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -43803,7 +43803,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "u32:1-255",
-											Description: "Distance for the default route from DHCP server",
+											Description: "Distance for the default route received from the server",
 										}},
 									}},
 								}, {
@@ -45668,7 +45668,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -47164,7 +47164,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-255",
-													Description: "Distance for the default route from DHCP server",
+													Description: "Distance for the default route received from the server",
 												}},
 											}},
 										}, {
@@ -48343,7 +48343,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 																Local: "valueHelp",
 															},
 															Format:      "u32:1-255",
-															Description: "Distance for the default route from DHCP server",
+															Description: "Distance for the default route received from the server",
 														}},
 													}},
 												}, {
@@ -50792,7 +50792,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "u32:1-255",
-											Description: "Distance for the default route from DHCP server",
+											Description: "Distance for the default route received from the server",
 										}},
 									}},
 								}, {

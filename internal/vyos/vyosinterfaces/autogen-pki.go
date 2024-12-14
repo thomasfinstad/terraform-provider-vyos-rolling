@@ -505,7 +505,7 @@ func pki() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Local IPv4 addresses to listen on"},
+										Help: []string{"Local IP addresses to listen on"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -514,7 +514,12 @@ func pki() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "validator",
 												},
-												NameAttr: "ipv4-address",
+												NameAttr: "ip-address",
+											}, {
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ipv6-link-local",
 											}},
 										}},
 										ValueHelp: []*schemadefinition.ValueHelp{{
@@ -523,12 +528,18 @@ func pki() schemadefinition.InterfaceDefinition {
 											},
 											Format:      "ipv4",
 											Description: "IPv4 address to listen for incoming connections",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6",
+											Description: "IPv6 address to listen for incoming connections",
 										}},
 										CompletionHelp: []*schemadefinition.CompletionHelp{{
 											XMLName: xml.Name{
 												Local: "completionHelp",
 											},
-											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --ipv4"},
+											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
 										}},
 									}},
 								}, {

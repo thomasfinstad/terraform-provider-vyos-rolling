@@ -64,9 +64,9 @@ description: |-
 #### default_route_distance
 - `default_route_distance` (Number) Distance for installed default route
 
-    |  Format  &emsp;|  Description                                      |
-    |----------|---------------------------------------------------|
-    |  1-255   &emsp;|  Distance for the default route from DHCP server  |
+    |  Format  &emsp;|  Description                                              |
+    |----------|-----------------------------------------------------------|
+    |  1-255   &emsp;|  Distance for the default route received from the server  |
 #### description
 - `description` (String) Description
 
