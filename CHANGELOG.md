@@ -4,21 +4,147 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 14.1.202412100 (2024-12-10 08-33-29 UTC)](#release-141202412100-2024-12-10-08-33-29-utc)
+  - [Release 14.1.202412140 (2024-12-14 08-30-30 UTC)](#release-141202412140-2024-12-14-08-30-30-utc)
     - [Project changes](#project-changes)
     - [Schema changes](#schema-changes)
-      - [Features](#features)
+      - [Notes](#notes)
         - [Resources](#resources)
-  - [Release 14.0.202412030 (2024-12-04 08-33-51 UTC)](#release-140202412030-2024-12-04-08-33-51-utc)
+  - [Release 14.1.202412100 (2024-12-10 08-33-29 UTC)](#release-141202412100-2024-12-10-08-33-29-utc)
     - [Project changes](#project-changes-1)
     - [Schema changes](#schema-changes-1)
-      - [BREAKING CHANGES](#breaking-changes)
+      - [Features](#features)
         - [Resources](#resources-1)
-      - [Features](#features-1)
+  - [Release 14.0.202412030 (2024-12-04 08-33-51 UTC)](#release-140202412030-2024-12-04-08-33-51-utc)
+    - [Project changes](#project-changes-2)
+    - [Schema changes](#schema-changes-2)
+      - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources-2)
+      - [Features](#features-1)
+        - [Resources](#resources-3)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 14.1.202412140 (2024-12-14 08-30-30 UTC)
+### Project changes
+
+### Schema changes
+#### Notes
+
+##### Resources
+* Modified Resource `vyos_interfaces_ethernet`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_ethernet_vif_s_vif_c`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_wireless_vif`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_virtual_ethernet_vif_s`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_sstpc`
+	* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_pseudo_ethernet_vif_s_vif_c`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_bonding_vif`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_wireless_vif_s_vif_c`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_virtual_ethernet_vif_s_vif_c`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_pseudo_ethernet_vif_s`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_virtual_ethernet_vif`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_macsec`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_pppoe`
+	* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_bridge_vif`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_ethernet_vif_s`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_wireless_vif_s`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_bridge`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_ethernet_vif`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_bonding_vif_s`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_pseudo_ethernet_vif`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_wwan`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_wireless`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_pki_certificate`
+	* Modified attribute `acme`
+		* Attribute `listen_address`changed `description`
+
+* Modified Resource `vyos_interfaces_pseudo_ethernet`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_bonding`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_virtual_ethernet`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+* Modified Resource `vyos_interfaces_bonding_vif_s_vif_c`
+	* Modified attribute `dhcp_options`
+		* Attribute `default_route_distance`changed `description`
+
+
+
+
+
+
+
 
 
 ## Release 14.1.202412100 (2024-12-10 08-33-29 UTC)
