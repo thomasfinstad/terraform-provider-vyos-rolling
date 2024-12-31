@@ -4,182 +4,236 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 14.1.202412140 (2024-12-14 08-30-30 UTC)](#release-141202412140-2024-12-14-08-30-30-utc)
+  - [Release 15.0.202412310 (2024-12-31 08-30-06 UTC)](#release-150202412310-2024-12-31-08-30-06-utc)
     - [Project changes](#project-changes)
     - [Schema changes](#schema-changes)
-      - [Notes](#notes)
-        - [Resources](#resources)
-  - [Release 14.1.202412100 (2024-12-10 08-33-29 UTC)](#release-141202412100-2024-12-10-08-33-29-utc)
-    - [Project changes](#project-changes-1)
-    - [Schema changes](#schema-changes-1)
-      - [Features](#features)
-        - [Resources](#resources-1)
-  - [Release 14.0.202412030 (2024-12-04 08-33-51 UTC)](#release-140202412030-2024-12-04-08-33-51-utc)
-    - [Project changes](#project-changes-2)
-    - [Schema changes](#schema-changes-2)
       - [BREAKING CHANGES](#breaking-changes)
+        - [Resources](#resources)
+      - [Notes](#notes)
+        - [Resources](#resources-1)
+      - [Features](#features)
         - [Resources](#resources-2)
-      - [Features](#features-1)
-        - [Resources](#resources-3)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
 
 
-## Release 14.1.202412140 (2024-12-14 08-30-30 UTC)
-### Project changes
-
-### Schema changes
-#### Notes
-
-##### Resources
-* Modified Resource `vyos_interfaces_ethernet`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_ethernet_vif_s_vif_c`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_wireless_vif`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_virtual_ethernet_vif_s`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_sstpc`
-	* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_pseudo_ethernet_vif_s_vif_c`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_bonding_vif`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_wireless_vif_s_vif_c`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_virtual_ethernet_vif_s_vif_c`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_pseudo_ethernet_vif_s`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_virtual_ethernet_vif`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_macsec`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_pppoe`
-	* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_bridge_vif`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_ethernet_vif_s`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_wireless_vif_s`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_bridge`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_ethernet_vif`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_bonding_vif_s`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_pseudo_ethernet_vif`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_wwan`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_wireless`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_pki_certificate`
-	* Modified attribute `acme`
-		* Attribute `listen_address`changed `description`
-
-* Modified Resource `vyos_interfaces_pseudo_ethernet`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_bonding`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_virtual_ethernet`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-* Modified Resource `vyos_interfaces_bonding_vif_s_vif_c`
-	* Modified attribute `dhcp_options`
-		* Attribute `default_route_distance`changed `description`
-
-
-
-
-
-
-
-
-
-## Release 14.1.202412100 (2024-12-10 08-33-29 UTC)
-### Project changes
-
-### Schema changes
-#### Features
-
-##### Resources
-* Modified Resource `vyos_container_name`
-	* New attribute `name_server`
-
-
-
-
-
-
-
-
-
-## Release 14.0.202412030 (2024-12-04 08-33-51 UTC)
+## Release 15.0.202412310 (2024-12-31 08-30-06 UTC)
 ### Project changes
 
 ### Schema changes
 #### BREAKING CHANGES
 
 ##### Resources
-* Modified Resource `vyos_qos_policy_cake`
-	* Attribute `rtt`changed `description`
-	* Modified attribute `flow_isolation`
-		* type changed to `string`
-		* changed `description`
-	* New attribute `flow_isolation_nat`
+* **Removed Resource** `vyos_protocols_static_multicast_interface_route_next_hop_interface`
 
-* **Removed Resource** `vyos_service_ntp_ptp_timestamp_interface`
+* **Removed Resource** `vyos_vrf_name_protocols_static_route_next_hop_bfd_multi_hop_source`
+
+* **Removed Resource** `vyos_vrf_name_protocols_static_route6_next_hop_bfd_multi_hop_source`
+
+* **Removed Resource** `vyos_protocols_static_multicast_interface_route`
+
+* **Removed Resource** `vyos_protocols_static_multicast_route_next_hop`
+
+* **Removed Resource** `vyos_protocols_static_table_route6_next_hop_bfd_multi_hop_source`
+
+* **Removed Resource** `vyos_service_monitoring_frr_exporter`
+
+* **Removed Resource** `vyos_protocols_static_table_route_next_hop_bfd_multi_hop_source`
+
+* **Removed Resource** `vyos_service_monitoring_node_exporter`
+
+* **Removed Resource** `vyos_protocols_static_route_next_hop_bfd_multi_hop_source`
+
+* **Removed Resource** `vyos_protocols_static_multicast_route`
+
+* **Removed Resource** `vyos_protocols_static_route6_next_hop_bfd_multi_hop_source`
+
+
+
+
+
+#### Notes
+
+##### Resources
+* Modified Resource `vyos_protocols_mpls_ldp`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_high_availability_vrrp_group`
+	* Modified attribute `track`
+		* Attribute `interface`changed `description`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_bgp_address_family_ipv6_flowspec_local_install`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_stunnel_server_psk`
+	* Attribute `secret`changed `description`
+
+* Modified Resource `vyos_qos_policy_limiter_class_match`
+	* Attribute `interface`changed `description`
+	* Modified attribute `ether`
+		* Attribute `protocol`changed `description`
+
+* Modified Resource `vyos_service_dhcp_relay`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_ipoe_server_authentication_radius`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_high_availability_vrrp_group_excluded_address`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_qos_policy_round_robin_class_match`
+	* Modified attribute `ether`
+		* Attribute `protocol`changed `description`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_bgp_address_family_ipv4_flowspec_local_install`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_mdns_repeater`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_vrf_name`
+	* Modified attribute `protocols`
+		* Modified attribute `protocols.bgp.bgp`
+			* Modified attribute `protocols.bgp.bgp.address_family.address_family`
+				* Modified attribute `protocols.bgp.bgp.address_family.address_family.ipv6_flowspec.ipv6_flowspec`
+					* Modified attribute `protocols.bgp.bgp.address_family.address_family.ipv6_flowspec.ipv6_flowspec.local_install.local_install`
+						* Attribute `interface`changed `description`
+				* Modified attribute `protocols.bgp.bgp.address_family.address_family.ipv4_flowspec.ipv4_flowspec`
+					* Modified attribute `protocols.bgp.bgp.address_family.address_family.ipv4_flowspec.ipv4_flowspec.local_install.local_install`
+						* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_pim_interface`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_protocols_static_table_route`
+	* Attribute `dhcp_interface`type changed to `list of string`
+
+* Modified Resource `vyos_qos_policy_priority_queue_class_match`
+	* Modified attribute `ether`
+		* Attribute `protocol`changed `description`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_vpn_l2tp_remote_access_authentication_radius`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_vpn_ipsec_options`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_vrf_name_protocols_static_route`
+	* Attribute `dhcp_interface`type changed to `list of string`
+
+* Modified Resource `vyos_service_broadcast_relay_id`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_pppoe_server_authentication_radius`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_vpn_ipsec`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_system_sflow`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_suricata`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_system_flow_accounting`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_dns_dynamic_name`
+	* Modified attribute `address`
+		* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_interfaces_wireless`
+	* Modified attribute `security`
+		* Modified attribute `security.wpa.wpa`
+			* Modified attribute `security.wpa.wpa.radius.radius`
+				* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_vpn_pptp_remote_access_authentication_radius`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_service_ntp`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_stunnel_client_psk`
+	* Attribute `secret`changed `description`
+
+* Modified Resource `vyos_vpn_ipsec_remote_access_dhcp`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_static_neighbor_proxy_and`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_policy_route_map_rule`
+	* Modified attribute `match`
+		* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_qos_policy_shaper_class_match`
+	* Attribute `interface`changed `description`
+	* Modified attribute `ether`
+		* Attribute `protocol`changed `description`
+
+* Modified Resource `vyos_system_login_tacacs`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_vpn_sstp_authentication_radius`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_protocols_failover_route_next_hop`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_static_route`
+	* Attribute `dhcp_interface`type changed to `list of string`
+
+* Modified Resource `vyos_service_dhcpv6_server_shared_network_name_subnet`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_dhcp_server_high_availability`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_vpn_openconnect_authentication_radius`
+	* Attribute `source_address`changed `description`
+
+* Modified Resource `vyos_protocols_mpls`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_service_ndp_proxy_interface_prefix`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_policy_route`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_static_neighbor_proxy_arp`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_high_availability_vrrp_group_address`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_policy_route6`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_qos_policy_shaper_hfsc_class_match`
+	* Attribute `interface`changed `description`
+	* Modified attribute `ether`
+		* Attribute `protocol`changed `description`
+
+* Modified Resource `vyos_firewall_global_options_apply_to_bridged_traffic`
+	* Attribute `invalid_connections`changed `description`
+
+* Modified Resource `vyos_service_dhcpv6_server_shared_network_name`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_bfd_peer`
+	* Modified attribute `source`
+		* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_vpn_ipsec_remote_access_radius`
+	* Attribute `source_address`changed `description`
 
 
 
@@ -188,26 +242,66 @@
 #### Features
 
 ##### Resources
-* Modified Resource `vyos_service_ipoe_server_interface`
-	* New attribute `lua_username`
-	* New attribute `start_session`
+* Modified Resource `vyos_protocols_ospf_area_virtual_link`
+	* New attribute `retransmit_window`
 
-* Modified Resource `vyos_vpn_ipsec_authentication_psk`
-	* New attribute `secret_type`
+* Modified Resource `vyos_vrf_name_protocols_static_route_next_hop`
+	* Attribute `interface`changed `description`
+	* Attribute `bfd`New attribute `bfd.multi_hop`
 
-* Modified Resource `vyos_service_ipoe_server`
-	* New attribute `lua_file`
+* Modified Resource `vyos_interfaces_ethernet`
+	* New attribute `switchdev`
 
-* Modified Resource `vyos_pki_ca`
-	* New attribute `system_install`
+* Modified Resource `vyos_service_pppoe_server_interface`
+	* New attribute `combined`
 
-* Modified Resource `vyos_service_mdns_repeater`
-	* New attribute `cache_entries`
+* Modified Resource `vyos_service_ipoe_server_authentication_interface_mac`
+	* New attribute `static_ip`
 
-* Modified Resource `vyos_container_network`
-	* New attribute `mtu`
+* Modified Resource `vyos_vrf_name_protocols_ospf_interface`
+	* New attribute `retransmit_window`
 
-* New Resource `vyos_service_ntp_timestamp_interface`
+* Modified Resource `vyos_protocols_static_table_route_next_hop`
+	* Attribute `bfd`New attribute `bfd.multi_hop`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_static_table_route6_next_hop`
+	* Attribute `bfd`New attribute `bfd.multi_hop`
+	* Attribute `interface`changed `description`
+
+* Modified Resource `vyos_protocols_static_route_next_hop`
+	* Attribute `interface`changed `description`
+	* Attribute `bfd`New attribute `bfd.multi_hop`
+
+* Modified Resource `vyos_protocols_ospf_interface`
+	* New attribute `retransmit_window`
+
+* Modified Resource `vyos_vrf_name_protocols_static_route6_next_hop`
+	* Attribute `interface`changed `description`
+	* Attribute `bfd`New attribute `bfd.multi_hop`
+
+* Modified Resource `vyos_vrf_name_protocols_ospf_area_virtual_link`
+	* New attribute `retransmit_window`
+
+* Modified Resource `vyos_protocols_static_route6_next_hop`
+	* Attribute `interface`changed `description`
+	* Attribute `bfd`New attribute `bfd.multi_hop`
+
+* New Resource `vyos_protocols_static_mroute`
+
+* New Resource `vyos_service_monitoring_zabbix_agent_authentication`
+
+* New Resource `vyos_service_monitoring_zabbix_agent_authentication_psk`
+
+* New Resource `vyos_service_ssh_trusted_user_ca_key`
+
+* New Resource `vyos_service_monitoring_prometheus_frr_exporter`
+
+* New Resource `vyos_protocols_static_mroute_next_hop`
+
+* New Resource `vyos_protocols_static_mroute_interface`
+
+* New Resource `vyos_service_monitoring_prometheus_node_exporter`
 
 
 
@@ -217,4 +311,4 @@
 
 
 ## Previous changelogs
-For previous version see [changelog for v13](data/changelogs/CHANGELOG-v13.md) or older archives [directory](data/changelogs/)
+For previous version see [changelog for v14](data/changelogs/CHANGELOG-v14.md) or older archives [directory](data/changelogs/)
