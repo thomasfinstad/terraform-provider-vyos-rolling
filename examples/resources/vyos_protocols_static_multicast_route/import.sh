@@ -1,2 +1,0 @@
-
-terraform import vyos_protocols_static_multicast_route.example "protocols__static__multicast__route__<route>"

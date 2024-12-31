@@ -49,6 +49,10 @@ Flowspec IPv6 BGP settings
 
 #### interface
 - `interface` (List of String) Interface
+
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Interface name  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

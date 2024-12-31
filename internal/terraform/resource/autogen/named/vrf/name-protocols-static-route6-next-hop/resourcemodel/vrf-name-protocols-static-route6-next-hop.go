@@ -303,17 +303,17 @@ func (o VrfNameProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes(ctx cont
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Gateway interface name
+			MarkdownDescription: `Interface
 
-    |  Format  |  Description             |
-    |----------|--------------------------|
-    |  txt     |  Gateway interface name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
-			Description: `Gateway interface name
+			Description: `Interface
 
-    |  Format  |  Description             |
-    |----------|--------------------------|
-    |  txt     |  Gateway interface name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 

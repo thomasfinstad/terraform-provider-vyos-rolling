@@ -84,13 +84,13 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) m
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Interface to use
+			MarkdownDescription: `Interface
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Interface name  |
 `,
-			Description: `Interface to use
+			Description: `Interface
 
     |  Format  |  Description     |
     |----------|------------------|

@@ -148,7 +148,7 @@ Optional:
     |----------|--------------------------------------------------|
     |  ipv4    &emsp;|  Local IPv4 address used to connect to the peer  |
     |  ipv6    &emsp;|  Local IPv6 address used to connect to the peer  |
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

@@ -1,2 +1,0 @@
-
-terraform import vyos_service_monitoring_frr_exporter.example "service__monitoring__frr-exporter"

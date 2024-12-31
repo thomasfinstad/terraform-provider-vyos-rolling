@@ -63,7 +63,7 @@ Static Routing
     |----------|---------------|
     |  txt     &emsp;|  Description  |
 #### dhcp_interface
-- `dhcp_interface` (String) DHCP interface supplying next-hop IP address
+- `dhcp_interface` (List of String) DHCP interface supplying next-hop IP address
 
     |  Format  &emsp;|  Description          |
     |----------|-----------------------|

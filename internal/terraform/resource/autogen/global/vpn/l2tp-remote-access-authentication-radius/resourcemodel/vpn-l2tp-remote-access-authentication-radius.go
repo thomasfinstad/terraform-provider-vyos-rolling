@@ -134,13 +134,13 @@ func (o VpnLtwotpRemoteAccessAuthenticationRadius) ResourceSchemaAttributes(ctx 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `IPv4 source address used to initiate connection
+			MarkdownDescription: `IPv4 address used to initiate connection
 
     |  Format  |  Description          |
     |----------|-----------------------|
     |  ipv4    |  IPv4 source address  |
 `,
-			Description: `IPv4 source address used to initiate connection
+			Description: `IPv4 address used to initiate connection
 
     |  Format  |  Description          |
     |----------|-----------------------|

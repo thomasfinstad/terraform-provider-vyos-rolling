@@ -29,6 +29,7 @@ Point to Point over Ethernet (PPPoE) Server
     - [Required](#required)
       - [identifier](#identifier)
     - [Optional](#optional)
+      - [combined](#combined)
       - [timeouts](#timeouts)
       - [vlan](#vlan)
       - [vlan_mon](#vlan_mon)
@@ -50,6 +51,8 @@ Point to Point over Ethernet (PPPoE) Server
 
 ### Optional
 
+#### combined
+- `combined` (Boolean) Listen on both VLANs and the base interface
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### vlan

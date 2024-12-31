@@ -50,7 +50,7 @@ IKEv2 remote access VPN
 #### nas_identifier
 - `nas_identifier` (String) NAS-Identifier attribute sent to RADIUS
 #### source_address
-- `source_address` (String) IPv4 source address used to initiate connection
+- `source_address` (String) IPv4 address used to initiate connection
 
     |  Format  &emsp;|  Description          |
     |----------|-----------------------|

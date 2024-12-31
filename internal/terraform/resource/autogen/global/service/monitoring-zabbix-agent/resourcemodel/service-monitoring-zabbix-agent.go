@@ -42,6 +42,8 @@ type ServiceMonitoringZabbixAgent struct {
 
 	// Nodes
 
+	ExistsNodeServiceMonitoringZabbixAgentAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
+
 	ExistsNodeServiceMonitoringZabbixAgentLimits bool `tfsdk:"-" vyos:"limits,child"`
 
 	ExistsNodeServiceMonitoringZabbixAgentLog bool `tfsdk:"-" vyos:"log,child"`

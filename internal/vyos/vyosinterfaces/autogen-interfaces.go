@@ -16650,6 +16650,23 @@ func interfaces() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
+							NodeNameAttr: "switchdev",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Enables switchdev mode on interface"},
+								Valueless: []*schemadefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
 							NodeNameAttr: "hw-id",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
@@ -45179,7 +45196,7 @@ func interfaces() schemadefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"IPv4 source address used to initiate connection"},
+														Help: []string{"IPv4 address used to initiate connection"},
 														Constraint: []*schemadefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",

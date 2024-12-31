@@ -1,2 +1,0 @@
-
-terraform import vyos_service_monitoring_node_exporter.example "service__monitoring__node-exporter"

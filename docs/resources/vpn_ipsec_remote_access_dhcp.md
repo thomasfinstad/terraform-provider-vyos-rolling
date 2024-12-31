@@ -47,7 +47,7 @@ IKEv2 remote access VPN
 ### Optional
 
 #### interface
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

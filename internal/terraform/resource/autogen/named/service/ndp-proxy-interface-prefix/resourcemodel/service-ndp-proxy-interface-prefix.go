@@ -248,11 +248,17 @@ func (o ServiceNdpProxyInterfacePrefix) ResourceSchemaAttributes(ctx context.Con
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Interface to forward Neighbor Solicitation message through. Required for "iface" mode
+			MarkdownDescription: `Interface
 
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
-			Description: `Interface to forward Neighbor Solicitation message through. Required for "iface" mode
+			Description: `Interface
 
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 

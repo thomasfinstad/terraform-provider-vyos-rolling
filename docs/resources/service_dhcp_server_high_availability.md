@@ -77,7 +77,7 @@ Dynamic Host Configuration Protocol (DHCP) for DHCP server
     |----------|------------------------------------------|
     |  ipv4    &emsp;|  IPv4 address of high availability peer  |
 #### source_address
-- `source_address` (String) IPv4 source address used to initiate connection
+- `source_address` (String) IPv4 address used to initiate connection
 
     |  Format  &emsp;|  Description          |
     |----------|-----------------------|

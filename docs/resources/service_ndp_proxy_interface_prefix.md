@@ -56,7 +56,11 @@ NDP proxy listener interface
 #### disable
 - `disable` (Boolean) Disable instance
 #### interface
-- `interface` (String) Interface to forward Neighbor Solicitation message through. Required for &#34;iface&#34; mode
+- `interface` (String) Interface
+
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Interface name  |
 #### mode
 - `mode` (String) Specify the running mode of the rule
 

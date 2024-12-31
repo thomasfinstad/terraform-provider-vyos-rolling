@@ -59,7 +59,7 @@ DHCPv6 shared network name
 ### Optional
 
 #### interface
-- `interface` (String) Optional interface for this subnet to accept requests from
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

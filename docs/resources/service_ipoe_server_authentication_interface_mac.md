@@ -34,6 +34,7 @@ Network interface for client MAC addresses
       - [identifier](#identifier)
     - [Optional](#optional)
       - [rate_limit](#rate_limit)
+      - [static_ip](#static_ip)
       - [timeouts](#timeouts)
       - [vlan](#vlan)
     - [Read-Only](#read-only)
@@ -57,6 +58,12 @@ Network interface for client MAC addresses
 
 #### rate_limit
 - `rate_limit` (Attributes) Upload/Download speed limits (see [below for nested schema](#nestedatt--rate_limit))
+#### static_ip
+- `static_ip` (String) Static client IP address
+
+    |  Format  &emsp;|  Description   |
+    |----------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### vlan

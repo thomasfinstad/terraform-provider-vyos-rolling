@@ -1150,14 +1150,14 @@ func qos() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "validator",
 																		},
-																		NameAttr: "ip-protocol",
+																		NameAttr: "ether-type",
 																	}},
 																}},
 																ValueHelp: []*schemadefinition.ValueHelp{{
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "u32:0-65535",
+																	Format:      "u32:1-65535",
 																	Description: "Ethernet protocol number",
 																}, {
 																	XMLName: xml.Name{
@@ -1181,7 +1181,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "ipv6",
+																	Format:      "_ipv6",
 																	Description: "Internet IP (IPv6)",
 																}, {
 																	XMLName: xml.Name{
@@ -1194,7 +1194,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																		Local: "valueHelp",
 																	},
 																	Format:      "atalk",
-																	Description: "Appletalk",
+																	Description: "AppleTalk",
 																}, {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
@@ -1207,6 +1207,66 @@ func qos() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      "802.1Q",
 																	Description: "802.1Q VLAN tag",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_2",
+																	Description: "IEEE 802.2",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_3",
+																	Description: "IEEE 802.3",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aarp",
+																	Description: "AppleTalk Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aoe",
+																	Description: "ATA over Ethernet",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "dec",
+																	Description: "DECnet Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "lat",
+																	Description: "Local Area Transport",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "localtalk",
+																	Description: "Apple LocalTalk",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "rarp",
+																	Description: "Reverse Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "snap",
+																	Description: "Subnetwork Access Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "x25",
+																	Description: "X.25 Packet-Switching Protocol",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
@@ -2350,7 +2410,7 @@ func qos() schemadefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Interface to use"},
+														Help: []string{"Interface"},
 														Constraint: []*schemadefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",
@@ -3511,14 +3571,14 @@ func qos() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "validator",
 																		},
-																		NameAttr: "ip-protocol",
+																		NameAttr: "ether-type",
 																	}},
 																}},
 																ValueHelp: []*schemadefinition.ValueHelp{{
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "u32:0-65535",
+																	Format:      "u32:1-65535",
 																	Description: "Ethernet protocol number",
 																}, {
 																	XMLName: xml.Name{
@@ -3542,7 +3602,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "ipv6",
+																	Format:      "_ipv6",
 																	Description: "Internet IP (IPv6)",
 																}, {
 																	XMLName: xml.Name{
@@ -3555,7 +3615,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																		Local: "valueHelp",
 																	},
 																	Format:      "atalk",
-																	Description: "Appletalk",
+																	Description: "AppleTalk",
 																}, {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
@@ -3568,6 +3628,66 @@ func qos() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      "802.1Q",
 																	Description: "802.1Q VLAN tag",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_2",
+																	Description: "IEEE 802.2",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_3",
+																	Description: "IEEE 802.3",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aarp",
+																	Description: "AppleTalk Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aoe",
+																	Description: "ATA over Ethernet",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "dec",
+																	Description: "DECnet Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "lat",
+																	Description: "Local Area Transport",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "localtalk",
+																	Description: "Apple LocalTalk",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "rarp",
+																	Description: "Reverse Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "snap",
+																	Description: "Subnetwork Access Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "x25",
+																	Description: "X.25 Packet-Switching Protocol",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
@@ -4711,7 +4831,7 @@ func qos() schemadefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Interface to use"},
+														Help: []string{"Interface"},
 														Constraint: []*schemadefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",
@@ -6030,14 +6150,14 @@ func qos() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "validator",
 																		},
-																		NameAttr: "ip-protocol",
+																		NameAttr: "ether-type",
 																	}},
 																}},
 																ValueHelp: []*schemadefinition.ValueHelp{{
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "u32:0-65535",
+																	Format:      "u32:1-65535",
 																	Description: "Ethernet protocol number",
 																}, {
 																	XMLName: xml.Name{
@@ -6061,7 +6181,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "ipv6",
+																	Format:      "_ipv6",
 																	Description: "Internet IP (IPv6)",
 																}, {
 																	XMLName: xml.Name{
@@ -6074,7 +6194,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																		Local: "valueHelp",
 																	},
 																	Format:      "atalk",
-																	Description: "Appletalk",
+																	Description: "AppleTalk",
 																}, {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
@@ -6087,6 +6207,66 @@ func qos() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      "802.1Q",
 																	Description: "802.1Q VLAN tag",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_2",
+																	Description: "IEEE 802.2",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_3",
+																	Description: "IEEE 802.3",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aarp",
+																	Description: "AppleTalk Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aoe",
+																	Description: "ATA over Ethernet",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "dec",
+																	Description: "DECnet Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "lat",
+																	Description: "Local Area Transport",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "localtalk",
+																	Description: "Apple LocalTalk",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "rarp",
+																	Description: "Reverse Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "snap",
+																	Description: "Subnetwork Access Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "x25",
+																	Description: "X.25 Packet-Switching Protocol",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
@@ -7230,7 +7410,7 @@ func qos() schemadefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Interface to use"},
+														Help: []string{"Interface"},
 														Constraint: []*schemadefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",
@@ -8586,14 +8766,14 @@ func qos() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "validator",
 																		},
-																		NameAttr: "ip-protocol",
+																		NameAttr: "ether-type",
 																	}},
 																}},
 																ValueHelp: []*schemadefinition.ValueHelp{{
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "u32:0-65535",
+																	Format:      "u32:1-65535",
 																	Description: "Ethernet protocol number",
 																}, {
 																	XMLName: xml.Name{
@@ -8617,7 +8797,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "ipv6",
+																	Format:      "_ipv6",
 																	Description: "Internet IP (IPv6)",
 																}, {
 																	XMLName: xml.Name{
@@ -8630,7 +8810,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																		Local: "valueHelp",
 																	},
 																	Format:      "atalk",
-																	Description: "Appletalk",
+																	Description: "AppleTalk",
 																}, {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
@@ -8643,6 +8823,66 @@ func qos() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      "802.1Q",
 																	Description: "802.1Q VLAN tag",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_2",
+																	Description: "IEEE 802.2",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_3",
+																	Description: "IEEE 802.3",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aarp",
+																	Description: "AppleTalk Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aoe",
+																	Description: "ATA over Ethernet",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "dec",
+																	Description: "DECnet Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "lat",
+																	Description: "Local Area Transport",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "localtalk",
+																	Description: "Apple LocalTalk",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "rarp",
+																	Description: "Reverse Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "snap",
+																	Description: "Subnetwork Access Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "x25",
+																	Description: "X.25 Packet-Switching Protocol",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
@@ -9786,7 +10026,7 @@ func qos() schemadefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Interface to use"},
+														Help: []string{"Interface"},
 														Constraint: []*schemadefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",
@@ -11872,14 +12112,14 @@ func qos() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "validator",
 																		},
-																		NameAttr: "ip-protocol",
+																		NameAttr: "ether-type",
 																	}},
 																}},
 																ValueHelp: []*schemadefinition.ValueHelp{{
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "u32:0-65535",
+																	Format:      "u32:1-65535",
 																	Description: "Ethernet protocol number",
 																}, {
 																	XMLName: xml.Name{
@@ -11903,7 +12143,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "ipv6",
+																	Format:      "_ipv6",
 																	Description: "Internet IP (IPv6)",
 																}, {
 																	XMLName: xml.Name{
@@ -11916,7 +12156,7 @@ func qos() schemadefinition.InterfaceDefinition {
 																		Local: "valueHelp",
 																	},
 																	Format:      "atalk",
-																	Description: "Appletalk",
+																	Description: "AppleTalk",
 																}, {
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
@@ -11929,6 +12169,66 @@ func qos() schemadefinition.InterfaceDefinition {
 																	},
 																	Format:      "802.1Q",
 																	Description: "802.1Q VLAN tag",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_2",
+																	Description: "IEEE 802.2",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "802_3",
+																	Description: "IEEE 802.3",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aarp",
+																	Description: "AppleTalk Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "aoe",
+																	Description: "ATA over Ethernet",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "dec",
+																	Description: "DECnet Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "lat",
+																	Description: "Local Area Transport",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "localtalk",
+																	Description: "Apple LocalTalk",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "rarp",
+																	Description: "Reverse Address Resolution Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "snap",
+																	Description: "Subnetwork Access Protocol",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "x25",
+																	Description: "X.25 Packet-Switching Protocol",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
@@ -13072,7 +13372,7 @@ func qos() schemadefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Interface to use"},
+														Help: []string{"Interface"},
 														Constraint: []*schemadefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",

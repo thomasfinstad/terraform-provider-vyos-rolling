@@ -54,7 +54,7 @@ System User Login Configuration
     |  mandatory  &emsp;|  Deny access immediately if TACACS+ answers with REJECT                 |
     |  optional   &emsp;|  Pass to the next authentication method if TACACS+ answers with REJECT  |
 #### source_address
-- `source_address` (String) IPv4 source address used to initiate connection
+- `source_address` (String) IPv4 address used to initiate connection
 
     |  Format  &emsp;|  Description          |
     |----------|-----------------------|

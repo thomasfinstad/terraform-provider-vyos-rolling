@@ -490,7 +490,7 @@ func service() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Interface to use"},
+										Help: []string{"Interface"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -2951,7 +2951,7 @@ func service() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Interface to use"},
+								Help: []string{"Interface"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",
@@ -3148,7 +3148,7 @@ func service() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"IPv4 source address used to initiate connection"},
+										Help: []string{"IPv4 address used to initiate connection"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -9575,7 +9575,7 @@ func service() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Optional interface for this subnet to accept requests from"},
+												Help: []string{"Interface"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -9689,7 +9689,7 @@ func service() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Optional interface for this shared network to accept requests from"},
+										Help: []string{"Interface"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -9989,7 +9989,7 @@ func service() schemadefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Interface to use"},
+														Help: []string{"Interface"},
 														Constraint: []*schemadefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",
@@ -15536,7 +15536,7 @@ func service() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"IPv4 source address used to initiate connection"},
+												Help: []string{"IPv4 address used to initiate connection"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -15941,6 +15941,36 @@ func service() schemadefinition.InterfaceDefinition {
 															Description: "Client VLAN id",
 														}},
 														ConstraintErrorMessage: []string{"VLAN IDs need to be in range 1-4094"},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "static-ip",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Static client IP address"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr: "ipv4-address",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "ipv4",
+															Description: "IPv4 address",
+														}},
 													}},
 												}},
 											}},
@@ -17682,7 +17712,7 @@ func service() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Interface to use"},
+										Help: []string{"Interface"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -17895,285 +17925,301 @@ func service() schemadefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*schemadefinition.Node{{
-							IsBaseNode: true,
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
-							NodeNameAttr: "frr-exporter",
-							OwnerAttr:    "${vyos_conf_scripts_dir}/service_monitoring_frr-exporter.py",
+							NodeNameAttr: "prometheus",
+							OwnerAttr:    "${vyos_conf_scripts_dir}/service_monitoring_prometheus.py",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help:     []string{"Prometheus exporter for FRR metrics"},
+								Help:     []string{"Prometheus metric exporter"},
 								Priority: []string{"1280"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{
 									Local: "children",
 								},
-								LeafNode: []*schemadefinition.LeafNode{{
-									IsBaseNode: false,
+								Node: []*schemadefinition.Node{{
+									IsBaseNode: true,
 									XMLName: xml.Name{
-										Local: "leafNode",
+										Local: "node",
 									},
-									NodeNameAttr: "listen-address",
+									NodeNameAttr: "node-exporter",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Local IP addresses to listen on"},
-										Constraint: []*schemadefinition.Constraint{{
+										Help: []string{"Prometheus exporter for hardware and operating system metrics"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "constraint",
+												Local: "leafNode",
 											},
-											Validator: []*schemadefinition.Validator{{
+											NodeNameAttr: "listen-address",
+											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
-													Local: "validator",
+													Local: "properties",
 												},
-												NameAttr: "ip-address",
-											}, {
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "ipv6-link-local",
+												Help: []string{"Local IP addresses to listen on"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ip-address",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv6-link-local",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 address to listen for incoming connections",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv6",
+													Description: "IPv6 address to listen for incoming connections",
+												}},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
+												}},
+												Multi: []*schemadefinition.Multi{{
+													XMLName: xml.Name{
+														Local: "multi",
+													},
+												}},
 											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "ipv4",
-											Description: "IPv4 address to listen for incoming connections",
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "valueHelp",
+												Local: "leafNode",
 											},
-											Format:      "ipv6",
-											Description: "IPv6 address to listen for incoming connections",
-										}},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
-										}},
-										Multi: []*schemadefinition.Multi{{
-											XMLName: xml.Name{
-												Local: "multi",
-											},
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "port",
-									DefaultValue: []string{"9342"},
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Port number used by connection"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Validator: []*schemadefinition.Validator{{
+											NodeNameAttr: "port",
+											DefaultValue: []string{"9100"},
+											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
-													Local: "validator",
+													Local: "properties",
 												},
-												NameAttr:     "numeric",
-												ArgumentAttr: "--range 1-65535",
+												Help: []string{"Port number used by connection"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr:     "numeric",
+														ArgumentAttr: "--range 1-65535",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-65535",
+													Description: "Numeric IP port",
+												}},
+												ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
 											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "u32:1-65535",
-											Description: "Numeric IP port",
-										}},
-										ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "vrf",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"VRF instance name"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Validator: []*schemadefinition.Validator{{
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "vrf-name",
-											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "txt",
-											Description: "VRF instance name",
-										}},
-										ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											Path: []string{"vrf name"},
-										}},
-									}},
-								}},
-							}},
-						}, {
-							IsBaseNode: true,
-							XMLName: xml.Name{
-								Local: "node",
-							},
-							NodeNameAttr: "node-exporter",
-							OwnerAttr:    "${vyos_conf_scripts_dir}/service_monitoring_node-exporter.py",
-							Properties: []*schemadefinition.Properties{{
-								XMLName: xml.Name{
-									Local: "properties",
-								},
-								Help:     []string{"Prometheus exporter for hardware and operating system metrics"},
-								Priority: []string{"1280"},
-							}},
-							Children: []*schemadefinition.Children{{
-								XMLName: xml.Name{
-									Local: "children",
-								},
-								LeafNode: []*schemadefinition.LeafNode{{
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "listen-address",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Local IP addresses to listen on"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Validator: []*schemadefinition.Validator{{
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "ip-address",
-											}, {
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "ipv6-link-local",
-											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "ipv4",
-											Description: "IPv4 address to listen for incoming connections",
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "valueHelp",
+												Local: "leafNode",
 											},
-											Format:      "ipv6",
-											Description: "IPv6 address to listen for incoming connections",
-										}},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
-										}},
-										Multi: []*schemadefinition.Multi{{
-											XMLName: xml.Name{
-												Local: "multi",
-											},
+											NodeNameAttr: "vrf",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"VRF instance name"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "vrf-name",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "VRF instance name",
+												}},
+												ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Path: []string{"vrf name"},
+												}},
+											}},
 										}},
 									}},
 								}, {
-									IsBaseNode: false,
+									IsBaseNode: true,
 									XMLName: xml.Name{
-										Local: "leafNode",
+										Local: "node",
 									},
-									NodeNameAttr: "port",
-									DefaultValue: []string{"9100"},
+									NodeNameAttr: "frr-exporter",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Port number used by connection"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Validator: []*schemadefinition.Validator{{
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr:     "numeric",
-												ArgumentAttr: "--range 1-65535",
-											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "u32:1-65535",
-											Description: "Numeric IP port",
-										}},
-										ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
+										Help: []string{"Prometheus exporter for FRR metrics"},
 									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "vrf",
-									Properties: []*schemadefinition.Properties{{
+									Children: []*schemadefinition.Children{{
 										XMLName: xml.Name{
-											Local: "properties",
+											Local: "children",
 										},
-										Help: []string{"VRF instance name"},
-										Constraint: []*schemadefinition.Constraint{{
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "constraint",
+												Local: "leafNode",
 											},
-											Validator: []*schemadefinition.Validator{{
+											NodeNameAttr: "listen-address",
+											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
-													Local: "validator",
+													Local: "properties",
 												},
-												NameAttr: "vrf-name",
+												Help: []string{"Local IP addresses to listen on"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ip-address",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv6-link-local",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 address to listen for incoming connections",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv6",
+													Description: "IPv6 address to listen for incoming connections",
+												}},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
+												}},
+												Multi: []*schemadefinition.Multi{{
+													XMLName: xml.Name{
+														Local: "multi",
+													},
+												}},
 											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
+										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "valueHelp",
+												Local: "leafNode",
 											},
-											Format:      "txt",
-											Description: "VRF instance name",
-										}},
-										ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											NodeNameAttr: "port",
+											DefaultValue: []string{"9342"},
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Port number used by connection"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr:     "numeric",
+														ArgumentAttr: "--range 1-65535",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-65535",
+													Description: "Numeric IP port",
+												}},
+												ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
+											}},
+										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
-												Local: "completionHelp",
+												Local: "leafNode",
 											},
-											Path: []string{"vrf name"},
+											NodeNameAttr: "vrf",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"VRF instance name"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "vrf-name",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "VRF instance name",
+												}},
+												ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Path: []string{"vrf name"},
+												}},
+											}},
 										}},
 									}},
 								}},
@@ -19200,6 +19246,118 @@ func service() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "node",
 									},
+									NodeNameAttr: "authentication",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Authentication"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										Node: []*schemadefinition.Node{{
+											IsBaseNode: true,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "psk",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Pre-shared key"},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "id",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"ID for authentication"},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "txt",
+															Description: "ID used for authentication",
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "secret",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"pre-shared secret key"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr: "psk-secret",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "txt",
+															Description: "16byte pre-shared-secret key (32 character hexadecimal key)",
+														}},
+														ConstraintErrorMessage: []string{"Pre-Shared-Keys must be at leas 16 bytes long, which implies at least 32 characterss"},
+													}},
+												}},
+											}},
+										}},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "mode",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Authentication mode"},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "pre-shared-secret",
+													Description: "Use a pre-shared secret key",
+												}},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"pre-shared-secret"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									IsBaseNode: true,
+									XMLName: xml.Name{
+										Local: "node",
+									},
 									NodeNameAttr: "limits",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
@@ -19888,7 +20046,7 @@ func service() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Interface to forward Neighbor Solicitation message through. Required for \"iface\" mode"},
+												Help: []string{"Interface"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -19900,6 +20058,13 @@ func service() schemadefinition.InterfaceDefinition {
 														},
 														NameAttr: "file-path --lookup-path /sys/class/net --directory",
 													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Interface name",
 												}},
 												CompletionHelp: []*schemadefinition.CompletionHelp{{
 													XMLName: xml.Name{
@@ -20478,7 +20643,7 @@ func service() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Interface to use"},
+								Help: []string{"Interface"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",
@@ -21291,7 +21456,7 @@ func service() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"IPv4 source address used to initiate connection"},
+												Help: []string{"IPv4 address used to initiate connection"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -22495,6 +22660,23 @@ func service() schemadefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*schemadefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "combined",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Listen on both VLANs and the base interface"},
+										Valueless: []*schemadefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
 									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
@@ -26699,6 +26881,49 @@ func service() schemadefinition.InterfaceDefinition {
 									}},
 								}},
 							}},
+						}, {
+							IsBaseNode: true,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "trusted-user-ca-key",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Trusted user CA key"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*schemadefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "ca-certificate",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Certificate Authority in PKI configuration"},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Name of CA in PKI configuration",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Path: []string{"pki ca"},
+										}},
+									}},
+								}},
+							}},
 						}},
 						LeafNode: []*schemadefinition.LeafNode{{
 							IsBaseNode: false,
@@ -27554,8 +27779,9 @@ func service() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "txt",
-													Description: "pre-shared secret key are required to be at least 16 bytes long, which implies at least 32 characters for hexadecimal key",
+													Description: "16byte pre-shared-secret key (32 character hexadecimal key)",
 												}},
+												ConstraintErrorMessage: []string{"Pre-Shared-Keys must be at leas 16 bytes long, which implies at least 32 characterss"},
 											}},
 										}},
 									}},
@@ -28193,8 +28419,9 @@ func service() schemadefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "txt",
-													Description: "pre-shared secret key are required to be at least 16 bytes long, which implies at least 32 characters for hexadecimal key",
+													Description: "16byte pre-shared-secret key (32 character hexadecimal key)",
 												}},
+												ConstraintErrorMessage: []string{"Pre-Shared-Keys must be at leas 16 bytes long, which implies at least 32 characterss"},
 											}},
 										}},
 									}},
@@ -28786,7 +29013,7 @@ func service() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Interface to use"},
+								Help: []string{"Interface"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",

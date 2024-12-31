@@ -143,7 +143,7 @@ Optional:
 - `community` (Attributes) BGP community-list to match (see [below for nested schema](#nestedatt--match--community))
 - `evpn` (Attributes) Ethernet Virtual Private Network (see [below for nested schema](#nestedatt--match--evpn))
 - `extcommunity` (String) BGP extended community to match
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

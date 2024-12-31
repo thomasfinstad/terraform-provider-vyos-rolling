@@ -52,7 +52,7 @@ Neighbor proxy parameters
 ### Optional
 
 #### interface
-- `interface` (List of String) Interface to use
+- `interface` (List of String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

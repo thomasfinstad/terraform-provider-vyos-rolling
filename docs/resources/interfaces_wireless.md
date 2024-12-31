@@ -721,7 +721,7 @@ Optional:
 
 Optional:
 
-- `source_address` (String) IPv4 source address used to initiate connection
+- `source_address` (String) IPv4 address used to initiate connection
 
     |  Format  &emsp;|  Description          |
     |----------|-----------------------|

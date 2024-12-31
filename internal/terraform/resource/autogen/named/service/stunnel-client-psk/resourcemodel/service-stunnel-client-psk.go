@@ -218,15 +218,15 @@ func (o ServiceStunnelClientPsk) ResourceSchemaAttributes(ctx context.Context) m
 			Optional: true,
 			MarkdownDescription: `pre-shared secret key
 
-    |  Format  |  Description                                                                                                                |
-    |----------|-----------------------------------------------------------------------------------------------------------------------------|
-    |  txt     |  pre-shared secret key are required to be at least 16 bytes long, which implies at least 32 characters for hexadecimal key  |
+    |  Format  |  Description                                                  |
+    |----------|---------------------------------------------------------------|
+    |  txt     |  16byte pre-shared-secret key (32 character hexadecimal key)  |
 `,
 			Description: `pre-shared secret key
 
-    |  Format  |  Description                                                                                                                |
-    |----------|-----------------------------------------------------------------------------------------------------------------------------|
-    |  txt     |  pre-shared secret key are required to be at least 16 bytes long, which implies at least 32 characters for hexadecimal key  |
+    |  Format  |  Description                                                  |
+    |----------|---------------------------------------------------------------|
+    |  txt     |  16byte pre-shared-secret key (32 character hexadecimal key)  |
 `,
 		},
 

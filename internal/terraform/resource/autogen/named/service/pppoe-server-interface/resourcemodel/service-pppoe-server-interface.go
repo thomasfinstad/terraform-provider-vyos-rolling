@@ -38,8 +38,9 @@ type ServicePppoeServerInterface struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafServicePppoeServerInterfaceVlan    types.List `tfsdk:"vlan" vyos:"vlan,omitempty"`
-	LeafServicePppoeServerInterfaceVlanMon types.Bool `tfsdk:"vlan_mon" vyos:"vlan-mon,omitempty"`
+	LeafServicePppoeServerInterfaceCombined types.Bool `tfsdk:"combined" vyos:"combined,omitempty"`
+	LeafServicePppoeServerInterfaceVlan     types.List `tfsdk:"vlan" vyos:"vlan,omitempty"`
+	LeafServicePppoeServerInterfaceVlanMon  types.Bool `tfsdk:"vlan_mon" vyos:"vlan-mon,omitempty"`
 
 	// TagNodes
 
@@ -152,6 +153,21 @@ func (o ServicePppoeServerInterface) ResourceSchemaAttributes(ctx context.Contex
 		}),
 
 		// LeafNodes
+
+		"combined":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Listen on both VLANs and the base interface
+
+`,
+			Description: `Listen on both VLANs and the base interface
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
 
 		"vlan":
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */

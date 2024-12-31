@@ -110,10 +110,10 @@ func (o FirewallGlobalOptionsApplyToBrIDgedTraffic) ResourceSchemaAttributes(ctx
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Accept ARP and DHCP despite they are marked as invalid connection
+			MarkdownDescription: `Accept ARP, DHCP and PPPoE despite they are marked as invalid connection
 
 `,
-			Description: `Accept ARP and DHCP despite they are marked as invalid connection
+			Description: `Accept ARP, DHCP and PPPoE despite they are marked as invalid connection
 
 `,
 			Default:  booldefault.StaticBool(false),

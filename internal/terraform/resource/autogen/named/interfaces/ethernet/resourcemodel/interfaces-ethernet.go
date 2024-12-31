@@ -44,6 +44,7 @@ type InterfacesEthernet struct {
 	LeafInterfacesEthernetDisableLinkDetect  types.Bool   `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
 	LeafInterfacesEthernetDisable            types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesEthernetDuplex             types.String `tfsdk:"duplex" vyos:"duplex,omitempty"`
+	LeafInterfacesEthernetSwitchdev          types.Bool   `tfsdk:"switchdev" vyos:"switchdev,omitempty"`
 	LeafInterfacesEthernetHwID               types.String `tfsdk:"hw_id" vyos:"hw-id,omitempty"`
 	LeafInterfacesEthernetMac                types.String `tfsdk:"mac" vyos:"mac,omitempty"`
 	LeafInterfacesEthernetMtu                types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
@@ -295,6 +296,21 @@ func (o InterfacesEthernet) ResourceSchemaAttributes(ctx context.Context) map[st
 `,
 
 			// Default:          stringdefault.StaticString(`auto`),
+			Computed: true,
+		},
+
+		"switchdev":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Enables switchdev mode on interface
+
+`,
+			Description: `Enables switchdev mode on interface
+
+`,
+			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
 

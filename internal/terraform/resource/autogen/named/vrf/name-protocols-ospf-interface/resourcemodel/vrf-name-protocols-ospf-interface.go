@@ -43,6 +43,7 @@ type VrfNameProtocolsOspfInterface struct {
 	LeafVrfNameProtocolsOspfInterfaceHelloInterval      types.Number `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
 	LeafVrfNameProtocolsOspfInterfaceRetransmitInterval types.Number `tfsdk:"retransmit_interval" vyos:"retransmit-interval,omitempty"`
 	LeafVrfNameProtocolsOspfInterfaceTransmitDelay      types.Number `tfsdk:"transmit_delay" vyos:"transmit-delay,omitempty"`
+	LeafVrfNameProtocolsOspfInterfaceRetransmitWindow   types.Number `tfsdk:"retransmit_window" vyos:"retransmit-window,omitempty"`
 	LeafVrfNameProtocolsOspfInterfaceCost               types.Number `tfsdk:"cost" vyos:"cost,omitempty"`
 	LeafVrfNameProtocolsOspfInterfaceMtuIgnore          types.Bool   `tfsdk:"mtu_ignore" vyos:"mtu-ignore,omitempty"`
 	LeafVrfNameProtocolsOspfInterfacePriority           types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
@@ -335,6 +336,28 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes(ctx context.Cont
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
+			Computed: true,
+		},
+
+		"retransmit_window":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Window for LSA retransmit
+
+    |  Format   |  Description                                             |
+    |-----------|----------------------------------------------------------|
+    |  20-1000  |  Retransmit LSAs expiring in this window (milliseconds)  |
+`,
+			Description: `Window for LSA retransmit
+
+    |  Format   |  Description                                             |
+    |-----------|----------------------------------------------------------|
+    |  20-1000  |  Retransmit LSAs expiring in this window (milliseconds)  |
+`,
+
+			// Default:          stringdefault.StaticString(`50`),
 			Computed: true,
 		},
 

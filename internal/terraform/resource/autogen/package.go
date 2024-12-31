@@ -302,8 +302,8 @@ import (
 	globalservicelldp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp"
 	globalservicelldplegacyprotocols "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp-legacy-protocols"
 	globalservicemdnsrepeater "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/mdns-repeater"
-	globalservicemonitoringfrrexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-frr-exporter"
-	globalservicemonitoringnodeexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-node-exporter"
+	globalservicemonitoringprometheusfrrexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-frr-exporter"
+	globalservicemonitoringprometheusnodeexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-node-exporter"
 	globalservicemonitoringtelegraf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf"
 	globalservicemonitoringtelegrafazuredataexplorer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer"
 	globalservicemonitoringtelegrafazuredataexplorerauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer-authentication"
@@ -316,6 +316,8 @@ import (
 	globalservicemonitoringtelegrafsplunk "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-splunk"
 	globalservicemonitoringtelegrafsplunkauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-splunk-authentication"
 	globalservicemonitoringzabbixagent "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent"
+	globalservicemonitoringzabbixagentauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent-authentication"
+	globalservicemonitoringzabbixagentauthenticationpsk "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent-authentication-psk"
 	globalservicemonitoringzabbixagentlimits "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent-limits"
 	globalservicemonitoringzabbixagentlog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-zabbix-agent-log"
 	globalservicendpproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ndp-proxy"
@@ -343,6 +345,7 @@ import (
 	globalservicetcpaccesscontroldeny "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh-access-control-deny"
 	globalservicetcpdynamicprotection "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh-dynamic-protection"
 	globalservicetcprekey "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh-rekey"
+	globalservicetcptrustedusercakey "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/ssh-trusted-user-ca-key"
 	globalservicestunnellog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/stunnel-log"
 	globalservicesuricata "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/suricata"
 	globalservicesuricatalogeve "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/suricata-log-eve"
@@ -730,29 +733,24 @@ import (
 	namedprotocolssegmentroutingsrvsixlocator "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/segment-routing-srv6-locator"
 	namedprotocolsstaticarpinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-arp-interface"
 	namedprotocolsstaticarpinterfaceaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-arp-interface-address"
-	namedprotocolsstaticmulticastinterfaceroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-multicast-interface-route"
-	namedprotocolsstaticmulticastinterfaceroutenexthopinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-multicast-interface-route-next-hop-interface"
-	namedprotocolsstaticmulticastroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-multicast-route"
-	namedprotocolsstaticmulticastroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-multicast-route-next-hop"
+	namedprotocolsstaticmroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-mroute"
+	namedprotocolsstaticmrouteinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-mroute-interface"
+	namedprotocolsstaticmroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-mroute-next-hop"
 	namedprotocolsstaticneighborproxyarp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-neighbor-proxy-arp"
 	namedprotocolsstaticneighborproxynd "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-neighbor-proxy-nd"
 	namedprotocolsstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route"
 	namedprotocolsstaticrouteinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route-interface"
 	namedprotocolsstaticroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route-next-hop"
-	namedprotocolsstaticroutenexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route-next-hop-bfd-multi-hop-source"
 	namedprotocolsstaticroutesix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route6"
 	namedprotocolsstaticroutesixinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route6-interface"
 	namedprotocolsstaticroutesixnexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route6-next-hop"
-	namedprotocolsstaticroutesixnexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-route6-next-hop-bfd-multi-hop-source"
 	namedprotocolsstatictable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table"
 	namedprotocolsstatictableroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route"
 	namedprotocolsstatictablerouteinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route-interface"
 	namedprotocolsstatictableroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route-next-hop"
-	namedprotocolsstatictableroutenexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route-next-hop-bfd-multi-hop-source"
 	namedprotocolsstatictableroutesix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route6"
 	namedprotocolsstatictableroutesixinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route6-interface"
 	namedprotocolsstatictableroutesixnexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route6-next-hop"
-	namedprotocolsstatictableroutesixnexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/static-table-route6-next-hop-bfd-multi-hop-source"
 	namedqosinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/interface"
 	namedqospolicycake "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/policy-cake"
 	namedqospolicydroptail "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/policy-drop-tail"
@@ -976,11 +974,9 @@ import (
 	namedvrfnameprotocolsstaticroute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route"
 	namedvrfnameprotocolsstaticrouteinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route-interface"
 	namedvrfnameprotocolsstaticroutenexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route-next-hop"
-	namedvrfnameprotocolsstaticroutenexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route-next-hop-bfd-multi-hop-source"
 	namedvrfnameprotocolsstaticroutesix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route6"
 	namedvrfnameprotocolsstaticroutesixinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route6-interface"
 	namedvrfnameprotocolsstaticroutesixnexthop "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route6-next-hop"
-	namedvrfnameprotocolsstaticroutesixnexthopbfdmultihopsource "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route6-next-hop-bfd-multi-hop-source"
 )
 
 // GetResources returns all autogenerated resources
@@ -1283,8 +1279,8 @@ func GetResources() []func() resource.Resource {
 		globalservicelldp.NewServiceLldp,
 		globalservicelldplegacyprotocols.NewServiceLldpLegacyProtocols,
 		globalservicemdnsrepeater.NewServiceMDNSRepeater,
-		globalservicemonitoringfrrexporter.NewServiceMonitoringFrrExporter,
-		globalservicemonitoringnodeexporter.NewServiceMonitoringNodeExporter,
+		globalservicemonitoringprometheusfrrexporter.NewServiceMonitoringPrometheusFrrExporter,
+		globalservicemonitoringprometheusnodeexporter.NewServiceMonitoringPrometheusNodeExporter,
 		globalservicemonitoringtelegraf.NewServiceMonitoringTelegraf,
 		globalservicemonitoringtelegrafazuredataexplorer.NewServiceMonitoringTelegrafAzureDataExplorer,
 		globalservicemonitoringtelegrafazuredataexplorerauthentication.NewServiceMonitoringTelegrafAzureDataExplorerAuthentication,
@@ -1297,6 +1293,8 @@ func GetResources() []func() resource.Resource {
 		globalservicemonitoringtelegrafsplunk.NewServiceMonitoringTelegrafSplunk,
 		globalservicemonitoringtelegrafsplunkauthentication.NewServiceMonitoringTelegrafSplunkAuthentication,
 		globalservicemonitoringzabbixagent.NewServiceMonitoringZabbixAgent,
+		globalservicemonitoringzabbixagentauthentication.NewServiceMonitoringZabbixAgentAuthentication,
+		globalservicemonitoringzabbixagentauthenticationpsk.NewServiceMonitoringZabbixAgentAuthenticationPsk,
 		globalservicemonitoringzabbixagentlimits.NewServiceMonitoringZabbixAgentLimits,
 		globalservicemonitoringzabbixagentlog.NewServiceMonitoringZabbixAgentLog,
 		globalservicendpproxy.NewServiceNdpProxy,
@@ -1327,6 +1325,7 @@ func GetResources() []func() resource.Resource {
 		globalservicetcpaccesscontroldeny.NewServiceTCPAccessControlDeny,
 		globalservicetcpdynamicprotection.NewServiceTCPDynamicProtection,
 		globalservicetcprekey.NewServiceTCPRekey,
+		globalservicetcptrustedusercakey.NewServiceTCPTrustedUserCaKey,
 		globalservicetftpserver.NewServiceTftpServer,
 		globalservicewebproxy.NewServiceWebproxy,
 		globalservicewebproxyauthentication.NewServiceWebproxyAuthentication,
@@ -1711,29 +1710,24 @@ func GetResources() []func() resource.Resource {
 		namedprotocolssegmentroutingsrvsixlocator.NewProtocolsSegmentRoutingSrvsixLocator,
 		namedprotocolsstaticarpinterface.NewProtocolsStaticArpInterface,
 		namedprotocolsstaticarpinterfaceaddress.NewProtocolsStaticArpInterfaceAddress,
-		namedprotocolsstaticmulticastinterfaceroute.NewProtocolsStaticMulticastInterfaceRoute,
-		namedprotocolsstaticmulticastinterfaceroutenexthopinterface.NewProtocolsStaticMulticastInterfaceRouteNextHopInterface,
-		namedprotocolsstaticmulticastroute.NewProtocolsStaticMulticastRoute,
-		namedprotocolsstaticmulticastroutenexthop.NewProtocolsStaticMulticastRouteNextHop,
+		namedprotocolsstaticmroute.NewProtocolsStaticMroute,
+		namedprotocolsstaticmrouteinterface.NewProtocolsStaticMrouteInterface,
+		namedprotocolsstaticmroutenexthop.NewProtocolsStaticMrouteNextHop,
 		namedprotocolsstaticneighborproxyarp.NewProtocolsStaticNeighborProxyArp,
 		namedprotocolsstaticneighborproxynd.NewProtocolsStaticNeighborProxyNd,
 		namedprotocolsstaticroute.NewProtocolsStaticRoute,
 		namedprotocolsstaticrouteinterface.NewProtocolsStaticRouteInterface,
 		namedprotocolsstaticroutenexthop.NewProtocolsStaticRouteNextHop,
-		namedprotocolsstaticroutenexthopbfdmultihopsource.NewProtocolsStaticRouteNextHopBfdMultiHopSource,
 		namedprotocolsstaticroutesix.NewProtocolsStaticRoutesix,
 		namedprotocolsstaticroutesixinterface.NewProtocolsStaticRoutesixInterface,
 		namedprotocolsstaticroutesixnexthop.NewProtocolsStaticRoutesixNextHop,
-		namedprotocolsstaticroutesixnexthopbfdmultihopsource.NewProtocolsStaticRoutesixNextHopBfdMultiHopSource,
 		namedprotocolsstatictable.NewProtocolsStaticTable,
 		namedprotocolsstatictableroute.NewProtocolsStaticTableRoute,
 		namedprotocolsstatictablerouteinterface.NewProtocolsStaticTableRouteInterface,
 		namedprotocolsstatictableroutenexthop.NewProtocolsStaticTableRouteNextHop,
-		namedprotocolsstatictableroutenexthopbfdmultihopsource.NewProtocolsStaticTableRouteNextHopBfdMultiHopSource,
 		namedprotocolsstatictableroutesix.NewProtocolsStaticTableRoutesix,
 		namedprotocolsstatictableroutesixinterface.NewProtocolsStaticTableRoutesixInterface,
 		namedprotocolsstatictableroutesixnexthop.NewProtocolsStaticTableRoutesixNextHop,
-		namedprotocolsstatictableroutesixnexthopbfdmultihopsource.NewProtocolsStaticTableRoutesixNextHopBfdMultiHopSource,
 		namedqosinterface.NewQosInterface,
 		namedqospolicycake.NewQosPolicyCake,
 		namedqospolicydroptail.NewQosPolicyDropTail,
@@ -1957,10 +1951,8 @@ func GetResources() []func() resource.Resource {
 		namedvrfnameprotocolsstaticroute.NewVrfNameProtocolsStaticRoute,
 		namedvrfnameprotocolsstaticrouteinterface.NewVrfNameProtocolsStaticRouteInterface,
 		namedvrfnameprotocolsstaticroutenexthop.NewVrfNameProtocolsStaticRouteNextHop,
-		namedvrfnameprotocolsstaticroutenexthopbfdmultihopsource.NewVrfNameProtocolsStaticRouteNextHopBfdMultiHopSource,
 		namedvrfnameprotocolsstaticroutesix.NewVrfNameProtocolsStaticRoutesix,
 		namedvrfnameprotocolsstaticroutesixinterface.NewVrfNameProtocolsStaticRoutesixInterface,
 		namedvrfnameprotocolsstaticroutesixnexthop.NewVrfNameProtocolsStaticRoutesixNextHop,
-		namedvrfnameprotocolsstaticroutesixnexthopbfdmultihopsource.NewVrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource,
 	}
 }

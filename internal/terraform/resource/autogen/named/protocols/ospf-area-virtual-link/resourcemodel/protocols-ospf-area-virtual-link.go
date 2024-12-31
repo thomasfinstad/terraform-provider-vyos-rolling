@@ -41,6 +41,7 @@ type ProtocolsOspfAreaVirtualLink struct {
 	LeafProtocolsOspfAreaVirtualLinkHelloInterval      types.Number `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
 	LeafProtocolsOspfAreaVirtualLinkRetransmitInterval types.Number `tfsdk:"retransmit_interval" vyos:"retransmit-interval,omitempty"`
 	LeafProtocolsOspfAreaVirtualLinkTransmitDelay      types.Number `tfsdk:"transmit_delay" vyos:"transmit-delay,omitempty"`
+	LeafProtocolsOspfAreaVirtualLinkRetransmitWindow   types.Number `tfsdk:"retransmit_window" vyos:"retransmit-window,omitempty"`
 
 	// TagNodes
 
@@ -295,6 +296,28 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes(ctx context.Conte
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
+			Computed: true,
+		},
+
+		"retransmit_window":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Window for LSA retransmit
+
+    |  Format   |  Description                                             |
+    |-----------|----------------------------------------------------------|
+    |  20-1000  |  Retransmit LSAs expiring in this window (milliseconds)  |
+`,
+			Description: `Window for LSA retransmit
+
+    |  Format   |  Description                                             |
+    |-----------|----------------------------------------------------------|
+    |  20-1000  |  Retransmit LSAs expiring in this window (milliseconds)  |
+`,
+
+			// Default:          stringdefault.StaticString(`50`),
 			Computed: true,
 		},
 

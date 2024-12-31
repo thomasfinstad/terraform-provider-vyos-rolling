@@ -5754,7 +5754,7 @@ func system() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Interface to use"},
+								Help: []string{"Interface"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",
@@ -7363,7 +7363,7 @@ func system() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"IPv4 source address used to initiate connection"},
+										Help: []string{"IPv4 address used to initiate connection"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -9223,7 +9223,7 @@ func system() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Interface to use"},
+								Help: []string{"Interface"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",

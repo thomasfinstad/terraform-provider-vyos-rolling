@@ -73,7 +73,7 @@ func firewall() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Accept ARP and DHCP despite they are marked as invalid connection"},
+										Help: []string{"Accept ARP, DHCP and PPPoE despite they are marked as invalid connection"},
 										Valueless: []*schemadefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",

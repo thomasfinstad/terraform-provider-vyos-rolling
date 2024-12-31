@@ -52,7 +52,7 @@ VRRP group
 ### Optional
 
 #### interface
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

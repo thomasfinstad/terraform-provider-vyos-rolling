@@ -37,7 +37,7 @@ type VrfNameProtocolsStaticRoute struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsStaticRouteDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
+	LeafVrfNameProtocolsStaticRouteDhcpInterface types.List   `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
 	LeafVrfNameProtocolsStaticRouteDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes
@@ -220,10 +220,10 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes(ctx context.Contex
 		// LeafNodes
 
 		"dhcp_interface":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
+		schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
     |  Format  |  Description          |

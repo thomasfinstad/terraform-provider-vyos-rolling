@@ -1,2 +1,0 @@
-
-terraform import vyos_protocols_static_multicast_route_next_hop.example "protocols__static__multicast__route__<route>__next-hop__<next-hop>"

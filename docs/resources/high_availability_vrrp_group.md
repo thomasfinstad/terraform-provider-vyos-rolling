@@ -97,7 +97,7 @@ Virtual Router Redundancy Protocol settings
     |  ipv4    &emsp;|  IPv4 hello source address  |
     |  ipv6    &emsp;|  IPv6 hello source address  |
 #### interface
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|
@@ -232,7 +232,7 @@ Optional:
 Optional:
 
 - `exclude_vrrp_interface` (Boolean) Disable track state of main interface
-- `interface` (List of String) Interface name state check
+- `interface` (List of String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

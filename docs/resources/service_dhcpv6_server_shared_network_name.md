@@ -64,7 +64,7 @@ DHCP for IPv6 (DHCPv6) server
 #### disable
 - `disable` (Boolean) Disable instance
 #### interface
-- `interface` (String) Optional interface for this shared network to accept requests from
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

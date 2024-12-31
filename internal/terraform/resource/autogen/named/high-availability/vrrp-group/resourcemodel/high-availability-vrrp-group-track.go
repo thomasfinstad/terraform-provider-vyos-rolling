@@ -56,13 +56,13 @@ func (o HighAvailabilityVrrpGroupTrack) ResourceSchemaAttributes(ctx context.Con
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
-			MarkdownDescription: `Interface name state check
+			MarkdownDescription: `Interface
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Interface name  |
 `,
-			Description: `Interface name state check
+			Description: `Interface
 
     |  Format  |  Description     |
     |----------|------------------|

@@ -160,7 +160,7 @@ Required:
 
 Optional:
 
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

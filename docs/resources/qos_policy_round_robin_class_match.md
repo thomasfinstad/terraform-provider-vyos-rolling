@@ -77,7 +77,7 @@ Class ID
 #### ether
 - `ether` (Attributes) Ethernet header match (see [below for nested schema](#nestedatt--ether))
 #### interface
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|
@@ -136,17 +136,27 @@ Optional:
     |  macaddr  &emsp;|  MAC address to match  |
 - `protocol` (String) Ethernet protocol for this match
 
-    |  Format   &emsp;|  Description                      |
-    |-----------|-----------------------------------|
-    |  0-65535  &emsp;|  Ethernet protocol number         |
-    |  txt      &emsp;|  Ethernet protocol name           |
-    |  all      &emsp;|  Any protocol                     |
-    |  ip       &emsp;|  Internet IP (IPv4)               |
-    |  ipv6     &emsp;|  Internet IP (IPv6)               |
-    |  arp      &emsp;|  Address Resolution Protocol      |
-    |  atalk    &emsp;|  Appletalk                        |
-    |  ipx      &emsp;|  Novell Internet Packet Exchange  |
-    |  802.1Q   &emsp;|  802.1Q VLAN tag                  |
+    |  Format     &emsp;|  Description                            |
+    |-------------|-----------------------------------------|
+    |  1-65535    &emsp;|  Ethernet protocol number               |
+    |  txt        &emsp;|  Ethernet protocol name                 |
+    |  all        &emsp;|  Any protocol                           |
+    |  ip         &emsp;|  Internet IP (IPv4)                     |
+    |  _ipv6      &emsp;|  Internet IP (IPv6)                     |
+    |  arp        &emsp;|  Address Resolution Protocol            |
+    |  atalk      &emsp;|  AppleTalk                              |
+    |  ipx        &emsp;|  Novell Internet Packet Exchange        |
+    |  802.1Q     &emsp;|  802.1Q VLAN tag                        |
+    |  802_2      &emsp;|  IEEE 802.2                             |
+    |  802_3      &emsp;|  IEEE 802.3                             |
+    |  aarp       &emsp;|  AppleTalk Address Resolution Protocol  |
+    |  aoe        &emsp;|  ATA over Ethernet                      |
+    |  dec        &emsp;|  DECnet Protocol                        |
+    |  lat        &emsp;|  Local Area Transport                   |
+    |  localtalk  &emsp;|  Apple LocalTalk                        |
+    |  rarp       &emsp;|  Reverse Address Resolution Protocol    |
+    |  snap       &emsp;|  Subnetwork Access Protocol             |
+    |  x25        &emsp;|  X.25 Packet-Switching Protocol         |
 - `source` (String) Ethernet source address for this match
 
     |  Format   &emsp;|  Description           |

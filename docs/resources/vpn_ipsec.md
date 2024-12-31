@@ -45,7 +45,7 @@ Virtual Private Network (VPN)
 #### disable_uniqreqids
 - `disable_uniqreqids` (Boolean) Disable requirement for unique IDs in the Security Database
 #### interface
-- `interface` (List of String) Interface to use
+- `interface` (List of String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

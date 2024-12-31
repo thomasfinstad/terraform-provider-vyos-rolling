@@ -197,13 +197,13 @@ func (o ServiceDhcpvsixServerSharedNetworkName) ResourceSchemaAttributes(ctx con
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Optional interface for this shared network to accept requests from
+			MarkdownDescription: `Interface
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Interface name  |
 `,
-			Description: `Optional interface for this shared network to accept requests from
+			Description: `Interface
 
     |  Format  |  Description     |
     |----------|------------------|

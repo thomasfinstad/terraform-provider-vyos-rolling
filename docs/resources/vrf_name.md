@@ -411,7 +411,7 @@ Optional:
 
 Optional:
 
-- `interface` (List of String) Interface to use
+- `interface` (List of String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|
@@ -846,6 +846,10 @@ Optional:
 Optional:
 
 - `interface` (List of String) Interface
+
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Interface name  |
 
 
 

@@ -46,7 +46,7 @@ Global Options
 ### Optional
 
 #### invalid_connections
-- `invalid_connections` (Boolean) Accept ARP and DHCP despite they are marked as invalid connection
+- `invalid_connections` (Boolean) Accept ARP, DHCP and PPPoE despite they are marked as invalid connection
 #### ipv4
 - `ipv4` (Boolean) Apply configured IPv4 firewall rules
 #### ipv6

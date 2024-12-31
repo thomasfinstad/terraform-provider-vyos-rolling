@@ -51,6 +51,8 @@ type ServiceTCP struct {
 	ExistsNodeServiceTCPDynamicProtection bool `tfsdk:"-" vyos:"dynamic-protection,child"`
 
 	ExistsNodeServiceTCPRekey bool `tfsdk:"-" vyos:"rekey,child"`
+
+	ExistsNodeServiceTCPTrustedUserCaKey bool `tfsdk:"-" vyos:"trusted-user-ca-key,child"`
 }
 
 // SetID configures the resource ID

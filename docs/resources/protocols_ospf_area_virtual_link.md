@@ -35,6 +35,7 @@ OSPF area settings
       - [dead_interval](#dead_interval)
       - [hello_interval](#hello_interval)
       - [retransmit_interval](#retransmit_interval)
+      - [retransmit_window](#retransmit_window)
       - [timeouts](#timeouts)
       - [transmit_delay](#transmit_delay)
     - [Read-Only](#read-only)
@@ -76,6 +77,12 @@ OSPF area settings
     |  Format   &emsp;|  Description                    |
     |-----------|---------------------------------|
     |  1-65535  &emsp;|  Retransmit interval (seconds)  |
+#### retransmit_window
+- `retransmit_window` (Number) Window for LSA retransmit
+
+    |  Format   &emsp;|  Description                                             |
+    |-----------|----------------------------------------------------------|
+    |  20-1000  &emsp;|  Retransmit LSAs expiring in this window (milliseconds)  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### transmit_delay

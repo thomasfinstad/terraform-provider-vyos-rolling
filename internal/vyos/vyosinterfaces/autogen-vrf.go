@@ -2857,7 +2857,7 @@ func vrf() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "properties",
 																		},
-																		Help: []string{"Interface to use"},
+																		Help: []string{"Interface"},
 																		Constraint: []*schemadefinition.Constraint{{
 																			XMLName: xml.Name{
 																				Local: "constraint",
@@ -5245,6 +5245,25 @@ func vrf() schemadefinition.InterfaceDefinition {
 																			Local: "properties",
 																		},
 																		Help: []string{"Interface"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "file-path --lookup-path /sys/class/net --directory",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "Interface name",
+																		}},
 																		CompletionHelp: []*schemadefinition.CompletionHelp{{
 																			XMLName: xml.Name{
 																				Local: "completionHelp",
@@ -35440,6 +35459,38 @@ func vrf() schemadefinition.InterfaceDefinition {
 																	Description: "Link state transmit delay (seconds)",
 																}},
 															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "retransmit-window",
+															DefaultValue: []string{"50"},
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Window for LSA retransmit"},
+																Constraint: []*schemadefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*schemadefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 20-1000",
+																	}},
+																}},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:20-1000",
+																	Description: "Retransmit LSAs expiring in this window (milliseconds)",
+																}},
+															}},
 														}},
 													}},
 												}},
@@ -36120,6 +36171,38 @@ func vrf() schemadefinition.InterfaceDefinition {
 															},
 															Format:      "u32:1-65535",
 															Description: "Link state transmit delay (seconds)",
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "retransmit-window",
+													DefaultValue: []string{"50"},
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Window for LSA retransmit"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 20-1000",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:20-1000",
+															Description: "Retransmit LSAs expiring in this window (milliseconds)",
 														}},
 													}},
 												}, {
@@ -39180,23 +39263,23 @@ func vrf() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "properties",
 																		},
-																		Help: []string{"Use BFD multi hop session"},
+																		Help: []string{"Configure BFD multi-hop session"},
 																	}},
 																	Children: []*schemadefinition.Children{{
 																		XMLName: xml.Name{
 																			Local: "children",
 																		},
-																		TagNode: []*schemadefinition.TagNode{{
-																			IsBaseNode: true,
+																		LeafNode: []*schemadefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
-																				Local: "tagNode",
+																				Local: "leafNode",
 																			},
-																			NodeNameAttr: "source",
+																			NodeNameAttr: "source-address",
 																			Properties: []*schemadefinition.Properties{{
 																				XMLName: xml.Name{
 																					Local: "properties",
 																				},
-																				Help: []string{"Use source for BFD session"},
+																				Help: []string{"IPv4 address used to initiate connection"},
 																				Constraint: []*schemadefinition.Constraint{{
 																					XMLName: xml.Name{
 																						Local: "constraint",
@@ -39205,7 +39288,7 @@ func vrf() schemadefinition.InterfaceDefinition {
 																						XMLName: xml.Name{
 																							Local: "validator",
 																						},
-																						NameAttr: "ip-address",
+																						NameAttr: "ipv4-address",
 																					}},
 																				}},
 																				ValueHelp: []*schemadefinition.ValueHelp{{
@@ -39214,43 +39297,12 @@ func vrf() schemadefinition.InterfaceDefinition {
 																					},
 																					Format:      "ipv4",
 																					Description: "IPv4 source address",
-																				}, {
-																					XMLName: xml.Name{
-																						Local: "valueHelp",
-																					},
-																					Format:      "ipv6",
-																					Description: "IPv6 source address",
 																				}},
-																			}},
-																			Children: []*schemadefinition.Children{{
-																				XMLName: xml.Name{
-																					Local: "children",
-																				},
-																				LeafNode: []*schemadefinition.LeafNode{{
-																					IsBaseNode: false,
+																				CompletionHelp: []*schemadefinition.CompletionHelp{{
 																					XMLName: xml.Name{
-																						Local: "leafNode",
+																						Local: "completionHelp",
 																					},
-																					NodeNameAttr: "profile",
-																					Properties: []*schemadefinition.Properties{{
-																						XMLName: xml.Name{
-																							Local: "properties",
-																						},
-																						Help: []string{"Use settings from BFD profile"},
-																						ValueHelp: []*schemadefinition.ValueHelp{{
-																							XMLName: xml.Name{
-																								Local: "valueHelp",
-																							},
-																							Format:      "txt",
-																							Description: "BFD profile name",
-																						}},
-																						CompletionHelp: []*schemadefinition.CompletionHelp{{
-																							XMLName: xml.Name{
-																								Local: "completionHelp",
-																							},
-																							Path: []string{"protocols bfd profile"},
-																						}},
-																					}},
+																					Script: []string{"${vyos_completion_dir}/list_local_ips.sh --ipv4"},
 																				}},
 																			}},
 																		}},
@@ -39342,7 +39394,7 @@ func vrf() schemadefinition.InterfaceDefinition {
 																XMLName: xml.Name{
 																	Local: "properties",
 																},
-																Help: []string{"Gateway interface name"},
+																Help: []string{"Interface"},
 																Constraint: []*schemadefinition.Constraint{{
 																	XMLName: xml.Name{
 																		Local: "constraint",
@@ -39360,7 +39412,7 @@ func vrf() schemadefinition.InterfaceDefinition {
 																		Local: "valueHelp",
 																	},
 																	Format:      "txt",
-																	Description: "Gateway interface name",
+																	Description: "Interface name",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
@@ -39445,6 +39497,11 @@ func vrf() schemadefinition.InterfaceDefinition {
 																Local: "completionHelp",
 															},
 															Script: []string{"${vyos_completion_dir}/list_interfaces"},
+														}},
+														Multi: []*schemadefinition.Multi{{
+															XMLName: xml.Name{
+																Local: "multi",
+															},
 														}},
 													}},
 												}, {
@@ -39889,23 +39946,23 @@ func vrf() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "properties",
 																		},
-																		Help: []string{"Use BFD multi hop session"},
+																		Help: []string{"Configure BFD multi-hop session"},
 																	}},
 																	Children: []*schemadefinition.Children{{
 																		XMLName: xml.Name{
 																			Local: "children",
 																		},
-																		TagNode: []*schemadefinition.TagNode{{
-																			IsBaseNode: true,
+																		LeafNode: []*schemadefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
-																				Local: "tagNode",
+																				Local: "leafNode",
 																			},
-																			NodeNameAttr: "source",
+																			NodeNameAttr: "source-address",
 																			Properties: []*schemadefinition.Properties{{
 																				XMLName: xml.Name{
 																					Local: "properties",
 																				},
-																				Help: []string{"Use source for BFD session"},
+																				Help: []string{"IPv6 address used to initiate connection"},
 																				Constraint: []*schemadefinition.Constraint{{
 																					XMLName: xml.Name{
 																						Local: "constraint",
@@ -39914,52 +39971,21 @@ func vrf() schemadefinition.InterfaceDefinition {
 																						XMLName: xml.Name{
 																							Local: "validator",
 																						},
-																						NameAttr: "ip-address",
+																						NameAttr: "ipv6-address",
 																					}},
 																				}},
 																				ValueHelp: []*schemadefinition.ValueHelp{{
 																					XMLName: xml.Name{
 																						Local: "valueHelp",
 																					},
-																					Format:      "ipv4",
-																					Description: "IPv4 source address",
-																				}, {
-																					XMLName: xml.Name{
-																						Local: "valueHelp",
-																					},
 																					Format:      "ipv6",
 																					Description: "IPv6 source address",
 																				}},
-																			}},
-																			Children: []*schemadefinition.Children{{
-																				XMLName: xml.Name{
-																					Local: "children",
-																				},
-																				LeafNode: []*schemadefinition.LeafNode{{
-																					IsBaseNode: false,
+																				CompletionHelp: []*schemadefinition.CompletionHelp{{
 																					XMLName: xml.Name{
-																						Local: "leafNode",
+																						Local: "completionHelp",
 																					},
-																					NodeNameAttr: "profile",
-																					Properties: []*schemadefinition.Properties{{
-																						XMLName: xml.Name{
-																							Local: "properties",
-																						},
-																						Help: []string{"Use settings from BFD profile"},
-																						ValueHelp: []*schemadefinition.ValueHelp{{
-																							XMLName: xml.Name{
-																								Local: "valueHelp",
-																							},
-																							Format:      "txt",
-																							Description: "BFD profile name",
-																						}},
-																						CompletionHelp: []*schemadefinition.CompletionHelp{{
-																							XMLName: xml.Name{
-																								Local: "completionHelp",
-																							},
-																							Path: []string{"protocols bfd profile"},
-																						}},
-																					}},
+																					Script: []string{"${vyos_completion_dir}/list_local_ips.sh --ipv6"},
 																				}},
 																			}},
 																		}},
@@ -40051,7 +40077,7 @@ func vrf() schemadefinition.InterfaceDefinition {
 																XMLName: xml.Name{
 																	Local: "properties",
 																},
-																Help: []string{"Gateway interface name"},
+																Help: []string{"Interface"},
 																Constraint: []*schemadefinition.Constraint{{
 																	XMLName: xml.Name{
 																		Local: "constraint",
@@ -40069,7 +40095,7 @@ func vrf() schemadefinition.InterfaceDefinition {
 																		Local: "valueHelp",
 																	},
 																	Format:      "txt",
-																	Description: "Gateway interface name",
+																	Description: "Interface name",
 																}},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{

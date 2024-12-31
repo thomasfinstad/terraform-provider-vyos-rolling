@@ -51,7 +51,7 @@ description: |-
 #### allow_client
 - `allow_client` (Attributes) Restrict to allowed IP client addresses (see [below for nested schema](#nestedatt--allow_client))
 #### interface
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

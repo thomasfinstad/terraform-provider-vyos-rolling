@@ -58,11 +58,11 @@ Failover IPv4 route
 #### check
 - `check` (Attributes) Check target options (see [below for nested schema](#nestedatt--check))
 #### interface
-- `interface` (String) Gateway interface name
+- `interface` (String) Interface
 
-    |  Format  &emsp;|  Description             |
-    |----------|--------------------------|
-    |  txt     &emsp;|  Gateway interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Interface name  |
 #### metric
 - `metric` (Number) Route metric for this gateway
 

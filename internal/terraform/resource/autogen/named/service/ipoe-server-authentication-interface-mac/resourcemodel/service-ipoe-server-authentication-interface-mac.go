@@ -37,7 +37,8 @@ type ServiceIPoeServerAuthenticationInterfaceMac struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafServiceIPoeServerAuthenticationInterfaceMacVlan types.Number `tfsdk:"vlan" vyos:"vlan,omitempty"`
+	LeafServiceIPoeServerAuthenticationInterfaceMacVlan     types.Number `tfsdk:"vlan" vyos:"vlan,omitempty"`
+	LeafServiceIPoeServerAuthenticationInterfaceMacStaticIP types.String `tfsdk:"static_ip" vyos:"static-ip,omitempty"`
 
 	// TagNodes
 
@@ -225,6 +226,25 @@ func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes(ct
     |  Format  |  Description     |
     |----------|------------------|
     |  1-4094  |  Client VLAN id  |
+`,
+		},
+
+		"static_ip":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Static client IP address
+
+    |  Format  |  Description   |
+    |----------|----------------|
+    |  ipv4    |  IPv4 address  |
+`,
+			Description: `Static client IP address
+
+    |  Format  |  Description   |
+    |----------|----------------|
+    |  ipv4    |  IPv4 address  |
 `,
 		},
 

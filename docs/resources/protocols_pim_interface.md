@@ -81,7 +81,7 @@ Protocol Independent Multicast (PIM) and IGMP
 #### passive
 - `passive` (Boolean) Disable sending and receiving PIM control packets on the interface
 #### source_address
-- `source_address` (String) IPv4 source address used to initiate connection
+- `source_address` (String) IPv4 address used to initiate connection
 
     |  Format  &emsp;|  Description          |
     |----------|-----------------------|

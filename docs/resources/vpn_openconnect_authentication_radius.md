@@ -50,7 +50,7 @@ Authentication for remote access SSL VPN Server
 #### groupconfig
 - `groupconfig` (String) If the groupconfig option is set, then config-per-user will be overriden, and all configuration will be read from RADIUS.
 #### source_address
-- `source_address` (String) IPv4 source address used to initiate connection
+- `source_address` (String) IPv4 address used to initiate connection
 
     |  Format  &emsp;|  Description          |
     |----------|-----------------------|

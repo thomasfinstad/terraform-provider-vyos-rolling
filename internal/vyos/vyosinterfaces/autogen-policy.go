@@ -3825,7 +3825,7 @@ func policy() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Interface to use"},
+												Help: []string{"Interface"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -8514,7 +8514,7 @@ func policy() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Interface to use"},
+								Help: []string{"Interface"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",
@@ -11047,7 +11047,7 @@ func policy() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Interface to use"},
+								Help: []string{"Interface"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",

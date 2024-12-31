@@ -44,6 +44,7 @@ Static IPv6 route
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
     - [Nested Schema for `bfd`](#nested-schema-for-bfd)
+    - [Nested Schema for `bfd.multi_hop`](#nested-schema-for-bfdmulti_hop)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -70,11 +71,11 @@ Static IPv6 route
     |----------|---------------------------|
     |  1-255   &emsp;|  Distance for this route  |
 #### interface
-- `interface` (String) Gateway interface name
+- `interface` (String) Interface
 
-    |  Format  &emsp;|  Description             |
-    |----------|--------------------------|
-    |  txt     &emsp;|  Gateway interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Interface name  |
 #### segments
 - `segments` (String) SRv6 segments
 
@@ -122,11 +123,24 @@ Required:
 
 Optional:
 
+- `multi_hop` (Attributes) Configure BFD multi-hop session (see [below for nested schema](#nestedatt--bfd--multi_hop))
 - `profile` (String) Use settings from BFD profile
 
     |  Format  &emsp;|  Description       |
     |----------|--------------------|
     |  txt     &emsp;|  BFD profile name  |
+
+<a id="nestedatt--bfd--multi_hop"></a>
+### Nested Schema for `bfd.multi_hop`
+
+Optional:
+
+- `source_address` (String) IPv6 address used to initiate connection
+
+    |  Format  &emsp;|  Description          |
+    |----------|-----------------------|
+    |  ipv6    &emsp;|  IPv6 source address  |
+
 
 
 <a id="nestedatt--timeouts"></a>

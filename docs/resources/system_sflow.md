@@ -67,7 +67,7 @@ description: |-
     |-----------|----------------------------------------------------------------------------|
     |  1-65535  &emsp;|  Maximum rate limit of N drops per second send out in the sFlow datagrams  |
 #### interface
-- `interface` (List of String) Interface to use
+- `interface` (List of String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

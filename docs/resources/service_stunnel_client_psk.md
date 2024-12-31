@@ -61,9 +61,9 @@ Stunnel client config
 #### secret
 - `secret` (String) pre-shared secret key
 
-    |  Format  &emsp;|  Description                                                                                                                |
-    |----------|-----------------------------------------------------------------------------------------------------------------------------|
-    |  txt     &emsp;|  pre-shared secret key are required to be at least 16 bytes long, which implies at least 32 characters for hexadecimal key  |
+    |  Format  &emsp;|  Description                                                  |
+    |----------|---------------------------------------------------------------|
+    |  txt     &emsp;|  16byte pre-shared-secret key (32 character hexadecimal key)  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

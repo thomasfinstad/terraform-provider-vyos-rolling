@@ -58,7 +58,7 @@ description: |-
 #### enable_egress
 - `enable_egress` (Boolean) Enable egress flow accounting
 #### interface
-- `interface` (List of String) Interface to use
+- `interface` (List of String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

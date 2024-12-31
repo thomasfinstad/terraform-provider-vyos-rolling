@@ -32,6 +32,8 @@ type ProtocolsStatic struct {
 
 	// TagNodes
 
+	ExistsTagProtocolsStaticMroute bool `tfsdk:"-" vyos:"mroute,child"`
+
 	ExistsTagProtocolsStaticRoute bool `tfsdk:"-" vyos:"route,child"`
 
 	ExistsTagProtocolsStaticRoutesix bool `tfsdk:"-" vyos:"route6,child"`
@@ -41,8 +43,6 @@ type ProtocolsStatic struct {
 	// Nodes
 
 	// Ignoring Node `ProtocolsStaticArp`.
-
-	// Ignoring Node `ProtocolsStaticMulticast`.
 
 	// Ignoring Node `ProtocolsStaticNeighborProxy`.
 }

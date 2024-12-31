@@ -96,7 +96,7 @@ Authentication for remote access PPPoE Server
 #### preallocate_vif
 - `preallocate_vif` (Boolean) Enable attribute NAS-Port-Id in Access-Request
 #### source_address
-- `source_address` (String) IPv4 source address used to initiate connection
+- `source_address` (String) IPv4 address used to initiate connection
 
     |  Format  &emsp;|  Description          |
     |----------|-----------------------|

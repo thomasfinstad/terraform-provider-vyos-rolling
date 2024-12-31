@@ -121,9 +121,15 @@ func (o ProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) ResourceSchemaAttri
 			Optional:    true,
 			MarkdownDescription: `Interface
 
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 			Description: `Interface
 
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 

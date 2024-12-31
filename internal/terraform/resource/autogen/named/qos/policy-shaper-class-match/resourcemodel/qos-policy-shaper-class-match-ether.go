@@ -62,31 +62,51 @@ func (o QosPolicyShaperClassMatchEther) ResourceSchemaAttributes(ctx context.Con
 			Optional: true,
 			MarkdownDescription: `Ethernet protocol for this match
 
-    |  Format   |  Description                      |
-    |-----------|-----------------------------------|
-    |  0-65535  |  Ethernet protocol number         |
-    |  txt      |  Ethernet protocol name           |
-    |  all      |  Any protocol                     |
-    |  ip       |  Internet IP (IPv4)               |
-    |  ipv6     |  Internet IP (IPv6)               |
-    |  arp      |  Address Resolution Protocol      |
-    |  atalk    |  Appletalk                        |
-    |  ipx      |  Novell Internet Packet Exchange  |
-    |  802.1Q   |  802.1Q VLAN tag                  |
+    |  Format     |  Description                            |
+    |-------------|-----------------------------------------|
+    |  1-65535    |  Ethernet protocol number               |
+    |  txt        |  Ethernet protocol name                 |
+    |  all        |  Any protocol                           |
+    |  ip         |  Internet IP (IPv4)                     |
+    |  _ipv6      |  Internet IP (IPv6)                     |
+    |  arp        |  Address Resolution Protocol            |
+    |  atalk      |  AppleTalk                              |
+    |  ipx        |  Novell Internet Packet Exchange        |
+    |  802.1Q     |  802.1Q VLAN tag                        |
+    |  802_2      |  IEEE 802.2                             |
+    |  802_3      |  IEEE 802.3                             |
+    |  aarp       |  AppleTalk Address Resolution Protocol  |
+    |  aoe        |  ATA over Ethernet                      |
+    |  dec        |  DECnet Protocol                        |
+    |  lat        |  Local Area Transport                   |
+    |  localtalk  |  Apple LocalTalk                        |
+    |  rarp       |  Reverse Address Resolution Protocol    |
+    |  snap       |  Subnetwork Access Protocol             |
+    |  x25        |  X.25 Packet-Switching Protocol         |
 `,
 			Description: `Ethernet protocol for this match
 
-    |  Format   |  Description                      |
-    |-----------|-----------------------------------|
-    |  0-65535  |  Ethernet protocol number         |
-    |  txt      |  Ethernet protocol name           |
-    |  all      |  Any protocol                     |
-    |  ip       |  Internet IP (IPv4)               |
-    |  ipv6     |  Internet IP (IPv6)               |
-    |  arp      |  Address Resolution Protocol      |
-    |  atalk    |  Appletalk                        |
-    |  ipx      |  Novell Internet Packet Exchange  |
-    |  802.1Q   |  802.1Q VLAN tag                  |
+    |  Format     |  Description                            |
+    |-------------|-----------------------------------------|
+    |  1-65535    |  Ethernet protocol number               |
+    |  txt        |  Ethernet protocol name                 |
+    |  all        |  Any protocol                           |
+    |  ip         |  Internet IP (IPv4)                     |
+    |  _ipv6      |  Internet IP (IPv6)                     |
+    |  arp        |  Address Resolution Protocol            |
+    |  atalk      |  AppleTalk                              |
+    |  ipx        |  Novell Internet Packet Exchange        |
+    |  802.1Q     |  802.1Q VLAN tag                        |
+    |  802_2      |  IEEE 802.2                             |
+    |  802_3      |  IEEE 802.3                             |
+    |  aarp       |  AppleTalk Address Resolution Protocol  |
+    |  aoe        |  ATA over Ethernet                      |
+    |  dec        |  DECnet Protocol                        |
+    |  lat        |  Local Area Transport                   |
+    |  localtalk  |  Apple LocalTalk                        |
+    |  rarp       |  Reverse Address Resolution Protocol    |
+    |  snap       |  Subnetwork Access Protocol             |
+    |  x25        |  X.25 Packet-Switching Protocol         |
 `,
 		},
 

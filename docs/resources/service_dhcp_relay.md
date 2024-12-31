@@ -48,7 +48,7 @@ description: |-
 #### disable
 - `disable` (Boolean) Disable instance
 #### interface
-- `interface` (List of String) Interface to use
+- `interface` (List of String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

@@ -7,6 +7,7 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
@@ -21,10 +22,9 @@ var _ helpers.VyosResourceDataModel = &VrfNameProtocolsStaticRouteNextHopBfdMult
 // Top level basenode type: `N/A`
 type VrfNameProtocolsStaticRouteNextHopBfdMultiHop struct {
 	// LeafNodes
+	LeafVrfNameProtocolsStaticRouteNextHopBfdMultiHopSourceAddress types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`
 
 	// TagNodes
-
-	ExistsTagVrfNameProtocolsStaticRouteNextHopBfdMultiHopSource bool `tfsdk:"-" vyos:"source,child"`
 
 	// Nodes
 }
@@ -32,8 +32,26 @@ type VrfNameProtocolsStaticRouteNextHopBfdMultiHop struct {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsStaticRouteNextHopBfdMultiHop) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-
 		// LeafNodes
+
+		"source_address":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `IPv4 address used to initiate connection
+
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  ipv4    |  IPv4 source address  |
+`,
+			Description: `IPv4 address used to initiate connection
+
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  ipv4    |  IPv4 source address  |
+`,
+		},
 
 		// TagNodes
 

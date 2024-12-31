@@ -47,6 +47,7 @@ description: |-
       - [redirect](#redirect)
       - [ring_buffer](#ring_buffer)
       - [speed](#speed)
+      - [switchdev](#switchdev)
       - [timeouts](#timeouts)
       - [vrf](#vrf)
     - [Read-Only](#read-only)
@@ -164,6 +165,8 @@ description: |-
     |  40000   &emsp;|  40 Gbit/sec       |
     |  50000   &emsp;|  50 Gbit/sec       |
     |  100000  &emsp;|  100 Gbit/sec      |
+#### switchdev
+- `switchdev` (Boolean) Enables switchdev mode on interface
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### vrf

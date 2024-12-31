@@ -51,7 +51,7 @@ VPN IP security (IPsec) parameters
 #### flexvpn
 - `flexvpn` (Boolean) Allow FlexVPN vendor ID payload (IKEv2 only)
 #### interface
-- `interface` (String) Interface to use
+- `interface` (String) Interface
 
     |  Format  &emsp;|  Description     |
     |----------|------------------|

@@ -119,13 +119,13 @@ func (o ProtocolsBgpAddressFamilyIPvfourFlowspecLocalInstall) ResourceSchemaAttr
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
-			MarkdownDescription: `Interface to use
+			MarkdownDescription: `Interface
 
     |  Format  |  Description     |
     |----------|------------------|
     |  txt     |  Interface name  |
 `,
-			Description: `Interface to use
+			Description: `Interface
 
     |  Format  |  Description     |
     |----------|------------------|
