@@ -49214,6 +49214,43 @@ func protocols() schemadefinition.InterfaceDefinition {
 													Description: "Configure SRv6 locator node length in bits",
 												}},
 											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "format",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"SRv6 SID format"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"(uncompressed-f4024|usid-f3216)"},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "uncompressed-f4024",
+													Description: "Uncompressed f4024 format",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "usid-f3216",
+													Description: "usid-f3216 format",
+												}},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"uncompressed-f4024 usid-f3216"},
+												}},
+											}},
 										}},
 									}},
 								}},

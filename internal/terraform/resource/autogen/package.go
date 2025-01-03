@@ -302,6 +302,7 @@ import (
 	globalservicelldp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp"
 	globalservicelldplegacyprotocols "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp-legacy-protocols"
 	globalservicemdnsrepeater "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/mdns-repeater"
+	globalservicemonitoringprometheusblackboxexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-blackbox-exporter"
 	globalservicemonitoringprometheusfrrexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-frr-exporter"
 	globalservicemonitoringprometheusnodeexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-node-exporter"
 	globalservicemonitoringtelegraf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf"
@@ -823,6 +824,8 @@ import (
 	namedserviceipoeserverclientipvsixpoolprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-client-ipv6-pool-prefix"
 	namedserviceipoeserverinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ipoe-server-interface"
 	namedservicelldpinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/lldp-interface"
+	namedservicemonitoringprometheusblackboxexportermodulesdnsname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/monitoring-prometheus-blackbox-exporter-modules-dns-name"
+	namedservicemonitoringprometheusblackboxexportermodulesicmpname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/monitoring-prometheus-blackbox-exporter-modules-icmp-name"
 	namedservicemonitoringzabbixagentserveractive "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/monitoring-zabbix-agent-server-active"
 	namedservicendpproxyinterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ndp-proxy-interface"
 	namedservicendpproxyinterfaceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/service/ndp-proxy-interface-prefix"
@@ -1279,6 +1282,7 @@ func GetResources() []func() resource.Resource {
 		globalservicelldp.NewServiceLldp,
 		globalservicelldplegacyprotocols.NewServiceLldpLegacyProtocols,
 		globalservicemdnsrepeater.NewServiceMDNSRepeater,
+		globalservicemonitoringprometheusblackboxexporter.NewServiceMonitoringPrometheusBlackboxExporter,
 		globalservicemonitoringprometheusfrrexporter.NewServiceMonitoringPrometheusFrrExporter,
 		globalservicemonitoringprometheusnodeexporter.NewServiceMonitoringPrometheusNodeExporter,
 		globalservicemonitoringtelegraf.NewServiceMonitoringTelegraf,
@@ -1800,6 +1804,8 @@ func GetResources() []func() resource.Resource {
 		namedserviceipoeserverclientipvsixpoolprefix.NewServiceIPoeServerClientIPvsixPoolPrefix,
 		namedserviceipoeserverinterface.NewServiceIPoeServerInterface,
 		namedservicelldpinterface.NewServiceLldpInterface,
+		namedservicemonitoringprometheusblackboxexportermodulesdnsname.NewServiceMonitoringPrometheusBlackboxExporterModulesDNSName,
+		namedservicemonitoringprometheusblackboxexportermodulesicmpname.NewServiceMonitoringPrometheusBlackboxExporterModulesIcmpName,
 		namedservicemonitoringzabbixagentserveractive.NewServiceMonitoringZabbixAgentServerActive,
 		namedservicendpproxyinterface.NewServiceNdpProxyInterface,
 		namedservicendpproxyinterfaceprefix.NewServiceNdpProxyInterfacePrefix,

@@ -33,6 +33,7 @@ Segment-Routing SRv6 configuration
     - [Optional](#optional)
       - [behavior_usid](#behavior_usid)
       - [block_len](#block_len)
+      - [format](#format)
       - [func_bits](#func_bits)
       - [node_len](#node_len)
       - [prefix](#prefix)
@@ -63,6 +64,13 @@ Segment-Routing SRv6 configuration
     |  Format  &emsp;|  Description                                |
     |----------|---------------------------------------------|
     |  16-64   &emsp;|  Specify SRv6 locator block length in bits  |
+#### format
+- `format` (String) SRv6 SID format
+
+    |  Format              &emsp;|  Description                |
+    |----------------------|-----------------------------|
+    |  uncompressed-f4024  &emsp;|  Uncompressed f4024 format  |
+    |  usid-f3216          &emsp;|  usid-f3216 format          |
 #### func_bits
 - `func_bits` (Number) Configure SRv6 locator function length in bits
 

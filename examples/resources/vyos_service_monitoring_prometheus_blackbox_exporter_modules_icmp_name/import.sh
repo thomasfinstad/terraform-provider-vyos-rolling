@@ -1,0 +1,2 @@
+
+terraform import vyos_service_monitoring_prometheus_blackbox_exporter_modules_icmp_name.example "service__monitoring__prometheus__blackbox-exporter__modules__icmp__name__<name>"

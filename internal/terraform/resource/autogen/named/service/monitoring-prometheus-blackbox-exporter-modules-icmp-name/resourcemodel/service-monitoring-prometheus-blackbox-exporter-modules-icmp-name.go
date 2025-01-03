@@ -24,12 +24,12 @@ import (
 /* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
-var _ helpers.VyosTopResourceDataModel = &ProtocolsSegmentRoutingSrvsixLocator{}
+var _ helpers.VyosTopResourceDataModel = &ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName{}
 
-// ProtocolsSegmentRoutingSrvsixLocator describes the resource data model.
+// ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName describes the resource data model.
 // This is a basenode!
 // Top level basenode type: `TagNode`
-type ProtocolsSegmentRoutingSrvsixLocator struct {
+type ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
@@ -38,12 +38,9 @@ type ProtocolsSegmentRoutingSrvsixLocator struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafProtocolsSegmentRoutingSrvsixLocatorBehaviorUsID types.Bool   `tfsdk:"behavior_usid" vyos:"behavior-usid,omitempty"`
-	LeafProtocolsSegmentRoutingSrvsixLocatorPrefix       types.String `tfsdk:"prefix" vyos:"prefix,omitempty"`
-	LeafProtocolsSegmentRoutingSrvsixLocatorBlockLen     types.Number `tfsdk:"block_len" vyos:"block-len,omitempty"`
-	LeafProtocolsSegmentRoutingSrvsixLocatorFuncBits     types.Number `tfsdk:"func_bits" vyos:"func-bits,omitempty"`
-	LeafProtocolsSegmentRoutingSrvsixLocatorNodeLen      types.Number `tfsdk:"node_len" vyos:"node-len,omitempty"`
-	LeafProtocolsSegmentRoutingSrvsixLocatorFormat       types.String `tfsdk:"format" vyos:"format,omitempty"`
+	LeafServiceMonitoringPrometheusBlackboxExporterModulesIcmpNameTimeout             types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
+	LeafServiceMonitoringPrometheusBlackboxExporterModulesIcmpNamePreferredIPProtocol types.String `tfsdk:"preferred_ip_protocol" vyos:"preferred-ip-protocol,omitempty"`
+	LeafServiceMonitoringPrometheusBlackboxExporterModulesIcmpNameIPProtocolFallback  types.Bool   `tfsdk:"ip_protocol_fallback" vyos:"ip-protocol-fallback,omitempty"`
 
 	// TagNodes
 
@@ -51,31 +48,31 @@ type ProtocolsSegmentRoutingSrvsixLocator struct {
 }
 
 // SetID configures the resource ID
-func (o *ProtocolsSegmentRoutingSrvsixLocator) SetID(id []string) {
+func (o *ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *ProtocolsSegmentRoutingSrvsixLocator) GetTimeouts() timeouts.Value {
+func (o *ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *ProtocolsSegmentRoutingSrvsixLocator) IsGlobalResource() bool {
+func (o *ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName) IsGlobalResource() bool {
 	return (false)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosPath() []string {
+func (o *ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName) GetVyosPath() []string {
 	if o.ID.ValueString() != "" {
 		return strings.Split(o.ID.ValueString(), "__")
 	}
 
 	return append(
 		o.GetVyosParentPath(),
-		"locator",
-		o.SelfIdentifier.Attributes()["locator"].(types.String).ValueString(),
+		"name",
+		o.SelfIdentifier.Attributes()["name"].(types.String).ValueString(),
 	)
 }
 
@@ -83,18 +80,30 @@ func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosPath() []string {
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosParentPath() []string {
+func (o *ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName) GetVyosParentPath() []string {
 	return []string{
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
-		"protocols", // Node
 
-		"segment-routing", // Node
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
-		"srv6", // Node
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+		"service", // Node
+
+		"monitoring", // Node
+
+		"prometheus", // Node
+
+		"blackbox-exporter", // Node
+
+		"modules", // Node
+
+		"icmp", // Node
 
 	}
 }
@@ -103,8 +112,14 @@ func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosNamedParentPath() []string {
+func (o *ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName) GetVyosNamedParentPath() []string {
 	return []string{
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
+
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
@@ -115,7 +130,7 @@ func (o *ProtocolsSegmentRoutingSrvsixLocator) GetVyosNamedParentPath() []string
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o ServiceMonitoringPrometheusBlackboxExporterModulesIcmpName) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -124,12 +139,12 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 		"identifier": schema.SingleNestedAttribute{
 			Required: true,
 			Attributes: map[string]schema.Attribute{
-				"locator": schema.StringAttribute{
+				"name": schema.StringAttribute{
 					Required: true,
-					MarkdownDescription: `Segment Routing SRv6 locator
+					MarkdownDescription: `Name of the icmp module
 
 `,
-					Description: `Segment Routing SRv6 locator
+					Description: `Name of the icmp module
 
 `,
 					PlanModifiers: []planmodifier.String{
@@ -139,16 +154,22 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 							helpers.StringNot(
 								stringvalidator.RegexMatches(
 									regexp.MustCompile(`^.*__.*$`),
-									"double underscores in locator, conflicts with the internal resource id",
+									"double underscores in name, conflicts with the internal resource id",
 								),
 							),
 							stringvalidator.RegexMatches(
 								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
-								"illegal character in  locator, value must match: ^[.:a-zA-Z0-9-_/]+$",
+								"illegal character in  name, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
 				},
+
+				/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
+
+				/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
+
+				/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
 
 				/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
 
@@ -165,125 +186,65 @@ func (o ProtocolsSegmentRoutingSrvsixLocator) ResourceSchemaAttributes(ctx conte
 
 		// LeafNodes
 
-		"behavior_usid":
+		"timeout":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Timeout in seconds for the probe request
+
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  1-60    |  Timeout in seconds  |
+`,
+			Description: `Timeout in seconds for the probe request
+
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  1-60    |  Timeout in seconds  |
+`,
+
+			// Default:          stringdefault.StaticString(`5`),
+			Computed: true,
+		},
+
+		"preferred_ip_protocol":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Preferred IP protocol for this module
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4    |  Prefer IPv4  |
+    |  ipv6    |  Prefer IPv6  |
+`,
+			Description: `Preferred IP protocol for this module
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4    |  Prefer IPv4  |
+    |  ipv6    |  Prefer IPv6  |
+`,
+
+			// Default:          stringdefault.StaticString(`ip6`),
+			Computed: true,
+		},
+
+		"ip_protocol_fallback":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Set SRv6 behavior uSID
+			MarkdownDescription: `Allow fallback to other IP protocol if necessary
 
 `,
-			Description: `Set SRv6 behavior uSID
+			Description: `Allow fallback to other IP protocol if necessary
 
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
-		},
-
-		"prefix":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `SRv6 locator prefix
-
-    |  Format   |  Description          |
-    |-----------|-----------------------|
-    |  ipv6net  |  SRv6 locator prefix  |
-`,
-			Description: `SRv6 locator prefix
-
-    |  Format   |  Description          |
-    |-----------|-----------------------|
-    |  ipv6net  |  SRv6 locator prefix  |
-`,
-		},
-
-		"block_len":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.NumberAttribute{
-			Optional: true,
-			MarkdownDescription: `Configure SRv6 locator block length in bits
-
-    |  Format  |  Description                                |
-    |----------|---------------------------------------------|
-    |  16-64   |  Specify SRv6 locator block length in bits  |
-`,
-			Description: `Configure SRv6 locator block length in bits
-
-    |  Format  |  Description                                |
-    |----------|---------------------------------------------|
-    |  16-64   |  Specify SRv6 locator block length in bits  |
-`,
-
-			// Default:          stringdefault.StaticString(`40`),
-			Computed: true,
-		},
-
-		"func_bits":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.NumberAttribute{
-			Optional: true,
-			MarkdownDescription: `Configure SRv6 locator function length in bits
-
-    |  Format  |  Description                                   |
-    |----------|------------------------------------------------|
-    |  0-64    |  Specify SRv6 locator function length in bits  |
-`,
-			Description: `Configure SRv6 locator function length in bits
-
-    |  Format  |  Description                                   |
-    |----------|------------------------------------------------|
-    |  0-64    |  Specify SRv6 locator function length in bits  |
-`,
-
-			// Default:          stringdefault.StaticString(`16`),
-			Computed: true,
-		},
-
-		"node_len":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.NumberAttribute{
-			Optional: true,
-			MarkdownDescription: `Configure SRv6 locator node length in bits
-
-    |  Format  |  Description                                 |
-    |----------|----------------------------------------------|
-    |  16-64   |  Configure SRv6 locator node length in bits  |
-`,
-			Description: `Configure SRv6 locator node length in bits
-
-    |  Format  |  Description                                 |
-    |----------|----------------------------------------------|
-    |  16-64   |  Configure SRv6 locator node length in bits  |
-`,
-
-			// Default:          stringdefault.StaticString(`24`),
-			Computed: true,
-		},
-
-		"format":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `SRv6 SID format
-
-    |  Format              |  Description                |
-    |----------------------|-----------------------------|
-    |  uncompressed-f4024  |  Uncompressed f4024 format  |
-    |  usid-f3216          |  usid-f3216 format          |
-`,
-			Description: `SRv6 SID format
-
-    |  Format              |  Description                |
-    |----------------------|-----------------------------|
-    |  uncompressed-f4024  |  Uncompressed f4024 format  |
-    |  usid-f3216          |  usid-f3216 format          |
-`,
 		},
 
 		// TagNodes
