@@ -4,18 +4,47 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 15.0.202412310 (2024-12-31 08-30-06 UTC)](#release-150202412310-2024-12-31-08-30-06-utc)
+  - [Release 15.1.202501030 (2025-01-03 08-30-14 UTC)](#release-151202501030-2025-01-03-08-30-14-utc)
     - [Project changes](#project-changes)
     - [Schema changes](#schema-changes)
-      - [BREAKING CHANGES](#breaking-changes)
-        - [Resources](#resources)
-      - [Notes](#notes)
-        - [Resources](#resources-1)
       - [Features](#features)
+        - [Resources](#resources)
+  - [Release 15.0.202412310 (2024-12-31 08-30-06 UTC)](#release-150202412310-2024-12-31-08-30-06-utc)
+    - [Project changes](#project-changes-1)
+    - [Schema changes](#schema-changes-1)
+      - [BREAKING CHANGES](#breaking-changes)
+        - [Resources](#resources-1)
+      - [Notes](#notes)
         - [Resources](#resources-2)
+      - [Features](#features-1)
+        - [Resources](#resources-3)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 15.1.202501030 (2025-01-03 08-30-14 UTC)
+### Project changes
+
+### Schema changes
+#### Features
+
+##### Resources
+* Modified Resource `vyos_protocols_segment_routing_srv6_locator`
+	* New attribute `format`
+
+* New Resource `vyos_service_monitoring_prometheus_blackbox_exporter_modules_icmp_name`
+
+* New Resource `vyos_service_monitoring_prometheus_blackbox_exporter`
+
+* New Resource `vyos_service_monitoring_prometheus_blackbox_exporter_modules_dns_name`
+
+
+
+
+
+
+
 
 
 ## Release 15.0.202412310 (2024-12-31 08-30-06 UTC)
