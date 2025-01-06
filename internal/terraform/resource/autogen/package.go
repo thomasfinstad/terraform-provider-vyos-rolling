@@ -305,6 +305,7 @@ import (
 	globalservicemonitoringprometheusblackboxexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-blackbox-exporter"
 	globalservicemonitoringprometheusfrrexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-frr-exporter"
 	globalservicemonitoringprometheusnodeexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-node-exporter"
+	globalservicemonitoringprometheusnodeexportercollectors "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-node-exporter-collectors"
 	globalservicemonitoringtelegraf "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf"
 	globalservicemonitoringtelegrafazuredataexplorer "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer"
 	globalservicemonitoringtelegrafazuredataexplorerauthentication "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-telegraf-azure-data-explorer-authentication"
@@ -1285,6 +1286,7 @@ func GetResources() []func() resource.Resource {
 		globalservicemonitoringprometheusblackboxexporter.NewServiceMonitoringPrometheusBlackboxExporter,
 		globalservicemonitoringprometheusfrrexporter.NewServiceMonitoringPrometheusFrrExporter,
 		globalservicemonitoringprometheusnodeexporter.NewServiceMonitoringPrometheusNodeExporter,
+		globalservicemonitoringprometheusnodeexportercollectors.NewServiceMonitoringPrometheusNodeExporterCollectors,
 		globalservicemonitoringtelegraf.NewServiceMonitoringTelegraf,
 		globalservicemonitoringtelegrafazuredataexplorer.NewServiceMonitoringTelegrafAzureDataExplorer,
 		globalservicemonitoringtelegrafazuredataexplorerauthentication.NewServiceMonitoringTelegrafAzureDataExplorerAuthentication,

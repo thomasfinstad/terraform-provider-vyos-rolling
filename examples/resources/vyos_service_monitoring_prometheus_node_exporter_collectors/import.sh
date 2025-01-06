@@ -1,0 +1,2 @@
+
+terraform import vyos_service_monitoring_prometheus_node_exporter_collectors.example "service__monitoring__prometheus__node-exporter__collectors"

@@ -17958,6 +17958,42 @@ func service() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "children",
 										},
+										Node: []*schemadefinition.Node{{
+											IsBaseNode: true,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "collectors",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Collectors specific configuration"},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "textfile",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Enables textfile collector to read from /run/node_exporter/collector"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}},
+											}},
+										}},
 										LeafNode: []*schemadefinition.LeafNode{{
 											IsBaseNode: false,
 											XMLName: xml.Name{
