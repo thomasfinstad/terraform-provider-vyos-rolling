@@ -4,23 +4,45 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 15.1.202501030 (2025-01-03 08-30-14 UTC)](#release-151202501030-2025-01-03-08-30-14-utc)
+  - [Release 15.2.202501050 (2025-01-06 08-32-01 UTC)](#release-152202501050-2025-01-06-08-32-01-utc)
     - [Project changes](#project-changes)
     - [Schema changes](#schema-changes)
       - [Features](#features)
         - [Resources](#resources)
-  - [Release 15.0.202412310 (2024-12-31 08-30-06 UTC)](#release-150202412310-2024-12-31-08-30-06-utc)
+  - [Release 15.1.202501030 (2025-01-03 08-30-14 UTC)](#release-151202501030-2025-01-03-08-30-14-utc)
     - [Project changes](#project-changes-1)
     - [Schema changes](#schema-changes-1)
-      - [BREAKING CHANGES](#breaking-changes)
-        - [Resources](#resources-1)
-      - [Notes](#notes)
-        - [Resources](#resources-2)
       - [Features](#features-1)
+        - [Resources](#resources-1)
+  - [Release 15.0.202412310 (2024-12-31 08-30-06 UTC)](#release-150202412310-2024-12-31-08-30-06-utc)
+    - [Project changes](#project-changes-2)
+    - [Schema changes](#schema-changes-2)
+      - [BREAKING CHANGES](#breaking-changes)
+        - [Resources](#resources-2)
+      - [Notes](#notes)
         - [Resources](#resources-3)
+      - [Features](#features-2)
+        - [Resources](#resources-4)
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 15.2.202501050 (2025-01-06 08-32-01 UTC)
+### Project changes
+
+### Schema changes
+#### Features
+
+##### Resources
+* New Resource `vyos_service_monitoring_prometheus_node_exporter_collectors`
+
+
+
+
+
+
+
 
 
 ## Release 15.1.202501030 (2025-01-03 08-30-14 UTC)
