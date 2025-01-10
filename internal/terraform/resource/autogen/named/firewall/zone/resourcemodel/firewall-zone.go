@@ -41,7 +41,6 @@ type FirewallZone struct {
 	LeafFirewallZoneDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafFirewallZoneDefaultLog    types.Bool   `tfsdk:"default_log" vyos:"default-log,omitempty"`
 	LeafFirewallZoneDefaultAction types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
-	LeafFirewallZoneInterface     types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
 	LeafFirewallZoneLocalZone     types.Bool   `tfsdk:"local_zone" vyos:"local-zone,omitempty"`
 
 	// TagNodes
@@ -49,6 +48,8 @@ type FirewallZone struct {
 	ExistsTagFirewallZoneFrom bool `tfsdk:"-" vyos:"from,child"`
 
 	// Nodes
+
+	NodeFirewallZoneMember *FirewallZoneMember `tfsdk:"member" vyos:"member,omitempty"`
 
 	NodeFirewallZoneIntraZoneFiltering *FirewallZoneIntraZoneFiltering `tfsdk:"intra_zone_filtering" vyos:"intra-zone-filtering,omitempty"`
 }
@@ -216,27 +217,6 @@ func (o FirewallZone) ResourceSchemaAttributes(ctx context.Context) map[string]s
 			Computed: true,
 		},
 
-		"interface":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
-		schema.ListAttribute{
-			ElementType: types.StringType,
-			Optional:    true,
-			MarkdownDescription: `Interface associated with zone
-
-    |  Format  |  Description                     |
-    |----------|----------------------------------|
-    |  txt     |  Interface associated with zone  |
-    |  vrf     |  VRF associated with zone        |
-`,
-			Description: `Interface associated with zone
-
-    |  Format  |  Description                     |
-    |----------|----------------------------------|
-    |  txt     |  Interface associated with zone  |
-    |  vrf     |  VRF associated with zone        |
-`,
-		},
-
 		"local_zone":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
@@ -255,6 +235,17 @@ func (o FirewallZone) ResourceSchemaAttributes(ctx context.Context) map[string]s
 		// TagNodes
 
 		// Nodes
+
+		"member": schema.SingleNestedAttribute{
+			Attributes: FirewallZoneMember{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Interface associated with zone
+
+`,
+			Description: `Interface associated with zone
+
+`,
+		},
 
 		"intra_zone_filtering": schema.SingleNestedAttribute{
 			Attributes: FirewallZoneIntraZoneFiltering{}.ResourceSchemaAttributes(ctx),

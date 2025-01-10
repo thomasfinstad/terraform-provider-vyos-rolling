@@ -60,7 +60,11 @@ Firewall group
 #### include
 - `include` (List of String) Include another interface-group
 #### interface
-- `interface` (List of String) Interface-group member
+- `interface` (List of String) Interface
+
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Interface name  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

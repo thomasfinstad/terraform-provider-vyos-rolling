@@ -56,7 +56,11 @@ Firewall
     |----------|---------------|
     |  txt     &emsp;|  Description  |
 #### interface
-- `interface` (List of String) Interfaces to use this flowtable
+- `interface` (List of String) Interface
+
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Interface name  |
 #### offload
 - `offload` (String) Offloading method
 

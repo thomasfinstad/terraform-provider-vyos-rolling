@@ -158,11 +158,17 @@ func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes(ctx context.Contex
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
-			MarkdownDescription: `Interface-group member
+			MarkdownDescription: `Interface
 
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
-			Description: `Interface-group member
+			Description: `Interface
 
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 

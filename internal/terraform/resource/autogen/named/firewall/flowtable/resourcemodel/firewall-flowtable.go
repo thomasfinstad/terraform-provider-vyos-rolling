@@ -169,11 +169,17 @@ func (o FirewallFlowtable) ResourceSchemaAttributes(ctx context.Context) map[str
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
-			MarkdownDescription: `Interfaces to use this flowtable
+			MarkdownDescription: `Interface
 
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
-			Description: `Interfaces to use this flowtable
+			Description: `Interface
 
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 

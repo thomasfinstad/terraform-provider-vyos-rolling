@@ -30,15 +30,16 @@ Firewall
       - [default_action](#default_action)
       - [default_log](#default_log)
       - [description](#description)
-      - [interface](#interface)
       - [intra_zone_filtering](#intra_zone_filtering)
       - [local_zone](#local_zone)
+      - [member](#member)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
     - [Nested Schema for `intra_zone_filtering`](#nested-schema-for-intra_zone_filtering)
     - [Nested Schema for `intra_zone_filtering.firewall`](#nested-schema-for-intra_zone_filteringfirewall)
+    - [Nested Schema for `member`](#nested-schema-for-member)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
   - [Import](#import)
 
@@ -69,17 +70,12 @@ Firewall
     |  Format  &emsp;|  Description  |
     |----------|---------------|
     |  txt     &emsp;|  Description  |
-#### interface
-- `interface` (List of String) Interface associated with zone
-
-    |  Format  &emsp;|  Description                     |
-    |----------|----------------------------------|
-    |  txt     &emsp;|  Interface associated with zone  |
-    |  vrf     &emsp;|  VRF associated with zone        |
 #### intra_zone_filtering
 - `intra_zone_filtering` (Attributes) Intra-zone filtering (see [below for nested schema](#nestedatt--intra_zone_filtering))
 #### local_zone
 - `local_zone` (Boolean) Zone to be local-zone
+#### member
+- `member` (Attributes) Interface associated with zone (see [below for nested schema](#nestedatt--member))
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -121,6 +117,23 @@ Optional:
 - `ipv6_name` (String) IPv6 firewall ruleset
 - `name` (String) IPv4 firewall ruleset
 
+
+
+<a id="nestedatt--member"></a>
+### Nested Schema for `member`
+
+Optional:
+
+- `interface` (List of String) Interface
+
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Interface name  |
+- `vrf` (List of String) VRF associated with zone
+
+    |  Format  &emsp;|  Description               |
+    |----------|----------------------------|
+    |  vrf     &emsp;|  VRF associated with zone  |
 
 
 <a id="nestedatt--timeouts"></a>

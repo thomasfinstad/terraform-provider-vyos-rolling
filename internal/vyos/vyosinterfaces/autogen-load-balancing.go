@@ -941,6 +941,12 @@ func loadbalancing() schemadefinition.InterfaceDefinition {
 															Regex: []string{"[-_a-zA-Z0-9]+"},
 														}},
 														ConstraintErrorMessage: []string{"Server name must be alphanumeric and can contain hyphen and underscores"},
+														CompletionHelp: []*schemadefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"load-balancing haproxy backend"},
+														}},
 													}},
 												}},
 											}},

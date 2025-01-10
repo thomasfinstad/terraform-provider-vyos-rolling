@@ -1959,7 +1959,26 @@ func firewall() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Interface-group member"},
+										Help: []string{"Interface"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "file-path --lookup-path /sys/class/net --directory",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Interface name",
+										}},
 										CompletionHelp: []*schemadefinition.CompletionHelp{{
 											XMLName: xml.Name{
 												Local: "completionHelp",
@@ -64836,7 +64855,26 @@ func firewall() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Interfaces to use this flowtable"},
+								Help: []string{"Interface"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+									Validator: []*schemadefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "file-path --lookup-path /sys/class/net --directory",
+									}},
+								}},
+								ValueHelp: []*schemadefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "txt",
+									Description: "Interface name",
+								}},
 								CompletionHelp: []*schemadefinition.CompletionHelp{{
 									XMLName: xml.Name{
 										Local: "completionHelp",
@@ -64919,6 +64957,96 @@ func firewall() schemadefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*schemadefinition.Node{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "member",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Interface associated with zone"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*schemadefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "interface",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Interface"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "file-path --lookup-path /sys/class/net --directory",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Interface name",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Script: []string{"${vyos_completion_dir}/list_interfaces"},
+										}},
+										Multi: []*schemadefinition.Multi{{
+											XMLName: xml.Name{
+												Local: "multi",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "vrf",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"VRF associated with zone"},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "vrf",
+											Description: "VRF associated with zone",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Path: []string{"vrf name"},
+										}},
+										Multi: []*schemadefinition.Multi{{
+											XMLName: xml.Name{
+												Local: "multi",
+											},
+										}},
+									}},
+								}},
+							}},
+						}, {
 							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
@@ -65187,43 +65315,6 @@ func firewall() schemadefinition.InterfaceDefinition {
 										Local: "completionHelp",
 									},
 									List: []string{"drop reject"},
-								}},
-							}},
-						}, {
-							IsBaseNode: false,
-							XMLName: xml.Name{
-								Local: "leafNode",
-							},
-							NodeNameAttr: "interface",
-							Properties: []*schemadefinition.Properties{{
-								XMLName: xml.Name{
-									Local: "properties",
-								},
-								Help: []string{"Interface associated with zone"},
-								ValueHelp: []*schemadefinition.ValueHelp{{
-									XMLName: xml.Name{
-										Local: "valueHelp",
-									},
-									Format:      "txt",
-									Description: "Interface associated with zone",
-								}, {
-									XMLName: xml.Name{
-										Local: "valueHelp",
-									},
-									Format:      "vrf",
-									Description: "VRF associated with zone",
-								}},
-								CompletionHelp: []*schemadefinition.CompletionHelp{{
-									XMLName: xml.Name{
-										Local: "completionHelp",
-									},
-									Path:   []string{"vrf name"},
-									Script: []string{"${vyos_completion_dir}/list_interfaces"},
-								}},
-								Multi: []*schemadefinition.Multi{{
-									XMLName: xml.Name{
-										Local: "multi",
-									},
 								}},
 							}},
 						}, {
