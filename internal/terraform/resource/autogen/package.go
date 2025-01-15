@@ -699,9 +699,8 @@ import (
 	namedprotocolsisissegmentroutingprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/isis-segment-routing-prefix"
 	namedprotocolsmplsldpneighbor "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/mpls-ldp-neighbor"
 	namedprotocolsnhrptunnel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel"
-	namedprotocolsnhrptunneldynamicmap "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-dynamic-map"
-	namedprotocolsnhrptunnelmap "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-map"
-	namedprotocolsnhrptunnelshortcuttarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-shortcut-target"
+	namedprotocolsnhrptunnelmaptunnelip "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-map-tunnel-ip"
+	namedprotocolsnhrptunnelnhstunnelip "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/nhrp-tunnel-nhs-tunnel-ip"
 	namedprotocolsopenfabricdomain "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/openfabric-domain"
 	namedprotocolsopenfabricdomaininterface "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/openfabric-domain-interface"
 	namedprotocolsospfaccesslist "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/ospf-access-list"
@@ -1680,9 +1679,8 @@ func GetResources() []func() resource.Resource {
 		namedprotocolsisissegmentroutingprefix.NewProtocolsIsisSegmentRoutingPrefix,
 		namedprotocolsmplsldpneighbor.NewProtocolsMplsLdpNeighbor,
 		namedprotocolsnhrptunnel.NewProtocolsNhrpTunnel,
-		namedprotocolsnhrptunneldynamicmap.NewProtocolsNhrpTunnelDynamicMap,
-		namedprotocolsnhrptunnelmap.NewProtocolsNhrpTunnelMap,
-		namedprotocolsnhrptunnelshortcuttarget.NewProtocolsNhrpTunnelShortcutTarget,
+		namedprotocolsnhrptunnelmaptunnelip.NewProtocolsNhrpTunnelMapTunnelIP,
+		namedprotocolsnhrptunnelnhstunnelip.NewProtocolsNhrpTunnelNhsTunnelIP,
 		namedprotocolsopenfabricdomain.NewProtocolsOpenfabricDomain,
 		namedprotocolsopenfabricdomaininterface.NewProtocolsOpenfabricDomainInterface,
 		namedprotocolsospfaccesslist.NewProtocolsOspfAccessList,

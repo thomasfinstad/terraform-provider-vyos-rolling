@@ -1,13 +1,13 @@
 ---
-page_title: "vyos_protocols_nhrp_tunnel_shortcut_target Resource - vyos"
+page_title: "vyos_protocols_nhrp_tunnel_map_tunnel_ip Resource - vyos"
 
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯Next Hop Resolution Protocol (NHRP) parameters⯯Tunnel for NHRP⯯Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+  protocols⯯Next Hop Resolution Protocol (NHRP) parameters⯯Tunnel for NHRP⯯Map tunnel IP to NBMA⯯Set a NHRP tunnel address
 ---
 
-# vyos_protocols_nhrp_tunnel_shortcut_target (Resource)
+# vyos_protocols_nhrp_tunnel_map_tunnel_ip (Resource)
 <center>
 
 
@@ -17,7 +17,9 @@ Next Hop Resolution Protocol (NHRP) parameters
 ⯯  
 Tunnel for NHRP  
 ⯯  
-**Defines an off-NBMA network prefix for which the GRE interface will act as a gateway**
+Map tunnel IP to NBMA  
+⯯  
+**Set a NHRP tunnel address**
 
 
 </center>
@@ -26,12 +28,12 @@ Tunnel for NHRP
 
 <!--TOC-->
 
-- [vyos_protocols_nhrp_tunnel_shortcut_target (Resource)](#vyos_protocols_nhrp_tunnel_shortcut_target-resource)
+- [vyos_protocols_nhrp_tunnel_map_tunnel_ip (Resource)](#vyos_protocols_nhrp_tunnel_map_tunnel_ip-resource)
   - [Schema](#schema)
     - [Required](#required)
       - [identifier](#identifier)
     - [Optional](#optional)
-      - [holding_time](#holding_time)
+      - [nbma](#nbma)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -51,8 +53,13 @@ Tunnel for NHRP
 
 ### Optional
 
-#### holding_time
-- `holding_time` (String) Holding time in seconds
+#### nbma
+- `nbma` (String) Set NHRP NBMA address to map
+
+    |  Format  &emsp;|  Description                |
+    |----------|-----------------------------|
+    |  ipv4    &emsp;|  Set the IP address to map  |
+    |  local   &emsp;|  Set the local address      |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -66,12 +73,16 @@ Tunnel for NHRP
 
 Required:
 
-- `shortcut_target` (String) Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
 - `tunnel` (String) Tunnel for NHRP
 
     |  Format  &emsp;|  Description       |
     |----------|--------------------|
     |  tunN    &emsp;|  NHRP tunnel name  |
+- `tunnel_ip` (String) Set a NHRP tunnel address
+
+    |  Format  &emsp;|  Description                |
+    |----------|-----------------------------|
+    |  ipv4    &emsp;|  Set the IP address to map  |
 
 
 <a id="nestedatt--timeouts"></a>
@@ -86,5 +97,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_nhrp_tunnel_shortcut_target.example "protocols__nhrp__tunnel__<tunnel>__shortcut-target__<shortcut-target>"
+terraform import vyos_protocols_nhrp_tunnel_map_tunnel_ip.example "protocols__nhrp__tunnel__<tunnel>__map__tunnel-ip__<tunnel-ip>"
 ```

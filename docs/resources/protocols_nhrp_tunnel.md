@@ -29,13 +29,14 @@ Next Hop Resolution Protocol (NHRP) parameters
     - [Required](#required)
       - [identifier](#identifier)
     - [Optional](#optional)
-      - [cisco_authentication](#cisco_authentication)
-      - [holding_time](#holding_time)
+      - [authentication](#authentication)
+      - [holdtime](#holdtime)
+      - [mtu](#mtu)
       - [multicast](#multicast)
-      - [non_caching](#non_caching)
+      - [network_id](#network_id)
       - [redirect](#redirect)
+      - [registration_no_unique](#registration_no_unique)
       - [shortcut](#shortcut)
-      - [shortcut_destination](#shortcut_destination)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -55,24 +56,43 @@ Next Hop Resolution Protocol (NHRP) parameters
 
 ### Optional
 
-#### cisco_authentication
-- `cisco_authentication` (String) Pass phrase for cisco authentication
+#### authentication
+- `authentication` (String) NHRP authentication
 
-    |  Format  &emsp;|  Description                           |
-    |----------|----------------------------------------|
-    |  txt     &emsp;|  Pass phrase for cisco authentication  |
-#### holding_time
-- `holding_time` (String) Holding time in seconds
+    |  Format  &emsp;|  Description                          |
+    |----------|---------------------------------------|
+    |  txt     &emsp;|  Pass phrase for NHRP authentication  |
+#### holdtime
+- `holdtime` (Number) Holding time in seconds
+
+    |  Format   &emsp;|  Description       |
+    |-----------|--------------------|
+    |  1-65000  &emsp;|  ring buffer size  |
+#### mtu
+- `mtu` (Number) Maximum Transmission Unit (MTU)
+
+    |  Format    &emsp;|  Description                        |
+    |------------|-------------------------------------|
+    |  68-16000  &emsp;|  Maximum Transmission Unit in byte  |
 #### multicast
-- `multicast` (String) Set multicast for NHRP
-#### non_caching
-- `non_caching` (Boolean) This can be used to reduce memory consumption on big NBMA subnets
+- `multicast` (List of String) Map multicast to NBMA
+
+    |  Format   &emsp;|  Description                         |
+    |-----------|--------------------------------------|
+    |  ipv4     |  Set the IP address to map(IP&emsp;|FQDN)  |
+    |  dynamic  &emsp;|  NBMA address is learnt dynamically  |
+#### network_id
+- `network_id` (String) NHRP network id
+
+    |  Format          &emsp;|  Description      |
+    |------------------|-------------------|
+    |  &lt;1-4294967295&gt;  &emsp;|  NHRP network id  |
 #### redirect
 - `redirect` (Boolean) Enable sending of Cisco style NHRP Traffic Indication packets
+#### registration_no_unique
+- `registration_no_unique` (Boolean) Don&#39;t set unique flag
 #### shortcut
 - `shortcut` (Boolean) Enable creation of shortcut routes. A received NHRP Traffic Indication will trigger the resolution and establishment of a shortcut route
-#### shortcut_destination
-- `shortcut_destination` (Boolean) This instructs opennhrp to reply with authorative answers on NHRP Resolution Requests destined to addresses in this interface
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

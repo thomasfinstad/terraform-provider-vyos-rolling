@@ -38,23 +38,22 @@ type ProtocolsNhrpTunnel struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafProtocolsNhrpTunnelCiscoAuthentication types.String `tfsdk:"cisco_authentication" vyos:"cisco-authentication,omitempty"`
-	LeafProtocolsNhrpTunnelHoldingTime         types.String `tfsdk:"holding_time" vyos:"holding-time,omitempty"`
-	LeafProtocolsNhrpTunnelMulticast           types.String `tfsdk:"multicast" vyos:"multicast,omitempty"`
-	LeafProtocolsNhrpTunnelNonCaching          types.Bool   `tfsdk:"non_caching" vyos:"non-caching,omitempty"`
-	LeafProtocolsNhrpTunnelRedirect            types.Bool   `tfsdk:"redirect" vyos:"redirect,omitempty"`
-	LeafProtocolsNhrpTunnelShortcutDestination types.Bool   `tfsdk:"shortcut_destination" vyos:"shortcut-destination,omitempty"`
-	LeafProtocolsNhrpTunnelShortcut            types.Bool   `tfsdk:"shortcut" vyos:"shortcut,omitempty"`
+	LeafProtocolsNhrpTunnelMulticast            types.List   `tfsdk:"multicast" vyos:"multicast,omitempty"`
+	LeafProtocolsNhrpTunnelRegistrationNoUnique types.Bool   `tfsdk:"registration_no_unique" vyos:"registration-no-unique,omitempty"`
+	LeafProtocolsNhrpTunnelAuthentication       types.String `tfsdk:"authentication" vyos:"authentication,omitempty"`
+	LeafProtocolsNhrpTunnelHoldtime             types.Number `tfsdk:"holdtime" vyos:"holdtime,omitempty"`
+	LeafProtocolsNhrpTunnelRedirect             types.Bool   `tfsdk:"redirect" vyos:"redirect,omitempty"`
+	LeafProtocolsNhrpTunnelShortcut             types.Bool   `tfsdk:"shortcut" vyos:"shortcut,omitempty"`
+	LeafProtocolsNhrpTunnelMtu                  types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafProtocolsNhrpTunnelNetworkID            types.String `tfsdk:"network_id" vyos:"network-id,omitempty"`
 
 	// TagNodes
 
-	ExistsTagProtocolsNhrpTunnelDynamicMap bool `tfsdk:"-" vyos:"dynamic-map,child"`
-
-	ExistsTagProtocolsNhrpTunnelMap bool `tfsdk:"-" vyos:"map,child"`
-
-	ExistsTagProtocolsNhrpTunnelShortcutTarget bool `tfsdk:"-" vyos:"shortcut-target,child"`
-
 	// Nodes
+
+	// Ignoring Node `ProtocolsNhrpTunnelMap`.
+
+	// Ignoring Node `ProtocolsNhrpTunnelNhs`.
 }
 
 // SetID configures the resource ID
@@ -170,64 +169,78 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 		// LeafNodes
 
-		"cisco_authentication":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Pass phrase for cisco authentication
-
-    |  Format  |  Description                           |
-    |----------|----------------------------------------|
-    |  txt     |  Pass phrase for cisco authentication  |
-`,
-			Description: `Pass phrase for cisco authentication
-
-    |  Format  |  Description                           |
-    |----------|----------------------------------------|
-    |  txt     |  Pass phrase for cisco authentication  |
-`,
-		},
-
-		"holding_time":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Holding time in seconds
-
-`,
-			Description: `Holding time in seconds
-
-`,
-		},
-
 		"multicast":
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
+		schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Map multicast to NBMA
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Set multicast for NHRP
-
+    |  Format   |  Description                         |
+    |-----------|--------------------------------------|
+    |  ipv4     |  Set the IP address to map(IP|FQDN)  |
+    |  dynamic  |  NBMA address is learnt dynamically  |
 `,
-			Description: `Set multicast for NHRP
+			Description: `Map multicast to NBMA
 
+    |  Format   |  Description                         |
+    |-----------|--------------------------------------|
+    |  ipv4     |  Set the IP address to map(IP|FQDN)  |
+    |  dynamic  |  NBMA address is learnt dynamically  |
 `,
 		},
 
-		"non_caching":
+		"registration_no_unique":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `This can be used to reduce memory consumption on big NBMA subnets
+			MarkdownDescription: `Don't set unique flag
 
 `,
-			Description: `This can be used to reduce memory consumption on big NBMA subnets
+			Description: `Don't set unique flag
 
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		"authentication":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `NHRP authentication
+
+    |  Format  |  Description                          |
+    |----------|---------------------------------------|
+    |  txt     |  Pass phrase for NHRP authentication  |
+`,
+			Description: `NHRP authentication
+
+    |  Format  |  Description                          |
+    |----------|---------------------------------------|
+    |  txt     |  Pass phrase for NHRP authentication  |
+`,
+		},
+
+		"holdtime":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Holding time in seconds
+
+    |  Format   |  Description       |
+    |-----------|--------------------|
+    |  1-65000  |  ring buffer size  |
+`,
+			Description: `Holding time in seconds
+
+    |  Format   |  Description       |
+    |-----------|--------------------|
+    |  1-65000  |  ring buffer size  |
+`,
 		},
 
 		"redirect":
@@ -239,21 +252,6 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 
 `,
 			Description: `Enable sending of Cisco style NHRP Traffic Indication packets
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
-		},
-
-		"shortcut_destination":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
-		schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `This instructs opennhrp to reply with authorative answers on NHRP Resolution Requests destined to addresses in this interface
-
-`,
-			Description: `This instructs opennhrp to reply with authorative answers on NHRP Resolution Requests destined to addresses in this interface
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -273,6 +271,44 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes(ctx context.Context) map[s
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		"mtu":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Maximum Transmission Unit (MTU)
+
+    |  Format    |  Description                        |
+    |------------|-------------------------------------|
+    |  68-16000  |  Maximum Transmission Unit in byte  |
+`,
+			Description: `Maximum Transmission Unit (MTU)
+
+    |  Format    |  Description                        |
+    |------------|-------------------------------------|
+    |  68-16000  |  Maximum Transmission Unit in byte  |
+`,
+		},
+
+		"network_id":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `NHRP network id
+
+    |  Format          |  Description      |
+    |------------------|-------------------|
+    |  <1-4294967295>  |  NHRP network id  |
+`,
+			Description: `NHRP network id
+
+    |  Format          |  Description      |
+    |------------------|-------------------|
+    |  <1-4294967295>  |  NHRP network id  |
+`,
 		},
 
 		// TagNodes

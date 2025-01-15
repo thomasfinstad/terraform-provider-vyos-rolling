@@ -23,12 +23,12 @@ import (
 /* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
 // Validate compliance
 
-var _ helpers.VyosTopResourceDataModel = &ProtocolsNhrpTunnelShortcutTarget{}
+var _ helpers.VyosTopResourceDataModel = &ProtocolsNhrpTunnelMapTunnelIP{}
 
-// ProtocolsNhrpTunnelShortcutTarget describes the resource data model.
+// ProtocolsNhrpTunnelMapTunnelIP describes the resource data model.
 // This is a basenode!
 // Top level basenode type: `TagNode`
-type ProtocolsNhrpTunnelShortcutTarget struct {
+type ProtocolsNhrpTunnelMapTunnelIP struct {
 	/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
@@ -37,7 +37,7 @@ type ProtocolsNhrpTunnelShortcutTarget struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafProtocolsNhrpTunnelShortcutTargetHoldingTime types.String `tfsdk:"holding_time" vyos:"holding-time,omitempty"`
+	LeafProtocolsNhrpTunnelMapTunnelIPNbma types.String `tfsdk:"nbma" vyos:"nbma,omitempty"`
 
 	// TagNodes
 
@@ -45,31 +45,31 @@ type ProtocolsNhrpTunnelShortcutTarget struct {
 }
 
 // SetID configures the resource ID
-func (o *ProtocolsNhrpTunnelShortcutTarget) SetID(id []string) {
+func (o *ProtocolsNhrpTunnelMapTunnelIP) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *ProtocolsNhrpTunnelShortcutTarget) GetTimeouts() timeouts.Value {
+func (o *ProtocolsNhrpTunnelMapTunnelIP) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *ProtocolsNhrpTunnelShortcutTarget) IsGlobalResource() bool {
+func (o *ProtocolsNhrpTunnelMapTunnelIP) IsGlobalResource() bool {
 	return (false)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosPath() []string {
+func (o *ProtocolsNhrpTunnelMapTunnelIP) GetVyosPath() []string {
 	if o.ID.ValueString() != "" {
 		return strings.Split(o.ID.ValueString(), "__")
 	}
 
 	return append(
 		o.GetVyosParentPath(),
-		"shortcut-target",
-		o.SelfIdentifier.Attributes()["shortcut_target"].(types.String).ValueString(),
+		"tunnel-ip",
+		o.SelfIdentifier.Attributes()["tunnel_ip"].(types.String).ValueString(),
 	)
 }
 
@@ -77,8 +77,10 @@ func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosPath() []string {
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosParentPath() []string {
+func (o *ProtocolsNhrpTunnelMapTunnelIP) GetVyosParentPath() []string {
 	return []string{
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
@@ -90,6 +92,9 @@ func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosParentPath() []string {
 
 		"tunnel",
 		o.SelfIdentifier.Attributes()["tunnel"].(types.String).ValueString(),
+
+		"map", // Node
+
 	}
 }
 
@@ -97,8 +102,10 @@ func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosNamedParentPath() []string {
+func (o *ProtocolsNhrpTunnelMapTunnelIP) GetVyosNamedParentPath() []string {
 	return []string{
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
+
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
@@ -116,7 +123,7 @@ func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o ProtocolsNhrpTunnelMapTunnelIP) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -125,13 +132,19 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes(ctx context.
 		"identifier": schema.SingleNestedAttribute{
 			Required: true,
 			Attributes: map[string]schema.Attribute{
-				"shortcut_target": schema.StringAttribute{
+				"tunnel_ip": schema.StringAttribute{
 					Required: true,
-					MarkdownDescription: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+					MarkdownDescription: `Set a NHRP tunnel address
 
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  Set the IP address to map  |
 `,
-					Description: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+					Description: `Set a NHRP tunnel address
 
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  Set the IP address to map  |
 `,
 					PlanModifiers: []planmodifier.String{
 						stringplanmodifier.RequiresReplace(),
@@ -140,16 +153,18 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes(ctx context.
 							helpers.StringNot(
 								stringvalidator.RegexMatches(
 									regexp.MustCompile(`^.*__.*$`),
-									"double underscores in shortcut_target, conflicts with the internal resource id",
+									"double underscores in tunnel_ip, conflicts with the internal resource id",
 								),
 							),
 							stringvalidator.RegexMatches(
 								regexp.MustCompile(`^[.:a-zA-Z0-9-_/]+$`),
-								"illegal character in  shortcut_target, value must match: ^[.:a-zA-Z0-9-_/]+$",
+								"illegal character in  tunnel_ip, value must match: ^[.:a-zA-Z0-9-_/]+$",
 							),
 						),
 					},
 				},
+
+				/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
 
 				/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
 
@@ -197,16 +212,24 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes(ctx context.
 
 		// LeafNodes
 
-		"holding_time":
+		"nbma":
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
 		schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Holding time in seconds
+			MarkdownDescription: `Set NHRP NBMA address to map
 
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  Set the IP address to map  |
+    |  local   |  Set the local address      |
 `,
-			Description: `Holding time in seconds
+			Description: `Set NHRP NBMA address to map
 
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  Set the IP address to map  |
+    |  local   |  Set the local address      |
 `,
 		},
 

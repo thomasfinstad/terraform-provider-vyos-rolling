@@ -36267,141 +36267,202 @@ func protocols() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "children",
 								},
-								TagNode: []*schemadefinition.TagNode{{
-									IsBaseNode: true,
+								Node: []*schemadefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
-										Local: "tagNode",
-									},
-									NodeNameAttr: "dynamic-map",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Set an HUB tunnel address"},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "ipv4net",
-											Description: "Set the IP address and prefix length",
-										}},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "nbma-domain-name",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Set HUB fqdn (nbma-address - fqdn)"},
-												ValueHelp: []*schemadefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "<fqdn>",
-													Description: "Set the external HUB fqdn",
-												}},
-											}},
-										}},
-									}},
-								}, {
-									IsBaseNode: true,
-									XMLName: xml.Name{
-										Local: "tagNode",
+										Local: "node",
 									},
 									NodeNameAttr: "map",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Set an HUB tunnel address"},
+										Help: []string{"Map tunnel IP to NBMA "},
 									}},
 									Children: []*schemadefinition.Children{{
 										XMLName: xml.Name{
 											Local: "children",
 										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
+										TagNode: []*schemadefinition.TagNode{{
+											IsBaseNode: true,
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "tagNode",
 											},
-											NodeNameAttr: "cisco",
+											NodeNameAttr: "tunnel-ip",
 											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"If the statically mapped peer is running Cisco IOS, specify this"},
-												Valueless: []*schemadefinition.Valueless{{
+												Help: []string{"Set a NHRP tunnel address"},
+												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
-														Local: "valueless",
+														Local: "constraint",
 													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ip-address",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "Set the IP address to map",
 												}},
 											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "nbma-address",
-											Properties: []*schemadefinition.Properties{{
+											Children: []*schemadefinition.Children{{
 												XMLName: xml.Name{
-													Local: "properties",
+													Local: "children",
 												},
-												Help: []string{"Set HUB address (nbma-address - external hub address or fqdn)"},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "register",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Specifies that Registration Request should be sent to this peer on startup"},
-												Valueless: []*schemadefinition.Valueless{{
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
-														Local: "valueless",
+														Local: "leafNode",
 													},
+													NodeNameAttr: "nbma",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Set NHRP NBMA address to map"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Regex: []string{"(local)"},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr: "ip-address",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "ipv4",
+															Description: "Set the IP address to map",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "local",
+															Description: "Set the local address",
+														}},
+														CompletionHelp: []*schemadefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															List: []string{"local"},
+														}},
+													}},
 												}},
 											}},
 										}},
 									}},
 								}, {
-									IsBaseNode: true,
+									IsBaseNode: false,
 									XMLName: xml.Name{
-										Local: "tagNode",
+										Local: "node",
 									},
-									NodeNameAttr: "shortcut-target",
+									NodeNameAttr: "nhs",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Defines an off-NBMA network prefix for which the GRE interface will act as a gateway"},
+										Help: []string{"Map tunnel IP to NBMA of Next Hop Server"},
 									}},
 									Children: []*schemadefinition.Children{{
 										XMLName: xml.Name{
 											Local: "children",
 										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
+										TagNode: []*schemadefinition.TagNode{{
+											IsBaseNode: true,
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "tagNode",
 											},
-											NodeNameAttr: "holding-time",
+											NodeNameAttr: "tunnel-ip",
 											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Holding time in seconds"},
+												Help: []string{"Set a NHRP NHS tunnel address"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"(dynamic)"},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ip-address",
+													}},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "Set the IP address to map",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "dynamic",
+													Description: " Set Next Hop Server to have a dynamic address ",
+												}},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"dynamic"},
+												}},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "nbma",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Set NHRP NBMA address of NHS"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr: "ip-address",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "ipv4",
+															Description: "Set the IP address to map",
+														}},
+														Multi: []*schemadefinition.Multi{{
+															XMLName: xml.Name{
+																Local: "multi",
+															},
+														}},
+													}},
+												}},
 											}},
 										}},
 									}},
@@ -36411,12 +36472,77 @@ func protocols() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
-									NodeNameAttr: "cisco-authentication",
+									NodeNameAttr: "multicast",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Pass phrase for cisco authentication"},
+										Help: []string{"Map multicast to NBMA"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(dynamic)"},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ip-address",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv4",
+											Description: "Set the IP address to map(IP|FQDN)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "dynamic",
+											Description: "NBMA address is learnt dynamically",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"dynamic"},
+										}},
+										Multi: []*schemadefinition.Multi{{
+											XMLName: xml.Name{
+												Local: "multi",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "registration-no-unique",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Don't set unique flag"},
+										Valueless: []*schemadefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "authentication",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"NHRP authentication"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -36428,7 +36554,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "txt",
-											Description: "Pass phrase for cisco authentication",
+											Description: "Pass phrase for NHRP authentication",
 										}},
 										ConstraintErrorMessage: []string{"Password should contain up to eight non-whitespace characters"},
 									}},
@@ -36437,52 +36563,30 @@ func protocols() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
-									NodeNameAttr: "holding-time",
+									NodeNameAttr: "holdtime",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
 										Help: []string{"Holding time in seconds"},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "multicast",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Set multicast for NHRP"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"(dynamic|nhs)"},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr:     "numeric",
+												ArgumentAttr: "--range 1-65000",
+											}},
 										}},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
+										ValueHelp: []*schemadefinition.ValueHelp{{
 											XMLName: xml.Name{
-												Local: "completionHelp",
+												Local: "valueHelp",
 											},
-											List: []string{"dynamic nhs"},
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "non-caching",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"This can be used to reduce memory consumption on big NBMA subnets"},
-										Valueless: []*schemadefinition.Valueless{{
-											XMLName: xml.Name{
-												Local: "valueless",
-											},
+											Format:      "u32:1-65000",
+											Description: "ring buffer size",
 										}},
 									}},
 								}, {
@@ -36507,12 +36611,12 @@ func protocols() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
-									NodeNameAttr: "shortcut-destination",
+									NodeNameAttr: "shortcut",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"This instructs opennhrp to reply with authorative answers on NHRP Resolution Requests destined to addresses in this interface"},
+										Help: []string{"Enable creation of shortcut routes. A received NHRP Traffic Indication will trigger the resolution and establishment of a shortcut route"},
 										Valueless: []*schemadefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",
@@ -36524,16 +36628,50 @@ func protocols() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
-									NodeNameAttr: "shortcut",
+									NodeNameAttr: "mtu",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Enable creation of shortcut routes. A received NHRP Traffic Indication will trigger the resolution and establishment of a shortcut route"},
-										Valueless: []*schemadefinition.Valueless{{
+										Help: []string{"Maximum Transmission Unit (MTU)"},
+										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
-												Local: "valueless",
+												Local: "constraint",
 											},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr:     "numeric",
+												ArgumentAttr: "--range 68-16000",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "u32:68-16000",
+											Description: "Maximum Transmission Unit in byte",
+										}},
+										ConstraintErrorMessage: []string{"MTU must be between 68 and 16000"},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "network-id",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"NHRP network id"},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "<1-4294967295>",
+											Description: "NHRP network id",
 										}},
 									}},
 								}},

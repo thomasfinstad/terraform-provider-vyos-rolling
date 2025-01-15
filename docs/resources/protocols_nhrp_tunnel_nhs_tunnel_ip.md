@@ -1,13 +1,13 @@
 ---
-page_title: "vyos_protocols_nhrp_tunnel_map Resource - vyos"
+page_title: "vyos_protocols_nhrp_tunnel_nhs_tunnel_ip Resource - vyos"
 
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯Next Hop Resolution Protocol (NHRP) parameters⯯Tunnel for NHRP⯯Set an HUB tunnel address
+  protocols⯯Next Hop Resolution Protocol (NHRP) parameters⯯Tunnel for NHRP⯯Map tunnel IP to NBMA of Next Hop Server⯯Set a NHRP NHS tunnel address
 ---
 
-# vyos_protocols_nhrp_tunnel_map (Resource)
+# vyos_protocols_nhrp_tunnel_nhs_tunnel_ip (Resource)
 <center>
 
 
@@ -17,7 +17,9 @@ Next Hop Resolution Protocol (NHRP) parameters
 ⯯  
 Tunnel for NHRP  
 ⯯  
-**Set an HUB tunnel address**
+Map tunnel IP to NBMA of Next Hop Server  
+⯯  
+**Set a NHRP NHS tunnel address**
 
 
 </center>
@@ -26,14 +28,12 @@ Tunnel for NHRP
 
 <!--TOC-->
 
-- [vyos_protocols_nhrp_tunnel_map (Resource)](#vyos_protocols_nhrp_tunnel_map-resource)
+- [vyos_protocols_nhrp_tunnel_nhs_tunnel_ip (Resource)](#vyos_protocols_nhrp_tunnel_nhs_tunnel_ip-resource)
   - [Schema](#schema)
     - [Required](#required)
       - [identifier](#identifier)
     - [Optional](#optional)
-      - [cisco](#cisco)
-      - [nbma_address](#nbma_address)
-      - [register](#register)
+      - [nbma](#nbma)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -53,12 +53,12 @@ Tunnel for NHRP
 
 ### Optional
 
-#### cisco
-- `cisco` (Boolean) If the statically mapped peer is running Cisco IOS, specify this
-#### nbma_address
-- `nbma_address` (String) Set HUB address (nbma-address - external hub address or fqdn)
-#### register
-- `register` (Boolean) Specifies that Registration Request should be sent to this peer on startup
+#### nbma
+- `nbma` (List of String) Set NHRP NBMA address of NHS
+
+    |  Format  &emsp;|  Description                |
+    |----------|-----------------------------|
+    |  ipv4    &emsp;|  Set the IP address to map  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -72,12 +72,17 @@ Tunnel for NHRP
 
 Required:
 
-- `map` (String) Set an HUB tunnel address
 - `tunnel` (String) Tunnel for NHRP
 
     |  Format  &emsp;|  Description       |
     |----------|--------------------|
     |  tunN    &emsp;|  NHRP tunnel name  |
+- `tunnel_ip` (String) Set a NHRP NHS tunnel address
+
+    |  Format   &emsp;|  Description                                      |
+    |-----------|---------------------------------------------------|
+    |  ipv4     &emsp;|  Set the IP address to map                        |
+    |  dynamic  &emsp;|   Set Next Hop Server to have a dynamic address   |
 
 
 <a id="nestedatt--timeouts"></a>
@@ -92,5 +97,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_nhrp_tunnel_map.example "protocols__nhrp__tunnel__<tunnel>__map__<map>"
+terraform import vyos_protocols_nhrp_tunnel_nhs_tunnel_ip.example "protocols__nhrp__tunnel__<tunnel>__nhs__tunnel-ip__<tunnel-ip>"
 ```
