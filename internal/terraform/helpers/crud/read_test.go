@@ -8,7 +8,6 @@ import (
 	"testing"
 
 	"github.com/go-test/deep"
-	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
@@ -75,18 +74,12 @@ func TestCrudReadSuccess(t *testing.T) {
 
 	// With Policy Access List
 	model := &fw4res.FirewallIPvfourName{
-		// SelfIdentifier: basetypes.NewStringValue("TestCrudReadSuccess"),
-		SelfIdentifier: basetypes.NewObjectValueMust(
-			map[string]attr.Type{"name": basetypes.StringType{}},
-			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudReadSuccess")}),
+		SelfIdentifier: &fw4res.FirewallIPvfourNameSelfIdentifier{FirewallIPvfourName: basetypes.NewStringValue("TestCrudReadSuccess")},
 	}
 
 	// Should
 	modelShould := &fw4res.FirewallIPvfourName{
-		// SelfIdentifier:                       basetypes.NewStringValue("TestCrudReadSuccess"),
-		SelfIdentifier: basetypes.NewObjectValueMust(
-			map[string]attr.Type{"name": basetypes.StringType{}},
-			map[string]attr.Value{"name": basetypes.NewStringValue("TestCrudReadSuccess")}),
+		SelfIdentifier: &fw4res.FirewallIPvfourNameSelfIdentifier{FirewallIPvfourName: basetypes.NewStringValue("TestCrudReadSuccess")},
 
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
@@ -167,18 +160,12 @@ func TestCrudReadEmptyGlobalResource(t *testing.T) {
 
 	// With Policy Access List
 	model := &polalres.PolicyAccessList{
-		// SelfIdentifier: basetypes.NewNumberValue(big.NewFloat(42)),
-		SelfIdentifier: basetypes.NewObjectValueMust(
-			map[string]attr.Type{"access_list": basetypes.NumberType{}},
-			map[string]attr.Value{"access_list": basetypes.NewNumberValue(big.NewFloat(42))}),
+		SelfIdentifier: &polalres.PolicyAccessListSelfIdentifier{PolicyAccessList: basetypes.NewNumberValue(big.NewFloat(42))},
 	}
 
 	// Should
 	modelShould := &polalres.PolicyAccessList{
-		// SelfIdentifier: basetypes.NewNumberValue(big.NewFloat(42)),
-		SelfIdentifier: basetypes.NewObjectValueMust(
-			map[string]attr.Type{"access_list": basetypes.NumberType{}},
-			map[string]attr.Value{"access_list": basetypes.NewNumberValue(big.NewFloat(42))}),
+		SelfIdentifier: &polalres.PolicyAccessListSelfIdentifier{PolicyAccessList: basetypes.NewNumberValue(big.NewFloat(42))},
 	}
 
 	// Execute test

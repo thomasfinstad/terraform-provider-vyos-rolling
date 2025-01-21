@@ -1,16 +1,16 @@
 
 {{/* This is so we can more easily get the api config path */}}
 {{define "resource-model-parent-vyos-path-hack"}}
-/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack ({{.BaseName}}) */
 	{{- if .Parent}}
 		{{template "resource-model-parent-vyos-path-hack" .Parent}}
 	{{- end}}
 	"{{.BaseName}}",
 	{{- if eq .NodeType "TagNode"}}
 		{{if eq .ValueType "string" -}}
-			o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.String).ValueString(),
+			o.SelfIdentifier.{{.BaseNameCG}}.ValueString(),
 		{{- else  if eq .ValueType "number" -}}
-			o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.Number).ValueBigFloat().String(),
+			o.SelfIdentifier.{{.BaseNameCG}}.ValueBigFloat().String(),
 		{{- else -}}
 			UNSUPPORTED TAGNODE VALUETYPE
 		{{- end}}
@@ -23,7 +23,7 @@
 
 {{/* This is so we can check for required parents before creating a resource */}}
 {{define "resource-model-parent-vyos-path-hack-for-non-global"}}
-/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global ({{.BaseName}}) */
 	{{- if  ne .NodeType "TagNode" }}
 		{{- if .Parent}}
 			{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}

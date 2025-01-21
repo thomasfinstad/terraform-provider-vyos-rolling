@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/go-test/deep"
-	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
@@ -17,10 +16,7 @@ import (
 // TestFirewallIPvfourNameMarshalVyos does some simple marshalling tests
 func TestFirewallIPvfourNameMarshalVyos(t *testing.T) {
 	model := &resourcemodel.FirewallIPvfourName{
-		// SelfIdentifier: basetypes.NewStringValue("test-id"),
-		SelfIdentifier: basetypes.NewObjectValueMust(
-			map[string]attr.Type{"name": basetypes.StringType{}},
-			map[string]attr.Value{"name": basetypes.NewStringValue("test-id")}),
+		SelfIdentifier:                       &resourcemodel.FirewallIPvfourNameSelfIdentifier{FirewallIPvfourName: basetypes.NewStringValue("test-id")},
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("drop"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(false),
 	}

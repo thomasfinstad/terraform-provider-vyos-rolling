@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/go-test/deep"
-	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
@@ -24,13 +23,7 @@ import (
 //			access_list_id = 42
 //		}
 func TestPolicyAccessListEmptyMarshal(t *testing.T) {
-	model := &resourcemodel.PolicyAccessList{
-		// SelfIdentifier: basetypes.NewNumberValue(big.NewFloat(42)),
-		SelfIdentifier: basetypes.NewObjectValueMust(
-			map[string]attr.Type{"access_list": basetypes.NumberType{}},
-			map[string]attr.Value{"access_list": basetypes.NewNumberValue(big.NewFloat(42))}),
-	}
-
+	model := &resourcemodel.PolicyAccessList{SelfIdentifier: &resourcemodel.PolicyAccessListSelfIdentifier{PolicyAccessList: basetypes.NewNumberValue(big.NewFloat(42))}}
 	want := make(map[string]any)
 
 	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"slices"
+	"strings"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
@@ -23,6 +24,8 @@ func UnknownToNull(ctx context.Context, data VyosResourceDataModel) {
 		fieldName := dataTypeElem.Field(idx).Name
 		tools.Trace(ctx, "checking if field implements attr.Value interface", map[string]any{"field": fieldName})
 		if dataTypeElem.Field(idx).Tag.Get("tfsdk") == "-" {
+			continue
+		} else if slices.Contains(strings.Split(dataTypeElem.Field(idx).Tag.Get("vyos"), ","), "self-id") {
 			continue
 		} else if (slices.Contains([]reflect.Kind{reflect.Ptr, reflect.Map, reflect.Array, reflect.Chan, reflect.Slice}, fieldValue.Kind())) && fieldValue.IsNil() {
 			continue

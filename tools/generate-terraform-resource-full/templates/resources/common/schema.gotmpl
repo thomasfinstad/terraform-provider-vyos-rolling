@@ -1,5 +1,5 @@
 {{define "schema"}}
-/* tools/generate-terraform-resource-full/templates/resources/common/schema.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/common/schema.gotmpl #schema ({{.BaseName}}) */
 // Schema method to define the schema for any resource configuration, plan, and state data.
 func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{

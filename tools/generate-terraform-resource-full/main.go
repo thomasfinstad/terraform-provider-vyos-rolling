@@ -172,11 +172,9 @@ func namedResources(gitRootDirectory string, tagNode *schemadefinition.TagNode, 
 	}
 
 	// Compile template
-	templateFilesCom, err := filepath.Glob(filepath.Join(thisDir, "templates", "resources", "common", "*.gotmpl"))
+	templateFiles, err := filepath.Glob(filepath.Join(thisDir, "templates", "resources", "*", "*.gotmpl"))
 	die(err)
-	templateFilesRes, err := filepath.Glob(filepath.Join(thisDir, "templates", "resources", "named", "*.gotmpl"))
-	die(err)
-	t, err := template.New("resource_generation").ParseFiles(append(templateFilesCom, templateFilesRes...)...)
+	t, err := template.New("resource_generation").ParseFiles(templateFiles...)
 	if err != nil {
 		die(err)
 	}
@@ -251,11 +249,9 @@ func globalResources(gitRootDirectory string, node *schemadefinition.Node, skipD
 	}
 
 	// Compile template
-	templateFilesCom, err := filepath.Glob(filepath.Join(thisDir, "templates", "resources", "common", "*.gotmpl"))
+	templateFiles, err := filepath.Glob(filepath.Join(thisDir, "templates", "resources", "*", "*.gotmpl"))
 	die(err)
-	templateFilesRes, err := filepath.Glob(filepath.Join(thisDir, "templates", "resources", "global", "*.gotmpl"))
-	die(err)
-	t, err := template.New("resource_generation").ParseFiles(append(templateFilesCom, templateFilesRes...)...)
+	t, err := template.New("resource_generation").ParseFiles(templateFiles...)
 	if err != nil {
 		die(err)
 	}

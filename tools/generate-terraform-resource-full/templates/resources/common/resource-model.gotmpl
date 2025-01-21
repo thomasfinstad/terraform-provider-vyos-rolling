@@ -1,5 +1,5 @@
 {{define "resource-model"}}
-	/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl */
+	/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl #resource-model ({{.BaseName}}) */
 	// Validate compliance
 	{{$topLvlBasenodeType := "N/A"}}
 
@@ -11,18 +11,21 @@
 	var _ helpers.VyosResourceDataModel = &{{.BaseNameCG}}{}
 	{{ end }}
 
+	{{if eq .NodeType "TagNode" }}
+		{{template "resource-model-tag-node-identifier" .}}
+	{{end}}
+
 	// {{.BaseNameCG}} describes the resource data model.
 	// This is {{if not .GetIsBaseNode}}not {{end}}a basenode!
 	// Top level basenode type: `{{$topLvlBasenodeType}}`
 	type {{.BaseNameCG}} struct {
 		{{if .GetIsBaseNode }}
+			ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
+			Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 			{{if eq .NodeType "TagNode" }}
-				{{template "resource-model-tag-node-identifier" .}}
-			{{else if eq .NodeType "Node" }}
-				ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
-				Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
-			{{else}}
-				UNSUPPORTED
+				SelfIdentifier *{{.BaseNameCG}}SelfIdentifier `tfsdk:"identifier" vyos:"-,self-id"`
+			{{else if ne .NodeType "Node" }}
+				! UNSUPPORTED: {{ .NodeType }} !
 			{{end}}
 
 			{{with .GetChildren }}
@@ -138,13 +141,13 @@
 				o.GetVyosParentPath(),
 				"{{.BaseName}}",
 				{{- if eq .NodeType "TagNode"}}
-				{{if eq .ValueType "string" -}}
-					o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.String).ValueString(),
-				{{- else  if eq .ValueType "number" -}}
-					o.SelfIdentifier.Attributes()["{{.BaseNameS}}"].(types.Number).ValueBigFloat().String(),
-				{{- else -}}
-					UNSUPPORTED TYPE
-				{{- end}}
+					{{if eq .ValueType "string" -}}
+						o.SelfIdentifier.{{.BaseNameCG}}.ValueString(),
+					{{- else  if eq .ValueType "number" -}}
+						o.SelfIdentifier.{{.BaseNameCG}}.ValueBigFloat().String(),
+					{{- else -}}
+						UNSUPPORTED TYPE
+					{{- end}}
 				{{end}}
 			)
 		}

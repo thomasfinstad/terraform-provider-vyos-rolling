@@ -99,23 +99,31 @@ destroy: init
 	rm apply || true
 
 .PHONY: clean
-clean: destroy
+clean:
 	@echo -e "\n\n# examples/provider #######################################################"
 	echo Make clean
 
-	set +e
-
-	rm init plan apply validate
+	rm init plan apply validate || true
 
 	rm -rf .terraform .terraform.lock.hcl || true
+	rm -fv .terraform.tfstate* || true
 	rm -fv trace.log || true
-	# keeping the iso file to reduce redundant downloads
+
+	if [ "$$( sudo docker container inspect -f '{{.State.Running}}' vyos-container 2>/dev/null)" = "true" ]; then
+		sudo docker stop vyos-container
+		sleep 2
+	fi
+
+	if [ -n "$$(sudo docker images -a -q vyos-local)" ]; then
+		sudo docker rmi -f $$(sudo docker images -a -q vyos-local)
+	fi
+
 	sudo rm -rf .tmp/filesystem.squashfs || true
-	sudo docker stop vyos-container || true
-	sudo rm -f .tmp/container || true
-	sleep 2
-	sudo docker rmi -f $$(sudo docker images -a -q vyos-local) || true
-	sudo rm -f .tmp/container-img || true
+	sudo rm -fv .tmp/container || true
+	# keeping the iso file to reduce redundant downloads
+	sudo rm -fv .tmp/container-img || true
+
+	echo Make clean done
 
 .PHONY: test
 test:

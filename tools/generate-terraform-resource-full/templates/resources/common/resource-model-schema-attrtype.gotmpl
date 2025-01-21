@@ -1,5 +1,5 @@
 {{define "resource-model-schema-attrtype"}}
-/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype ({{.BaseName}}) */
 	{{if eq .ValueType "string" -}}
 		schema.StringAttribute{
 			Optional:            true,
@@ -34,7 +34,7 @@
 {{end}}
 
 {{define "resource-model-schema-attrtype-multi"}}
-/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi ({{.BaseName}}) */
 	{{if eq .ValueType "string" -}}
 		schema.ListAttribute{
 			ElementType: types.StringType,

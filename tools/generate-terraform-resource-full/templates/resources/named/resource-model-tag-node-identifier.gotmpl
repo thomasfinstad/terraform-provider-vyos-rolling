@@ -1,23 +1,26 @@
 
 {{define "resource-model-tag-node-identifier"}}
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl */
-	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
+/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl #resource-model-tag-node-identifier ({{.BaseName}}) */
+	// {{.BaseNameCG}}SelfIdentifier used by TagNodes to keep the id info
+	type {{.BaseNameCG}}SelfIdentifier struct {
+		{{template "resource-model-parent-id-hack" .}}
+	}
+{{end}}
 
-{{/*
-	SelfIdentifier	{{ if eq .ValueType "string" -}}
-						types.String
-					{{- else  if eq .ValueType "number" -}}
-						types.Number
-					{{- else -}}
-						UNKNOWN TYPE: {{.ValueType}}
-					{{- end -}}
-						`tfsdk:"{{.BaseNameS}}" vyos:"-,self-id"`
+{{define "resource-model-parent-id-hack"}}
+/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-tag-node-identifier.gotmpl #resource-model-parent-id-hack  ({{.BaseName}}) */
+	{{if eq .NodeType "TagNode" }}
+		{{.BaseNameCG}} {{ if eq .ValueType "string" -}}
+							types.String
+						{{- else  if eq .ValueType "number" -}}
+							types.Number
+						{{- else if eq .ValueType "bool" -}}
+							types.Bool
+						{{- else -}}
+							! UNKNOWN TYPE: {{.ValueType}} !
+						{{- end}} `tfsdk:"{{.BaseNameSB}}" vyos:"-,self-id"`
+	{{end}}
 	{{if .Parent}}
 		{{template "resource-model-parent-id-hack" .Parent}}
 	{{end}}
-*/}}
-
-	SelfIdentifier types.Object `tfsdk:"identifier" vyos:"-,self-id"`
-
-	Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 {{end}}

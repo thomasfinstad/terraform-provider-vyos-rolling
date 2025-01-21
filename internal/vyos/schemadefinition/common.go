@@ -16,6 +16,7 @@ type NodeBase interface {
 	GetParent() NodeParent
 	GetProperties() *Properties
 	NodeType() string
+	ValueType() string
 }
 
 // NodeParent should match Node and TagNode

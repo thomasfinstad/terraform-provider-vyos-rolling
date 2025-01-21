@@ -390,3 +390,8 @@ func (o *Node) HasSubValue() bool {
 
 	return false
 }
+
+// ValueType for Node will always be "NO_VALUE"
+func (o *Node) ValueType() string {
+	return "NO_VALUE"
+}

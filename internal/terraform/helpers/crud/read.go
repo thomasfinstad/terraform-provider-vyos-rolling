@@ -24,12 +24,13 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 	stateModel := r.GetModel()
 
 	// Read Terraform prior state data into the model
-	tools.Trace(ctx, "Fetching state data")
+	tools.Debug(ctx, "Fetching state data")
 	diags := req.State.Get(ctx, stateModel)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
+	tools.Trace(ctx, "Fetched state data", map[string]interface{}{"state-model": stateModel})
 
 	// Setup timeout
 	createTimeout, diags := stateModel.GetTimeouts().Read(ctx, time.Duration(r.GetProviderConfig().Config.CrudDefaultTimeouts)*time.Minute)

@@ -7,7 +7,9 @@ repos:
     -   id: no-autogen-on-dev-machines # Disabled for CI in .devcontainer/dockerfile-profile.d.sh
         name: No Autogen
         language: fail
-        entry: Only CI Workflow should commit files with "autogen" in their file path
+        entry: |
+          Only CI Workflow should commit files with "autogen" in their file path.
+          Please use "git reset *autogen*" to un-stage the files.
         files: '.*autogen.*'
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0

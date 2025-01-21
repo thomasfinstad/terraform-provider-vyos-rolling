@@ -614,3 +614,11 @@ why:
 .PHONY: diff
 diff:
 	git diff --word-diff --word-diff-regex='\w+' -- . ':!docs' ':!data/provider-schema' ':!*autogen*'
+
+.PHONY: status
+status:
+	git status | grep -vi autogen
+	echo "Ignored $$(git status | grep -i autogen | wc -l) autogen files"
+
+.PHONY: restore
+	git restore internal/terraform/resource/autogen

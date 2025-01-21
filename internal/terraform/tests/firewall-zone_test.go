@@ -7,7 +7,6 @@ import (
 
 	"github.com/go-test/deep"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
@@ -18,9 +17,6 @@ import (
 // TestFirewallZoneMarshalVyos does some simple marshalling tests to prevent a bug with tags handling from reappearing
 func TestFirewallZoneMarshalVyos(t *testing.T) {
 	has := &resourcemodel.FirewallZone{
-		// SelfIdentifier: basetypes.NewStringValue("Testing"),
-		SelfIdentifier: basetypes.NewObjectNull(
-			map[string]attr.Type{}),
 		NodeFirewallZoneIntraZoneFiltering: &resourcemodel.FirewallZoneIntraZoneFiltering{
 			LeafFirewallZoneIntraZoneFilteringAction: basetypes.NewStringValue("accept"),
 			NodeFirewallZoneIntraZoneFilteringFirewall: &resourcemodel.FirewallZoneIntraZoneFilteringFirewall{

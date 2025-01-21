@@ -9,7 +9,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
@@ -73,10 +72,7 @@ func TestProviderLogApiKeyMasking(t *testing.T) {
 
 	// From resource model
 	model := &ipv4ResModel.FirewallIPvfourName{
-		// SelfIdentifier:                       basetypes.NewStringValue("TestProviderLogApiKeyMasking"),
-		SelfIdentifier: basetypes.NewObjectValueMust(
-			map[string]attr.Type{"name": basetypes.StringType{}},
-			map[string]attr.Value{"name": basetypes.NewStringValue("TestProviderLogApiKeyMasking")}),
+		SelfIdentifier: &ipv4ResModel.FirewallIPvfourNameSelfIdentifier{FirewallIPvfourName: basetypes.NewStringValue("TestProviderLogApiKeyMasking")},
 
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),

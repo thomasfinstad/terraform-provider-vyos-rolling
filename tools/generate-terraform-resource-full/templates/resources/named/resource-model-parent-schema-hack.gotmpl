@@ -1,5 +1,5 @@
 {{define "resource-model-parent-schema-hack"}}
-/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl */
+/* tools/generate-terraform-resource-full/templates/resources/named/resource-model-parent-schema-hack.gotmpl #resource-model-parent-schema-hack ({{.BaseName}}) */
 	{{if .Parent}}
 		{{template "resource-model-parent-schema-hack" .Parent}}
 		{{- if eq .NodeType "TagNode" -}}

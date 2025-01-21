@@ -88,6 +88,14 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 	//  4. on success return so to the resources that succeeded
 	//  milestone: 6
 
+	// TODO investigate options to manually bind two resources together
+	//  Resources that needs to be merged into a single resource
+	//  might benefit from having a manual override that can act
+	//  as a workaround until the merging can take place.
+	//  This is blocked until there is an implementation of
+	//  batched resource changes.
+	//  milestone: 6
+
 	// TODO retry commit on error due to commit in progress
 	//  Error msg: unable to create resource '[service dns forwarding]' due to client error: API ERROR [400 Bad Request]: Configuration system temporarily locked due to another commit in progress
 	//  milestone: 6
