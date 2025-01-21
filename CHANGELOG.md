@@ -4,8 +4,11 @@
 <!--TOC-->
 
 - [CHANGELOG](#changelog)
-  - [Release 17.0.202501140 (2025-01-15 08-30-06 UTC)](#release-170202501140-2025-01-15-08-30-06-utc)
+  - [Release 17.0.202501210 (2025-01-21 11-37-09 UTC)](#release-170202501210-2025-01-21-11-37-09-utc)
     - [Project changes](#project-changes)
+      - [Notes](#notes)
+  - [Release 17.0.202501140 (2025-01-15 08-30-06 UTC)](#release-170202501140-2025-01-15-08-30-06-utc)
+    - [Project changes](#project-changes-1)
     - [Schema changes](#schema-changes)
       - [BREAKING CHANGES](#breaking-changes)
         - [Resources](#resources)
@@ -14,6 +17,12 @@
   - [Previous changelogs](#previous-changelogs)
 
 <!--TOC-->
+
+
+## Release 17.0.202501210 (2025-01-21 11-37-09 UTC)
+### Project changes
+#### Notes
+* change TagNode identifier into descriptive struct
 
 
 ## Release 17.0.202501140 (2025-01-15 08-30-06 UTC)
