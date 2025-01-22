@@ -42,8 +42,6 @@ type SystemFlowAccounting struct {
 	// Nodes
 
 	ExistsNodeSystemFlowAccountingNetflow bool `tfsdk:"-" vyos:"netflow,child"`
-
-	ExistsNodeSystemFlowAccountingSflow bool `tfsdk:"-" vyos:"sflow,child"`
 }
 
 // SetID configures the resource ID

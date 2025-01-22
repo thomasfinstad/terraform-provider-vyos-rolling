@@ -30,6 +30,7 @@ description: |-
       - [agent_address](#agent_address)
       - [agent_interface](#agent_interface)
       - [drop_monitor_limit](#drop_monitor_limit)
+      - [enable_egress](#enable_egress)
       - [interface](#interface)
       - [polling](#polling)
       - [sampling_rate](#sampling_rate)
@@ -66,6 +67,8 @@ description: |-
     |  Format   &emsp;|  Description                                                               |
     |-----------|----------------------------------------------------------------------------|
     |  1-65535  &emsp;|  Maximum rate limit of N drops per second send out in the sFlow datagrams  |
+#### enable_egress
+- `enable_egress` (Boolean) Enable egress sampling
 #### interface
 - `interface` (List of String) Interface
 

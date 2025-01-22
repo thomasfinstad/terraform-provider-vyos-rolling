@@ -9,6 +9,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
@@ -34,6 +35,7 @@ type SystemSflow struct {
 	LeafSystemSflowInterface        types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
 	LeafSystemSflowPolling          types.Number `tfsdk:"polling" vyos:"polling,omitempty"`
 	LeafSystemSflowSamplingRate     types.Number `tfsdk:"sampling_rate" vyos:"sampling-rate,omitempty"`
+	LeafSystemSflowEnableEgress     types.Bool   `tfsdk:"enable_egress" vyos:"enable-egress,omitempty"`
 	LeafSystemSflowVrf              types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes
@@ -223,6 +225,21 @@ func (o SystemSflow) ResourceSchemaAttributes(ctx context.Context) map[string]sc
 `,
 
 			// Default:          stringdefault.StaticString(`1000`),
+			Computed: true,
+		},
+
+		"enable_egress":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (enable-egress) */
+		schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Enable egress sampling
+
+`,
+			Description: `Enable egress sampling
+
+`,
+			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
 

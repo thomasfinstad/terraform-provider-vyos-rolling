@@ -5279,209 +5279,6 @@ func system() schemadefinition.InterfaceDefinition {
 									}},
 								}},
 							}},
-						}, {
-							IsBaseNode: true,
-							XMLName: xml.Name{
-								Local: "node",
-							},
-							NodeNameAttr: "sflow",
-							Properties: []*schemadefinition.Properties{{
-								XMLName: xml.Name{
-									Local: "properties",
-								},
-								Help: []string{"sFlow settings"},
-							}},
-							Children: []*schemadefinition.Children{{
-								XMLName: xml.Name{
-									Local: "children",
-								},
-								TagNode: []*schemadefinition.TagNode{{
-									IsBaseNode: true,
-									XMLName: xml.Name{
-										Local: "tagNode",
-									},
-									NodeNameAttr: "server",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"sFlow destination server"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Validator: []*schemadefinition.Validator{{
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "ip-address",
-											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "ipv4",
-											Description: "IPv4 server to export sFlow",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "ipv6",
-											Description: "IPv6 server to export sFlow",
-										}},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "port",
-											DefaultValue: []string{"6343"},
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"sFlow port number"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Validator: []*schemadefinition.Validator{{
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr:     "numeric",
-														ArgumentAttr: "--range 1025-65535",
-													}},
-												}},
-												ValueHelp: []*schemadefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "u32:1025-65535",
-													Description: "sFlow port number",
-												}},
-											}},
-										}},
-									}},
-								}},
-								LeafNode: []*schemadefinition.LeafNode{{
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "agent-address",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"sFlow agent IPv4 address"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Validator: []*schemadefinition.Validator{{
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "ipv4-address",
-											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "ipv4",
-											Description: "sFlow IPv4 agent address",
-										}},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											List:   []string{"auto"},
-											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --ipv4"},
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "sampling-rate",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"sFlow sampling-rate"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Validator: []*schemadefinition.Validator{{
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr:     "numeric",
-												ArgumentAttr: "--range 0-4294967295",
-											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "u32",
-											Description: "Sampling rate (1 in N packets)",
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "source-address",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Source IP address used to initiate connection"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Validator: []*schemadefinition.Validator{{
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "ip-address",
-											}},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "ipv4",
-											Description: "IPv4 source address",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "ipv6",
-											Description: "IPv6 source address",
-										}},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
-										}},
-									}},
-								}},
-							}},
 						}},
 						LeafNode: []*schemadefinition.LeafNode{{
 							IsBaseNode: false,
@@ -9317,6 +9114,23 @@ func system() schemadefinition.InterfaceDefinition {
 									},
 									Format:      "u32:1-65535",
 									Description: "Sampling rate (1 in N packets)",
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "enable-egress",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Enable egress sampling"},
+								Valueless: []*schemadefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
 								}},
 							}},
 						}, {

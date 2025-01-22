@@ -374,7 +374,6 @@ import (
 	globalsystemflowaccounting "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/flow-accounting"
 	globalsystemflowaccountingnetflow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/flow-accounting-netflow"
 	globalsystemflowaccountingnetflowtimeout "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/flow-accounting-netflow-timeout"
-	globalsystemflowaccountingsflow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/flow-accounting-sflow"
 	globalsystemfrr "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/frr"
 	globalsystemfrrsnmp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/frr-snmp"
 	globalsystemip "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/ip"
@@ -870,7 +869,6 @@ import (
 	namedsystemconntracktimeoutcustomipvsixrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/conntrack-timeout-custom-ipv6-rule"
 	namedsystemconsoledevice "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/console-device"
 	namedsystemflowaccountingnetflowserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/flow-accounting-netflow-server"
-	namedsystemflowaccountingsflowserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/flow-accounting-sflow-server"
 	namedsystemipprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/ip-protocol"
 	namedsystemipvsixprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/ipv6-protocol"
 	namedsystemloginradiusserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/login-radius-server"
@@ -1354,7 +1352,6 @@ func GetResources() []func() resource.Resource {
 		globalsystemflowaccounting.NewSystemFlowAccounting,
 		globalsystemflowaccountingnetflow.NewSystemFlowAccountingNetflow,
 		globalsystemflowaccountingnetflowtimeout.NewSystemFlowAccountingNetflowTimeout,
-		globalsystemflowaccountingsflow.NewSystemFlowAccountingSflow,
 		globalsystemfrr.NewSystemFrr,
 		globalsystemfrrsnmp.NewSystemFrrSnmp,
 		globalsystemip.NewSystemIP,
@@ -1850,7 +1847,6 @@ func GetResources() []func() resource.Resource {
 		namedsystemconntracktimeoutcustomipvsixrule.NewSystemConntrackTimeoutCustomIPvsixRule,
 		namedsystemconsoledevice.NewSystemConsoleDevice,
 		namedsystemflowaccountingnetflowserver.NewSystemFlowAccountingNetflowServer,
-		namedsystemflowaccountingsflowserver.NewSystemFlowAccountingSflowServer,
 		namedsystemipprotocol.NewSystemIPProtocol,
 		namedsystemipvsixprotocol.NewSystemIPvsixProtocol,
 		namedsystemloginradiusserver.NewSystemLoginRadiusServer,
