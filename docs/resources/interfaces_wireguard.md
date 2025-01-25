@@ -33,6 +33,7 @@ description: |-
       - [fwmark](#fwmark)
       - [ip](#ip)
       - [ipv6](#ipv6)
+      - [max_dns_retry](#max_dns_retry)
       - [mirror](#mirror)
       - [mtu](#mtu)
       - [per_client_thread](#per_client_thread)
@@ -88,6 +89,12 @@ description: |-
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 #### ipv6
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
+#### max_dns_retry
+- `max_dns_retry` (Number) DNS retries when resolve fails
+
+    |  Format  &emsp;|  Description                |
+    |----------|-----------------------------|
+    |  1-15    &emsp;|  Maximum number of retries  |
 #### mirror
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 #### mtu

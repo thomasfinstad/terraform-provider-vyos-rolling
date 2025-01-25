@@ -4,7 +4,7 @@ page_title: "vyos_service_monitoring_prometheus_blackbox_exporter_modules_icmp_n
 subcategory: "Service"
 
 description: |-
-  service⯯monitoring⯯Prometheus metric exporter⯯Prometheus exporter for probing endpoints⯯Configure blackbox exporter modules⯯Configure icmp module⯯Name of the icmp module
+  service⯯Monitoring services⯯Prometheus metric exporter⯯Prometheus exporter for probing endpoints⯯Configure blackbox exporter modules⯯Configure icmp module⯯Name of the icmp module
 ---
 
 # vyos_service_monitoring_prometheus_blackbox_exporter_modules_icmp_name (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Prometheus metric exporter  
 ⯯  

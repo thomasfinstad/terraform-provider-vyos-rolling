@@ -56,6 +56,7 @@ type InterfacesWireguardPeer struct {
 	LeafInterfacesWireguardPeerPresharedKey        types.String `tfsdk:"preshared_key" vyos:"preshared-key,omitempty"`
 	LeafInterfacesWireguardPeerAllowedIPs          types.List   `tfsdk:"allowed_ips" vyos:"allowed-ips,omitempty"`
 	LeafInterfacesWireguardPeerAddress             types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesWireguardPeerHostName            types.String `tfsdk:"host_name" vyos:"host-name,omitempty"`
 	LeafInterfacesWireguardPeerPort                types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafInterfacesWireguardPeerPersistentKeepalive types.Number `tfsdk:"persistent_keepalive" vyos:"persistent-keepalive,omitempty"`
 
@@ -298,6 +299,25 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes(ctx context.Context) m
     |----------|------------------------------------------|
     |  ipv4    |  IPv4 address of remote tunnel endpoint  |
     |  ipv6    |  IPv6 address of remote tunnel endpoint  |
+`,
+		},
+
+		"host_name":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (host-name) */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Hostname of tunnel endpoint
+
+    |  Format    |  Description                 |
+    |------------|------------------------------|
+    |  hostname  |  FQDN of WireGuard endpoint  |
+`,
+			Description: `Hostname of tunnel endpoint
+
+    |  Format    |  Description                 |
+    |------------|------------------------------|
+    |  hostname  |  FQDN of WireGuard endpoint  |
 `,
 		},
 

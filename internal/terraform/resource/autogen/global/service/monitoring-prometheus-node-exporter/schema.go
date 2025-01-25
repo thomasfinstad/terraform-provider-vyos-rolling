@@ -19,7 +19,7 @@ func (r serviceMonitoringPrometheusNodeExporter) Schema(ctx context.Context, req
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Prometheus metric exporter  
 ⯯  

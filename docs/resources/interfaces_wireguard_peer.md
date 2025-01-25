@@ -33,6 +33,7 @@ WireGuard Interface
       - [allowed_ips](#allowed_ips)
       - [description](#description)
       - [disable](#disable)
+      - [host_name](#host_name)
       - [persistent_keepalive](#persistent_keepalive)
       - [port](#port)
       - [preshared_key](#preshared_key)
@@ -73,6 +74,12 @@ WireGuard Interface
     |  txt     &emsp;|  Description  |
 #### disable
 - `disable` (Boolean) Disable instance
+#### host_name
+- `host_name` (String) Hostname of tunnel endpoint
+
+    |  Format    &emsp;|  Description                 |
+    |------------|------------------------------|
+    |  hostname  &emsp;|  FQDN of WireGuard endpoint  |
 #### persistent_keepalive
 - `persistent_keepalive` (Number) Interval to send keepalive messages
 

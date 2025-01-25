@@ -5,7 +5,7 @@ subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
-  service⯯monitoring⯯Zabbix-agent settings⯯Authentication
+  service⯯Monitoring services⯯Zabbix-agent settings⯯Authentication
 ---
 
 # vyos_service_monitoring_zabbix_agent_authentication (Resource)
@@ -15,7 +15,7 @@ description: |-
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Zabbix-agent settings  
 ⯯  

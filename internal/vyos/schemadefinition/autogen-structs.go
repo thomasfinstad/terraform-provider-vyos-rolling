@@ -74,6 +74,7 @@ type Properties struct {
 	ValueHelp              []*ValueHelp       `xml:"valueHelp"`
 	ConstraintErrorMessage []string           `xml:"constraintErrorMessage"`
 	CompletionHelp         []*CompletionHelp  `xml:"completionHelp"`
+	Docs                   []*Docs            `xml:"docs"`
 	Valueless              []*Valueless       `xml:"valueless"`
 	Multi                  []*Multi           `xml:"multi"`
 	Hidden                 []*Hidden          `xml:"hidden"`
@@ -84,6 +85,30 @@ type Properties struct {
 
 // ConstraintErrorMessage ...
 type ConstraintErrorMessage string
+
+// Docs ...
+type Docs struct {
+	XMLName      xml.Name `xml:"docs"`
+	Headline     []string `xml:"headline"`
+	Text         []string `xml:"text"`
+	UsageExample []string `xml:"usageExample"`
+	Hints        []*Hints `xml:"hints"`
+}
+
+// Headline ...
+type Headline string
+
+// Text ...
+type Text string
+
+// UsageExample ...
+type UsageExample string
+
+// Hints ...
+type Hints struct {
+	XMLName  xml.Name `xml:"hints"`
+	TypeAttr string   `xml:"type,attr"`
+}
 
 // Valueless ...
 type Valueless struct {

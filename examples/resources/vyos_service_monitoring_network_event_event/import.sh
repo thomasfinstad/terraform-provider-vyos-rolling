@@ -1,0 +1,2 @@
+
+terraform import vyos_service_monitoring_network_event_event.example "service__monitoring__network-event__event"

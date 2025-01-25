@@ -5,7 +5,7 @@ subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
-  service⯯monitoring⯯Telegraf metric collector⯯Output plugin Azure Data Explorer⯯Authentication parameters
+  service⯯Monitoring services⯯Telegraf metric collector⯯Output plugin Azure Data Explorer⯯Authentication parameters
 ---
 
 # vyos_service_monitoring_telegraf_azure_data_explorer_authentication (Resource)
@@ -15,7 +15,7 @@ description: |-
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Telegraf metric collector  
 ⯯  

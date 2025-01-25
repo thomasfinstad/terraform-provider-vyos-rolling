@@ -302,6 +302,8 @@ import (
 	globalservicelldp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp"
 	globalservicelldplegacyprotocols "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/lldp-legacy-protocols"
 	globalservicemdnsrepeater "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/mdns-repeater"
+	globalservicemonitoringnetworkevent "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-network-event"
+	globalservicemonitoringnetworkeventevent "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-network-event-event"
 	globalservicemonitoringprometheusblackboxexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-blackbox-exporter"
 	globalservicemonitoringprometheusfrrexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-frr-exporter"
 	globalservicemonitoringprometheusnodeexporter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/service/monitoring-prometheus-node-exporter"
@@ -1280,6 +1282,8 @@ func GetResources() []func() resource.Resource {
 		globalservicelldp.NewServiceLldp,
 		globalservicelldplegacyprotocols.NewServiceLldpLegacyProtocols,
 		globalservicemdnsrepeater.NewServiceMDNSRepeater,
+		globalservicemonitoringnetworkevent.NewServiceMonitoringNetworkEvent,
+		globalservicemonitoringnetworkeventevent.NewServiceMonitoringNetworkEventEvent,
 		globalservicemonitoringprometheusblackboxexporter.NewServiceMonitoringPrometheusBlackboxExporter,
 		globalservicemonitoringprometheusfrrexporter.NewServiceMonitoringPrometheusFrrExporter,
 		globalservicemonitoringprometheusnodeexporter.NewServiceMonitoringPrometheusNodeExporter,

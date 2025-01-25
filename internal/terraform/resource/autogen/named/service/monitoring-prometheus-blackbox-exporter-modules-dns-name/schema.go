@@ -18,7 +18,7 @@ func (r serviceMonitoringPrometheusBlackboxExporterModulesDNSName) Schema(ctx co
 		MarkdownDescription: `
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Prometheus metric exporter  
 ⯯  

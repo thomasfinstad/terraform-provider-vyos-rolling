@@ -4,7 +4,7 @@ page_title: "vyos_service_monitoring_prometheus_blackbox_exporter_modules_dns_na
 subcategory: "Service"
 
 description: |-
-  service⯯monitoring⯯Prometheus metric exporter⯯Prometheus exporter for probing endpoints⯯Configure blackbox exporter modules⯯Configure dns module⯯Name of the dns module
+  service⯯Monitoring services⯯Prometheus metric exporter⯯Prometheus exporter for probing endpoints⯯Configure blackbox exporter modules⯯Configure dns module⯯Name of the dns module
 ---
 
 # vyos_service_monitoring_prometheus_blackbox_exporter_modules_dns_name (Resource)
@@ -13,7 +13,7 @@ description: |-
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Prometheus metric exporter  
 ⯯  

@@ -19,7 +19,7 @@ func (r serviceMonitoringZabbixAgentLog) Schema(ctx context.Context, req resourc
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Zabbix-agent settings  
 ⯯  

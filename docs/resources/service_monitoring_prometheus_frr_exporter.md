@@ -5,7 +5,7 @@ subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
-  service⯯monitoring⯯Prometheus metric exporter⯯Prometheus exporter for FRR metrics
+  service⯯Monitoring services⯯Prometheus metric exporter⯯Prometheus exporter for FRR metrics
 ---
 
 # vyos_service_monitoring_prometheus_frr_exporter (Resource)
@@ -15,7 +15,7 @@ description: |-
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Prometheus metric exporter  
 ⯯  

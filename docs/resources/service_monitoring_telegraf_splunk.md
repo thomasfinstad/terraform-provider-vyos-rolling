@@ -5,7 +5,7 @@ subcategory: "Service"
 
 description: |-
   ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
-  service⯯monitoring⯯Telegraf metric collector⯯Output plugin Splunk
+  service⯯Monitoring services⯯Telegraf metric collector⯯Output plugin Splunk
 ---
 
 # vyos_service_monitoring_telegraf_splunk (Resource)
@@ -15,7 +15,7 @@ description: |-
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Telegraf metric collector  
 ⯯  

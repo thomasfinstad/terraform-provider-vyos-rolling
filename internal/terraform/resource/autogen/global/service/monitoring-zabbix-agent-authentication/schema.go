@@ -19,7 +19,7 @@ func (r serviceMonitoringZabbixAgentAuthentication) Schema(ctx context.Context, 
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Zabbix-agent settings  
 ⯯  

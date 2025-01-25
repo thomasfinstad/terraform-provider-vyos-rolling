@@ -18,7 +18,7 @@ func (r serviceMonitoringZabbixAgentServerActive) Schema(ctx context.Context, re
 		MarkdownDescription: `
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Zabbix-agent settings  
 ⯯  

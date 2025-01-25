@@ -19,7 +19,7 @@ func (r serviceMonitoringTelegrafLoki) Schema(ctx context.Context, req resource.
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Telegraf metric collector  
 ⯯  

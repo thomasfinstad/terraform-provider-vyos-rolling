@@ -46,7 +46,7 @@ Connection Tracking Engine Options
 ### Optional
 
 #### log_level
-- `log_level` (String) Set log-level. Log must be enable.
+- `log_level` (String) Set log-level
 
     |  Format  &emsp;|  Description      |
     |----------|-------------------|
@@ -55,9 +55,9 @@ Connection Tracking Engine Options
 #### queue_size
 - `queue_size` (Number) Internal message queue size
 
-    |  Format      &emsp;|  Description  |
-    |--------------|---------------|
-    |  100-999999  &emsp;|  Queue size   |
+    |  Format          &emsp;|  Description  |
+    |------------------|---------------|
+    |  100-2147483647  &emsp;|  Queue size   |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 #### timestamp

@@ -19,7 +19,7 @@ func (r serviceMonitoringPrometheusBlackboxExporter) Schema(ctx context.Context,
 
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Prometheus metric exporter  
 ⯯  

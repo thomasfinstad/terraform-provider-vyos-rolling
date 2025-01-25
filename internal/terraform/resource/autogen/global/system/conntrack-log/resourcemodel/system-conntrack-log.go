@@ -129,15 +129,15 @@ func (o SystemConntrackLog) ResourceSchemaAttributes(ctx context.Context) map[st
 			Optional: true,
 			MarkdownDescription: `Internal message queue size
 
-    |  Format      |  Description  |
-    |--------------|---------------|
-    |  100-999999  |  Queue size   |
+    |  Format          |  Description  |
+    |------------------|---------------|
+    |  100-2147483647  |  Queue size   |
 `,
 			Description: `Internal message queue size
 
-    |  Format      |  Description  |
-    |--------------|---------------|
-    |  100-999999  |  Queue size   |
+    |  Format          |  Description  |
+    |------------------|---------------|
+    |  100-2147483647  |  Queue size   |
 `,
 		},
 
@@ -146,14 +146,14 @@ func (o SystemConntrackLog) ResourceSchemaAttributes(ctx context.Context) map[st
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (log-level) */
 		schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Set log-level. Log must be enable.
+			MarkdownDescription: `Set log-level
 
     |  Format  |  Description      |
     |----------|-------------------|
     |  info    |  Info log level   |
     |  debug   |  Debug log level  |
 `,
-			Description: `Set log-level. Log must be enable.
+			Description: `Set log-level
 
     |  Format  |  Description      |
     |----------|-------------------|

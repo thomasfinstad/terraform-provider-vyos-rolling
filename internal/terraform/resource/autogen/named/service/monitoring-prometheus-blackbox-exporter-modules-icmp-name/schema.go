@@ -18,7 +18,7 @@ func (r serviceMonitoringPrometheusBlackboxExporterModulesIcmpName) Schema(ctx c
 		MarkdownDescription: `
 *service*  
 ⯯  
-*monitoring*  
+Monitoring services  
 ⯯  
 Prometheus metric exporter  
 ⯯  

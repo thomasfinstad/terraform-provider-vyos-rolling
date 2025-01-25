@@ -2570,17 +2570,17 @@ func system() schemadefinition.InterfaceDefinition {
 													Local: "validator",
 												},
 												NameAttr:     "numeric",
-												ArgumentAttr: "--range 1-999999",
+												ArgumentAttr: "--range 1-2147483647",
 											}},
 										}},
 										ValueHelp: []*schemadefinition.ValueHelp{{
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "u32:100-999999",
+											Format:      "u32:100-2147483647",
 											Description: "Queue size",
 										}},
-										ConstraintErrorMessage: []string{"Queue size must be between 100 and 999999"},
+										ConstraintErrorMessage: []string{"Queue size must be between 100 and 2147483647"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -2592,7 +2592,7 @@ func system() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Set log-level. Log must be enable."},
+										Help: []string{"Set log-level"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",

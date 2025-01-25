@@ -52,6 +52,7 @@ type InterfacesWireguard struct {
 	LeafInterfacesWireguardPort            types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafInterfacesWireguardMtu             types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesWireguardFwmark          types.String `tfsdk:"fwmark" vyos:"fwmark,omitempty"`
+	LeafInterfacesWireguardMaxDNSRetry     types.Number `tfsdk:"max_dns_retry" vyos:"max-dns-retry,omitempty"`
 	LeafInterfacesWireguardPrivateKey      types.String `tfsdk:"private_key" vyos:"private-key,omitempty"`
 	LeafInterfacesWireguardRedirect        types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesWireguardPerClientThread types.Bool   `tfsdk:"per_client_thread" vyos:"per-client-thread,omitempty"`
@@ -290,6 +291,28 @@ func (o InterfacesWireguard) ResourceSchemaAttributes(ctx context.Context) map[s
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
+			Computed: true,
+		},
+
+		"max_dns_retry":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (max-dns-retry) */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `DNS retries when resolve fails
+
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-15    |  Maximum number of retries  |
+`,
+			Description: `DNS retries when resolve fails
+
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-15    |  Maximum number of retries  |
+`,
+
+			// Default:          stringdefault.StaticString(`3`),
 			Computed: true,
 		},
 
