@@ -31,6 +31,7 @@ Configure haproxy
     - [Optional](#optional)
       - [backend](#backend)
       - [description](#description)
+      - [http_compression](#http_compression)
       - [listen_address](#listen_address)
       - [mode](#mode)
       - [port](#port)
@@ -41,6 +42,7 @@ Configure haproxy
     - [Read-Only](#read-only)
       - [id](#id)
     - [Nested Schema for `identifier`](#nested-schema-for-identifier)
+    - [Nested Schema for `http_compression`](#nested-schema-for-http_compression)
     - [Nested Schema for `ssl`](#nested-schema-for-ssl)
     - [Nested Schema for `tcp_request`](#nested-schema-for-tcp_request)
     - [Nested Schema for `timeouts`](#nested-schema-for-timeouts)
@@ -70,6 +72,8 @@ Configure haproxy
     |  Format  &emsp;|  Description  |
     |----------|---------------|
     |  txt     &emsp;|  Description  |
+#### http_compression
+- `http_compression` (Attributes) Compress HTTP responses (see [below for nested schema](#nestedatt--http_compression))
 #### listen_address
 - `listen_address` (List of String) Local IP addresses to listen on
 
@@ -110,6 +114,19 @@ Configure haproxy
 Required:
 
 - `service` (String) Frontend service name
+
+
+<a id="nestedatt--http_compression"></a>
+### Nested Schema for `http_compression`
+
+Optional:
+
+- `algorithm` (String) Compression algorithm
+- `mime_type` (List of String) MIME types to compress
+
+    |  Format  &emsp;|  Description            |
+    |----------|-------------------------|
+    |  txt     &emsp;|  MIME type to compress  |
 
 
 <a id="nestedatt--ssl"></a>

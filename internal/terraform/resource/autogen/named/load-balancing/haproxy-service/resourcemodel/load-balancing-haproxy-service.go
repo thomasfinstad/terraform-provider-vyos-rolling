@@ -67,6 +67,8 @@ type LoadBalancingHaproxyService struct {
 
 	NodeLoadBalancingHaproxyServiceTCPRequest *LoadBalancingHaproxyServiceTCPRequest `tfsdk:"tcp_request" vyos:"tcp-request,omitempty"`
 
+	NodeLoadBalancingHaproxyServiceHTTPCompression *LoadBalancingHaproxyServiceHTTPCompression `tfsdk:"http_compression" vyos:"http-compression,omitempty"`
+
 	NodeLoadBalancingHaproxyServiceSsl *LoadBalancingHaproxyServiceSsl `tfsdk:"ssl" vyos:"ssl,omitempty"`
 }
 
@@ -305,6 +307,17 @@ func (o LoadBalancingHaproxyService) ResourceSchemaAttributes(ctx context.Contex
 
 `,
 			Description: `TCP request directive
+
+`,
+		},
+
+		"http_compression": schema.SingleNestedAttribute{
+			Attributes: LoadBalancingHaproxyServiceHTTPCompression{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Compress HTTP responses
+
+`,
+			Description: `Compress HTTP responses
 
 `,
 		},
