@@ -9,62 +9,53 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl #resource-model (syslog) */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl #resource-model (marker) */
 // Validate compliance
 
-var _ helpers.VyosTopResourceDataModel = &SystemSyslog{}
+var _ helpers.VyosTopResourceDataModel = &SystemSyslogMarker{}
 
-// SystemSyslog describes the resource data model.
+// SystemSyslogMarker describes the resource data model.
 // This is a basenode!
 // Top level basenode type: `Node`
-type SystemSyslog struct {
+type SystemSyslogMarker struct {
 	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafSystemSyslogPreserveFqdn types.Bool `tfsdk:"preserve_fqdn" vyos:"preserve-fqdn,omitempty"`
+	LeafSystemSyslogMarkerInterval types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
 
 	// TagNodes
 
-	ExistsTagSystemSyslogRemote bool `tfsdk:"-" vyos:"remote,child"`
-
 	// Nodes
-
-	// Ignoring Node `SystemSyslogConsole`.
-
-	// Ignoring Node `SystemSyslogLocal`.
-
-	ExistsNodeSystemSyslogMarker bool `tfsdk:"-" vyos:"marker,child"`
 }
 
 // SetID configures the resource ID
-func (o *SystemSyslog) SetID(id []string) {
+func (o *SystemSyslogMarker) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *SystemSyslog) GetTimeouts() timeouts.Value {
+func (o *SystemSyslogMarker) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *SystemSyslog) IsGlobalResource() bool {
+func (o *SystemSyslogMarker) IsGlobalResource() bool {
 	return (true)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *SystemSyslog) GetVyosPath() []string {
+func (o *SystemSyslogMarker) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
-		"syslog",
+		"marker",
 	)
 }
 
@@ -72,10 +63,14 @@ func (o *SystemSyslog) GetVyosPath() []string {
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *SystemSyslog) GetVyosParentPath() []string {
+func (o *SystemSyslogMarker) GetVyosParentPath() []string {
 	return []string{
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack (syslog) */
+
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack (system) */
 		"system", // Node
+
+		"syslog", // Node
 
 	}
 }
@@ -84,15 +79,17 @@ func (o *SystemSyslog) GetVyosParentPath() []string {
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-func (o *SystemSyslog) GetVyosNamedParentPath() []string {
+func (o *SystemSyslogMarker) GetVyosNamedParentPath() []string {
 	return []string{
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global (syslog) */
+
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global (system) */
 
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o SystemSyslog) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o SystemSyslogMarker) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -105,18 +102,25 @@ func (o SystemSyslog) ResourceSchemaAttributes(ctx context.Context) map[string]s
 
 		// LeafNodes
 
-		"preserve_fqdn":
+		"interval":
 
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (preserve-fqdn) */
-		schema.BoolAttribute{
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (interval) */
+		schema.NumberAttribute{
 			Optional: true,
-			MarkdownDescription: `Always include domain portion in hostname
+			MarkdownDescription: `Mark message interval
 
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  1-65535  |  Time in seconds  |
 `,
-			Description: `Always include domain portion in hostname
+			Description: `Mark message interval
 
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  1-65535  |  Time in seconds  |
 `,
-			Default:  booldefault.StaticBool(false),
+
+			// Default:          stringdefault.StaticString(`1200`),
 			Computed: true,
 		},
 

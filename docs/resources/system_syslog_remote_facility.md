@@ -1,13 +1,13 @@
 ---
-page_title: "vyos_system_syslog_console_facility Resource - vyos"
+page_title: "vyos_system_syslog_remote_facility Resource - vyos"
 
 subcategory: "System"
 
 description: |-
-  system⯯System logging⯯Log to system console (/dev/console)⯯Facility for logging
+  system⯯System logging⯯Log to remote host⯯Facility for logging
 ---
 
-# vyos_system_syslog_console_facility (Resource)
+# vyos_system_syslog_remote_facility (Resource)
 <center>
 
 
@@ -15,7 +15,7 @@ description: |-
 ⯯  
 System logging  
 ⯯  
-Log to system console (/dev/console)  
+Log to remote host  
 ⯯  
 **Facility for logging**
 
@@ -26,7 +26,7 @@ Log to system console (/dev/console)
 
 <!--TOC-->
 
-- [vyos_system_syslog_console_facility (Resource)](#vyos_system_syslog_console_facility-resource)
+- [vyos_system_syslog_remote_facility (Resource)](#vyos_system_syslog_remote_facility-resource)
   - [Schema](#schema)
     - [Required](#required)
       - [identifier](#identifier)
@@ -103,6 +103,13 @@ Required:
     |  local5    &emsp;|  Local facility 5                  |
     |  local6    &emsp;|  Local facility 6                  |
     |  local7    &emsp;|  Local facility 7                  |
+- `remote` (String) Log to remote host
+
+    |  Format    &emsp;|  Description                        |
+    |------------|-------------------------------------|
+    |  ipv4      &emsp;|  Remote syslog server IPv4 address  |
+    |  ipv6      &emsp;|  Remote syslog server IPv6 address  |
+    |  hostname  &emsp;|  Remote syslog server FQDN          |
 
 
 <a id="nestedatt--timeouts"></a>
@@ -117,5 +124,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_syslog_console_facility.example "system__syslog__console__facility__<facility>"
+terraform import vyos_system_syslog_remote_facility.example "system__syslog__remote__<remote>__facility__<facility>"
 ```

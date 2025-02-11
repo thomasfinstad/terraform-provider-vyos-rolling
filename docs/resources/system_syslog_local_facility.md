@@ -1,13 +1,13 @@
 ---
-page_title: "vyos_system_syslog_console_facility Resource - vyos"
+page_title: "vyos_system_syslog_local_facility Resource - vyos"
 
 subcategory: "System"
 
 description: |-
-  system⯯System logging⯯Log to system console (/dev/console)⯯Facility for logging
+  system⯯System logging⯯Log to standard system location /var/log/messages⯯Facility for logging
 ---
 
-# vyos_system_syslog_console_facility (Resource)
+# vyos_system_syslog_local_facility (Resource)
 <center>
 
 
@@ -15,7 +15,7 @@ description: |-
 ⯯  
 System logging  
 ⯯  
-Log to system console (/dev/console)  
+Log to standard system location /var/log/messages  
 ⯯  
 **Facility for logging**
 
@@ -26,7 +26,7 @@ Log to system console (/dev/console)
 
 <!--TOC-->
 
-- [vyos_system_syslog_console_facility (Resource)](#vyos_system_syslog_console_facility-resource)
+- [vyos_system_syslog_local_facility (Resource)](#vyos_system_syslog_local_facility-resource)
   - [Schema](#schema)
     - [Required](#required)
       - [identifier](#identifier)
@@ -117,5 +117,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_syslog_console_facility.example "system__syslog__console__facility__<facility>"
+terraform import vyos_system_syslog_local_facility.example "system__syslog__local__facility__<facility>"
 ```

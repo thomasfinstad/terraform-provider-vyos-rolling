@@ -402,8 +402,7 @@ import (
 	globalsystemproxy "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/proxy"
 	globalsystemsflow "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/sflow"
 	globalsystemsyslog "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/syslog"
-	globalsystemsyslogglobal "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/syslog-global"
-	globalsystemsyslogglobalmarker "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/syslog-global-marker"
+	globalsystemsyslogmarker "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/syslog-marker"
 	globalsystemupdatecheck "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/update-check"
 	globalsystemwireless "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/system/wireless"
 	globalvpnipsec "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/vpn/ipsec"
@@ -881,13 +880,9 @@ import (
 	namedsystemstatichostmappinghostname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/static-host-mapping-host-name"
 	namedsystemsysctlparameter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/sysctl-parameter"
 	namedsystemsyslogconsolefacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-console-facility"
-	namedsystemsyslogfile "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-file"
-	namedsystemsyslogfilefacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-file-facility"
-	namedsystemsyslogglobalfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-global-facility"
-	namedsystemsysloghost "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-host"
-	namedsystemsysloghostfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-host-facility"
-	namedsystemsysloguser "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-user"
-	namedsystemsysloguserfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-user-facility"
+	namedsystemsysloglocalfacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-local-facility"
+	namedsystemsyslogremote "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-remote"
+	namedsystemsyslogremotefacility "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/syslog-remote-facility"
 	namedsystemtaskschedulertask "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/system/task-scheduler-task"
 	namedvpnipsecauthenticationpsk "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-authentication-psk"
 	namedvpnipsecespgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vpn/ipsec-esp-group"
@@ -1382,8 +1377,7 @@ func GetResources() []func() resource.Resource {
 		globalsystemproxy.NewSystemProxy,
 		globalsystemsflow.NewSystemSflow,
 		globalsystemsyslog.NewSystemSyslog,
-		globalsystemsyslogglobal.NewSystemSyslogGlobal,
-		globalsystemsyslogglobalmarker.NewSystemSyslogGlobalMarker,
+		globalsystemsyslogmarker.NewSystemSyslogMarker,
 		globalsystemupdatecheck.NewSystemUpdateCheck,
 		globalsystemwireless.NewSystemWireless,
 		globalvpnipsec.NewVpnIPsec,
@@ -1861,13 +1855,9 @@ func GetResources() []func() resource.Resource {
 		namedsystemstatichostmappinghostname.NewSystemStaticHostMappingHostName,
 		namedsystemsysctlparameter.NewSystemSysctlParameter,
 		namedsystemsyslogconsolefacility.NewSystemSyslogConsoleFacility,
-		namedsystemsyslogfile.NewSystemSyslogFile,
-		namedsystemsyslogfilefacility.NewSystemSyslogFileFacility,
-		namedsystemsyslogglobalfacility.NewSystemSyslogGlobalFacility,
-		namedsystemsysloghost.NewSystemSyslogHost,
-		namedsystemsysloghostfacility.NewSystemSyslogHostFacility,
-		namedsystemsysloguser.NewSystemSyslogUser,
-		namedsystemsysloguserfacility.NewSystemSyslogUserFacility,
+		namedsystemsysloglocalfacility.NewSystemSyslogLocalFacility,
+		namedsystemsyslogremote.NewSystemSyslogRemote,
+		namedsystemsyslogremotefacility.NewSystemSyslogRemoteFacility,
 		namedsystemtaskschedulertask.NewSystemTaskSchedulerTask,
 		namedvpnipsecauthenticationpsk.NewVpnIPsecAuthenticationPsk,
 		namedvpnipsecespgroup.NewVpnIPsecEspGroup,

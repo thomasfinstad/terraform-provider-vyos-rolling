@@ -9375,325 +9375,6 @@ func system() schemadefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*schemadefinition.Node{{
-							IsBaseNode: true,
-							XMLName: xml.Name{
-								Local: "node",
-							},
-							NodeNameAttr: "global",
-							Properties: []*schemadefinition.Properties{{
-								XMLName: xml.Name{
-									Local: "properties",
-								},
-								Help: []string{"Logging to system standard location"},
-							}},
-							Children: []*schemadefinition.Children{{
-								XMLName: xml.Name{
-									Local: "children",
-								},
-								Node: []*schemadefinition.Node{{
-									IsBaseNode: true,
-									XMLName: xml.Name{
-										Local: "node",
-									},
-									NodeNameAttr: "marker",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"mark messages sent to syslog"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "interval",
-											DefaultValue: []string{"1200"},
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"time interval how often a mark message is being sent in seconds"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Validator: []*schemadefinition.Validator{{
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr:     "numeric",
-														ArgumentAttr: "--positive",
-													}},
-												}},
-											}},
-										}},
-									}},
-								}},
-								TagNode: []*schemadefinition.TagNode{{
-									IsBaseNode: true,
-									XMLName: xml.Name{
-										Local: "tagNode",
-									},
-									NodeNameAttr: "facility",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Facility for logging"},
-										Constraint: []*schemadefinition.Constraint{{
-											XMLName: xml.Name{
-												Local: "constraint",
-											},
-											Regex: []string{"(auth|authpriv|cron|daemon|kern|lpr|mail|mark|news|syslog|user|uucp|local0|local1|local2|local3|local4|local5|local6|local7|all)"},
-										}},
-										ValueHelp: []*schemadefinition.ValueHelp{{
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "all",
-											Description: "All facilities excluding \"mark\"",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "auth",
-											Description: "Authentication and authorization",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "authpriv",
-											Description: "Non-system authorization",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "cron",
-											Description: "Cron daemon",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "daemon",
-											Description: "System daemons",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "kern",
-											Description: "Kernel",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "lpr",
-											Description: "Line printer spooler",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "mail",
-											Description: "Mail subsystem",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "mark",
-											Description: "Timestamp",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "news",
-											Description: "USENET subsystem",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "syslog",
-											Description: "Authentication and authorization",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "user",
-											Description: "Application processes",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "uucp",
-											Description: "UUCP subsystem",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local0",
-											Description: "Local facility 0",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local1",
-											Description: "Local facility 1",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local2",
-											Description: "Local facility 2",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local3",
-											Description: "Local facility 3",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local4",
-											Description: "Local facility 4",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local5",
-											Description: "Local facility 5",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local6",
-											Description: "Local facility 6",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local7",
-											Description: "Local facility 7",
-										}},
-										ConstraintErrorMessage: []string{"Invalid facility type"},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											List: []string{"auth authpriv cron daemon kern lpr mail mark news syslog user uucp local0 local1 local2 local3 local4 local5 local6 local7 all"},
-										}},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "level",
-											DefaultValue: []string{"err"},
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Logging level"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"(emerg|alert|crit|err|warning|notice|info|debug|all)"},
-												}},
-												ValueHelp: []*schemadefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "emerg",
-													Description: "Emergency messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "alert",
-													Description: "Urgent messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "crit",
-													Description: "Critical messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "err",
-													Description: "Error messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "warning",
-													Description: "Warning messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "notice",
-													Description: "Messages for further investigation",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "info",
-													Description: "Informational messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "debug",
-													Description: "Debug messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "all",
-													Description: "Log everything",
-												}},
-												ConstraintErrorMessage: []string{"Invalid loglevel"},
-												CompletionHelp: []*schemadefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													List: []string{"emerg alert crit err warning notice info debug all"},
-												}},
-											}},
-										}},
-									}},
-								}},
-								LeafNode: []*schemadefinition.LeafNode{{
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "preserve-fqdn",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"uses FQDN for logging"},
-										Valueless: []*schemadefinition.Valueless{{
-											XMLName: xml.Name{
-												Local: "valueless",
-											},
-										}},
-									}},
-								}},
-							}},
-						}, {
 							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
@@ -9703,7 +9384,7 @@ func system() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"logging to serial console"},
+								Help: []string{"Log to system console (/dev/console)"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{
@@ -9950,38 +9631,17 @@ func system() schemadefinition.InterfaceDefinition {
 									}},
 								}},
 							}},
-						}},
-						TagNode: []*schemadefinition.TagNode{{
-							IsBaseNode: true,
+						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
-								Local: "tagNode",
+								Local: "node",
 							},
-							NodeNameAttr: "user",
+							NodeNameAttr: "local",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Logging to specific terminal of given user"},
-								Constraint: []*schemadefinition.Constraint{{
-									XMLName: xml.Name{
-										Local: "constraint",
-									},
-									Regex: []string{"[-_a-zA-Z0-9.]{1,100}"},
-								}},
-								ValueHelp: []*schemadefinition.ValueHelp{{
-									XMLName: xml.Name{
-										Local: "valueHelp",
-									},
-									Format:      "txt",
-									Description: "Local user account",
-								}},
-								ConstraintErrorMessage: []string{"illegal characters in user"},
-								CompletionHelp: []*schemadefinition.CompletionHelp{{
-									XMLName: xml.Name{
-										Local: "completionHelp",
-									},
-									Path: []string{"system login user"},
-								}},
+								Help: []string{"Log to standard system location /var/log/messages"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{
@@ -10231,14 +9891,66 @@ func system() schemadefinition.InterfaceDefinition {
 						}, {
 							IsBaseNode: true,
 							XMLName: xml.Name{
-								Local: "tagNode",
+								Local: "node",
 							},
-							NodeNameAttr: "host",
+							NodeNameAttr: "marker",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Logging to remote host"},
+								Help: []string{"Mark messages sent to syslog"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*schemadefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "interval",
+									DefaultValue: []string{"1200"},
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Mark message interval"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr:     "numeric",
+												ArgumentAttr: "--range 1-86400",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "u32:1-65535",
+											Description: "Time in seconds",
+										}},
+										ConstraintErrorMessage: []string{"Port number must be in range 1 to 86400"},
+									}},
+								}},
+							}},
+						}},
+						TagNode: []*schemadefinition.TagNode{{
+							IsBaseNode: true,
+							XMLName: xml.Name{
+								Local: "tagNode",
+							},
+							NodeNameAttr: "remote",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Log to remote host"},
 								Constraint: []*schemadefinition.Constraint{{
 									XMLName: xml.Name{
 										Local: "constraint",
@@ -10644,327 +10356,83 @@ func system() schemadefinition.InterfaceDefinition {
 											List: []string{"udp tcp"},
 										}},
 									}},
-								}},
-							}},
-						}, {
-							IsBaseNode: true,
-							XMLName: xml.Name{
-								Local: "tagNode",
-							},
-							NodeNameAttr: "file",
-							Properties: []*schemadefinition.Properties{{
-								XMLName: xml.Name{
-									Local: "properties",
-								},
-								Help: []string{"Logging to a file"},
-								Constraint: []*schemadefinition.Constraint{{
-									XMLName: xml.Name{
-										Local: "constraint",
-									},
-									Regex: []string{"[a-zA-Z0-9\\-_.]{1,255}"},
-								}},
-								ConstraintErrorMessage: []string{"illegal characters in filename or filename longer than 255 characters"},
-							}},
-							Children: []*schemadefinition.Children{{
-								XMLName: xml.Name{
-									Local: "children",
-								},
-								Node: []*schemadefinition.Node{{
+								}, {
 									IsBaseNode: false,
 									XMLName: xml.Name{
-										Local: "node",
+										Local: "leafNode",
 									},
-									NodeNameAttr: "archive",
+									NodeNameAttr: "source-address",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Log file size and rotation characteristics"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "file",
-											DefaultValue: []string{"5"},
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Number of saved files"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"[0-9]+"},
-												}},
-												ConstraintErrorMessage: []string{"illegal characters in number of files"},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "size",
-											DefaultValue: []string{"256"},
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Size of log files in kbytes"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"[0-9]+"},
-												}},
-												ConstraintErrorMessage: []string{"illegal characters in size"},
-											}},
-										}},
-									}},
-								}},
-								TagNode: []*schemadefinition.TagNode{{
-									IsBaseNode: true,
-									XMLName: xml.Name{
-										Local: "tagNode",
-									},
-									NodeNameAttr: "facility",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Facility for logging"},
+										Help: []string{"Source IP address used to initiate connection"},
 										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"(auth|authpriv|cron|daemon|kern|lpr|mail|mark|news|syslog|user|uucp|local0|local1|local2|local3|local4|local5|local6|local7|all)"},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ip-address",
+											}},
 										}},
 										ValueHelp: []*schemadefinition.ValueHelp{{
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "all",
-											Description: "All facilities excluding \"mark\"",
+											Format:      "ipv4",
+											Description: "IPv4 source address",
 										}, {
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "auth",
-											Description: "Authentication and authorization",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "authpriv",
-											Description: "Non-system authorization",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "cron",
-											Description: "Cron daemon",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "daemon",
-											Description: "System daemons",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "kern",
-											Description: "Kernel",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "lpr",
-											Description: "Line printer spooler",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "mail",
-											Description: "Mail subsystem",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "mark",
-											Description: "Timestamp",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "news",
-											Description: "USENET subsystem",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "syslog",
-											Description: "Authentication and authorization",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "user",
-											Description: "Application processes",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "uucp",
-											Description: "UUCP subsystem",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local0",
-											Description: "Local facility 0",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local1",
-											Description: "Local facility 1",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local2",
-											Description: "Local facility 2",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local3",
-											Description: "Local facility 3",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local4",
-											Description: "Local facility 4",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local5",
-											Description: "Local facility 5",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local6",
-											Description: "Local facility 6",
-										}, {
-											XMLName: xml.Name{
-												Local: "valueHelp",
-											},
-											Format:      "local7",
-											Description: "Local facility 7",
+											Format:      "ipv6",
+											Description: "IPv6 source address",
 										}},
-										ConstraintErrorMessage: []string{"Invalid facility type"},
 										CompletionHelp: []*schemadefinition.CompletionHelp{{
 											XMLName: xml.Name{
 												Local: "completionHelp",
 											},
-											List: []string{"auth authpriv cron daemon kern lpr mail mark news syslog user uucp local0 local1 local2 local3 local4 local5 local6 local7 all"},
+											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
 										}},
 									}},
-									Children: []*schemadefinition.Children{{
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "vrf",
+									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
-											Local: "children",
+											Local: "properties",
 										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
+										Help: []string{"VRF instance name"},
+										Constraint: []*schemadefinition.Constraint{{
 											XMLName: xml.Name{
-												Local: "leafNode",
+												Local: "constraint",
 											},
-											NodeNameAttr: "level",
-											DefaultValue: []string{"err"},
-											Properties: []*schemadefinition.Properties{{
+											Validator: []*schemadefinition.Validator{{
 												XMLName: xml.Name{
-													Local: "properties",
+													Local: "validator",
 												},
-												Help: []string{"Logging level"},
-												Constraint: []*schemadefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"(emerg|alert|crit|err|warning|notice|info|debug|all)"},
-												}},
-												ValueHelp: []*schemadefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "emerg",
-													Description: "Emergency messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "alert",
-													Description: "Urgent messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "crit",
-													Description: "Critical messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "err",
-													Description: "Error messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "warning",
-													Description: "Warning messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "notice",
-													Description: "Messages for further investigation",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "info",
-													Description: "Informational messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "debug",
-													Description: "Debug messages",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "all",
-													Description: "Log everything",
-												}},
-												ConstraintErrorMessage: []string{"Invalid loglevel"},
-												CompletionHelp: []*schemadefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													List: []string{"emerg alert crit err warning notice info debug all"},
-												}},
+												NameAttr: "vrf-name",
 											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "VRF instance name",
+										}},
+										ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Path: []string{"vrf name"},
 										}},
 									}},
 								}},
@@ -10975,36 +10443,16 @@ func system() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
-							NodeNameAttr: "vrf",
+							NodeNameAttr: "preserve-fqdn",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"VRF instance name"},
-								Constraint: []*schemadefinition.Constraint{{
+								Help: []string{"Always include domain portion in hostname"},
+								Valueless: []*schemadefinition.Valueless{{
 									XMLName: xml.Name{
-										Local: "constraint",
+										Local: "valueless",
 									},
-									Validator: []*schemadefinition.Validator{{
-										XMLName: xml.Name{
-											Local: "validator",
-										},
-										NameAttr: "vrf-name",
-									}},
-								}},
-								ValueHelp: []*schemadefinition.ValueHelp{{
-									XMLName: xml.Name{
-										Local: "valueHelp",
-									},
-									Format:      "txt",
-									Description: "VRF instance name",
-								}},
-								ConstraintErrorMessage: []string{"VRF instance name must be 15 characters or less and can not\\nbe named as regular network interfaces.\\nA name must starts from a letter.\\n"},
-								CompletionHelp: []*schemadefinition.CompletionHelp{{
-									XMLName: xml.Name{
-										Local: "completionHelp",
-									},
-									Path: []string{"vrf name"},
 								}},
 							}},
 						}},

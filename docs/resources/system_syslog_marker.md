@@ -1,21 +1,23 @@
 ---
-page_title: "vyos_system_syslog Resource - vyos"
+page_title: "vyos_system_syslog_marker Resource - vyos"
 
 subcategory: "System"
 
 description: |-
   ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
-  system⯯System logging
+  system⯯System logging⯯Mark messages sent to syslog
 ---
 
-# vyos_system_syslog (Resource)
+# vyos_system_syslog_marker (Resource)
 <center>
 
 ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
 
 *system*  
 ⯯  
-**System logging**
+System logging  
+⯯  
+**Mark messages sent to syslog**
 
 
 </center>
@@ -24,10 +26,10 @@ description: |-
 
 <!--TOC-->
 
-- [vyos_system_syslog (Resource)](#vyos_system_syslog-resource)
+- [vyos_system_syslog_marker (Resource)](#vyos_system_syslog_marker-resource)
   - [Schema](#schema)
     - [Optional](#optional)
-      - [preserve_fqdn](#preserve_fqdn)
+      - [interval](#interval)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -41,8 +43,12 @@ description: |-
 
 ### Optional
 
-#### preserve_fqdn
-- `preserve_fqdn` (Boolean) Always include domain portion in hostname
+#### interval
+- `interval` (Number) Mark message interval
+
+    |  Format   &emsp;|  Description      |
+    |-----------|-------------------|
+    |  1-65535  &emsp;|  Time in seconds  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -63,5 +69,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_system_syslog.example "system__syslog"
+terraform import vyos_system_syslog_marker.example "system__syslog__marker"
 ```
