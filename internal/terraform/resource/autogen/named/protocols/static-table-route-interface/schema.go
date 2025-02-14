@@ -20,7 +20,7 @@ func (r protocolsStaticTableRouteInterface) Schema(ctx context.Context, req reso
 ⯯  
 Static Routing  
 ⯯  
-Policy route table number  
+Non-main Kernel Routing Table  
 ⯯  
 Static IPv4 route  
 ⯯  

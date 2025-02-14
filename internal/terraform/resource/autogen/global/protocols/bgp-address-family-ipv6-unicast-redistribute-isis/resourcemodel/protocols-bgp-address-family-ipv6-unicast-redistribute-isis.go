@@ -15,61 +15,48 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
-/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl #resource-model (redistribute) */
+/* tools/generate-terraform-resource-full/templates/resources/common/resource-model.gotmpl #resource-model (isis) */
 // Validate compliance
 
-var _ helpers.VyosTopResourceDataModel = &ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}
+var _ helpers.VyosTopResourceDataModel = &ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis{}
 
-// ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute describes the resource data model.
+// ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis describes the resource data model.
 // This is a basenode!
 // Top level basenode type: `Node`
-type ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute struct {
+type ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis struct {
 	ID       types.String   `tfsdk:"id" vyos:"-,tfsdk-id"`
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafProtocolsBgpAddressFamilyIPvsixUnicastRedistributeTable types.List `tfsdk:"table" vyos:"table,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsisMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsisRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel bool `tfsdk:"-" vyos:"babel,child"`
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected bool `tfsdk:"-" vyos:"connected,child"`
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis bool `tfsdk:"-" vyos:"isis,child"`
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel bool `tfsdk:"-" vyos:"kernel,child"`
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic bool `tfsdk:"-" vyos:"static,child"`
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree bool `tfsdk:"-" vyos:"ospfv3,child"`
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng bool `tfsdk:"-" vyos:"ripng,child"`
 }
 
 // SetID configures the resource ID
-func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) SetID(id []string) {
+func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetTimeouts returns resource timeout config
-func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetTimeouts() timeouts.Value {
+func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis) GetTimeouts() timeouts.Value {
 	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
-func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) IsGlobalResource() bool {
+func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis) IsGlobalResource() bool {
 	return (true)
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
-func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosPath() []string {
+func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis) GetVyosPath() []string {
 	return append(
 		o.GetVyosParentPath(),
-		"redistribute",
+		"isis",
 	)
 }
 
@@ -77,8 +64,10 @@ func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosPath() []str
 // vyos configuration for the nearest parent.
 // If this is the top level resource the list might end up returning the entire interface definition tree.
 // This is intended to use with the resource CRUD read function to check for empty resources.
-func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosParentPath() []string {
+func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis) GetVyosParentPath() []string {
 	return []string{
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack (redistribute) */
+
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack (ipv6-unicast) */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack (address-family) */
@@ -94,6 +83,8 @@ func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosParentPath()
 
 		"ipv6-unicast", // Node
 
+		"redistribute", // Node
+
 	}
 }
 
@@ -101,8 +92,10 @@ func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosParentPath()
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosNamedParentPath() []string {
+func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis) GetVyosNamedParentPath() []string {
 	return []string{
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global (redistribute) */
+
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global (ipv6-unicast) */
 
 		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-parent-vyos-path-hack.gotmpl #resource-model-parent-vyos-path-hack-for-non-global (address-family) */
@@ -115,7 +108,7 @@ func (o *ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) GetVyosNamedParentP
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
+func (o ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -128,22 +121,41 @@ func (o ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchemaAttrib
 
 		// LeafNodes
 
-		"table":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi (table) */
-		schema.ListAttribute{
-			ElementType: types.NumberType,
-			Optional:    true,
-			MarkdownDescription: `Redistribute non-main Kernel Routing Table
+		"metric":
 
-    |  Format  |  Description                |
-    |----------|-----------------------------|
-    |  1-200   |  Policy route table number  |
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (metric) */
+		schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Metric for redistributed routes
+
+    |  Format        |  Description                      |
+    |----------------|-----------------------------------|
+    |  1-4294967295  |  Metric for redistributed routes  |
 `,
-			Description: `Redistribute non-main Kernel Routing Table
+			Description: `Metric for redistributed routes
 
-    |  Format  |  Description                |
-    |----------|-----------------------------|
-    |  1-200   |  Policy route table number  |
+    |  Format        |  Description                      |
+    |----------------|-----------------------------------|
+    |  1-4294967295  |  Metric for redistributed routes  |
+`,
+		},
+
+		"route_map":
+
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (route-map) */
+		schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Specify route-map name to use
+
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
+`,
+			Description: `Specify route-map name to use
+
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 

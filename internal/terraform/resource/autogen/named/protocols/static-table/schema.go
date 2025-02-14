@@ -20,7 +20,7 @@ func (r protocolsStaticTable) Schema(ctx context.Context, req resource.SchemaReq
 ⯯  
 Static Routing  
 ⯯  
-**Policy route table number**
+**Non-main Kernel Routing Table**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}

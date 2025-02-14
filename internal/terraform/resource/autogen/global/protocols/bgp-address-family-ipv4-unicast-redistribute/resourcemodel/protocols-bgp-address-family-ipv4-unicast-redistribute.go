@@ -28,11 +28,13 @@ type ProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
-	LeafProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable types.String `tfsdk:"table" vyos:"table,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable types.List `tfsdk:"table" vyos:"table,omitempty"`
 
 	// TagNodes
 
 	// Nodes
+
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel bool `tfsdk:"-" vyos:"babel,child"`
 
 	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected bool `tfsdk:"-" vyos:"connected,child"`
 
@@ -40,13 +42,11 @@ type ProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
 
 	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel bool `tfsdk:"-" vyos:"kernel,child"`
 
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic bool `tfsdk:"-" vyos:"static,child"`
+
 	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf bool `tfsdk:"-" vyos:"ospf,child"`
 
 	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP bool `tfsdk:"-" vyos:"rip,child"`
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel bool `tfsdk:"-" vyos:"babel,child"`
-
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic bool `tfsdk:"-" vyos:"static,child"`
 }
 
 // SetID configures the resource ID
@@ -129,15 +129,21 @@ func (o ProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSchemaAttri
 		// LeafNodes
 
 		"table":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (table) */
-		schema.StringAttribute{
-			Optional: true,
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi (table) */
+		schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:    true,
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-200   |  Policy route table number  |
 `,
 			Description: `Redistribute non-main Kernel Routing Table
 
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-200   |  Policy route table number  |
 `,
 		},
 

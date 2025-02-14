@@ -1,14 +1,14 @@
 ---
-page_title: "vyos_protocols_bgp_address_family_ipv6_unicast_redistribute Resource - vyos"
+page_title: "vyos_protocols_bgp_address_family_ipv6_unicast_redistribute_isis Resource - vyos"
 
 subcategory: "Protocols"
 
 description: |-
   ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
-  protocols⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯IPv6 BGP settings⯯Redistribute routes from other protocols into BGP
+  protocols⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯IPv6 BGP settings⯯Redistribute routes from other protocols into BGP⯯Redistribute IS-IS routes into BGP
 ---
 
-# vyos_protocols_bgp_address_family_ipv6_unicast_redistribute (Resource)
+# vyos_protocols_bgp_address_family_ipv6_unicast_redistribute_isis (Resource)
 <center>
 
 ~> This resource is global, having more than one resource of this type is likely to cause configuration drift / conflicts.
@@ -21,7 +21,9 @@ BGP address-family parameters
 ⯯  
 IPv6 BGP settings  
 ⯯  
-**Redistribute routes from other protocols into BGP**
+Redistribute routes from other protocols into BGP  
+⯯  
+**Redistribute IS-IS routes into BGP**
 
 
 </center>
@@ -30,10 +32,11 @@ IPv6 BGP settings
 
 <!--TOC-->
 
-- [vyos_protocols_bgp_address_family_ipv6_unicast_redistribute (Resource)](#vyos_protocols_bgp_address_family_ipv6_unicast_redistribute-resource)
+- [vyos_protocols_bgp_address_family_ipv6_unicast_redistribute_isis (Resource)](#vyos_protocols_bgp_address_family_ipv6_unicast_redistribute_isis-resource)
   - [Schema](#schema)
     - [Optional](#optional)
-      - [table](#table)
+      - [metric](#metric)
+      - [route_map](#route_map)
       - [timeouts](#timeouts)
     - [Read-Only](#read-only)
       - [id](#id)
@@ -47,12 +50,18 @@ IPv6 BGP settings
 
 ### Optional
 
-#### table
-- `table` (List of Number) Redistribute non-main Kernel Routing Table
+#### metric
+- `metric` (Number) Metric for redistributed routes
 
-    |  Format  &emsp;|  Description                |
-    |----------|-----------------------------|
-    |  1-200   &emsp;|  Policy route table number  |
+    |  Format        &emsp;|  Description                      |
+    |----------------|-----------------------------------|
+    |  1-4294967295  &emsp;|  Metric for redistributed routes  |
+#### route_map
+- `route_map` (String) Specify route-map name to use
+
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Route map name  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
@@ -73,5 +82,5 @@ Optional:
 Import is supported using the following syntax:
 
 ```shell
-terraform import vyos_protocols_bgp_address_family_ipv6_unicast_redistribute.example "protocols__bgp__address-family__ipv6-unicast__redistribute"
+terraform import vyos_protocols_bgp_address_family_ipv6_unicast_redistribute_isis.example "protocols__bgp__address-family__ipv6-unicast__redistribute__isis"
 ```

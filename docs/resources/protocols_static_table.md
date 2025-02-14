@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_table Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯Static Routing⯯Policy route table number
+  protocols⯯Static Routing⯯Non-main Kernel Routing Table
 ---
 
 # vyos_protocols_static_table (Resource)
@@ -15,7 +15,7 @@ description: |-
 ⯯  
 Static Routing  
 ⯯  
-**Policy route table number**
+**Non-main Kernel Routing Table**
 
 
 </center>
@@ -68,7 +68,7 @@ Static Routing
 
 Required:
 
-- `table` (Number) Policy route table number
+- `table` (Number) Non-main Kernel Routing Table
 
     |  Format  &emsp;|  Description                |
     |----------|-----------------------------|

@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_table_route Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯Static Routing⯯Policy route table number⯯Static IPv4 route
+  protocols⯯Static Routing⯯Non-main Kernel Routing Table⯯Static IPv4 route
 ---
 
 # vyos_protocols_static_table_route (Resource)
@@ -15,7 +15,7 @@ description: |-
 ⯯  
 Static Routing  
 ⯯  
-Policy route table number  
+Non-main Kernel Routing Table  
 ⯯  
 **Static IPv4 route**
 
@@ -90,7 +90,7 @@ Required:
     |  Format   &emsp;|  Description        |
     |-----------|---------------------|
     |  ipv4net  &emsp;|  IPv4 static route  |
-- `table` (Number) Policy route table number
+- `table` (Number) Non-main Kernel Routing Table
 
     |  Format  &emsp;|  Description                |
     |----------|-----------------------------|

@@ -22,23 +22,25 @@ var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvsixUni
 // Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeTable types.String `tfsdk:"table" vyos:"table,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeTable types.List `tfsdk:"table" vyos:"table,omitempty"`
 
 	// TagNodes
 
 	// Nodes
 
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel `tfsdk:"babel" vyos:"babel,omitempty"`
+
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected `tfsdk:"connected" vyos:"connected,omitempty"`
 
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis `tfsdk:"isis" vyos:"isis,omitempty"`
+
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel `tfsdk:"kernel" vyos:"kernel,omitempty"`
+
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic `tfsdk:"static" vyos:"static,omitempty"`
 
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree `tfsdk:"ospfv3" vyos:"ospfv3,omitempty"`
 
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng `tfsdk:"ripng" vyos:"ripng,omitempty"`
-
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel `tfsdk:"babel" vyos:"babel,omitempty"`
-
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic `tfsdk:"static" vyos:"static,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -47,21 +49,38 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 		// LeafNodes
 
 		"table":
-
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype (table) */
-		schema.StringAttribute{
-			Optional: true,
+		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi (table) */
+		schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:    true,
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-200   |  Policy route table number  |
 `,
 			Description: `Redistribute non-main Kernel Routing Table
 
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-200   |  Policy route table number  |
 `,
 		},
 
 		// TagNodes
 
 		// Nodes
+
+		"babel": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Redistribute Babel routes into BGP
+
+`,
+			Description: `Redistribute Babel routes into BGP
+
+`,
+		},
 
 		"connected": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected{}.ResourceSchemaAttributes(ctx),
@@ -74,6 +93,17 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 `,
 		},
 
+		"isis": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Redistribute IS-IS routes into BGP
+
+`,
+			Description: `Redistribute IS-IS routes into BGP
+
+`,
+		},
+
 		"kernel": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -81,6 +111,17 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 
 `,
 			Description: `Redistribute kernel routes into BGP
+
+`,
+		},
+
+		"static": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Redistribute static routes into BGP
+
+`,
+			Description: `Redistribute static routes into BGP
 
 `,
 		},
@@ -103,28 +144,6 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 
 `,
 			Description: `Redistribute RIPng routes into BGP
-
-`,
-		},
-
-		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute Babel routes into BGP
-
-`,
-			Description: `Redistribute Babel routes into BGP
-
-`,
-		},
-
-		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Redistribute static routes into BGP
-
-`,
-			Description: `Redistribute static routes into BGP
 
 `,
 		},

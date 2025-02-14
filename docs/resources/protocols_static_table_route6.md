@@ -4,7 +4,7 @@ page_title: "vyos_protocols_static_table_route6 Resource - vyos"
 subcategory: "Protocols"
 
 description: |-
-  protocols⯯Static Routing⯯Policy route table number⯯Static IPv6 route
+  protocols⯯Static Routing⯯Non-main Kernel Routing Table⯯Static IPv6 route
 ---
 
 # vyos_protocols_static_table_route6 (Resource)
@@ -15,7 +15,7 @@ description: |-
 ⯯  
 Static Routing  
 ⯯  
-Policy route table number  
+Non-main Kernel Routing Table  
 ⯯  
 **Static IPv6 route**
 
@@ -83,7 +83,7 @@ Required:
     |  Format   &emsp;|  Description        |
     |-----------|---------------------|
     |  ipv6net  &emsp;|  IPv6 static route  |
-- `table` (Number) Policy route table number
+- `table` (Number) Non-main Kernel Routing Table
 
     |  Format  &emsp;|  Description                |
     |----------|-----------------------------|

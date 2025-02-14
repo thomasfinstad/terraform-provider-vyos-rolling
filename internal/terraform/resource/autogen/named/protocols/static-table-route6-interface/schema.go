@@ -20,7 +20,7 @@ func (r protocolsStaticTableRoutesixInterface) Schema(ctx context.Context, req r
 ⯯  
 Static Routing  
 ⯯  
-Policy route table number  
+Non-main Kernel Routing Table  
 ⯯  
 Static IPv6 route  
 ⯯  

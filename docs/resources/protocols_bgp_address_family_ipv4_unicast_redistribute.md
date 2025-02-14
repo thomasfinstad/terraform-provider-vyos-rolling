@@ -48,7 +48,11 @@ IPv4 BGP settings
 ### Optional
 
 #### table
-- `table` (String) Redistribute non-main Kernel Routing Table
+- `table` (List of Number) Redistribute non-main Kernel Routing Table
+
+    |  Format  &emsp;|  Description                |
+    |----------|-----------------------------|
+    |  1-200   &emsp;|  Policy route table number  |
 #### timeouts
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 

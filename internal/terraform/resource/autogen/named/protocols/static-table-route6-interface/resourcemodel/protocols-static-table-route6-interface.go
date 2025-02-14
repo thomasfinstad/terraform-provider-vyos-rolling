@@ -200,13 +200,13 @@ func (o ProtocolsStaticTableRoutesixInterface) ResourceSchemaAttributes(ctx cont
 
 				"table": schema.NumberAttribute{
 					Required: true,
-					MarkdownDescription: `Policy route table number
+					MarkdownDescription: `Non-main Kernel Routing Table
 
     |  Format  |  Description                |
     |----------|-----------------------------|
     |  1-200   |  Policy route table number  |
 `,
-					Description: `Policy route table number
+					Description: `Non-main Kernel Routing Table
 
     |  Format  |  Description                |
     |----------|-----------------------------|

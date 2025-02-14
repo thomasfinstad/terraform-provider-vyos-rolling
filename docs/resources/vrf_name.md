@@ -96,6 +96,7 @@ Virtual Routing and Forwarding
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastredistribute)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.babel`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastredistributebabel)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.connected`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastredistributeconnected)
+    - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.isis`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastredistributeisis)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.kernel`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastredistributekernel)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.ospfv3`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastredistributeospfv3)
     - [Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.ripng`](#nested-schema-for-protocolsbgpaddress_familyipv6_unicastredistributeripng)
@@ -634,7 +635,11 @@ Optional:
 - `ospf` (Attributes) Redistribute OSPF routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--ospf))
 - `rip` (Attributes) Redistribute RIP routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--rip))
 - `static` (Attributes) Redistribute static routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--static))
-- `table` (String) Redistribute non-main Kernel Routing Table
+- `table` (List of Number) Redistribute non-main Kernel Routing Table
+
+    |  Format  &emsp;|  Description                |
+    |----------|-----------------------------|
+    |  1-200   &emsp;|  Policy route table number  |
 
 <a id="nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--babel"></a>
 ### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.babel`
@@ -1038,11 +1043,16 @@ Optional:
 
 - `babel` (Attributes) Redistribute Babel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--babel))
 - `connected` (Attributes) Redistribute connected routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--connected))
+- `isis` (Attributes) Redistribute IS-IS routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--isis))
 - `kernel` (Attributes) Redistribute kernel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--kernel))
 - `ospfv3` (Attributes) Redistribute OSPFv3 routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--ospfv3))
 - `ripng` (Attributes) Redistribute RIPng routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--ripng))
 - `static` (Attributes) Redistribute static routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--static))
-- `table` (String) Redistribute non-main Kernel Routing Table
+- `table` (List of Number) Redistribute non-main Kernel Routing Table
+
+    |  Format  &emsp;|  Description                |
+    |----------|-----------------------------|
+    |  1-200   &emsp;|  Policy route table number  |
 
 <a id="nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--babel"></a>
 ### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.babel`
@@ -1063,6 +1073,23 @@ Optional:
 
 <a id="nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--connected"></a>
 ### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.connected`
+
+Optional:
+
+- `metric` (Number) Metric for redistributed routes
+
+    |  Format        &emsp;|  Description                      |
+    |----------------|-----------------------------------|
+    |  1-4294967295  &emsp;|  Metric for redistributed routes  |
+- `route_map` (String) Specify route-map name to use
+
+    |  Format  &emsp;|  Description     |
+    |----------|------------------|
+    |  txt     &emsp;|  Route map name  |
+
+
+<a id="nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--isis"></a>
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.isis`
 
 Optional:
 
