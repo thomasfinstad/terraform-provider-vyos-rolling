@@ -3276,7 +3276,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
-											IsBaseNode: true,
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -3775,10 +3775,10 @@ func protocols() schemadefinition.InterfaceDefinition {
 														}},
 													}},
 												}},
-												LeafNode: []*schemadefinition.LeafNode{{
-													IsBaseNode: false,
+												TagNode: []*schemadefinition.TagNode{{
+													IsBaseNode: true,
 													XMLName: xml.Name{
-														Local: "leafNode",
+														Local: "tagNode",
 													},
 													NodeNameAttr: "table",
 													Properties: []*schemadefinition.Properties{{
@@ -3811,10 +3811,62 @@ func protocols() schemadefinition.InterfaceDefinition {
 															},
 															Path: []string{"protocols static table"},
 														}},
-														Multi: []*schemadefinition.Multi{{
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
-																Local: "multi",
+																Local: "leafNode",
 															},
+															NodeNameAttr: "metric",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Metric for redistributed routes"},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-4294967295",
+																	Description: "Metric for redistributed routes",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "route-map",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Specify route-map name to use"},
+																Constraint: []*schemadefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Regex: []string{"[-_a-zA-Z0-9][\\w\\-\\.\\+]&"},
+																}},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "txt",
+																	Description: "Route map name",
+																}},
+																ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																CompletionHelp: []*schemadefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	Path: []string{"policy route-map"},
+																}},
+															}},
 														}},
 													}},
 												}},
@@ -5815,7 +5867,7 @@ func protocols() schemadefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
-											IsBaseNode: true,
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -6314,10 +6366,10 @@ func protocols() schemadefinition.InterfaceDefinition {
 														}},
 													}},
 												}},
-												LeafNode: []*schemadefinition.LeafNode{{
-													IsBaseNode: false,
+												TagNode: []*schemadefinition.TagNode{{
+													IsBaseNode: true,
 													XMLName: xml.Name{
-														Local: "leafNode",
+														Local: "tagNode",
 													},
 													NodeNameAttr: "table",
 													Properties: []*schemadefinition.Properties{{
@@ -6350,10 +6402,62 @@ func protocols() schemadefinition.InterfaceDefinition {
 															},
 															Path: []string{"protocols static table"},
 														}},
-														Multi: []*schemadefinition.Multi{{
+													}},
+													Children: []*schemadefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*schemadefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
-																Local: "multi",
+																Local: "leafNode",
 															},
+															NodeNameAttr: "metric",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Metric for redistributed routes"},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-4294967295",
+																	Description: "Metric for redistributed routes",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "route-map",
+															Properties: []*schemadefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Specify route-map name to use"},
+																Constraint: []*schemadefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Regex: []string{"[-_a-zA-Z0-9][\\w\\-\\.\\+]&"},
+																}},
+																ValueHelp: []*schemadefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "txt",
+																	Description: "Route map name",
+																}},
+																ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																CompletionHelp: []*schemadefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	Path: []string{"policy route-map"},
+																}},
+															}},
 														}},
 													}},
 												}},

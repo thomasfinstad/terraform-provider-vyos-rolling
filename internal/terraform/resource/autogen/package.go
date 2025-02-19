@@ -56,7 +56,6 @@ import (
 	globalprotocolsbgpaddressfamilyipvfourunicastmaximumpaths "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-maximum-paths"
 	globalprotocolsbgpaddressfamilyipvfourunicastnexthopvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-nexthop-vpn"
 	globalprotocolsbgpaddressfamilyipvfourunicastrdvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-rd-vpn"
-	globalprotocolsbgpaddressfamilyipvfourunicastredistribute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute"
 	globalprotocolsbgpaddressfamilyipvfourunicastredistributebabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-babel"
 	globalprotocolsbgpaddressfamilyipvfourunicastredistributeconnected "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-connected"
 	globalprotocolsbgpaddressfamilyipvfourunicastredistributeisis "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv4-unicast-redistribute-isis"
@@ -77,7 +76,6 @@ import (
 	globalprotocolsbgpaddressfamilyipvsixunicastmaximumpaths "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-maximum-paths"
 	globalprotocolsbgpaddressfamilyipvsixunicastnexthopvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-nexthop-vpn"
 	globalprotocolsbgpaddressfamilyipvsixunicastrdvpn "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-rd-vpn"
-	globalprotocolsbgpaddressfamilyipvsixunicastredistribute "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute"
 	globalprotocolsbgpaddressfamilyipvsixunicastredistributebabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-babel"
 	globalprotocolsbgpaddressfamilyipvsixunicastredistributeconnected "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-connected"
 	globalprotocolsbgpaddressfamilyipvsixunicastredistributeisis "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/protocols/bgp-address-family-ipv6-unicast-redistribute-isis"
@@ -668,6 +666,7 @@ import (
 	namedprotocolsbgpaddressfamilyipvfourunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-unicast-aggregate-address"
 	namedprotocolsbgpaddressfamilyipvfourunicastdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-unicast-distance-prefix"
 	namedprotocolsbgpaddressfamilyipvfourunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-unicast-network"
+	namedprotocolsbgpaddressfamilyipvfourunicastredistributetable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-unicast-redistribute-table"
 	namedprotocolsbgpaddressfamilyipvfourvpnnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv4-vpn-network"
 	namedprotocolsbgpaddressfamilyipvsixlabeledunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-labeled-unicast-aggregate-address"
 	namedprotocolsbgpaddressfamilyipvsixlabeledunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-labeled-unicast-network"
@@ -677,6 +676,7 @@ import (
 	namedprotocolsbgpaddressfamilyipvsixunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-unicast-aggregate-address"
 	namedprotocolsbgpaddressfamilyipvsixunicastdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-unicast-distance-prefix"
 	namedprotocolsbgpaddressfamilyipvsixunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-unicast-network"
+	namedprotocolsbgpaddressfamilyipvsixunicastredistributetable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-unicast-redistribute-table"
 	namedprotocolsbgpaddressfamilyipvsixvpnnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-ipv6-vpn-network"
 	namedprotocolsbgpaddressfamilyltwovpnevpnvni "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-address-family-l2vpn-evpn-vni"
 	namedprotocolsbgpbmptarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/protocols/bgp-bmp-target"
@@ -929,6 +929,7 @@ import (
 	namedvrfnameprotocolsbgpaddressfamilyipvfourunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv4-unicast-aggregate-address"
 	namedvrfnameprotocolsbgpaddressfamilyipvfourunicastdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv4-unicast-distance-prefix"
 	namedvrfnameprotocolsbgpaddressfamilyipvfourunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv4-unicast-network"
+	namedvrfnameprotocolsbgpaddressfamilyipvfourunicastredistributetable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv4-unicast-redistribute-table"
 	namedvrfnameprotocolsbgpaddressfamilyipvfourvpnnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv4-vpn-network"
 	namedvrfnameprotocolsbgpaddressfamilyipvsixlabeledunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-labeled-unicast-aggregate-address"
 	namedvrfnameprotocolsbgpaddressfamilyipvsixlabeledunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-labeled-unicast-network"
@@ -938,6 +939,7 @@ import (
 	namedvrfnameprotocolsbgpaddressfamilyipvsixunicastaggregateaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-unicast-aggregate-address"
 	namedvrfnameprotocolsbgpaddressfamilyipvsixunicastdistanceprefix "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-unicast-distance-prefix"
 	namedvrfnameprotocolsbgpaddressfamilyipvsixunicastnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-unicast-network"
+	namedvrfnameprotocolsbgpaddressfamilyipvsixunicastredistributetable "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-unicast-redistribute-table"
 	namedvrfnameprotocolsbgpaddressfamilyipvsixvpnnetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-vpn-network"
 	namedvrfnameprotocolsbgpaddressfamilyltwovpnevpnvni "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-l2vpn-evpn-vni"
 	namedvrfnameprotocolsbgpbmptarget "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-bmp-target"
@@ -1032,7 +1034,6 @@ func GetResources() []func() resource.Resource {
 		globalprotocolsbgpaddressfamilyipvfourunicastmaximumpaths.NewProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths,
 		globalprotocolsbgpaddressfamilyipvfourunicastnexthopvpn.NewProtocolsBgpAddressFamilyIPvfourUnicastNexthopVpn,
 		globalprotocolsbgpaddressfamilyipvfourunicastrdvpn.NewProtocolsBgpAddressFamilyIPvfourUnicastRdVpn,
-		globalprotocolsbgpaddressfamilyipvfourunicastredistribute.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistribute,
 		globalprotocolsbgpaddressfamilyipvfourunicastredistributebabel.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel,
 		globalprotocolsbgpaddressfamilyipvfourunicastredistributeconnected.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected,
 		globalprotocolsbgpaddressfamilyipvfourunicastredistributeisis.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis,
@@ -1053,7 +1054,6 @@ func GetResources() []func() resource.Resource {
 		globalprotocolsbgpaddressfamilyipvsixunicastmaximumpaths.NewProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths,
 		globalprotocolsbgpaddressfamilyipvsixunicastnexthopvpn.NewProtocolsBgpAddressFamilyIPvsixUnicastNexthopVpn,
 		globalprotocolsbgpaddressfamilyipvsixunicastrdvpn.NewProtocolsBgpAddressFamilyIPvsixUnicastRdVpn,
-		globalprotocolsbgpaddressfamilyipvsixunicastredistribute.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistribute,
 		globalprotocolsbgpaddressfamilyipvsixunicastredistributebabel.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeBabel,
 		globalprotocolsbgpaddressfamilyipvsixunicastredistributeconnected.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected,
 		globalprotocolsbgpaddressfamilyipvsixunicastredistributeisis.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeIsis,
@@ -1644,6 +1644,7 @@ func GetResources() []func() resource.Resource {
 		namedprotocolsbgpaddressfamilyipvfourunicastaggregateaddress.NewProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress,
 		namedprotocolsbgpaddressfamilyipvfourunicastdistanceprefix.NewProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix,
 		namedprotocolsbgpaddressfamilyipvfourunicastnetwork.NewProtocolsBgpAddressFamilyIPvfourUnicastNetwork,
+		namedprotocolsbgpaddressfamilyipvfourunicastredistributetable.NewProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable,
 		namedprotocolsbgpaddressfamilyipvfourvpnnetwork.NewProtocolsBgpAddressFamilyIPvfourVpnNetwork,
 		namedprotocolsbgpaddressfamilyipvsixlabeledunicastaggregateaddress.NewProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress,
 		namedprotocolsbgpaddressfamilyipvsixlabeledunicastnetwork.NewProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork,
@@ -1653,6 +1654,7 @@ func GetResources() []func() resource.Resource {
 		namedprotocolsbgpaddressfamilyipvsixunicastaggregateaddress.NewProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress,
 		namedprotocolsbgpaddressfamilyipvsixunicastdistanceprefix.NewProtocolsBgpAddressFamilyIPvsixUnicastDistancePrefix,
 		namedprotocolsbgpaddressfamilyipvsixunicastnetwork.NewProtocolsBgpAddressFamilyIPvsixUnicastNetwork,
+		namedprotocolsbgpaddressfamilyipvsixunicastredistributetable.NewProtocolsBgpAddressFamilyIPvsixUnicastRedistributeTable,
 		namedprotocolsbgpaddressfamilyipvsixvpnnetwork.NewProtocolsBgpAddressFamilyIPvsixVpnNetwork,
 		namedprotocolsbgpaddressfamilyltwovpnevpnvni.NewProtocolsBgpAddressFamilyLtwovpnEvpnVni,
 		namedprotocolsbgpbmptarget.NewProtocolsBgpBmpTarget,
@@ -1905,6 +1907,7 @@ func GetResources() []func() resource.Resource {
 		namedvrfnameprotocolsbgpaddressfamilyipvfourunicastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourunicastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourunicastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork,
+		namedvrfnameprotocolsbgpaddressfamilyipvfourunicastredistributetable.NewVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable,
 		namedvrfnameprotocolsbgpaddressfamilyipvfourvpnnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixlabeledunicastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixlabeledunicastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork,
@@ -1914,6 +1917,7 @@ func GetResources() []func() resource.Resource {
 		namedvrfnameprotocolsbgpaddressfamilyipvsixunicastaggregateaddress.NewVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixunicastdistanceprefix.NewVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistancePrefix,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixunicastnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork,
+		namedvrfnameprotocolsbgpaddressfamilyipvsixunicastredistributetable.NewVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeTable,
 		namedvrfnameprotocolsbgpaddressfamilyipvsixvpnnetwork.NewVrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork,
 		namedvrfnameprotocolsbgpaddressfamilyltwovpnevpnvni.NewVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni,
 		namedvrfnameprotocolsbgpbmptarget.NewVrfNameProtocolsBgpBmpTarget,

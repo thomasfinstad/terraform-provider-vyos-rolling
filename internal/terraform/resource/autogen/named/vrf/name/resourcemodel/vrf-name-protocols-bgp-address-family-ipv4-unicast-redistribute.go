@@ -7,7 +7,6 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 
 	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
@@ -22,9 +21,10 @@ var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvfourUn
 // Top level basenode type: `N/A`
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable types.List `tfsdk:"table" vyos:"table,omitempty"`
 
 	// TagNodes
+
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable bool `tfsdk:"-" vyos:"table,child"`
 
 	// Nodes
 
@@ -47,25 +47,6 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
 func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
-
-		"table":
-		/* tools/generate-terraform-resource-full/templates/resources/common/resource-model-schema-attrtype.gotmpl #resource-model-schema-attrtype-multi (table) */
-		schema.ListAttribute{
-			ElementType: types.NumberType,
-			Optional:    true,
-			MarkdownDescription: `Redistribute non-main Kernel Routing Table
-
-    |  Format  |  Description                |
-    |----------|-----------------------------|
-    |  1-200   |  Policy route table number  |
-`,
-			Description: `Redistribute non-main Kernel Routing Table
-
-    |  Format  |  Description                |
-    |----------|-----------------------------|
-    |  1-200   |  Policy route table number  |
-`,
-		},
 
 		// TagNodes
 

@@ -48,7 +48,7 @@ type ProtocolsBgpAddressFamilyIPvsixUnicast struct {
 
 	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastNexthop`.
 
-	ExistsNodeProtocolsBgpAddressFamilyIPvsixUnicastRedistribute bool `tfsdk:"-" vyos:"redistribute,child"`
+	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastRedistribute`.
 
 	// Ignoring Node `ProtocolsBgpAddressFamilyIPvsixUnicastSID`.
 }

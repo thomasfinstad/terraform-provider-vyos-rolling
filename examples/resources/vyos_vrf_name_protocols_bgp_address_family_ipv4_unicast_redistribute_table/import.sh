@@ -1,0 +1,2 @@
+
+terraform import vyos_vrf_name_protocols_bgp_address_family_ipv4_unicast_redistribute_table.example "vrf__name__<name>__protocols__bgp__address-family__ipv4-unicast__redistribute__table__<table>"

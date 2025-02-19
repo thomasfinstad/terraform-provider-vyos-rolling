@@ -635,11 +635,6 @@ Optional:
 - `ospf` (Attributes) Redistribute OSPF routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--ospf))
 - `rip` (Attributes) Redistribute RIP routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--rip))
 - `static` (Attributes) Redistribute static routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--static))
-- `table` (List of Number) Redistribute non-main Kernel Routing Table
-
-    |  Format  &emsp;|  Description                |
-    |----------|-----------------------------|
-    |  1-200   &emsp;|  Policy route table number  |
 
 <a id="nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--babel"></a>
 ### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.babel`
@@ -1048,11 +1043,6 @@ Optional:
 - `ospfv3` (Attributes) Redistribute OSPFv3 routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--ospfv3))
 - `ripng` (Attributes) Redistribute RIPng routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--ripng))
 - `static` (Attributes) Redistribute static routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--static))
-- `table` (List of Number) Redistribute non-main Kernel Routing Table
-
-    |  Format  &emsp;|  Description                |
-    |----------|-----------------------------|
-    |  1-200   &emsp;|  Policy route table number  |
 
 <a id="nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--babel"></a>
 ### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.babel`
